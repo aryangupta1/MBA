@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Cheat Sheet — Anomaly Detection</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F5F0;
+    --surface: #FFFFFF;
+    --surface2: #F0EDE6;
+    --ink: #1A1916;
+    --ink2: #4A4840;
+    --ink3: #8A877E;
+    --blue: #1B4FD8;
+    --blue-light: #E8EEFB;
+    --teal: #0D7A5F;
+    --teal-light: #E2F4EE;
+    --amber: #B85C00;
+    --amber-light: #FDF0E0;
+    --coral: #C23B22;
+    --coral-light: #FCEAE6;
+    --purple: #5B3FBF;
+    --purple-light: #EEE9FB;
+    --border: #E2DED6;
+    --accent: #C23B22;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    padding: 48px;
+    min-height: 100vh;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .header-left {}
+
+  .eyebrow {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 6px;
+  }
+
+  .title {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .title span {
+    color: var(--accent);
+  }
+
+  .header-right {
+    text-align: right;
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1.5px solid var(--ink);
+    border-radius: 2px;
+    margin-bottom: 6px;
+  }
+
+  .meta {
+    font-size: 11px;
+    color: var(--ink3);
+    font-style: italic;
+  }
+
+  /* Top 3 cards */
+  .top-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .top-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 16px 18px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .top-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 4px;
+  }
+
+  .top-card.blue::before { background: var(--blue); }
+  .top-card.teal::before { background: var(--teal); }
+  .top-card.coral::before { background: var(--coral); }
+
+  .top-card-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 6px;
+  }
+
+  .top-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.25;
+  }
+
+  .top-card-body {
+    font-size: 12px;
+    color: var(--ink2);
+    line-height: 1.55;
+  }
+
+  /* Section labels */
+  .section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin: 18px 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Delivery chain flow */
+  .flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin-bottom: 4px;
+  }
+
+  .flow-item {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    position: relative;
+  }
+
+  .flow-item:not(:first-child) {
+    border-left: none;
+  }
+
+  .flow-item.fault {
+    background: var(--coral-light);
+    border-color: #E8A99A;
+  }
+
+  .flow-item-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .flow-item.fault .flow-item-title {
+    color: var(--coral);
+  }
+
+  .flow-item-sub {
+    font-size: 10.5px;
+    color: var(--ink3);
+    line-height: 1.4;
+  }
+
+  .flow-arrow-marker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    flex-shrink: 0;
+    color: var(--ink3);
+    font-size: 14px;
+    background: var(--bg);
+    z-index: 1;
+  }
+
+  /* Main content grid */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .full-width { grid-column: 1 / -1; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .card-body {
+    font-size: 12px;
+    color: var(--ink2);
+    line-height: 1.55;
+  }
+
+  .card-body ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .card-body ul li {
+    padding: 3px 0 3px 14px;
+    position: relative;
+    border-bottom: 1px solid var(--surface2);
+  }
+
+  .card-body ul li:last-child { border-bottom: none; }
+
+  .card-body ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--ink3);
+    font-size: 10px;
+  }
+
+  /* Stakeholder grid */
+  .stakeholder-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  /* Needs grid */
+  .needs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  /* Risks grid */
+  .risks-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  /* Pill tags */
+  .pills { margin-bottom: 8px; }
+  .pill {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    font-family: 'Syne', sans-serif;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin: 2px 2px 2px 0;
+    border: 1px solid transparent;
+  }
+
+  .pill-blue { background: var(--blue-light); color: var(--blue); border-color: #C2D0F5; }
+  .pill-teal { background: var(--teal-light); color: var(--teal); border-color: #B0DECE; }
+  .pill-amber { background: var(--amber-light); color: var(--amber); border-color: #F0D4B0; }
+  .pill-coral { background: var(--coral-light); color: var(--coral); border-color: #EDB8AE; }
+  .pill-purple { background: var(--purple-light); color: var(--purple); border-color: #CCBFF5; }
+
+  /* Risk number callouts */
+  .risk-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+    opacity: 0.12;
+  }
+
+  .coral-text { color: var(--coral); }
+  .amber-text { color: var(--amber); }
+  .purple-text { color: var(--purple); }
+
+  /* Bottom argument bar */
+  .argument-bar {
+    background: var(--ink);
+    color: #F7F5F0;
+    padding: 18px 24px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    align-items: center;
+    margin-top: 4px;
+  }
+
+  .argument-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #8A877E;
+    white-space: nowrap;
+  }
+
+  .argument-text {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #E8E4DC;
+  }
+
+  .argument-text strong {
+    color: #FFFFFF;
+    font-weight: 500;
+  }
+
+  /* Footer */
+  .footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-item {
+    font-size: 11px;
+    color: var(--ink3);
+    font-style: italic;
+    line-height: 1.45;
+  }
+
+  .footer-item strong {
+    font-style: normal;
+    font-weight: 500;
+    color: var(--ink2);
+  }
+
+  /* Color accent bars on cards */
+  .card.c-blue { border-top: 3px solid var(--blue); }
+  .card.c-teal { border-top: 3px solid var(--teal); }
+  .card.c-amber { border-top: 3px solid var(--amber); }
+  .card.c-coral { border-top: 3px solid var(--coral); }
+  .card.c-purple { border-top: 3px solid var(--purple); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <div class="eyebrow">Assessment 1 · Stakeholder Needs & Expectations</div>
+      <div class="title">Portfolio <span>Cheat Sheet</span></div>
+    </div>
+    <div class="header-right">
+      <div class="badge">DMBA · 2026</div>
+      <div class="meta">Murray–Darling Basin · Murrumbidgee Catchment</div>
+    </div>
+  </div>
+
+  <!-- Top 3 cards: project / catchment / problem -->
+  <div class="top-row">
+    <div class="top-card blue">
+      <div class="top-card-label">The project</div>
+      <div class="top-card-title">One Basin CRC — Anomaly Detection & Health Prediction</div>
+      <div class="top-card-body">AI system using machine learning on sensor and telemetry data to predict and diagnose failures in gravity-fed irrigation infrastructure — before they cause delivery outages.</div>
+    </div>
+    <div class="top-card teal">
+      <div class="top-card-label">The catchment</div>
+      <div class="top-card-title">Murrumbidgee, Murray–Darling Basin</div>
+      <div class="top-card-body">676,000 ha gravity-fed network · 2,200+ irrigators · Burrinjuck & Blowering Dams · Operated by Murrumbidgee Irrigation (named CRC partner).</div>
+    </div>
+    <div class="top-card coral">
+      <div class="top-card-label">The core problem</div>
+      <div class="top-card-title">Infrastructure fragility — not water scarcity</div>
+      <div class="top-card-body">Gate faults, sensor drift, telemetry dropouts, and power failures cause delivery failures the current system cannot predict. This is an operational reliability problem, not a policy one.</div>
+    </div>
+  </div>
+
+  <!-- Delivery chain -->
+  <div class="section-label">How water gets to a farm — the delivery chain</div>
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-item-title">Dams</div>
+      <div class="flow-item-sub">Burrinjuck & Blowering storage</div>
+    </div>
+    <div class="flow-arrow-marker">›</div>
+    <div class="flow-item">
+      <div class="flow-item-title">WaterNSW</div>
+      <div class="flow-item-sub">River releases & bulk water management</div>
+    </div>
+    <div class="flow-arrow-marker">›</div>
+    <div class="flow-item">
+      <div class="flow-item-title">MI Network</div>
+      <div class="flow-item-sub">Canals, automated gates, offtakes, meters</div>
+    </div>
+    <div class="flow-arrow-marker">›</div>
+    <div class="flow-item">
+      <div class="flow-item-title">Farm gate</div>
+      <div class="flow-item-sub">Irrigator receives scheduled delivery</div>
+    </div>
+    <div class="flow-arrow-marker">›</div>
+    <div class="flow-item fault">
+      <div class="flow-item-title">Fault anywhere</div>
+      <div class="flow-item-sub">= delivery failure downstream for all</div>
+    </div>
+  </div>
+
+  <!-- Stakeholder landscape -->
+  <div class="section-label">Stakeholder map — who is affected and how</div>
+  <div class="stakeholder-grid">
+    <div class="card c-blue">
+      <div class="card-header">
+        <div class="card-dot" style="background:var(--blue);"></div>
+        <div class="card-title">Primary — operational</div>
+      </div>
+      <div class="pills">
+        <span class="pill pill-blue">Murrumbidgee Irrigation</span>
+        <span class="pill pill-blue">WaterNSW</span>
+        <span class="pill pill-blue">NSW water agencies</span>
+      </div>
+      <div class="card-body">Run the assets the AI monitors. MI is the named CRC project partner — simultaneously the beneficiary of the technology and the organisation responsible for implementing it on the ground.</div>
+    </div>
+    <div class="card c-teal">
+      <div class="card-header">
+        <div class="card-dot" style="background:var(--teal);"></div>
+        <div class="card-title">Primary — affected</div>
+      </div>
+      <div class="pills">
+        <span class="pill pill-teal">Irrigators (2,200+)</span>
+        <span class="pill pill-teal">Env. water holders</span>
+        <span class="pill pill-teal">MLDRIN</span>
+        <span class="pill pill-teal">Griffith community</span>
+      </div>
+      <div class="card-body">Bear the downstream consequences of failures. Most exposed to risk, least formal power over how the AI system is designed or governed.</div>
+    </div>
+    <div class="card c-amber">
+      <div class="card-header">
+        <div class="card-dot" style="background:var(--amber);"></div>
+        <div class="card-title">Secondary & tertiary</div>
+      </div>
+      <div class="pills">
+        <span class="pill pill-amber">MDBA</span>
+        <span class="pill pill-amber">NSW Farmers</span>
+        <span class="pill pill-amber">One Basin CRC</span>
+        <span class="pill pill-amber">CSIRO</span>
+      </div>
+      <div class="card-body">Set policy rules, fund research, advocate for communities. Shape the regulatory and political environment within which AI-assisted irrigation tools must prove their legitimacy.</div>
+    </div>
+  </div>
+
+  <!-- Needs grid -->
+  <div class="section-label">What each stakeholder needs from the AI system</div>
+  <div class="needs-grid">
+    <div class="card c-blue">
+      <div class="card-header">
+        <div class="card-dot" style="background:var(--blue);"></div>
+        <div class="card-title">Infrastructure operators (MI, WaterNSW)</div>
+      </div>
+      <div class="card-body"><ul>
+        <li>Explainable, confidence-scored alerts — not raw model outputs</li>
+        <li>Low false positive rate (too many false alarms = operators stop trusting the system)</li>
+        <li>Seamless SCADA integration, no specialist data-science skill required</li>
+        <li>Field-usable in real delivery decisions, in real time</li>
+      </ul></div>
+    </div>
+    <div class="card c-teal">
+      <div class="card-header">
+        <div class="card-dot" style="background:var(--teal);"></div>
+        <div class="card-title">Irrigators</div>
+      </div>
+      <div class="card-body"><ul>
+        <li>Advance notice of disruptions — recovery is impossible within the same season</li>
+        <li>Transparency: no black-box decisions about their water access</li>
+        <li>A clear process to contest AI-driven outcomes</li>
+        <li>Procedural fairness — consistent rules regardless of farm size or location</li>
+      </ul></div>
+    </div>
+    <div class="card c-purple">
+      <div class="card-header">
+        <div class="card-dot" style="background:var(--purple);"></div>
+        <div class="card-title">Environmental water managers</div>
+      </div>
+      <div class="card-body"><ul>
+        <li>Precise delivery timing — not just volume; a week late can miss an ecological window entirely</li>
+        <li>Hydrographs maintained during sensitive ecological periods</li>
+        <li>Infrastructure faults caught before they delay environmental flows</li>
+      </ul></div>
+    </div>
+    <div class="card c-coral">
+      <div class="card-header">
+        <div class="card-dot" style="background:var(--coral);"></div>
+        <div class="card-title">First Nations — MLDRIN</div>
+      </div>
+      <div class="card-body"><ul>
+        <li>Cultural flows protected — not overridden by AI delivery prioritisation</li>
+        <li>Data sovereignty over catchment data the system collects</li>
+        <li>Co-governance in design, not late-stage consultation</li>
+        <li>Recognition that the AI operates on Country, not in a governance vacuum</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- Risks -->
+  <div class="section-label">Key risks and tensions — what could go wrong</div>
+  <div class="risks-grid">
+    <div class="card c-coral">
+      <div class="risk-num coral-text">01</div>
+      <div class="card-header" style="margin-top:-8px;">
+        <div class="card-dot" style="background:var(--coral);"></div>
+        <div class="card-title">Equity & fairness risk</div>
+      </div>
+      <div class="card-body">AI trained on well-monitored nodes underperforms at tail-end, data-sparse areas. Existing infrastructure inequalities become embedded in algorithmic outputs — harder to contest than an explicit policy decision.</div>
+    </div>
+    <div class="card c-amber">
+      <div class="risk-num amber-text">02</div>
+      <div class="card-header" style="margin-top:-8px;">
+        <div class="card-dot" style="background:var(--amber);"></div>
+        <div class="card-title">Accountability gap</div>
+      </div>
+      <div class="card-body">When the AI misses a fault or triggers a false response — who is liable? The operator who acted? MI? The CRC researchers? No accountability framework currently exists for AI-driven water delivery decisions.</div>
+    </div>
+    <div class="card c-purple">
+      <div class="risk-num purple-text">03</div>
+      <div class="card-header" style="margin-top:-8px;">
+        <div class="card-dot" style="background:var(--purple);"></div>
+        <div class="card-title">Trust & transparency</div>
+      </div>
+      <div class="card-body">Without explainability, audit trails, and contestability, even a technically accurate model will be resisted by the people it governs. Trust must be built through process, not assumed from performance.</div>
+    </div>
+  </div>
+
+  <!-- Core argument -->
+  <div class="argument-bar">
+    <div class="argument-label">Core argument</div>
+    <div class="argument-text">This is <strong>not an engineering upgrade with governance implications</strong> — it is a <strong>governance intervention with an engineering component.</strong> It redistributes operational risk, creates new data dependencies, and alters decision-making authority across the Murrumbidgee system. Its success depends as much on stakeholder trust, explainability, and co-design as on model accuracy. Treating it as purely technical is the most predictable failure mode.</div>
+  </div>
+
+  <!-- Footer sources -->
+  <div class="footer">
+    <div class="footer-item"><strong>Theory:</strong> Clarke & Michael (2022) — multi-stakeholder risk in socio-technical interventions. Distinguishes formal power from operational power and exposure to risk.</div>
+    <div class="footer-item"><strong>Systems lens:</strong> Cosijn et al. (2023) — iceberg model, joint optimisation, feedback loops. Events → patterns → structures → mental models.</div>
+    <div class="footer-item"><strong>Policy context:</strong> MDBA 2026 Basin Plan Review — live consultation open now, closes May 2026. Ageing infrastructure and AI adoption are live review issues.</div>
+  </div>
+
+</div>
+</body>
+</html>
