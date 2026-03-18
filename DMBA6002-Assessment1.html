@@ -418,6 +418,37 @@
   .card.c-amber { border-top: 3px solid var(--amber); }
   .card.c-coral { border-top: 3px solid var(--coral); }
   .card.c-purple { border-top: 3px solid var(--purple); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    body { padding: 24px; }
+
+    .header {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .header-right { text-align: left; }
+
+    .top-row { grid-template-columns: 1fr; }
+
+    .flow { flex-direction: column; gap: 10px; }
+    .flow-item:not(:first-child) { border-left: 1px solid var(--border); }
+    .flow-arrow-marker { display: none; }
+
+    .main-grid { grid-template-columns: 1fr; }
+    .stakeholder-grid { grid-template-columns: 1fr; }
+    .needs-grid { grid-template-columns: 1fr; }
+    .risks-grid { grid-template-columns: 1fr; }
+
+    .argument-bar {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .footer { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
