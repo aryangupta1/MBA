@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MBA — Portfolio &amp; Assessments</title>
+  <title>MBA - Assignment Information Pages - Reading Summaries - Notes</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -70,22 +70,51 @@
       box-shadow: 0 4px 12px rgba(194, 59, 34, 0.12);
     }
     .links .label { color: var(--ink2); font-size: 12px; margin-top: 4px; }
+    .sections { display: flex; flex-direction: column; gap: 16px; }
+    .section-card {
+      display: block;
+      padding: 24px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .section-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(194, 59, 34, 0.12);
+    }
+    .section-card .code {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .section-card .hint { color: var(--ink3); font-size: 12px; }
   </style>
 </head>
 <body>
   <div class="page">
     <header class="header">
       <p class="eyebrow">MBA</p>
-      <h1 class="title">Portfolio &amp; <span>Assessments</span></h1>
+      <h1 class="title">MBA — Assignment Information Pages — Reading Summaries — Notes</h1>
     </header>
-    <nav>
-      <ul class="links">
-        <li>
-          <a href="DMBA6002-Assessment1.html">DMBA6002 — Assessment 1</a>
-          <p class="label">Portfolio Cheat Sheet — Anomaly Detection</p>
-        </li>
-        <!-- Add more links here as you add more HTML files -->
-      </ul>
+    <nav class="sections">
+      <a href="library.html?subject=DMBA6004" class="section-card">
+        <span class="code">DMBA 6004</span>
+        <span class="hint">View library →</span>
+      </a>
+      <a href="library.html?subject=DMBA6002" class="section-card">
+        <span class="code">DMBA 6002</span>
+        <span class="hint">View library →</span>
+      </a>
+      <a href="library.html?subject=DMBA6001" class="section-card">
+        <span class="code">DMBA 6001</span>
+        <span class="hint">View library →</span>
+      </a>
     </nav>
   </div>
 </body>

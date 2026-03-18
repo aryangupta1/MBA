@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library — MBA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F7F5F0;
+      --surface: #FFFFFF;
+      --ink: #1A1916;
+      --ink2: #4A4840;
+      --ink3: #8A877E;
+      --accent: #C23B22;
+      --border: #E2DED6;
+    }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      padding: 48px;
+      min-height: 100vh;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .page { max-width: 640px; margin: 0 auto; }
+    .back {
+      display: inline-block;
+      color: var(--ink3);
+      font-size: 12px;
+      text-decoration: none;
+      margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+    .back:hover { color: var(--accent); }
+    .library-header {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid var(--ink);
+    }
+    .eyebrow {
+      font-family: 'Syne', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 8px;
+    }
+    .library-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .library-title span { color: var(--accent); }
+    .articles { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .articles a {
+      display: block;
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .articles a:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(194, 59, 34, 0.12);
+    }
+    .articles .label { color: var(--ink2); font-size: 12px; margin-top: 4px; }
+    .empty {
+      padding: 32px 20px;
+      text-align: center;
+      color: var(--ink3);
+      font-size: 14px;
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <a href="index.html" class="back">← MBA — Assignment Information Pages — Reading Summaries — Notes</a>
+    <header class="library-header">
+      <p class="eyebrow">Library</p>
+      <h1 class="library-title" id="library-heading">—</h1>
+    </header>
+    <ul class="articles" id="article-list"></ul>
+  </div>
+  <script>
+    (function () {
+      var articlesBySubject = {
+        DMBA6004: [],
+        DMBA6002: [
+          { title: 'Assessment 1', href: 'DMBA6002-Assessment1.html', description: 'Portfolio Cheat Sheet — Anomaly Detection' }
+        ],
+        DMBA6001: []
+      };
+
+      var params = new URLSearchParams(window.location.search);
+      var subject = (params.get('subject') || '').toUpperCase().replace(/\s/g, '');
+
+      var validSubjects = ['DMBA6004', 'DMBA6002', 'DMBA6001'];
+      if (!validSubjects.includes(subject)) {
+        subject = 'DMBA6002';
+      }
+
+      var displayCode = subject.replace(/(\d{4})$/, ' $1');
+      document.getElementById('library-heading').innerHTML = displayCode + ' <span>Library</span>';
+      document.title = 'Library — ' + displayCode + ' — MBA';
+
+      var articles = articlesBySubject[subject] || [];
+      var listEl = document.getElementById('article-list');
+
+      if (articles.length === 0) {
+        listEl.innerHTML = '<li class="empty">No articles in this library yet.</li>';
+      } else {
+        listEl.innerHTML = articles.map(function (a) {
+          return '<li><a href="' + a.href + '">' + a.title + '</a>' +
+            (a.description ? '<p class="label">' + a.description + '</p>' : '') + '</li>';
+        }).join('');
+      }
+    })();
+  </script>
+</body>
+</html>
