@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Short History of AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@300;400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --ink: #1a1208;
+    --amber: #d4820a;
+    --rust: #b34a1e;
+    --sage: #4a6741;
+    --slate: #3a4a5c;
+    --gold: #c9a227;
+    --light-amber: #fdf3dc;
+    --mid: #8a7560;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 80px 60px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.015) 40px,
+      rgba(255,255,255,0.015) 41px
+    );
+  }
+
+  .hero-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.1s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 8vw, 100px);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -2px;
+    max-width: 900px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.2s forwards;
+  }
+
+  .hero h1 span { color: var(--gold); }
+
+  .hero-sub {
+    margin-top: 32px;
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 600px;
+    color: rgba(245,240,232,0.7);
+    opacity: 0;
+    animation: fadeUp 0.7s 0.35s forwards;
+  }
+
+  .hero-meta {
+    margin-top: 48px;
+    display: flex;
+    gap: 40px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: rgba(245,240,232,0.4);
+    opacity: 0;
+    animation: fadeUp 0.7s 0.45s forwards;
+  }
+
+  .hero-meta span { color: var(--gold); margin-right: 8px; }
+
+  /* ── SECTION LABELS ── */
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--amber);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--amber);
+    opacity: 0.3;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline-section {
+    padding: 80px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 120px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--amber), transparent);
+  }
+
+  .tl-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0 40px;
+    margin-bottom: 0;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 0.5s forwards;
+  }
+
+  .tl-item:nth-child(1) { animation-delay: 0.1s; }
+  .tl-item:nth-child(2) { animation-delay: 0.2s; }
+  .tl-item:nth-child(3) { animation-delay: 0.3s; }
+  .tl-item:nth-child(4) { animation-delay: 0.4s; }
+  .tl-item:nth-child(5) { animation-delay: 0.5s; }
+  .tl-item:nth-child(6) { animation-delay: 0.6s; }
+  .tl-item:nth-child(7) { animation-delay: 0.7s; }
+  .tl-item:nth-child(8) { animation-delay: 0.8s; }
+  .tl-item:nth-child(9) { animation-delay: 0.9s; }
+
+  .tl-year {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--amber);
+    text-align: right;
+    padding-top: 28px;
+    position: relative;
+  }
+
+  .tl-year::after {
+    content: '';
+    position: absolute;
+    right: -49px;
+    top: 39px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--amber);
+    border: 3px solid var(--cream);
+    box-shadow: 0 0 0 2px var(--amber);
+  }
+
+  .tl-content {
+    border-left: none;
+    padding: 28px 0 44px 0;
+    border-bottom: 1px solid rgba(26,18,8,0.1);
+  }
+
+  .tl-item:last-child .tl-content { border-bottom: none; }
+
+  .tl-era {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 8px;
+  }
+
+  .tl-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .tl-text {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: #3a3020;
+    max-width: 680px;
+  }
+
+  .tl-text strong { color: var(--ink); font-weight: 500; }
+
+  .tl-tag {
+    display: inline-block;
+    margin-top: 12px;
+    background: var(--light-amber);
+    border: 1px solid rgba(212,130,10,0.25);
+    border-radius: 2px;
+    padding: 4px 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--amber);
+  }
+
+  /* ── KEY CONCEPTS ── */
+  .concepts-section {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 80px 60px;
+  }
+
+  .concepts-section .section-label { color: var(--gold); }
+  .concepts-section .section-label::after { background: var(--gold); }
+
+  .concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .concept-card {
+    background: rgba(255,255,255,0.04);
+    padding: 36px 32px;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.3s;
+  }
+
+  .concept-card:hover { background: rgba(255,255,255,0.07); }
+
+  .concept-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .concept-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--gold);
+  }
+
+  .concept-text {
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: rgba(245,240,232,0.65);
+  }
+
+  /* ── PEOPLE ── */
+  .people-section {
+    padding: 80px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .people-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+
+  .person-card {
+    border-top: 3px solid var(--amber);
+    padding-top: 20px;
+  }
+
+  .person-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .person-role {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 12px;
+  }
+
+  .person-text {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #4a3f2e;
+  }
+
+  /* ── MILESTONES ── */
+  .milestones-section {
+    background: var(--light-amber);
+    padding: 80px 60px;
+  }
+
+  .milestones-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .milestones-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  @media (max-width: 768px) {
+    .milestones-grid { grid-template-columns: 1fr; }
+    .timeline::before { left: 60px; }
+    .tl-item { grid-template-columns: 60px 1fr; gap: 0 24px; }
+    .tl-year { font-size: 18px; }
+    .tl-year::after { right: -33px; }
+    .hero { padding: 50px 24px 40px; }
+    .timeline-section, .concepts-section, .people-section, .milestones-section { padding: 50px 24px; }
+  }
+
+  .milestone-card {
+    background: white;
+    padding: 28px;
+    position: relative;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.3s;
+  }
+
+  .milestone-card:hover { border-bottom-color: var(--amber); }
+
+  .milestone-year-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    background: var(--ink);
+    color: var(--gold);
+    display: inline-block;
+    padding: 4px 10px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+
+  .milestone-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .milestone-text {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #4a3f2e;
+  }
+
+  /* ── STAT STRIP ── */
+  .stats-strip {
+    background: var(--amber);
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .stat {
+    text-align: center;
+    color: var(--ink);
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 6px;
+    opacity: 0.75;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--ink);
+    color: rgba(245,240,232,0.4);
+    padding: 32px 60px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer a { color: var(--gold); text-decoration: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ── TWO APPROACHES BANNER ── */
+  .approaches-banner {
+    max-width: 1200px;
+    margin: 0 auto 0;
+    padding: 0 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .approach-card {
+    border: 1px solid rgba(26,18,8,0.15);
+    padding: 28px;
+  }
+
+  .approach-head {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 10px;
+  }
+
+  .approach-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .approach-text {
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: #4a3f2e;
+  }
+
+  @media (max-width: 768px) {
+    .approaches-banner { grid-template-columns: 1fr; padding: 0 24px; }
+    .stats-strip { padding: 32px 24px; }
+    .footer { padding: 24px; flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-tag">The Economist · July 16, 2024 · Infographic</div>
+  <h1>A Short<br>History of <span>AI</span></h1>
+  <p class="hero-sub">From a summer gathering at Dartmouth in 1956 to ChatGPT and beyond — how the quest to make machines think has unfolded over 70 years of ambition, disappointment, and breakthrough.</p>
+  <div class="hero-meta">
+    <div><span>Source</span>The Economist, Cengage/Gale Academic OneFile</div>
+    <div><span>Words</span>1,535</div>
+    <div><span>Period</span>1940s – 2022</div>
+  </div>
+</header>
+
+<!-- STAT STRIP -->
+<div class="stats-strip">
+  <div class="stat">
+    <span class="stat-num">1956</span>
+    <div class="stat-label">Dartmouth Conference</div>
+  </div>
+  <div class="stat">
+    <span class="stat-num">70×</span>
+    <div class="stat-label">GPU speed-up (2009)</div>
+  </div>
+  <div class="stat">
+    <span class="stat-num">85%</span>
+    <div class="stat-label">ImageNet accuracy (2012)</div>
+  </div>
+  <div class="stat">
+    <span class="stat-num">96%</span>
+    <div class="stat-label">ImageNet accuracy (2015)</div>
+  </div>
+  <div class="stat">
+    <span class="stat-num">2022</span>
+    <div class="stat-label">ChatGPT launch</div>
+  </div>
+</div>
+
+<!-- TWO EARLY APPROACHES -->
+<section style="padding: 64px 0 0;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 60px 32px;">
+    <div class="section-label">Early Schools of Thought</div>
+  </div>
+  <div class="approaches-banner">
+    <div class="approach-card">
+      <div class="approach-head">Approach 01</div>
+      <div class="approach-title">Symbolic Logic &amp; Expert Systems</div>
+      <p class="approach-text">Some researchers favoured systems combining facts about the world with axioms — like those of geometry and symbolic logic — to infer appropriate responses. By the 1980s this had become mainstream: "expert systems" using symbolic logic captured and applied human know-how. Japan invested heavily in this direction. But these systems proved too inflexible for the messiness of the real world, triggering an AI winter by the late 1980s.</p>
+    </div>
+    <div class="approach-card">
+      <div class="approach-head">Approach 02</div>
+      <div class="approach-title">Probabilistic / Neural Networks</div>
+      <p class="approach-text">Others preferred systems where the probability of one thing depended on constantly updated probabilities of many others — inspired by how biological neurons work. These artificial neural networks learn by exposure to examples, with connection "weights" adjusted until a given input produces an appropriate output. Though initially slow, they would eventually triumph with the help of GPU hardware.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="section-label">Chronological Timeline</div>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-year">1940s</div>
+      <div class="tl-content">
+        <div class="tl-era">Origins</div>
+        <div class="tl-title">Neurons, Turing &amp; Von Neumann</div>
+        <p class="tl-text">As the rudiments of how brain cells (neurons) work were pieced together in the 1940s, computer scientists began wondering if machines could be wired up the same way. <strong>Alan Turing</strong> — for whom the Turing Award is named — wondered about thinking machines, as did <strong>John von Neumann</strong>, who would later inspire McCarthy. <strong>Marvin Minsky</strong> made the first attempt to model neural networks in hardware.</p>
+        <span class="tl-tag">Alan Turing · John von Neumann · Marvin Minsky</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-year">1956</div>
+      <div class="tl-content">
+        <div class="tl-era">Founding Moment</div>
+        <div class="tl-title">The Dartmouth Conference</div>
+        <p class="tl-text">A small but illustrious group gathered at <strong>Dartmouth College, New Hampshire</strong>, called together by young researcher <strong>John McCarthy</strong>. The group included <strong>Claude Shannon</strong> (begetter of information theory) and <strong>Herb Simon</strong> (the only person to win both the Nobel Memorial Prize in Economic Sciences and the Turing Award). McCarthy wanted to discuss "how to make machines use language, form abstractions and concepts" and "solve kinds of problems now reserved for humans." He coined the term <strong>artificial intelligence</strong> — broad enough to encompass all existing approaches.</p>
+        <span class="tl-tag">John McCarthy · Claude Shannon · Herb Simon</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-year">1980s</div>
+      <div class="tl-content">
+        <div class="tl-era">Consensus &amp; Collapse</div>
+        <div class="tl-title">Expert Systems &amp; the First AI Winter</div>
+        <p class="tl-text">After decades of intellectual ferment, the field reached wide agreement on <strong>"expert systems"</strong> — using symbolic logic to capture and apply human know-how. The <strong>Japanese government</strong> threw its weight behind the idea, investing in both the systems and the hardware they might need. But the systems proved too inflexible to cope with the messiness of the real world. By the late 1980s, AI had fallen into disrepute — a byword for overpromising and underdelivering. Researchers started to shun the term entirely.</p>
+        <span class="tl-tag">Expert Systems · AI Winter · Japan's Fifth Generation Project</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-year">Early 1990s</div>
+      <div class="tl-content">
+        <div class="tl-era">Quiet Persistence</div>
+        <div class="tl-title">Neural Nets Sort the Post</div>
+        <p class="tl-text">From pockets of perseverance, the neural network approach survived. By the early 1990s, <strong>neural networks had been trained to recognise handwritten numbers</strong> — useful for sorting post. Researchers believed adding more layers of neurons might allow more sophisticated achievements, but this also made systems run much more slowly, limiting progress.</p>
+        <span class="tl-tag">Handwriting Recognition · Multi-layer Networks</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-year">2009</div>
+      <div class="tl-content">
+        <div class="tl-era">Hardware Revolution</div>
+        <div class="tl-title">The GPU Breakthrough — 70× Speed-Up</div>
+        <p class="tl-text">Researchers at <strong>Stanford University</strong> dramatically demonstrated GPU potential by increasing neural net speed <strong>70-fold</strong> using a gaming PC in their dorm room. The key: alongside the standard CPU, the gaming PC had a <strong>Graphics Processing Unit (GPU)</strong> — designed to create game worlds — which happened to be perfectly suited to running neural-network code. Coupling this hardware speed-up with more efficient training algorithms meant networks with <strong>millions of connections</strong> could now be trained in a reasonable time, enabling deeper, more capable architectures.</p>
+        <span class="tl-tag">GPU · Stanford · Deep Learning Hardware</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-year">2012</div>
+      <div class="tl-content">
+        <div class="tl-era">Breakthrough</div>
+        <div class="tl-title">ImageNet &amp; the Deep Learning Revolution</div>
+        <p class="tl-text">The power of <strong>deep learning</strong> became apparent at the <strong>ImageNet Challenge</strong>. Systems were trained on a database of more than <strong>a million labelled images</strong> (several hundred photos per word category) and challenged to label unseen test images. A team led by <strong>Geoff Hinton</strong> at the University of Toronto used deep learning to achieve <strong>85% accuracy</strong> — instantly recognised as a breakthrough. Deep learning was also applied to speech recognition (mapping sound to text), face recognition (mapping faces to names), and translation.</p>
+        <span class="tl-tag">Geoff Hinton · ImageNet · University of Toronto</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-year">2015</div>
+      <div class="tl-content">
+        <div class="tl-era">Dominance</div>
+        <div class="tl-title">Deep Learning Surpasses Human Performance</div>
+        <p class="tl-text">By 2015, <strong>almost everyone in the image-recognition field was using deep learning</strong>. The winning accuracy at the ImageNet Challenge had reached <strong>96% — better than the average human score</strong>. Consumer products proliferated: Amazon's Alexa, online transcription services, and automatic web browser translations. Saying something was "AI-powered" became cool rather than embarrassing — though nearly every such product actually relied on deep learning under the hood.</p>
+        <span class="tl-tag">Amazon Alexa · 96% Accuracy · Consumer AI</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-year">2017</div>
+      <div class="tl-content">
+        <div class="tl-era">Architecture Shift</div>
+        <div class="tl-title">The Transformer</div>
+        <p class="tl-text">A qualitative change was added to the quantitative gains of more computing power and data: a new way of arranging connections between neurons called <strong>the transformer</strong>. Transformers enable neural networks to track patterns in input even when elements of the pattern are far apart, allowing them to bestow <strong>"attention"</strong> on particular features in data. This gave networks a better grasp of context, enabling a technique called <strong>self-supervised learning</strong>: words are randomly blanked during training, and the model teaches itself to fill in the most likely candidate — allowing training on <strong>billions of words of raw internet text</strong> without any human labelling.</p>
+        <span class="tl-tag">Transformer · Attention Mechanism · Self-Supervised Learning</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-year">2019</div>
+      <div class="tl-content">
+        <div class="tl-era">Large Language Models</div>
+        <div class="tl-title">GPT-2 &amp; Emergent Behaviour</div>
+        <p class="tl-text">Transformer-based <strong>Large Language Models (LLMs)</strong> began attracting wider attention in 2019 when <strong>OpenAI</strong> released <strong>GPT-2</strong> (Generative Pre-trained Transformer). LLMs turned out to be capable of <strong>"emergent" behaviour</strong> for which they had not been explicitly trained. Soaking up huge amounts of language made them not just adept at linguistic tasks like summarisation or translation, but also at things <strong>implicit in the training data</strong> — like simple arithmetic and writing software. Less happily, they also reproduced biases and prejudices in the data fed to them.</p>
+        <span class="tl-tag">OpenAI · GPT-2 · Emergent Behaviour · Bias</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-year">Nov 2022</div>
+      <div class="tl-content">
+        <div class="tl-era">Consumer Revolution</div>
+        <div class="tl-title">ChatGPT: The Fastest-Growing Consumer Product Ever</div>
+        <p class="tl-text">A larger OpenAI model, <strong>GPT-3.5</strong>, was presented to the public as a chatbot. Anyone with a web browser could enter a prompt and get a response. <strong>No consumer product has ever taken off quicker.</strong> Within weeks, ChatGPT was generating everything from college essays to computer code. The shift: where the first cohort of AI-powered products was based on <strong>recognition</strong>, this second one is based on <strong>generation</strong>. Other generative models — <strong>Stable Diffusion</strong> and <strong>DALL-E</strong> using diffusion to turn text prompts into images — debuted around the same time. Rivals include <strong>Gemini</strong> (Google) and <strong>Claude</strong> (Anthropic, founded by researchers previously at OpenAI).</p>
+        <span class="tl-tag">ChatGPT · GPT-3.5 · DALL-E · Stable Diffusion · Gemini · Claude</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- KEY CONCEPTS -->
+<section class="concepts-section">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label">Key Concepts Explained</div>
+    <div class="concepts-grid">
+      <div class="concept-card">
+        <div class="concept-icon">🧠</div>
+        <div class="concept-title">Artificial Neural Networks</div>
+        <p class="concept-text">Layers of interconnected simulated neurons. Not programmed with explicit rules — instead they "learn" by being exposed to lots of examples. During training, the strength of connections (called "weights") are repeatedly adjusted so that a given input eventually produces an appropriate output.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">📐</div>
+        <div class="concept-title">Deep Learning</div>
+        <p class="concept-text">Neural networks with many layers ("deeper" networks). More layers allow more sophisticated pattern recognition. The deeper the network and the more training data, the better the performance. Became the dominant paradigm after 2012's ImageNet breakthrough.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">⚡</div>
+        <div class="concept-title">GPU (Graphics Processing Unit)</div>
+        <p class="concept-text">Originally designed to render game worlds on screen, GPUs turned out to be ideally suited to running neural-network code. A Stanford dorm-room experiment in 2009 showed they could speed up neural nets 70-fold compared to standard CPUs — unlocking the deep learning era.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">🔄</div>
+        <div class="concept-title">The Transformer</div>
+        <p class="concept-text">A new way (introduced 2017) of arranging neuron connections that lets networks keep track of patterns even when relevant elements are far apart — bestowing "attention" on particular features. Transformers underpin all modern large language models.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">📝</div>
+        <div class="concept-title">Self-Supervised Learning</div>
+        <p class="concept-text">During training, some words are randomly blanked out, and the model teaches itself to fill in the most likely candidate. Because training data doesn't need to be labelled in advance, models can train on billions of words of raw internet text — vastly scaling up what they can learn.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">✨</div>
+        <div class="concept-title">Emergent Behaviour</div>
+        <p class="concept-text">Capabilities that LLMs exhibit which they were not explicitly trained for. Absorbing huge amounts of language made GPT-2 and its successors adept not just at linguistic tasks, but also at arithmetic and coding — skills that were merely implicit in the training data.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">🌊</div>
+        <div class="concept-title">Diffusion Models</div>
+        <p class="concept-text">A technique used by models like Stable Diffusion and DALL-E to turn text prompts into images — and also to generate video, speech, and music. Part of the second wave of AI products, focused on generation rather than recognition.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">🏛️</div>
+        <div class="concept-title">Expert Systems</div>
+        <p class="concept-text">The 1980s consensus approach: using symbolic logic to capture and apply the best of human know-how in a specific domain. Backed heavily by Japan. Ultimately proved too rigid for real-world messiness, contributing to the AI winter of the late 1980s.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEY PEOPLE -->
+<section class="people-section">
+  <div class="section-label">Key Figures</div>
+  <div class="people-grid">
+    <div class="person-card">
+      <div class="person-name">Alan Turing</div>
+      <div class="person-role">Pioneer · 1940s</div>
+      <p class="person-text">Wondered about machines that could think like people. The Turing Award — computing's highest honour — is named for him.</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">John von Neumann</div>
+      <div class="person-role">Pioneer · 1940s</div>
+      <p class="person-text">Theoretical inspiration to John McCarthy and the broader field of computing and AI.</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">John McCarthy</div>
+      <div class="person-role">Founder of AI · 1956</div>
+      <p class="person-text">Called together the Dartmouth Conference and coined the term "artificial intelligence" — broad enough to encompass all existing approaches.</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">Claude Shannon</div>
+      <div class="person-role">Information Theory · 1956</div>
+      <p class="person-text">Begetter of information theory; attended the Dartmouth Conference as one of its most illustrious participants.</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">Herb Simon</div>
+      <div class="person-role">Nobel &amp; Turing Laureate · 1956</div>
+      <p class="person-text">The only person ever to win both the Nobel Memorial Prize in Economic Sciences and the Turing Award. Dartmouth attendee.</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">Marvin Minsky</div>
+      <div class="person-role">Neural Networks · 1940s–</div>
+      <p class="person-text">Made the first attempt to model neural networks in hardware. Later abandoned the idea, though others took it forward. Attended the Dartmouth Conference.</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">Geoff Hinton</div>
+      <div class="person-role">Deep Learning · 2012</div>
+      <p class="person-text">Then at the University of Toronto; led the team that used deep learning to achieve 85% accuracy at the 2012 ImageNet Challenge — instantly recognised as a landmark breakthrough.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MILESTONE CARDS -->
+<section class="milestones-section">
+  <div class="milestones-inner">
+    <div class="section-label">Product Milestones</div>
+    <div class="milestones-grid">
+      <div class="milestone-card">
+        <div class="milestone-year-badge">Early 1990s</div>
+        <div class="milestone-title">Handwritten Digit Recognition</div>
+        <p class="milestone-text">Neural networks trained to help sort post by recognising handwritten numbers — an early practical demonstration of the technology's usefulness.</p>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-year-badge">~2015</div>
+        <div class="milestone-title">Amazon Alexa</div>
+        <p class="milestone-text">Voice-driven devices powered by deep learning speech recognition appeared in consumers' homes, making AI feel useful and everyday.</p>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-year-badge">~2015</div>
+        <div class="milestone-title">Online Transcription &amp; Translation</div>
+        <p class="milestone-text">Online transcription services became genuinely useful; web browsers began offering automatic translation — powered entirely by deep learning.</p>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-year-badge">2022</div>
+        <div class="milestone-title">DALL-E &amp; Stable Diffusion</div>
+        <p class="milestone-text">Generative image models using diffusion debuted, turning text prompts into images. Other models followed capable of producing realistic video, speech, and music.</p>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-year-badge">Nov 2022</div>
+        <div class="milestone-title">ChatGPT</div>
+        <p class="milestone-text">GPT-3.5 launched as a public chatbot. No consumer product had ever grown faster. Within weeks it was generating college essays and computer code.</p>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-year-badge">Post-2022</div>
+        <div class="milestone-title">Gemini &amp; Claude</div>
+        <p class="milestone-text">Rivals emerged: Gemini from Google and Claude from Anthropic — founded by researchers previously at OpenAI — expanding the generative AI ecosystem.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>Source: "A short history of AI." <em>The Economist</em>, 16 July 2024. Gale Academic OneFile.</div>
+  <div>Infographic · 6001-short-history-of-AI</div>
+</footer>
+
+</body>
+</html>

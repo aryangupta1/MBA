@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Common Understanding: AI Definitions — NSW Government</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --navy: #00235b;
+      --cobalt: #003b99;
+      --sky: #0070d4;
+      --ice: #ddeeff;
+      --white: #ffffff;
+      --off: #f4f7fc;
+      --mid: #6b85a8;
+      --ink: #0d1f35;
+      --gold: #f5a623;
+      --teal: #00897b;
+      --coral: #e05c3a;
+      --lilac: #7c5cbf;
+      --green: #2e7d32;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off);
+      color: var(--ink);
+      font-weight: 300;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy);
+      color: var(--white);
+      padding: 72px 64px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      right: -60px;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: rgba(0, 112, 212, 0.18);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: 55%;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .nsw-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+      padding: 6px 14px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.5s 0.1s forwards;
+    }
+
+    .nsw-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(38px, 6vw, 72px);
+      line-height: 1.05;
+      max-width: 780px;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.2s forwards;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: #7ab4f5;
+    }
+
+    .hero-desc {
+      margin-top: 24px;
+      font-size: 15px;
+      line-height: 1.75;
+      max-width: 620px;
+      color: rgba(255, 255, 255, 0.65);
+      opacity: 0;
+      animation: fadeUp 0.6s 0.3s forwards;
+    }
+
+    .hero-sources {
+      margin-top: 36px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.4s forwards;
+    }
+
+    .source-pill {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── WHAT IS AI ── */
+    .what-section {
+      background: var(--sky);
+      color: white;
+      padding: 56px 64px;
+    }
+
+    .what-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .what-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 16px;
+    }
+
+    .what-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: 42px;
+      line-height: 1.1;
+    }
+
+    .what-def {
+      font-size: 18px;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.9);
+      border-left: 3px solid rgba(255, 255, 255, 0.4);
+      padding-left: 24px;
+    }
+
+    .what-examples {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .example-chip {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section {
+      padding: 64px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--sky);
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--sky);
+      opacity: 0.2;
+    }
+
+    /* ── SPECIALISED DOMAINS ── */
+    .domains-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .domain-card {
+      background: white;
+      border-radius: 4px;
+      padding: 32px;
+      border-top: 4px solid var(--sky);
+      box-shadow: 0 2px 12px rgba(0, 35, 91, 0.06);
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+
+    .domain-card:hover {
+      box-shadow: 0 8px 32px rgba(0, 35, 91, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .domain-card.gen-ai {
+      border-top-color: var(--coral);
+    }
+
+    .domain-card.ml {
+      border-top-color: var(--teal);
+    }
+
+    .domain-card.nlp {
+      border-top-color: var(--lilac);
+    }
+
+    .domain-card.cv {
+      border-top-color: var(--gold);
+    }
+
+    .domain-icon {
+      font-size: 32px;
+      margin-bottom: 14px;
+    }
+
+    .domain-abbr {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 6px;
+    }
+
+    .domain-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      margin-bottom: 12px;
+      color: var(--ink);
+    }
+
+    .domain-def {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #3a5070;
+    }
+
+    .domain-examples {
+      margin-top: 14px;
+      font-size: 12.5px;
+      color: var(--mid);
+      font-style: italic;
+    }
+
+    /* ── GLOSSARY TABLE ── */
+    .glossary-section {
+      background: var(--navy);
+      padding: 64px;
+    }
+
+    .glossary-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .glossary-section .section-label {
+      color: var(--gold);
+    }
+
+    .glossary-section .section-label::after {
+      background: var(--gold);
+      opacity: 0.3;
+    }
+
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2px;
+    }
+
+    .glossary-item {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 24px 28px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: background 0.2s;
+    }
+
+    .glossary-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .glossary-term {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .glossary-def {
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    /* ── APPLICATIONS ── */
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .app-card {
+      background: white;
+      padding: 28px;
+      border-radius: 4px;
+      box-shadow: 0 2px 12px rgba(0, 35, 91, 0.06);
+      border-bottom: 3px solid transparent;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .app-card:hover {
+      border-bottom-color: var(--sky);
+      box-shadow: 0 6px 24px rgba(0, 35, 91, 0.1);
+    }
+
+    .app-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .app-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .app-def {
+      font-size: 13px;
+      line-height: 1.75;
+      color: #3a5070;
+    }
+
+    .app-note {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--mid);
+      padding-top: 10px;
+      border-top: 1px solid var(--ice);
+    }
+
+    /* ── LIFECYCLE ── */
+    .lifecycle-section {
+      background: var(--ice);
+      padding: 64px;
+    }
+
+    .lifecycle-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .lifecycle-flow {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .lifecycle-flow::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: calc(1/14 * 100%);
+      right: calc(1/14 * 100%);
+      height: 2px;
+      background: linear-gradient(to right, var(--sky), var(--cobalt));
+      z-index: 0;
+    }
+
+    .lc-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      padding: 0 6px;
+    }
+
+    .lc-num {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: white;
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      border: 3px solid var(--ice);
+      flex-shrink: 0;
+    }
+
+    .lc-step:nth-child(2) .lc-num {
+      background: #003b99;
+    }
+
+    .lc-step:nth-child(3) .lc-num {
+      background: #005bb5;
+    }
+
+    .lc-step:nth-child(4) .lc-num {
+      background: #0070d4;
+    }
+
+    .lc-step:nth-child(5) .lc-num {
+      background: #1685e0;
+    }
+
+    .lc-step:nth-child(6) .lc-num {
+      background: #3a9de8;
+    }
+
+    .lc-step:nth-child(7) .lc-num {
+      background: #60b4f0;
+    }
+
+    .lc-title {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .lc-desc {
+      font-size: 11px;
+      line-height: 1.6;
+      color: var(--mid);
+    }
+
+    /* ── HUMAN LOOP ── */
+    .loop-section {
+      padding: 64px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .loop-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .loop-card {
+      border-radius: 4px;
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loop-card.hitl {
+      background: #e8f5e9;
+      border: 1px solid #a5d6a7;
+    }
+
+    .loop-card.hotl {
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+    }
+
+    .loop-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .loop-card.hitl .loop-tag {
+      color: var(--green);
+    }
+
+    .loop-card.hotl .loop-tag {
+      color: #b07800;
+    }
+
+    .loop-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      margin-bottom: 14px;
+    }
+
+    .loop-def {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #3a5070;
+    }
+
+    .loop-icon {
+      position: absolute;
+      bottom: 20px;
+      right: 24px;
+      font-size: 48px;
+      opacity: 0.15;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--ink);
+      color: rgba(255, 255, 255, 0.4);
+      padding: 28px 64px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero {
+        padding: 48px 24px 40px;
+      }
+
+      .what-inner {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .what-section {
+        padding: 40px 24px;
+      }
+
+      .section {
+        padding: 40px 24px;
+      }
+
+      .glossary-section {
+        padding: 40px 24px;
+      }
+
+      .lifecycle-section {
+        padding: 40px 24px;
+      }
+
+      .loop-section {
+        padding: 40px 24px;
+      }
+
+      .footer {
+        padding: 24px;
+      }
+
+      .domains-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .apps-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .loop-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .lifecycle-flow {
+        grid-template-columns: 1fr;
+      }
+
+      .lifecycle-flow::before {
+        display: none;
+      }
+
+      .lc-step {
+        flex-direction: row;
+        text-align: left;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      .lc-num {
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+        margin-bottom: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="nsw-badge">
+      <div class="nsw-dot"></div>NSW Digital Government · Policy
+    </div>
+    <h1>A Common Understanding:<br><em>Simplified AI Definitions</em><br>from Leading Standards</h1>
+    <p class="hero-desc">Establishing shared vocabulary for AI across NSW Government — from frontline staff to technical
+      specialists. Based on authoritative international standards to build a common foundation.</p>
+    <div class="hero-sources">
+      <span class="source-pill">NIST</span>
+      <span class="source-pill">ISO / IEC 22989:2022</span>
+      <span class="source-pill">Standards Australia</span>
+      <span class="source-pill">digital.nsw.gov.au</span>
+    </div>
+  </header>
+
+  <!-- WHAT IS AI -->
+  <section class="what-section">
+    <div class="what-inner">
+      <div>
+        <div class="what-label">Core Definition</div>
+        <div class="what-heading">What is AI?</div>
+      </div>
+      <div>
+        <p class="what-def">AI is the ability of a computer system to perform tasks that would normally require human
+          intelligence, such as learning, reasoning, and making decisions.</p>
+        <div class="what-examples">
+          <span class="example-chip">🧩 Machine Learning</span>
+          <span class="example-chip">👁️ Computer Vision</span>
+          <span class="example-chip">💬 Natural Language Processing</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALISED DOMAINS -->
+  <div class="section">
+    <div class="section-label">Specialised Domains of Artificial Intelligence</div>
+    <div class="domains-grid">
+
+      <div class="domain-card gen-ai">
+        <div class="domain-icon">✨</div>
+        <div class="domain-abbr">Gen AI</div>
+        <div class="domain-name">Generative AI</div>
+        <p class="domain-def">An emerging field within AI that creates new content — such as text, images, voice, video,
+          and code — by learning from data patterns.</p>
+        <p class="domain-examples">Notable examples: ChatGPT, Google's Bard</p>
+      </div>
+
+      <div class="domain-card ml">
+        <div class="domain-icon">📊</div>
+        <div class="domain-abbr">ML</div>
+        <div class="domain-name">Machine Learning</div>
+        <p class="domain-def">A subset of AI that allows computers to autonomously learn and improve without being
+          explicitly programmed. ML algorithms are trained on data to make predictions or decisions.</p>
+        <p class="domain-examples">Foundation for most modern AI applications</p>
+      </div>
+
+      <div class="domain-card nlp">
+        <div class="domain-icon">🗣️</div>
+        <div class="domain-abbr">NLP</div>
+        <div class="domain-name">Natural Language Processing</div>
+        <p class="domain-def">A field of AI dealing with the ability of computer systems to understand and generate
+          human language. Used to analyse text, comprehend and converse with users, and perform tasks like language
+          translation, sentiment analysis, and question answering.</p>
+        <p class="domain-examples">Powers chatbots, translation tools, voice assistants</p>
+      </div>
+
+      <div class="domain-card cv">
+        <div class="domain-icon">👁️</div>
+        <div class="domain-abbr">CV</div>
+        <div class="domain-name">Computer Vision</div>
+        <p class="domain-def">Empowers computers to 'see' and comprehend the visual world, analysing images and videos
+          like humans. CV algorithms handle object detection, face recognition, and self-driving car navigation.</p>
+        <p class="domain-examples">Object detection · Face recognition · Autonomous vehicles</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GLOSSARY -->
+  <section class="glossary-section">
+    <div class="glossary-inner">
+      <div class="section-label">Terms Commonly Used in AI</div>
+      <div class="glossary-grid">
+
+        <div class="glossary-item">
+          <div class="glossary-term">Algorithm</div>
+          <p class="glossary-def">A set of instructions that guide a computer in performing specific tasks or solving
+            problems. Algorithms range from simple tasks like sending reminders to complex problem-solving — crucial in
+            AI and ML.</p>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Artificial General Intelligence (AGI)</div>
+          <p class="glossary-def">Considered AI's 'holy grail'. AGI represents a level of AI possessing human-like
+            intellect — able to perform any intellectual task a human can do, understanding, learning, and adapting
+            across a wide range of domains, rather than being specialised.</p>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Data Science</div>
+          <p class="glossary-def">A multidisciplinary field extracting insights and knowledge from data using
+            statistical analysis, data mining, machine learning, and data visualisation.</p>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Data Mining</div>
+          <p class="glossary-def">A technique used to analyse large amounts of information to gain insights, spot
+            trends, or uncover patterns. Used for customer segmentation, fraud detection, and market research.</p>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Deep Learning</div>
+          <p class="glossary-def">A machine learning technique using interconnected layers of "neurons" to learn
+            patterns in data — especially for image recognition and speech synthesis. "Deep" refers to many organised
+            layers. Currently the most widely used approach for visual object recognition, machine translation, speech
+            recognition, and image synthesis.</p>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Large Language Model (LLM)</div>
+          <p class="glossary-def">A subset of Gen AI that specialises in generating human-like text. Unlike broader
+            Generative AI (which covers text, images, audio, and video), LLMs focus on language-based generation and
+            understanding.</p>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Multimodal Foundation Model (MfM)</div>
+          <p class="glossary-def">A type of large language model that can process and output multiple data types —
+            including text, images, audio, and video — in a single unified model.</p>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Neural Networks</div>
+          <p class="glossary-def">Computer models inspired by the human brain's structure. Interconnected artificial
+            neurons, organised in layers, learn from data to make predictions — underpinning deep learning.</p>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Reinforcement Learning (RL)</div>
+          <p class="glossary-def">A machine learning approach where algorithms learn by taking actions to achieve a
+            specific goal, guided by rewards or penalties. The AI agent continuously improves decision-making based on
+            these reward signals.</p>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Supervised Learning</div>
+          <p class="glossary-def">A sub-category of machine learning where algorithms learn from labelled data to make
+            predictions or classifications, often with high accuracy. Real-world example: classifying spam emails into a
+            separate folder.</p>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Unsupervised Learning</div>
+          <p class="glossary-def">Named so because it doesn't rely on predefined labelled data. A type of machine
+            learning where algorithms group data objects based on similarities, without prior category specifications.
+          </p>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Transformer</div>
+          <p class="glossary-def">A powerful AI model for understanding and generating human language, widely used in
+            tasks like translation and question answering. The architecture underpinning most modern LLMs.</p>
+        </div>
+
+        <div class="glossary-item">
+          <div class="glossary-term">Trustworthy &amp; Responsible AI</div>
+          <p class="glossary-def">AI systems developed and used ethically, transparently, and accountably — addressing
+            issues such as bias, privacy, and security throughout design and deployment.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HUMAN IN/ON THE LOOP -->
+  <div class="loop-section">
+    <div class="section-label">Human Oversight Models</div>
+    <div class="loop-grid">
+
+      <div class="loop-card hitl">
+        <div class="loop-tag">HITL</div>
+        <div class="loop-title">Human-in-the-Loop</div>
+        <p class="loop-def">A model that requires human interaction. A human plays an active and integral role in
+          decision-making, monitoring, and control. They are part of the loop that produces outcomes, and their input or
+          oversight is crucial to the system's functioning.</p>
+        <div class="loop-icon">🔁</div>
+      </div>
+
+      <div class="loop-card hotl">
+        <div class="loop-tag">HOTL</div>
+        <div class="loop-title">Human-on-the-Loop</div>
+        <p class="loop-def">An extension of HITL. Humans oversee an automated system and provide feedback but are not
+          directly involved in decision-making. The system runs autonomously while humans monitor and intervene when
+          necessary.</p>
+        <div class="loop-icon">👁️</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COMMON APPLICATIONS -->
+  <div class="section" style="padding-top: 0;">
+    <div class="section-label">Common Applications of AI</div>
+    <div class="apps-grid">
+
+      <div class="app-card">
+        <div class="app-icon">💬</div>
+        <div class="app-name">Chatbot</div>
+        <p class="app-def">Conversational agents that interact with users — such as empathic patient robots or customer
+          service chatbots. Understand human language through Natural Language Processing and assist with various tasks.
+        </p>
+      </div>
+
+      <div class="app-card">
+        <div class="app-icon">📈</div>
+        <div class="app-name">Decision Support System</div>
+        <p class="app-def">An AI-powered tool that helps organisations analyse data and provide informed decision-making
+          options. Brings together data and knowledge from different areas and sources to go beyond usual reports and
+          summaries.</p>
+      </div>
+
+      <div class="app-card">
+        <div class="app-icon">🏛️</div>
+        <div class="app-name">Expert System</div>
+        <p class="app-def">An intelligent computer program that emulates the knowledge and expertise of a human expert.
+          Uses information and reasoning to solve difficult, time-intensive problems in fields like medicine,
+          environment, finance, and law.</p>
+      </div>
+
+      <div class="app-card">
+        <div class="app-icon">🎯</div>
+        <div class="app-name">Recommendation System</div>
+        <p class="app-def">An AI system that suggests personalised content or products to users based on their
+          preferences and behaviour. Leverages machine learning, data analysis, and sometimes deep learning to make
+          recommendations.</p>
+      </div>
+
+      <div class="app-card">
+        <div class="app-icon">🤖</div>
+        <div class="app-name">Robotics</div>
+        <p class="app-def">Though not a subset of AI, robotics heavily relies on AI technologies. An interdisciplinary
+          field combining mechanical engineering, electronics, computer science, and AI to create machines capable of
+          performing tasks autonomously or semi-autonomously.</p>
+        <p class="app-note">Note: Robotics is a distinct field, not a subset of AI</p>
+      </div>
+
+      <div class="app-card">
+        <div class="app-icon">🗂️</div>
+        <div class="app-name">Virtual Assistants</div>
+        <p class="app-def">Computer programs that interact with humans in a 'natural' way. Assist users with tasks like
+          scheduling appointments, making reservations, and providing information. Distinguished from chatbots — which
+          are purely conversational — by broader task capability.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- AI LIFECYCLE -->
+  <section class="lifecycle-section">
+    <div class="lifecycle-inner">
+      <div class="section-label" style="color: var(--cobalt);">The AI Lifecycle</div>
+      <div class="lifecycle-flow">
+
+        <div class="lc-step">
+          <div class="lc-num">1</div>
+          <div>
+            <div class="lc-title">Problem Understanding &amp; Risk</div>
+            <p class="lc-desc">Define the problem, requirements, and constraints. Consider ethical implications,
+              fairness, transparency, and privacy. Refer to NSW AI Assessment Framework.</p>
+          </div>
+        </div>
+
+        <div class="lc-step">
+          <div class="lc-num">2</div>
+          <div>
+            <div class="lc-title">Data Acquisition &amp; Pre-processing</div>
+            <p class="lc-desc">Identify and gather relevant data. Pre-process and clean it for quality and suitability.
+              Comply with applicable laws and ethics.</p>
+          </div>
+        </div>
+
+        <div class="lc-step">
+          <div class="lc-num">3</div>
+          <div>
+            <div class="lc-title">ML Lifecycle Stages</div>
+            <p class="lc-desc">Apply data pre-processing, feature engineering, model selection, training, evaluation,
+              and deployment.</p>
+          </div>
+        </div>
+
+        <div class="lc-step">
+          <div class="lc-num">4</div>
+          <div>
+            <div class="lc-title">Additional AI Techniques</div>
+            <p class="lc-desc">Consider NLP, computer vision, knowledge representation, inference, and reasoning methods
+              beyond traditional ML.</p>
+          </div>
+        </div>
+
+        <div class="lc-step">
+          <div class="lc-num">5</div>
+          <div>
+            <div class="lc-title">Integration &amp; System Design</div>
+            <p class="lc-desc">Integrate ML models into a broader system or application architecture. Consider
+              scalability, performance, and compatibility.</p>
+          </div>
+        </div>
+
+        <div class="lc-step">
+          <div class="lc-num">6</div>
+          <div>
+            <div class="lc-title">User Experience &amp; Interaction</div>
+            <p class="lc-desc">Design user interface components — chatbots, voice interfaces, or visualisations — for
+              seamless user engagement.</p>
+          </div>
+        </div>
+
+        <div class="lc-step">
+          <div class="lc-num">7</div>
+          <div>
+            <div class="lc-title">Continuous Monitoring &amp; Improvement</div>
+            <p class="lc-desc">Implement mechanisms to monitor performance, gather user feedback, and iteratively
+              improve based on new data or changing requirements.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div>Source: <a
+        href="https://www.digital.nsw.gov.au/policy/artificial-intelligence/a-common-understanding-simplified-ai-definitions-from-leading"
+        target="_blank">digital.nsw.gov.au</a> · Informed by NIST, ISO/IEC 22989:2022, Standards Australia</div>
+    <div>Infographic · 6001-nsw-gov-understanding-ai</div>
+  </footer>
+
+</body>
+
+</html>
