@@ -483,84 +483,60 @@
       border-color: #90d8a8;
     }
 
-    .phase-title {
+    /* Pagination (argument + evidence lists) */
+    .list-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.85rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    .list-pagination-info {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
+      font-size: 0.62rem;
+      color: var(--ink3);
+      letter-spacing: 0.04em;
+    }
+
+    .list-pagination-btns {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .list-pagination button {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: var(--ink2);
-      margin: 1.25rem 0 0.5rem;
-      border-bottom: 1px solid var(--rule);
-      padding-bottom: 0.35rem;
-    }
-
-    .phase-title:first-child {
-      margin-top: 0;
-    }
-
-    .task-row {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.35rem 0;
-      border-bottom: 1px solid var(--bg3);
-      font-size: 0.78rem;
-    }
-
-    .task-check {
-      width: 16px;
-      height: 16px;
-      border-radius: 3px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.6rem;
-    }
-
-    .task-check.done {
-      background: var(--green);
-      color: white;
-    }
-
-    .task-check.pending {
+      padding: 0.4rem 0.75rem;
+      border: 1px solid var(--rule);
       background: white;
-      border: 1.5px solid var(--rule);
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--ink2);
+      transition: border-color 0.15s, color 0.15s;
     }
 
-    .task-name {
-      flex: 1;
-    }
-
-    .task-name.done-text {
-      color: var(--ink3);
-      text-decoration: line-through;
-    }
-
-    .task-words {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.6rem;
-      color: var(--ink3);
-      min-width: 40px;
-      text-align: right;
-    }
-
-    .task-priority {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.58rem;
-      padding: 0.1rem 0.4rem;
-      border-radius: 3px;
-      background: var(--red-soft);
+    .list-pagination button:hover:not(:disabled) {
+      border-color: var(--red);
       color: var(--red);
-      border: 1px solid #e8b8b0;
+    }
+
+    .list-pagination button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
     }
   </style>
 </head>
 
 <body>
   <nav>
-    <div class="nav-brand">MBA / DMBA 6004 / <span>Assessment 1</span></div>
+    <div class="nav-brand">MBA / DMBA 6002 / <span>Assessment 1</span></div>
     <div class="nav-tabs" id="nav-tabs"></div>
   </nav>
 
@@ -683,7 +659,10 @@
     <div class="section-title">Argument architecture</div>
     <div class="section-sub">Click any section to see the key message and what argument it makes</div>
     <div class="grid-2" style="gap:1.5rem;">
-      <div id="arg-flow"></div>
+      <div>
+        <div id="arg-flow"></div>
+        <div id="arg-pagination" class="list-pagination" aria-label="Argument sections pagination"></div>
+      </div>
       <div>
         <div class="card" id="arg-panel" style="min-height:300px;">
           <div
@@ -751,7 +730,10 @@
     <div class="section-title">Evidence portfolio</div>
     <div class="section-sub">Click a source to see which sections it supports and its known limitations</div>
     <div class="grid-2" style="gap:1.25rem;align-items:start;">
-      <div id="ev-list"></div>
+      <div>
+        <div id="ev-list"></div>
+        <div id="ev-pagination" class="list-pagination" aria-label="Evidence sources pagination"></div>
+      </div>
       <div>
         <div class="card" id="ev-panel" style="min-height:280px;">
           <div
@@ -795,32 +777,14 @@
     </div>
   </div>
 
-  <div class="view" id="view-progress">
-    <div class="section-title">Progress tracker</div>
-    <div class="section-sub">First draft &middot; Claude enhancement &middot; Appendices</div>
-    <div class="grid-2" style="gap:1.25rem;align-items:start;">
-      <div class="card">
-        <div
-          style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink3);margin-bottom:0.5rem;display:flex;justify-content:space-between;">
-          <span>First draft</span><span style="color:var(--green);">9 / 25</span></div>
-        <div id="task-list-draft"></div>
-      </div>
-      <div class="card">
-        <div
-          style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink3);margin-bottom:0.5rem;display:flex;justify-content:space-between;">
-          <span>Enhancement + Appendices</span><span style="color:var(--amber);">0 / 11</span></div>
-        <div id="task-list-enhance"></div>
-      </div>
-    </div>
-  </div>
-
   <script>
-    var TABS = ['overview', 'argument', 'stakeholders', 'evidence', 'progress'];
+    var TABS = ['overview', 'argument', 'stakeholders', 'evidence'];
+    var TAB_LABELS = { overview: 'Overview', argument: 'Arguments', stakeholders: 'Stakeholders', evidence: 'Evidence' };
     var tabEl = document.getElementById('nav-tabs');
     TABS.forEach(function (id) {
       var btn = document.createElement('button');
       btn.className = 'nav-tab' + (id === 'overview' ? ' active' : '');
-      btn.textContent = id.charAt(0).toUpperCase() + id.slice(1);
+      btn.textContent = TAB_LABELS[id] || id;
       btn.addEventListener('click', function () {
         document.querySelectorAll('.view').forEach(function (v) { v.classList.remove('active'); });
         document.querySelectorAll('.nav-tab').forEach(function (t) { t.classList.remove('active'); });
@@ -914,63 +878,82 @@
       { name: 'BOM', power: 50, interest: 30, color: '#888' }
     ];
 
-    var DRAFT = [
-      { name: '1.1 Problem definition', words: '80w', done: true },
-      { name: '1.2 Past-to-present', words: '70w', done: true },
-      { name: '2.1 Delivery systems', words: '60w', done: true },
-      { name: '2.2 Infrastructure', words: '50w', done: true },
-      { name: '2.3 Operational challenges', words: '60w', done: true },
-      { name: '3.1 Operational stakeholders', words: '60w', done: true },
-      { name: '3.2 Community & cultural', words: '50w', done: true },
-      { name: '3.3 Governance stakeholders', words: '40w', done: true },
-      { name: '4.1 Influence & power', words: '50w', done: false, priority: true },
-      { name: '4.2 Exposure to risk', words: '45w', done: false, priority: true },
-      { name: '4.3 Relationship map', words: '45w', done: false, priority: true },
-      { name: '5.1 Operator needs', words: '60w', done: false },
-      { name: '5.2 Irrigator expectations', words: '60w', done: false },
-      { name: '5.3 Environmental needs', words: '55w', done: false },
-      { name: '5.4 First Nations interests', words: '55w', done: false },
-      { name: '6.1 Risks & tensions', words: '80w', done: false },
-      { name: '6.2 Equity risks', words: '70w', done: false },
-      { name: '6.3 Trust & accountability', words: '70w', done: false },
-      { name: '7.1 Source selection', words: '70w', done: false },
-      { name: '7.2 Metadata context', words: '90w', done: false },
-      { name: '8.1 Technical requirements', words: '70w', done: false },
-      { name: '8.2 Governance safeguards', words: '55w', done: false },
-      { name: '8.3 Design principles', words: '45w', done: false },
-      { name: '9.1 Why reliability matters', words: '55w', done: false },
-      { name: '9.2 Socio-technical intervention', words: '55w', done: false }
-    ];
+    var ARG_PAGE_SIZE = 7;
+    var argPage = 0;
+    var EV_PAGE_SIZE = 5;
+    var evPage = 0;
 
-    var ENHANCE = [
-      { name: 'Claude enhancement — Sections 1-3', done: false, priority: true },
-      { name: 'Claude enhancement — Sections 4-6', done: false },
-      { name: 'Claude enhancement — Sections 7-9', done: false },
-      { name: 'Primary interview — send email to MI', done: false, priority: true },
-      { name: 'Word count audit', done: false },
-      { name: 'Referencing audit', done: false },
-      { name: 'Appendix A — Abbreviations', done: false },
-      { name: 'Appendix B — Stakeholder map (Miro/Lucid)', done: false, priority: true },
-      { name: 'Appendix C — Metadata table', done: false },
-      { name: 'AI Acknowledgement', done: false },
-      { name: 'Final compliance check', done: false }
-    ];
+    var ARG_PANEL_EMPTY =
+      '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:0.62rem;color:var(--ink3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Select a section</div>' +
+      '<p style="font-size:0.78rem;color:var(--ink3);">Click any section on the left to see what argument it makes, what theory it applies, and the key message.</p>';
+    var ARG_THEORY_EMPTY =
+      '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:0.62rem;color:var(--ink3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem;">Theory applied</div>' +
+      '<p style="font-size:0.75rem;color:var(--ink3);">\u2014</p>';
+    var EV_PANEL_EMPTY =
+      '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:0.62rem;color:var(--ink3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Select a source</div>' +
+      '<p style="font-size:0.78rem;color:var(--ink3);">Click any source to see which argument sections it supports, its bias classification, and its system-level implication.</p>';
 
-    function buildArgFlow() {
+    function resetArgView() {
+      document.querySelectorAll('.arg-node').forEach(function (n) { n.classList.remove('active'); });
+      document.getElementById('arg-panel').innerHTML = ARG_PANEL_EMPTY;
+      document.getElementById('arg-theory').innerHTML = ARG_THEORY_EMPTY;
+    }
+
+    function resetEvView() {
+      document.querySelectorAll('.ev-source').forEach(function (e) { e.classList.remove('selected'); });
+      document.getElementById('ev-panel').innerHTML = EV_PANEL_EMPTY;
+    }
+
+    function renderArgPagination() {
+      var total = SECTIONS.length;
+      var size = ARG_PAGE_SIZE;
+      var pages = Math.max(1, Math.ceil(total / size));
+      if (argPage > pages - 1) argPage = pages - 1;
+      var startN = argPage * size + 1;
+      var endN = Math.min((argPage + 1) * size, total);
+      var pag = document.getElementById('arg-pagination');
+      pag.innerHTML = '<span class="list-pagination-info">Sections ' + startN + '\u2013' + endN + ' of ' + total + '</span>' +
+        '<div class="list-pagination-btns">' +
+        '<button type="button" class="arg-page-prev"' + (argPage <= 0 ? ' disabled' : '') + '>Previous</button>' +
+        '<button type="button" class="arg-page-next"' + (argPage >= pages - 1 ? ' disabled' : '') + '>Next</button>' +
+        '</div>';
+      pag.querySelector('.arg-page-prev').addEventListener('click', function () {
+        if (argPage > 0) {
+          argPage--;
+          resetArgView();
+          buildArgFlowPage();
+        }
+      });
+      pag.querySelector('.arg-page-next').addEventListener('click', function () {
+        if (argPage < pages - 1) {
+          argPage++;
+          resetArgView();
+          buildArgFlowPage();
+        }
+      });
+    }
+
+    function buildArgFlowPage() {
       var flow = document.getElementById('arg-flow');
-      SECTIONS.forEach(function (s, i) {
+      flow.innerHTML = '';
+      var total = SECTIONS.length;
+      var pages = Math.max(1, Math.ceil(total / ARG_PAGE_SIZE));
+      if (argPage > pages - 1) argPage = pages - 1;
+      var start = argPage * ARG_PAGE_SIZE;
+      var slice = SECTIONS.slice(start, start + ARG_PAGE_SIZE);
+      slice.forEach(function (s, idx) {
         var node = document.createElement('div');
         node.className = 'arg-node';
-        if (s.done) node.style.background = '#f4f7f4';
         node.innerHTML = '<div class="arg-node-num">' + s.num + '</div>' +
           '<div class="arg-node-title">' + s.title + '</div>' +
-          '<div class="arg-node-words">~' + s.words + 'w' + (s.done ? ' &middot; <span style="color:var(--green)">done</span>' : '') + '</div>';
+          '<div class="arg-node-words">~' + s.words + 'w</div>';
         node.addEventListener('click', (function (sec, nd) { return function () { selectSection(sec, nd); }; })(s, node));
         flow.appendChild(node);
-        if (i < SECTIONS.length - 1) {
+        if (idx < slice.length - 1) {
           var c = document.createElement('div'); c.className = 'arg-connector'; flow.appendChild(c);
         }
       });
+      renderArgPagination();
     }
 
     function selectSection(s, node) {
@@ -1047,9 +1030,44 @@
     }
 
     var TM = { op: 'operational', gov: 'governance', risk: 'risk/equity', env: 'environmental', fn: 'first nations', design: 'system design' };
-    function buildEvidence() {
+
+    function renderEvPagination() {
+      var total = EVIDENCE.length;
+      var size = EV_PAGE_SIZE;
+      var pages = Math.max(1, Math.ceil(total / size));
+      if (evPage > pages - 1) evPage = pages - 1;
+      var startN = evPage * size + 1;
+      var endN = Math.min((evPage + 1) * size, total);
+      var pag = document.getElementById('ev-pagination');
+      pag.innerHTML = '<span class="list-pagination-info">Sources ' + startN + '\u2013' + endN + ' of ' + total + '</span>' +
+        '<div class="list-pagination-btns">' +
+        '<button type="button" class="ev-page-prev"' + (evPage <= 0 ? ' disabled' : '') + '>Previous</button>' +
+        '<button type="button" class="ev-page-next"' + (evPage >= pages - 1 ? ' disabled' : '') + '>Next</button>' +
+        '</div>';
+      pag.querySelector('.ev-page-prev').addEventListener('click', function () {
+        if (evPage > 0) {
+          evPage--;
+          resetEvView();
+          buildEvidencePage();
+        }
+      });
+      pag.querySelector('.ev-page-next').addEventListener('click', function () {
+        if (evPage < pages - 1) {
+          evPage++;
+          resetEvView();
+          buildEvidencePage();
+        }
+      });
+    }
+
+    function buildEvidencePage() {
       var list = document.getElementById('ev-list');
-      EVIDENCE.forEach(function (src) {
+      list.innerHTML = '';
+      var total = EVIDENCE.length;
+      var pages = Math.max(1, Math.ceil(total / EV_PAGE_SIZE));
+      if (evPage > pages - 1) evPage = pages - 1;
+      var start = evPage * EV_PAGE_SIZE;
+      EVIDENCE.slice(start, start + EV_PAGE_SIZE).forEach(function (src) {
         var el = document.createElement('div'); el.className = 'ev-source';
         el.innerHTML = '<div style="display:flex;align-items:center;gap:0.5rem;">' +
           '<span style="font-family:\'IBM Plex Mono\',monospace;font-size:0.58rem;color:var(--ink3);">' + src.id + '</span>' +
@@ -1060,6 +1078,7 @@
         el.addEventListener('click', (function (s, e) { return function () { selectSource(s, e); }; })(src, el));
         list.appendChild(el);
       });
+      renderEvPagination();
     }
 
     function selectSource(src, el) {
@@ -1077,31 +1096,11 @@
         '<div style="font-size:0.75rem;color:var(--ink2);font-style:italic;line-height:1.55;">' + src.bias + '</div>';
     }
 
-    function makeTask(t) {
-      return '<div class="task-row">' +
-        '<div class="task-check ' + (t.done ? 'done' : 'pending') + '">' + (t.done ? '&#10003;' : '') + '</div>' +
-        '<div class="task-name ' + (t.done ? 'done-text' : '') + '">' + t.name + '</div>' +
-        (t.words ? '<div class="task-words">' + t.words + '</div>' : '') +
-        (t.priority && !t.done ? '<div class="task-priority">next</div>' : '') +
-        '</div>';
-    }
-    function buildProgress() {
-      document.getElementById('task-list-draft').innerHTML =
-        ['<div class="phase-title">Sections 1\u20133 (done)</div>' + DRAFT.slice(0, 8).map(makeTask).join(''),
-        '<div class="phase-title">Sections 4 \u2014 next up</div>' + DRAFT.slice(8, 11).map(makeTask).join(''),
-        '<div class="phase-title">Sections 5\u20139 \u2014 pending</div>' + DRAFT.slice(11).map(makeTask).join('')].join('');
-      document.getElementById('task-list-enhance').innerHTML =
-        ['<div class="phase-title">Claude enhancement</div>' + ENHANCE.slice(0, 4).map(makeTask).join(''),
-        '<div class="phase-title">Quality checks</div>' + ENHANCE.slice(4, 6).map(makeTask).join(''),
-        '<div class="phase-title">Appendices + final</div>' + ENHANCE.slice(6).map(makeTask).join('')].join('');
-    }
-
-    buildArgFlow();
+    buildArgFlowPage();
     buildSmap();
     buildMatrix();
     buildDeps();
-    buildEvidence();
-    buildProgress();
+    buildEvidencePage();
   </script>
 </body>
 
