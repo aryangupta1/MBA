@@ -215,8 +215,15 @@
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.62rem;
       color: var(--ink3);
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.15rem;
       letter-spacing: 0.06em;
+    }
+
+    .arg-node-section {
+      font-size: 0.68rem;
+      color: var(--ink3);
+      margin-bottom: 0.15rem;
+      font-style: italic;
     }
 
     .arg-node-title {
@@ -234,9 +241,21 @@
 
     .arg-connector {
       width: 2px;
-      height: 16px;
+      height: 14px;
       background: var(--rule);
       margin: 0 auto;
+    }
+
+    .arg-group-divider {
+      margin: 0.5rem 0 0.35rem;
+      padding: 0.3rem 0.5rem;
+      background: var(--bg2);
+      border-radius: 5px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--ink3);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
     .smap-container {
@@ -482,73 +501,26 @@
       color: var(--green);
       border-color: #90d8a8;
     }
-
-    /* Pagination (argument + evidence lists) */
-    .list-pagination {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.85rem;
-      padding-top: 0.85rem;
-      border-top: 1px solid var(--rule);
-    }
-
-    .list-pagination-info {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.62rem;
-      color: var(--ink3);
-      letter-spacing: 0.04em;
-    }
-
-    .list-pagination-btns {
-      display: flex;
-      gap: 0.4rem;
-      align-items: center;
-    }
-
-    .list-pagination button {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      padding: 0.4rem 0.75rem;
-      border: 1px solid var(--rule);
-      background: white;
-      border-radius: 6px;
-      cursor: pointer;
-      color: var(--ink2);
-      transition: border-color 0.15s, color 0.15s;
-    }
-
-    .list-pagination button:hover:not(:disabled) {
-      border-color: var(--red);
-      color: var(--red);
-    }
-
-    .list-pagination button:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
   </style>
 </head>
 
 <body>
+
   <nav>
-    <div class="nav-brand">MBA / DMBA 6002 / <span>Assessment 1</span></div>
+    <div class="nav-brand">MBA / DMBA 6004 / <span>Assessment 1</span></div>
     <div class="nav-tabs" id="nav-tabs"></div>
   </nav>
 
+  <!-- OVERVIEW -->
   <div class="view active" id="view-overview">
     <div class="section-title">Assessment 1 — at a glance</div>
     <div class="section-sub">Stakeholder Needs &amp; Expectations &middot; One Basin CRC Anomaly Detection &middot;
-      Murrumbidgee Catchment</div>
+      Murrumbidgee Catchment &middot; Due 29 March 2026</div>
     <div class="grid-3m" style="margin-bottom:1.25rem;">
       <div class="metric">
         <div class="metric-label">Word target</div>
-        <div class="metric-value">1,420</div>
-        <div class="metric-sub">body text only</div>
+        <div class="metric-value">1,400</div>
+        <div class="metric-sub">body text &middot; ±10% window</div>
       </div>
       <div class="metric">
         <div class="metric-label">References</div>
@@ -570,6 +542,29 @@
           upgrade with governance implications — it is a governance intervention with an engineering component. It
           redistributes operational risk, creates new data dependencies, and alters decision-making authority across the
           Murrumbidgee system."</p>
+        <div
+          style="margin-top:1rem;font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:0.5rem;">
+          New structure — 6 sections / 11 subheadings</div>
+        <div style="display:flex;flex-direction:column;gap:0.25rem;">
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;"><span style="color:var(--ink2);">1
+              — Problem space &amp; operational context</span><span
+              style="font-family:'IBM Plex Mono',monospace;color:var(--ink3);">200w</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;"><span style="color:var(--ink2);">2
+              — Stakeholder landscape</span><span
+              style="font-family:'IBM Plex Mono',monospace;color:var(--ink3);">200w</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;"><span style="color:var(--ink2);">3
+              — Mapping: power, risk, interdependency</span><span
+              style="font-family:'IBM Plex Mono',monospace;color:var(--ink3);">300w</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;"><span style="color:var(--ink2);">4
+              — Needs, values &amp; tensions</span><span
+              style="font-family:'IBM Plex Mono',monospace;color:var(--ink3);">350w</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;"><span style="color:var(--ink2);">5
+              — System specifications</span><span
+              style="font-family:'IBM Plex Mono',monospace;color:var(--ink3);">250w</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;"><span style="color:var(--ink2);">6
+              — Conclusion</span><span style="font-family:'IBM Plex Mono',monospace;color:var(--ink3);">100w</span>
+          </div>
+        </div>
       </div>
       <div class="card">
         <div
@@ -632,14 +627,13 @@
         Immediate next steps</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.6rem;">
         <div style="background:var(--red-soft);border:1px solid #e8b0a8;border-radius:6px;padding:0.6rem 0.8rem;">
-          <div style="font-size:0.68rem;font-weight:500;color:var(--red);margin-bottom:0.2rem;">Finish first draft</div>
-          <div style="font-size:0.72rem;color:var(--ink2);">Sections 4&ndash;9 still pending. Write now, perfect later.
-          </div>
+          <div style="font-size:0.68rem;font-weight:500;color:var(--red);margin-bottom:0.2rem;">Write first draft</div>
+          <div style="font-size:0.72rem;color:var(--ink2);">All 11 subheadings pending. Start Section 1.1 now.</div>
         </div>
         <div style="background:var(--amber-soft);border:1px solid #e8c870;border-radius:6px;padding:0.6rem 0.8rem;">
           <div style="font-size:0.68rem;font-weight:500;color:var(--amber);margin-bottom:0.2rem;">Send interview email
           </div>
-          <div style="font-size:0.72rem;color:var(--ink2);">Email MI: communications@mirrigation.com.au</div>
+          <div style="font-size:0.72rem;color:var(--ink2);">communications@mirrigation.com.au</div>
         </div>
         <div style="background:var(--blue-soft);border:1px solid #b0caee;border-radius:6px;padding:0.6rem 0.8rem;">
           <div style="font-size:0.68rem;font-weight:500;color:var(--blue);margin-bottom:0.2rem;">Build stakeholder map
@@ -647,29 +641,27 @@
           <div style="font-size:0.72rem;color:var(--ink2);">Miro/Lucid &mdash; 2 axes, 6 interdependency arrows</div>
         </div>
         <div style="background:var(--green-soft);border:1px solid #90d8a8;border-radius:6px;padding:0.6rem 0.8rem;">
-          <div style="font-size:0.68rem;font-weight:500;color:var(--green);margin-bottom:0.2rem;">Claude enhancement
-            pass</div>
-          <div style="font-size:0.72rem;color:var(--ink2);">Upgrade completed sections with HD starters</div>
+          <div style="font-size:0.68rem;font-weight:500;color:var(--green);margin-bottom:0.2rem;">Complete Appendix C
+          </div>
+          <div style="font-size:0.72rem;color:var(--ink2);">Metadata table — all 9 attributes &times; 10 sources</div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- ARGUMENT -->
   <div class="view" id="view-argument">
     <div class="section-title">Argument architecture</div>
-    <div class="section-sub">Click any section to see the key message and what argument it makes</div>
+    <div class="section-sub">Click any subheading to see the argument it makes and the key message</div>
     <div class="grid-2" style="gap:1.5rem;">
-      <div>
-        <div id="arg-flow"></div>
-        <div id="arg-pagination" class="list-pagination" aria-label="Argument sections pagination"></div>
-      </div>
+      <div id="arg-flow"></div>
       <div>
         <div class="card" id="arg-panel" style="min-height:300px;">
           <div
             style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--ink3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">
-            Select a section</div>
-          <p style="font-size:0.78rem;color:var(--ink3);">Click any section on the left to see what argument it makes,
-            what theory it applies, and the key message.</p>
+            Select a subheading</div>
+          <p style="font-size:0.78rem;color:var(--ink3);">Click any subheading on the left to see what argument it
+            makes, what theory it applies, and the key message.</p>
         </div>
         <div style="margin-top:1rem;" class="card card-sm" id="arg-theory">
           <div
@@ -681,6 +673,7 @@
     </div>
   </div>
 
+  <!-- STAKEHOLDERS -->
   <div class="view" id="view-stakeholders">
     <div class="section-title">Stakeholder ecosystem</div>
     <div class="section-sub">Hover nodes for detail &middot; Rings show proximity to the AI system</div>
@@ -726,14 +719,12 @@
     </div>
   </div>
 
+  <!-- EVIDENCE -->
   <div class="view" id="view-evidence">
     <div class="section-title">Evidence portfolio</div>
     <div class="section-sub">Click a source to see which sections it supports and its known limitations</div>
     <div class="grid-2" style="gap:1.25rem;align-items:start;">
-      <div>
-        <div id="ev-list"></div>
-        <div id="ev-pagination" class="list-pagination" aria-label="Evidence sources pagination"></div>
-      </div>
+      <div id="ev-list"></div>
       <div>
         <div class="card" id="ev-panel" style="min-height:280px;">
           <div
@@ -784,7 +775,7 @@
     TABS.forEach(function (id) {
       var btn = document.createElement('button');
       btn.className = 'nav-tab' + (id === 'overview' ? ' active' : '');
-      btn.textContent = TAB_LABELS[id] || id;
+      btn.textContent = TAB_LABELS[id];
       btn.addEventListener('click', function () {
         document.querySelectorAll('.view').forEach(function (v) { v.classList.remove('active'); });
         document.querySelectorAll('.nav-tab').forEach(function (t) { t.classList.remove('active'); });
@@ -795,31 +786,108 @@
     });
 
     var SECTIONS = [
-      { num: '1.1', title: 'Problem definition', words: 80, done: true, argument: 'Frames the problem as institutional failure — the Basin generates more data than its governance structures can handle.', theory: 'Dwyer et al. (2026) + WaterNSW (n.d.-a)', message: 'This is a governance problem with an engineering response. The prototype exists because the Basin\'s governance capacity has not kept pace with its data infrastructure.' },
-      { num: '1.2', title: 'Past-to-present', words: 70, done: true, argument: '$348M physical automation completed by early 2025 — governance maturity has not kept pace.', theory: 'Murrumbidgee Irrigation (n.d.) + NSW DPIE (2024)', message: 'The physical transformation is done. The governance and reliability maturity is not. That gap is what the prototype addresses.' },
-      { num: '2.1', title: 'How delivery operates', words: 60, done: true, argument: 'The delivery chain is a sequential dependency. One undetected fault upstream propagates as delivery failure for multiple farms.', theory: 'WaterNSW (n.d.-b)', message: 'BOM to WaterNSW to MI to 3,093 landholdings. A single undetected sensor fault propagates silently before anyone can intervene.' },
-      { num: '2.2', title: 'Infrastructure & automation', words: 50, done: true, argument: 'Alert volume is itself an operational liability. Alarm fatigue masks genuine faults.', theory: 'Kanyama et al. (2024) — 32 studies', message: 'Too many alerts is as dangerous as no alerts. Kanyama et al. (2024) confirm across 32 studies that alarm fatigue actively masks genuine failures.' },
-      { num: '2.3', title: 'Operational challenges', words: 60, done: true, argument: 'Sensor drift and comms dropouts corrupt hydrometric data used for Basin-wide allocation.', theory: 'One Basin CRC (n.d.-b) FMEA + BOM (n.d.-b)', message: 'A failed water level sensor is not just a local delivery problem — it corrupts allocation accounting that underpins Basin governance. The stakes are systemic.' },
-      { num: '3.1', title: 'Operational stakeholders', words: 60, done: true, argument: 'WaterNSW, MI, and Rubicon form one interdependent system — not three separate stakeholders.', theory: 'Clarke & Michael (2022)', message: 'Three organisations, one system. A failure at any node cascades across all three. The interdependency is structural.' },
-      { num: '3.2', title: 'Community & cultural', words: 50, done: true, argument: 'This layer is defined by exposure to failure, not proximity to infrastructure.', theory: 'Dwyer et al. (2026) + MLDRIN (2018)', message: 'Irrigators, environmental holders, and First Nations communities are not peripheral — they bear the consequences of every undetected fault.' },
-      { num: '3.3', title: 'Governance stakeholders', words: 40, done: true, argument: 'The MDBA\'s 2026 Basin Plan Review creates a live policy window — this prototype is a pilot for a Basin-wide governance shift.', theory: 'MDBA (2025) + MDBA (2026)', message: 'The governance window is open. The 2026 Basin Plan Review means the institutional conditions for AI adoption are actively being shaped right now.' },
-      { num: '4.1', title: 'Influence & power', words: 50, done: false, argument: 'Formal power and operational power are separated. MDBA sets policy; MI decides adoption.', theory: 'Clarke & Michael (2022)', message: 'MDBA can shape the policy environment but cannot make MI\'s field teams trust an AI alert. Adoption authority sits at the operational level.' },
-      { num: '4.2', title: 'Exposure to risk', words: 45, done: false, argument: 'Risk exposure is asymmetric and inverse to formal power.', theory: 'ABARES (2024)', message: 'Tail-end irrigators already carry the largest regional burden from water recovery. Algorithmic underperformance at data-sparse tail-end nodes would compound that burden invisibly.' },
-      { num: '4.3', title: 'Relationship map', words: 45, done: false, argument: 'The map shows interdependency chains, not rings. A fault at one node propagates across multiple stakeholder groups simultaneously.', theory: 'Cosijn et al. (2023)', message: 'Six annotated dependency arrows show how a BOM gauge failure flows through WaterNSW, MI, irrigators, environmental holders, and governance reporting. The map is a system diagram.' },
-      { num: '5.1', title: 'Operator needs', words: 60, done: false, argument: 'Operators need discrimination, not detection. Too many false positives and they stop trusting the system.', theory: 'Kanyama et al. (2024) + Singha et al. (2026)', message: 'The system must earn trust by being right more often than it cries wolf. Low false positive rate and SHAP explainability are the two conditions under which operators will act on an alert.' },
-      { num: '5.2', title: 'Irrigator expectations', words: 60, done: false, argument: 'Predictability, contestability, and fairness across the network.', theory: 'NSW Farmers (2023) + Griffith City Council (2025)', message: 'Irrigators experience delivery reliability, not the system itself. They need failures caught early, alerts explainable, and no disadvantage from where they sit in the network.' },
-      { num: '5.3', title: 'Environmental needs', words: 55, done: false, argument: 'Temporal precision over volume. A hydrograph one week late misses the ecological window.', theory: 'Dwyer et al. (2026)', message: 'Dwyer et al. (2026) show 6-8 indicators explain 98-100% of ecological variation. The system must protect overbank flows and baseflows — missing these by a week loses the window.' },
-      { num: '5.4', title: 'First Nations interests', words: 55, done: false, argument: 'Co-governance is a governance requirement, not consultation.', theory: 'MLDRIN (2018) + Clarke & Michael (2022)', message: 'MLDRIN (2018) establishes co-governance as a rights-based requirement. A system making decisions about water on Country without First Nations involvement reproduces marginalisation algorithmically.' },
-      { num: '6.1', title: 'Risks & tensions', words: 80, done: false, argument: 'Introducing AI reshapes people, structure, and tasks simultaneously.', theory: 'Cosijn et al. (2023) — joint optimisation', message: 'Changing the technology changes everything else — operator roles, SCADA\'s structural function, maintenance task definitions. Cosijn et al. (2023) call this joint optimisation. Ignoring it is how AI projects fail.' },
-      { num: '6.2', title: 'Equity & fairness risks', words: 70, done: false, argument: 'Training on well-monitored head-works nodes systematically underperforms at tail-end nodes.', theory: 'ABARES (2024) + Cosijn et al. (2023)', message: 'If the model is trained where the good sensors are, it will be worst where the sensors are worst — the tail end. This is not a bug to fix later; it is a design choice made now.' },
-      { num: '6.3', title: 'Trust & accountability', words: 70, done: false, argument: 'No governance framework exists for who is responsible when the AI is wrong.', theory: 'Dwyer et al. (2026) + Singha et al. (2026)', message: 'When the system misses a fault and a farmer loses a crop — who is responsible? Without explainability and a documented decision trail, accountability is impossible.' },
-      { num: '7.1', title: 'Source selection', words: 70, done: false, argument: 'Ten sources across six types triangulate all four system dimensions.', theory: 'Cosijn et al. (2023)', message: 'Each of the four system dimensions — structure, people, technology, tasks — needs at least one dedicated source type. A portfolio built only on technical literature cannot credibly analyse governance or equity risks.' },
-      { num: '7.2', title: 'Metadata context', words: 90, done: false, argument: 'Critical evaluation: DPIE (2024) is historical, CRC page is promotional, MI is self-published.', theory: 'Clarke & Michael (2022)', message: 'Every source has a bias and a scope limit. Naming them explicitly separates HD evidence analysis from ordinary referencing.' },
-      { num: '8.1', title: 'Technical requirements', words: 70, done: false, argument: 'Four specifications, each traceable to a named stakeholder.', theory: 'Ejaz et al. (2025) + Kanyama et al. (2024)', message: 'Spec 1: FP suppression — MI operators. Spec 2: SHAP explainability — operators. Spec 3: tail-node parity — tail-end irrigators. Spec 4: baseflow integrity — environmental holders. Every requirement names the human it serves.' },
-      { num: '8.2', title: 'Governance safeguards', words: 55, done: false, argument: 'Human validation before every high-consequence alert.', theory: 'Clarke & Michael (2022) + Cosijn et al. (2023)', message: 'No alert triggering delivery adjustment, crew dispatch, or compliance review should execute without a documented human decision. MDBA (2026) creates the window to standardise this now.' },
-      { num: '8.3', title: 'Design principles', words: 45, done: false, argument: 'Three preconditions for adoption — not aspirations: co-design, network equity, explainability.', theory: 'Cosijn et al. (2023) + Clarke & Michael (2022) + Dwyer et al. (2026)', message: 'Trust is earned through process, not claimed through accuracy. Without co-design, network equity, and explainability baked in from the start, the system will not be adopted by the people who matter most.' },
-      { num: '9.1', title: 'Why reliability matters', words: 55, done: false, argument: 'One gate fault cascades simultaneously across farmer, environmental manager, First Nations community, and governance institution.', theory: 'ABS (2024) + MDBA (2026) + Dwyer et al. (2026)', message: 'One undetected fault: missed irrigation window, delayed ecological flow, disrupted cultural flow, corrupted allocation data — simultaneously. At 11,760 GL nationally, reliability is a governance obligation.' },
-      { num: '9.2', title: 'Socio-technical intervention', words: 55, done: false, argument: 'Success criteria extend beyond model accuracy to governance quality.', theory: 'Clarke & Michael (2022) + Cosijn et al. (2023) + Dwyer et al. (2026)', message: 'When the system is wrong — and it will be wrong — who is responsible? That question, not accuracy, is the measure of whether this project succeeds as a governance intervention.' }
+      {
+        sectionNum: '1', sectionTitle: 'Problem space and operational context', sectionWords: 200,
+        subs: [
+          {
+            num: '1.1', title: 'From infrastructure modernisation to governance gap', words: 200, done: false,
+            argument: 'Frames the problem as institutional as much as technical — $348M automation is complete but governance maturity has not kept pace, creating the gap the prototype addresses.',
+            theory: 'Kanyama et al. (2024) + NSW DPIE (2024) + One Basin CRC (n.d.-b) + Ejaz et al. (2025)',
+            message: 'This is a governance problem with an engineering response. The prototype exists because the Basin\'s governance capacity has not kept pace with its physical transformation.'
+          }
+        ]
+      },
+      {
+        sectionNum: '2', sectionTitle: 'Stakeholder landscape', sectionWords: 200,
+        subs: [
+          {
+            num: '2.1', title: 'Primary stakeholders — operational', words: 60, done: false,
+            argument: 'Four entities form an operational core whose interdependency is structural, not incidental — MI, WaterNSW, Rubicon, and Coleambally Irrigation.',
+            theory: 'One Basin CRC (n.d.-b) + WaterNSW (n.d.-b) + Murrumbidgee Irrigation (n.d.)',
+            message: 'Three organisations, one system. A failure at any node cascades across all three. The interdependency is structural.'
+          },
+          {
+            num: '2.2', title: 'Primary stakeholders — non-operational', words: 80, done: false,
+            argument: 'Irrigators, CEWO, and First Nations peoples are defined by exposure to failure, not proximity to infrastructure.',
+            theory: 'Dwyer et al. (2026) + MLDRIN (2018) + Bureau of Meteorology (n.d.-a)',
+            message: 'Irrigators, environmental holders, and First Nations communities are not peripheral — they bear the consequences of every undetected fault.'
+          },
+          {
+            num: '2.3', title: 'Secondary and tertiary stakeholders', words: 60, done: false,
+            argument: 'MDBA, Australian Government, NSW Farmers, and Griffith City Council shape the institutional conditions for adoption; BOM and ABARES are tertiary data infrastructure.',
+            theory: 'MDBA (2026) + NSW Farmers (2023) + Griffith City Council (2025)',
+            message: 'The governance window is open. The 2026 Basin Plan Review means the institutional conditions for AI adoption are actively being shaped right now.'
+          }
+        ]
+      },
+      {
+        sectionNum: '3', sectionTitle: 'Stakeholder mapping: power, risk, and interdependency', sectionWords: 300,
+        subs: [
+          {
+            num: '3.1', title: 'Formal power versus operational power', words: 80, done: false,
+            argument: 'The MDBA holds formal authority but zero operational authority over whether MI\'s field teams act on an AI alert — adoption is governed by explainability and workflow, not policy.',
+            theory: 'Clarke & Michael (2022) + Dwyer et al. (2026)',
+            message: 'MDBA can shape the policy environment but cannot make MI\'s field teams trust an AI alert. Adoption authority sits at the operational level, regardless of where formal power sits.'
+          },
+          {
+            num: '3.2', title: 'Risk asymmetry and exposure', words: 80, done: false,
+            argument: 'Risk exposure is inverse to formal power — tail-end irrigators, environmental holders, and First Nations bear the greatest consequences while those with most formal power bear the least.',
+            theory: 'ABARES (2024) + Clarke & Michael (2022) + MLDRIN (2018)',
+            message: 'Tail-end irrigators already carry the largest regional burden from water recovery. Algorithmic underperformance at data-sparse nodes would compound that burden invisibly.'
+          },
+          {
+            num: '3.3', title: 'Interdependency chains and the stakeholder map', words: 140, done: false,
+            argument: 'Six annotated interdependencies show that a failure at any single node propagates simultaneously across multiple stakeholder groups — the map must be read as a system diagram.',
+            theory: 'Clarke & Michael (2022) + Cosijn et al. (2023)',
+            message: 'Six annotated dependency arrows show how a BOM gauge failure flows through WaterNSW, MI, irrigators, environmental holders, and governance reporting. The map is a system diagram, not a hierarchy.'
+          }
+        ]
+      },
+      {
+        sectionNum: '4', sectionTitle: 'Stakeholder needs, values, and tensions', sectionWords: 350,
+        subs: [
+          {
+            num: '4.1', title: 'Stakeholder needs', words: 175, done: false,
+            argument: 'Four groups\' needs converge on a system whose success criteria extend well beyond detection accuracy — operators need discrimination, irrigators need fairness, environmental holders need temporal precision, First Nations need co-governance.',
+            theory: 'One Basin CRC (n.d.-b) + Kanyama et al. (2024) + Singha et al. (2026) + Dwyer et al. (2026) + MLDRIN (2018)',
+            message: 'The system must earn trust by being right more often than it cries wolf, protect ecological windows, and operate on Country — not in a governance-neutral space.'
+          },
+          {
+            num: '4.2', title: 'Structural tensions and risks', words: 175, done: false,
+            argument: 'Three structural tensions threaten HD: joint optimisation failure (automation speed outpaced governance maturity), structural model bias (tail-end nodes underserved), and accountability gap (no framework for responsibility when the AI is wrong).',
+            theory: 'Cosijn et al. (2023) + ABARES (2024) + NSW Farmers (2023) + Clarke & Michael (2022) + Singha et al. (2026)',
+            message: 'If the model is trained where the good sensors are, it will be worst where the sensors are worst — the tail end. And when it misses a fault, who is responsible? Without explainability, accountability is impossible.'
+          }
+        ]
+      },
+      {
+        sectionNum: '5', sectionTitle: 'System specifications', sectionWords: 250,
+        subs: [
+          {
+            num: '5.1', title: 'Technical requirements', words: 120, done: false,
+            argument: 'Four technical specs each traceable to a named stakeholder: FP suppression (operators), SHAP explainability (operators), tail-node parity (tail-end irrigators), hydrometric integrity (environmental holders).',
+            theory: 'One Basin CRC (n.d.-b) + Kanyama et al. (2024) + Singha et al. (2026) + Dwyer et al. (2026) + ABARES (2024) + Ejaz et al. (2025)',
+            message: 'Every requirement names the human it serves. Spec 1: FP suppression — MI operators. Spec 2: SHAP explainability — operators. Spec 3: tail-node parity — tail-end irrigators. Spec 4: baseflow integrity — environmental holders.'
+          },
+          {
+            num: '5.2', title: 'Governance requirements and design preconditions', words: 130, done: false,
+            argument: 'Human validation before every high-consequence alert; three design preconditions: co-design with those most exposed, network equity, SHAP explainability as standard.',
+            theory: 'Clarke & Michael (2022) + Cosijn et al. (2023) + MDBA (2026) + NSW DPIE (2024) + Dwyer et al. (2026)',
+            message: 'Basin governance cannot delegate consequential decisions to an algorithm without establishing who is responsible when it is wrong. The MDBA (2026) creates the institutional window to standardise this now.'
+          }
+        ]
+      },
+      {
+        sectionNum: '6', sectionTitle: 'Conclusion', sectionWords: 100,
+        subs: [
+          {
+            num: '6.1', title: 'Reliability as governance obligation', words: 100, done: false,
+            argument: 'Infrastructure reliability is a Basin-wide governance matter — an undetected fault cascades across the full stakeholder ecosystem simultaneously. The project is a governance intervention with an engineering component.',
+            theory: 'MDBA (2026) + Dwyer et al. (2026) + Bureau of Meteorology (n.d.-b) + ABS (2024) + Clarke & Michael (2022) + Cosijn et al. (2023)',
+            message: 'When the system is wrong — and it will be wrong — who is responsible? That question, not accuracy, is the measure of whether this project succeeds as a governance intervention.'
+          }
+        ]
+      }
     ];
 
     var EVIDENCE = [
@@ -830,7 +898,7 @@
       { id: 'D5', name: 'NSW DPIE — MIAF Consultation', type: 'Government consultation report', op: false, sections: ['op', 'risk'], implication: 'Documents irrigator expectations of monitoring accuracy pre-completion — historical baseline.', bias: 'Historical snapshot Nov 2021. Not current operational assessment.' },
       { id: 'D6', name: 'ABARES — Water Recovery Impacts', type: 'Government statistical data', op: false, sections: ['risk'], implication: 'Confirms Murrumbidgee carries the largest estimated regional impacts of southern MDB recovery.', bias: 'Survey-based; sampling limitations; no node-level disaggregation.' },
       { id: 'D7', name: 'BOM — Murrumbidgee Catchment Portal', type: 'Interactive catchment portal', op: true, sections: ['fn', 'env'], implication: 'Identifies First Nations groups on Country — establishes cultural sovereignty context for AI data governance.', bias: 'Navigation-heavy; no stable deep-page links; cannot be cited as a data source without download.' },
-      { id: 'D8', name: 'One Basin CRC — Anomaly Detection Prototype', type: 'Project documentation', op: true, sections: ['op', 'design'], implication: 'Primary source for FMEA, design intent, and workforce transition plans. Project complete Feb 2026.', bias: 'Promotional framing; no independent evaluation of outcomes.' },
+      { id: 'D8', name: 'One Basin CRC — Anomaly Detection Prototype', type: 'Project documentation', op: true, sections: ['op', 'design'], implication: 'Primary source for FMEA, design intent, and workforce transition plans. Project completed May 2024.', bias: 'Promotional framing; no independent evaluation of outcomes.' },
       { id: 'D9', name: 'Griffith City Council — Water Prospectus', type: 'Local government report', op: false, sections: ['risk', 'fn'], implication: 'Frames infrastructure reliability as a regional development precondition.', bias: 'Local government advocacy; represents one community, not all MIA communities.' },
       { id: 'D10', name: 'Murrumbidgee Irrigation — Modernisation', type: 'Industry webpage', op: true, sections: ['op', 'design'], implication: 'Documents $348M automation completion — physical automation done, governance maturity has not kept pace.', bias: 'Self-published; no independent audit; current as of early 2025.' }
     ];
@@ -848,6 +916,7 @@
       { name: 'Murrumbidgee\nIrrigation', type: 'ops', x: 50, y: 50, desc: 'Primary operator + named CRC project partner. Translates AI alerts into on-ground decisions. 3,093 landholdings.' },
       { name: 'WaterNSW', type: 'ops', x: 62, y: 40, desc: 'Manages bulk water releases from Burrinjuck Dam. Delivery scheduling depends on transmission loss modelling.' },
       { name: 'Rubicon', type: 'ops', x: 56, y: 62, desc: 'Automated control system technology. Named core project partner.' },
+      { name: 'Coleambally\nIrrigation', type: 'ops', x: 44, y: 62, desc: 'Named CRC project partner, extending the system\'s geographic scope beyond the MIA.' },
       { name: 'Irrigators', type: 'affected', x: 32, y: 30, desc: '2,300+ shareholder customers. Bear immediate financial risk from delivery scheduling failures.' },
       { name: 'Tail-end\nirrigators', type: 'affected', x: 22, y: 55, desc: 'Sub-group with greatest exposure to model underperformance and data-sparse nodes. Already carry largest Basin recovery impacts.' },
       { name: 'CEWO', type: 'affected', x: 38, y: 72, desc: 'Commonwealth Environmental Water Office. Bears compliance risk when anomalies disrupt timed ecological flow events.' },
@@ -858,7 +927,7 @@
       { name: 'NSW DPIE', type: 'gov', x: 76, y: 35, desc: 'Administered MIAF funding. Off-farm Efficiency Program — $1.54B federal investment context.' },
       { name: 'NSW Farmers', type: 'gov', x: 85, y: 50, desc: 'Industry advocacy body. Frames Basin community needs at policy level.' },
       { name: 'Australian\nGovernment', type: 'gov', x: 88, y: 68, desc: '$1.54B Off-farm Efficiency Program funder. Sets formal governance environment.' },
-      { name: 'One Basin\nCRC', type: 'research', x: 50, y: 82, desc: 'Research body. Developed and delivered the anomaly detection prototype.' },
+      { name: 'One Basin\nCRC', type: 'research', x: 50, y: 82, desc: 'Research body. Developed and delivered the anomaly detection prototype (completed May 2024).' },
       { name: 'BOM', type: 'research', x: 62, y: 88, desc: 'Provides baseline hydrometric data. ~6,000 national gauges.' },
       { name: 'ABARES', type: 'research', x: 38, y: 88, desc: 'Produces irrigation water use and economic impact data.' }
     ];
@@ -878,82 +947,30 @@
       { name: 'BOM', power: 50, interest: 30, color: '#888' }
     ];
 
-    var ARG_PAGE_SIZE = 7;
-    var argPage = 0;
-    var EV_PAGE_SIZE = 5;
-    var evPage = 0;
 
-    var ARG_PANEL_EMPTY =
-      '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:0.62rem;color:var(--ink3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Select a section</div>' +
-      '<p style="font-size:0.78rem;color:var(--ink3);">Click any section on the left to see what argument it makes, what theory it applies, and the key message.</p>';
-    var ARG_THEORY_EMPTY =
-      '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:0.62rem;color:var(--ink3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem;">Theory applied</div>' +
-      '<p style="font-size:0.75rem;color:var(--ink3);">\u2014</p>';
-    var EV_PANEL_EMPTY =
-      '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:0.62rem;color:var(--ink3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Select a source</div>' +
-      '<p style="font-size:0.78rem;color:var(--ink3);">Click any source to see which argument sections it supports, its bias classification, and its system-level implication.</p>';
 
-    function resetArgView() {
-      document.querySelectorAll('.arg-node').forEach(function (n) { n.classList.remove('active'); });
-      document.getElementById('arg-panel').innerHTML = ARG_PANEL_EMPTY;
-      document.getElementById('arg-theory').innerHTML = ARG_THEORY_EMPTY;
-    }
 
-    function resetEvView() {
-      document.querySelectorAll('.ev-source').forEach(function (e) { e.classList.remove('selected'); });
-      document.getElementById('ev-panel').innerHTML = EV_PANEL_EMPTY;
-    }
-
-    function renderArgPagination() {
-      var total = SECTIONS.length;
-      var size = ARG_PAGE_SIZE;
-      var pages = Math.max(1, Math.ceil(total / size));
-      if (argPage > pages - 1) argPage = pages - 1;
-      var startN = argPage * size + 1;
-      var endN = Math.min((argPage + 1) * size, total);
-      var pag = document.getElementById('arg-pagination');
-      pag.innerHTML = '<span class="list-pagination-info">Sections ' + startN + '\u2013' + endN + ' of ' + total + '</span>' +
-        '<div class="list-pagination-btns">' +
-        '<button type="button" class="arg-page-prev"' + (argPage <= 0 ? ' disabled' : '') + '>Previous</button>' +
-        '<button type="button" class="arg-page-next"' + (argPage >= pages - 1 ? ' disabled' : '') + '>Next</button>' +
-        '</div>';
-      pag.querySelector('.arg-page-prev').addEventListener('click', function () {
-        if (argPage > 0) {
-          argPage--;
-          resetArgView();
-          buildArgFlowPage();
-        }
-      });
-      pag.querySelector('.arg-page-next').addEventListener('click', function () {
-        if (argPage < pages - 1) {
-          argPage++;
-          resetArgView();
-          buildArgFlowPage();
-        }
-      });
-    }
-
-    function buildArgFlowPage() {
+    function buildArgFlow() {
       var flow = document.getElementById('arg-flow');
-      flow.innerHTML = '';
-      var total = SECTIONS.length;
-      var pages = Math.max(1, Math.ceil(total / ARG_PAGE_SIZE));
-      if (argPage > pages - 1) argPage = pages - 1;
-      var start = argPage * ARG_PAGE_SIZE;
-      var slice = SECTIONS.slice(start, start + ARG_PAGE_SIZE);
-      slice.forEach(function (s, idx) {
-        var node = document.createElement('div');
-        node.className = 'arg-node';
-        node.innerHTML = '<div class="arg-node-num">' + s.num + '</div>' +
-          '<div class="arg-node-title">' + s.title + '</div>' +
-          '<div class="arg-node-words">~' + s.words + 'w</div>';
-        node.addEventListener('click', (function (sec, nd) { return function () { selectSection(sec, nd); }; })(s, node));
-        flow.appendChild(node);
-        if (idx < slice.length - 1) {
-          var c = document.createElement('div'); c.className = 'arg-connector'; flow.appendChild(c);
-        }
+      SECTIONS.forEach(function (sec, si) {
+        var divider = document.createElement('div');
+        divider.className = 'arg-group-divider';
+        divider.textContent = sec.sectionNum + ' — ' + sec.sectionTitle + ' · ' + sec.sectionWords + 'w';
+        flow.appendChild(divider);
+        sec.subs.forEach(function (s, idx) {
+          var node = document.createElement('div');
+          node.className = 'arg-node';
+          if (s.done) node.style.background = '#f4f7f4';
+          node.innerHTML = '<div class="arg-node-num">' + s.num + '</div>' +
+            '<div class="arg-node-title">' + s.title + '</div>' +
+            '<div class="arg-node-words">~' + s.words + 'w' + (s.done ? ' &middot; <span style="color:var(--green)">done</span>' : '') + '</div>';
+          node.addEventListener('click', (function (sec2, nd) { return function () { selectSection(sec2, nd); }; })(s, node));
+          flow.appendChild(node);
+          if (idx < sec.subs.length - 1) {
+            var c = document.createElement('div'); c.className = 'arg-connector'; flow.appendChild(c);
+          }
+        });
       });
-      renderArgPagination();
     }
 
     function selectSection(s, node) {
@@ -1030,44 +1047,9 @@
     }
 
     var TM = { op: 'operational', gov: 'governance', risk: 'risk/equity', env: 'environmental', fn: 'first nations', design: 'system design' };
-
-    function renderEvPagination() {
-      var total = EVIDENCE.length;
-      var size = EV_PAGE_SIZE;
-      var pages = Math.max(1, Math.ceil(total / size));
-      if (evPage > pages - 1) evPage = pages - 1;
-      var startN = evPage * size + 1;
-      var endN = Math.min((evPage + 1) * size, total);
-      var pag = document.getElementById('ev-pagination');
-      pag.innerHTML = '<span class="list-pagination-info">Sources ' + startN + '\u2013' + endN + ' of ' + total + '</span>' +
-        '<div class="list-pagination-btns">' +
-        '<button type="button" class="ev-page-prev"' + (evPage <= 0 ? ' disabled' : '') + '>Previous</button>' +
-        '<button type="button" class="ev-page-next"' + (evPage >= pages - 1 ? ' disabled' : '') + '>Next</button>' +
-        '</div>';
-      pag.querySelector('.ev-page-prev').addEventListener('click', function () {
-        if (evPage > 0) {
-          evPage--;
-          resetEvView();
-          buildEvidencePage();
-        }
-      });
-      pag.querySelector('.ev-page-next').addEventListener('click', function () {
-        if (evPage < pages - 1) {
-          evPage++;
-          resetEvView();
-          buildEvidencePage();
-        }
-      });
-    }
-
-    function buildEvidencePage() {
+    function buildEvidence() {
       var list = document.getElementById('ev-list');
-      list.innerHTML = '';
-      var total = EVIDENCE.length;
-      var pages = Math.max(1, Math.ceil(total / EV_PAGE_SIZE));
-      if (evPage > pages - 1) evPage = pages - 1;
-      var start = evPage * EV_PAGE_SIZE;
-      EVIDENCE.slice(start, start + EV_PAGE_SIZE).forEach(function (src) {
+      EVIDENCE.forEach(function (src) {
         var el = document.createElement('div'); el.className = 'ev-source';
         el.innerHTML = '<div style="display:flex;align-items:center;gap:0.5rem;">' +
           '<span style="font-family:\'IBM Plex Mono\',monospace;font-size:0.58rem;color:var(--ink3);">' + src.id + '</span>' +
@@ -1078,7 +1060,6 @@
         el.addEventListener('click', (function (s, e) { return function () { selectSource(s, e); }; })(src, el));
         list.appendChild(el);
       });
-      renderEvPagination();
     }
 
     function selectSource(src, el) {
@@ -1096,11 +1077,26 @@
         '<div style="font-size:0.75rem;color:var(--ink2);font-style:italic;line-height:1.55;">' + src.bias + '</div>';
     }
 
-    buildArgFlowPage();
+
+  ];
+    document.getElementById('task-list-draft').innerHTML = draftPhases.map(function (p) {
+      return '<div class="phase-title">' + p.title + '</div>' + p.items.map(makeTask).join('');
+    }).join('');
+    document.getElementById('task-list-evidence').innerHTML = TASKS_EVIDENCE.map(makeTask).join('');
+    var compPhases = [
+      { title: 'Appendices', items: TASKS_COMPLIANCE.slice(0, 4) },
+      { title: 'Quality & submission', items: TASKS_COMPLIANCE.slice(4) }
+    ];
+    document.getElementById('task-list-compliance').innerHTML = compPhases.map(function (p) {
+      return '<div class="phase-title">' + p.title + '</div>' + p.items.map(makeTask).join('');
+    }).join('');
+}
+
+    buildArgFlow();
     buildSmap();
     buildMatrix();
     buildDeps();
-    buildEvidencePage();
+    buildEvidence();
   </script>
 </body>
 
