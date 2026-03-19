@@ -1076,22 +1076,6 @@
         '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink3);margin-bottom:0.35rem;">Known limitations / bias</div>' +
         '<div style="font-size:0.75rem;color:var(--ink2);font-style:italic;line-height:1.55;">' + src.bias + '</div>';
     }
-
-
-  ];
-    document.getElementById('task-list-draft').innerHTML = draftPhases.map(function (p) {
-      return '<div class="phase-title">' + p.title + '</div>' + p.items.map(makeTask).join('');
-    }).join('');
-    document.getElementById('task-list-evidence').innerHTML = TASKS_EVIDENCE.map(makeTask).join('');
-    var compPhases = [
-      { title: 'Appendices', items: TASKS_COMPLIANCE.slice(0, 4) },
-      { title: 'Quality & submission', items: TASKS_COMPLIANCE.slice(4) }
-    ];
-    document.getElementById('task-list-compliance').innerHTML = compPhases.map(function (p) {
-      return '<div class="phase-title">' + p.title + '</div>' + p.items.map(makeTask).join('');
-    }).join('');
-}
-
     buildArgFlow();
     buildSmap();
     buildMatrix();
