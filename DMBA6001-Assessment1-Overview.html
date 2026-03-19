@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assessment 1 — Argument Map</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --bg2: #f7f7f5;
+      --bg3: #f0eeea;
+      --text: #1a1a1a;
+      --text2: #5a5a5a;
+      --text3: #999;
+      --border: rgba(0, 0, 0, 0.12);
+      --border2: rgba(0, 0, 0, 0.22);
+      --border3: rgba(0, 0, 0, 0.35);
+      --info-bg: #e8f0fc;
+      --info-text: #1a4080;
+      --success-bg: #eaf3de;
+      --success-text: #3B6D11;
+      --mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --serif: Georgia, serif;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1a1a;
+        --bg2: #242424;
+        --bg3: #2e2e2e;
+        --text: #e8e8e8;
+        --text2: #a0a0a0;
+        --text3: #666;
+        --border: rgba(255, 255, 255, 0.1);
+        --border2: rgba(255, 255, 255, 0.2);
+        --border3: rgba(255, 255, 255, 0.35);
+        --info-bg: #0d2040;
+        --info-text: #85b7eb;
+        --success-bg: #0d2010;
+        --success-text: #97c459;
+      }
+    }
+
+    body {
+      background: var(--bg2);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+      overflow-x: clip;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    a {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    p {
+      overflow-wrap: anywhere;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--bg);
+      border-bottom: 0.5px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav-back {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text3);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-back:hover {
+      color: var(--text2);
+    }
+
+    .nav-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .nav-sub {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text3);
+      margin-left: auto;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    @media (max-width: 800px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-col {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav {
+        flex-wrap: wrap;
+        padding: 0.75rem 1rem;
+        gap: 0.5rem;
+      }
+
+      .nav-sub {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .container {
+        padding: 1rem;
+      }
+
+      .detail-col {
+        position: static;
+        top: auto;
+      }
+
+      .arg-node {
+        flex: 1 1 100%;
+        max-width: 100%;
+        min-width: 0;
+      }
+    }
+
+    /* ── LEFT: SPINE ── */
+    .spine-col {}
+
+    .legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .leg-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text3);
+      font-family: var(--mono);
+    }
+
+    .leg-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .arg-group {
+      margin-bottom: 1rem;
+    }
+
+    .arg-group-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0 2px 6px;
+    }
+
+    .arg-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .arg-node {
+      flex: 1;
+      min-width: 110px;
+      max-width: 170px;
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 8px 10px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      position: relative;
+      user-select: none;
+    }
+
+    .arg-node:hover {
+      border-color: var(--border2);
+      background: var(--bg2);
+    }
+
+    .arg-node.done {
+      background: var(--bg2);
+    }
+
+    .arg-node.active {
+      border-left: 2px solid;
+    }
+
+    .node-num {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text3);
+      margin-bottom: 3px;
+    }
+
+    .node-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .node-words {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text3);
+      margin-top: 4px;
+    }
+
+    .done-pip {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #3B6D11;
+    }
+
+    /* ── RIGHT: DETAIL ── */
+    .detail-col {
+      position: sticky;
+      top: 60px;
+    }
+
+    .detail-panel {
+      background: var(--bg);
+      border: 0.5px solid var(--border2);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      min-height: 300px;
+    }
+
+    .detail-empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      font-size: 13px;
+      color: var(--text3);
+    }
+
+    .detail-num {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .detail-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+
+    .detail-section {
+      margin-bottom: 12px;
+    }
+
+    .detail-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .detail-body {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    .detail-starter {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.65;
+      font-style: italic;
+      border-left: 2px solid var(--border2);
+      padding: 6px 10px;
+      background: var(--bg2);
+    }
+
+    .detail-thread {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-top: 10px;
+      padding: 8px 10px;
+      background: var(--bg2);
+      border-radius: var(--radius-md);
+    }
+
+    .thread-arrow {
+      font-size: 11px;
+      color: var(--text3);
+      margin-top: 1px;
+      flex-shrink: 0;
+      font-weight: 500;
+    }
+
+    .thread-text {
+      font-size: 12px;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="library.html?subject=DMBA6001" class="nav-back">← DMBA 6001 Library</a>
+    <span class="nav-title">Assessment 1 — Argument Map</span>
+    <span class="nav-sub">DMBA 6001 · University of Sydney</span>
+  </nav>
+
+  <div class="container">
+    <div class="spine-col">
+      <div class="legend">
+        <div class="leg-item">
+          <div class="leg-dot" style="background:#3B6D11;"></div>Done
+        </div>
+        <div class="leg-item">
+          <div class="leg-dot" style="background:var(--border2);"></div>Pending
+        </div>
+        <div class="leg-item" style="margin-left:auto;">Click any section →</div>
+      </div>
+      <div id="spine"></div>
+    </div>
+
+    <div class="detail-col">
+      <div class="detail-panel" id="detail">
+        <div class="detail-empty">Select a section to see its argument</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const GROUPS = [
+      {
+        label: '1–2  Context',
+        color: '#7F77DD',
+        nodes: [
+          {
+            num: '1.1', title: 'Problem definition', words: 80, done: true,
+            arg: 'Frames the problem as institutional failure — the Basin generates more data than its governance structures can handle.',
+            theory: 'Dwyer et al. (2026) + WaterNSW (n.d.-a)',
+            starter: 'This portfolio examines the Murrumbidgee catchment as the operational context for the One Basin CRC\'s anomaly detection prototype — a governance problem with an engineering response, not the reverse.',
+            thread: 'Sets up the core argument: this is a governance intervention, not an engineering upgrade.'
+          },
+          {
+            num: '1.2', title: 'Past-to-present', words: 70, done: true,
+            arg: '$348M physical automation was completed by early 2025 — but governance maturity has not kept pace. The gap is the problem.',
+            theory: 'Murrumbidgee Irrigation (n.d.) + NSW DPIE (2024)',
+            starter: 'Nearly $348M deployed between 2013 and 2025 — physical automation is complete; operational maturity is not.',
+            thread: 'Establishes why the anomaly detection prototype is needed now, at this specific moment.'
+          },
+          {
+            num: '2.1', title: 'How delivery works', words: 60, done: true,
+            arg: 'The delivery chain is a sequential dependency. One undetected fault upstream propagates as delivery failure for multiple farms.',
+            theory: 'WaterNSW (n.d.-b) — transmission loss modelling',
+            starter: 'BOM → WaterNSW → MI canal network → 3,093 landholdings. One undetected sensor fault propagates silently across multiple farms.',
+            thread: 'Explains the technical stakes of infrastructure failure before the stakeholder analysis begins.'
+          },
+          {
+            num: '2.2', title: 'Infrastructure & automation', words: 50, done: true,
+            arg: 'Alert volume is itself an operational liability. SCADA generates so many alerts that alarm fatigue masks genuine faults.',
+            theory: 'Kanyama et al. (2024) — 32 peer-reviewed studies, alarm fatigue in water networks',
+            starter: 'The volume of SCADA alerts has become a structural liability — Kanyama et al. (2024) confirm alarm fatigue masks genuine failures in smart water network environments.',
+            thread: 'Connects the technical problem to Section 5.1 — operators need discrimination, not detection.'
+          },
+          {
+            num: '2.3', title: 'Operational challenges', words: 60, done: true,
+            arg: 'Sensor drift and comms dropouts corrupt hydrometric data used for Basin-wide allocation — linking local infrastructure failure to Basin governance integrity.',
+            theory: 'One Basin CRC (n.d.-b) FMEA + Bureau of Meteorology (n.d.-b)',
+            starter: 'FMEA identified water level sensors, battery systems, and comms infrastructure as critical failure modes — failures that corrupt Basin-wide allocation data, not just local delivery.',
+            thread: 'Elevates the stakes from "delivery failure" to "governance data failure" — bridges to Section 6.'
+          }
+        ]
+      },
+      {
+        label: '3–4  Stakeholders',
+        color: '#1D9E75',
+        nodes: [
+          {
+            num: '3.1', title: 'Operational stakeholders', words: 60, done: true,
+            arg: 'WaterNSW, MI, and Rubicon form an interdependent operational core — not three separate stakeholders but one system with three nodes.',
+            theory: 'Clarke & Michael (2022) — operational power vs formal governance power',
+            starter: 'MI\'s delivery scheduling depends on WaterNSW\'s release timing; WaterNSW\'s accuracy depends on BOM data integrity. A failure at any node cascades.',
+            thread: 'Sets up the interdependency chain that appears again in Section 4.3 and the stakeholder map.'
+          },
+          {
+            num: '3.2', title: 'Community & cultural', words: 50, done: true,
+            arg: 'This layer is defined by exposure to failure, not proximity to infrastructure. Environmental holders, First Nations communities, and irrigators bear consequences they cannot control.',
+            theory: 'Dwyer et al. (2026) + MLDRIN (2018)',
+            starter: 'Defined not by proximity to infrastructure but by exposure to its failure — 3,000+ EWRs link precise flow conditions to species outcomes that infrastructure anomalies silently undermine.',
+            thread: 'Introduces the equity asymmetry: those least able to influence the system bear the most risk from it.'
+          },
+          {
+            num: '3.3', title: 'Governance stakeholders', words: 40, done: true,
+            arg: 'The MDBA\'s 2026 Basin Plan Review creates a live policy window — this prototype is a pilot for a Basin-wide governance shift.',
+            theory: 'MDBA (2025) innovation sweep + MDBA (2026) Basin Plan Review',
+            starter: 'The MDBA\'s 2026 Basin Plan Review and $1.54B Off-farm Efficiency Program create the institutional window within which AI legitimacy must be demonstrated.',
+            thread: 'Connects local operational project to Basin-wide governance dynamics — elevates stakes.'
+          },
+          {
+            num: '4.1', title: 'Influence & power', words: 50, done: false,
+            arg: 'Formal power and operational power are separated. MDBA has policy authority; MI has adoption authority. Conflating them is the most common AI governance failure.',
+            theory: 'Clarke & Michael (2022) — multi-stakeholder risk framework',
+            starter: 'MDBA holds formal authority over Basin policy but zero operational authority over whether MI\'s field teams act on an AI alert. Adoption is decided at the field level.',
+            thread: 'The key analytical move — explains why regulators cannot mandate AI adoption.'
+          },
+          {
+            num: '4.2', title: 'Exposure to risk', words: 45, done: false,
+            arg: 'Risk exposure is asymmetric and inverse to formal power. Those with the least governance influence bear the greatest operational consequences.',
+            theory: 'ABARES (2024) — Murrumbidgee carries largest estimated regional water recovery impacts',
+            starter: 'Tail-end irrigators, First Nations, and environmental holders bear the most risk from AI underperformance while holding the least formal power to shape its design.',
+            thread: 'Sets up Section 6.2 on equity risks — the structural unfairness argument.'
+          },
+          {
+            num: '4.3', title: 'Relationship map', words: 45, done: false,
+            arg: 'The map must show interdependency chains, not rings. A failure at any single node propagates simultaneously across multiple stakeholder groups.',
+            theory: 'Cosijn et al. (2023) — joint optimisation, Leavitt\'s diamond',
+            starter: 'Six annotated interdependency arrows — BOM data quality → WaterNSW release → MI delivery → irrigator outcomes — read as a system, not a hierarchy.',
+            thread: 'Introduces the six dependency chains that anchor the HD mapping criterion.'
+          }
+        ]
+      },
+      {
+        label: '5  Needs',
+        color: '#BA7517',
+        nodes: [
+          {
+            num: '5.1', title: 'Operator needs', words: 60, done: false,
+            arg: 'Operators need discrimination, not detection. Low false positive rate + SHAP explainability are the two preconditions of operational value.',
+            theory: 'Kanyama et al. (2024) + Singha et al. (2026)',
+            starter: 'The operational need is for discrimination: false positive suppression + SHAP explainability. Without both, the system will not be trusted or used.',
+            thread: 'Directly traceable to Section 8.1 requirements 1 and 2 — closes the needs-to-specs loop.'
+          },
+          {
+            num: '5.2', title: 'Irrigator expectations', words: 60, done: false,
+            arg: 'Three expectations: predictability, contestability, fairness. The system is invisible infrastructure — felt only in its absence.',
+            theory: 'NSW Farmers (2023) + Griffith City Council (2025) + ABS (2024)',
+            starter: 'Predictability, contestability, and fairness across the network — the conditions under which irrigators will accept AI-driven operational decisions.',
+            thread: 'Directly traceable to Section 8.1 requirement 3 (tail-node parity) and Section 8.3 (co-design).'
+          },
+          {
+            num: '5.3', title: 'Environmental needs', words: 55, done: false,
+            arg: 'Temporal precision over volume. A planned hydrograph one week late misses the ecological window entirely. The system must protect overbank and baseflow indicators specifically.',
+            theory: 'Dwyer et al. (2026) — overbank flows and baseflows most ecologically decisive',
+            starter: 'A hydrograph one week late misses the ecological window. Dwyer et al. (2026) identify overbank flows and baseflows as the critical indicators — protect these specifically.',
+            thread: 'Directly traceable to Section 8.1 requirement 4 (hydrometric integrity for ecological indicators).'
+          },
+          {
+            num: '5.4', title: 'First Nations interests', words: 55, done: false,
+            arg: 'Co-governance is a governance requirement, not a consultation courtesy. Without First Nations involvement, the system risks reproducing structural marginalisation algorithmically.',
+            theory: 'MLDRIN (2018) + Clarke & Michael (2022)',
+            starter: 'MLDRIN (2018) establishes co-governance as a requirement — the system operates on Country and its design cannot be treated as culturally neutral.',
+            thread: 'Directly traceable to Section 8.3 — co-design with those most exposed closes the needs-to-design loop.'
+          }
+        ]
+      },
+      {
+        label: '6  Risks',
+        color: '#D85A30',
+        nodes: [
+          {
+            num: '6.1', title: 'Risks & tensions', words: 80, done: false,
+            arg: 'Changing technology reshapes people, structure, and tasks simultaneously. The speed of physical automation outpaced governance maturity — this project must close that gap.',
+            theory: 'Cosijn et al. (2023) — Leavitt\'s joint optimisation framework',
+            starter: 'Joint optimisation — introducing AI detection changes operator roles, SCADA\'s structural function, and maintenance task structures simultaneously. Governance has not kept pace.',
+            thread: 'The theoretical backbone of the entire assessment — all other risk arguments flow from joint optimisation failure.'
+          },
+          {
+            num: '6.2', title: 'Equity risks', words: 70, done: false,
+            arg: 'Structural model bias: training on well-monitored head-works nodes systematically underperforms at tail-end nodes — embedding existing inequalities in algorithmic form.',
+            theory: 'ABARES (2024) + Cosijn et al. (2023)',
+            starter: 'If training data comes predominantly from well-monitored head-works nodes, tail-end performance will be systematically worse — harder to contest than explicit policy.',
+            thread: 'Directly traceable to Section 8.1 requirement 3 (tail-node parity).'
+          },
+          {
+            num: '6.3', title: 'Trust & accountability', words: 70, done: false,
+            arg: 'No governance framework exists for who is responsible when the AI is wrong. Explainability is the precondition for accountable human-AI decision-making.',
+            theory: 'Dwyer et al. (2026) + Singha et al. (2026)',
+            starter: 'Structural accountability gap — no framework for responsibility when the AI is wrong. Explainability is the mechanism; without it, trust cannot be built or accountability assigned.',
+            thread: 'Directly traceable to Section 8.2 (governance safeguards) and 8.3 (explainability as precondition).'
+          }
+        ]
+      },
+      {
+        label: '7–9  Evidence · Design · Insights',
+        color: '#378ADD',
+        nodes: [
+          {
+            num: '7.1', title: 'Source selection', words: 70, done: false,
+            arg: 'Ten sources across six types triangulate all four system dimensions. Single-type portfolios cannot credibly analyse a socio-technical AI project.',
+            theory: 'Cosijn et al. (2023) — four system dimensions: structure, people, technology, tasks',
+            starter: 'Six source types, four system dimensions — every stakeholder perspective must be represented or the analysis is structurally incomplete.',
+            thread: 'Explains the portfolio strategy — each source type fills a dimension gap.'
+          },
+          {
+            num: '7.2', title: 'Metadata context', words: 90, done: false,
+            arg: 'Critical evaluation of bias: DPIE (2024) is historical, One Basin CRC (n.d.-b) is promotional, MI (n.d.) is self-published. Triangulation addresses each gap.',
+            theory: 'Clarke & Michael (2022)',
+            starter: 'Critical flags: DPIE (2024) = historical Nov 2021. One Basin CRC (n.d.-b) = promotional. ABS (2024) = national aggregation, not MIA-specific. Triangulation addresses each.',
+            thread: 'Directly targets the HD evidence criterion: "critical evaluation of evidence quality and bias."'
+          },
+          {
+            num: '8.1', title: 'Technical requirements', words: 70, done: false,
+            arg: 'Four requirements, each traceable to a named stakeholder: FP suppression → operators, SHAP explainability → operators, tail-node parity → tail-end irrigators, baseflow integrity → environmental holders.',
+            theory: 'Ejaz et al. (2025) + Kanyama et al. (2024)',
+            starter: 'Four traceable specs: (1) FP suppression → MI operators, (2) SHAP explainability → operators, (3) tail-node parity → tail-end irrigators, (4) baseflow integrity → env. holders.',
+            thread: 'The payoff of the entire stakeholder analysis — every spec names the stakeholder it serves.'
+          },
+          {
+            num: '8.2', title: 'Governance safeguards', words: 55, done: false,
+            arg: 'Human validation before every high-consequence alert. MDBA (2026) signals institutional readiness — a policy window to establish best-practice accountability standards.',
+            theory: 'Clarke & Michael (2022) + Cosijn et al. (2023)',
+            starter: 'Every alert triggering delivery adjustment, crew dispatch, or compliance review needs a documented human validation step. MDBA (2026) creates the institutional window.',
+            thread: 'Closes the accountability gap identified in Section 6.3.'
+          },
+          {
+            num: '8.3', title: 'Design principles', words: 45, done: false,
+            arg: 'Three preconditions for adoption: co-design with those most exposed, network-wide equity, SHAP explainability as standard.',
+            theory: 'Cosijn et al. (2023) + Clarke & Michael (2022) + Dwyer et al. (2026)',
+            starter: 'Three preconditions — not aspirations: co-design, network equity, SHAP explainability. Trust is earned through process, not claimed through performance.',
+            thread: 'Closes Sections 5.4 and 6.2 — design principles are the direct responses to needs and risks.'
+          },
+          {
+            num: '9.1', title: 'Why reliability matters', words: 55, done: false,
+            arg: 'One gate fault cascades simultaneously across farmer, environmental manager, First Nations community, and governance institution. Reliability is a systemic governance obligation.',
+            theory: 'ABS (2024) — 11,760 GL nationally; MDBA (2026) + Dwyer et al. (2026)',
+            starter: 'One fault: missed irrigation window, delayed ecological flow, disrupted cultural flow, and Basin data integrity failure — simultaneously. Reliability is a governance obligation.',
+            thread: 'The "so what" — connects everything back to the core argument.'
+          },
+          {
+            num: '9.2', title: 'Socio-technical intervention', words: 55, done: false,
+            arg: 'Success criteria extend beyond model performance to governance quality. The question every stakeholder will ask: when the system is wrong, who is responsible?',
+            theory: 'Clarke & Michael (2022) + Cosijn et al. (2023) + Dwyer et al. (2026)',
+            starter: 'Not engineering with governance implications — governance with engineering. When the system is wrong, who is responsible?',
+            thread: 'Restates the core argument and ends with the open question that demands an answer from system designers.'
+          }
+        ]
+      }
+    ];
+
+    let selected = null;
+
+    function render() {
+      const spine = document.getElementById('spine');
+      spine.innerHTML = '';
+      GROUPS.forEach(g => {
+        const grp = document.createElement('div');
+        grp.className = 'arg-group';
+        const label = document.createElement('div');
+        label.className = 'arg-group-label';
+        label.style.color = g.color;
+        label.textContent = g.label;
+        grp.appendChild(label);
+        const row = document.createElement('div');
+        row.className = 'arg-row';
+        g.nodes.forEach(n => {
+          const node = document.createElement('div');
+          node.className = 'arg-node' + (n.done ? ' done' : '') + (selected === n.num ? ' active' : '');
+          if (selected === n.num) node.style.borderLeftColor = g.color;
+          if (n.done) {
+            const pip = document.createElement('div');
+            pip.className = 'done-pip';
+            node.appendChild(pip);
+          }
+          const num = document.createElement('div');
+          num.className = 'node-num';
+          num.textContent = n.num;
+          const title = document.createElement('div');
+          title.className = 'node-title';
+          title.textContent = n.title;
+          const words = document.createElement('div');
+          words.className = 'node-words';
+          words.textContent = '~' + n.words + 'w';
+          node.appendChild(num);
+          node.appendChild(title);
+          node.appendChild(words);
+          node.addEventListener('click', () => {
+            selected = n.num;
+            render();
+            showDetail(n, g.color);
+          });
+          row.appendChild(node);
+        });
+        grp.appendChild(row);
+        spine.appendChild(grp);
+      });
+    }
+
+    function showDetail(n, color) {
+      const panel = document.getElementById('detail');
+      panel.innerHTML = '';
+
+      const makeDiv = (cls, text) => {
+        const d = document.createElement('div');
+        d.className = cls;
+        if (text) d.textContent = text;
+        return d;
+      };
+
+      panel.appendChild(makeDiv('detail-num', n.num + ' · ' + (n.done ? 'done' : 'pending')));
+      panel.appendChild(makeDiv('detail-title', n.title));
+
+      [
+        ['Argument it makes', n.arg, 'detail-body'],
+        ['Theory / evidence applied', n.theory, 'detail-body']
+      ].forEach(([label, body]) => {
+        const sec = makeDiv('detail-section');
+        sec.appendChild(makeDiv('detail-label', label));
+        sec.appendChild(makeDiv('detail-body', body));
+        panel.appendChild(sec);
+      });
+
+      const starterSec = makeDiv('detail-section');
+      starterSec.appendChild(makeDiv('detail-label', 'HD starter'));
+      starterSec.appendChild(makeDiv('detail-starter', n.starter));
+      panel.appendChild(starterSec);
+
+      const thread = makeDiv('detail-thread');
+      const arrow = makeDiv('thread-arrow', '→');
+      arrow.style.color = color;
+      const threadText = makeDiv('thread-text', n.thread);
+      thread.appendChild(arrow);
+      thread.appendChild(threadText);
+      panel.appendChild(thread);
+    }
+
+    render();
+  </script>
+</body>
+
+</html>
