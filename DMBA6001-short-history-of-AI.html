@@ -26,6 +26,16 @@
     font-family: 'IBM Plex Sans', sans-serif;
     font-weight: 300;
     overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  a {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  p {
+    overflow-wrap: anywhere;
   }
 
   /* ── HERO ── */
@@ -481,6 +491,59 @@
     .stats-strip { padding: 32px 24px; }
     .footer { padding: 24px; flex-direction: column; }
   }
+  @media (max-width: 480px) {
+    .hero {
+      padding: 40px 16px 32px;
+    }
+
+    .hero h1 {
+      font-size: 44px;
+      letter-spacing: -1px;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      max-width: 100%;
+    }
+
+    .timeline-section,
+    .concepts-section,
+    .people-section,
+    .milestones-section {
+      padding: 40px 16px;
+    }
+
+    .timeline::before {
+      left: 54px;
+    }
+
+    .tl-item {
+      grid-template-columns: 54px 1fr;
+      gap: 0 16px;
+    }
+
+    .tl-year {
+      font-size: 16px;
+    }
+
+    .tl-year::after {
+      right: -24px;
+    }
+
+    .stats-strip {
+      padding: 32px 16px;
+    }
+
+    .approaches-banner {
+      padding: 0 16px;
+    }
+
+    .footer {
+      padding: 20px 16px;
+      flex-direction: column;
+    }
+  }
+
 </style>
 </head>
 <body>

@@ -37,6 +37,17 @@
     min-height: 100vh;
     font-size: 13px;
     line-height: 1.5;
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  a {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  p {
+    overflow-wrap: anywhere;
   }
 
   .page {
@@ -449,6 +460,25 @@
 
     .footer { grid-template-columns: 1fr; }
   }
+  @media (max-width: 480px) {
+    body { padding: 16px; }
+
+    .header { margin-bottom: 24px; }
+    .title { font-size: 26px; }
+
+    .argument-bar {
+      padding: 14px 16px;
+      grid-template-columns: 1fr;
+    }
+
+    .argument-label {
+      white-space: normal;
+      max-width: 100%;
+    }
+
+    .footer { grid-template-columns: 1fr; }
+  }
+
 </style>
 </head>
 <body>
