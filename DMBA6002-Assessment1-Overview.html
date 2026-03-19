@@ -4,354 +4,650 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Assessment 1 — Argument Map</title>
+  <title>Assessment 1 — Visual Overview</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet">
   <style>
-    *,
-    *::before,
-    *::after {
+    :root {
+      --bg: #f6f3ee;
+      --bg2: #ede9e0;
+      --bg3: #e2ddd4;
+      --ink: #1c1b18;
+      --ink2: #5a5750;
+      --ink3: #999590;
+      --red: #c0392b;
+      --red-soft: #f0dcd9;
+      --green: #2d6a4f;
+      --green-soft: #d8f3dc;
+      --blue: #1a4a8a;
+      --blue-soft: #dce8f7;
+      --amber: #8a5a00;
+      --amber-soft: #fef0d0;
+      --teal: #0a6b55;
+      --teal-soft: #d0f0e8;
+      --rule: #d0cbc0;
+    }
+
+    * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    :root {
-      --bg: #ffffff;
-      --bg2: #f7f7f5;
-      --bg3: #f0eeea;
-      --text: #1a1a1a;
-      --text2: #5a5a5a;
-      --text3: #999;
-      --border: rgba(0, 0, 0, 0.12);
-      --border2: rgba(0, 0, 0, 0.22);
-      --border3: rgba(0, 0, 0, 0.35);
-      --info-bg: #e8f0fc;
-      --info-text: #1a4080;
-      --success-bg: #eaf3de;
-      --success-text: #3B6D11;
-      --mono: 'IBM Plex Mono', 'Courier New', monospace;
-      --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --serif: Georgia, serif;
-      --radius-md: 8px;
-      --radius-lg: 12px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #1a1a1a;
-        --bg2: #242424;
-        --bg3: #2e2e2e;
-        --text: #e8e8e8;
-        --text2: #a0a0a0;
-        --text3: #666;
-        --border: rgba(255, 255, 255, 0.1);
-        --border2: rgba(255, 255, 255, 0.2);
-        --border3: rgba(255, 255, 255, 0.35);
-        --info-bg: #0d2040;
-        --info-text: #85b7eb;
-        --success-bg: #0d2010;
-        --success-text: #97c459;
-      }
-    }
-
     body {
-      background: var(--bg2);
-      color: var(--text);
-      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
       font-size: 14px;
       line-height: 1.5;
-      min-height: 100vh;
-      overflow-x: clip;
-      -webkit-text-size-adjust: 100%;
     }
 
     a {
-      overflow-wrap: anywhere;
-      word-break: break-word;
+      color: var(--ink2);
+      text-decoration: none;
     }
 
-    p {
-      overflow-wrap: anywhere;
+    a:hover {
+      color: var(--red);
     }
 
-    /* ── NAV ── */
+    /* NAV */
     nav {
-      background: var(--bg);
-      border-bottom: 0.5px solid var(--border);
-      padding: 0.75rem 1.5rem;
+      background: var(--ink);
+      padding: 0.65rem 1.5rem;
       display: flex;
       align-items: center;
-      gap: 1rem;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      gap: 2rem;
     }
 
-    .nav-back {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--text3);
-      text-decoration: none;
-      letter-spacing: 0.05em;
+    .nav-brand {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      color: #888;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
-    .nav-back:hover {
-      color: var(--text2);
+    .nav-brand span {
+      color: #ccc;
     }
 
-    .nav-title {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .nav-sub {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--text3);
+    .nav-tabs {
+      display: flex;
+      gap: 0.25rem;
       margin-left: auto;
     }
 
-    /* ── LAYOUT ── */
-    .container {
+    .nav-tab {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #666;
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      transition: all 0.15s;
+    }
+
+    .nav-tab:hover {
+      color: #ccc;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-tab.active {
+      color: white;
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    /* VIEWS */
+    .view {
+      display: none;
+      padding: 1.5rem;
       max-width: 1100px;
       margin: 0 auto;
-      padding: 1.5rem;
-      display: grid;
-      grid-template-columns: 1fr 360px;
-      gap: 1.25rem;
-      align-items: start;
     }
 
-    @media (max-width: 800px) {
-      .container {
+    .view.active {
+      display: block;
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .section-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--ink3);
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+    }
+
+    /* CARDS */
+    .card {
+      background: white;
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+    }
+
+    .card-sm {
+      padding: 0.75rem 1rem;
+    }
+
+    /* GRID */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 700px) {
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
         grid-template-columns: 1fr;
       }
-
-      .detail-col {
-        order: -1;
-      }
     }
 
-    @media (max-width: 480px) {
-      nav {
-        flex-wrap: wrap;
-        padding: 0.75rem 1rem;
-        gap: 0.5rem;
-      }
-
-      .nav-sub {
-        margin-left: 0;
-        width: 100%;
-      }
-
-      .container {
-        padding: 1rem;
-      }
-
-      .detail-col {
-        position: static;
-        top: auto;
-      }
-
-      .arg-node {
-        flex: 1 1 100%;
-        max-width: 100%;
-        min-width: 0;
-      }
+    /* METRIC CARDS */
+    .metric {
+      background: var(--bg2);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
     }
 
-    /* ── LEFT: SPINE ── */
-    .spine-col {}
-
-    .legend {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 1.25rem;
-    }
-
-    .leg-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: var(--text3);
-      font-family: var(--mono);
-    }
-
-    .leg-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 2px;
-      flex-shrink: 0;
-    }
-
-    .arg-group {
-      margin-bottom: 1rem;
-    }
-
-    .arg-group-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.08em;
+    .metric-label {
+      font-size: 0.68rem;
+      color: var(--ink3);
+      font-family: 'IBM Plex Mono', monospace;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      padding: 0 2px 6px;
+      margin-bottom: 0.25rem;
     }
 
-    .arg-row {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
+    .metric-value {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1;
     }
 
+    .metric-sub {
+      font-size: 0.7rem;
+      color: var(--ink2);
+      margin-top: 0.2rem;
+    }
+
+    /* PROGRESS BAR */
+    .pbar-wrap {
+      background: var(--bg3);
+      border-radius: 4px;
+      height: 6px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+
+    .pbar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.6s ease;
+    }
+
+    .pbar-fill.done {
+      background: var(--green);
+    }
+
+    .pbar-fill.partial {
+      background: var(--amber);
+    }
+
+    /* ARGUMENT FLOW */
     .arg-node {
-      flex: 1;
-      min-width: 110px;
-      max-width: 170px;
-      background: var(--bg);
-      border: 0.5px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 8px 10px;
-      cursor: pointer;
-      transition: border-color 0.15s, background 0.15s;
+      background: white;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
       position: relative;
-      user-select: none;
+      cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
 
     .arg-node:hover {
-      border-color: var(--border2);
-      background: var(--bg2);
-    }
-
-    .arg-node.done {
-      background: var(--bg2);
+      border-color: var(--red);
+      box-shadow: 0 2px 8px rgba(192, 57, 43, 0.1);
     }
 
     .arg-node.active {
-      border-left: 2px solid;
+      border-color: var(--red);
+      border-left: 3px solid var(--red);
     }
 
-    .node-num {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text3);
-      margin-bottom: 3px;
+    .arg-node-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--ink3);
+      margin-bottom: 0.2rem;
+      letter-spacing: 0.06em;
     }
 
-    .node-title {
-      font-size: 13px;
+    .arg-node-title {
       font-weight: 500;
-      color: var(--text);
+      font-size: 0.82rem;
+      color: var(--ink);
+      margin-bottom: 0.15rem;
+    }
+
+    .arg-node-words {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--ink3);
+    }
+
+    .arg-connector {
+      width: 2px;
+      height: 16px;
+      background: var(--rule);
+      margin: 0 auto;
+    }
+
+    .arg-detail {
+      background: var(--red-soft);
+      border: 1px solid #e8c0bc;
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      font-size: 0.8rem;
+      color: var(--ink);
+      line-height: 1.6;
+      margin-top: 0.5rem;
+      display: none;
+    }
+
+    .arg-detail.show {
+      display: block;
+    }
+
+    .arg-detail-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--red);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    /* STAKEHOLDER MAP */
+    .smap-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: white;
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .smap-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px dashed;
+      transform: translate(-50%, -50%);
+    }
+
+    .smap-node {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+
+    .smap-node:hover {
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+
+    .smap-node-inner {
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 0.62rem;
+      font-weight: 500;
+      text-align: center;
+      white-space: nowrap;
+      border: 1px solid;
       line-height: 1.3;
     }
 
-    .node-words {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text3);
-      margin-top: 4px;
+    .smap-node-inner.ops {
+      background: #1a4a8a;
+      color: white;
+      border-color: #0d3070;
     }
 
-    .done-pip {
+    .smap-node-inner.affected {
+      background: var(--teal-soft);
+      color: var(--teal);
+      border-color: #9adecf;
+    }
+
+    .smap-node-inner.gov {
+      background: var(--amber-soft);
+      color: var(--amber);
+      border-color: #f0d080;
+    }
+
+    .smap-node-inner.research {
+      background: var(--bg2);
+      color: var(--ink2);
+      border-color: var(--rule);
+    }
+
+    .smap-node-inner.firstnations {
+      background: #3d1f0a;
+      color: #f5c87a;
+      border-color: #6b3a18;
+    }
+
+    .smap-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .smap-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.68rem;
+      color: var(--ink2);
+    }
+
+    .smap-legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .smap-tooltip {
       position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 6px;
-      height: 6px;
+      background: var(--ink);
+      color: white;
+      font-size: 0.68rem;
+      padding: 0.4rem 0.65rem;
+      border-radius: 6px;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.15s;
+      line-height: 1.5;
+      max-width: 220px;
+      white-space: normal;
+    }
+
+    /* POWER-INTEREST MATRIX */
+    .matrix-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      background: white;
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .matrix-quad {
+      position: absolute;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 6px 8px;
+      font-size: 0.6rem;
+      font-family: 'IBM Plex Mono', monospace;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .matrix-node {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+    }
+
+    .matrix-node-dot {
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      background: #3B6D11;
+      border: 2px solid white;
+      box-shadow: 0 0 0 1px var(--rule);
     }
 
-    /* ── RIGHT: DETAIL ── */
-    .detail-col {
-      position: sticky;
-      top: 60px;
+    .matrix-node-label {
+      font-size: 0.58rem;
+      color: var(--ink2);
+      white-space: nowrap;
+      margin-top: 2px;
+      text-align: center;
+      transform: translateX(-50%);
+      margin-left: 5px;
     }
 
-    .detail-panel {
-      background: var(--bg);
-      border: 0.5px solid var(--border2);
-      border-radius: var(--radius-lg);
-      padding: 1rem 1.25rem;
-      min-height: 300px;
+    .matrix-axis-label {
+      position: absolute;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--ink3);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
-    .detail-empty {
+    /* EVIDENCE MAP */
+    .ev-source {
+      background: white;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      cursor: pointer;
+      transition: border-color 0.15s;
+      margin-bottom: 0.5rem;
+    }
+
+    .ev-source:hover {
+      border-color: var(--blue);
+    }
+
+    .ev-source.selected {
+      border-color: var(--blue);
+      border-left: 3px solid var(--blue);
+    }
+
+    .ev-source-name {
+      font-weight: 500;
+      font-size: 0.78rem;
+      color: var(--ink);
+    }
+
+    .ev-source-type {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--ink3);
+      margin-top: 0.15rem;
+    }
+
+    .ev-sections {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.5rem;
+    }
+
+    .ev-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 3px;
+      border: 1px solid;
+    }
+
+    .ev-tag.op {
+      background: var(--blue-soft);
+      color: var(--blue);
+      border-color: #b0caee;
+    }
+
+    .ev-tag.gov {
+      background: var(--amber-soft);
+      color: var(--amber);
+      border-color: #e8c870;
+    }
+
+    .ev-tag.risk {
+      background: var(--red-soft);
+      color: var(--red);
+      border-color: #e8b0a8;
+    }
+
+    .ev-tag.env {
+      background: var(--teal-soft);
+      color: var(--teal);
+      border-color: #90d8c8;
+    }
+
+    .ev-tag.fn {
+      background: #f5e8d0;
+      color: #6b4010;
+      border-color: #e0c090;
+    }
+
+    .ev-tag.design {
+      background: var(--green-soft);
+      color: var(--green);
+      border-color: #90d8a8;
+    }
+
+    .ev-bias {
+      font-size: 0.68rem;
+      color: var(--ink3);
+      margin-top: 0.4rem;
+      font-style: italic;
+    }
+
+    .section-highlight {
+      display: none;
+      background: var(--blue-soft);
+      border: 1px solid #b0caee;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.78rem;
+      color: var(--ink);
+      line-height: 1.6;
+      margin-top: 0.75rem;
+    }
+
+    .section-highlight.show {
+      display: block;
+    }
+
+    /* PROGRESS VIEW */
+    .phase-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      margin: 1.25rem 0 0.5rem;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 0.35rem;
+    }
+
+    .phase-title:first-child {
+      margin-top: 0;
+    }
+
+    .task-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--bg3);
+      font-size: 0.78rem;
+    }
+
+    .task-check {
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 200px;
-      font-size: 13px;
-      color: var(--text3);
+      font-size: 0.6rem;
     }
 
-    .detail-num {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text3);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
+    .task-check.done {
+      background: var(--green);
+      color: white;
     }
 
-    .detail-title {
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 14px;
+    .task-check.pending {
+      background: white;
+      border: 1.5px solid var(--rule);
     }
 
-    .detail-section {
-      margin-bottom: 12px;
+    .task-check.in-progress {
+      background: var(--amber-soft);
+      border: 1.5px solid var(--amber);
+      color: var(--amber);
     }
 
-    .detail-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text3);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
+    .task-name {
+      flex: 1;
     }
 
-    .detail-body {
-      font-size: 13px;
-      color: var(--text2);
-      line-height: 1.6;
+    .task-name.done-text {
+      color: var(--ink3);
+      text-decoration: line-through;
     }
 
-    .detail-starter {
-      font-size: 13px;
-      color: var(--text);
-      line-height: 1.65;
-      font-style: italic;
-      border-left: 2px solid var(--border2);
-      padding: 6px 10px;
-      background: var(--bg2);
+    .task-words {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--ink3);
+      min-width: 40px;
+      text-align: right;
     }
 
-    .detail-thread {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      margin-top: 10px;
-      padding: 8px 10px;
-      background: var(--bg2);
-      border-radius: var(--radius-md);
-    }
-
-    .thread-arrow {
-      font-size: 11px;
-      color: var(--text3);
-      margin-top: 1px;
-      flex-shrink: 0;
-      font-weight: 500;
-    }
-
-    .thread-text {
-      font-size: 12px;
-      color: var(--text2);
-      line-height: 1.5;
+    .task-priority {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      background: var(--red-soft);
+      color: var(--red);
+      border: 1px solid #e8b8b0;
     }
   </style>
 </head>
@@ -359,329 +655,834 @@
 <body>
 
   <nav>
-    <a href="library.html?subject=DMBA6002" class="nav-back">← DMBA 6002 Library</a>
-    <span class="nav-title">Assessment 1 — Argument Map</span>
-    <span class="nav-sub">DMBA 6002 · University of Sydney</span>
+    <div class="nav-brand">MBA / DMBA 6004 / <span>Assessment 1</span></div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showView('overview')">Overview</button>
+      <button class="nav-tab" onclick="showView('argument')">Argument</button>
+      <button class="nav-tab" onclick="showView('stakeholders')">Stakeholders</button>
+      <button class="nav-tab" onclick="showView('evidence')">Evidence</button>
+      <button class="nav-tab" onclick="showView('progress')">Progress</button>
+    </div>
   </nav>
 
-  <div class="container">
-    <div class="spine-col">
-      <div class="legend">
-        <div class="leg-item">
-          <div class="leg-dot" style="background:#3B6D11;"></div>Done
-        </div>
-        <div class="leg-item">
-          <div class="leg-dot" style="background:var(--border2);"></div>Pending
-        </div>
-        <div class="leg-item" style="margin-left:auto;">Click any section →</div>
-      </div>
-      <div id="spine"></div>
+  <!-- ══════════ OVERVIEW ══════════ -->
+  <div class="view active" id="view-overview">
+    <div class="section-title">Assessment 1 — at a glance</div>
+    <div class="section-sub">Stakeholder Needs & Expectations · One Basin CRC Anomaly Detection · Murrumbidgee Catchment
     </div>
 
-    <div class="detail-col">
-      <div class="detail-panel" id="detail">
-        <div class="detail-empty">Select a section to see its argument</div>
+    <div class="grid-4" style="margin-bottom:1.25rem;">
+      <div class="metric">
+        <div class="metric-label">Word target</div>
+        <div class="metric-value">1,420</div>
+        <div class="metric-sub">body text only</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">References</div>
+        <div class="metric-value">24</div>
+        <div class="metric-sub">APA 7th · 20 required</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Data sources</div>
+        <div class="metric-value">10</div>
+        <div class="metric-sub">6 source types</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">First draft</div>
+        <div class="metric-value">43%</div>
+        <div class="metric-sub">9 of 21 sections done</div>
+        <div class="pbar-wrap">
+          <div class="pbar-fill done" style="width:43%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:1.25rem;">
+      <div class="card">
+        <div
+          style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--red);margin-bottom:0.6rem;">
+          Core Argument</div>
+        <p style="font-style:italic;font-size:0.82rem;color:var(--ink2);line-height:1.65;">"This is not an engineering
+          upgrade with governance implications — it is a governance intervention with an engineering component. It
+          redistributes operational risk, creates new data dependencies, and alters decision-making authority across the
+          Murrumbidgee system."</p>
+      </div>
+      <div class="card">
+        <div
+          style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:0.75rem;">
+          HD Criteria Weights</div>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;">
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.72rem;margin-bottom:3px;">
+              <span>Stakeholder Mapping</span><span
+                style="font-family:'IBM Plex Mono',monospace;color:var(--ink3);">20pts</span></div>
+            <div class="pbar-wrap" style="height:5px;">
+              <div class="pbar-fill done" style="width:100%;background:#1a4a8a;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.72rem;margin-bottom:3px;"><span>Needs /
+                Risks / Power</span><span style="font-family:'IBM Plex Mono',monospace;color:var(--ink3);">20pts</span>
+            </div>
+            <div class="pbar-wrap" style="height:5px;">
+              <div class="pbar-fill done" style="width:100%;background:#1a4a8a;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.72rem;margin-bottom:3px;"><span>Evidence
+                Use</span><span style="font-family:'IBM Plex Mono',monospace;color:var(--ink3);">20pts</span></div>
+            <div class="pbar-wrap" style="height:5px;">
+              <div class="pbar-fill done" style="width:100%;background:#1a4a8a;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.72rem;margin-bottom:3px;"><span>Metadata
+                Narrative</span><span style="font-family:'IBM Plex Mono',monospace;color:var(--ink3);">15pts</span>
+            </div>
+            <div class="pbar-wrap" style="height:5px;">
+              <div class="pbar-fill done" style="width:75%;background:#8a5a00;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.72rem;margin-bottom:3px;"><span>System
+                Specifications</span><span style="font-family:'IBM Plex Mono',monospace;color:var(--ink3);">15pts</span>
+            </div>
+            <div class="pbar-wrap" style="height:5px;">
+              <div class="pbar-fill done" style="width:75%;background:#8a5a00;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.72rem;margin-bottom:3px;">
+              <span>Contextualisation + Writing</span><span
+                style="font-family:'IBM Plex Mono',monospace;color:var(--ink3);">10pts</span></div>
+            <div class="pbar-wrap" style="height:5px;">
+              <div class="pbar-fill done" style="width:50%;background:#2d6a4f;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="background:var(--bg2);border-color:var(--rule);">
+      <div
+        style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:0.75rem;">
+        Immediate next steps</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.6rem;">
+        <div style="background:var(--red-soft);border:1px solid #e8b0a8;border-radius:6px;padding:0.6rem 0.8rem;">
+          <div style="font-size:0.68rem;font-weight:500;color:var(--red);margin-bottom:0.2rem;">⬤ Finish first draft
+          </div>
+          <div style="font-size:0.72rem;color:var(--ink2);">Sections 4–9 still pending. Write now, perfect later.</div>
+        </div>
+        <div style="background:var(--amber-soft);border:1px solid #e8c870;border-radius:6px;padding:0.6rem 0.8rem;">
+          <div style="font-size:0.68rem;font-weight:500;color:var(--amber);margin-bottom:0.2rem;">⬤ Send interview email
+          </div>
+          <div style="font-size:0.72rem;color:var(--ink2);">Email MI now at <a href="/cdn-cgi/l/email-protection"
+              class="__cf_email__"
+              data-cfemail="a0c3cfcdcdd5cec9c3c1d4c9cfced3e0cdc9d2d2c9c7c1d4c9cfce8ec3cfcd8ec1d5">[email&#160;protected]</a>
+          </div>
+        </div>
+        <div style="background:var(--blue-soft);border:1px solid #b0caee;border-radius:6px;padding:0.6rem 0.8rem;">
+          <div style="font-size:0.68rem;font-weight:500;color:var(--blue);margin-bottom:0.2rem;">⬤ Build stakeholder map
+          </div>
+          <div style="font-size:0.72rem;color:var(--ink2);">Miro/Lucid — 2 axes, 6 interdependency arrows</div>
+        </div>
+        <div style="background:var(--green-soft);border:1px solid #90d8a8;border-radius:6px;padding:0.6rem 0.8rem;">
+          <div style="font-size:0.68rem;font-weight:500;color:var(--green);margin-bottom:0.2rem;">⬤ Claude enhancement
+            pass</div>
+          <div style="font-size:0.72rem;color:var(--ink2);">Upgrade completed sections with HD starters</div>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- ══════════ ARGUMENT ══════════ -->
+  <div class="view" id="view-argument">
+    <div class="section-title">Argument architecture</div>
+    <div class="section-sub">Click any section to see the key message and what argument it makes</div>
+
+    <div class="grid-2" style="gap:1.5rem;">
+      <div id="arg-flow">
+        <!-- populated by JS -->
+      </div>
+      <div>
+        <div class="card" id="arg-panel" style="min-height:300px;">
+          <div
+            style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--ink3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">
+            Select a section →</div>
+          <p style="font-size:0.78rem;color:var(--ink3);">Click any section on the left to see what argument it makes,
+            what theory it applies, and the key message.</p>
+        </div>
+        <div style="margin-top:1rem;" class="card card-sm" id="arg-theory">
+          <div
+            style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--ink3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem;">
+            Theory applied</div>
+          <p style="font-size:0.75rem;color:var(--ink3);">—</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ STAKEHOLDERS ══════════ -->
+  <div class="view" id="view-stakeholders">
+    <div class="section-title">Stakeholder ecosystem</div>
+    <div class="section-sub">Hover nodes for detail · Rings show proximity to the AI system</div>
+
+    <div class="grid-2" style="gap:1.25rem;align-items:start;">
+      <div>
+        <div class="smap-container" id="smap">
+          <div id="smap-tooltip" class="smap-tooltip"></div>
+        </div>
+        <div class="smap-legend" style="margin-top:0.75rem;">
+          <div class="smap-legend-item">
+            <div class="smap-legend-dot" style="background:#1a4a8a;"></div> Operational core
+          </div>
+          <div class="smap-legend-item">
+            <div class="smap-legend-dot" style="background:var(--teal);"></div> Directly affected
+          </div>
+          <div class="smap-legend-item">
+            <div class="smap-legend-dot" style="background:#3d1f0a;"></div> First Nations
+          </div>
+          <div class="smap-legend-item">
+            <div class="smap-legend-dot" style="background:var(--amber);"></div> Governance
+          </div>
+          <div class="smap-legend-item">
+            <div class="smap-legend-dot" style="background:var(--ink3);"></div> Research / data
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink3);margin-bottom:0.75rem;">
+          Power — Interest matrix</div>
+        <div class="matrix-wrap" id="matrix"></div>
+        <div style="margin-top:1rem;font-size:0.72rem;color:var(--ink2);line-height:1.6;" class="card card-sm">
+          <strong style="font-weight:500;">Key insight:</strong> The stakeholders with the most formal power (MDBA,
+          Australian Government) bear the least direct exposure to AI system failure. Those with the least formal power
+          (tail-end irrigators, First Nations, environmental holders) bear the most. This asymmetry is the central
+          equity problem.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.25rem;" class="card">
+      <div
+        style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink3);margin-bottom:0.75rem;">
+        6 critical interdependency chains</div>
+      <div id="dep-list" style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;"></div>
+    </div>
+  </div>
+
+  <!-- ══════════ EVIDENCE ══════════ -->
+  <div class="view" id="view-evidence">
+    <div class="section-title">Evidence portfolio</div>
+    <div class="section-sub">Click a source to see which sections it supports and its known limitations</div>
+    <div class="grid-2" style="gap:1.25rem;align-items:start;">
+      <div id="ev-list"></div>
+      <div>
+        <div class="card" id="ev-panel" style="min-height:280px;">
+          <div
+            style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--ink3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">
+            Select a source →</div>
+          <p style="font-size:0.78rem;color:var(--ink3);">Click any source to see which argument sections it supports,
+            its bias classification, and its system-level implication.</p>
+        </div>
+        <div style="margin-top:0.75rem;" class="card card-sm">
+          <div
+            style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--ink3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">
+            Source type breakdown</div>
+          <div style="display:flex;flex-direction:column;gap:0.4rem;">
+            <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;">
+              <div
+                style="width:60px;background:var(--blue-soft);border:1px solid #b0caee;border-radius:3px;height:6px;">
+              </div>Live operational (4)
+            </div>
+            <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;">
+              <div
+                style="width:45px;background:var(--amber-soft);border:1px solid #e8c870;border-radius:3px;height:6px;">
+              </div>Gov. reports (3)
+            </div>
+            <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;">
+              <div
+                style="width:30px;background:var(--teal-soft);border:1px solid #90d8c8;border-radius:3px;height:6px;">
+              </div>Project docs (1)
+            </div>
+            <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;">
+              <div
+                style="width:30px;background:var(--green-soft);border:1px solid #90d8a8;border-radius:3px;height:6px;">
+              </div>Community (1)
+            </div>
+            <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;">
+              <div style="width:30px;background:var(--red-soft);border:1px solid #e8b0a8;border-radius:3px;height:6px;">
+              </div>Industry (1)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ PROGRESS ══════════ -->
+  <div class="view" id="view-progress">
+    <div class="section-title">Progress tracker</div>
+    <div class="section-sub">First draft · Claude enhancement · Appendices</div>
+
+    <div class="grid-2" style="gap:1.25rem;align-items:start;">
+      <div class="card">
+        <div
+          style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink3);margin-bottom:0.5rem;display:flex;justify-content:space-between;">
+          <span>First draft</span>
+          <span style="color:var(--green);">9 / 21</span>
+        </div>
+        <div class="pbar-wrap" style="margin-bottom:1rem;">
+          <div class="pbar-fill done" style="width:43%"></div>
+        </div>
+        <div id="task-list-draft"></div>
+      </div>
+      <div class="card">
+        <div
+          style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink3);margin-bottom:0.5rem;display:flex;justify-content:space-between;">
+          <span>Enhancement + Appendices</span>
+          <span style="color:var(--amber);">0 / 30</span>
+        </div>
+        <div class="pbar-wrap" style="margin-bottom:1rem;">
+          <div class="pbar-fill partial" style="width:0%"></div>
+        </div>
+        <div id="task-list-enhance"></div>
+      </div>
+    </div>
+  </div>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
-    const GROUPS = [
+    // ── DATA ──────────────────────────────────────────────────────────
+
+    const SECTIONS = [
       {
-        label: '1–2  Context',
-        color: '#7F77DD',
-        nodes: [
-          {
-            num: '1.1', title: 'Problem definition', words: 80, done: true,
-            arg: 'Frames the problem as institutional failure — the Basin generates more data than its governance structures can handle.',
-            theory: 'Dwyer et al. (2026) + WaterNSW (n.d.-a)',
-            starter: 'This portfolio examines the Murrumbidgee catchment as the operational context for the One Basin CRC\'s anomaly detection prototype — a governance problem with an engineering response, not the reverse.',
-            thread: 'Sets up the core argument: this is a governance intervention, not an engineering upgrade.'
-          },
-          {
-            num: '1.2', title: 'Past-to-present', words: 70, done: true,
-            arg: '$348M physical automation was completed by early 2025 — but governance maturity has not kept pace. The gap is the problem.',
-            theory: 'Murrumbidgee Irrigation (n.d.) + NSW DPIE (2024)',
-            starter: 'Nearly $348M deployed between 2013 and 2025 — physical automation is complete; operational maturity is not.',
-            thread: 'Establishes why the anomaly detection prototype is needed now, at this specific moment.'
-          },
-          {
-            num: '2.1', title: 'How delivery works', words: 60, done: true,
-            arg: 'The delivery chain is a sequential dependency. One undetected fault upstream propagates as delivery failure for multiple farms.',
-            theory: 'WaterNSW (n.d.-b) — transmission loss modelling',
-            starter: 'BOM → WaterNSW → MI canal network → 3,093 landholdings. One undetected sensor fault propagates silently across multiple farms.',
-            thread: 'Explains the technical stakes of infrastructure failure before the stakeholder analysis begins.'
-          },
-          {
-            num: '2.2', title: 'Infrastructure & automation', words: 50, done: true,
-            arg: 'Alert volume is itself an operational liability. SCADA generates so many alerts that alarm fatigue masks genuine faults.',
-            theory: 'Kanyama et al. (2024) — 32 peer-reviewed studies, alarm fatigue in water networks',
-            starter: 'The volume of SCADA alerts has become a structural liability — Kanyama et al. (2024) confirm alarm fatigue masks genuine failures in smart water network environments.',
-            thread: 'Connects the technical problem to Section 5.1 — operators need discrimination, not detection.'
-          },
-          {
-            num: '2.3', title: 'Operational challenges', words: 60, done: true,
-            arg: 'Sensor drift and comms dropouts corrupt hydrometric data used for Basin-wide allocation — linking local infrastructure failure to Basin governance integrity.',
-            theory: 'One Basin CRC (n.d.-b) FMEA + Bureau of Meteorology (n.d.-b)',
-            starter: 'FMEA identified water level sensors, battery systems, and comms infrastructure as critical failure modes — failures that corrupt Basin-wide allocation data, not just local delivery.',
-            thread: 'Elevates the stakes from "delivery failure" to "governance data failure" — bridges to Section 6.'
-          }
-        ]
+        num: '1.1', title: 'Problem definition', words: 80, done: true,
+        argument: 'Frames the problem as institutional failure, not just technical — the Basin generates more data than its governance structures can handle.',
+        theory: 'Dwyer et al. (2026) + WaterNSW (n.d.-a)',
+        message: 'This is a governance problem with an engineering response. The anomaly detection prototype exists because the Basin\'s governance capacity has not kept pace with its data infrastructure.'
       },
       {
-        label: '3–4  Stakeholders',
-        color: '#1D9E75',
-        nodes: [
-          {
-            num: '3.1', title: 'Operational stakeholders', words: 60, done: true,
-            arg: 'WaterNSW, MI, and Rubicon form an interdependent operational core — not three separate stakeholders but one system with three nodes.',
-            theory: 'Clarke & Michael (2022) — operational power vs formal governance power',
-            starter: 'MI\'s delivery scheduling depends on WaterNSW\'s release timing; WaterNSW\'s accuracy depends on BOM data integrity. A failure at any node cascades.',
-            thread: 'Sets up the interdependency chain that appears again in Section 4.3 and the stakeholder map.'
-          },
-          {
-            num: '3.2', title: 'Community & cultural', words: 50, done: true,
-            arg: 'This layer is defined by exposure to failure, not proximity to infrastructure. Environmental holders, First Nations communities, and irrigators bear consequences they cannot control.',
-            theory: 'Dwyer et al. (2026) + MLDRIN (2018)',
-            starter: 'Defined not by proximity to infrastructure but by exposure to its failure — 3,000+ EWRs link precise flow conditions to species outcomes that infrastructure anomalies silently undermine.',
-            thread: 'Introduces the equity asymmetry: those least able to influence the system bear the most risk from it.'
-          },
-          {
-            num: '3.3', title: 'Governance stakeholders', words: 40, done: true,
-            arg: 'The MDBA\'s 2026 Basin Plan Review creates a live policy window — this prototype is a pilot for a Basin-wide governance shift.',
-            theory: 'MDBA (2025) innovation sweep + MDBA (2026) Basin Plan Review',
-            starter: 'The MDBA\'s 2026 Basin Plan Review and $1.54B Off-farm Efficiency Program create the institutional window within which AI legitimacy must be demonstrated.',
-            thread: 'Connects local operational project to Basin-wide governance dynamics — elevates stakes.'
-          },
-          {
-            num: '4.1', title: 'Influence & power', words: 50, done: false,
-            arg: 'Formal power and operational power are separated. MDBA has policy authority; MI has adoption authority. Conflating them is the most common AI governance failure.',
-            theory: 'Clarke & Michael (2022) — multi-stakeholder risk framework',
-            starter: 'MDBA holds formal authority over Basin policy but zero operational authority over whether MI\'s field teams act on an AI alert. Adoption is decided at the field level.',
-            thread: 'The key analytical move — explains why regulators cannot mandate AI adoption.'
-          },
-          {
-            num: '4.2', title: 'Exposure to risk', words: 45, done: false,
-            arg: 'Risk exposure is asymmetric and inverse to formal power. Those with the least governance influence bear the greatest operational consequences.',
-            theory: 'ABARES (2024) — Murrumbidgee carries largest estimated regional water recovery impacts',
-            starter: 'Tail-end irrigators, First Nations, and environmental holders bear the most risk from AI underperformance while holding the least formal power to shape its design.',
-            thread: 'Sets up Section 6.2 on equity risks — the structural unfairness argument.'
-          },
-          {
-            num: '4.3', title: 'Relationship map', words: 45, done: false,
-            arg: 'The map must show interdependency chains, not rings. A failure at any single node propagates simultaneously across multiple stakeholder groups.',
-            theory: 'Cosijn et al. (2023) — joint optimisation, Leavitt\'s diamond',
-            starter: 'Six annotated interdependency arrows — BOM data quality → WaterNSW release → MI delivery → irrigator outcomes — read as a system, not a hierarchy.',
-            thread: 'Introduces the six dependency chains that anchor the HD mapping criterion.'
-          }
-        ]
+        num: '1.2', title: 'Past-to-present', words: 70, done: true,
+        argument: '$348M physical automation was completed by early 2025 — but governance maturity has not kept pace.',
+        theory: 'Murrumbidgee Irrigation (n.d.) + NSW DPIE (2024)',
+        message: 'The physical transformation is done. The governance and reliability maturity of the system is not. That gap is what the prototype addresses.'
       },
       {
-        label: '5  Needs',
-        color: '#BA7517',
-        nodes: [
-          {
-            num: '5.1', title: 'Operator needs', words: 60, done: false,
-            arg: 'Operators need discrimination, not detection. Low false positive rate + SHAP explainability are the two preconditions of operational value.',
-            theory: 'Kanyama et al. (2024) + Singha et al. (2026)',
-            starter: 'The operational need is for discrimination: false positive suppression + SHAP explainability. Without both, the system will not be trusted or used.',
-            thread: 'Directly traceable to Section 8.1 requirements 1 and 2 — closes the needs-to-specs loop.'
-          },
-          {
-            num: '5.2', title: 'Irrigator expectations', words: 60, done: false,
-            arg: 'Three expectations: predictability, contestability, fairness. The system is invisible infrastructure — felt only in its absence.',
-            theory: 'NSW Farmers (2023) + Griffith City Council (2025) + ABS (2024)',
-            starter: 'Predictability, contestability, and fairness across the network — the conditions under which irrigators will accept AI-driven operational decisions.',
-            thread: 'Directly traceable to Section 8.1 requirement 3 (tail-node parity) and Section 8.3 (co-design).'
-          },
-          {
-            num: '5.3', title: 'Environmental needs', words: 55, done: false,
-            arg: 'Temporal precision over volume. A planned hydrograph one week late misses the ecological window entirely. The system must protect overbank and baseflow indicators specifically.',
-            theory: 'Dwyer et al. (2026) — overbank flows and baseflows most ecologically decisive',
-            starter: 'A hydrograph one week late misses the ecological window. Dwyer et al. (2026) identify overbank flows and baseflows as the critical indicators — protect these specifically.',
-            thread: 'Directly traceable to Section 8.1 requirement 4 (hydrometric integrity for ecological indicators).'
-          },
-          {
-            num: '5.4', title: 'First Nations interests', words: 55, done: false,
-            arg: 'Co-governance is a governance requirement, not a consultation courtesy. Without First Nations involvement, the system risks reproducing structural marginalisation algorithmically.',
-            theory: 'MLDRIN (2018) + Clarke & Michael (2022)',
-            starter: 'MLDRIN (2018) establishes co-governance as a requirement — the system operates on Country and its design cannot be treated as culturally neutral.',
-            thread: 'Directly traceable to Section 8.3 — co-design with those most exposed closes the needs-to-design loop.'
-          }
-        ]
+        num: '2.1', title: 'How delivery operates', words: 60, done: true,
+        argument: 'The delivery chain is a sequential dependency. One undetected fault upstream propagates as delivery failure for multiple farms.',
+        theory: 'WaterNSW (n.d.-b)',
+        message: 'BOM → WaterNSW → MI → 3,093 landholdings. The chain is sequential. A single undetected sensor fault propagates silently before anyone can intervene.'
       },
       {
-        label: '6  Risks',
-        color: '#D85A30',
-        nodes: [
-          {
-            num: '6.1', title: 'Risks & tensions', words: 80, done: false,
-            arg: 'Changing technology reshapes people, structure, and tasks simultaneously. The speed of physical automation outpaced governance maturity — this project must close that gap.',
-            theory: 'Cosijn et al. (2023) — Leavitt\'s joint optimisation framework',
-            starter: 'Joint optimisation — introducing AI detection changes operator roles, SCADA\'s structural function, and maintenance task structures simultaneously. Governance has not kept pace.',
-            thread: 'The theoretical backbone of the entire assessment — all other risk arguments flow from joint optimisation failure.'
-          },
-          {
-            num: '6.2', title: 'Equity risks', words: 70, done: false,
-            arg: 'Structural model bias: training on well-monitored head-works nodes systematically underperforms at tail-end nodes — embedding existing inequalities in algorithmic form.',
-            theory: 'ABARES (2024) + Cosijn et al. (2023)',
-            starter: 'If training data comes predominantly from well-monitored head-works nodes, tail-end performance will be systematically worse — harder to contest than explicit policy.',
-            thread: 'Directly traceable to Section 8.1 requirement 3 (tail-node parity).'
-          },
-          {
-            num: '6.3', title: 'Trust & accountability', words: 70, done: false,
-            arg: 'No governance framework exists for who is responsible when the AI is wrong. Explainability is the precondition for accountable human-AI decision-making.',
-            theory: 'Dwyer et al. (2026) + Singha et al. (2026)',
-            starter: 'Structural accountability gap — no framework for responsibility when the AI is wrong. Explainability is the mechanism; without it, trust cannot be built or accountability assigned.',
-            thread: 'Directly traceable to Section 8.2 (governance safeguards) and 8.3 (explainability as precondition).'
-          }
-        ]
+        num: '2.2', title: 'Infrastructure & automation', words: 50, done: true,
+        argument: 'Alert volume is itself an operational liability. SCADA generates so many alerts that alarm fatigue masks genuine faults.',
+        theory: 'Kanyama et al. (2024) — 32 studies on alarm fatigue',
+        message: 'Too many alerts is as dangerous as no alerts. Kanyama et al. (2024) confirm across 32 studies that alarm fatigue actively masks genuine failures in smart water networks.'
       },
       {
-        label: '7–9  Evidence · Design · Insights',
-        color: '#378ADD',
-        nodes: [
-          {
-            num: '7.1', title: 'Source selection', words: 70, done: false,
-            arg: 'Ten sources across six types triangulate all four system dimensions. Single-type portfolios cannot credibly analyse a socio-technical AI project.',
-            theory: 'Cosijn et al. (2023) — four system dimensions: structure, people, technology, tasks',
-            starter: 'Six source types, four system dimensions — every stakeholder perspective must be represented or the analysis is structurally incomplete.',
-            thread: 'Explains the portfolio strategy — each source type fills a dimension gap.'
-          },
-          {
-            num: '7.2', title: 'Metadata context', words: 90, done: false,
-            arg: 'Critical evaluation of bias: DPIE (2024) is historical, One Basin CRC (n.d.-b) is promotional, MI (n.d.) is self-published. Triangulation addresses each gap.',
-            theory: 'Clarke & Michael (2022)',
-            starter: 'Critical flags: DPIE (2024) = historical Nov 2021. One Basin CRC (n.d.-b) = promotional. ABS (2024) = national aggregation, not MIA-specific. Triangulation addresses each.',
-            thread: 'Directly targets the HD evidence criterion: "critical evaluation of evidence quality and bias."'
-          },
-          {
-            num: '8.1', title: 'Technical requirements', words: 70, done: false,
-            arg: 'Four requirements, each traceable to a named stakeholder: FP suppression → operators, SHAP explainability → operators, tail-node parity → tail-end irrigators, baseflow integrity → environmental holders.',
-            theory: 'Ejaz et al. (2025) + Kanyama et al. (2024)',
-            starter: 'Four traceable specs: (1) FP suppression → MI operators, (2) SHAP explainability → operators, (3) tail-node parity → tail-end irrigators, (4) baseflow integrity → env. holders.',
-            thread: 'The payoff of the entire stakeholder analysis — every spec names the stakeholder it serves.'
-          },
-          {
-            num: '8.2', title: 'Governance safeguards', words: 55, done: false,
-            arg: 'Human validation before every high-consequence alert. MDBA (2026) signals institutional readiness — a policy window to establish best-practice accountability standards.',
-            theory: 'Clarke & Michael (2022) + Cosijn et al. (2023)',
-            starter: 'Every alert triggering delivery adjustment, crew dispatch, or compliance review needs a documented human validation step. MDBA (2026) creates the institutional window.',
-            thread: 'Closes the accountability gap identified in Section 6.3.'
-          },
-          {
-            num: '8.3', title: 'Design principles', words: 45, done: false,
-            arg: 'Three preconditions for adoption: co-design with those most exposed, network-wide equity, SHAP explainability as standard.',
-            theory: 'Cosijn et al. (2023) + Clarke & Michael (2022) + Dwyer et al. (2026)',
-            starter: 'Three preconditions — not aspirations: co-design, network equity, SHAP explainability. Trust is earned through process, not claimed through performance.',
-            thread: 'Closes Sections 5.4 and 6.2 — design principles are the direct responses to needs and risks.'
-          },
-          {
-            num: '9.1', title: 'Why reliability matters', words: 55, done: false,
-            arg: 'One gate fault cascades simultaneously across farmer, environmental manager, First Nations community, and governance institution. Reliability is a systemic governance obligation.',
-            theory: 'ABS (2024) — 11,760 GL nationally; MDBA (2026) + Dwyer et al. (2026)',
-            starter: 'One fault: missed irrigation window, delayed ecological flow, disrupted cultural flow, and Basin data integrity failure — simultaneously. Reliability is a governance obligation.',
-            thread: 'The "so what" — connects everything back to the core argument.'
-          },
-          {
-            num: '9.2', title: 'Socio-technical intervention', words: 55, done: false,
-            arg: 'Success criteria extend beyond model performance to governance quality. The question every stakeholder will ask: when the system is wrong, who is responsible?',
-            theory: 'Clarke & Michael (2022) + Cosijn et al. (2023) + Dwyer et al. (2026)',
-            starter: 'Not engineering with governance implications — governance with engineering. When the system is wrong, who is responsible?',
-            thread: 'Restates the core argument and ends with the open question that demands an answer from system designers.'
-          }
-        ]
+        num: '2.3', title: 'Operational challenges', words: 60, done: true,
+        argument: 'Sensor drift and comms dropouts corrupt hydrometric data used for Basin-wide allocation — linking local infrastructure failure to governance integrity.',
+        theory: 'One Basin CRC (n.d.-b) FMEA + BOM (n.d.-b)',
+        message: 'A failed water level sensor is not just a local delivery problem — it corrupts the allocation accounting that underpins Basin governance. The stakes are systemic.'
+      },
+      {
+        num: '3.1', title: 'Operational stakeholders', words: 60, done: true,
+        argument: 'WaterNSW, MI, and Rubicon form one interdependent operational system — not three separate stakeholders.',
+        theory: 'Clarke & Michael (2022)',
+        message: 'Three organisations, one operational system. A failure at any node — BOM gauge, WaterNSW release, MI scheduling — cascades across all three. The interdependency is structural.'
+      },
+      {
+        num: '3.2', title: 'Community & cultural stakeholders', words: 50, done: true,
+        argument: 'This layer is defined by exposure to failure, not proximity to infrastructure. Those least involved in system design bear the most risk from its failure.',
+        theory: 'Dwyer et al. (2026) + MLDRIN (2018)',
+        message: 'Irrigators, environmental holders, and First Nations communities are not peripheral — they are the stakeholders who bear the consequences of every undetected fault.'
+      },
+      {
+        num: '3.3', title: 'Governance stakeholders', words: 40, done: true,
+        argument: 'The MDBA\'s 2026 Basin Plan Review creates a live policy window — this prototype is a pilot for a Basin-wide governance shift, not a standalone experiment.',
+        theory: 'MDBA (2025) + MDBA (2026)',
+        message: 'The governance window is open. The 2026 Basin Plan Review and $1.54B Off-farm Efficiency Program mean the institutional conditions for AI adoption are actively being shaped right now.'
+      },
+      {
+        num: '4.1', title: 'Influence & power', words: 50, done: false,
+        argument: 'Formal power and operational power are separated. MDBA sets policy; MI decides adoption. Conflating them is the most common AI governance mistake.',
+        theory: 'Clarke & Michael (2022)',
+        message: 'MDBA can shape the policy environment but cannot make MI\'s field teams trust an AI alert. Adoption authority sits at the operational level, regardless of where formal power sits.'
+      },
+      {
+        num: '4.2', title: 'Exposure to risk', words: 45, done: false,
+        argument: 'Risk exposure is asymmetric and inverse to formal power. The least powerful stakeholders bear the greatest consequences from system failure.',
+        theory: 'ABARES (2024)',
+        message: 'Tail-end irrigators already carry the largest regional burden from water recovery. Algorithmic underperformance at data-sparse tail-end nodes would compound that burden invisibly.'
+      },
+      {
+        num: '4.3', title: 'Relationship map', words: 45, done: false,
+        argument: 'The map shows interdependency chains, not rings. A fault at one node propagates simultaneously across multiple stakeholder groups.',
+        theory: 'Cosijn et al. (2023)',
+        message: 'Six annotated dependency arrows show how a single BOM gauge failure flows through WaterNSW → MI → irrigators → environmental holders → governance reporting. The map is a system diagram.'
+      },
+      {
+        num: '5.1', title: 'Operator needs', words: 60, done: false,
+        argument: 'Operators need discrimination, not detection. Too many false positives and they stop trusting the system entirely.',
+        theory: 'Kanyama et al. (2024) + Singha et al. (2026)',
+        message: 'The system must earn trust by being right more often than it cries wolf. Low false positive rate and SHAP-level explainability are the two conditions under which operators will act on an alert.'
+      },
+      {
+        num: '5.2', title: 'Irrigator expectations', words: 60, done: false,
+        argument: 'Predictability, contestability, and fairness across the network — felt only in the system\'s absence.',
+        theory: 'NSW Farmers (2023) + Griffith City Council (2025)',
+        message: 'Irrigators don\'t experience the system directly — they experience delivery reliability. They need to know failures will be caught early, alerts will be explainable, and they won\'t be disadvantaged by where they sit in the network.'
+      },
+      {
+        num: '5.3', title: 'Environmental needs', words: 55, done: false,
+        argument: 'Temporal precision over volume. A hydrograph one week late misses the ecological window — the system must protect overbank flows and baseflows specifically.',
+        theory: 'Dwyer et al. (2026)',
+        message: 'Dwyer et al. (2026) show that 6–8 hydrological indicators explain 98–100% of ecological outcome variation. The system must protect overbank flows and baseflows — missing these by a week loses the window entirely.'
+      },
+      {
+        num: '5.4', title: 'First Nations interests', words: 55, done: false,
+        argument: 'Co-governance is a governance requirement, not consultation. The system operates on Country and its design cannot be treated as culturally neutral.',
+        theory: 'MLDRIN (2018) + Clarke & Michael (2022)',
+        message: 'MLDRIN (2018) establishes co-governance as a rights-based requirement. A system that makes decisions about water on Country, without First Nations involvement in its design, reproduces structural marginalisation through algorithmic means.'
+      },
+      {
+        num: '6.1', title: 'Risks & tensions', words: 80, done: false,
+        argument: 'Introducing AI reshapes people, structure, and tasks simultaneously. Governance has not kept pace with the speed of physical automation.',
+        theory: 'Cosijn et al. (2023) — joint optimisation',
+        message: 'Changing the technology changes everything else too — operator roles, SCADA\'s structural function, maintenance task definitions. Cosijn et al. (2023) call this joint optimisation. Ignoring it is how AI projects fail.'
+      },
+      {
+        num: '6.2', title: 'Equity & fairness risks', words: 70, done: false,
+        argument: 'Training on well-monitored head-works nodes systematically underperforms at tail-end nodes — embedding existing inequalities in algorithmic form.',
+        theory: 'ABARES (2024) + Cosijn et al. (2023)',
+        message: 'If the model is trained where the good sensors are, it will be worst where the sensors are worst — at the tail end, where the most vulnerable irrigators are. This is not a bug to fix later; it is a design choice made now.'
+      },
+      {
+        num: '6.3', title: 'Trust & accountability', words: 70, done: false,
+        argument: 'No governance framework currently exists for who is responsible when the AI is wrong. Explainability is the precondition for accountable human-AI decision-making.',
+        theory: 'Dwyer et al. (2026) + Singha et al. (2026)',
+        message: 'When the system misses a fault and a farmer loses a crop — who is responsible? Without explainability and a documented decision trail, accountability is impossible. This gap must be closed by design, not by policy after the fact.'
+      },
+      {
+        num: '7.1', title: 'Source selection', words: 70, done: false,
+        argument: 'Ten sources across six types triangulate all four system dimensions — single-source-type portfolios cannot credibly analyse a socio-technical AI project.',
+        theory: 'Cosijn et al. (2023)',
+        message: 'Each of the four system dimensions — structure, people, technology, tasks — needs at least one dedicated source type. A portfolio built only on technical literature cannot credibly analyse governance or equity risks.'
+      },
+      {
+        num: '7.2', title: 'Metadata context', words: 90, done: false,
+        argument: 'Critical evaluation: DPIE (2024) is historical, One Basin CRC (n.d.-b) is promotional, MI (n.d.) is self-published. Triangulation addresses each limitation.',
+        theory: 'Clarke & Michael (2022)',
+        message: 'Every source has a bias and a scope limit. Naming them explicitly — DPIE is a Nov 2021 snapshot, CRC page is promotional, ABS is national not MIA-specific — is what separates HD evidence analysis from ordinary referencing.'
+      },
+      {
+        num: '8.1', title: 'Technical requirements', words: 70, done: false,
+        argument: 'Four specifications, each directly traceable to a named stakeholder. No spec exists without a stakeholder who needs it.',
+        theory: 'Ejaz et al. (2025) + Kanyama et al. (2024)',
+        message: 'Spec 1: FP suppression — MI operators. Spec 2: SHAP explainability — operators. Spec 3: tail-node parity — tail-end irrigators. Spec 4: baseflow integrity — environmental holders. Every requirement names the human it serves.'
+      },
+      {
+        num: '8.2', title: 'Governance safeguards', words: 55, done: false,
+        argument: 'Human validation before every high-consequence alert. The policy window exists — MDBA (2026) and NSW DPIE (2024) signal institutional readiness.',
+        theory: 'Clarke & Michael (2022) + Cosijn et al. (2023)',
+        message: 'No alert that triggers delivery adjustment, crew dispatch, or compliance review should execute without a documented human decision. The MDBA (2026) creates the institutional window to standardise this now.'
+      },
+      {
+        num: '8.3', title: 'Design principles', words: 45, done: false,
+        argument: 'Three preconditions for adoption — not aspirations: co-design with those most exposed, network equity, SHAP explainability as standard.',
+        theory: 'Cosijn et al. (2023) + Clarke & Michael (2022) + Dwyer et al. (2026)',
+        message: 'Trust is earned through process, not claimed through accuracy. Without co-design, network equity, and explainability baked in from the start, the system will not be adopted by the people who matter most.'
+      },
+      {
+        num: '9.1', title: 'Why reliability matters', words: 55, done: false,
+        argument: 'One gate fault cascades simultaneously across farmer, environmental manager, First Nations community, and governance institution. Reliability is a systemic obligation.',
+        theory: 'ABS (2024) + MDBA (2026) + Dwyer et al. (2026)',
+        message: 'One undetected fault: missed irrigation window, delayed ecological flow, disrupted cultural flow, and corrupted Basin allocation data — simultaneously. At 11,760 GL nationally, reliability is not a service standard, it is a governance obligation.'
+      },
+      {
+        num: '9.2', title: 'Socio-technical intervention', words: 55, done: false,
+        argument: 'Success criteria extend beyond model accuracy to governance quality — explainability, equity, co-design, and accountability.',
+        theory: 'Clarke & Michael (2022) + Cosijn et al. (2023) + Dwyer et al. (2026)',
+        message: 'When the system is wrong — and it will be wrong — who is responsible? That question, not accuracy, is the measure of whether this project succeeds as a governance intervention.'
       }
     ];
 
-    let selected = null;
+    const EVIDENCE = [
+      {
+        id: 'D1', name: 'BOM — Water Data Online', type: 'Live operational data', op: true,
+        sections: ['op', 'env', 'design'], implication: 'Baseline hydrometric data anomaly models compare against. Degraded gauge data corrupts Basin-wide allocation decisions.',
+        bias: 'Provisional data; validated with lag. Not citable as archival.'
+      },
+      {
+        id: 'D2', name: 'WaterNSW — River Operations', type: 'Near real-time operational', op: true,
+        sections: ['op', 'design'], implication: 'Documents the delivery scheduling precision that makes undetected anomalies consequential.',
+        bias: 'Daily snapshot; not archival. Describes operational process, not outcomes.'
+      },
+      {
+        id: 'D3', name: 'ABS — Water Account 2023-24', type: 'National statistical dataset', op: false,
+        sections: ['op', 'risk', 'env'], implication: 'Quantifies irrigation sector scale and economic stakes of delivery failure. 11,760 GL nationally.',
+        bias: 'Annual lag; national aggregation; cannot be disaggregated to MIA level without ABARES data.'
+      },
+      {
+        id: 'D4', name: 'MDBA — 2026 Basin Plan Review', type: 'Policy consultation document', op: false,
+        sections: ['gov', 'design'], implication: 'Establishes the institutional accountability framework within which AI legitimacy will be evaluated.',
+        bias: 'Consultation document; not final policy; does not bind operational decisions.'
+      },
+      {
+        id: 'D5', name: 'NSW DPIE — MIAF Consultation', type: 'Government consultation report', op: false,
+        sections: ['op', 'risk'], implication: 'Documents irrigator expectations of monitoring accuracy pre-completion — historical baseline for what stakeholders needed.',
+        bias: 'Historical snapshot Nov 2021 — prior to completion. Not current operational assessment.'
+      },
+      {
+        id: 'D6', name: 'ABARES — Water Recovery Impacts', type: 'Government statistical data', op: false,
+        sections: ['risk'], implication: 'Confirms Murrumbidgee carries the largest estimated regional impacts of southern MDB recovery — quantifies tail-end equity risk.',
+        bias: 'Survey-based; sampling limitations; no node-level disaggregation.'
+      },
+      {
+        id: 'D7', name: 'BOM — Murrumbidgee Catchment Portal', type: 'Interactive catchment portal', op: true,
+        sections: ['fn', 'env'], implication: 'Identifies First Nations groups on Country — establishes cultural sovereignty context for AI data governance.',
+        bias: 'Navigation-heavy; no stable deep-page links; cannot be cited as a data source without download.'
+      },
+      {
+        id: 'D8', name: 'One Basin CRC — Anomaly Detection Prototype', type: 'Project documentation', op: true,
+        sections: ['op', 'design'], implication: 'Primary source for FMEA, design intent, and workforce transition plans. Project now complete (final report Feb 2026).',
+        bias: 'Promotional framing; no independent evaluation of outcomes.'
+      },
+      {
+        id: 'D9', name: 'Griffith City Council — Water Prospectus', type: 'Local government report', op: false,
+        sections: ['risk', 'fn'], implication: 'Frames infrastructure reliability as a regional development precondition — connects operational failure to community economic harm.',
+        bias: 'Local government advocacy perspective; represents one community, not all MIA communities.'
+      },
+      {
+        id: 'D10', name: 'Murrumbidgee Irrigation — Modernisation', type: 'Industry webpage', op: true,
+        sections: ['op', 'design'], implication: 'Documents $348M automation program completion — confirms physical automation is done but governance maturity has not kept pace.',
+        bias: 'Self-published; no independent audit; current as of early 2025.'
+      }
+    ];
 
-    function render() {
-      const spine = document.getElementById('spine');
-      spine.innerHTML = '';
-      GROUPS.forEach(g => {
-        const grp = document.createElement('div');
-        grp.className = 'arg-group';
-        const label = document.createElement('div');
-        label.className = 'arg-group-label';
-        label.style.color = g.color;
-        label.textContent = g.label;
-        grp.appendChild(label);
-        const row = document.createElement('div');
-        row.className = 'arg-row';
-        g.nodes.forEach(n => {
-          const node = document.createElement('div');
-          node.className = 'arg-node' + (n.done ? ' done' : '') + (selected === n.num ? ' active' : '');
-          if (selected === n.num) node.style.borderLeftColor = g.color;
-          if (n.done) {
-            const pip = document.createElement('div');
-            pip.className = 'done-pip';
-            node.appendChild(pip);
-          }
-          const num = document.createElement('div');
-          num.className = 'node-num';
-          num.textContent = n.num;
-          const title = document.createElement('div');
-          title.className = 'node-title';
-          title.textContent = n.title;
-          const words = document.createElement('div');
-          words.className = 'node-words';
-          words.textContent = '~' + n.words + 'w';
-          node.appendChild(num);
-          node.appendChild(title);
-          node.appendChild(words);
-          node.addEventListener('click', () => {
-            selected = n.num;
-            render();
-            showDetail(n, g.color);
-          });
-          row.appendChild(node);
+    const DEPENDENCIES = [
+      { from: 'BOM data quality', to: 'WaterNSW release accuracy', type: 'data', color:var('--blue') },
+      { from: 'WaterNSW release timing', to: 'MI delivery scheduling', type: 'operational', color: '#1a7a5a' },
+      { from: 'MI delivery reliability', to: 'Irrigator seasonal outcomes', type: 'service', color: '#8a5a00' },
+      { from: 'MDBA policy framework', to: 'Institutional legitimacy for AI adoption', type: 'governance', color: '#6a3a8a' },
+      { from: 'First Nations co-governance', to: 'Data sovereignty & cultural flows', type: 'rights', color: '#7a3a10' },
+      { from: 'One Basin CRC model design', to: 'Operator trust & adoption', type: 'design', color: '#c0392b' }
+    ];
+
+    const STAKEHOLDERS_MAP = [
+      { name: 'Murrumbidgee\nIrrigation', type: 'ops', x: 50, y: 50, desc: 'Primary operator + named CRC project partner. Translates AI alerts into on-ground decisions. 3,093 landholdings.' },
+      { name: 'WaterNSW', type: 'ops', x: 62, y: 40, desc: 'Manages bulk water releases from Burrinjuck Dam. Delivery scheduling depends on transmission loss modelling.' },
+      { name: 'Rubicon', type: 'ops', x: 56, y: 62, desc: 'Automated control system technology. Named core project partner.' },
+      { name: 'Irrigators', type: 'affected', x: 32, y: 30, desc: '2,300+ shareholder customers. Bear immediate financial risk from delivery scheduling failures.' },
+      { name: 'Tail-end\nirrigators', type: 'affected', x: 22, y: 55, desc: 'Sub-group with greatest exposure to model underperformance and data-sparse nodes. Already carry largest Basin recovery impacts (ABARES, 2024).' },
+      { name: 'CEWO', type: 'affected', x: 38, y: 72, desc: 'Commonwealth Environmental Water Office. Bears compliance risk when anomalies disrupt timed ecological flow events.' },
+      { name: 'Griffith City\nCouncil', type: 'affected', x: 70, y: 72, desc: 'Frames water security as regional prosperity precondition. Community economic harm downstream of delivery failure.' },
+      { name: 'MLDRIN', type: 'firstnations', x: 25, y: 75, desc: 'Murray Lower Darling Rivers Indigenous Nations governance body. Co-governance is a governance requirement, not consultation.' },
+      { name: 'Wiradjuri &\nFirst Nations', type: 'firstnations', x: 15, y: 38, desc: 'Country spans the Murrumbidgee catchment. Cultural flows, data sovereignty, and governance recognition of rights are at stake.' },
+      { name: 'MDBA', type: 'gov', x: 82, y: 22, desc: 'Holds formal Basin-wide governance authority. Conducting 2026 Basin Plan Review — the institutional framework within which AI legitimacy will be evaluated.' },
+      { name: 'NSW DPIE', type: 'gov', x: 76, y: 35, desc: 'Administered MIAF funding. Off-farm Efficiency Program — $1.54B federal investment context.' },
+      { name: 'NSW Farmers', type: 'gov', x: 85, y: 50, desc: 'Industry advocacy body. Frames Basin community needs at policy level.' },
+      { name: 'Australian\nGovernment', type: 'gov', x: 88, y: 68, desc: '$1.54B Off-farm Efficiency Program funder. Sets formal governance environment.' },
+      { name: 'One Basin\nCRC', type: 'research', x: 50, y: 82, desc: 'Research body. Developed and delivered the anomaly detection prototype. ANU + UoM as named research partners.' },
+      { name: 'BOM', type: 'research', x: 62, y: 88, desc: 'Provides baseline hydrometric data via Water Data Online and Murrumbidgee catchment portal. ~6,000 national gauges.' },
+      { name: 'ABARES', type: 'research', x: 38, y: 88, desc: 'Produces irrigation water use and economic impact data. Confirms Murrumbidgee carries largest estimated regional impacts.' }
+    ];
+
+    const MATRIX_NODES = [
+      { name: 'MDBA', power: 90, interest: 60, color: '#8a5a00' },
+      { name: 'Australian Govt', power: 88, interest: 40, color: '#8a5a00' },
+      { name: 'MI', power: 65, interest: 95, color: '#1a4a8a' },
+      { name: 'WaterNSW', power: 62, interest: 88, color: '#1a4a8a' },
+      { name: 'NSW DPIE', power: 75, interest: 45, color: '#8a5a00' },
+      { name: 'One Basin CRC', power: 30, interest: 95, color: '#2d6a4f' },
+      { name: 'Irrigators', power: 25, interest: 95, color: '#0a6b55' },
+      { name: 'Env holders', power: 28, interest: 90, color: '#0a6b55' },
+      { name: 'First Nations', power: 22, interest: 85, color: '#7a3a10' },
+      { name: 'Griffith CC', power: 20, interest: 75, color: '#0a6b55' },
+      { name: 'NSW Farmers', power: 40, interest: 70, color: '#8a5a00' },
+      { name: 'BOM', power: 50, interest: 30, color: '#888' }
+    ];
+
+    const TASKS_DRAFT = [
+      { name: '1.1 Problem definition', words: '80w', done: true },
+      { name: '1.2 Past-to-present', words: '70w', done: true },
+      { name: '2.1 Delivery systems', words: '60w', done: true },
+      { name: '2.2 Infrastructure', words: '50w', done: true },
+      { name: '2.3 Operational challenges', words: '60w', done: true },
+      { name: '3.1 Operational stakeholders', words: '60w', done: true },
+      { name: '3.2 Community & cultural', words: '50w', done: true },
+      { name: '3.3 Governance stakeholders', words: '40w', done: true },
+      { name: '4.1 Influence & power', words: '50w', done: false, priority: true },
+      { name: '4.2 Exposure to risk', words: '45w', done: false, priority: true },
+      { name: '4.3 Relationship map', words: '45w', done: false, priority: true },
+      { name: '5.1 Operator needs', words: '60w', done: false },
+      { name: '5.2 Irrigator expectations', words: '60w', done: false },
+      { name: '5.3 Environmental needs', words: '55w', done: false },
+      { name: '5.4 First Nations interests', words: '55w', done: false },
+      { name: '6.1 Risks & tensions', words: '80w', done: false },
+      { name: '6.2 Equity risks', words: '70w', done: false },
+      { name: '6.3 Trust & accountability', words: '70w', done: false },
+      { name: '7.1 Source selection', words: '70w', done: false },
+      { name: '7.2 Metadata context', words: '90w', done: false },
+      { name: '8.1 Technical requirements', words: '70w', done: false },
+      { name: '8.2 Governance safeguards', words: '55w', done: false },
+      { name: '8.3 Design principles', words: '45w', done: false },
+      { name: '9.1 Why reliability matters', words: '55w', done: false },
+      { name: '9.2 Socio-technical intervention', words: '55w', done: false }
+    ];
+
+    const TASKS_ENHANCE = [
+      { name: 'Claude enhancement — Sections 1-3', done: false, priority: true },
+      { name: 'Claude enhancement — Sections 4-6', done: false },
+      { name: 'Claude enhancement — Sections 7-9', done: false },
+      { name: 'Primary interview — send email to MI', done: false, priority: true },
+      { name: 'Word count audit', done: false },
+      { name: 'Referencing audit', done: false },
+      { name: 'Appendix A — Abbreviations', done: false },
+      { name: 'Appendix B — Stakeholder map (Miro/Lucid)', done: false, priority: true },
+      { name: 'Appendix C — Metadata table', done: false },
+      { name: 'AI Acknowledgement', done: false },
+      { name: 'Final compliance check', done: false }
+    ];
+
+    function var_(name) { return getComputedStyle(document.documentElement).getPropertyValue(name); }
+
+    // ── NAV ──────────────────────────────────────────────────────────
+    function showView(id) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('view-' + id).classList.add('active');
+      document.querySelectorAll('.nav-tab').forEach(t => {
+        if (t.textContent.toLowerCase() === id) t.classList.add('active');
+      });
+    }
+
+    // ── ARGUMENT FLOW ────────────────────────────────────────────────
+    function buildArgFlow() {
+      const flow = document.getElementById('arg-flow');
+      SECTIONS.forEach((s, i) => {
+        const node = document.createElement('div');
+        node.className = 'arg-node' + (s.done ? '' : ' pending');
+        node.innerHTML = `
+      <div class="arg-node-num">${s.num}</div>
+      <div class="arg-node-title">${s.title}</div>
+      <div class="arg-node-words">~${s.words} words${s.done ? ' · <span style="color:var(--green);">done</span>' : ''}</div>
+    `;
+        node.onclick = () => selectSection(s, node);
+        flow.appendChild(node);
+        if (i < SECTIONS.length - 1) {
+          const conn = document.createElement('div');
+          conn.className = 'arg-connector';
+          flow.appendChild(conn);
+        }
+      });
+    }
+
+    function selectSection(s, node) {
+      document.querySelectorAll('.arg-node').forEach(n => n.classList.remove('active'));
+      node.classList.add('active');
+      document.getElementById('arg-panel').innerHTML = `
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--red);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">${s.num} — ${s.title}</div>
+    <div style="font-size:0.82rem;color:var(--ink);line-height:1.65;margin-bottom:0.75rem;">${s.argument}</div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--ink3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;">Key message</div>
+    <div style="font-size:0.82rem;color:var(--ink);line-height:1.65;background:var(--bg2);padding:0.6rem 0.8rem;border-radius:6px;">${s.message}</div>
+  `;
+      document.getElementById('arg-theory').innerHTML = `
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--ink3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem;">Theory applied</div>
+    <p style="font-size:0.75rem;color:var(--ink2);line-height:1.5;">${s.theory}</p>
+  `;
+    }
+
+    // ── STAKEHOLDER MAP ───────────────────────────────────────────────
+    function buildStakeholderMap() {
+      const smap = document.getElementById('smap');
+      const tooltip = document.getElementById('smap-tooltip');
+
+      // Rings
+      const rings = [
+        { cx: 50, cy: 50, r: 18, color: '#1a4a8a22' },
+        { cx: 50, cy: 50, r: 35, color: '#0a6b5522' },
+        { cx: 50, cy: 50, r: 52, color: '#8a5a0022' }
+      ];
+      rings.forEach(ring => {
+        const el = document.createElement('div');
+        el.className = 'smap-ring';
+        el.style.cssText = `left:${ring.cx}%;top:${ring.cy}%;width:${ring.r * 2}%;padding-top:${ring.r * 2}%;border-color:${ring.color};`;
+        smap.appendChild(el);
+      });
+
+      STAKEHOLDERS_MAP.forEach(node => {
+        const el = document.createElement('div');
+        el.className = 'smap-node';
+        el.style.cssText = `left:${node.x}%;top:${node.y}%;`;
+        el.innerHTML = `<div class="smap-node-inner ${node.type}">${node.name.replace('\n', '<br>')}</div>`;
+        el.addEventListener('mouseenter', (e) => {
+          tooltip.style.opacity = '1';
+          tooltip.innerHTML = `<strong>${node.name.replace('\n', ' ')}</strong><br>${node.desc}`;
+          const rect = smap.getBoundingClientRect();
+          const ex = (node.x / 100) * rect.width;
+          const ey = (node.y / 100) * rect.height;
+          tooltip.style.left = Math.min(ex + 12, rect.width - 240) + 'px';
+          tooltip.style.top = Math.max(ey - 40, 4) + 'px';
         });
-        grp.appendChild(row);
-        spine.appendChild(grp);
+        el.addEventListener('mouseleave', () => tooltip.style.opacity = '0');
+        smap.appendChild(el);
       });
     }
 
-    function showDetail(n, color) {
-      const panel = document.getElementById('detail');
-      panel.innerHTML = '';
+    // ── POWER-INTEREST MATRIX ─────────────────────────────────────────
+    function buildMatrix() {
+      const mat = document.getElementById('matrix');
+      const size = mat.clientWidth || 380;
 
-      const makeDiv = (cls, text) => {
-        const d = document.createElement('div');
-        d.className = cls;
-        if (text) d.textContent = text;
-        return d;
-      };
+      const quads = [
+        { x: '0%', y: '0%', w: '50%', h: '50%', bg: '#fef8ee', label: 'Keep satisfied', lc: '#c8a060' },
+        { x: '50%', y: '0%', w: '50%', h: '50%', bg: '#eef4fe', label: 'Manage closely', lc: '#5080c0' },
+        { x: '0%', y: '50%', w: '50%', h: '50%', bg: '#f6f3ee', label: 'Monitor', lc: '#b0a890' },
+        { x: '50%', y: '50%', w: '50%', h: '50%', bg: '#f0fdf4', label: 'Keep informed', lc: '#60b080' }
+      ];
 
-      panel.appendChild(makeDiv('detail-num', n.num + ' · ' + (n.done ? 'done' : 'pending')));
-      panel.appendChild(makeDiv('detail-title', n.title));
-
-      [
-        ['Argument it makes', n.arg, 'detail-body'],
-        ['Theory / evidence applied', n.theory, 'detail-body']
-      ].forEach(([label, body]) => {
-        const sec = makeDiv('detail-section');
-        sec.appendChild(makeDiv('detail-label', label));
-        sec.appendChild(makeDiv('detail-body', body));
-        panel.appendChild(sec);
+      quads.forEach(q => {
+        const el = document.createElement('div');
+        el.className = 'matrix-quad';
+        el.style.cssText = `left:${q.x};top:${q.y};width:${q.w};height:${q.h};background:${q.bg};color:${q.lc};font-size:0.58rem;`;
+        el.textContent = q.label;
+        mat.appendChild(el);
       });
 
-      const starterSec = makeDiv('detail-section');
-      starterSec.appendChild(makeDiv('detail-label', 'HD starter'));
-      starterSec.appendChild(makeDiv('detail-starter', n.starter));
-      panel.appendChild(starterSec);
+      // Axis lines
+      ['left:50%;top:0;width:1px;height:100%;background:var(--rule);position:absolute;',
+        'left:0;top:50%;height:1px;width:100%;background:var(--rule);position:absolute;'].forEach(css => {
+          const el = document.createElement('div');
+          el.style.cssText = css;
+          mat.appendChild(el);
+        });
 
-      const thread = makeDiv('detail-thread');
-      const arrow = makeDiv('thread-arrow', '→');
-      arrow.style.color = color;
-      const threadText = makeDiv('thread-text', n.thread);
-      thread.appendChild(arrow);
-      thread.appendChild(threadText);
-      panel.appendChild(thread);
+      // Axis labels
+      const axLabels = [
+        { text: '← Low interest · High interest →', x: '50%', y: 'calc(100% - 14px)', anchor: 'middle', rotate: false },
+        { text: 'High power ↑', x: '4px', y: '28%', anchor: 'start', rotate: false, vert: true },
+        { text: 'Low power ↓', x: '4px', y: '68%', anchor: 'start', rotate: false, vert: true }
+      ];
+
+      MATRIX_NODES.forEach(n => {
+        const el = document.createElement('div');
+        el.className = 'matrix-node';
+        const px = (n.interest / 100) * 100;
+        const py = (1 - n.power / 100) * 100;
+        el.style.cssText = `left:${px}%;top:${py}%;`;
+        el.innerHTML = `
+      <div class="matrix-node-dot" style="background:${n.color};margin:0 auto;"></div>
+      <div class="matrix-node-label">${n.name}</div>
+    `;
+        mat.appendChild(el);
+      });
+
+      // Axis text
+      const axX = document.createElement('div');
+      axX.className = 'matrix-axis-label';
+      axX.style.cssText = 'bottom:4px;left:50%;transform:translateX(-50%);font-size:0.55rem;';
+      axX.textContent = '← interest →';
+      mat.appendChild(axX);
+
+      const axY = document.createElement('div');
+      axY.className = 'matrix-axis-label';
+      axY.style.cssText = 'left:3px;top:50%;transform:translateY(-50%) rotate(-90deg);transform-origin:center;font-size:0.55rem;white-space:nowrap;';
+      axY.textContent = '↑ power ↓';
+      mat.appendChild(axY);
     }
 
-    render();
-  </script>
-</body>
+    // ── DEPENDENCIES ─────────────────────────────────────────────────
+    function buildDeps() {
+      const colors = ['#1a4a8a', '#2d6a4f', '#8a5a00', '#6a3a8a', '#7a3a10', '#c0392b'];
+      const types = ['data', 'operational', 'service', 'governance', 'rights', 'design'];
+      document.getElementById('dep-list').innerHTML = DEPENDENCIES.map((d, i) => `
+    <div style="background:white;border:1px solid var(--rule);border-left:3px solid ${colors[i]};border-radius:6px;padding:0.65rem 0.85rem;">
+      <div style="font-size:0.62rem;font-family:'IBM Plex Mono',monospace;color:${colors[i]};letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.3rem;">${d.type} dependency</div>
+      <div style="font-size:0.78rem;font-weight:500;color:var(--ink);">${d.from}</div>
+      <div style="font-size:0.7rem;color:var(--ink3);margin:0.15rem 0;">→</div>
+      <div style="font-size:0.78rem;color:var(--ink2);">${d.to}</div>
+    </div>
+  `).join('');
+    }
 
-</html>
+    // ── EVIDENCE ─────────────────────────────────────────────────────
+    const TAG_MAP = { op: 'operational', gov: 'governance', risk: 'risk/equity', env: 'environmental', fn: 'first nations', design: 'system design' };
+    function buildEvidence() {
+      const list = document.getElementById('ev-list');
+      EVIDENCE.forEach((src, i) => {
+        const el = document.createElement('div');
+        el.className = 'ev-source';
+        el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.58rem;color:var(--ink3);">${src.id}</span>
+        <span class="ev-source-name">${src.name}</span>
+        ${src.op ? '<span style="font-size:0.58rem;background:var(--blue-soft);color:var(--blue);border:1px solid #b0caee;border-radius:3px;padding:0.05rem 0.35rem;font-family:\'IBM Plex Mono\',monospace;letter-spacing:0.04em;">operational</span>' : ''}
+      </div>
+      <div class="ev-source-type">${src.type}</div>
+      <div class="ev-sections">${src.sections.map(s => `<span class="ev-tag ${s}">${TAG_MAP[s] || s}</span>`).join('')}</div>
+    `;
+        el.onclick = () => selectSource(src, el);
+        list.appendChild(el);
+      });
+    }
+
+    function selectSource(src, el) {
+      document.querySelectorAll('.ev-source').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+      const TAG_COL = { op: 'var(--blue)', gov: 'var(--amber)', risk: 'var(--red)', env: 'var(--teal)', fn: '#7a3a10', design: 'var(--green)' };
+      document.getElementById('ev-panel').innerHTML = `
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--blue);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">${src.id}</div>
+    <div style="font-weight:500;font-size:0.88rem;margin-bottom:0.25rem;">${src.name}</div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--ink3);margin-bottom:0.75rem;">${src.type} · ${src.op ? 'operational' : 'non-operational'}</div>
+    
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink3);margin-bottom:0.35rem;">Sections supported</div>
+    <div style="display:flex;flex-wrap:wrap;gap:0.3rem;margin-bottom:0.85rem;">
+      ${src.sections.map(s => `<span class="ev-tag ${s}">${TAG_MAP[s] || s}</span>`).join('')}
+    </div>
+    
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink3);margin-bottom:0.35rem;">System-level implication</div>
+    <div style="font-size:0.78rem;color:var(--ink);line-height:1.6;margin-bottom:0.85rem;background:var(--blue-soft);border-left:3px solid var(--blue);padding:0.5rem 0.7rem;border-radius:0 5px 5px 0;">${src.implication}</div>
+    
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink3);margin-bottom:0.35rem;">Known limitations / bias</div>
+    <div style="font-size:0.75rem;color:var(--ink2);font-style:italic;line-height:1.55;">${src.bias}</div>
+  `;
+    }
+
+    // ── PROGRESS ─────────────────────────────────────────────────────
+    function buildProgress() {
+      function makeTask(t, phase) {
+        return `
+      <div class="task-row">
+        <div class="task-check ${t.done ? 'done' : 'pending'}">${t.done ? '✓' : ''}</div>
+        <div class="task-name ${t.done ? 'done-text' : ''}">${t.name}</div>
+        ${t.words ? `<div class="task-words">${t.words}</div>` : ''}
+        ${t.priority && !t.done ? '<div class="task-priority">next</div>' : ''}
+      </div>
+    `;
+      }
+
+      const draftPhases = [
+        { title: 'Sections 1–3 (done)', items: TASKS_DRAFT.slice(0, 8) },
+        { title: 'Sections 4 — next up', items: TASKS_DRAFT.slice(8, 11) },
+        { title: 'Sections 5–9 — pending', items: TASKS_DRAFT.slice(11) }
+      ];
+
+      document.getElementById('task-list-draft').innerHTML = draftPhases.map(p =>
+        `<div class="phase-title">${p.title}</div>${p.items.map(t => makeTask(t, 'draft')).join('')}`
+      ).join('');
+
+      const enhPhases = [
+        { title: 'Claude enhancement', items: TASKS_ENHANCE.slice(0, 4) },
+        { title: 'Quality checks', items: TASKS_ENHANCE.slice(4, 6) },
+        { title: 'Appendices + final', items: TASKS_ENHANCE.slice(6) }
+      ];
+
+      document.getElementById('task-list-enhance').innerHTML = enhPhases.map(p =>
+        `<div class="phase-title">${p.title}</div>${p.items.map(t => makeTask(t, 'enhance')).join('')}`
+      ).join('');
+    }
+
+    // ── INIT ──────────────────�
