@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Library — MBA</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     :root {
       --bg: #F7F5F0;
       --surface: #FFFFFF;
@@ -16,6 +26,7 @@
       --accent: #C23B22;
       --border: #E2DED6;
     }
+
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--bg);
@@ -25,7 +36,12 @@
       font-size: 14px;
       line-height: 1.5;
     }
-    .page { max-width: 640px; margin: 0 auto; }
+
+    .page {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
     .back {
       display: inline-block;
       color: var(--ink3);
@@ -34,12 +50,17 @@
       margin-bottom: 24px;
       transition: color 0.2s;
     }
-    .back:hover { color: var(--accent); }
+
+    .back:hover {
+      color: var(--accent);
+    }
+
     .library-header {
       margin-bottom: 32px;
       padding-bottom: 24px;
       border-bottom: 2px solid var(--ink);
     }
+
     .eyebrow {
       font-family: 'Syne', sans-serif;
       font-size: 10px;
@@ -49,6 +70,7 @@
       color: var(--ink3);
       margin-bottom: 8px;
     }
+
     .library-title {
       font-family: 'Syne', sans-serif;
       font-size: 28px;
@@ -56,8 +78,18 @@
       color: var(--ink);
       letter-spacing: -0.02em;
     }
-    .library-title span { color: var(--accent); }
-    .articles { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+    .library-title span {
+      color: var(--accent);
+    }
+
+    .articles {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     .articles a {
       display: block;
       padding: 16px 20px;
@@ -69,11 +101,18 @@
       font-weight: 500;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
+
     .articles a:hover {
       border-color: var(--accent);
       box-shadow: 0 4px 12px rgba(194, 59, 34, 0.12);
     }
-    .articles .label { color: var(--ink2); font-size: 12px; margin-top: 4px; }
+
+    .articles .label {
+      color: var(--ink2);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
     .empty {
       padding: 32px 20px;
       text-align: center;
@@ -85,11 +124,18 @@
     }
 
     @media (max-width: 768px) {
-      body { padding: 24px; }
-      .library-header { margin-bottom: 24px; padding-bottom: 18px; }
+      body {
+        padding: 24px;
+      }
+
+      .library-header {
+        margin-bottom: 24px;
+        padding-bottom: 18px;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="page">
     <a href="index.html" class="back">← MBA — Assignment Information Pages — Reading Summaries — Notes</a>
@@ -104,7 +150,6 @@
       var articlesBySubject = {
         DMBA6004: [],
         DMBA6002: [
-          { title: 'Assessment 1 — Argument Map', href: 'DMBA6002-Assessment1-Overview.html', description: 'Overview — argument map for Assessment 1' },
           { title: 'Assessment 1', href: 'DMBA6002-Assessment1.html', description: 'Portfolio Cheat Sheet — Anomaly Detection' }
         ],
         DMBA6001: [
@@ -139,4 +184,5 @@
     })();
   </script>
 </body>
+
 </html>
