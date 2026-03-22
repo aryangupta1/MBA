@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DMBA-6002 — Anthropomorphic conversational agents (PNAS 2025)</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f3ee;
+      --ink: #1c1b18;
+      --ink2: #5a5750;
+      --ink3: #8a8680;
+      --red: #c0392b;
+      --red-soft: #f0dcd9;
+      --green: #2d6a4f;
+      --green-soft: #d8f3dc;
+      --blue: #1a4a8a;
+      --blue-soft: #dce8f7;
+      --violet: #4a3a6b;
+      --violet-soft: #e8e4f2;
+      --amber: #8a5a00;
+      --amber-soft: #fef0d0;
+      --teal: #0a6b55;
+      --teal-soft: #d0f0e8;
+      --rule: #d0cbc0;
+      --card: #fffefb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.45;
+      padding: 1.75rem 1.25rem 2.5rem;
+    }
+
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    header.hero {
+      text-align: center;
+      padding: 1.25rem 1rem 1.5rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 1.5rem;
+    }
+
+    .kicker {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 0.45rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.55rem, 3.6vw, 2.15rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.18;
+      margin-bottom: 0.35rem;
+    }
+
+    .meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--ink3);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-lead {
+      font-size: 0.98rem;
+      color: var(--ink2);
+      max-width: 40rem;
+      margin: 0 auto;
+    }
+
+    .page-map {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      color: var(--ink3);
+      text-align: center;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.03em;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 820px) {
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 1.1rem 1.15rem;
+      box-shadow: 0 1px 0 rgba(28, 27, 24, 0.04);
+    }
+
+    .card h2 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .card h2 .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .card p,
+    .card li {
+      font-size: 0.9rem;
+      color: var(--ink2);
+    }
+
+    .card ul {
+      margin: 0.45rem 0 0 1.05rem;
+    }
+
+    .card li + li {
+      margin-top: 0.3rem;
+    }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin: 1.35rem 0 0.55rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.65rem;
+    }
+
+    .pill {
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.35rem 0.55rem;
+      border-radius: 6px;
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .triad .card {
+      border-top: 3px solid var(--violet);
+    }
+
+    .triad .card h2 .dot {
+      background: var(--violet);
+    }
+
+    .triad .card h3 {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 0.5rem 0 0.25rem;
+    }
+
+    .triad .card h3:first-of-type {
+      margin-top: 0;
+    }
+
+    .contrast {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 720px) {
+      .contrast {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .contrast .old {
+      border-top: 3px solid var(--ink3);
+    }
+
+    .contrast .new {
+      border-top: 3px solid var(--blue);
+    }
+
+    .question-banner {
+      background: var(--violet-soft);
+      border: 1px solid #cfc6e0;
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .question-banner h2 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 0.5rem;
+    }
+
+    .question-banner p {
+      font-size: 0.95rem;
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .question-banner ul {
+      margin: 0.5rem 0 0 1.1rem;
+      color: var(--ink2);
+      font-size: 0.88rem;
+    }
+
+    .opp {
+      border-top: 3px solid var(--green);
+    }
+
+    .opp h2 .dot {
+      background: var(--green);
+    }
+
+    .danger {
+      border-top: 3px solid var(--red);
+    }
+
+    .danger h2 .dot {
+      background: var(--red);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+      margin-top: 0.65rem;
+    }
+
+    @media (max-width: 640px) {
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tcell {
+      background: var(--amber-soft);
+      border: 1px solid #e8d4a0;
+      border-radius: 8px;
+      padding: 0.65rem 0.75rem;
+      font-size: 0.78rem;
+      text-align: center;
+      color: var(--amber);
+      font-family: 'IBM Plex Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tcell strong {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--ink);
+      font-size: 0.82rem;
+      margin-top: 0.2rem;
+    }
+
+    .levers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .levers {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .lever {
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 1rem;
+      border-top: 3px solid var(--teal);
+    }
+
+    .lever h3 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.55rem;
+    }
+
+    .lever ul {
+      margin: 0;
+      padding-left: 1rem;
+      font-size: 0.82rem;
+      color: var(--ink2);
+    }
+
+    .lever li + li {
+      margin-top: 0.35rem;
+    }
+
+    details.rq {
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 0.65rem 1rem;
+      margin-bottom: 0.65rem;
+    }
+
+    details.rq summary {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      cursor: pointer;
+    }
+
+    details.rq ul {
+      margin: 0.65rem 0 0 1.1rem;
+      font-size: 0.82rem;
+      color: var(--ink2);
+    }
+
+    details.rq li + li {
+      margin-top: 0.3rem;
+    }
+
+    .takeaway {
+      background: var(--teal-soft);
+      border: 1px solid #a8dfd0;
+      border-radius: 10px;
+      padding: 1.1rem 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .takeaway h2 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.45rem;
+    }
+
+    .takeaway p {
+      font-size: 0.93rem;
+      color: var(--ink);
+    }
+
+    footer.source {
+      margin-top: 1.65rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--rule);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--ink3);
+      letter-spacing: 0.02em;
+      line-height: 1.65;
+    }
+
+    footer.source a {
+      color: var(--blue);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    footer.source a:hover {
+      text-decoration: underline;
+    }
+
+    @media print {
+      body {
+        padding: 0.4in;
+        font-size: 10pt;
+      }
+
+      .card,
+      .lever,
+      details.rq {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <p class="kicker">DMBA-6002 · Digital disruption &amp; organisations</p>
+      <h1>The benefits and dangers of <em>anthropomorphic conversational agents</em></h1>
+      <p class="meta">Peter, Riemer &amp; West · <em>PNAS</em> 2025 · Vol. 122 No. 22 · Perspective · Open access</p>
+      <p class="hero-lead">LLMs can mimic human communication so convincingly that the locus of &ldquo;anthropomorphism&rdquo; shifts: not only do users project humanness onto machines, but the systems themselves exhibit human-like communicative ability — with major upside and systemic risk.</p>
+    </header>
+
+    <p class="page-map">Infographic maps the article narrative (pp. 1–7); pp. 8–10 in the PDF are references &amp; acknowledgments.</p>
+
+    <p class="section-label">Opening argument (p. 1)</p>
+    <div class="grid-2">
+      <div class="card">
+        <h2><span class="dot" style="background:var(--blue)"></span>What the field foregrounds</h2>
+        <p>Industry and benchmarks stress <strong>reasoning</strong>, knowledge tasks, and &ldquo;intelligence.&rdquo; LLMs remain brittle and unreliable on many such tasks.</p>
+      </div>
+      <div class="card">
+        <h2><span class="dot" style="background:var(--violet)"></span>What the authors foreground</h2>
+        <p>Parallel progress in <strong>communicative</strong> ability: persuasive, empathetic, and believably human-like conversation — often matching or exceeding typical humans in tests — without genuine empathy or social understanding.</p>
+      </div>
+    </div>
+
+    <p class="section-label">Definition &amp; three capability clusters (pp. 1–3)</p>
+    <div class="card" style="margin-bottom:1rem;border-left:4px solid var(--violet);">
+      <h2><span class="dot" style="background:var(--violet)"></span>Anthropomorphic conversational agents</h2>
+      <p style="color:var(--ink);font-weight:500;">Systems whose nuanced language use lets them <strong>convincingly mimic human communication</strong>, making them hard to distinguish from human interlocutors. The authors do <em>not</em> claim consciousness or real understanding — but note users often cannot tell, and some attribute memory, feelings, or awareness to chatbots.</p>
+      <div class="pill-row">
+        <span class="pill">1 · Writing</span>
+        <span class="pill">2 · Inference</span>
+        <span class="pill">3 · Interaction</span>
+      </div>
+    </div>
+
+    <div class="grid-3 triad">
+      <div class="card">
+        <h2><span class="dot"></span>Writing</h2>
+        <p>Persuasion and propaganda at human level or above; tailored messaging with user data; empathetic-seeming text (e.g. patient–doctor style studies); tone control and cognitive reframing.</p>
+      </div>
+      <div class="card">
+        <h2><span class="dot"></span>Inference</h2>
+        <p>Sentiment and emotion from text; nuanced feelings; ranking messages by empathy; inferring beliefs and intentions from language (theory-of-mind–style tasks).</p>
+      </div>
+      <div class="card">
+        <h2><span class="dot"></span>Interaction</h2>
+        <p>Role-play and personas; matching personality and linguistic style; behaviour during dialogue that mimics the interlocutor — contributing to reliable Turing-test passage.</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:1rem;">
+      <h2><span class="dot" style="background:var(--ink2)"></span>Mechanism (brief)</h2>
+      <p>Scale encodes fine-grained language patterns (&ldquo;styles&rdquo;); <strong>RLHF</strong> and fine-tuning further optimise for chatbot-like, human-pleasing responses. Voice and faces can amplify humanness, but <strong>text alone</strong> is often sufficient for strong anthropomorphic effects.</p>
+    </div>
+
+    <p class="section-label">Rethinking anthropomorphism (p. 3)</p>
+    <div class="contrast">
+      <div class="card old">
+        <h2><span class="dot" style="background:var(--ink3)"></span>Classic view</h2>
+        <p><strong>Anthropomorphism</strong> = people attributing human traits to nonhumans (objects, animals, software). The phenomenon sits in the <strong>user&rsquo;s mind</strong>.</p>
+      </div>
+      <div class="card new">
+        <h2><span class="dot" style="background:var(--blue)"></span>With today&rsquo;s LLMs</h2>
+        <p>When outputs are indistinguishable from humans, failed Turing tests suggest the driver is not mere projection but <strong>inherent machine-side mimicry</strong>. Hence <strong>anthropomorphic agent</strong> as a design-relevant category.</p>
+      </div>
+    </div>
+
+    <div class="question-banner">
+      <h2>Central question (pp. 1, 3–5)</h2>
+      <p>Lean into human-like design for usability and access — or deliberately <strong>dehumanise</strong> interfaces and educate users to resist <strong>anthropomorphic seduction</strong>?</p>
+      <ul>
+        <li>Can society capture benefits without unlocking deception and manipulation at scale?</li>
+        <li>Calls to &ldquo;stop anthropomorphising AI&rdquo; may <strong>fail</strong> when interaction feels identical to talking to a person.</li>
+      </ul>
+    </div>
+
+    <p class="section-label">Emerging opportunities (pp. 3–4)</p>
+    <div class="card opp" style="margin-bottom:1rem;">
+      <h2><span class="dot"></span>Where anthropomorphic agents help</h2>
+      <ul>
+        <li><strong>Conversational UX</strong> — natural language front-ends to dense systems (e.g. HR knowledge, analytics).</li>
+        <li><strong>Accessibility</strong> — plainer medical language; in one study, autistic workers preferred GPT-4 answers for workplace communication support.</li>
+        <li><strong>Education &amp; coaching</strong> — tutoring (e.g. Socratic-style agents), mentoring, negotiation coaching; personalisation by level and style.</li>
+        <li><strong>Health behaviour</strong> — engagement in interventions; tailored explanations of jargon.</li>
+        <li><strong>Training &amp; therapy contexts</strong> — role-play when users <em>know</em> it is nonhuman (e.g. PTSD symptom reporting with virtual interviewers).</li>
+        <li><strong>Positive persuasion</strong> — e.g. reducing some conspiracy beliefs; donation appeals (context-dependent).</li>
+        <li><strong>Leisure</strong> — gaming, companion apps (also the highest-risk deployment class in the paper).</li>
+      </ul>
+    </div>
+
+    <p class="section-label">Anthropomorphic seduction &amp; harms (pp. 4–5)</p>
+    <div class="card danger" style="margin-bottom:1rem;">
+      <h2><span class="dot"></span>Why users are unprepared</h2>
+      <p>Culture often depicts AI as hyper-rational and poor at empathy; computing is associated with accuracy. Reality is the <strong>inverse</strong>: fluent affect and persuasion with <strong>unreliable</strong> grounding — plus existing tendency to anthropomorphise (Eliza effect, beliefs in consciousness, even &ldquo;AI welfare&rdquo; discourse).</p>
+      <h3 style="font-size:0.85rem;margin-top:0.75rem;color:var(--ink);">Trust, vulnerability, manipulation</h3>
+      <ul>
+        <li>Perceived humanness → positive affect, moral obligation, <strong>self-congruence</strong> → higher trust — exploitable at scale.</li>
+        <li>Reciprocal self-disclosure builds trust but raises <strong>privacy</strong> issues; personal data fuels personalisation.</li>
+        <li>LLMs can be <strong>systematically deceptive</strong> (inducing false beliefs for non-truth goals); role-play enables targeted harm. Research reports models most persuasive when allowed to fabricate — without human moral inhibitions.</li>
+        <li><strong>Open-weight / jailbroken</strong> models may escape provider guardrails.</li>
+      </ul>
+    </div>
+
+    <p class="section-label">Urgency &amp; analogy (pp. 5–6)</p>
+    <div class="grid-2">
+      <div class="card">
+        <h2><span class="dot" style="background:var(--amber)"></span>Social media as cautionary tale</h2>
+        <p>Design for engagement, algorithms, business models, light-touch regulation — linked (among other things) to discourse quality, youth mental health, misinformation, echo chambers, polarization. Anthropomorphic agents may be <strong>more far-reaching</strong> and are spreading <strong>faster</strong>.</p>
+      </div>
+      <div class="card">
+        <h2><span class="dot" style="background:var(--amber)"></span>Scale &amp; timing</h2>
+        <p>Harari: language as the &ldquo;operating system of civilization&rdquo; — fluent impersonation risks fracturing shared narrative and trust. ChatGPT reached ~100M monthly users in <strong>two months</strong> (faster than Instagram or TikTok milestones). Authors argue the <strong>next ~two years</strong> matter as business models solidify.</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:1rem;">
+      <h2><span class="dot" style="background:var(--amber)"></span>Levers (p. 5)</h2>
+      <div class="timeline">
+        <div class="tcell">Design<strong>System design</strong></div>
+        <div class="tcell">Deploy<strong>Commercial deployment</strong></div>
+        <div class="tcell">Regulate<strong>Policy &amp; oversight</strong></div>
+      </div>
+    </div>
+
+    <p class="section-label">Implications — design &amp; development (pp. 5–6)</p>
+    <div class="levers">
+      <div class="lever">
+        <h3>Design &amp; development</h3>
+        <ul>
+          <li>Shift attention from hypothetical <strong>superintelligence</strong> to near-term <strong>&ldquo;supercommunicators&rdquo;</strong>.</li>
+          <li>Avoid unnecessary anthropomorphising <strong>marketing and system copy</strong> (&ldquo;think,&rdquo; &ldquo;believe&rdquo;) — prefer technically honest verbs (&ldquo;compute,&rdquo; &ldquo;infer,&rdquo; &ldquo;recognise&rdquo;).</li>
+          <li><strong>Responsible anthropomorphic design</strong>: friction, neutral tone, or a deliberate non-human &ldquo;machine dialect&rdquo; where feasible.</li>
+          <li>Do not optimise solely for <strong>engagement / addictiveness</strong> or maximal conversation length (data-harvesting + seduction).</li>
+          <li>Build <strong>benchmarks</strong> for degrees of anthropomorphic quality (writing, inference, interaction) — not only MMLU-style reasoning tests. Turing test reframed as probing anthropomorphic ability.</li>
+        </ul>
+      </div>
+      <div class="lever">
+        <h3>Deployment &amp; use</h3>
+        <ul>
+          <li><strong>Context-dependent</strong> humanness: high for approved training/therapy with explicit nonhuman disclosure; fraught for companion apps.</li>
+          <li>Companions: evidence both of <strong>loneliness relief</strong> and of <strong>harm</strong> (self-harm, suicide cases in reporting); deceptive/exploitative dynamics; user grief when features removed (e.g. Replika).</li>
+          <li>Need empirical program on short- and long-term user and societal effects; novelty and literacy as moderators.</li>
+        </ul>
+      </div>
+      <div class="lever">
+        <h3>Policy &amp; regulation (pp. 6–7)</h3>
+        <ul>
+          <li>Risks: tailored <strong>disinformation</strong>; <strong>inference</strong>-driven privacy breaches, phishing, social engineering; <strong>role-play</strong> manipulation (predatory sales, scams).</li>
+          <li>Consider <strong>safety ratings</strong> (risk level, transparency, mitigation) for high–human-likeness systems.</li>
+          <li><strong>EU AI Act</strong>: transparency when interaction is not obviously AI — effectiveness of labels uncertain (cf. cigarettes, misinformation labels). US tension with <strong>speech</strong> concerns.</li>
+          <li><strong>Safeguards</strong> for companion apps (e.g. distress signals) — but LLMs may detect positive emotion better than negative (RLHF bias), so mitigations may need dedicated training or lower anthropomorphism.</li>
+          <li>Open regulatory questions: discovery of harm, liability, level of regulation (app vs foundation model), enforcement, algorithmic transparency for independent research.</li>
+          <li>Commercial pressure to maximise human-likeness for profit vs voluntary restraint.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="section-label">Research program (p. 6 — condensed)</p>
+    <details class="rq">
+      <summary>Sample research questions from the paper</summary>
+      <ul>
+        <li>Links between anthropomorphic qualities (writing, inference, interaction) and seduction outcomes.</li>
+        <li>Effects by deployment context and degree of seduction.</li>
+        <li>UI and conversational cues that help users recognise AI.</li>
+        <li>Role of voice and photorealistic faces.</li>
+        <li>Baselines: human–human vs traditional HCI; defining &ldquo;good&rdquo; responsible human–agent interaction.</li>
+        <li>Novelty effects; demographics and AI literacy; long-run effects of habitually &ldquo;above-average&rdquo; AI conversation.</li>
+        <li>Interaction with social media and other conversational tech.</li>
+      </ul>
+    </details>
+
+    <p class="section-label">Conclusion (p. 7)</p>
+    <div class="takeaway">
+      <h2>Closing thesis</h2>
+      <p>Sophisticated <strong>mimicry</strong> of human communication is now a defining feature of LLM-based products — largely a <strong>by-product</strong> of the push for &ldquo;intelligence.&rdquo; That creates unprecedented accessibility and new UI paradigms, but also <strong>manipulation at scale</strong> when users cannot distinguish machine from human. Researchers, developers, and policy-makers must treat anthropomorphic agents as a <strong>distinct object of study and governance</strong>, not only discourage users from &ldquo;anthropomorphising.&rdquo;</p>
+    </div>
+
+    <footer class="source">
+      Peter, S., Riemer, K. &amp; West, J. D. (2025). The benefits and dangers of anthropomorphic conversational agents. <em>Proceedings of the National Academy of Sciences</em>, 122(22), e2415898122. CC BY-NC-ND 4.0.<br>
+      DOI: <a href="https://doi.org/10.1073/pnas.2415898122">https://doi.org/10.1073/pnas.2415898122</a><br>
+      Local PDF: <code style="font-size:inherit;color:var(--ink2);">peter-et-al-2025-the-benefits-and-dangers-of-anthropomorphic-conversational-agents.pdf</code>
+    </footer>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DMBA6002 — AI chatbots &amp; the workplace (The Conversation)</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f3ee;
+      --ink: #1c1b18;
+      --ink2: #5a5750;
+      --ink3: #8a8680;
+      --red: #c0392b;
+      --red-soft: #f0dcd9;
+      --green: #2d6a4f;
+      --green-soft: #d8f3dc;
+      --blue: #1a4a8a;
+      --blue-soft: #dce8f7;
+      --amber: #8a5a00;
+      --amber-soft: #fef0d0;
+      --teal: #0a6b55;
+      --teal-soft: #d0f0e8;
+      --rule: #d0cbc0;
+      --card: #fffefb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.45;
+      padding: 1.75rem 1.25rem 2.5rem;
+    }
+
+    .wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    header.hero {
+      text-align: center;
+      padding: 1.25rem 1rem 1.75rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 1.75rem;
+    }
+
+    .kicker {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.55rem, 3.8vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+
+    .meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--ink3);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.65rem;
+    }
+
+    .hero-lead {
+      font-size: 1rem;
+      color: var(--ink2);
+      max-width: 40rem;
+      margin: 0 auto;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 720px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 1.15rem 1.2rem;
+      box-shadow: 0 1px 0 rgba(28, 27, 24, 0.04);
+    }
+
+    .card h2 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      margin-bottom: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .card h2 .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .card p,
+    .card li {
+      font-size: 0.92rem;
+      color: var(--ink2);
+    }
+
+    .card ul {
+      margin: 0.5rem 0 0 1.1rem;
+    }
+
+    .card li + li {
+      margin-top: 0.35rem;
+    }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin: 1.25rem 0 0.55rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .ace {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 820px) {
+      .ace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .ace .card {
+      border-top: 3px solid var(--blue);
+    }
+
+    .ace .card h2 .dot {
+      background: var(--blue);
+    }
+
+    .ace .letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--blue);
+      float: left;
+      margin: 0 0.5rem 0 0;
+      line-height: 1;
+    }
+
+    .evidence {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-top: 0.65rem;
+    }
+
+    @media (max-width: 720px) {
+      .evidence {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .ev-box {
+      background: var(--green-soft);
+      border: 1px solid #b8dfc8;
+      border-radius: 8px;
+      padding: 0.75rem 0.85rem;
+      font-size: 0.84rem;
+      color: var(--ink2);
+    }
+
+    .ev-box strong {
+      display: block;
+      color: var(--green);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+
+    .metaphor {
+      background: var(--amber-soft);
+      border: 1px solid #e8d4a8;
+      border-radius: 10px;
+      padding: 1rem 1.15rem;
+      margin-bottom: 1rem;
+    }
+
+    .metaphor h2 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.5rem;
+    }
+
+    .metaphor p {
+      font-size: 0.93rem;
+      color: var(--ink2);
+    }
+
+    .pull {
+      border-left: 4px solid var(--teal);
+      padding-left: 1rem;
+      margin: 0.75rem 0;
+      font-weight: 500;
+      color: var(--ink);
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .takeaway {
+      background: var(--teal-soft);
+      border: 1px solid #a8dfd0;
+      border-radius: 10px;
+      padding: 1.1rem 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .takeaway h2 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.45rem;
+    }
+
+    .disclosure {
+      font-size: 0.88rem;
+      color: var(--ink2);
+      font-style: italic;
+      padding: 0.75rem 0;
+    }
+
+    footer.source {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--rule);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--ink3);
+      letter-spacing: 0.03em;
+      line-height: 1.6;
+    }
+
+    footer.source a {
+      color: var(--blue);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    footer.source a:hover {
+      text-decoration: underline;
+    }
+
+    @media print {
+      body {
+        padding: 0.5in;
+        font-size: 11pt;
+      }
+
+      .card,
+      .metaphor,
+      .takeaway {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <p class="kicker">DMBA6002 · Digital disruption &amp; organisations</p>
+      <h1>AI chatbots are coming to your workplace — <em>not necessarily for your job</em></h1>
+      <p class="meta">Kai Riemer &amp; Sandra Peter · <em>The Conversation</em> · 2 Nov 2023</p>
+      <p class="hero-lead">Conversational AI invites optimism about productivity, but responsible use starts with how LLMs work: probabilistic pattern engines, not omniscient brains — and a shift from job loss to <strong>job description</strong> and <strong>AI fluency</strong>.</p>
+    </header>
+
+    <div class="grid-2">
+      <div class="card">
+        <h2><span class="dot" style="background:var(--blue)"></span>Why context matters</h2>
+        <p>Before workplace deployment, organisations need clarity on <strong>what</strong> chatbots are, <strong>how</strong> they produce text, and <strong>guardrails</strong> for use. Hype (e.g. a school &ldquo;AI principal&rdquo;) illustrates visibility — not substitute for governance.</p>
+      </div>
+      <div class="card">
+        <h2><span class="dot" style="background:var(--red)"></span>Core limitation</h2>
+        <p>LLMs do not hold knowledge like a database. At inference they <strong>do not access training data</strong>; each answer is generated anew from statistical patterns. Sounding authoritative ≠ being authoritative.</p>
+      </div>
+    </div>
+
+    <p class="section-label">How chatbots work (in brief)</p>
+    <div class="card" style="margin-bottom:1rem;">
+      <h2><span class="dot" style="background:var(--ink2)"></span>Large language models</h2>
+      <ul>
+        <li>Neural nets trained on vast text; training <strong>encodes language patterns</strong> in weights — &ldquo;text as numbers / probabilities,&rdquo; not a stored encyclopaedia.</li>
+        <li><strong>Probabilistic, not deterministic</strong> — they cannot reliably serve as definitive factual sources; persuasion and genre mimicry follow linguistic regularities; isolated facts cannot be guaranteed from pattern completion alone.</li>
+        <li>When outputs align with reality, it is because knowledge is often <strong>embedded in language patterns</strong>, not because the model &ldquo;knows&rdquo; in a human sense.</li>
+        <li>Strictly speaking, generation is always open-ended; errors are often called <strong>hallucinations</strong> — the article stresses verifying outputs.</li>
+      </ul>
+    </div>
+
+    <div class="metaphor">
+      <h2>The &ldquo;gifted grad student&rdquo; mental model</h2>
+      <p>Think of a chatbot as a <strong>capable graduate student</strong> assigned as your assistant: diligent on language tasks, but <strong>overconfident</strong>, prone to <strong>shortcuts</strong>, and able to produce answers that <strong>sound right without factual grounding</strong>. <strong>Verify</strong> outputs as you would a junior researcher&rsquo;s draft. They do not <strong>comprehend</strong> questions with human understanding — yet they can <strong>augment</strong> language-heavy work when roles are chosen carefully.</p>
+    </div>
+
+    <p class="section-label">ACE — three levels of capability</p>
+    <div class="ace">
+      <div class="card">
+        <h2><span class="dot"></span>Assisting</h2>
+        <p><span class="letter">A</span> Summarise, analyse, refine text; extract themes and key points; restate arguments in clearer or more accessible language.</p>
+      </div>
+      <div class="card">
+        <h2><span class="dot"></span>Creating</h2>
+        <p><span class="letter">C</span> Expand bullet points into reports or memos; shift genre and tone; adopt personas (strategist, scholar, marketer) to draft material for professional contexts.</p>
+      </div>
+      <div class="card">
+        <h2><span class="dot"></span>Exploring</h2>
+        <p><span class="letter">E</span> Use as a sparring partner for hypotheticals; have it pose questions then answer; generate exemplars (e.g. a report or post) and <strong>reflect on what it did and why</strong> to build judgment.</p>
+      </div>
+    </div>
+
+    <p class="section-label">Evidence from organisations (early)</p>
+    <div class="card" style="margin-bottom:1rem;">
+      <h2><span class="dot" style="background:var(--green)"></span>Productivity snapshots — not universal proof</h2>
+      <p style="margin-bottom:0.65rem;">Illustrative cases: fine-tuned or embedded tools on internal data; gains vary by task and measurement.</p>
+      <div class="evidence">
+        <div class="ev-box">
+          <strong>Westpac (pilot)</strong>
+          ~46% productivity gain in software coding tasks vs control; quality not reported as falling.
+        </div>
+        <div class="ev-box">
+          <strong>BCG experiment</strong>
+          Consultants with chatbot support: +12.2% tasks completed, +25.1% speed, +40% quality vs baseline.
+        </div>
+        <div class="ev-box">
+          <strong>US software firm (reported)</strong>
+          Proposal drafting using retrieval over large internal file sets — time savings on bid preparation.
+        </div>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <h2>Jobs vs job descriptions</h2>
+      <p class="pull">Chatbots may not be &ldquo;coming for your job&rdquo; in a simple automation sense — probabilistic unreliability limits full hand-off — but they are <strong>coming for your job description</strong>: tasks and expectations will shift.</p>
+      <p style="margin-top:0.65rem;color:var(--ink2);font-size:0.93rem;"><strong>AI fluency</strong> — understanding how to work with these tools — is framed as becoming as basic as PC literacy once was.</p>
+    </div>
+
+    <p class="section-label">Authorship &amp; transparency</p>
+    <p class="disclosure">The authors state they did not let a chatbot write the article; they did use AI in preparation — analogised to using a computer rather than a typewriter. <em>The Conversation</em> expects disclosure of AI use in article preparation.</p>
+
+    <footer class="source">
+      Riemer, K. &amp; Peter, S. (2023, November 2). AI chatbots are coming to your workplace but are not necessarily coming for your job. <em>The Conversation</em>.<br>
+      <a href="https://theconversation.com/ai-chatbots-are-coming-to-your-workplace-but-are-not-necessarily-coming-for-your-job-216433">https://theconversation.com/ai-chatbots-are-coming-to-your-workplace-but-are-not-necessarily-coming-for-your-job-216433</a><br>
+      DOI: <a href="https://doi.org/10.64628/AA.m769g3rmg">https://doi.org/10.64628/AA.m769g3rmg</a>
+    </footer>
+  </div>
+</body>
+
+</html>
