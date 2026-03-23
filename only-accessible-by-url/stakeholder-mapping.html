@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Appendix A — Stakeholder Map</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #f5f3ef;
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .page {
+      background: white;
+      width: 1100px;
+      padding: 40px 48px 48px;
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.10);
+      border-radius: 4px;
+    }
+
+    .header {
+      border-bottom: 2px solid #1a1917;
+      padding-bottom: 10px;
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .header-left .label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999590;
+      margin-bottom: 4px;
+    }
+
+    .header-left .title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #1a1917;
+      letter-spacing: -0.02em;
+    }
+
+    .header-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: #999590;
+      letter-spacing: 0.06em;
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    .map-wrap {
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+    }
+
+    /* SVG MAP */
+    .map-svg-container {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* RIGHT PANEL */
+    .right-panel {
+      width: 240px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .panel-section-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999590;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #e8e4de;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #4a4845;
+      margin-bottom: 7px;
+    }
+
+    .legend-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .ring-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: #6a6660;
+      margin-bottom: 6px;
+    }
+
+    .ring-line {
+      width: 28px;
+      height: 0;
+      flex-shrink: 0;
+    }
+
+    .sources-list {
+      font-size: 10px;
+      color: #9a9690;
+      line-height: 2;
+      font-style: italic;
+    }
+
+    .caption {
+      margin-top: 24px;
+      padding-top: 14px;
+      border-top: 1px solid #e8e4de;
+      font-size: 10px;
+      color: #9a9690;
+      font-style: italic;
+      line-height: 1.7;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .page {
+        box-shadow: none;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="header-left">
+        <div class="label">DMBA 6004 · Assessment 1</div>
+        <div class="title">Appendix A — Stakeholder Map</div>
+      </div>
+      <div class="header-right">
+        One Basin CRC Anomaly Detection Prototype<br>
+        Murrumbidgee Catchment · Murray–Darling Basin
+      </div>
+    </div>
+
+    <div class="map-wrap">
+      <!-- SVG MAP -->
+      <div class="map-svg-container">
+        <svg viewBox="0 0 720 600" width="100%" xmlns="http://www.w3.org/2000/svg"
+          font-family="'DM Sans', Arial, sans-serif">
+
+          <!-- RINGS -->
+          <!-- Outer: secondary/tertiary -->
+          <ellipse cx="360" cy="305" rx="330" ry="255" fill="none" stroke="#d0cbc0" stroke-width="1.2"
+            stroke-dasharray="7,5" />
+          <!-- Middle: primary non-operational -->
+          <ellipse cx="360" cy="305" rx="210" ry="162" fill="none" stroke="#b8b4ac" stroke-width="1.2"
+            stroke-dasharray="5,4" />
+          <!-- Inner: primary operational -->
+          <ellipse cx="360" cy="305" rx="108" ry="83" fill="none" stroke="#a8bcd8" stroke-width="1.8"
+            stroke-dasharray="4,3" />
+
+          <!-- Ring labels -->
+          <text x="360" y="66" text-anchor="middle" font-size="10" fill="#b0aba3" font-style="italic">Secondary &amp;
+            Tertiary</text>
+          <text x="360" y="154" text-anchor="middle" font-size="10" fill="#b0aba3" font-style="italic">Primary —
+            non-operational</text>
+          <text x="360" y="232" text-anchor="middle" font-size="10" fill="#9ab8d8" font-style="italic">Primary —
+            operational</text>
+
+          <!-- ══════════════════════
+             INNER: OPERATIONAL CORE
+        ══════════════════════ -->
+
+          <!-- MI (centre) -->
+          <rect x="296" y="275" width="128" height="44" rx="7" fill="#e8eef7" stroke="#a8bcd8" stroke-width="1.5" />
+          <text x="360" y="294" text-anchor="middle" font-size="11.5" font-weight="600"
+            fill="#1a3d6e">Murrumbidgee</text>
+          <text x="360" y="309" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1a3d6e">Irrigation
+            (MI)</text>
+
+          <!-- WaterNSW (upper) -->
+          <rect x="300" y="228" width="120" height="36" rx="7" fill="#e8eef7" stroke="#a8bcd8" stroke-width="1.5" />
+          <text x="360" y="251" text-anchor="middle" font-size="12" font-weight="600" fill="#1a3d6e">WaterNSW</text>
+
+          <!-- Rubicon (right) -->
+          <rect x="426" y="283" width="98" height="36" rx="7" fill="#e8eef7" stroke="#a8bcd8" stroke-width="1.5" />
+          <text x="475" y="306" text-anchor="middle" font-size="12" font-weight="600" fill="#1a3d6e">Rubicon</text>
+
+          <!-- Coleambally (lower) -->
+          <rect x="286" y="334" width="148" height="36" rx="7" fill="#e8eef7" stroke="#a8bcd8" stroke-width="1.5" />
+          <text x="360" y="351" text-anchor="middle" font-size="11" font-weight="600" fill="#1a3d6e">Coleambally</text>
+          <text x="360" y="364" text-anchor="middle" font-size="11" font-weight="600" fill="#1a3d6e">Irrigation</text>
+
+          <!-- ══════════════════════
+             MIDDLE: PRIMARY NON-OPS
+        ══════════════════════ -->
+
+          <!-- Irrigators (upper-left) -->
+          <rect x="168" y="186" width="110" height="36" rx="7" fill="#e0f2ea" stroke="#85c9a8" stroke-width="1.5" />
+          <text x="223" y="209" text-anchor="middle" font-size="12" font-weight="600" fill="#0d5c45">Irrigators</text>
+
+          <!-- Tail-end irrigators (left) -->
+          <rect x="122" y="290" width="120" height="44" rx="7" fill="#e0f2ea" stroke="#85c9a8" stroke-width="1.5" />
+          <text x="182" y="309" text-anchor="middle" font-size="11" font-weight="600" fill="#0d5c45">Tail-end</text>
+          <text x="182" y="324" text-anchor="middle" font-size="11" font-weight="600" fill="#0d5c45">irrigators</text>
+
+          <!-- CEWO (lower-left) -->
+          <rect x="168" y="392" width="90" height="36" rx="7" fill="#e0f2ea" stroke="#85c9a8" stroke-width="1.5" />
+          <text x="213" y="415" text-anchor="middle" font-size="12" font-weight="600" fill="#0d5c45">CEWO</text>
+
+          <!-- Wiradjuri & First Nations (far left) -->
+          <rect x="46" y="220" width="128" height="44" rx="7" fill="#2e1505" stroke="#7a4520" stroke-width="1.5" />
+          <text x="110" y="239" text-anchor="middle" font-size="11" font-weight="600" fill="#f5c87a">Wiradjuri
+            &amp;</text>
+          <text x="110" y="254" text-anchor="middle" font-size="11" font-weight="600" fill="#f5c87a">First
+            Nations</text>
+
+          <!-- MLDRIN (lower far-left) -->
+          <rect x="66" y="380" width="100" height="36" rx="7" fill="#2e1505" stroke="#7a4520" stroke-width="1.5" />
+          <text x="116" y="403" text-anchor="middle" font-size="12" font-weight="600" fill="#f5c87a">MLDRIN</text>
+
+          <!-- ══════════════════════
+             OUTER: SECONDARY / TERTIARY
+        ══════════════════════ -->
+
+          <!-- MDBA (upper-right outer) -->
+          <rect x="554" y="102" width="90" height="36" rx="7" fill="#fdf0d0" stroke="#d4a840" stroke-width="1.5" />
+          <text x="599" y="125" text-anchor="middle" font-size="13" font-weight="600" fill="#6b4a00">MDBA</text>
+
+          <!-- NSW DPIE -->
+          <rect x="570" y="188" width="112" height="36" rx="7" fill="#fdf0d0" stroke="#d4a840" stroke-width="1.5" />
+          <text x="626" y="211" text-anchor="middle" font-size="12" font-weight="600" fill="#6b4a00">NSW DPIE</text>
+
+          <!-- NSW Farmers -->
+          <rect x="554" y="272" width="130" height="36" rx="7" fill="#fdf0d0" stroke="#d4a840" stroke-width="1.5" />
+          <text x="619" y="295" text-anchor="middle" font-size="12" font-weight="600" fill="#6b4a00">NSW Farmers</text>
+
+          <!-- Australian Government -->
+          <rect x="522" y="404" width="162" height="44" rx="7" fill="#fdf0d0" stroke="#d4a840" stroke-width="1.5" />
+          <text x="603" y="423" text-anchor="middle" font-size="11" font-weight="600" fill="#6b4a00">Australian</text>
+          <text x="603" y="438" text-anchor="middle" font-size="11" font-weight="600" fill="#6b4a00">Government</text>
+
+          <!-- Griffith City Council (lower) -->
+          <rect x="356" y="492" width="158" height="44" rx="7" fill="#e0f2ea" stroke="#85c9a8" stroke-width="1.5" />
+          <text x="435" y="511" text-anchor="middle" font-size="11" font-weight="600" fill="#0d5c45">Griffith
+            City</text>
+          <text x="435" y="526" text-anchor="middle" font-size="11" font-weight="600" fill="#0d5c45">Council</text>
+
+          <!-- One Basin CRC (bottom centre) -->
+          <rect x="194" y="500" width="140" height="44" rx="7" fill="#f0ede8" stroke="#b8b4ac" stroke-width="1.5" />
+          <text x="264" y="519" text-anchor="middle" font-size="11" font-weight="600" fill="#555250">One Basin</text>
+          <text x="264" y="534" text-anchor="middle" font-size="11" font-weight="600" fill="#555250">CRC</text>
+
+          <!-- BOM (bottom-right) -->
+          <rect x="450" y="506" width="72" height="36" rx="7" fill="#f0ede8" stroke="#b8b4ac" stroke-width="1.5" />
+          <text x="486" y="529" text-anchor="middle" font-size="12" font-weight="600" fill="#555250">BOM</text>
+
+          <!-- ABARES (bottom-left) -->
+          <rect x="84" y="480" width="96" height="36" rx="7" fill="#f0ede8" stroke="#b8b4ac" stroke-width="1.5" />
+          <text x="132" y="503" text-anchor="middle" font-size="12" font-weight="600" fill="#555250">ABARES</text>
+
+        </svg>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="right-panel">
+
+        <div>
+          <div class="panel-section-title">Legend</div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#1a3d6e;"></div>
+            Operational core
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#0d5c45;"></div>
+            Directly affected
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#2e1505;"></div>
+            First Nations
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#6b4a00;"></div>
+            Governance
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#555250;"></div>
+            Research / data
+          </div>
+        </div>
+
+        <div>
+          <div class="panel-section-title">Rings</div>
+          <div class="ring-item">
+            <svg width="28" height="12">
+              <line x1="0" y1="6" x2="28" y2="6" stroke="#a8bcd8" stroke-width="1.8" stroke-dasharray="4,3" />
+            </svg>
+            Inner — Primary operational
+          </div>
+          <div class="ring-item">
+            <svg width="28" height="12">
+              <line x1="0" y1="6" x2="28" y2="6" stroke="#b8b4ac" stroke-width="1.2" stroke-dasharray="5,4" />
+            </svg>
+            Middle — Primary non-operational
+          </div>
+          <div class="ring-item">
+            <svg width="28" height="12">
+              <line x1="0" y1="6" x2="28" y2="6" stroke="#d0cbc0" stroke-width="1.2" stroke-dasharray="7,5" />
+            </svg>
+            Outer — Secondary &amp; Tertiary
+          </div>
+        </div>
+
+        <div>
+          <div class="panel-section-title">Sources</div>
+          <div class="sources-list">
+            Clarke &amp; Michael (2022)<br>
+            Cosijn et al. (2023)<br>
+            One Basin CRC (n.d.-b)<br>
+            MLDRIN (2018)<br>
+            Dwyer et al. (2026)<br>
+            ABARES (2024)<br>
+            Bureau of Meteorology (n.d.-a; n.d.-b)
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="caption">
+      <strong>Appendix A — Stakeholder Map.</strong> Proximity to centre reflects proximity to operational
+      decision-making in the One Basin CRC anomaly detection prototype. Rings denote stakeholder tier classification.
+      Colour coding reflects stakeholder type. Sources: Clarke &amp; Michael (2022); Cosijn et al. (2023); One Basin CRC
+      (n.d.-b); MLDRIN (2018).
+    </div>
+  </div>
+</body>
+
+</html>

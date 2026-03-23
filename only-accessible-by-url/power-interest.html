@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Appendix B — Power-Interest Matrix</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #f5f3ef;
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .page {
+      background: white;
+      width: 1100px;
+      padding: 40px 48px 48px;
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.10);
+      border-radius: 4px;
+    }
+
+    .header {
+      border-bottom: 2px solid #1a1917;
+      padding-bottom: 10px;
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .header-left .label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999590;
+      margin-bottom: 4px;
+    }
+
+    .header-left .title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #1a1917;
+      letter-spacing: -0.02em;
+    }
+
+    .header-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: #999590;
+      letter-spacing: 0.06em;
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    .body-wrap {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+    }
+
+    .matrix-col {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* MATRIX */
+    .matrix-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 76%;
+      border: 1.5px solid #c8c4bc;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .matrix-inner {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* Quadrants */
+    .quad {
+      position: absolute;
+      padding: 10px 12px;
+    }
+
+    .quad-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.4;
+    }
+
+    .quad-sub {
+      font-size: 9px;
+      margin-top: 1px;
+      opacity: 0.7;
+    }
+
+    /* Axis lines */
+    .axis-v {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 1.5px;
+      height: 100%;
+      background: #c8c4bc;
+      transform: translateX(-50%);
+    }
+
+    .axis-h {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      height: 1.5px;
+      width: 100%;
+      background: #c8c4bc;
+      transform: translateY(-50%);
+    }
+
+    /* Axis labels */
+    .axis-label-x {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9a9690;
+    }
+
+    .axis-label-y {
+      position: absolute;
+      left: 6px;
+      top: 50%;
+      transform: translateY(-50%) rotate(-90deg);
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9a9690;
+      white-space: nowrap;
+      transform-origin: center;
+    }
+
+    /* Nodes */
+    .node {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .node-dot {
+      border-radius: 50%;
+      border: 2.5px solid white;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18), 0 1px 4px rgba(0, 0, 0, 0.12);
+      flex-shrink: 0;
+    }
+
+    .node-label {
+      font-size: 10.5px;
+      font-weight: 500;
+      color: #3a3835;
+      white-space: nowrap;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    /* RIGHT PANEL */
+    .right-panel {
+      width: 230px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .panel-section-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999590;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #e8e4de;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #4a4845;
+      margin-bottom: 7px;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      border: 2px solid white;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+    }
+
+    .insight-box {
+      background: #f8f6f2;
+      border: 1px solid #e0dbd4;
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .insight-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #1a1917;
+      margin-bottom: 8px;
+    }
+
+    .insight-body {
+      font-size: 11px;
+      color: #5a5750;
+      line-height: 1.65;
+    }
+
+    .insight-sources {
+      margin-top: 10px;
+      font-size: 10px;
+      color: #9a9690;
+      font-style: italic;
+      line-height: 1.8;
+    }
+
+    .caption {
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid #e8e4de;
+      font-size: 10px;
+      color: #9a9690;
+      font-style: italic;
+      line-height: 1.7;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .page {
+        box-shadow: none;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="header-left">
+        <div class="label">DMBA 6004 · Assessment 1</div>
+        <div class="title">Appendix B — Power-Interest Matrix</div>
+      </div>
+      <div class="header-right">
+        One Basin CRC Anomaly Detection Prototype<br>
+        Murrumbidgee Catchment · Murray–Darling Basin
+      </div>
+    </div>
+
+    <div class="body-wrap">
+      <div class="matrix-col">
+        <div class="matrix-container">
+          <div class="matrix-inner">
+
+            <!-- Quadrant backgrounds -->
+            <div style="position:absolute;left:0;top:0;width:50%;height:50%;background:#fff8ec;"></div>
+            <div style="position:absolute;left:50%;top:0;width:50%;height:50%;background:#ecf0f8;"></div>
+            <div style="position:absolute;left:0;top:50%;width:50%;height:50%;background:#f6f4f0;"></div>
+            <div style="position:absolute;left:50%;top:50%;width:50%;height:50%;background:#ecf7f0;"></div>
+
+            <!-- Quadrant labels -->
+            <div class="quad" style="left:0;top:0;width:50%;height:50%;">
+              <div class="quad-label" style="color:#b07a10;">Keep satisfied</div>
+              <div class="quad-sub" style="color:#b07a10;">High power · Low interest</div>
+            </div>
+            <div class="quad" style="left:50%;top:0;width:50%;height:50%;">
+              <div class="quad-label" style="color:#2a4a8a;">Manage closely</div>
+              <div class="quad-sub" style="color:#2a4a8a;">High power · High interest</div>
+            </div>
+            <div class="quad" style="left:0;top:50%;width:50%;height:50%;">
+              <div class="quad-label" style="color:#888480;">Monitor</div>
+              <div class="quad-sub" style="color:#888480;">Low power · Low interest</div>
+            </div>
+            <div class="quad" style="left:50%;top:50%;width:50%;height:50%;">
+              <div class="quad-label" style="color:#1a6a40;">Keep informed</div>
+              <div class="quad-sub" style="color:#1a6a40;">Low power · High interest</div>
+            </div>
+
+            <!-- Axis lines -->
+            <div class="axis-v"></div>
+            <div class="axis-h"></div>
+
+            <!-- Axis labels -->
+            <div class="axis-label-x">Interest →</div>
+            <div class="axis-label-y">↑ Power</div>
+
+            <!-- ════════════════════
+               NODES
+               left = interest%
+               top = 100 - power%
+          ════════════════════ -->
+
+            <!-- MDBA: power=90, interest=63 -->
+            <div class="node" style="left:63%;top:10%;">
+              <div class="node-dot" style="width:13px;height:13px;background:#6b4a00;"></div>
+              <div class="node-label">MDBA</div>
+            </div>
+
+            <!-- Aust Govt: power=88, interest=36 -->
+            <div class="node" style="left:36%;top:12%;">
+              <div class="node-dot" style="width:13px;height:13px;background:#6b4a00;"></div>
+              <div class="node-label">Aust. Govt</div>
+            </div>
+
+            <!-- NSW DPIE: power=74, interest=42 -->
+            <div class="node" style="left:42%;top:26%;">
+              <div class="node-dot" style="width:12px;height:12px;background:#6b4a00;"></div>
+              <div class="node-label">NSW DPIE</div>
+            </div>
+
+            <!-- MI: power=65, interest=95 -->
+            <div class="node" style="left:93%;top:35%;">
+              <div class="node-dot" style="width:13px;height:13px;background:#1a3d6e;"></div>
+              <div class="node-label">MI</div>
+            </div>
+
+            <!-- WaterNSW: power=62, interest=88 -->
+            <div class="node" style="left:86%;top:38%;">
+              <div class="node-dot" style="width:13px;height:13px;background:#1a3d6e;"></div>
+              <div class="node-label">WaterNSW</div>
+            </div>
+
+            <!-- Rubicon: power=55, interest=84 -->
+            <div class="node" style="left:82%;top:45%;">
+              <div class="node-dot" style="width:12px;height:12px;background:#1a3d6e;"></div>
+              <div class="node-label">Rubicon</div>
+            </div>
+
+            <!-- NSW Farmers: power=40, interest=68 -->
+            <div class="node" style="left:68%;top:60%;">
+              <div class="node-dot" style="width:11px;height:11px;background:#6b4a00;"></div>
+              <div class="node-label">NSW Farmers</div>
+            </div>
+
+            <!-- One Basin CRC: power=30, interest=90 -->
+            <div class="node" style="left:88%;top:70%;">
+              <div class="node-dot" style="width:11px;height:11px;background:#555250;"></div>
+              <div class="node-label">One Basin CRC</div>
+            </div>
+
+            <!-- Irrigators: power=25, interest=92 -->
+            <div class="node" style="left:90%;top:75%;">
+              <div class="node-dot" style="width:12px;height:12px;background:#0d5c45;"></div>
+              <div class="node-label">Irrigators</div>
+            </div>
+
+            <!-- Env holders: power=28, interest=86 -->
+            <div class="node" style="left:84%;top:72%;">
+              <div class="node-dot" style="width:12px;height:12px;background:#0d5c45;"></div>
+              <div class="node-label">Env. holders</div>
+            </div>
+
+            <!-- Tail-end irrigators: power=15, interest=93 -->
+            <div class="node" style="left:91%;top:85%;">
+              <div class="node-dot" style="width:12px;height:12px;background:#0d5c45;"></div>
+              <div class="node-label">Tail-end irrigators</div>
+            </div>
+
+            <!-- First Nations: power=22, interest=83 -->
+            <div class="node" style="left:81%;top:78%;">
+              <div class="node-dot" style="width:12px;height:12px;background:#2e1505;border-color:white;"></div>
+              <div class="node-label">First Nations</div>
+            </div>
+
+            <!-- MLDRIN: power=22, interest=76 -->
+            <div class="node" style="left:74%;top:80%;">
+              <div class="node-dot" style="width:11px;height:11px;background:#2e1505;border-color:white;"></div>
+              <div class="node-label">MLDRIN</div>
+            </div>
+
+            <!-- Griffith CC: power=20, interest=72 -->
+            <div class="node" style="left:70%;top:82%;">
+              <div class="node-dot" style="width:11px;height:11px;background:#0d5c45;"></div>
+              <div class="node-label">Griffith CC</div>
+            </div>
+
+            <!-- BOM: power=50, interest=28 -->
+            <div class="node" style="left:28%;top:50%;">
+              <div class="node-dot" style="width:11px;height:11px;background:#555250;"></div>
+              <div class="node-label">BOM</div>
+            </div>
+
+            <!-- ABARES: power=35, interest=30 -->
+            <div class="node" style="left:30%;top:65%;">
+              <div class="node-dot" style="width:11px;height:11px;background:#555250;"></div>
+              <div class="node-label">ABARES</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="right-panel">
+        <div>
+          <div class="panel-section-title">Legend</div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#1a3d6e;"></div>Operational core
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#0d5c45;"></div>Directly affected
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#2e1505;box-shadow:0 0 0 1px #7a4520;"></div>First Nations
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#6b4a00;"></div>Governance
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#555250;"></div>Research / data
+          </div>
+        </div>
+
+        <div class="insight-box">
+          <div class="insight-title">Key insight</div>
+          <div class="insight-body">
+            Risk exposure is asymmetric and inverse to formal power. Stakeholders in the lower-right quadrant — tail-end
+            irrigators, First Nations, environmental holders — bear the greatest operational consequences from AI
+            failure yet hold the least formal governance authority over system design. This structural asymmetry is the
+            central equity problem the system must address through co-design and tail-node performance parity.
+          </div>
+          <div class="insight-sources">
+            Clarke &amp; Michael (2022)<br>
+            ABARES (2024)<br>
+            Griffith City Council (2025)<br>
+            MLDRIN (2018)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="caption">
+      <strong>Appendix B — Power-Interest Matrix.</strong> Stakeholders plotted by formal governance power (vertical
+      axis) and operational interest (horizontal axis). Colour coding consistent with Appendix A. Sources: Clarke &amp;
+      Michael (2022); ABARES (2024); Griffith City Council (2025); MLDRIN (2018).
+    </div>
+  </div>
+</body>
+
+</html>

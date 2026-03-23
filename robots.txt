@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /MBA/only-accessible-by-url/
+Disallow: /only-accessible-by-url/
