@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giant Swarm — Case Study Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e2a;
+    --border: #252a38;
+    --text: #e8eaf0;
+    --text-muted: #6b7280;
+    --text-dim: #9ca3af;
+    --q1: #4f9cf9;
+    --q1-dim: rgba(79,156,249,0.12);
+    --q2: #f97b4f;
+    --q2-dim: rgba(249,123,79,0.12);
+    --q3: #6dd89e;
+    --q3-dim: rgba(109,216,158,0.12);
+    --accent: #c4a3f5;
+    --tag-bg: #1e2233;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 13.5px;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    padding: 40px 48px 32px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(79,156,249,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  header h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .header-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .meta-pill {
+    font-size: 11px;
+    color: var(--text-muted);
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
+
+  /* MAIN NAV — question tabs */
+  .q-nav {
+    display: flex;
+    gap: 0;
+    padding: 0 48px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .q-tab {
+    padding: 18px 28px;
+    cursor: pointer;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    position: relative;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .q-tab:hover { color: var(--text-dim); }
+  .q-tab[data-q="1"].active { color: var(--q1); border-bottom-color: var(--q1); }
+  .q-tab[data-q="2"].active { color: var(--q2); border-bottom-color: var(--q2); }
+  .q-tab[data-q="3"].active { color: var(--q3); border-bottom-color: var(--q3); }
+  .q-num {
+    display: inline-block;
+    margin-right: 8px;
+    opacity: 0.5;
+  }
+
+  /* CONTENT PANELS */
+  .q-panel { display: none; }
+  .q-panel.active { display: block; }
+
+  /* QUESTION HEADER */
+  .q-header {
+    padding: 32px 48px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .q-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .q-panel[data-q="1"] .q-label { color: var(--q1); }
+  .q-panel[data-q="2"] .q-label { color: var(--q2); }
+  .q-panel[data-q="3"] .q-label { color: var(--q3); }
+
+  .q-question {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(16px, 2.2vw, 22px);
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--text);
+    max-width: 820px;
+  }
+
+  /* SUB-TABS */
+  .sub-nav {
+    display: flex;
+    gap: 4px;
+    padding: 16px 48px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .sub-tab {
+    padding: 8px 18px;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    transition: all 0.15s;
+    user-select: none;
+    letter-spacing: 0.04em;
+  }
+  .sub-tab:hover { color: var(--text-dim); background: var(--surface2); }
+  .q-panel[data-q="1"] .sub-tab.active { color: var(--q1); border-color: var(--q1); background: var(--q1-dim); }
+  .q-panel[data-q="2"] .sub-tab.active { color: var(--q2); border-color: var(--q2); background: var(--q2-dim); }
+  .q-panel[data-q="3"] .sub-tab.active { color: var(--q3); border-color: var(--q3); background: var(--q3-dim); }
+
+  /* SUB PANELS */
+  .sub-panel { display: none; padding: 40px 48px 60px; }
+  .sub-panel.active { display: block; }
+
+  /* TYPOGRAPHY WITHIN PANELS */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h2.title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(20px, 2.5vw, 28px);
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 24px;
+    line-height: 1.25;
+  }
+
+  p { line-height: 1.8; color: var(--text-dim); margin-bottom: 14px; max-width: 760px; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--text); font-weight: 500; }
+
+  ul, ol { padding-left: 20px; max-width: 760px; }
+  li { line-height: 1.8; color: var(--text-dim); margin-bottom: 8px; }
+  li strong { color: var(--text); }
+
+  h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin: 28px 0 12px;
+  }
+  h3:first-child { margin-top: 0; }
+
+  /* CALLOUT BOXES */
+  .callout {
+    border-left: 3px solid var(--border);
+    padding: 14px 20px;
+    background: var(--surface2);
+    margin: 20px 0;
+    max-width: 760px;
+    border-radius: 0 4px 4px 0;
+  }
+  .q-panel[data-q="1"] .callout { border-left-color: var(--q1); }
+  .q-panel[data-q="2"] .callout { border-left-color: var(--q2); }
+  .q-panel[data-q="3"] .callout { border-left-color: var(--q3); }
+  .callout p { margin: 0; font-size: 13px; }
+  .callout-label {
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .q-panel[data-q="1"] .callout-label { color: var(--q1); }
+  .q-panel[data-q="2"] .callout-label { color: var(--q2); }
+  .q-panel[data-q="3"] .callout-label { color: var(--q3); }
+
+  /* SLIDE */
+  .slide-frame {
+    max-width: 760px;
+    background: #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    aspect-ratio: 16/9;
+    position: relative;
+    font-family: 'Syne', sans-serif;
+  }
+  .slide-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  /* REBUTTAL TABLE */
+  .rebuttal-table {
+    width: 100%;
+    max-width: 760px;
+    border-collapse: collapse;
+    margin-top: 8px;
+  }
+  .rebuttal-table th {
+    text-align: left;
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    background: var(--surface2);
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .rebuttal-table td {
+    padding: 14px 16px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .rebuttal-table tr:last-child td { border-bottom: none; }
+  .rebuttal-table td:first-child { color: var(--text); width: 35%; }
+
+  /* SCRIPT */
+  .script-block {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px 32px;
+    max-width: 760px;
+    line-height: 1.9;
+    color: var(--text-dim);
+    font-size: 13.5px;
+  }
+  .script-block .beat {
+    display: block;
+    margin: 20px 0 6px;
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .q-panel[data-q="1"] .script-block .beat { color: var(--q1); opacity: 0.7; }
+  .q-panel[data-q="2"] .script-block .beat { color: var(--q2); opacity: 0.7; }
+  .q-panel[data-q="3"] .script-block .beat { color: var(--q3); opacity: 0.7; }
+
+  /* ===================== SLIDE DESIGNS ===================== */
+
+  /* Q1 Slide */
+  .slide-q1 {
+    background: #0a0e1a;
+    color: white;
+    padding: 5% 6%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .slide-q1 .slide-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(5px, 1vw, 9px);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #4f9cf9;
+    margin-bottom: 3%;
+    opacity: 0.8;
+  }
+  .slide-q1 .slide-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(12px, 3vw, 26px);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 4%;
+    color: white;
+  }
+  .slide-q1 .grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2%;
+    flex: 1;
+  }
+  .slide-q1 .col {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 3%;
+  }
+  .slide-q1 .col-label {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(5px, 0.9vw, 8px);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 6%;
+    padding-bottom: 4%;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .slide-q1 .col.good .col-label { color: #6dd89e; }
+  .slide-q1 .col.bad .col-label { color: #f97b4f; }
+  .slide-q1 .col ul { padding-left: 0; list-style: none; }
+  .slide-q1 .col ul li {
+    font-size: clamp(5px, 0.85vw, 7.5px);
+    font-family: 'DM Mono', monospace;
+    line-height: 1.5;
+    margin-bottom: 4%;
+    color: rgba(255,255,255,0.65);
+    padding-left: 12px;
+    position: relative;
+  }
+  .slide-q1 .col ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    opacity: 0.4;
+  }
+  .slide-q1 .col.good ul li::before { color: #6dd89e; }
+  .slide-q1 .col.bad ul li::before { color: #f97b4f; }
+  .slide-q1 .bottom-bar {
+    margin-top: 3%;
+    padding-top: 2%;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(4px, 0.75vw, 6.5px);
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.1em;
+  }
+
+  /* Q2 Slide */
+  .slide-q2 {
+    background: #13090a;
+    color: white;
+    padding: 5% 6%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .slide-q2 .slide-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(5px, 1vw, 9px);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #f97b4f;
+    margin-bottom: 3%;
+    opacity: 0.8;
+  }
+  .slide-q2 .slide-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(12px, 3vw, 24px);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 4%;
+  }
+  .slide-q2 .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2%;
+    flex: 1;
+  }
+  .slide-q2 .col {
+    background: rgba(249,123,79,0.06);
+    border: 1px solid rgba(249,123,79,0.15);
+    border-radius: 4px;
+    padding: 3%;
+  }
+  .slide-q2 .col-label {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(5px, 0.85vw, 7.5px);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #f97b4f;
+    margin-bottom: 8%;
+    padding-bottom: 4%;
+    border-bottom: 1px solid rgba(249,123,79,0.2);
+  }
+  .slide-q2 .col ul { padding-left: 0; list-style: none; }
+  .slide-q2 .col ul li {
+    font-size: clamp(5px, 0.8vw, 7px);
+    font-family: 'DM Mono', monospace;
+    line-height: 1.5;
+    margin-bottom: 5%;
+    color: rgba(255,255,255,0.6);
+    padding-left: 10px;
+    position: relative;
+  }
+  .slide-q2 .col ul li::before { content: '·'; position: absolute; left: 0; color: #f97b4f; }
+  .slide-q2 .verdict {
+    margin-top: 3%;
+    padding: 2% 3%;
+    background: rgba(249,123,79,0.1);
+    border-left: 3px solid #f97b4f;
+    border-radius: 2px;
+  }
+  .slide-q2 .verdict p {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(5px, 0.8vw, 7px);
+    color: rgba(255,255,255,0.7);
+    margin: 0;
+    line-height: 1.5;
+    max-width: 100%;
+  }
+
+  /* Q3 Slide */
+  .slide-q3 {
+    background: #080f0b;
+    color: white;
+    padding: 5% 6%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .slide-q3 .slide-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(5px, 1vw, 9px);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #6dd89e;
+    margin-bottom: 3%;
+    opacity: 0.8;
+  }
+  .slide-q3 .slide-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(12px, 2.8vw, 24px);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 4%;
+  }
+  .slide-q3 .rec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2%;
+    flex: 1;
+  }
+  .slide-q3 .rec-box {
+    border: 1px solid rgba(109,216,158,0.2);
+    border-radius: 4px;
+    padding: 3%;
+    display: flex;
+    flex-direction: column;
+  }
+  .slide-q3 .rec-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(16px, 4vw, 36px);
+    color: rgba(109,216,158,0.15);
+    line-height: 1;
+    margin-bottom: 3%;
+  }
+  .slide-q3 .rec-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(6px, 1.1vw, 9.5px);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #6dd89e;
+    margin-bottom: 4%;
+  }
+  .slide-q3 .rec-body {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(5px, 0.8vw, 6.5px);
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .slide-q3 .rec-tactics {
+    margin-top: 3%;
+    padding-top: 3%;
+    border-top: 1px solid rgba(109,216,158,0.1);
+  }
+  .slide-q3 .rec-tactics p {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(5px, 0.75vw, 6px);
+    color: rgba(109,216,158,0.6);
+    max-width: 100%;
+    margin: 0;
+  }
+
+  /* GRID TAG */
+  .tag-row {
+    display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0;
+  }
+  .tag {
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+  .q-panel[data-q="1"] .tag.accent { background: var(--q1-dim); border-color: var(--q1); color: var(--q1); }
+  .q-panel[data-q="2"] .tag.accent { background: var(--q2-dim); border-color: var(--q2); color: var(--q2); }
+  .q-panel[data-q="3"] .tag.accent { background: var(--q3-dim); border-color: var(--q3); color: var(--q3); }
+
+  /* timing hints on notes */
+  .time-note {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 20px;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-tag">Case Study — DMBAXXXX / 2025</div>
+  <h1>Giant Swarm — <em>Scaling Culture<br>in a Remote-First World</em></h1>
+  <div class="header-meta">
+    <span class="meta-pill">Media Synchronicity Theory</span>
+    <span class="meta-pill">Remote Collaboration</span>
+    <span class="meta-pill">Cultural Scaling</span>
+    <span class="meta-pill">3 Questions</span>
+  </div>
+</header>
+
+<!-- MAIN QUESTION TABS -->
+<nav class="q-nav">
+  <div class="q-tab active" data-q="1" onclick="switchQ(1)">
+    <span class="q-num">Q1</span> Communication Strategy
+  </div>
+  <div class="q-tab" data-q="2" onclick="switchQ(2)">
+    <span class="q-num">Q2</span> Onsite & Glue Time
+  </div>
+  <div class="q-tab" data-q="3" onclick="switchQ(3)">
+    <span class="q-num">Q3</span> Scaling the Culture
+  </div>
+</nav>
+
+<!-- ============================================================
+     QUESTION 1
+     ============================================================ -->
+<div class="q-panel active" data-q="1">
+  <div class="q-header">
+    <div class="q-label">Question 01 / Media Synchronicity Theory</div>
+    <div class="q-question">Evaluate Giant Swarm's communication strategy (async-first with Slack/GitHub, synchronous for specific meetings) using Media Synchronicity Theory. In what scenarios is their approach highly effective? Where might it fail, especially as the team becomes more globally distributed across time zones?</div>
+  </div>
+  <nav class="sub-nav">
+    <div class="sub-tab active" data-sub="notes" onclick="switchSub(this, 'q1')">① Notes</div>
+    <div class="sub-tab" data-sub="script" onclick="switchSub(this, 'q1')">② Script</div>
+    <div class="sub-tab" data-sub="slide" onclick="switchSub(this, 'q1')">③ Slide</div>
+    <div class="sub-tab" data-sub="rebuttal" onclick="switchSub(this, 'q1')">④ Rebuttal Notes</div>
+  </nav>
+
+  <!-- NOTES -->
+  <div class="sub-panel active" id="q1-notes">
+    <div class="section-label">Analytical Notes</div>
+    <h2 class="title">MST Framework Applied to Giant Swarm</h2>
+    <div class="tag-row">
+      <span class="tag accent">Media Synchronicity Theory</span>
+      <span class="tag">Conveyance</span>
+      <span class="tag">Convergence</span>
+      <span class="tag">Async-First</span>
+    </div>
+
+    <h3>Core Theory Primer</h3>
+    <p>Media Synchronicity Theory (Dennis & Valacich, 1999) argues that communication effectiveness depends on matching the medium's synchronicity to the communication task. Two key processes: <strong>conveyance</strong> (transmitting information, benefits from low synchronicity / async) and <strong>convergence</strong> (reaching shared understanding / agreement, benefits from high synchronicity).</p>
+
+    <div class="callout">
+      <div class="callout-label">Key Tension</div>
+      <p>Giant Swarm's default to async (Slack, GitHub) is theoretically ideal for conveyance. But as team size and distribution grow, convergence tasks — resolving ambiguity, building shared mental models, onboarding tacit knowledge — are harder to achieve asynchronously.</p>
+    </div>
+
+    <h3>Where the Approach Excels (High MST Fit)</h3>
+    <ul>
+      <li><strong>Technical documentation & RFC decisions:</strong> GitHub Issues/PRs are ideal low-synchronicity channels for transmitting complex information. The asynchronous nature allows deep, considered responses — pure conveyance tasks.</li>
+      <li><strong>Routine team coordination:</strong> Slack channels like #afk, #team-X serve coordination needs without requiring real-time presence. The 80/20 public channel rule reinforces transparency and information accessibility (Exhibit 5).</li>
+      <li><strong>Cross-timezone deep work:</strong> Async communication allows engineers across European time zones to contribute on their own schedule, avoiding the constant meeting overhead that would reduce heads-down coding time.</li>
+      <li><strong>Accountability without surveillance:</strong> The "Adults" principle (Exhibit 4) is backed by written async trails — GitHub commits, Slack messages. This creates accountability without micromanagement — a clever MST-aligned design.</li>
+    </ul>
+
+    <h3>Where the Approach May Fail (MST Misalignment)</h3>
+    <ul>
+      <li><strong>Onboarding new hires into tacit knowledge:</strong> Tacit knowledge (how we really do things here) requires convergence — shared, iterative dialogue. The 1:1 video calls in onboarding (Exhibit 7) partially address this, but as the company scales to 100+, the practice of scheduling calls with every employee becomes infeasible.</li>
+      <li><strong>Cross-timezone synchronous bottlenecks:</strong> The Platform Architect (Exhibit 4) notes that heavy Slack reliance is "treated somewhat synchronously" — people expect fast replies. Staff in non-European time zones face implicit pressure to be online during European hours, violating the async premise.</li>
+      <li><strong>Conflict resolution & sensitive feedback:</strong> Resolving interpersonal or cross-team disagreements requires high synchronicity (convergence). Text-based async channels can escalate misunderstandings, especially across cultural communication norms.</li>
+      <li><strong>Strategic alignment and emergent decisions:</strong> Rapid iteration on complex architectural decisions (e.g., CAPI transition) may require synchronous convergence that GitHub RFCs can't efficiently provide. Comment threads can become unwieldy.</li>
+    </ul>
+
+    <h3>The Scaling Problem</h3>
+    <p>At ~100 employees, the informal calibration that previously allowed async communication to "work" (shared context, existing social trust) weakens. MST predicts that as new employees arrive without shared context, convergence needs increase — but the infrastructure leans overwhelmingly async. Without deliberate convergence rituals at higher cadence, the risk is <strong>information overload</strong> (too many async threads) and <strong>miscommunication</strong> on ambiguous tasks.</p>
+
+    <p class="time-note">Refs: Sections 1, 3, 6 · Exhibits 4, 5, 6</p>
+  </div>
+
+  <!-- SCRIPT -->
+  <div class="sub-panel" id="q1-script">
+    <div class="section-label">Presentation Script (~4–5 min)</div>
+    <div class="script-block">
+      <span class="beat">// Opening</span>
+      Giant Swarm's communication strategy is elegant in its design — but there's a growing tension between that design and the realities of scaling. To analyse it rigorously, we'll apply Media Synchronicity Theory, which tells us that communication effectiveness comes from matching the medium to the task.
+
+      <span class="beat">// Theory Frame</span>
+      MST distinguishes two core processes. Conveyance — transmitting information — works best with low-synchronicity, async tools. Convergence — building shared understanding — works best with high-synchronicity, real-time interaction. Giant Swarm has essentially built an async-first engine for conveyance, with synchronous rituals as a deliberate override for convergence.
+
+      <span class="beat">// Where it works</span>
+      And for much of their work, this is exactly right. GitHub as the "single source of truth" is a near-perfect conveyance channel — complex technical decisions, RFCs, design docs, all benefit from the slow, thoughtful async medium. The 80/20 public Slack rule creates transparency without requiring real-time presence. Engineers can do deep work without constant interruption. For a company of 60 to 80 technically fluent, self-directed professionals in overlapping European time zones, this model is highly effective.
+
+      <span class="beat">// Where it starts to break</span>
+      But MST also predicts where it fails. Three failure points stand out. First, onboarding. Tacit knowledge — how decisions are actually made, how trust is signalled, the unwritten norms — requires convergence. It can't be fully documented and transmitted async. The 1:1 call-with-everyone model helped at 40 people; it doesn't scale to 100.
+
+      Second, the synchronicity creep problem. A Platform Architect told us directly — quote — they treat Slack "somewhat synchronously." The tool is async by design, but the culture has developed implicit expectations of responsiveness. For team members seven time zones away, that's exclusionary.
+
+      Third — conflict and alignment. When architectural decisions are contested, or when a new Swarmer misreads the culture, text-based channels can amplify misunderstanding. These convergence moments need richer media.
+
+      <span class="beat">// Conclusion</span>
+      The prescription from MST isn't to abandon async — it's to deliberately invest in convergence infrastructure: structured video check-ins for high-stakes discussions, clearer norms around response-time expectations by time zone, and convergence-specific onboarding touchpoints. The architecture is strong; the calibration needs updating for scale.
+    </div>
+  </div>
+
+  <!-- SLIDE -->
+  <div class="sub-panel" id="q1-slide">
+    <div class="section-label">Presentation Slide</div>
+    <div class="slide-frame">
+      <div class="slide-inner slide-q1">
+        <div class="slide-eyebrow">Q1 · Media Synchronicity Theory · Giant Swarm Communication Audit</div>
+        <div class="slide-title">Async-First is MST-Optimal for Conveyance.<br><em style="color:#f97b4f">Convergence Needs are Underserved at Scale.</em></div>
+        <div class="grid2">
+          <div class="col good">
+            <div class="col-label">✓ Where Async Excels (Conveyance)</div>
+            <ul>
+              <li>GitHub RFC threads: complex decisions benefit from considered, asynchronous review</li>
+              <li>Slack 80/20 public rule creates searchable, transparent information trail</li>
+              <li>Documentation-as-truth supports distributed deep work across European time zones</li>
+              <li>Async accountability (commit logs, Slack) replaces surveillance without losing rigour</li>
+            </ul>
+          </div>
+          <div class="col bad">
+            <div class="col-label">✗ Where It Fails (Convergence Gaps)</div>
+            <ul>
+              <li>Onboarding tacit knowledge: 1:1 calls don't scale past ~80 employees</li>
+              <li>Implicit sync pressure on Slack; non-European staff face exclusion from real-time flow</li>
+              <li>Conflict & ambiguous decisions need richer-media convergence — text escalates</li>
+              <li>CAPI architectural alignment: RFC threads too slow for rapid iteration</li>
+            </ul>
+          </div>
+        </div>
+        <div class="bottom-bar">Dennis & Valacich (1999) MST · Exhibits 4, 5, 6 · Sections 1, 3, 6</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REBUTTAL -->
+  <div class="sub-panel" id="q1-rebuttal">
+    <div class="section-label">Rebuttal &amp; Challenge Notes</div>
+    <h2 class="title">Anticipated Counterarguments</h2>
+    <table class="rebuttal-table">
+      <thead>
+        <tr>
+          <th>Likely Challenge</th>
+          <th>Your Response</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>"GitHub and Slack are synchronous enough — they have threads and notifications."</td>
+          <td>MST focuses on the communication task, not just the tool. Even with notifications, async tools create latency in convergence tasks. The Platform Architect explicitly says Slack is treated synchronously — that's synchronicity creep, not async-by-design. The tool mismatch remains.</td>
+        </tr>
+        <tr>
+          <td>"The bi-annual onsites provide the convergence they need."</td>
+          <td>Onsites happen twice a year. MST requires convergence at the moment of ambiguity, not months later. Trust built at onsites decays between events, especially for new hires who join mid-cycle. Periodic convergence ≠ convergence on demand.</td>
+        </tr>
+        <tr>
+          <td>"Their model has worked for 10 years — why apply external theory?"</td>
+          <td>The case itself documents that it's starting to strain. Section 1 and Anna's concerns directly mirror MST predictions about what happens when organisations scale past shared-context thresholds. The theory helps diagnose the mechanism, not just the symptom.</td>
+        </tr>
+        <tr>
+          <td>"Documentation in GitHub IS tacit knowledge made explicit."</td>
+          <td>Oliver Thylmann's own blog (Exhibit 10) acknowledges: "moving tacit knowledge to documentation is futile." This is consistent with MST — documentation handles conveyance, not convergence. They know the limitation; the question is whether they've built enough convergence infrastructure.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============================================================
+     QUESTION 2
+     ============================================================ -->
+<div class="q-panel" data-q="2">
+  <div class="q-header">
+    <div class="q-label">Question 02 / High-Trust Culture &amp; Rituals</div>
+    <div class="q-question">The case highlights the bi-annual "onsite" as a critical ritual for building "Glue Time." Is this sufficient to build and maintain a high-trust culture in a company of 100+ people? What are the risks of relying so heavily on these events, and what other "formalised informal communication" strategies could they implement?</div>
+  </div>
+  <nav class="sub-nav">
+    <div class="sub-tab active" data-sub="notes" onclick="switchSub(this, 'q2')">① Notes</div>
+    <div class="sub-tab" data-sub="script" onclick="switchSub(this, 'q2')">② Script</div>
+    <div class="sub-tab" data-sub="slide" onclick="switchSub(this, 'q2')">③ Slide</div>
+    <div class="sub-tab" data-sub="rebuttal" onclick="switchSub(this, 'q2')">④ Rebuttal Notes</div>
+  </nav>
+
+  <!-- NOTES -->
+  <div class="sub-panel active" id="q2-notes">
+    <div class="section-label">Analytical Notes</div>
+    <h2 class="title">Is Twice-a-Year Enough? The Glue Time Dependency Problem</h2>
+    <div class="tag-row">
+      <span class="tag accent">Formalised Informal Communication</span>
+      <span class="tag">Psychological Safety</span>
+      <span class="tag">Trust Decay</span>
+      <span class="tag">Onsite Ritual</span>
+    </div>
+
+    <h3>What the Onsite Does Well</h3>
+    <p>The bi-annual onsite (Exhibit 8) is a genuine cultural asset. It provides concentrated "Glue Time" — a term that implicitly acknowledges that remote-first work creates adhesion gaps. Key strengths:</p>
+    <ul>
+      <li><strong>Serendipitous interaction:</strong> Unstructured time generates informal knowledge sharing and social bonds that async tools cannot replicate. "Stories and shared experiences from onsites become part of the company's internal lore" (Exhibit 8).</li>
+      <li><strong>Signal of commitment:</strong> The investment (renting villas, flying a global team, including families) signals that the company genuinely values human connection. This reinforces the "People-First" value through action, not words.</li>
+      <li><strong>Cultural recalibration:</strong> Company-wide sessions on culture and founder updates serve as a reset point — a shared reference event that synchronises collective identity.</li>
+    </ul>
+
+    <div class="callout">
+      <div class="callout-label">The Core Problem</div>
+      <p>At 100+ employees and growing, trust must be maintained continuously, not batch-processed. Trust built over a week in Mallorca decays over 6 months of purely virtual interaction — especially for employees hired mid-cycle who may not attend their first onsite for months.</p>
+    </div>
+
+    <h3>Risks of Over-Reliance</h3>
+    <ul>
+      <li><strong>New hire trust deficit:</strong> An employee joining in, say, October and missing the Spring onsite will operate for 6–8 months without the foundational in-person connection. Their integration into the high-trust culture relies almost entirely on async tools and the 1:1 call chain.</li>
+      <li><strong>Scaling economics:</strong> Flying 100+ people to a European villa twice a year is expensive. At 150+ employees it may become logistically and financially impractical — or fragment into divisional onsites, which undermines the whole-company cohesion effect.</li>
+      <li><strong>Trust decay between events:</strong> Research on distributed team cohesion suggests that without intermediate trust-maintenance touchpoints, team cohesion erodes measurably between intensive bonding events.</li>
+      <li><strong>Diversity &amp; inclusion risk:</strong> Employees with caregiving responsibilities, health constraints, or visa issues may find week-long away events disproportionately difficult. Family-inclusion policies help but don't fully resolve this.</li>
+    </ul>
+
+    <h3>Formalised Informal Communication: Practical Alternatives</h3>
+    <ul>
+      <li><strong>Virtual Coffee Roulette:</strong> Automate random pairing of employees (via Slack bot) for 20-min informal video chats. Donut.ai (a Slack integration) is widely used for this. Creates the serendipitous cross-team connection that onsites provide, at ongoing cadence.</li>
+      <li><strong>Team-Level Mini Onsites:</strong> Quarterly small-team (8–12 person) in-person meetups are more scalable than a full company gathering. These maintain the cohesion of individual teams and are more accessible logistically.</li>
+      <li><strong>Structured Async Social Rituals:</strong> The #random and #chat-* channels exist but participation is voluntary. Consider structured weekly async rituals — e.g., "Photo Friday" (post a photo from your week), "Two Truths &amp; a Lie" async threads — to maintain informal presence.</li>
+      <li><strong>Onboarding Cohort Model:</strong> Rather than 1:1 calls with every employee (infeasible at scale), group new hires into cohorts and run structured social sessions. Creates peer bonds and reduces onboarding time investment.</li>
+      <li><strong>"State of Me" Check-ins:</strong> The #metalistening channel (mentioned in Section 3) is a good seed. Formalise a lightweight monthly async "personal check-in" prompt that invites (not mandates) sharing of personal context, building ambient social awareness.</li>
+    </ul>
+
+    <p class="time-note">Refs: Section 3, 6 · Exhibits 4, 7, 8, 10</p>
+  </div>
+
+  <!-- SCRIPT -->
+  <div class="sub-panel" id="q2-script">
+    <div class="section-label">Presentation Script (~4–5 min)</div>
+    <div class="script-block">
+      <span class="beat">// Opening frame</span>
+      The onsite is Giant Swarm's most distinctive cultural investment. Renting a Mallorcan villa, flying a hundred engineers from across Europe, welcoming their families — this is not a company that pays lip service to culture. The "Glue Time" framing is astute: it acknowledges that remote-first work creates adhesion gaps, and that concentrated in-person experience is the solvent.
+
+      <span class="beat">// What it does well</span>
+      And the evidence suggests it works. Employees describe these events with genuine affection. The unstructured time generates informal knowledge sharing, inside jokes, and cross-team relationships that sustain collaboration in the months that follow. That's exactly what the literature on high-performing distributed teams would predict.
+
+      <span class="beat">// But — is twice a year enough at 100+?</span>
+      But here's our argument: at 100-plus employees, twice a year is a necessary condition for trust, not a sufficient one. Trust must be maintained continuously. When a new employee joins in October and misses the Spring onsite, they spend six to eight months operating on the basis of async text interactions alone — without the social foundation that every long-tenured Swarmer built through years of these events.
+
+      <span class="beat">// Three concrete risks</span>
+      We see three specific risks. First, trust decay: social cohesion research tells us that without intermediate touchpoints, the bonds built at onsites measurably weaken over a six-month gap. Second, new hire integration: the onsite wasn't designed as an onboarding tool, but it's increasingly functioning as one by default. That's a fragile dependency. Third, scaling economics: a full-company, week-long event for 150 people in a villa isn't infinitely scalable. At some point, the format has to evolve — probably into divisional onsites — which fragments the whole-company cohesion effect.
+
+      <span class="beat">// Recommendations</span>
+      Our recommendation is to supplement the onsite with what we're calling "formalised informal communication" — structured but lightweight rituals that maintain ambient social presence between events. Three specific ideas: one, automate random pairing for informal video coffee chats — tools like Donut.ai make this trivially easy. Two, introduce structured async social prompts — not mandatory, but regular — that invite personal sharing and create visibility into the humans behind the GitHub handles. Three, shift the 1:1 onboarding call chain to a cohort model — group new hires and run social sessions together, creating peer bonds that scale.
+
+      <span class="beat">// Close</span>
+      The onsite is irreplaceable. But it needs a supporting ecosystem of smaller, more frequent connection rituals if the "Giant Swarm Way" is to survive the headcount crossing 100.
+    </div>
+  </div>
+
+  <!-- SLIDE -->
+  <div class="sub-panel" id="q2-slide">
+    <div class="section-label">Presentation Slide</div>
+    <div class="slide-frame">
+      <div class="slide-inner slide-q2">
+        <div class="slide-eyebrow">Q2 · High-Trust Culture · Glue Time &amp; Formalised Informal Communication</div>
+        <div class="slide-title">The Onsite is Necessary — <em style="color:#f97b4f">But Not Sufficient.</em><br>Trust Needs Continuous Infrastructure.</div>
+        <div class="three-col">
+          <div class="col">
+            <div class="col-label">✓ What Onsites Do Well</div>
+            <ul>
+              <li>Concentrated social bonding: serendipitous connections at scale</li>
+              <li>Cultural recalibration: shared reference point for company identity</li>
+              <li>"Signal of commitment" — action over words</li>
+              <li>Cross-team relationships that fuel async collaboration</li>
+            </ul>
+          </div>
+          <div class="col">
+            <div class="col-label">✗ The Risks of Over-Reliance</div>
+            <ul>
+              <li>New hires: 6–8 month trust deficit pre-first onsite</li>
+              <li>Trust decay between events without intermediate touchpoints</li>
+              <li>Scaling economics break at 150+ employees</li>
+              <li>Caregiving/access barriers for some staff</li>
+            </ul>
+          </div>
+          <div class="col">
+            <div class="col-label">→ Formalised Informal Fixes</div>
+            <ul>
+              <li>Coffee Roulette (Donut.ai): automated async pairing</li>
+              <li>Cohort-based onboarding: replace 1:1 chain at scale</li>
+              <li>Quarterly team mini-onsites: scalable sub-group bonding</li>
+              <li>Structured async social prompts (e.g. Photo Friday)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="verdict">
+          <p>The onsite is irreplaceable as a cultural anchor. But at 100+, trust must be maintained continuously — not batch-processed twice a year. Invest in lightweight, always-on connection rituals to bridge the gap.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REBUTTAL -->
+  <div class="sub-panel" id="q2-rebuttal">
+    <div class="section-label">Rebuttal &amp; Challenge Notes</div>
+    <h2 class="title">Anticipated Counterarguments</h2>
+    <table class="rebuttal-table">
+      <thead>
+        <tr>
+          <th>Likely Challenge</th>
+          <th>Your Response</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>"Giant Swarm has been doing this for 10 years and it clearly works — why fix what isn't broken?"</td>
+          <td>The case explicitly states it is breaking. Section 6 and Anna's opening remarks in Section 1 both describe onboarding as "getting harder" and the trust/transparency challenge as the company's most pressing concern. The onsite model worked for 60 people; the question is whether it scales to 100+.</td>
+        </tr>
+        <tr>
+          <td>"Forced coffee chats and social prompts feel artificial and will be resisted."</td>
+          <td>The key word in our proposal is "formalised informal" — structured but voluntary. Donut.ai pairings are opt-in. The #chat-* channels already show Giant Swarmers voluntarily use informal channels. We're not mandating participation; we're reducing friction and increasing frequency of organic connection.</td>
+        </tr>
+        <tr>
+          <td>"More frequent smaller onsites are just as expensive and harder to coordinate."</td>
+          <td>We're proposing team-level mini-onsites of 8–12 people, not company-wide events. These are drastically cheaper (one AirBnB vs. a full villa), easier to coordinate, and can be absorbed into team budgets. They supplement, not replace, the full company onsite.</td>
+        </tr>
+        <tr>
+          <td>"The existing onboarding process (Exhibit 7) already addresses new hire integration thoroughly."</td>
+          <td>Exhibit 7 shows a strong process — but the 1:1 call-with-every-employee was designed for a company of 40–60. At 100, it requires each new hire to schedule 99 calls. That's not scalable, and the case acknowledges it. A cohort model preserves the intent while being operationally viable.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============================================================
+     QUESTION 3
+     ============================================================ -->
+<div class="q-panel" data-q="3">
+  <div class="q-header">
+    <div class="q-label">Question 03 / Cultural Scaling &amp; Remote Integration</div>
+    <div class="q-question">Timo and Anna are worried about scaling the culture. Based on the challenges of remote work discussed in the lectures (e.g., loss of informal communication, maintaining situational awareness), what are the top two concrete, actionable recommendations you would give them to ensure new employees are successfully integrated into the "Giant Swarm Way"?</div>
+  </div>
+  <nav class="sub-nav">
+    <div class="sub-tab active" data-sub="notes" onclick="switchSub(this, 'q3')">① Notes</div>
+    <div class="sub-tab" data-sub="script" onclick="switchSub(this, 'q3')">② Script</div>
+    <div class="sub-tab" data-sub="slide" onclick="switchSub(this, 'q3')">③ Slide</div>
+    <div class="sub-tab" data-sub="rebuttal" onclick="switchSub(this, 'q3')">④ Rebuttal Notes</div>
+  </nav>
+
+  <!-- NOTES -->
+  <div class="sub-panel active" id="q3-notes">
+    <div class="section-label">Analytical Notes</div>
+    <h2 class="title">Two Concrete Recommendations for Scaling the Giant Swarm Way</h2>
+    <div class="tag-row">
+      <span class="tag accent">Recommendation 1: Culture Narration</span>
+      <span class="tag accent">Recommendation 2: Structured Situational Awareness</span>
+      <span class="tag">Remote Integration</span>
+      <span class="tag">Tacit Knowledge</span>
+    </div>
+
+    <h3>Problem Framing</h3>
+    <p>The core challenge in Sections 1, 3, and 6 is twofold: (1) implicit/tacit cultural knowledge doesn't transfer automatically to new hires, and (2) situational awareness — knowing what's happening, who's working on what, how decisions are made — degrades in remote environments as teams scale. The current onboarding model (Exhibit 7) was designed for a smaller company. Both problems are well-documented in the remote collaboration literature.</p>
+
+    <div class="callout">
+      <div class="callout-label">Guiding Principle</div>
+      <p>Recommendations must be concrete, actionable, and consistent with the "Giant Swarm Way" — they cannot introduce bureaucracy or undermine self-organisation. Every intervention should feel like an amplification of existing culture, not an imposition of new management.</p>
+    </div>
+
+    <h3>Recommendation 1: The "Culture Narration" Practice</h3>
+    <p><strong>What:</strong> Establish a lightweight, structured practice where team members — especially the "oldies" — narrate their decision-making and work practices in short-form async content. Think of it as a "working out loud" ritual. This could take the form of:</p>
+    <ul>
+      <li>Short weekly "context dispatches" posted to a dedicated Slack channel or GitHub repo — 200–300 words explaining why a decision was made, what norms were invoked, what was considered and rejected.</li>
+      <li>A "Culture Wiki" on GitHub (consistent with their GitHub-as-truth philosophy) where implicit norms are collaboratively documented not as rules but as <em>examples</em>: "Here's how we handled X, and here's why."</li>
+      <li>Video "norms walkthroughs" — 5-minute informal recordings by tenured staff on specific cultural practices (e.g., "how I use RFCs," "how I signal disagreement async") embedded in the onboarding guide.</li>
+    </ul>
+    <p><strong>Why it works:</strong> Oliver Thylmann himself noted (Exhibit 10) that tacit knowledge can't be moved to documentation directly — but it CAN be transferred through the exchange of examples and stories. This practice creates a continuous, searchable narration of culture that new hires can access asynchronously, at the moment they need it, in formats aligned with Giant Swarm's existing tools.</p>
+    <p><strong>Fit with Giant Swarm Way:</strong> It's async, GitHub-native or Slack-native, voluntary but encouraged, and consistent with the transparency value. It doesn't require new tools or management approval gates.</p>
+
+    <h3>Recommendation 2: Structured Situational Awareness Rituals</h3>
+    <p><strong>What:</strong> Introduce a lightweight cross-team situational awareness mechanism that gives new hires — and all employees — ambient visibility into what's happening across the organisation. Specifically:</p>
+    <ul>
+      <li><strong>"Swarm Digest" (weekly async newsletter, auto-generated + curated):</strong> A brief, structured summary of what each team shipped, what SIGs discussed, what decisions were made via RFC. Could be partially automated (GitHub activity summaries, Slack digest). Sent via a #news-company channel update. No new tool needed.</li>
+      <li><strong>Personal "Working Window" declarations in Slack:</strong> Rather than just #afk, a lightweight daily async "here's what I'm working on today and why" practice. Builds ambient awareness of work context without requiring real-time presence. Opt-in, culture-normed rather than mandated.</li>
+      <li><strong>Explicit "Decision Trails":</strong> For any significant decision made via RFC or in a team, a mandatory summary posted to a #decisions channel: decision taken, key context, who was involved, how to re-open. This prevents new hires from encountering inexplicable historical choices with no context.</li>
+    </ul>
+    <p><strong>Why it works:</strong> The situational awareness problem in remote work (documented extensively in the literature) is essentially a transparency-at-scale problem. Giant Swarm has transparency as a core value, but the mechanisms (open Slack channels, GitHub) work well when you have shared context. For new hires or cross-timezone employees, the firehose of information is unnavigable without curation. These rituals provide structured signals within the existing channel architecture.</p>
+    <p><strong>Fit with Giant Swarm Way:</strong> Builds directly on existing tools and values. Reinforces transparency without adding hierarchy. Supports self-organisation by giving new hires the situational context to make autonomous decisions earlier.</p>
+
+    <p class="time-note">Refs: Sections 1, 3, 6 · Exhibits 4, 7, 10</p>
+  </div>
+
+  <!-- SCRIPT -->
+  <div class="sub-panel" id="q3-script">
+    <div class="section-label">Presentation Script (~4–5 min)</div>
+    <div class="script-block">
+      <span class="beat">// Frame the problem</span>
+      Timo and Anna have identified two specific mechanisms by which the Giant Swarm culture is at risk as it scales. First: tacit knowledge — the unwritten norms, the implicit decision-making logic, the cultural instincts that long-tenured Swarmers carry — doesn't transfer automatically. You can't write it in a GitHub doc and expect a new hire to absorb it. Second: situational awareness — knowing what's happening, why decisions were made, how to navigate the organisation — degrades sharply in remote environments as the team grows beyond the size where informal osmosis works.
+
+      <span class="beat">// Rec 1 intro</span>
+      Our first recommendation addresses the tacit knowledge problem. We call it the Culture Narration practice. The idea is simple: invite and structure a practice where experienced Swarmers "work out loud" — narrating not just what they're doing, but why, and what cultural logic they're applying. This could be short weekly context dispatches to a Slack channel, a GitHub-hosted "culture wiki" built from concrete examples rather than abstract principles, or short video walkthroughs of specific practices embedded in the onboarding guide.
+
+      <span class="beat">// Rec 1 why</span>
+      Oliver Thylmann himself, in the company blog, said that moving tacit knowledge to documentation is "futile" — but that it CAN be transferred through the exchange of examples and stories. That's exactly what this practice facilitates. And critically, it's completely consistent with the Giant Swarm Way: async, GitHub or Slack native, transparent, and self-organised. No new tools, no management overhead.
+
+      <span class="beat">// Rec 2 intro</span>
+      Our second recommendation targets situational awareness. Remote work literature consistently shows that as organisations scale, the ambient awareness of what's happening — what other teams are doing, what decisions are being made — collapses. For new hires especially, the existing Slack and GitHub firehose is unnavigable without context.
+
+      <span class="beat">// Rec 2 what</span>
+      We recommend three lightweight additions to the existing communication architecture. A weekly "Swarm Digest" — a curated, partly automated summary of cross-team activity, posted to #news-company. A "Decision Trail" norm: any significant RFC or team decision gets a brief summary posted to a shared channel — decision made, context, who was involved, how to re-open. And an optional daily "working window" declaration — a one-liner in Slack on what you're working on and why, building ambient work-context visibility.
+
+      <span class="beat">// Close</span>
+      Both recommendations share the same design philosophy: they amplify existing values — transparency, self-organisation, async work — rather than importing foreign management structures. That's the test we'd apply to any recommendation for Giant Swarm. Does it feel like Giant Swarm, but better? If yes, it's worth trying.
+    </div>
+  </div>
+
+  <!-- SLIDE -->
+  <div class="sub-panel" id="q3-slide">
+    <div class="section-label">Presentation Slide</div>
+    <div class="slide-frame">
+      <div class="slide-inner slide-q3">
+        <div class="slide-eyebrow">Q3 · Scaling the Giant Swarm Way · Two Concrete Recommendations</div>
+        <div class="slide-title">The Culture Must Be <em style="color:#6dd89e">Narrated</em>, Not Just Documented.<br>Awareness Must Be <em style="color:#6dd89e">Structured</em>, Not Just Assumed.</div>
+        <div class="rec-grid">
+          <div class="rec-box">
+            <div class="rec-num">01</div>
+            <div class="rec-title">Culture Narration Practice</div>
+            <div class="rec-body">Invite tenured Swarmers to "work out loud" — weekly async context dispatches explaining decisions, GitHub culture wiki built from examples not rules, short video norms walkthroughs embedded in onboarding. Transfers tacit knowledge through story and example — the mechanism Oliver Thylmann identifies as the only viable one.</div>
+            <div class="rec-tactics">
+              <p>Tools: Slack channel, GitHub wiki, Loom / async video · Zero new tooling required · Async, opt-in, self-organised</p>
+            </div>
+          </div>
+          <div class="rec-box">
+            <div class="rec-num">02</div>
+            <div class="rec-title">Structured Situational Awareness</div>
+            <div class="rec-body">Weekly "Swarm Digest" (partly auto-generated from GitHub/Slack activity) summarising cross-team decisions. "Decision Trail" norm: all RFC outcomes logged to shared #decisions channel with context. Optional daily "working window" declaration in Slack for ambient work visibility.</div>
+            <div class="rec-tactics">
+              <p>Addresses remote situational awareness collapse at scale · Builds on existing transparency value · Empowers new hires to act autonomously sooner</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REBUTTAL -->
+  <div class="sub-panel" id="q3-rebuttal">
+    <div class="section-label">Rebuttal &amp; Challenge Notes</div>
+    <h2 class="title">Anticipated Counterarguments</h2>
+    <table class="rebuttal-table">
+      <thead>
+        <tr>
+          <th>Likely Challenge</th>
+          <th>Your Response</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>"Culture can't be deliberately designed — it emerges organically. Trying to formalise it will kill it."</td>
+          <td>Giant Swarm already deliberately designs culture — the salary formula, the onboarding buddy system, the #metalistening channel, the onsites themselves are all intentional cultural infrastructure. We're proposing more of the same: intentional design consistent with existing values. The alternative — hoping culture scales organically — is what Anna explicitly warns against in Section 1.</td>
+        </tr>
+        <tr>
+          <td>"Culture Narration will create noise and information overload — people already have too much Slack to read."</td>
+          <td>The practice is voluntary and structured, not mandatory. It goes in dedicated channels new hires can subscribe to at onboarding — not pushed to everyone. The goal is to create a searchable, accessible body of cultural examples, not to add to the daily async firehose. It's pull, not push.</td>
+        </tr>
+        <tr>
+          <td>"A Swarm Digest sounds like a management communication newsletter — that's antithetical to their flat culture."</td>
+          <td>The digest isn't management-authored — it's collaboratively generated (partially automated from GitHub/Slack activity, partially crowd-sourced). Think of it as a structured curation of what's already happening in public channels. It's a navigation aid for the existing transparency, not a top-down communication tool.</td>
+        </tr>
+        <tr>
+          <td>"What about the diversity and inclusion problem mentioned in Section 6? Your recommendations don't address it."</td>
+          <td>Fair point — our two recommendations are specifically scoped to the onboarding integration question asked. On D&I: Culture Narration could be extended to deliberately surface diverse voices and practices, not just the loudest/most senior contributors. And cohort-based onboarding (from Q2) naturally builds peer networks that can be inclusive by design.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  function switchQ(n) {
+    document.querySelectorAll('.q-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.q-panel').forEach(p => p.classList.remove('active'));
+    document.querySelector(`.q-tab[data-q="${n}"]`).classList.add('active');
+    document.querySelector(`.q-panel[data-q="${n}"]`).classList.add('active');
+  }
+
+  function switchSub(el, qid) {
+    const sub = el.getAttribute('data-sub');
+    const panel = el.closest('.q-panel');
+    panel.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+    panel.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById(`${qid}-${sub}`).classList.add('active');
+  }
+</script>
+</body>
+</html>
