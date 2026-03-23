@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Remote Playbook 2023 — GitLab</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --orange: #FC6D26;
+      --dark: #171321;
+      --mid: #1e1a2e;
+      --surface: #252038;
+      --surface2: #2d2845;
+      --text: #e8e2f5;
+      --muted: #9b94b5;
+      --accent: #ff8c42;
+      --green: #4ecb8d;
+      --blue: #5b9cf6;
+      --purple: #b57bee;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--dark);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #0f0c1d 0%, #1a1535 50%, #1f1040 100%);
+      padding: 80px 40px 70px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 2px solid var(--orange);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(252, 109, 38, 0.18) 0%, transparent 70%);
+    }
+
+    .hero-eyebrow {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(42px, 7vw, 90px);
+      font-weight: 800;
+      line-height: 0.95;
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span {
+      color: var(--orange);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      position: relative;
+      font-weight: 300;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      position: relative;
+    }
+
+    .pill {
+      background: rgba(252, 109, 38, 0.12);
+      border: 1px solid rgba(252, 109, 38, 0.35);
+      color: var(--accent);
+      padding: 7px 18px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* LAYOUT */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    /* SECTIONS */
+    .section {
+      padding: 64px 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, rgba(252, 109, 38, 0.4), transparent);
+      max-width: 200px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(26px, 4vw, 40px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 32px;
+    }
+
+    .section-title .accent {
+      color: var(--orange);
+    }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(155, 148, 181, 0.2), transparent);
+      margin: 0 30px;
+    }
+
+    /* MODELS GRID */
+    .models-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .model-card {
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 14px;
+      padding: 22px;
+      position: relative;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .model-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(252, 109, 38, 0.4);
+    }
+
+    .model-card.highlight {
+      border-color: rgba(252, 109, 38, 0.5);
+      background: linear-gradient(135deg, var(--surface), rgba(252, 109, 38, 0.08));
+    }
+
+    .model-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+
+    .model-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* SCALE BAR */
+    .scale-bar {
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .scale-bar-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+    }
+
+    .scale-track {
+      display: flex;
+      height: 10px;
+      border-radius: 10px;
+      overflow: hidden;
+      gap: 2px;
+    }
+
+    .scale-seg {
+      flex: 1;
+      border-radius: 3px;
+    }
+
+    /* PITFALLS */
+    .pitfall-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+    }
+
+    .pitfall-card {
+      background: rgba(255, 80, 80, 0.07);
+      border: 1px solid rgba(255, 80, 80, 0.2);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .pitfall-icon {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      background: rgba(255, 80, 80, 0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+
+    .pitfall-text {
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* FIXES GRID */
+    .fix-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+    }
+
+    .fix-card {
+      background: rgba(78, 203, 141, 0.06);
+      border: 1px solid rgba(78, 203, 141, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .fix-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 7px;
+    }
+
+    .fix-text {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* RECIPE STEPS */
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 20px 24px;
+      border-radius: 12px;
+      transition: background 0.2s;
+    }
+
+    .step-item:hover {
+      background: var(--surface);
+    }
+
+    .step-num {
+      width: 38px;
+      height: 38px;
+      min-width: 38px;
+      background: var(--orange);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+
+    .step-content {}
+
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 5px;
+      color: var(--text);
+    }
+
+    .step-desc {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* MANAGER TRAITS */
+    .traits-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .trait-badge {
+      background: var(--surface2);
+      border: 1px solid rgba(91, 156, 246, 0.3);
+      color: var(--blue);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* SKILLS GRID */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 12px;
+    }
+
+    .skill-item {
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: border-color 0.2s;
+    }
+
+    .skill-item:hover {
+      border-color: rgba(91, 156, 246, 0.4);
+    }
+
+    .skill-dot {
+      width: 8px;
+      height: 8px;
+      min-width: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+    }
+
+    /* COMMUNICATION */
+    .comm-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .comm-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .comm-card {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .comm-card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .comm-card-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .comm-card-list li {
+      font-size: 13.5px;
+      color: var(--muted);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .comm-card-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--orange);
+      font-size: 12px;
+    }
+
+    /* GITLAB ACTIVITIES */
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .activity-card {
+      background: var(--surface);
+      border: 1px solid rgba(181, 123, 238, 0.25);
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .activity-emoji {
+      font-size: 26px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .activity-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 6px;
+    }
+
+    .activity-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    /* MENTAL HEALTH */
+    .mh-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .mh-card {
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 24px;
+      border-top: 3px solid var(--green);
+      border: 1px solid rgba(78, 203, 141, 0.2);
+      border-top: 3px solid var(--green);
+    }
+
+    .mh-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .mh-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+
+    .mh-text {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* SCALE */
+    .scale-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .scale-card {
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scale-card::before {
+      content: attr(data-num);
+      position: absolute;
+      right: 16px;
+      top: 12px;
+      font-family: 'Syne', sans-serif;
+      font-size: 52px;
+      font-weight: 800;
+      color: rgba(252, 109, 38, 0.08);
+      line-height: 1;
+    }
+
+    .scale-card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+
+    .scale-card-text {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* DONT DO LIST */
+    .dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .dont-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .dont-x {
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      background: rgba(255, 80, 80, 0.15);
+      color: #ff6b6b;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+
+    /* CALLOUT */
+    .callout {
+      background: linear-gradient(135deg, rgba(252, 109, 38, 0.12), rgba(252, 109, 38, 0.05));
+      border: 1px solid rgba(252, 109, 38, 0.3);
+      border-left: 4px solid var(--orange);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 28px 0;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .callout strong {
+      color: var(--orange);
+    }
+
+    /* STAT BAR */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .stat-box {
+      flex: 1;
+      min-width: 160px;
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .stat-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--mid);
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 40px 30px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer strong {
+      color: var(--orange);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section {
+      animation: fadeUp 0.5s ease both;
+    }
+
+    /* NAV DOTS */
+    .toc {
+      background: var(--surface);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 16px 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      background: rgba(37, 32, 56, 0.92);
+    }
+
+    .toc-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 100px;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .toc-link:hover {
+      color: var(--orange);
+      border-color: rgba(252, 109, 38, 0.4);
+      background: rgba(252, 109, 38, 0.08);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .inline-check {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      color: var(--text);
+      background: var(--surface);
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .check-item::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">GitLab · 2023</div>
+    <h1>The Remote<br><span>Playbook</span></h1>
+    <p class="hero-sub">Everything you need to thrive in distributed work — from remote models to mental health, async
+      communication to culture at scale.</p>
+    <div class="hero-pills">
+      <span class="pill">Remote Models</span>
+      <span class="pill">Hybrid Pitfalls</span>
+      <span class="pill">Team Management</span>
+      <span class="pill">Async Communication</span>
+      <span class="pill">Culture Building</span>
+      <span class="pill">Mental Health</span>
+      <span class="pill">Scaling Remote</span>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <a class="toc-link" href="#models">Remote Models</a>
+    <a class="toc-link" href="#hybrid">Hybrid</a>
+    <a class="toc-link" href="#transition">Transition</a>
+    <a class="toc-link" href="#managing">Managing</a>
+    <a class="toc-link" href="#hiring">Hiring</a>
+    <a class="toc-link" href="#comms">Communication</a>
+    <a class="toc-link" href="#culture">Culture</a>
+    <a class="toc-link" href="#mentalhealth">Mental Health</a>
+    <a class="toc-link" href="#scale">Scale</a>
+  </nav>
+
+  <!-- STAT ROW -->
+  <div class="section">
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-number">50%+</div>
+        <div class="stat-label">of US professional jobs now work remotely at least part-time</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">65+</div>
+        <div class="stat-label">countries where GitLab team members live and work</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">1,700+</div>
+        <div class="stat-label">GitLab team members in 60+ countries, all-remote since inception</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">guides GitLab has published on thriving as a remote organisation</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- REMOTE MODELS -->
+  <div class="section" id="models">
+    <div class="section-label">01 — Understanding the spectrum</div>
+    <h2 class="section-title">Primary <span class="accent">Remote Models</span></h2>
+    <p style="color:var(--muted); margin-bottom:28px; max-width:640px; font-size:14px;">Think of these models as a
+      sliding scale. Identifying where your team sits now is the first step toward intentional transformation.</p>
+    <div class="models-grid">
+      <div class="model-card highlight">
+        <div class="model-name">All-Remote</div>
+        <div class="model-desc">No office, no preferred time zone. Async communication, heavy documentation, maximum
+          flexibility. GitLab's model.</div>
+      </div>
+      <div class="model-card">
+        <div class="model-name">Remote-First</div>
+        <div class="model-desc">Optimised for remote with documentation and workflows that assume everyone is
+          distributed — even if some visit an office.</div>
+      </div>
+      <div class="model-card">
+        <div class="model-name">Remote-Only</div>
+        <div class="model-desc">No co-located office, but still biased towards one time zone. Some companies maintain
+          "core team hours."</div>
+      </div>
+      <div class="model-card">
+        <div class="model-name">Remote Allowed</div>
+        <div class="model-desc">Anyone can work remotely some of the time, with few exceptions for location-dependent
+          roles.</div>
+      </div>
+      <div class="model-card">
+        <div class="model-name">Hybrid-Remote</div>
+        <div class="model-desc">Some employees work remotely 100% of the time; others are onsite. Tempting compromise,
+          but full of pitfalls (see below).</div>
+      </div>
+      <div class="model-card">
+        <div class="model-name">Remote Days</div>
+        <div class="model-desc">Entire company — executives included — works remotely on the same designated days.</div>
+      </div>
+      <div class="model-card">
+        <div class="model-name">Remote Exceptions</div>
+        <div class="model-desc">A few employees can work remotely indefinitely; most are required to be in-office.</div>
+      </div>
+      <div class="model-card">
+        <div class="model-name">Remote Time</div>
+        <div class="model-desc">Also "remote tolerated" — employees may work some days outside the office, typically
+          offered as a perk.</div>
+      </div>
+      <div class="model-card">
+        <div class="model-name">No Remote</div>
+        <div class="model-desc">Remote not allowed, due to leadership mandate or the nature of the business.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- HYBRID -->
+  <div class="section" id="hybrid">
+    <div class="section-label">02 — The hybrid trap</div>
+    <h2 class="section-title">Hybrid-Remote <span class="accent">Isn't a Bandaid</span></h2>
+
+    <div class="callout">
+      <strong>Warning:</strong> Many leaders underestimate the chaos of a two-tier work environment. Hybrid can seem
+      like the best of both worlds — in practice, the employee experience varies dramatically when remote practices
+      aren't truly embedded in everything you do.
+    </div>
+
+    <h3 style="font-family:'Syne',sans-serif; font-size:16px; margin-bottom:16px; color:var(--text);">⚠️ Pitfalls of
+      Hybrid</h3>
+    <div class="pitfall-grid" style="margin-bottom:36px;">
+      <div class="pitfall-card">
+        <div class="pitfall-icon">🛰️</div>
+        <div class="pitfall-text">Feeling of being a satellite office</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-icon">📵</div>
+        <div class="pitfall-text">Less access to information</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-icon">😟</div>
+        <div class="pitfall-text">Managing guilt with coworkers</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-icon">❓</div>
+        <div class="pitfall-text">Lack of consistent support for remote work</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-icon">⭐</div>
+        <div class="pitfall-text">Demands for overperformance</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-icon">🏢</div>
+        <div class="pitfall-text">Culture built around in-office experience</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-icon">🎁</div>
+        <div class="pitfall-text">Lack of access to in-office perks and benefits</div>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Syne',sans-serif; font-size:16px; margin-bottom:16px; color:var(--text);">✅ How to Fix
+      Hybrid</h3>
+    <div class="fix-grid">
+      <div class="fix-card">
+        <div class="fix-title">Reconsider Required Office Days</div>
+        <div class="fix-text">Mandating in-office days inhibits relocation, prevents borderless hiring, and stifles
+          remote-first workflows.</div>
+      </div>
+      <div class="fix-card">
+        <div class="fix-title">Leaders: Stay Home Too</div>
+        <div class="fix-text">Leaders being remote provides equitable "face time," forces remote-first tool use, and
+          signals the office isn't a power centre.</div>
+      </div>
+      <div class="fix-card">
+        <div class="fix-title">Redesign Meeting Spaces</div>
+        <div class="fix-text">Optimise for individual meeting pods so collaboration is equally accessible. Treat the
+          office as just another remote venue.</div>
+      </div>
+      <div class="fix-card">
+        <div class="fix-title">Coffee Chats for Everyone</div>
+        <div class="fix-text">Don't allow exclusive coffee chat pairing based on who's onsite — this signals a two-tier
+          work environment.</div>
+      </div>
+      <div class="fix-card">
+        <div class="fix-title">Record Conversations</div>
+        <div class="fix-text">Ad hoc hallway chats can seem harmless. Leaders should document or record work
+          conversations to increase transparency.</div>
+      </div>
+      <div class="fix-card">
+        <div class="fix-title">Equitable Perks</div>
+        <div class="fix-text">Have an onsite gym? Provide a fitness credit for remote workers. Match all spoken and
+          unspoken benefits.</div>
+      </div>
+      <div class="fix-card">
+        <div class="fix-title">Share Agendas Up Front</div>
+        <div class="fix-text">An upfront agenda for every meeting ensures business continues even if 100% of staff
+          choose to work remotely on any given day.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TRANSITION -->
+  <div class="section" id="transition">
+    <div class="section-label">03 — Getting started</div>
+    <h2 class="section-title">The Recipe for a <span class="accent">Smooth Transition</span></h2>
+
+    <div class="callout">
+      <strong>Key insight:</strong> Remote forces you to do things you should already be doing — but earlier and with
+      greater intention. The three bedrocks of distributed work are <strong>documentation</strong>, <strong>informal
+        communication</strong>, and <strong>working asynchronously</strong>.
+    </div>
+
+    <div class="callout"
+      style="border-color:rgba(181,123,238,0.4); background:rgba(181,123,238,0.07); border-left-color:var(--purple);">
+      <strong style="color:var(--purple);">Hire a Head of Remote.</strong> The ability to thrive remotely is too
+      important to leave to chance. GitLab pioneered this role. Look for someone with extensive remote experience and a
+      history of culture transformation. Can't hire full-time yet? Work with a specialist consulting firm.
+    </div>
+
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Make the Executive Team Remote First</div>
+          <div class="step-desc">Starting at the top sends the clearest signal. It also helps leadership genuinely
+            understand the remote experience so remote-first practices are taken seriously.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Establish a Remote Infrastructure</div>
+          <div class="step-desc">Ask: could your company function if every team member worked from home tomorrow?
+            Identify the gaps in tools and communication now.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Document the Culture</div>
+          <div class="step-desc">Start a living company handbook. Consider every unwritten or implied cultural norm and
+            write it down. In remote settings, there are no daily cues — you must over-communicate values.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Equip, Educate, and Empower the Team</div>
+          <div class="step-desc">Remote work can be jarring for those whose only experience was pandemic-era. Clear
+            proactive communication removes fear and builds excitement about autonomy.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">Embrace Iteration and Transparency</div>
+          <div class="step-desc">Expect bumps. Communicate this proactively. Implement the smallest viable change,
+            solicit feedback, and tweak or revert as needed.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <div class="step-title">Structure as if Everyone is Remote</div>
+          <div class="step-desc">If you maintain any office space, be vigilant that hybrid-remote downsides are not
+            tolerated. Structure processes as if 100% distributed.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">7</div>
+        <div class="step-content">
+          <div class="step-title">Enable Healthy Workspaces</div>
+          <div class="step-desc">Provide each team member a budget to choose their own equipment. Understand there's no
+            one-size-fits-all. Encourage experimenting with home, coworking spaces, and more.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Syne',sans-serif; font-size:16px; margin: 28px 0 16px; color:var(--text);">❌ What NOT to Do
+    </h3>
+    <div class="dont-grid">
+      <div class="dont-item">
+        <div class="dont-x">✕</div>Assume there are no resources available yet
+      </div>
+      <div class="dont-item">
+        <div class="dont-x">✕</div>Replicate the in-office experience, remotely
+      </div>
+      <div class="dont-item">
+        <div class="dont-x">✕</div>Transfer all in-person meetings to virtual
+      </div>
+      <div class="dont-item">
+        <div class="dont-x">✕</div>Assume everyone has access to an optimal workspace
+      </div>
+      <div class="dont-item">
+        <div class="dont-x">✕</div>Assume remote transformation happens overnight
+      </div>
+      <div class="dont-item">
+        <div class="dont-x">✕</div>Assume remote management is drastically different
+      </div>
+      <div class="dont-item">
+        <div class="dont-x">✕</div>Assume your existing values can remain static
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MANAGING -->
+  <div class="section" id="managing">
+    <div class="section-label">04 — Leadership</div>
+    <h2 class="section-title">Managing a <span class="accent">Remote Team</span></h2>
+
+    <div class="callout">
+      <strong>Core principle:</strong> Don't track your team — track their results. Monitoring working hours or laptop
+      activity does nothing but break trust and hinder productivity. Focus on output, not hours spent.
+    </div>
+
+    <div class="two-col" style="margin-bottom:28px;">
+      <div>
+        <h3 style="font-family:'Syne',sans-serif; font-size:15px; margin-bottom:14px; color:var(--blue);">Traits of
+          Great Remote Managers</h3>
+        <div class="traits-row">
+          <span class="trait-badge">Self-awareness</span>
+          <span class="trait-badge">Empathy</span>
+          <span class="trait-badge">Servant-leader qualities</span>
+          <span class="trait-badge">Bias for documentation</span>
+          <span class="trait-badge">Ability to build trust</span>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:'Syne',sans-serif; font-size:15px; margin-bottom:14px; color:var(--blue);">Management
+          Pillars</h3>
+        <div class="inline-check">
+          <span class="check-item">Embrace total transparency</span>
+          <span class="check-item">Create a handbook & OKRs</span>
+          <span class="check-item">Operate asynchronously</span>
+          <span class="check-item">Break down silos</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Syne',sans-serif; font-size:15px; margin-bottom:14px; color:var(--text);">Up-level Your
+      Leadership Skills</h3>
+    <div class="skills-grid">
+      <div class="skill-item"><span class="skill-dot"></span>Be visible & approachable</div>
+      <div class="skill-item"><span class="skill-dot"></span>Challenge thinking, not schedules</div>
+      <div class="skill-item"><span class="skill-dot"></span>Focus on results</div>
+      <div class="skill-item"><span class="skill-dot"></span>Delegate effectively</div>
+      <div class="skill-item"><span class="skill-dot"></span>Promote inclusion</div>
+      <div class="skill-item"><span class="skill-dot"></span>Make it fun</div>
+      <div class="skill-item"><span class="skill-dot"></span>Prioritise onboarding</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- HIRING & ONBOARDING -->
+  <div class="section" id="hiring">
+    <div class="section-label">05 — Growing the team</div>
+    <h2 class="section-title">Hiring & <span class="accent">Onboarding</span></h2>
+
+    <div class="two-col">
+      <div>
+        <h3 style="font-family:'Syne',sans-serif; font-size:15px; margin-bottom:16px; color:var(--orange);">Hiring Tips
+        </h3>
+        <div class="steps-list">
+          <div class="step-item" style="padding: 14px 16px;">
+            <div class="step-num" style="width:28px;height:28px;min-width:28px;font-size:12px;">1</div>
+            <div class="step-content">
+              <div class="step-title" style="font-size:13.5px;">Communicate transparently</div>
+              <div class="step-desc" style="font-size:12.5px;">Don't make the hiring process a mystery. Set expectations
+                early so candidates can focus on fit.</div>
+            </div>
+          </div>
+          <div class="step-item" style="padding: 14px 16px;">
+            <div class="step-num" style="width:28px;height:28px;min-width:28px;font-size:12px;">2</div>
+            <div class="step-content">
+              <div class="step-title" style="font-size:13.5px;">Hire for "values fit"</div>
+              <div class="step-desc" style="font-size:12.5px;">Not "culture fit." Look for candidates who align with
+                your documented values — it's more inclusive and consistent.</div>
+            </div>
+          </div>
+          <div class="step-item" style="padding: 14px 16px;">
+            <div class="step-num" style="width:28px;height:28px;min-width:28px;font-size:12px;">3</div>
+            <div class="step-content">
+              <div class="step-title" style="font-size:13.5px;">Strong remote employee qualities</div>
+              <div class="step-desc" style="font-size:12.5px;">Timeliness, dependability, collaboration, empathy,
+                kindness, autonomy, self-learning, and communication skills.</div>
+            </div>
+          </div>
+          <div class="step-item" style="padding: 14px 16px;">
+            <div class="step-num" style="width:28px;height:28px;min-width:28px;font-size:12px;">4</div>
+            <div class="step-content">
+              <div class="step-title" style="font-size:13.5px;">Use video calls</div>
+              <div class="step-desc" style="font-size:12.5px;">Inform candidates ahead of time. Give them time to
+                prepare and ensure a stable connection.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:'Syne',sans-serif; font-size:15px; margin-bottom:16px; color:var(--orange);">Onboarding
+          Best Practices</h3>
+        <div class="steps-list">
+          <div class="step-item" style="padding: 14px 16px;">
+            <div class="step-num" style="width:28px;height:28px;min-width:28px;font-size:12px;">1</div>
+            <div class="step-content">
+              <div class="step-title" style="font-size:13.5px;">Outline logistics & expectations</div>
+              <div class="step-desc" style="font-size:12.5px;">Document processes, how-tos, and policies centrally so
+                new hires can self-serve from day one.</div>
+            </div>
+          </div>
+          <div class="step-item" style="padding: 14px 16px;">
+            <div class="step-num" style="width:28px;height:28px;min-width:28px;font-size:12px;">2</div>
+            <div class="step-content">
+              <div class="step-title" style="font-size:13.5px;">Identify concerns & answer questions</div>
+              <div class="step-desc" style="font-size:12.5px;">Actively invite new members to ask questions, especially
+                in the first weeks.</div>
+            </div>
+          </div>
+          <div class="step-item" style="padding: 14px 16px;">
+            <div class="step-num" style="width:28px;height:28px;min-width:28px;font-size:12px;">3</div>
+            <div class="step-content">
+              <div class="step-title" style="font-size:13.5px;">Add some excitement</div>
+              <div class="step-desc" style="font-size:12.5px;">Invest in socialisation so new team members feel
+                genuinely connected — not just professionally, but as humans.</div>
+            </div>
+          </div>
+          <div class="step-item" style="padding: 14px 16px;">
+            <div class="step-num" style="width:28px;height:28px;min-width:28px;font-size:12px;">4</div>
+            <div class="step-content">
+              <div class="step-title" style="font-size:13.5px;">Schedule regular check-ins</div>
+              <div class="step-desc" style="font-size:12.5px;">Weekly 1-1s for work + coffee chats purely for
+                connection. Both matter.</div>
+            </div>
+          </div>
+        </div>
+        <div
+          style="background:rgba(78,203,141,0.07); border:1px solid rgba(78,203,141,0.2); border-radius:12px; padding:18px; margin-top:16px;">
+          <div
+            style="font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--green); margin-bottom:10px;">
+            Efficient onboarding delivers:</div>
+          <div class="inline-check">
+            <span class="check-item">Higher retention</span>
+            <span class="check-item">Faster productivity</span>
+            <span class="check-item">Lower anxiety</span>
+            <span class="check-item">Clear expectations</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- COMMUNICATION -->
+  <div class="section" id="comms">
+    <div class="section-label">06 — Working async</div>
+    <h2 class="section-title">Communication <span class="accent">Strategies</span></h2>
+
+    <div class="callout">
+      <strong>The prerequisite to async is documentation.</strong> Async communication IS documentation. It's delivering
+      a message in a way that doesn't require the recipient to be available — or even awake — at the same time.
+      Establish standardised documentation first, then build async on top.
+    </div>
+
+    <div class="comm-cards" style="margin-bottom:28px;">
+      <div class="comm-card">
+        <div class="comm-card-title" style="color:var(--blue);">🔄 Async Work Principles</div>
+        <ul class="comm-card-list">
+          <li>Async communication = eliminating unnecessary meetings</li>
+          <li>You're not expected to respond immediately — email on weekend? Reply Monday</li>
+          <li>Make meetings optional by recording everything and sharing agendas</li>
+          <li>Try "async weeks" — whole weeks dedicated to declining meetings</li>
+          <li>Each meeting needs an agenda + Google Doc attached to the invite</li>
+          <li>Meeting organiser is responsible for documenting outcomes (acts as a natural filter)</li>
+          <li>Managers: model the behaviour — manage your own calendar the same way</li>
+        </ul>
+      </div>
+      <div class="comm-card">
+        <div class="comm-card-title" style="color:var(--purple);">💬 Formalise Informal Communication</div>
+        <ul class="comm-card-list">
+          <li>Remote teams have no hallways or carpools — leaders must actively engineer informal connection</li>
+          <li>People with genuine friends at work perform better and stay longer</li>
+          <li>Design an atmosphere where all team members get to know each other as humans</li>
+          <li>Cancel Zoom happy hours — they cause fatigue and aren't inclusive</li>
+          <li>Try community impact outings: redirect the hour to local community activities</li>
+          <li>Be creative: show-and-tell, virtual talent shows, scavenger hunts</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Syne',sans-serif; font-size:16px; margin-bottom:16px; color:var(--text);">GitLab's Informal
+      Communication Toolkit</h3>
+    <div class="activities-grid">
+      <div class="activity-card">
+        <span class="activity-emoji">☕</span>
+        <div class="activity-name">Coffee Chats</div>
+        <div class="activity-desc">One-on-one video chats to get to know a coworker outside of work topics</div>
+      </div>
+      <div class="activity-card">
+        <span class="activity-emoji">📣</span>
+        <div class="activity-name">Social Calls</div>
+        <div class="activity-desc">Optional calls with no set agenda — just open time to talk about anything</div>
+      </div>
+      <div class="activity-card">
+        <span class="activity-emoji">💻</span>
+        <div class="activity-name">Coworking Calls</div>
+        <div class="activity-desc">Scheduled sessions to work through challenging tasks or simply hang out</div>
+      </div>
+      <div class="activity-card">
+        <span class="activity-emoji">🙋</span>
+        <div class="activity-name">Ask Me Anything</div>
+        <div class="activity-desc">Open-agenda call where team members ask the host any question</div>
+      </div>
+      <div class="activity-card">
+        <span class="activity-emoji">🎤</span>
+        <div class="activity-name">Talent Shows</div>
+        <div class="activity-desc">Great for building real connections and relatively easy to organise</div>
+      </div>
+      <div class="activity-card">
+        <span class="activity-emoji">🙏</span>
+        <div class="activity-name">Thanks Channel</div>
+        <div class="activity-desc">A dedicated, public Slack channel to share gratitude for teammates</div>
+      </div>
+      <div class="activity-card">
+        <span class="activity-emoji">🎮</span>
+        <div class="activity-name">Shared Interest Channels</div>
+        <div class="activity-desc">Open channels for every hobby or interest you can think of</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CULTURE -->
+  <div class="section" id="culture">
+    <div class="section-label">07 — What holds it together</div>
+    <h2 class="section-title">Building <span class="accent">Culture</span></h2>
+
+    <div class="callout">
+      <strong>Critical shift:</strong> Remote culture can't be shaped by office décor or free snacks. Your culture is
+      the values you write down AND what your leadership team does every day to reinforce those values. There should be
+      no unwritten rules.
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h3 style="font-family:'Syne',sans-serif; font-size:15px; margin-bottom:14px; color:var(--orange);">Values Must
+          Be Lived</h3>
+        <div class="comm-card-list" style="display:flex;flex-direction:column;gap:10px;">
+          <li style="padding-left:16px;position:relative;font-size:13.5px;color:var(--muted);line-height:1.5;"><span
+              style="position:absolute;left:0;color:var(--orange);">→</span>Values only shape an organisation if
+            respected and lived by every team member</li>
+          <li style="padding-left:16px;position:relative;font-size:13.5px;color:var(--muted);line-height:1.5;"><span
+              style="position:absolute;left:0;color:var(--orange);">→</span>With less physical interaction, there's less
+            to compensate for value-violating behaviour</li>
+          <li style="padding-left:16px;position:relative;font-size:13.5px;color:var(--muted);line-height:1.5;"><span
+              style="position:absolute;left:0;color:var(--orange);">→</span>Values infuse everything — including how you
+            promote and recognise people</li>
+          <li style="padding-left:16px;position:relative;font-size:13.5px;color:var(--muted);line-height:1.5;"><span
+              style="position:absolute;left:0;color:var(--orange);">→</span>Respected values serve as a universal north
+            star for distributed teams</li>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:'Syne',sans-serif; font-size:15px; margin-bottom:14px; color:var(--orange);">Gathering In
+          Person</h3>
+        <p style="font-size:13.5px; color:var(--muted); margin-bottom:14px; line-height:1.55;">Yes, even in a 100%
+          remote environment — in-person moments build the relationships that make remote work more effective. 1 in 3
+          workers say they feel disconnected from peers.</p>
+        <div class="inline-check">
+          <span class="check-item">Meetups</span>
+          <span class="check-item">Conferences</span>
+          <span class="check-item">Annual summits</span>
+          <span class="check-item">Local coworking days</span>
+          <span class="check-item">Travel budget to visit each other</span>
+          <span class="check-item">Coworking excursions</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MENTAL HEALTH -->
+  <div class="section" id="mentalhealth">
+    <div class="section-label">08 — People first</div>
+    <h2 class="section-title">Mental Health & <span class="accent">Time Away</span></h2>
+
+    <div class="callout">
+      <strong>This is a team sport.</strong> Leaders must build the culture. Managers must sense signs of mental strain
+      proactively. Team members must feel safe surfacing issues while they're still manageable.
+    </div>
+
+    <div class="mh-grid">
+      <div class="mh-card">
+        <span class="mh-icon">📖</span>
+        <div class="mh-title">Document Mental Health Processes</div>
+        <div class="mh-text">Isolation is amplified remotely. Ensure mental health resources are in the central company
+          handbook. Highlight them during onboarding and reinforce in L&D sessions.</div>
+      </div>
+      <div class="mh-card">
+        <span class="mh-icon">🌿</span>
+        <div class="mh-title">Encourage a Healthy Lifestyle</div>
+        <div class="mh-text">Remote enables structuring work around life, not vice versa. Encourage routines — or
+          non-linear workdays. Support peak-productivity scheduling. Don't track your team.</div>
+      </div>
+      <div class="mh-card">
+        <span class="mh-icon">🤝</span>
+        <div class="mh-title">Create a Non-Judgmental Culture</div>
+        <div class="mh-text">Destigmatise mental health conversations. Celebrate diversity and create an environment
+          where team members can be their authentic selves at work.</div>
+      </div>
+      <div class="mh-card">
+        <span class="mh-icon">⏱️</span>
+        <div class="mh-title">Don't Celebrate Long Hours</div>
+        <div class="mh-text">Burnout creeps up over days and weeks. Be careful when publicly praising "going above and
+          beyond" — don't signal that work should always take priority over life.</div>
+      </div>
+      <div class="mh-card">
+        <span class="mh-icon">🌙</span>
+        <div class="mh-title">Rest is Productive</div>
+        <div class="mh-text">Clarity comes from time away from work. Rest isn't at the expense of work — it's a core
+          function of doing excellent work. Balance work ethic with rest ethic.</div>
+      </div>
+      <div class="mh-card">
+        <span class="mh-icon">📅</span>
+        <div class="mh-title">Be Proactive About PTO</div>
+        <div class="mh-text">Block "potential" PTO on your calendar in advance to remind yourself to take time away —
+          even if it's simply a day to spend outdoors. Encourage your team to do the same.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SCALE -->
+  <div class="section" id="scale">
+    <div class="section-label">09 — Growing bigger</div>
+    <h2 class="section-title">Remote <span class="accent">at Scale</span></h2>
+
+    <div class="callout">
+      <strong>Counterintuitive truth:</strong> Remote work doesn't just work at scale — it works <em>better</em> at
+      scale than a colocated model. Fully distributed organisations with no offices to maintain unlock outsized agility
+      and efficiency as they grow.
+    </div>
+
+    <div class="scale-cards">
+      <div class="scale-card" data-num="1">
+        <div class="scale-card-title">Team Growth</div>
+        <div class="scale-card-text">All-remote companies grow faster. No office expansions, no relocation requests, no
+          real estate budget. Leadership focuses purely on finding and onboarding the right talent.</div>
+      </div>
+      <div class="scale-card" data-num="2">
+        <div class="scale-card-title">Better Hiring</div>
+        <div class="scale-card-text">Opening your pipeline globally means reaching a more diverse, talented applicant
+          pool that most companies never access. Skills and results replace location as the filter.</div>
+      </div>
+      <div class="scale-card" data-num="3">
+        <div class="scale-card-title">Reduced Ambiguity</div>
+        <div class="scale-card-text">Remote teams document culture and processes from the start. Everyone — regardless
+          of time zone — has access to the same critical information, reducing confusion at scale.</div>
+      </div>
+      <div class="scale-card" data-num="4">
+        <div class="scale-card-title">Knowledge Dissemination</div>
+        <div class="scale-card-text">In colocated teams, new hire expertise only benefits those nearby. All-remote means
+          every new hire's knowledge benefits the entire organisation equally — creating a more transparent environment.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p style="margin-bottom:8px; font-size:16px; font-weight:600; color:var(--text);">GitLab's <strong>Remote
+        Playbook</strong> — 2023</p>
+    <p>Infographic summary covering all key sections. Source: GitLab Inc. · One of the world's largest all-remote
+      companies with 1,700+ team members in 60+ countries.</p>
+    <p style="margin-top:12px; font-size:12px; color:rgba(155,148,181,0.5);">GitLab · The DevOps Platform · All-remote
+      since inception</p>
+  </footer>
+
+</body>
+
+</html>
