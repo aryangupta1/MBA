@@ -163,6 +163,16 @@
 </head>
 
 <body>
+  <script>
+    (function () {
+      var requiredHash = "f7ffc158c376b05bd236b63a451769d3ce4c170eb3f261d0";
+      var actualHash = new URLSearchParams(window.location.search).get('h');
+      if (actualHash !== requiredHash) {
+        document.body.innerHTML = '<div style="font-family: sans-serif; padding: 40px;">Access denied.</div>';
+        throw new Error('Unauthorized');
+      }
+    })();
+  </script>
   <div class="page">
     <div class="header">
       <div class="header-left">
