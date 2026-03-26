@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Technology Strategy — Interactive Reading Summary</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: rgba(16, 23, 46, 0.78);
+      --panel-solid: #121a33;
+      --panel-soft: #182347;
+      --text: #e9eefc;
+      --muted: #a9b5d6;
+      --accent: #73b7ff;
+      --accent-2: #8cf0d2;
+      --accent-3: #ffd36d;
+      --danger: #ff9f9f;
+      --border: rgba(255, 255, 255, 0.1);
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+      --radius: 22px;
+      --radius-sm: 16px;
+      --max: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(115, 183, 255, 0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(140, 240, 210, 0.12), transparent 25%),
+        linear-gradient(180deg, #08101f 0%, #0b1020 45%, #0d1430 100%);
+      min-height: 100vh;
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(100% - 24px, var(--max));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 32px 0 18px;
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(18, 26, 51, 0.95), rgba(14, 22, 44, 0.85));
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    .hero-card::before,
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(10px);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .hero-card::before {
+      width: 220px;
+      height: 220px;
+      top: -70px;
+      right: -40px;
+      background: rgba(115, 183, 255, 0.18);
+    }
+
+    .hero-card::after {
+      width: 160px;
+      height: 160px;
+      bottom: -50px;
+      left: -20px;
+      background: rgba(140, 240, 210, 0.16);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 0.84rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      padding: 8px 12px;
+    }
+
+    h1 {
+      margin: 16px 0 12px;
+      font-size: clamp(2rem, 5vw, 3.7rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      max-width: 12ch;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+      max-width: 70ch;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 20px;
+      align-items: end;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      background: rgba(255, 255, 255, 0.04);
+      color: #d8e2ff;
+      font-size: 0.92rem;
+    }
+
+    .hero-side {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 16px;
+      backdrop-filter: blur(8px);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .stat-value {
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(14px);
+      background: rgba(11, 16, 32, 0.65);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 12px 0;
+      scrollbar-width: none;
+    }
+
+    .nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav a {
+      white-space: nowrap;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      font-size: 0.92rem;
+      transition: 0.2s ease;
+    }
+
+    .nav a:hover,
+    .nav a:focus {
+      color: var(--text);
+      border-color: rgba(115, 183, 255, 0.45);
+      transform: translateY(-1px);
+    }
+
+    main {
+      padding: 24px 0 60px;
+    }
+
+    .section {
+      margin-top: 20px;
+    }
+
+    .section-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.35rem, 2vw, 1.95rem);
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 70ch;
+    }
+
+    .tag {
+      align-self: flex-start;
+      font-size: 0.82rem;
+      color: var(--accent);
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(115, 183, 255, 0.3);
+      background: rgba(115, 183, 255, 0.08);
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.03));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
+      padding: 18px;
+      min-width: 0;
+    }
+
+    .card h3,
+    .card h4 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+      line-height: 1.3;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .bullet-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .bullet-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.7em;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      transform: translateY(-50%);
+    }
+
+    .accent-box {
+      border-left: 4px solid var(--accent-3);
+      background: rgba(255, 211, 109, 0.08);
+      color: #fff0c0;
+      padding: 16px;
+      border-radius: 14px;
+      font-weight: 600;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline-step {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .timeline-step .phase {
+      font-weight: 700;
+      color: var(--accent-2);
+      text-transform: uppercase;
+      font-size: 0.83rem;
+      letter-spacing: 0.08em;
+    }
+
+    .timeline-step h4 {
+      margin: 0 0 6px;
+      font-size: 1.04rem;
+    }
+
+    .timeline-step p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .curve-wrap {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .curve-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .curve-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin-top: 10px;
+    }
+
+    .framework {
+      display: grid;
+      gap: 14px;
+    }
+
+    .framework-row {
+      display: grid;
+      grid-template-columns: 1.1fr 1.5fr 1.4fr;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .framework-row strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .framework-row span {
+      color: var(--muted);
+      display: block;
+    }
+
+    details {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 16px 18px;
+    }
+
+    details+details {
+      margin-top: 12px;
+    }
+
+    summary {
+      cursor: pointer;
+      list-style: none;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      font-size: 1.4rem;
+      color: var(--accent);
+      line-height: 1;
+      transition: transform 0.2s ease;
+    }
+
+    details[open] summary::after {
+      content: "–";
+    }
+
+    .details-body {
+      padding-top: 12px;
+      color: var(--muted);
+    }
+
+    .matrix {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .matrix .cell {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      min-height: 140px;
+    }
+
+    .matrix .label {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      margin-bottom: 8px;
+    }
+
+    .callout-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .callout {
+      border-radius: 18px;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(115, 183, 255, 0.12), rgba(115, 183, 255, 0.04));
+      border: 1px solid rgba(115, 183, 255, 0.2);
+    }
+
+    .callout h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .callout p {
+      margin: 0;
+      color: #d8e2ff;
+    }
+
+    .footer-note {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+
+      .hero-grid,
+      .grid-3,
+      .callout-grid,
+      .curve-wrap,
+      .grid-2,
+      .framework-row {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-side {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+
+      .hero-card,
+      .section-card {
+        padding: 18px;
+      }
+
+      .hero-side,
+      .matrix {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-step {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-step .phase {
+        margin-bottom: 4px;
+      }
+
+      .section-head {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="hero">
+    <div class="container">
+      <div class="hero-card">
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow">DMBA 6001 · Week 5 Reading</span>
+            <h1>Technology Strategy</h1>
+            <p>
+              A mobile-friendly visual summary of the reading: what makes technology strategy distinct,
+              how innovators move from idea to market, when to lead or follow, how firms commercialize,
+              grow, defend, shape ecosystems, and respond to disruption.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Value creation & capture</span>
+              <span class="pill">S-curves & timing</span>
+              <span class="pill">Commercialization</span>
+              <span class="pill">Platforms & ecosystems</span>
+            </div>
+          </div>
+          <div class="hero-side">
+            <div class="stat">
+              <div class="stat-label">Central question</div>
+              <div class="stat-value">How can firms use new technology to produce superior long-run returns?</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Strategic lens</div>
+              <div class="stat-value">Not just using tools, but redefining how value is created, delivered, and captured
+              </div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Key tension</div>
+              <div class="stat-value">Cooperate, compete, or shape the ecosystem?</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Recurring theme</div>
+              <div class="stat-value">Timing matters: too early wastes resources, too late misses the wave</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="nav-wrap">
+    <div class="container">
+      <nav class="nav">
+        <a href="#overview">Overview</a>
+        <a href="#different">What’s Different?</a>
+        <a href="#curves">S-Curves</a>
+        <a href="#innovators">Innovator Journey</a>
+        <a href="#commercialization">Commercialization</a>
+        <a href="#growth">Growth & Advantage</a>
+        <a href="#lead-follow">Lead or Follow</a>
+        <a href="#markets">New vs Existing Markets</a>
+        <a href="#platforms">Platforms</a>
+        <a href="#takeaways">Key Takeaways</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <div class="container">
+      <section id="overview" class="section">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>Reading Overview</h2>
+              <p>
+                Technology strategy is an integrated set of choices about how to use new technology to create
+                competitive advantage,
+                manage uncertainty, choose where to compete, and capture value as industries evolve.
+              </p>
+            </div>
+            <span class="tag">Big Picture</span>
+          </div>
+
+          <div class="callout-grid">
+            <div class="callout">
+              <h4>Technology changes the playing field</h4>
+              <p>New technology can create entirely new offerings, redraw industry boundaries, and undermine existing
+                advantages.</p>
+            </div>
+            <div class="callout">
+              <h4>Strategy must be dynamic</h4>
+              <p>Unlike conventional strategy, technology strategy operates under uncertainty, changing ecosystems, and
+                shifting market structure.</p>
+            </div>
+            <div class="callout">
+              <h4>Value capture is never automatic</h4>
+              <p>Creating innovation is not enough. Firms still need commercialization logic, bargaining power, and
+                control over scarce resources.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="different" class="section">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>What’s Different About Technology Strategy?</h2>
+              <p>
+                Conventional strategy assumes known markets and proven technologies. Technology strategy deals with new
+                ways of producing value,
+                uncertain customers, changing ecosystems, and the possibility of creative destruction.
+              </p>
+            </div>
+            <span class="tag">Core Distinction</span>
+          </div>
+
+          <div class="grid grid-3">
+            <div class="card">
+              <h3>1. New technology creates new choices</h3>
+              <p>
+                Firms are not just choosing a position within an industry. They may be choosing which industry to enter,
+                what value proposition becomes possible, and what new competitive advantage can be built.
+              </p>
+            </div>
+            <div class="card">
+              <h3>2. Risk and uncertainty are structural</h3>
+              <p>
+                Technology may fail, customer value may be unclear, and key complements may not yet exist. This makes
+                forecasting and staged decision-making critical.
+              </p>
+            </div>
+            <div class="card">
+              <h3>3. Ecosystems matter</h3>
+              <p>
+                Many innovations require suppliers, partners, developers, or distributors to make the offering viable.
+                Strategy therefore includes how to work with or against an ecosystem.
+              </p>
+            </div>
+          </div>
+
+          <div class="accent-box" style="margin-top:16px;">
+            Technology strategy is ultimately about more than adoption. It is about using technological change to
+            redefine how the firm creates, delivers, and captures value over time.
+          </div>
+        </div>
+      </section>
+
+      <section id="curves" class="section">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>S-Curves: Performance and Adoption</h2>
+              <p>
+                The reading emphasizes two linked curves: the technology S-curve and the market diffusion S-curve.
+                Strategy depends on where the technology is maturing and how fast the market is adopting.
+              </p>
+            </div>
+            <span class="tag">Timing Logic</span>
+          </div>
+
+          <div class="curve-wrap">
+            <div class="curve-card">
+              <h3>Technology S-Curve</h3>
+              <p>Performance improves slowly at first, then rapidly, then plateaus as limits are reached.</p>
+              <svg class="curve-svg" viewBox="0 0 420 220" role="img" aria-label="Technology S-curve">
+                <line x1="40" y1="180" x2="390" y2="180" stroke="rgba(255,255,255,0.24)" stroke-width="2" />
+                <line x1="40" y1="180" x2="40" y2="26" stroke="rgba(255,255,255,0.24)" stroke-width="2" />
+                <path d="M55 170 C120 170, 140 165, 170 145 S220 65, 275 52 S350 42, 370 42" fill="none"
+                  stroke="#73b7ff" stroke-width="5" stroke-linecap="round" />
+                <text x="300" y="200" fill="#a9b5d6" font-size="13">Effort / investment</text>
+                <text x="10" y="28" fill="#a9b5d6" font-size="13">Performance</text>
+              </svg>
+            </div>
+            <div class="curve-card">
+              <h3>Market Diffusion S-Curve</h3>
+              <p>Adoption begins slowly, accelerates once legitimacy increases, then slows as the market approaches
+                saturation.</p>
+              <svg class="curve-svg" viewBox="0 0 420 220" role="img" aria-label="Market diffusion S-curve">
+                <line x1="40" y1="180" x2="390" y2="180" stroke="rgba(255,255,255,0.24)" stroke-width="2" />
+                <line x1="40" y1="180" x2="40" y2="26" stroke="rgba(255,255,255,0.24)" stroke-width="2" />
+                <path d="M55 176 C105 176, 135 162, 170 138 S230 70, 285 55 S350 48, 372 50" fill="none"
+                  stroke="#8cf0d2" stroke-width="5" stroke-linecap="round" />
+                <text x="333" y="200" fill="#a9b5d6" font-size="13">Time</text>
+                <text x="10" y="28" fill="#a9b5d6" font-size="13">Adoption</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="grid grid-2" style="margin-top:16px;">
+            <div class="card">
+              <h3>Why this matters strategically</h3>
+              <ul class="bullet-list">
+                <li>Invest too early and the technology or market may not be ready.</li>
+                <li>Wait too long and another firm may shape the standard or dominate the installed base.</li>
+                <li>Technology and market timing rarely move at exactly the same speed.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Three recurring stage questions</h3>
+              <ul class="bullet-list">
+                <li><strong>Introduction:</strong> Does it work? Who will adopt it? How do we commercialize it?</li>
+                <li><strong>Growth:</strong> How do we grow the market and capture value?</li>
+                <li><strong>Maturity:</strong> How do we respond to the next technology transition?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="innovators" class="section">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>The Innovator Journey</h2>
+              <p>
+                Innovators face a changing strategic agenda as technology and markets evolve. The reading frames this
+                journey through introduction, growth, and maturity.
+              </p>
+            </div>
+            <span class="tag">Lifecycle View</span>
+          </div>
+
+          <div class="timeline">
+            <div class="timeline-step">
+              <div class="phase">Stage 1</div>
+              <div>
+                <h4>Introduction — proving the idea</h4>
+                <p>
+                  Reduce technical risk cheaply, identify the strongest customer need, and decide how the idea should be
+                  commercialized.
+                  Early prototypes, pilots, and experiments are strategic tools, not just technical exercises.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <div class="phase">Stage 2</div>
+              <div>
+                <h4>Growth — crossing into the mainstream</h4>
+                <p>
+                  Winning now depends on product-market fit for the early majority, niche domination, improvement of the
+                  value proposition,
+                  bargaining power, ecosystem positioning, and often aggressive moves to build scale.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <div class="phase">Stage 3</div>
+              <div>
+                <h4>Maturity — adapting before decline</h4>
+                <p>
+                  Once growth slows, firms must either extend the offering into adjacent markets or transition to the
+                  next technological wave.
+                  The danger is optimizing yesterday’s model while missing tomorrow’s discontinuity.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="commercialization" class="section">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>Commercialization Strategy</h2>
+              <p>
+                A new technology is an idea. The commercialization problem is deciding how to make money from that idea.
+                The reading frames this as a choice between cooperation and competition depending on two things:
+                the strength of the market for ideas and ownership of complementary assets.
+              </p>
+            </div>
+            <span class="tag">Cooperate or Compete</span>
+          </div>
+
+          <div class="matrix">
+            <div class="cell">
+              <div class="label">No efficient market for ideas + no incumbent assets</div>
+              <h3>Attacker’s Advantage</h3>
+              <p>Enter the product market and attack incumbents before they imitate. Useful when the incumbent cannot
+                add much value and cooperation is unattractive.</p>
+            </div>
+            <div class="cell">
+              <div class="label">No efficient market for ideas + incumbent has assets</div>
+              <h3>Reputation-Based Ideas Trading</h3>
+              <p>Cooperation can still happen if the incumbent is known for paying fairly rather than appropriating
+                ideas opportunistically.</p>
+            </div>
+            <div class="cell">
+              <div class="label">Efficient market for ideas + no incumbent assets</div>
+              <h3>Greenfield Competition</h3>
+              <p>Race among innovators in a new space. Advantage often comes from speed, adoption, and setting the rules
+                of the emerging market.</p>
+            </div>
+            <div class="cell">
+              <div class="label">Efficient market for ideas + incumbent has assets</div>
+              <h3>Ideas Factories</h3>
+              <p>License or sell to firms with the complementary assets needed to scale. Common when IP is stronger and
+                incumbents can commercialize efficiently.</p>
+            </div>
+          </div>
+
+          <details style="margin-top:16px;" open>
+            <summary>Why complementary assets matter</summary>
+            <div class="details-body">
+              Manufacturing, distribution, brand credibility, service capability, installed base, and regulatory
+              infrastructure can determine whether a technology reaches customers at all.
+              Owning the innovation does not guarantee capturing the value if another player controls the scarce
+              complements.
+            </div>
+          </details>
+
+          <details>
+            <summary>The paradox of disclosure</summary>
+            <div class="details-body">
+              To sell an idea, the innovator often has to reveal enough information for the buyer to assess it.
+              But the more the innovator reveals, the easier imitation may become. This weakens bargaining power unless
+              IP protection or reputation is strong.
+            </div>
+          </details>
+
+          <details>
+            <summary>Revenue models in emerging markets</summary>
+            <div class="details-body">
+              Firms may experiment with subscriptions, freemium, advertising, complement pricing, or platform
+              commissions.
+              In new markets, the customers who generate revenue may be different from the users who initially adopt the
+              product.
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section id="growth" class="section">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>Growth, Adoption, and Competitive Advantage</h2>
+              <p>
+                Once commercialized, the challenge becomes growing the market while still capturing a meaningful share
+                of the value created.
+              </p>
+            </div>
+            <span class="tag">Execution Stage</span>
+          </div>
+
+          <div class="grid grid-2">
+            <div class="card">
+              <h3>Crossing the chasm</h3>
+              <ul class="bullet-list">
+                <li>Early adopters tolerate novelty and imperfection.</li>
+                <li>Mainstream customers want reliability, support, compatibility, and reduced risk.</li>
+                <li>The most reliable path is to dominate a tightly defined niche first, then expand.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Capturing value during growth</h3>
+              <ul class="bullet-list">
+                <li>Improve the value proposition continuously.</li>
+                <li>Preempt competitors through speed, acquisitions, or early commitments.</li>
+                <li>Protect and leverage IP.</li>
+                <li>Exploit switching costs, scale, and network effects where possible.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="framework" style="margin-top:16px;">
+            <div class="framework-row">
+              <div>
+                <strong>Dominate a niche</strong>
+                <span>Reduce rivalry and improve support quality</span>
+              </div>
+              <div>
+                <strong>Why it matters</strong>
+                <span>Niche domination helps cross the chasm and strengthens bargaining power before expanding
+                  broadly.</span>
+              </div>
+              <div>
+                <strong>Typical result</strong>
+                <span>Higher trust, stronger word of mouth, clearer positioning</span>
+              </div>
+            </div>
+            <div class="framework-row">
+              <div>
+                <strong>Improve relentlessly</strong>
+                <span>Do not let rivals leapfrog you</span>
+              </div>
+              <div>
+                <strong>Why it matters</strong>
+                <span>Early technological wins fade quickly if the offering does not keep pace with customer
+                  expectations and competitor learning.</span>
+              </div>
+              <div>
+                <strong>Typical result</strong>
+                <span>Sustained value proposition, lower risk of being overtaken</span>
+              </div>
+            </div>
+            <div class="framework-row">
+              <div>
+                <strong>Control power in the ecosystem</strong>
+                <span>Own something scarce</span>
+              </div>
+              <div>
+                <strong>Why it matters</strong>
+                <span>If value depends on an ecosystem, profits often migrate to whoever controls a critical bottleneck
+                  or standard.</span>
+              </div>
+              <div>
+                <strong>Typical result</strong>
+                <span>Better bargaining position and greater share of total value</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="lead-follow" class="section">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>To Lead or to Follow?</h2>
+              <p>
+                Being first to market is not the same as being first to scale or first to mass adoption.
+                The reading argues that timing should be judged by the type of market, pace of technological change, and
+                the firm’s resources.
+              </p>
+            </div>
+            <span class="tag">Timing Choice</span>
+          </div>
+
+          <div class="grid grid-2">
+            <div class="card">
+              <h3>When leading can pay off</h3>
+              <ul class="bullet-list">
+                <li>You can lock in customers before switching costs rise.</li>
+                <li>You can preempt scarce assets, standards, or ecosystem relationships.</li>
+                <li>You can achieve scale or network effects before rivals.</li>
+                <li>You can sustain a technical learning advantage.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>When following can be smarter</h3>
+              <ul class="bullet-list">
+                <li>Technology is changing quickly and first versions will likely be leapfrogged.</li>
+                <li>The market is still fragmented and no dominant design exists yet.</li>
+                <li>You have complementary assets that let you enter later and consolidate the market.</li>
+                <li>You can learn from pioneers without bearing all the early risk.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="accent-box" style="margin-top:16px;">
+            Real advantage comes not from being early by itself, but from converting timing into customer lock-in,
+            scale, standards, ecosystem power, or durable differentiation.
+          </div>
+        </div>
+      </section>
+
+      <section id="markets" class="section">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>Strategies for New Markets vs Existing Markets</h2>
+              <p>
+                The logic of technology strategy changes depending on whether the technology creates an entirely new
+                market or attacks an existing one.
+              </p>
+            </div>
+            <span class="tag">Context Matters</span>
+          </div>
+
+          <div class="grid grid-2">
+            <div class="card">
+              <h3>New markets</h3>
+              <ul class="bullet-list">
+                <li>There may be no incumbent to displace, but also no proven demand.</li>
+                <li>Early markets often have incompatible designs and fragmented offerings.</li>
+                <li>Fast second movers with resources may standardize the market and capture most value.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Existing markets</h3>
+              <ul class="bullet-list">
+                <li>Entrants must take share from incumbents.</li>
+                <li>Incumbents need road maps, switching-cost defenses, and awareness of disruptive technologies.</li>
+                <li>Attackers need a significant technological gap plus ecosystem support and adoption momentum.</li>
+              </ul>
+            </div>
+          </div>
+
+          <details style="margin-top:16px;" open>
+            <summary>Disruptive technologies and the innovator’s dilemma</summary>
+            <div class="details-body">
+              Disruptive technologies often look weaker at first on the dimensions current customers care about.
+              Incumbents ignore them because they appear inferior or low margin. But entrants can improve the
+              technology, target overlooked segments,
+              and eventually change the basis of competition entirely.
+            </div>
+          </details>
+
+          <details>
+            <summary>How incumbents can defend</summary>
+            <div class="details-body">
+              Forecast transitions with road maps, invest in complementary assets, maintain backward compatibility when
+              helpful,
+              raise switching costs, shape customer expectations, and consider separate units to explore disruptive
+              technologies without suffocating them.
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section id="platforms" class="section">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>Platform Technologies and Ecosystem Power</h2>
+              <p>
+                Some technologies become platforms because they coordinate suppliers, complementors, and users.
+                Platform leaders often shape industry evolution by controlling key interfaces and benefiting from
+                indirect network effects.
+              </p>
+            </div>
+            <span class="tag">Supplemental Reading</span>
+          </div>
+
+          <div class="grid grid-3">
+            <div class="card">
+              <h3>Coring</h3>
+              <p>
+                Turn a product into a platform by solving an essential system problem, making complement creation
+                easier,
+                and keeping enough control to preserve value capture.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Tipping</h3>
+              <p>
+                Build momentum so the market tips toward wide adoption through subsidies, coalition building,
+                complementor incentives, and hard-to-imitate features.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Openness trade-off</h3>
+              <p>
+                Too closed and complements may not develop. Too open and the platform owner may lose the ability to
+                capture value.
+                Platform strategy is therefore a controlled openness problem.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-2" style="margin-top:16px;">
+            <div class="card">
+              <h3>Why platforms are powerful</h3>
+              <ul class="bullet-list">
+                <li>They coordinate multiple sides of a market.</li>
+                <li>They can harness indirect network effects.</li>
+                <li>They may shape standards and partner incentives.</li>
+                <li>They can create ecosystems without surrendering all value capture.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Key strategic questions</h3>
+              <ul class="bullet-list">
+                <li>Does the product solve an essential problem others depend on?</li>
+                <li>How open should the platform be?</li>
+                <li>Will the business act as reseller, marketplace, hybrid, or infrastructure provider?</li>
+                <li>How will it avoid being commoditized by its own ecosystem?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="takeaways" class="section">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>Key Takeaways</h2>
+              <p>
+                A concise end-of-reading synthesis you can use for revision, discussion, or converting into notes.
+              </p>
+            </div>
+            <span class="tag">Summary</span>
+          </div>
+
+          <div class="grid grid-2">
+            <div class="card">
+              <h3>What technology strategy really does</h3>
+              <ul class="bullet-list">
+                <li>It helps firms decide where technological change creates advantage or threat.</li>
+                <li>It links invention, commercialization, market timing, and ecosystem design.</li>
+                <li>It treats uncertainty, complements, and industry evolution as strategic issues rather than
+                  background conditions.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>What strong strategists must keep asking</h3>
+              <ul class="bullet-list">
+                <li>What value does this technology unlock, and for whom?</li>
+                <li>Do we need to cooperate, compete, or shape the system around us?</li>
+                <li>What scarce resource lets us capture value rather than merely create it?</li>
+                <li>What wave is coming next, and are we positioned to ride it?</li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="footer-note">
+            Built as a visually structured summary page for fast review on desktop or mobile.
+          </p>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+
+</html>
