@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Metadata</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f3ef;
+      --surface: #ffffff;
+      --ink: #1a1917;
+      --ink2: #4a4845;
+      --ink3: #999590;
+      --border: #e6e0d8;
+      --border2: #cfc8bf;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 300;
+      padding: 2rem;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--surface);
+      padding: 36px 40px 42px;
+      border-radius: 8px;
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.10);
+      border: 1px solid var(--border);
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .meta {
+      font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 10px;
+      color: var(--ink3);
+      line-height: 1.6;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1100px;
+    }
+
+    thead th {
+      position: sticky;
+      top: 0;
+      background: #fbfaf8;
+      z-index: 1;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 12px 12px;
+      vertical-align: top;
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: var(--ink2);
+    }
+
+    th {
+      font-weight: 600;
+      color: var(--ink);
+      border-bottom: 1px solid var(--border2);
+    }
+
+    td:first-child, th:first-child {
+      width: 46px;
+      text-align: right;
+      font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      color: var(--ink3);
+    }
+
+    td:nth-child(2), th:nth-child(2) {
+      width: 70px;
+      font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      color: var(--ink);
+    }
+
+    tbody tr:hover td {
+      background: #fcfbf9;
+    }
+
+    .caption {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 10px;
+      color: var(--ink3);
+      font-style: italic;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    (function () {
+      var requiredHash = "f7ffc158c376b05bd236b63a451769d3ce4c170eb3f261d0";
+      var actualHash = new URLSearchParams(window.location.search).get('h');
+      if (actualHash !== requiredHash) {
+        document.body.innerHTML = '<div style="font-family: sans-serif; padding: 40px;">Access denied.</div>';
+        throw new Error('Unauthorized');
+      }
+    })();
+  </script>
+
+  <div class="page">
+    <div class="top">
+      <div>
+        <div class="eyebrow">Only accessible by URL</div>
+        <h1>Metadata</h1>
+      </div>
+      <div class="meta">
+        MBA notes hub
+      </div>
+    </div>
+
+    <div class="table-wrap" role="region" aria-label="Metadata table" tabindex="0">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Source</th>
+            <th>Author / Organisation</th>
+            <th>Year</th>
+            <th>Source Type</th>
+            <th>Stakeholder Represented</th>
+            <th>Operational Relevance</th>
+            <th>Key Theme</th>
+            <th>System-Level Implication</th>
+            <th>Known Limitations / Bias</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>D1</td>
+            <td>BOM Water Data Online</td>
+            <td>Bureau of Meteorology</td>
+            <td>n.d.-b</td>
+            <td>Live operational data</td>
+            <td>BOM / WaterNSW / MI</td>
+            <td>High — hydrometric baseline the anomaly model compares against</td>
+            <td>Hydrometric monitoring</td>
+            <td>Degraded gauge data corrupts Basin-wide allocation decisions upstream of the AI system</td>
+            <td>Provisional data validated with lag; not citable as archival; no stable deep-page links</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>D2</td>
+            <td>WaterNSW — River Operations</td>
+            <td>WaterNSW</td>
+            <td>n.d.-b</td>
+            <td>Near real-time operational data</td>
+            <td>WaterNSW / MI</td>
+            <td>High — documents delivery scheduling precision that makes undetected anomalies consequential</td>
+            <td>Water delivery operations</td>
+            <td>A single fault in the sequential chain propagates as delivery shortfall before operators can intervene</td>
+            <td>Daily snapshot; not archival; describes operational process, not outcomes</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>D3</td>
+            <td>WaterNSW WaterInsights</td>
+            <td>WaterNSW</td>
+            <td>n.d.-c</td>
+            <td>Live operational platform</td>
+            <td>WaterNSW / MI / irrigators</td>
+            <td>High — real-time storage and allocation data underpinning delivery decisions across the network</td>
+            <td>Real-time water allocation</td>
+            <td>Platform dependency means system anomalies affecting WaterInsights data degrade allocation accuracy across the network</td>
+            <td>Live dashboard only; no archival record; data subject to revision without notice</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>D4</td>
+            <td>MDBA 2026 Basin Plan Review Discussion Paper</td>
+            <td>Murray–Darling Basin Authority</td>
+            <td>2026</td>
+            <td>Policy consultation document</td>
+            <td>MDBA / Australian Government</td>
+            <td>Medium — establishes institutional accountability framework within which AI legitimacy will be evaluated</td>
+            <td>Basin governance</td>
+            <td>Creates the policy window for the prototype to establish best-practice accountability standards now</td>
+            <td>Consultation document; not final policy; does not bind operational decisions</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>D5</td>
+            <td>NSW DPIE MIAF What We Heard Report</td>
+            <td>NSW Department of Planning, Industry and Environment</td>
+            <td>2024</td>
+            <td>Government consultation report</td>
+            <td>Irrigators / state government</td>
+            <td>High — documents irrigator expectations of monitoring accuracy prior to automation completion</td>
+            <td>Stakeholder consultation</td>
+            <td>Historical baseline confirming governance maturity has not kept pace with physical transformation</td>
+            <td>Reflects November 2021 community sentiment; not current operational assessment; pre-dates project completion</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>D6</td>
+            <td>ABARES Water Recovery Impacts</td>
+            <td>Australian Bureau of Agricultural and Resource Economics and Sciences</td>
+            <td>2024</td>
+            <td>Government statistical data</td>
+            <td>Tail-end irrigators / regional communities</td>
+            <td>High — quantifies equity exposure of tail-end irrigators already carrying largest southern MDB recovery impacts</td>
+            <td>Regional economic impact</td>
+            <td>Confirms structural model bias would compound pre-existing disadvantage for the most exposed irrigator group</td>
+            <td>Survey-based; sampling limitations; no node-level disaggregation across the MIA network</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>D7</td>
+            <td>BOM Murrumbidgee Catchment Portal</td>
+            <td>Bureau of Meteorology</td>
+            <td>n.d.-a</td>
+            <td>Interactive catchment portal</td>
+            <td>First Nations peoples / environmental holders</td>
+            <td>Medium — identifies First Nations Country on catchment; establishes cultural sovereignty context</td>
+            <td>Cultural and ecological geography</td>
+            <td>Establishes that the AI system operates on Country, requiring co-governance rather than consultation</td>
+            <td>Navigation-heavy; no stable deep-page links; not citable as a data source without download</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>D8</td>
+            <td>One Basin CRC Anomaly Detection Prototype Project Page</td>
+            <td>One Basin CRC</td>
+            <td>n.d.-b</td>
+            <td>Project documentation</td>
+            <td>MI / WaterNSW / One Basin CRC</td>
+            <td>High — primary source for FMEA, design intent, prototype scope and named project partners</td>
+            <td>AI system design</td>
+            <td>Documents critical failure modes (sensors, batteries, comms) and confirms prototype completed May 2024</td>
+            <td>Promotional framing; no independent evaluation of outcomes; no peer review</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>D9</td>
+            <td>Griffith City Council Water Prospectus and Position Statement</td>
+            <td>Griffith City Council</td>
+            <td>2025</td>
+            <td>Local government report</td>
+            <td>Regional community / irrigators / local government</td>
+            <td>Medium — frames water security as regional development precondition; community economic voice</td>
+            <td>Community economic interest</td>
+            <td>Infrastructure failure causes regional economic harm beyond individual farm level; supports equity risk argument</td>
+            <td>Local government advocacy perspective; represents Griffith only, not all MIA communities</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>D10</td>
+            <td>Murrumbidgee Irrigation Modernisation Page</td>
+            <td>Murrumbidgee Irrigation</td>
+            <td>n.d.</td>
+            <td>Industry webpage</td>
+            <td>MI / irrigators</td>
+            <td>High — documents $348M automation program scope, 1,500 metered outlets, 360 regulators</td>
+            <td>Infrastructure transformation</td>
+            <td>Physical automation is complete; confirms governance maturity gap that prototype is designed to close</td>
+            <td>Self-published; no independent audit; reflects organisational interests; current as of early 2025</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="caption">
+      This page is intentionally unlisted and blocked from indexing. Use the shared <code>?h=...</code> token to access.
+    </div>
+  </div>
+</body>
+</html>
