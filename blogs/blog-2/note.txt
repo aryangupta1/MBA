@@ -1,0 +1,1 @@
+Diagram assets for this post live under images/. Visuals were produced with generative AI (Claude, Anthropic) as noted in the acknowledgement.
