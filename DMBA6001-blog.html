@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DMBA 6001 — Blog — MBA</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #F7F5F0;
+      --surface: #FFFFFF;
+      --ink: #1A1916;
+      --ink2: #4A4840;
+      --ink3: #8A877E;
+      --accent: #C23B22;
+      --border: #E2DED6;
+      --shadow: 0 14px 34px rgba(26, 25, 22, 0.08);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      padding: 48px;
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--ink3);
+      font-size: 12px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .back:hover {
+      color: var(--accent);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(6px);
+    }
+
+    header.hero {
+      background: linear-gradient(180deg, rgba(194, 59, 34, 0.08), rgba(194, 59, 34, 0.00));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 28px 24px 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      font-family: 'Syne', sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 10px;
+    }
+
+    .title {
+      font-family: 'Syne', sans-serif;
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .title span {
+      color: var(--accent);
+    }
+
+    .subtitle {
+      margin-top: 12px;
+      color: var(--ink2);
+      max-width: 76ch;
+    }
+
+    .trust-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: var(--ink2);
+      font-size: 13px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .pill b {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    main {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .card-header {
+      padding: 18px 18px 14px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+    }
+
+    .card-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink2);
+    }
+
+    .meta-note {
+      color: var(--ink3);
+      font-size: 12px;
+    }
+
+    .posts {
+      list-style: none;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .post {
+      display: block;
+      padding: 16px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--ink);
+      background: linear-gradient(180deg, rgba(247, 245, 240, 0.55), rgba(255, 255, 255, 1));
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+
+    .post:hover {
+      border-color: var(--accent);
+      box-shadow: 0 10px 24px rgba(194, 59, 34, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .post h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .post p {
+      margin-top: 8px;
+      color: var(--ink2);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .post .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      align-items: center;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.75);
+      color: var(--ink2);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    aside .card {
+      position: sticky;
+      top: 20px;
+    }
+
+    .aside-body {
+      padding: 16px 18px 18px 18px;
+      color: var(--ink2);
+      font-size: 14px;
+    }
+
+    .aside-body ul {
+      margin-top: 10px;
+      padding-left: 18px;
+      color: var(--ink2);
+    }
+
+    .aside-body li {
+      margin: 6px 0;
+    }
+
+    .footer {
+      margin-top: 18px;
+      color: var(--ink3);
+      font-size: 12px;
+      padding: 14px 4px;
+    }
+
+    @media (max-width: 920px) {
+      body {
+        padding: 24px;
+      }
+
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .trust-strip {
+        grid-template-columns: 1fr;
+      }
+
+      aside .card {
+        position: static;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="topbar">
+      <a class="back" href="library.html?subject=DMBA6001">← Back to DMBA 6001 Library</a>
+      <div class="tag">DMBA 6001 · BLOG</div>
+    </div>
+
+    <header class="hero">
+      <p class="eyebrow">MBA Blog · Trust Theme</p>
+      <h1 class="title">Trust, Technology <span>&</span> Leadership</h1>
+      <p class="subtitle">
+        A collection of blog articles written in a professional MBA tone. Each piece follows a trust lens—how confidence is earned,
+        verified, governed, and sustained in products, teams, and institutions.
+      </p>
+
+      <div class="trust-strip" aria-label="Trust pillars">
+        <div class="pill"><b>Evidence</b> Clear claims, measurable signals, and references.</div>
+        <div class="pill"><b>Governance</b> Roles, controls, and decision rights that hold up under stress.</div>
+        <div class="pill"><b>Integrity</b> Consistent behaviour across incentives, edge cases, and time.</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="card" aria-label="Blog posts list">
+        <div class="card-header">
+          <h2>All posts</h2>
+          <div class="meta-note">Placeholders for now · click to open</div>
+        </div>
+        <ul class="posts">
+          <li>
+            <a class="post" href="DMBA6001-blog-trust-as-a-product-feature.html">
+              <h3>Trust as a Product Feature: Designing for Confidence</h3>
+              <p>How product teams can translate “trust” into concrete UX patterns, policies, and measurable outcomes.</p>
+              <div class="row">
+                <span class="chip">Theme: Trust</span>
+                <span class="chip">Focus: Product design</span>
+                <span class="chip">Format: Essay</span>
+              </div>
+            </a>
+          </li>
+
+          <li>
+            <a class="post" href="DMBA6001-blog-verification-not-vibes.html">
+              <h3>Verification, Not Vibes: Building Trust with Evidence</h3>
+              <p>What “trustworthy” looks like when you treat claims as testable—and make proof easy to access.</p>
+              <div class="row">
+                <span class="chip">Theme: Trust</span>
+                <span class="chip">Focus: Metrics</span>
+                <span class="chip">Format: Framework</span>
+              </div>
+            </a>
+          </li>
+
+          <li>
+            <a class="post" href="DMBA6001-blog-governance-is-a-growth-strategy.html">
+              <h3>Governance Is a Growth Strategy (When Done Right)</h3>
+              <p>Decision rights, risk controls, and operating cadence as accelerators—not bureaucracy.</p>
+              <div class="row">
+                <span class="chip">Theme: Trust</span>
+                <span class="chip">Focus: Leadership</span>
+                <span class="chip">Format: Playbook</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <aside aria-label="About this blog">
+        <div class="card">
+          <div class="card-header">
+            <h2>Editorial standard</h2>
+            <div class="meta-note">Trust-first</div>
+          </div>
+          <div class="aside-body">
+            Each article is structured to feel like a real site:
+            <ul>
+              <li>Clear thesis + “so what” for managers</li>
+              <li>Practical frameworks, not just opinions</li>
+              <li>Signals, evidence, and trade-offs</li>
+              <li>Professional formatting for readability</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <div class="footer">
+      © MBA · DMBA 6001 · Blog posts (index)
+    </div>
+  </div>
+</body>
+
+</html>
