@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMBA6001 - Technology Presentation</title>
+    <style>
+        :root {
+            --primary: #0a0a0f;
+            --secondary: #1a1a2e;
+            --accent: #00d4ff;
+            --accent-secondary: #7b2cbf;
+            --text: #e0e0e0;
+            --text-muted: #8892b0;
+            --gradient: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0f0f23 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--gradient);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            position: relative;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subject-tag {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 20px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+        }
+        
+        .project-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .project-tab {
+            padding: 12px 30px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            letter-spacing: 1px;
+        }
+        
+        .project-tab:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .project-tab.active {
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+        
+        .project-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .project-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .presentation-container {
+            background: rgba(26, 26, 46, 0.5);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .presentation-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+        
+        .slide-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+        
+        .slide-tab {
+            padding: 10px 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .slide-tab .number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        .slide-tab:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--accent);
+            color: var(--text);
+        }
+        
+        .slide-tab.active {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(123, 44, 191, 0.2));
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .slide-tab.active .number {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        
+        .slide-content {
+            display: none;
+            animation: slideIn 0.4s ease;
+            min-height: 400px;
+        }
+        
+        .slide-content.active {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .slide-header {
+            margin-bottom: 25px;
+        }
+        
+        .slide-number {
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .slide-title {
+            font-size: 2rem;
+            font-weight: 300;
+            color: white;
+            letter-spacing: 2px;
+        }
+        
+        .slide-body {
+            padding: 20px 0;
+        }
+        
+        .placeholder-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+        }
+        
+        .placeholder-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        .placeholder-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: white;
+        }
+        
+        .placeholder-text {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        
+        .placeholder-subtext {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 10px;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-btn {
+            padding: 10px 25px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-btn:hover:not(:disabled) {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--primary);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .progress-indicator {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .progress-dot.active {
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+        
+        .tech-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .tech-grid::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            width: 1px;
+            height: 80%;
+            background: linear-gradient(to bottom, transparent, rgba(0, 212, 255, 0.1), transparent);
+        }
+        
+        .tech-grid::after {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: 5%;
+            width: 1px;
+            height: 80%;
+            background: linear-gradient(to bottom, transparent, rgba(123, 44, 191, 0.1), transparent);
+        }
+        
+        .project-title {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+        
+        .project-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .project-tabs {
+                gap: 5px;
+            }
+            
+            .project-tab {
+                padding: 10px 15px;
+                font-size: 0.8rem;
+            }
+            
+            .slide-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .slide-tab {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+            
+            .presentation-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Technology Strategy</h1>
+            <span class="subject-tag">DMBA 6001</span>
+        </header>
+
+        <div class="project-tabs">
+            <button class="project-tab active" data-project="ezzyship">EzzyShip</button>
+            <button class="project-tab" data-project="clementon">Clementon</button>
+        </div>
+
+        <!-- EzzyShip Project -->
+        <div class="project-content active" id="ezzyship">
+            <div class="presentation-container">
+                <div class="tech-grid"></div>
+                <h2 class="project-title">EzzyShip</h2>
+                <p class="project-subtitle">Technology-Powered Logistics Solution</p>
+                
+                <div class="slide-tabs">
+                    <button class="slide-tab active" data-slide="ezzyship-1">
+                        <span class="number">1</span>
+                        Question 1
+                    </button>
+                    <button class="slide-tab" data-slide="ezzyship-2">
+                        <span class="number">2</span>
+                        Question 2
+                    </button>
+                    <button class="slide-tab" data-slide="ezzyship-3">
+                        <span class="number">3</span>
+                        Question 3
+                    </button>
+                </div>
+
+                <!-- Slide 1 -->
+                <div class="slide-content active" id="ezzyship-1">
+                    <div class="slide-header">
+                        <div class="slide-number">Slide 01</div>
+                        <h3 class="slide-title">Question 1</h3>
+                    </div>
+                    <div class="slide-body">
+                        <div class="placeholder-content">
+                            <div class="placeholder-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            </div>
+                            <p class="placeholder-text">Content Coming Soon</p>
+                            <p class="placeholder-subtext">Add your answer for Question 1</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="slide-content" id="ezzyship-2">
+                    <div class="slide-header">
+                        <div class="slide-number">Slide 02</div>
+                        <h3 class="slide-title">Question 2</h3>
+                    </div>
+                    <div class="slide-body">
+                        <div class="placeholder-content">
+                            <div class="placeholder-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            </div>
+                            <p class="placeholder-text">Content Coming Soon</p>
+                            <p class="placeholder-subtext">Add your answer for Question 2</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="slide-content" id="ezzyship-3">
+                    <div class="slide-header">
+                        <div class="slide-number">Slide 03</div>
+                        <h3 class="slide-title">Question 3</h3>
+                    </div>
+                    <div class="slide-body">
+                        <div class="placeholder-content">
+                            <div class="placeholder-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            </div>
+                            <p class="placeholder-text">Content Coming Soon</p>
+                            <p class="placeholder-subtext">Add your answer for Question 3</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button class="nav-btn prev-btn" disabled>
+                        ← Previous
+                    </button>
+                    <div class="progress-indicator">
+                        <span class="progress-dot active"></span>
+                        <span class="progress-dot"></span>
+                        <span class="progress-dot"></span>
+                    </div>
+                    <button class="nav-btn next-btn">
+                        Next →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clementon Project -->
+        <div class="project-content" id="clementon">
+            <div class="presentation-container">
+                <div class="tech-grid"></div>
+                <h2 class="project-title">Clementon</h2>
+                <p class="project-subtitle">Technology-Driven Healthcare Innovation</p>
+                
+                <div class="slide-tabs">
+                    <button class="slide-tab active" data-slide="clementon-1">
+                        <span class="number">1</span>
+                        Question 1
+                    </button>
+                    <button class="slide-tab" data-slide="clementon-2">
+                        <span class="number">2</span>
+                        Question 2
+                    </button>
+                    <button class="slide-tab" data-slide="clementon-3">
+                        <span class="number">3</span>
+                        Question 3
+                    </button>
+                </div>
+
+                <!-- Slide 1 -->
+                <div class="slide-content active" id="clementon-1">
+                    <div class="slide-header">
+                        <div class="slide-number">Slide 01</div>
+                        <h3 class="slide-title">Question 1</h3>
+                    </div>
+                    <div class="slide-body">
+                        <div class="placeholder-content">
+                            <div class="placeholder-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            </div>
+                            <p class="placeholder-text">Content Coming Soon</p>
+                            <p class="placeholder-subtext">Add your answer for Question 1</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="slide-content" id="clementon-2">
+                    <div class="slide-header">
+                        <div class="slide-number">Slide 02</div>
+                        <h3 class="slide-title">Question 2</h3>
+                    </div>
+                    <div class="slide-body">
+                        <div class="placeholder-content">
+                            <div class="placeholder-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            </div>
+                            <p class="placeholder-text">Content Coming Soon</p>
+                            <p class="placeholder-subtext">Add your answer for Question 2</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="slide-content" id="clementon-3">
+                    <div class="slide-header">
+                        <div class="slide-number">Slide 03</div>
+                        <h3 class="slide-title">Question 3</h3>
+                    </div>
+                    <div class="slide-body">
+                        <div class="placeholder-content">
+                            <div class="placeholder-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            </div>
+                            <p class="placeholder-text">Content Coming Soon</p>
+                            <p class="placeholder-subtext">Add your answer for Question 3</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button class="nav-btn prev-btn" disabled>
+                        ← Previous
+                    </button>
+                    <div class="progress-indicator">
+                        <span class="progress-dot active"></span>
+                        <span class="progress-dot"></span>
+                        <span class="progress-dot"></span>
+                    </div>
+                    <button class="nav-btn next-btn">
+                        Next →
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.project-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.project-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.project-content').forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.project).classList.add('active');
+                
+                resetSlides();
+            });
+        });
+
+        function resetSlides() {
+            document.querySelectorAll('.slide-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.slide-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.progress-dot').forEach(d => d.classList.remove('active'));
+            
+            const activeProject = document.querySelector('.project-content.active').id;
+            const firstSlide = document.querySelector(`#${activeProject} .slide-tab`);
+            const firstContent = document.querySelector(`#${activeProject} .slide-content`);
+            
+            if (firstSlide) firstSlide.classList.add('active');
+            if (firstContent) firstContent.classList.add('active');
+            
+            const projectContainer = document.querySelector(`#${activeProject}`);
+            const dots = projectContainer.querySelectorAll('.progress-dot');
+            const slides = projectContainer.querySelectorAll('.slide-content');
+            
+            dots.forEach((dot, i) => {
+                if (i === 0) dot.classList.add('active');
+            });
+            
+            const prevBtn = projectContainer.querySelector('.prev-btn');
+            const nextBtn = projectContainer.querySelector('.next-btn');
+            if (prevBtn) prevBtn.disabled = true;
+            if (nextBtn) nextBtn.disabled = false;
+        }
+
+        document.querySelectorAll('.slide-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const projectContent = tab.closest('.project-content');
+                
+                projectContent.querySelectorAll('.slide-tab').forEach(t => t.classList.remove('active'));
+                projectContent.querySelectorAll('.slide-content').forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.slide).classList.add('active');
+                
+                updateNavigation(projectContent);
+                updateProgress(projectContent);
+            });
+        });
+
+        function updateNavigation(projectContent) {
+            const slides = Array.from(projectContent.querySelectorAll('.slide-content'));
+            const activeSlide = projectContent.querySelector('.slide-content.active');
+            const currentIndex = slides.indexOf(activeSlide);
+            
+            const prevBtn = projectContent.querySelector('.prev-btn');
+            const nextBtn = projectContent.querySelector('.next-btn');
+            
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+        }
+
+        function updateProgress(projectContent) {
+            const slides = Array.from(projectContent.querySelectorAll('.slide-content'));
+            const activeSlide = projectContent.querySelector('.slide-content.active');
+            const currentIndex = slides.indexOf(activeSlide);
+            
+            const dots = projectContent.querySelectorAll('.progress-dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+
+        document.querySelectorAll('.next-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const projectContent = btn.closest('.project-content');
+                const slides = Array.from(projectContent.querySelectorAll('.slide-content'));
+                const activeSlide = projectContent.querySelector('.slide-content.active');
+                const currentIndex = slides.indexOf(activeSlide);
+                
+                if (currentIndex < slides.length - 1) {
+                    const nextSlide = slides[currentIndex + 1];
+                    const slideTab = projectContent.querySelector(`.slide-tab[data-slide="${nextSlide.id}"]`);
+                    
+                    projectContent.querySelectorAll('.slide-tab').forEach(t => t.classList.remove('active'));
+                    projectContent.querySelectorAll('.slide-content').forEach(c => c.classList.remove('active'));
+                    
+                    if (slideTab) slideTab.classList.add('active');
+                    nextSlide.classList.add('active');
+                    
+                    updateNavigation(projectContent);
+                    updateProgress(projectContent);
+                }
+            });
+        });
+
+        document.querySelectorAll('.prev-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const projectContent = btn.closest('.project-content');
+                const slides = Array.from(projectContent.querySelectorAll('.slide-content'));
+                const activeSlide = projectContent.querySelector('.slide-content.active');
+                const currentIndex = slides.indexOf(activeSlide);
+                
+                if (currentIndex > 0) {
+                    const prevSlide = slides[currentIndex - 1];
+                    const slideTab = projectContent.querySelector(`.slide-tab[data-slide="${prevSlide.id}"]`);
+                    
+                    projectContent.querySelectorAll('.slide-tab').forEach(t => t.classList.remove('active'));
+                    projectContent.querySelectorAll('.slide-content').forEach(c => c.classList.remove('active'));
+                    
+                    if (slideTab) slideTab.classList.add('active');
+                    prevSlide.classList.add('active');
+                    
+                    updateNavigation(projectContent);
+                    updateProgress(projectContent);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

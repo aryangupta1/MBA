@@ -293,6 +293,15 @@ article.post {
   margin-top: 0;
 }
 
+.prose h3 {
+  font-size: 1.02rem;
+  font-weight: 650;
+  margin: 1.25em 0 0.55em;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  color: var(--text);
+}
+
 .figure {
   margin: 1.5em 0;
   border: 1px solid var(--border);
