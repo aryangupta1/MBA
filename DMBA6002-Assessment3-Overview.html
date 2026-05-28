@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DMBA6002 A3 — Blueprint Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Spline+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#E64626;
+    --red-soft:#fbe9e4;
+    --ink:#2a2a2a;
+    --ink-soft:#5d5d5d;
+    --paper:#faf7f2;
+    --card:#ffffff;
+    --line:#e7e0d6;
+    --green:#1f6a3d;
+    --green-soft:#e4f0e8;
+    --gold:#8a6d1f;
+    --gold-soft:#fbf3e0;
+    --charcoal:#333333;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Spline Sans',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+    font-size:16px;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    background:
+      radial-gradient(120% 120% at 90% -10%, rgba(230,70,38,.10), transparent 55%),
+      linear-gradient(180deg,#fffdfa,var(--paper));
+    border-bottom:1px solid var(--line);
+    padding:54px 0 38px;
+  }
+  .kicker{
+    font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--red);font-weight:600;margin-bottom:14px;
+  }
+  h1.title{
+    font-family:'Fraunces',serif;font-weight:600;
+    font-size:clamp(2.1rem,5vw,3.4rem);line-height:1.05;
+    letter-spacing:-.01em;color:var(--ink);max-width:18ch;
+  }
+  h1.title em{color:var(--red);font-style:italic;}
+  .sub{margin-top:14px;color:var(--ink-soft);font-size:1.05rem;max-width:60ch;}
+
+  /* ---------- FACT STRIP ---------- */
+  .facts{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:1px;background:var(--line);border:1px solid var(--line);
+    border-radius:14px;overflow:hidden;margin-top:32px;
+  }
+  .fact{background:var(--card);padding:16px 18px;}
+  .fact .n{font-family:'Fraunces',serif;font-size:1.55rem;font-weight:600;color:var(--red);line-height:1;}
+  .fact .l{font-size:.8rem;color:var(--ink-soft);margin-top:6px;}
+
+  /* ---------- STICKY NAV ---------- */
+  nav.toc{
+    position:sticky;top:0;z-index:20;
+    background:rgba(250,247,242,.86);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:10px 0;
+  }
+  nav.toc .row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+  nav.toc a{
+    font-size:.82rem;text-decoration:none;color:var(--ink-soft);
+    padding:5px 11px;border-radius:99px;border:1px solid transparent;transition:.18s;
+  }
+  nav.toc a:hover{background:var(--red-soft);color:var(--red);border-color:#f3cdc2;}
+
+  /* ---------- SECTIONS ---------- */
+  section.block{padding:42px 0 8px;}
+  .eyebrow{
+    font-family:'Fraunces',serif;font-style:italic;color:var(--red);
+    font-size:1rem;margin-bottom:6px;
+  }
+  h2.h{
+    font-family:'Fraunces',serif;font-weight:600;font-size:1.9rem;
+    letter-spacing:-.01em;margin-bottom:6px;
+  }
+  .lead{color:var(--ink-soft);max-width:68ch;margin-bottom:8px;}
+
+  /* ---------- WORD BUDGET BAR ---------- */
+  .budget{margin:22px 0 8px;}
+  .budget-bar{display:flex;height:46px;border-radius:10px;overflow:hidden;border:1px solid var(--line);}
+  .seg{position:relative;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.74rem;font-weight:600;cursor:default;transition:.2s;}
+  .seg span{opacity:.95;text-shadow:0 1px 2px rgba(0,0,0,.25);padding:0 4px;text-align:center;line-height:1.1;}
+  .seg:hover{filter:brightness(1.08);}
+  .budget-key{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:.82rem;color:var(--ink-soft);}
+  .budget-key b{color:var(--ink);}
+
+  /* ---------- METHOD/FRAMING CARDS ---------- */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px;}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr;}}
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;
+  }
+  .panel h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.2rem;margin-bottom:8px;}
+  .panel.framing{background:linear-gradient(180deg,#fffdfa,#fff);}
+  .pill{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.04em;
+    padding:3px 10px;border-radius:99px;margin:0 6px 6px 0;}
+  .pill.fit{background:var(--green-soft);color:var(--green);}
+  .pill.cone{background:var(--gold-soft);color:var(--gold);}
+
+  /* ---------- SECTION CARDS (accordion) ---------- */
+  .cards{display:flex;flex-direction:column;gap:14px;margin-top:8px;}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    transition:box-shadow .2s,border-color .2s;
+  }
+  .card.open{box-shadow:0 10px 30px -18px rgba(230,70,38,.4);border-color:#f0c9bd;}
+  .card-head{
+    display:flex;align-items:center;gap:16px;padding:18px 22px;cursor:pointer;user-select:none;
+  }
+  .num{
+    flex:none;width:42px;height:42px;border-radius:11px;background:var(--red);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;
+    font-weight:600;font-size:1.25rem;
+  }
+  .card.done .num{background:var(--green);}
+  .card-head .ct{flex:1;}
+  .card-head .ct .t{font-family:'Fraunces',serif;font-size:1.18rem;font-weight:600;line-height:1.2;}
+  .card-head .ct .meta{font-size:.82rem;color:var(--ink-soft);margin-top:3px;}
+  .wb{flex:none;font-size:.78rem;font-weight:600;color:var(--red);background:var(--red-soft);
+    padding:5px 12px;border-radius:99px;white-space:nowrap;}
+  .chev{flex:none;color:var(--ink-soft);transition:transform .25s;font-size:1.1rem;}
+  .card.open .chev{transform:rotate(180deg);}
+  .card-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .card.open .card-body{max-height:1400px;}
+  .card-inner{padding:4px 22px 22px;border-top:1px solid var(--line);}
+  .row-label{font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--red);
+    font-weight:600;margin:16px 0 5px;}
+  .card-inner p{color:var(--ink-soft);}
+  .echo{background:var(--green-soft);border-left:4px solid var(--green);border-radius:0 8px 8px 0;
+    padding:11px 15px;font-size:.92rem;color:#1a4a2c;margin-top:4px;}
+  .echo b{color:var(--green);}
+  .visual{background:#eef3f8;border-left:4px solid #3e5a7a;border-radius:0 8px 8px 0;
+    padding:10px 15px;font-size:.9rem;color:#28415c;margin-top:4px;}
+  .cite{font-size:.85rem;color:var(--ink-soft);margin-top:4px;}
+  .cite code{background:#f1ece4;padding:2px 7px;border-radius:5px;font-size:.85em;color:var(--charcoal);}
+  .done-btn{margin-top:18px;font-family:'Spline Sans',sans-serif;font-size:.82rem;font-weight:600;
+    border:1px solid var(--line);background:#fff;color:var(--ink-soft);padding:7px 15px;border-radius:99px;
+    cursor:pointer;transition:.18s;}
+  .done-btn:hover{border-color:var(--green);color:var(--green);}
+  .card.done .done-btn{background:var(--green);color:#fff;border-color:var(--green);}
+
+  /* ---------- MAPPING TABLE ---------- */
+  table.map{width:100%;border-collapse:collapse;margin-top:8px;background:var(--card);
+    border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:.92rem;}
+  table.map th{background:var(--charcoal);color:#fff;text-align:left;padding:12px 16px;font-weight:600;font-size:.82rem;letter-spacing:.03em;}
+  table.map td{padding:12px 16px;border-top:1px solid var(--line);vertical-align:top;}
+  table.map tr:nth-child(even) td{background:#fdfbf8;}
+  table.map .mod{color:var(--red);font-weight:600;white-space:nowrap;}
+
+  /* ---------- CAUTION ---------- */
+  .caution{background:var(--gold-soft);border:1px solid #ecd9a8;border-radius:14px;padding:20px 24px;margin-top:8px;}
+  .caution h3{font-family:'Fraunces',serif;color:var(--gold);font-size:1.15rem;margin-bottom:8px;}
+  .caution ul{margin:0 0 0 18px;color:#4a3d1a;}
+  .caution li{margin-bottom:7px;}
+  .caution code{background:#f3e6c4;padding:1px 6px;border-radius:5px;}
+
+  footer{padding:40px 0 60px;color:var(--ink-soft);font-size:.84rem;text-align:center;border-top:1px solid var(--line);margin-top:46px;}
+  .hr{height:1px;background:var(--line);margin:6px 0;border:0;}
+  @media print{nav.toc{display:none;}.card-body{max-height:none!important;}.chev{display:none;}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">DMBA6002 · Assessment 3 · Research Analysis</div>
+    <h1 class="title">Socio-Technical Futures of the QS5 System — <em>a writing map</em></h1>
+    <p class="sub">An at-a-glance overview of your blueprint. Use it to see the shape of the whole argument, the word budget per section, and the exact lecture vocabulary worth echoing — then write each part in your own words.</p>
+    <div class="facts">
+      <div class="fact"><div class="n">1,500</div><div class="l">words ±10% (1,350–1,650)</div></div>
+      <div class="fact"><div class="n">30%</div><div class="l">of unit grade</div></div>
+      <div class="fact"><div class="n">4</div><div class="l">foresight techniques</div></div>
+      <div class="fact"><div class="n">20+</div><div class="l">credible sources (APA 7)</div></div>
+      <div class="fact"><div class="n">5+2</div><div class="l">tables + figures</div></div>
+      <div class="fact"><div class="n">2050</div><div class="l">horizon</div></div>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap"><div class="row">
+    <a href="#framing">Framing</a>
+    <a href="#budget">Word budget</a>
+    <a href="#s1">1 · Intro</a>
+    <a href="#s2">2 · STEEP</a>
+    <a href="#s3">3 · Signals</a>
+    <a href="#s4">4 · Scenarios</a>
+    <a href="#s5">5 · Backcasting</a>
+    <a href="#s6">6 · Conclusion</a>
+    <a href="#methods">Methods → Modules</a>
+    <a href="#cautions">Citation cautions</a>
+  </div></div>
+</nav>
+
+<!-- FRAMING -->
+<section class="block" id="framing">
+  <div class="wrap">
+    <div class="eyebrow">The lens you write through</div>
+    <h2 class="h">Two frameworks frame everything (Module 6)</h2>
+    <p class="lead">Before the techniques, set the conceptual stage. These two models are the unit's own scaffolding — naming them in your intro signals you understood the course, not just the methods.</p>
+    <div class="grid2">
+      <div class="panel framing">
+        <h3>The F.I.T. Framework</h3>
+        <span class="pill fit">Forecast</span><span class="pill fit">Imagine</span><span class="pill fit">Transform</span>
+        <p style="margin-top:6px;color:var(--ink-soft);">Three families of futures methods. Your work lives in <b>Imagine</b> (scanning, signals, scenarios) and <b>Transform</b> (backcasting, strategic learning options) — deliberately <em>not</em> Forecast/prediction alone.</p>
+      </div>
+      <div class="panel framing">
+        <h3>The Futures Cone</h3>
+        <span class="pill cone">possible</span><span class="pill cone">plausible</span><span class="pill cone">probable</span><span class="pill cone">preferable</span>
+        <p style="margin-top:6px;color:var(--ink-soft);">Classifies futures by likelihood &amp; desirability (Voros, 2003). Your four 2050 scenarios sit on the <b>plausible</b> band; your backcasting targets the <b>preferable</b> future.</p>
+      </div>
+    </div>
+    <div class="echo" style="margin-top:18px;">
+      <b>Thesis to echo in §1:</b> the shift “from prediction to preparation / meaning-making” — the “map vs compass” idea (Modules 6 &amp; 9). Foresight engages <em>plural</em> futures rather than one forecast.
+    </div>
+  </div>
+</section>
+
+<!-- WORD BUDGET -->
+<section class="block" id="budget">
+  <div class="wrap">
+    <div class="eyebrow">Where your 1,500 words go</div>
+    <h2 class="h">Word budget at a glance</h2>
+    <p class="lead">Section 4 (scenarios) is the heaviest — protect its budget by keeping the intro and conclusion tight. Hover a band to see the count.</p>
+    <div class="budget">
+      <div class="budget-bar" id="bar"></div>
+      <div class="budget-key" id="key"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION CARDS -->
+<section class="block">
+  <div class="wrap">
+    <div class="eyebrow">The six moves</div>
+    <h2 class="h">Section-by-section</h2>
+    <p class="lead">Click any section to expand. Tick “Drafted” as you finish each — your progress is tracked for this session.</p>
+    <div class="cards" id="cards"></div>
+  </div>
+</section>
+
+<!-- METHODS MAP -->
+<section class="block" id="methods">
+  <div class="wrap">
+    <div class="eyebrow">Provenance</div>
+    <h2 class="h">Four techniques → which module</h2>
+    <table class="map">
+      <thead><tr><th>Technique</th><th>Module</th><th>Where it lives</th></tr></thead>
+      <tbody>
+        <tr><td><b>STEEP / Megatrend horizon scanning</b></td><td class="mod">Module 7</td><td>§2 — Table 1</td></tr>
+        <tr><td><b>Weak signals &amp; wild cards</b></td><td class="mod">Module 9</td><td>§3 — Table 2</td></tr>
+        <tr><td><b>2×2 scenario matrix</b></td><td class="mod">Module 8</td><td>§4 — Figure 1 + Table 3</td></tr>
+        <tr><td><b>Backcasting + Strategic Learning Options</b></td><td class="mod">Module 8 + 9</td><td>§5 — Figure 2</td></tr>
+      </tbody>
+    </table>
+    <p class="cite" style="margin-top:12px;">Framing layer: <b>Module 6</b> (F.I.T. + Futures Cone) — used to classify the four, not a fifth technique.</p>
+  </div>
+</section>
+
+<!-- CAUTIONS -->
+<section class="block" id="cautions">
+  <div class="wrap">
+    <div class="eyebrow">Don't lose easy marks</div>
+    <h2 class="h">Citation cautions</h2>
+    <div class="caution">
+      <h3>Three things to get right</h3>
+      <ul>
+        <li><b>Don't name the lecturers.</b> The Module 8/9 speakers aren't named in the transcripts. Cite lecture ideas as the module (e.g. <code>DMBA6002 Module 8, 2026</code>), and cite Schoemaker / Schwartz / Selin / Wack <em>separately</em> as external support — never claim they are your lecturers.</li>
+        <li><b>F.I.T. is the unit's own framework.</b> Cite it as a Module 6 concept; don't invent an external author for it. The Futures Cone is correctly <b>Voros (2003)</b>.</li>
+        <li><b>Verify every reference.</b> Page ranges, DOIs and volumes in the template list were reconstructed from standard records — check each against the original, and trim to only what you cite (minimum 20).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Study companion generated from your assessment blueprint · Keep this open in a tab while you write in the submission template.<br>
+    Tip: use your browser's Print → Save as PDF if you want a paper copy. Progress ticks reset when you close the tab.
+  </div>
+</footer>
+
+<script>
+  // ----- WORD BUDGET DATA -----
+  const sections = [
+    {id:'s1', n:'1', t:'Introduction: Futures Framing & Method Rationale', words:150, color:'#E64626',
+      method:'Sets up all four methods', module:'Module 6 framing',
+      cover:'Name the project; state the unit thesis; classify your four methods with F.I.T.; locate your work on the Futures Cone; stake the people-place-purpose-before-profit position.',
+      echo:'“from prediction to preparation / meaning-making”, “map vs compass”, F.I.T. (Forecast/Imagine/Transform), Futures Cone (possible/plausible/probable/preferable).',
+      visual:'No visual — dense, citation-rich opening (~5 sources).',
+      cite:'Voros (2003); Selin (2025); Withycombe Keeler & Bernstein (2021); OECD (n.d.); plus Module 6.'},
+    {id:'s2', n:'2', t:'Megatrend / STEEP Horizon Scanning', words:250, color:'#c43d1f',
+      method:'Technique 1 — horizon scanning', module:'Module 7',
+      cover:'A synthesis paragraph naming the highest-impact megatrends and how they collide in the Murrumbidgee context, then Table 1.',
+      echo:'The six megatrends as a “tapestry”; megatrends “interact — push together or contradict”. Use the unit’s names, not generic STEEP buckets.',
+      visual:'Table 1 — megatrends mapped to STEEP domains, impact + sub-system.',
+      cite:'IPCC (2023); CSIRO (2024); DISR (2024); ACSC (2025); Guillaume et al. (2025).'},
+    {id:'s3', n:'3', t:'Weak Signals, Wild Cards & Meaning-Making', words:250, color:'#a8341a',
+      method:'Technique 2 — signals', module:'Module 9',
+      cover:'Distinguish trends vs weak signals vs wild cards rigorously; read signals “at the fringe”; then Table 2.',
+      echo:'“at the fringe”, “meaning-making”, opening-up vs narrowing-down. Don’t conflate the three categories — markers check this.',
+      visual:'Table 2 — two panels: weak signals + wild cards.',
+      cite:'Saritas & Smith (2011); Hiltunen (2008); Carroll et al. (2020); WEF (2026).'},
+    {id:'s4', n:'4', t:'Four 2050 Scenarios on a 2×2 Matrix', words:480, color:'#8a1818',
+      method:'Technique 3 — scenarios (heaviest)', module:'Module 8',
+      cover:'~70-word method-justification (name all THREE archetypes, justify the 2×2, no probabilities / wind-tunnel), then Figure 1, then ~100 words per scenario covering social + technical + environmental layers.',
+      echo:'Three archetypes (uncertainty-based / disruptive-imaginative / normative-desirable); “wind tunnel”; “no probabilities — that’s forecasting”; AirBnB example; Shell/Oxford method.',
+      visual:'Figure 1 (2×2 matrix) + optional Table 3 (comparative summary).',
+      cite:'Schwartz (1991); Withycombe Keeler & Bernstein (2021); Voros (2003); Schoemaker (1995).'},
+    {id:'s5', n:'5', t:'Backcasting & Strategic Learning Options', words:250, color:'#6f1414',
+      method:'Technique 4 — backcasting', module:'Module 8 + 9',
+      cover:'Backcast from Scenario A (normative / Transform / preferable) with milestones; then a Strategic Learning Options paragraph + an Artefact from the Future. Then Figure 2.',
+      echo:'Backcasting = the normative scenario you “think back from”; Strategic Learning Options = “smart bets / real options”; Artefact from the Future.',
+      visual:'Figure 2 — backcasting roadmap with governance↔technical dependency arrows.',
+      cite:'Robinson (1990); Dreborg (1996); Schoemaker (1995); Module 9 (SLOs).'},
+    {id:'s6', n:'6', t:'Governance Pathways & Conclusion', words:120, color:'#4f0f0f',
+      method:'Synthesis', module:'all',
+      cover:'Collapse the four methods into one governance-adaptation argument; reuse your Assessment 1 “reliability as governance obligation” framing. Optional Table 4.',
+      echo:'“reliability is a governance obligation, not a model-performance target”; people-place-purpose before profit.',
+      visual:'Optional Table 4 — governance pathways to 2050.',
+      cite:'Withycombe Keeler & Bernstein (2021); OECD (n.d.); Guillaume et al. (2025); Pittock et al. (2023).'}
+  ];
+  const total = sections.reduce((a,s)=>a+s.words,0);
+
+  // ----- BUILD BUDGET BAR -----
+  const bar = document.getElementById('bar');
+  const key = document.getElementById('key');
+  sections.forEach(s=>{
+    const seg=document.createElement('div');
+    seg.className='seg';
+    seg.style.flex=s.words;
+    seg.style.background=s.color;
+    seg.title=`Section ${s.n}: ${s.words} words`;
+    seg.innerHTML=`<span>§${s.n}<br>${s.words}w</span>`;
+    bar.appendChild(seg);
+    const k=document.createElement('div');
+    k.innerHTML=`<b>§${s.n}</b> ${s.words}w`;
+    key.appendChild(k);
+  });
+  const ktot=document.createElement('div');
+  ktot.innerHTML=`<b>Total ${total}w</b> · ~160w slack inside ±10%`;
+  ktot.style.color='var(--red)';
+  key.appendChild(ktot);
+
+  // ----- BUILD SECTION CARDS -----
+  const cards=document.getElementById('cards');
+  sections.forEach(s=>{
+    const card=document.createElement('div');
+    card.className='card';
+    card.id=s.id;
+    card.innerHTML=`
+      <div class="card-head">
+        <div class="num">${s.n}</div>
+        <div class="ct"><div class="t">${s.t}</div><div class="meta">${s.method} · ${s.module}</div></div>
+        <div class="wb">~${s.words} words</div>
+        <div class="chev">▾</div>
+      </div>
+      <div class="card-body"><div class="card-inner">
+        <div class="row-label">What to cover</div>
+        <p>${s.cover}</p>
+        <div class="row-label">Echo this vocabulary</div>
+        <div class="echo">${s.echo}</div>
+        <div class="row-label">Visual</div>
+        <div class="visual">${s.visual}</div>
+        <div class="row-label">Anchor citations</div>
+        <p class="cite">${s.cite}</p>
+        <button class="done-btn">Mark as drafted ✓</button>
+      </div></div>`;
+    cards.appendChild(card);
+
+    const head=card.querySelector('.card-head');
+    head.addEventListener('click',e=>{
+      if(e.target.classList.contains('done-btn'))return;
+      card.classList.toggle('open');
+    });
+    card.querySelector('.done-btn').addEventListener('click',e=>{
+      e.stopPropagation();
+      card.classList.toggle('done');
+      e.target.textContent=card.classList.contains('done')?'Drafted ✓':'Mark as drafted ✓';
+    });
+  });
+
+  // open the first card by default
+  document.querySelector('.card').classList.add('open');
+</script>
+</body>
+</html>
