@@ -31,6 +31,8 @@ Used by `index.html` and `library.html`.
 | `--course-a` | `#1f5c4b` | DMBA 6001 stripe (green) |
 | `--course-b` | `#b83822` | DMBA 6002 stripe (red) |
 | `--course-c` | `#6b6560` | DMBA 6004 stripe (grey) |
+| `--course-d` | `#2f5470` | DMBA 6008 stripe (petrol blue) |
+| `--course-e` | `#a8722c` | DMBA 6005 stripe (ochre) |
 
 Fonts: **Syne** (600–800) for headings, labels, and codes; **DM Sans** (300–500) for body.
 

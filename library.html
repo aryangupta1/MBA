@@ -170,13 +170,15 @@
           { title: 'Platform Design', href: 'DMBA6001-platform-design.html', description: 'Reading summary — Platform Design' },
           { title: 'John Deere Case Study', href: 'DMBA-6001-john_deere_case_study.html', description: 'Case Study — John Deere' },
           { title: 'Telecom IoT Case Study', href: 'DMBA-6001-telecom-iot.html', description: 'Case Study — Telecom IoT' },
-        ]
+        ],
+        DMBA6008: [],
+        DMBA6005: []
       };
 
       var params = new URLSearchParams(window.location.search);
       var subject = (params.get('subject') || '').toUpperCase().replace(/\s/g, '');
 
-      var validSubjects = ['DMBA6004', 'DMBA6002', 'DMBA6001'];
+      var validSubjects = ['DMBA6004', 'DMBA6002', 'DMBA6001', 'DMBA6008', 'DMBA6005'];
       if (!validSubjects.includes(subject)) {
         subject = 'DMBA6002';
       }

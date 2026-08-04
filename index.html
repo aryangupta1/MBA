@@ -22,6 +22,8 @@
       --course-a: #1f5c4b;
       --course-b: #b83822;
       --course-c: #6b6560;
+      --course-d: #2f5470;
+      --course-e: #a8722c;
       --border: rgba(20, 18, 16, 0.09);
       --radius-xl: 22px;
       --radius: 16px;
@@ -256,6 +258,10 @@
     }
 
     /* ── Section + cards ── */
+    .semester + .semester {
+      margin-top: clamp(1.85rem, 4.5vw, 2.4rem);
+    }
+
     .section-head {
       display: flex;
       align-items: center;
@@ -291,6 +297,51 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--ink3);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-syne);
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.5rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+
+    .status--live {
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
+
+    .status--done {
+      color: var(--course-a);
+      background: rgba(31, 92, 75, 0.11);
+    }
+
+    .sem-note {
+      margin-top: 0.85rem;
+      padding-left: 0.85rem;
+      border-left: 2px solid rgba(20, 18, 16, 0.1);
+      font-size: 0.8rem;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--ink3);
+      max-width: 56ch;
+      animation: fade-up 0.6s 0.68s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
     .grid {
@@ -329,6 +380,12 @@
     .card:nth-of-type(2) { animation-delay: 0.26s; }
     .card:nth-of-type(3) { animation-delay: 0.34s; }
 
+    /* The lower section continues the stagger rather than restarting it */
+    .semester:nth-of-type(2) .section-head { animation-delay: 0.36s; }
+    .semester:nth-of-type(2) .card:nth-of-type(1) { animation-delay: 0.44s; }
+    .semester:nth-of-type(2) .card:nth-of-type(2) { animation-delay: 0.52s; }
+    .semester:nth-of-type(2) .card:nth-of-type(3) { animation-delay: 0.60s; }
+
     .card::before {
       content: '';
       position: absolute;
@@ -357,6 +414,8 @@
     .card--6001 { --stripe: var(--course-a); }
     .card--6002 { --stripe: var(--course-b); }
     .card--6004 { --stripe: var(--course-c); }
+    .card--6008 { --stripe: var(--course-d); }
+    .card--6005 { --stripe: var(--course-e); }
 
     .card-top {
       display: flex;
@@ -434,8 +493,8 @@
     }
 
     .card--muted:hover .arrow {
-      color: var(--course-c);
-      background: rgba(107, 101, 96, 0.1);
+      color: var(--stripe);
+      background: rgba(20, 18, 16, 0.07);
     }
 
     /* ── Footer ── */
@@ -481,37 +540,67 @@
         </div>
       </header>
 
-      <div class="section-head">
-        <p class="section-label" id="courses-label">Browse by subject</p>
-      </div>
-      <nav class="grid" aria-labelledby="courses-label">
-        <a href="library.html?subject=DMBA6001" class="card card--6001">
-          <div class="card-top">
-            <span class="code">DMBA 6001</span>
-            <span class="arrow" aria-hidden="true">→</span>
-          </div>
-          <div class="card-title">Readings &amp; notes</div>
-          <p class="card-desc">Reading summaries, infographics, and related material for DMBA 6001.</p>
-        </a>
+      <section class="semester semester--s2">
+        <div class="section-head">
+          <p class="section-label" id="sem2-label">2026 Semester 2</p>
+          <span class="status status--live">In progress</span>
+        </div>
+        <nav class="grid" aria-labelledby="sem2-label">
+          <a href="library.html?subject=DMBA6008" class="card card--6008 card--muted">
+            <div class="card-top">
+              <span class="code">DMBA 6008</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </div>
+            <div class="card-title">Finance, Strategy and Technology</div>
+            <p class="card-desc">No material yet — this library fills up as the semester runs.</p>
+          </a>
 
-        <a href="library.html?subject=DMBA6002" class="card card--6002">
-          <div class="card-top">
-            <span class="code">DMBA 6002</span>
-            <span class="arrow" aria-hidden="true">→</span>
-          </div>
-          <div class="card-title">Assessments &amp; references</div>
-          <p class="card-desc">Argument maps, cheat sheets, and supporting references for DMBA 6002.</p>
-        </a>
+          <a href="library.html?subject=DMBA6005" class="card card--6005 card--muted">
+            <div class="card-top">
+              <span class="code">DMBA 6005</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </div>
+            <div class="card-title">Agile Project Development</div>
+            <p class="card-desc">No material yet — this library fills up as the semester runs.</p>
+          </a>
+        </nav>
+      </section>
 
-        <a href="library.html?subject=DMBA6004" class="card card--6004 card--wide">
-          <div class="card-top">
-            <span class="code">DMBA 6004</span>
-            <span class="arrow" aria-hidden="true">→</span>
-          </div>
-          <div class="card-title">Remote &amp; hybrid work</div>
-          <p class="card-desc">GitLab playbook, models of remote work, and week 5 case study material for DMBA 6004.</p>
-        </a>
-      </nav>
+      <section class="semester semester--s1">
+        <div class="section-head">
+          <p class="section-label" id="sem1-label">2026 Semester 1</p>
+          <span class="status status--done">Completed</span>
+        </div>
+        <nav class="grid" aria-labelledby="sem1-label">
+          <a href="library.html?subject=DMBA6001" class="card card--6001">
+            <div class="card-top">
+              <span class="code">DMBA 6001</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </div>
+            <div class="card-title">Readings &amp; notes</div>
+            <p class="card-desc">Reading summaries, infographics, and related material for DMBA 6001.</p>
+          </a>
+
+          <a href="library.html?subject=DMBA6002" class="card card--6002">
+            <div class="card-top">
+              <span class="code">DMBA 6002</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </div>
+            <div class="card-title">Assessments &amp; references</div>
+            <p class="card-desc">Argument maps, cheat sheets, and supporting references for DMBA 6002.</p>
+          </a>
+
+          <a href="library.html?subject=DMBA6004" class="card card--6004 card--wide">
+            <div class="card-top">
+              <span class="code">DMBA 6004</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </div>
+            <div class="card-title">Remote &amp; hybrid work</div>
+            <p class="card-desc">GitLab playbook, models of remote work, and week 5 case study material for DMBA 6004.</p>
+          </a>
+        </nav>
+        <p class="sem-note">Semester 1 is where this site was born. The improvements and learnings from building it will be carried into Semester 2.</p>
+      </section>
 
       <p class="foot">Each subject page is a hub: readings and tools are grouped there for easy navigation.</p>
     </div>

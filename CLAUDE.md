@@ -21,13 +21,22 @@ It is published with **GitHub Pages** from the `master` branch at
 
 Author: Aryan Gupta (`agup0543@uni.sydney.edu.au`).
 
-Three subjects:
+Subjects are grouped by semester on `index.html`.
+
+**2026 Semester 1**
 
 | Code | Subject | Content |
 | --- | --- | --- |
 | DMBA 6001 | Leading Strategic Digital Transformation | Reading summaries, case studies, blog series |
 | DMBA 6002 | Digital disruption & organisations | Assessment overviews, cheat sheets, reading infographics |
 | DMBA 6004 | Remote & hybrid work | Playbook summaries, weekly case studies |
+
+**2026 Semester 2**
+
+| Code | Subject | Content |
+| --- | --- | --- |
+| DMBA 6008 | Finance, Strategy and Technology | None yet — card is muted, library renders empty |
+| DMBA 6005 | Agile Project Development | None yet — card is muted, library renders empty |
 
 ## Hard constraints
 
