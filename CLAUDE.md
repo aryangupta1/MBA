@@ -38,9 +38,11 @@ Subjects are grouped by semester on `index.html`.
 | DMBA 6008 | Finance, Strategy and Technology | Week hub + per-week study pages (summary & visuals, key concepts, flashcards), synced from Notion |
 | DMBA 6005 | Agile Project Development | None yet — card is muted, library renders empty |
 
-Semester 2 pages are generated from the author's Notion notebooks. Read
-[docs/notion-sync.md](docs/notion-sync.md) before touching them — in particular, only
-**Pre-Live Session** notes may be published.
+Semester 2 pages are generated from the author's Notion notebooks by the **`sync-subject`
+skill** (`.claude/skills/sync-subject/`) — Aryan says *"update finance"* and it harvests,
+builds, registers, and runs five QA gates. Read
+[docs/notion-sync.md](docs/notion-sync.md) before touching those pages — in particular,
+only **Pre-Live Session** notes may be published.
 
 ## Hard constraints
 
@@ -83,7 +85,8 @@ before writing or editing any prose.
 | [docs/content-guide.md](docs/content-guide.md) | Voice, referencing, AI acknowledgement, privacy |
 | [docs/workflows.md](docs/workflows.md) | Step-by-step recipes for common tasks |
 | [docs/notion-sync.md](docs/notion-sync.md) | Notion schema, the sync pipeline, and the publish rules |
-| [docs/notion-sync-automation.md](docs/notion-sync-automation.md) | Design for automating the sync |
+| [.claude/skills/sync-subject/SKILL.md](.claude/skills/sync-subject/SKILL.md) | The sync procedure that actually runs — phases, gates, stop conditions |
+| [docs/notion-sync-automation.md](docs/notion-sync-automation.md) | Why the sync is shaped that way; the settled design decisions |
 | [docs/next-prompt-protocol.md](docs/next-prompt-protocol.md) | How the handoff file works |
 
 ## Verifying work

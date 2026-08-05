@@ -16,8 +16,13 @@ Start at [`../CLAUDE.md`](../CLAUDE.md) for the short version and the hard const
 | [content-guide.md](content-guide.md) | Voice, referencing, AI-use acknowledgement, unlisted content, academic integrity |
 | [workflows.md](workflows.md) | Recipes: new reading summary, new blog post, new unlisted appendix, publishing |
 | [notion-sync.md](notion-sync.md) | The Notion schema, the harvest → build → register pipeline, and what must never be published |
-| [notion-sync-automation.md](notion-sync-automation.md) | Design for the `"Update finance"` command, its QA gates, and extending it to DMBA 6005 |
+| [notion-sync-automation.md](notion-sync-automation.md) | Design rationale behind the sync skill — change detection, the QA gates, extending it to DMBA 6005 |
+| [notion-sync-state.json](notion-sync-state.json) | Machine-written record of what the sync has published from Notion, and when |
 | [next-prompt-protocol.md](next-prompt-protocol.md) | How `next-prompt.md` is injected, honoured, and updated |
+
+The sync itself is a skill, not a doc: **`.claude/skills/sync-subject/`**. Say
+*"update finance"* to run it. `SKILL.md` there is the procedure that executes;
+`notion-sync-automation.md` is why it is shaped that way.
 
 ## The one-paragraph summary
 

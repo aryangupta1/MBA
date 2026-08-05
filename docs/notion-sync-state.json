@@ -1,0 +1,185 @@
+{
+  "_README": [
+    "Record of what the sync-subject skill has published from Notion, and when.",
+    "Written by .claude/skills/sync-subject. Not a build artefact and nothing at serve time reads it —",
+    "it is a published-state record, the same kind of thing next-prompt.md is.",
+    "",
+    "HOW CHANGE IS DETECTED (see also SKILL.md Phase 0):",
+    "  A Notes database row exposes an 'Edited Time' property. A CHILD page inside a note does not —",
+    "  fetching one returns only {\"title\": ...}. The only per-child timestamp available is the",
+    "  'as of <ISO>' stamp in the notion-fetch response envelope, recorded here as observedAt.",
+    "",
+    "  observedAt was verified on 2026-08-05 to be a CONTENT timestamp, not a fetch timestamp:",
+    "  fetching the same page twice minutes apart returned an identical value (07:36:00.112Z), and",
+    "  sibling pages returned different values. It is not documented by Notion, so it is used as a",
+    "  strong hint, never as proof.",
+    "",
+    "  A week is treated as CHANGED when ANY of these moved: the note's Edited Time, the note's or a",
+    "  topic's observedAt, or the shape of the child tree (an added, removed or renamed sub-page).",
+    "  That can over-trigger, which costs one harvest. To guard against UNDER-triggering — the case",
+    "  where a grandchild is edited and no recorded timestamp moves — each topic carries a",
+    "  contentHash of its harvested Markdown. The cheap pass decides whether to harvest; the hash",
+    "  decides whether to rebuild. If Aryan says he edited a deep sub-page, run a deep pass:",
+    "  re-harvest every topic and compare hashes.",
+    "",
+    "  contentHash is null for every topic below because the 2026-08-05 build predates this file and",
+    "  its harvest lived in a session scratchpad that did not survive. The next run of each topic",
+    "  fills it in. Until then that topic falls back to timestamp-only detection."
+  ],
+
+  "DMBA6008": {
+    "lastSync": "2026-08-05",
+    "courseId": "3097b336873c80c0948dcc805089b071",
+    "hubPage": "DMBA6008-weeks.html",
+    "skippedNotebooks": [
+      {
+        "id": "30d7b336873c80518357fb50b62720b2",
+        "topic": "Week 0: Fundamentals of financial management",
+        "reason": "archived — notion-fetch returns it with a `deleted` attribute, but it is still listed in the Course's Notebooks relation"
+      }
+    ],
+    "weeks": {
+      "Week 0": {
+        "notebookId": "3a17b336873c805b9c4acdff38033d35",
+        "notebookTopic": "Week 0",
+        "page": "DMBA6008-week0.html",
+        "notes": [
+          {
+            "id": "3a17b336873c804eb7f8ebbf0bd8818e",
+            "name": "Financial Management",
+            "type": "Pre-Live Session",
+            "shape": "container",
+            "editedTime": "2026-07-24T07:23:49.527Z",
+            "observedAt": "2026-08-03T13:42:57.590Z",
+            "published": true,
+            "topics": [
+              {
+                "id": "3a17b336873c800da7ebecc92b1d9736",
+                "title": "The Balance sheet",
+                "observedAt": "2026-07-24T13:50:00.033Z",
+                "childCount": 10,
+                "svgPrefix": "bs",
+                "contentHash": null,
+                "published": true
+              },
+              {
+                "id": "3a17b336873c803a8397c048d9a8f360",
+                "title": "The Profit and Loss Statement",
+                "observedAt": "2026-08-02T12:51:02.838Z",
+                "childCount": 10,
+                "svgPrefix": "pl",
+                "contentHash": null,
+                "published": true
+              },
+              {
+                "id": "3a17b336873c80acbcd7ca4fe679a4f4",
+                "title": "Cash Flow",
+                "observedAt": "2026-08-04T12:06:00.146Z",
+                "childCount": 9,
+                "svgPrefix": "cf",
+                "contentHash": null,
+                "published": true
+              },
+              {
+                "id": "3a17b336873c806db1dfcb0bc131e2f0",
+                "title": "Assessing Financial Performance",
+                "observedAt": "2026-07-24T16:46:20.506Z",
+                "childCount": 10,
+                "svgPrefix": null,
+                "contentHash": null,
+                "published": false,
+                "state": "empty",
+                "note": "All ten sub-pages are blank in Notion and the item is unticked in the Week 0 notebook todo. Spot-checked again 2026-08-05 ('Returns' returns <empty-block/>, 'Summary' returns <blank-page/>). DMBA6008-week0.html renders an honest 'not yet written' panel listing the ten pending sub-pages. THAT PANEL IS THE THING TO REPLACE when Aryan writes these notes. Never fill it with generated content.",
+                "pendingChildren": [
+                  "Returns", "Risks", "Cash", "The right question", "CEO Bonus",
+                  "Working Capital Assessment", "Sustainable Growth Part 1",
+                  "Sustainable Growth part 2", "Risk Assessment", "Summary"
+                ]
+              }
+            ]
+          }
+        ],
+        "built": { "figures": 12, "terms": 66, "cards": 88 }
+      },
+
+      "Week 1": {
+        "notebookId": "3b27b336873c8070953fd96878f5f2dc",
+        "notebookTopic": "Week 1: Key value principles",
+        "page": "DMBA6008-week1.html",
+        "notes": [
+          {
+            "id": "3b27b336873c802e89a3cda117f1ff5e",
+            "name": "Learn",
+            "type": "Pre-Live Session",
+            "shape": "container",
+            "editedTime": "2026-08-05T07:37:12.896Z",
+            "observedAt": "2026-08-05T07:41:00.040Z",
+            "published": true,
+            "topics": [
+              {
+                "id": "3b27b336873c8033bcfed65ac0724eb4",
+                "title": "Key Value Principle",
+                "observedAt": "2026-08-05T07:36:00.112Z",
+                "childCount": 3,
+                "children": ["Overview", "Concepts", "Assessing Financial Performance"],
+                "svgPrefix": "fig",
+                "contentHash": null,
+                "published": true
+              },
+              {
+                "id": "3b37b336873c80188a37c9850d366edf",
+                "title": "Key Definitions",
+                "observedAt": "2026-08-05T07:41:26.781Z",
+                "childCount": 0,
+                "shape": "inline",
+                "contentHash": null,
+                "published": true,
+                "note": "A single inline table of 4 term/definition pairs. These are the TERMS entries carrying `own: true`, reproduced word for word."
+              }
+            ]
+          },
+          {
+            "id": "3b37b336873c8016b48ce3c9c9787cf0",
+            "name": "Live Session Diary",
+            "type": "Live Session",
+            "editedTime": "2026-08-05T09:44:02.450Z",
+            "observedAt": "2026-08-05T09:44:08.285Z",
+            "published": false,
+            "reason": "NEVER PUBLISH. Live Session type. Contains candid remarks about the lecturer, about classmates' use of AI, and about what will be examined in assessments. Also contains one Notion image. Re-confirmed present and unpublished 2026-08-05."
+          }
+        ],
+        "built": { "figures": 5, "terms": 20, "cards": 25 }
+      }
+    }
+  },
+
+  "DMBA6005": {
+    "lastSync": null,
+    "courseId": "3a17b336873c80c284a7cd6be4a60c4d",
+    "hubPage": null,
+    "weeks": {},
+    "note": "Not synced, and deliberately so. Aryan decided 2026-08-05 to hold the whole subject until Week 1 has a Pre-Live Session note, then launch Week 0 and Week 1 together rather than ship a one-week subject. BUILD NOTHING before then — not even unpublished pages. Type pairing is settled (Sora + Karla, --course-e ochre); un-muting the index.html card still needs a separate yes.",
+    "waitingOn": {
+      "notebookId": "3b17b336873c80ada0b3f4a02cb2dea8",
+      "notebookTopic": "Week1: Project Management",
+      "trigger": "a note of type `Pre-Live Session` appearing here — the existing `Class Diary` is a Live Session note and can never be published"
+    },
+    "readyWhenTriggered": {
+      "Week 0": {
+        "notebookId": "3ae7b336873c806da6b6e5630c66e3bb",
+        "noteName": "$RUs",
+        "shape": "inline",
+        "approxWords": 700,
+        "topics": 1,
+        "note": "A digital innovation case study. One topic, so one harvest agent and one fragment agent. Reach for option-comparison matrices, a customer-journey strip and a decision-rule table — not formulas."
+      }
+    },
+    "skippedNotebooks": [
+      {
+        "id": "3b37b336873c80db9388ee1a56192b33",
+        "topic": "New Notebook",
+        "reason": "empty placeholder — never render it as a week"
+      }
+    ]
+  }
+}

@@ -3,9 +3,10 @@
 Design for turning the manual pipeline in [notion-sync.md](notion-sync.md) into one
 instruction: **"Update finance."**
 
-Nothing in this document is built yet. It is the handoff for the session that builds it.
-Read [notion-sync.md](notion-sync.md) first — this assumes the schema, the two content
-shapes, and the publish rules from that document.
+**Built on 2026-08-05 as the `sync-subject` skill** — `.claude/skills/sync-subject/`. This
+document is now the *design rationale*; `SKILL.md` is the procedure that actually runs, and
+where the two disagree, `SKILL.md` wins. Read [notion-sync.md](notion-sync.md) first — this
+assumes the schema, the two content shapes, and the publish rules from that document.
 
 ---
 
@@ -57,7 +58,8 @@ Why a skill and not a hook or a script:
   questions. A deterministic script cannot do it. What a script *could* do — diffing Notion
   against a manifest — is small enough to live as a documented tool sequence.
 
-`subjects.json` sketch:
+`subjects.json` — **the real file is `.claude/skills/sync-subject/subjects.json`; read that,
+not this.** The shape, abbreviated:
 
 ```json
 {
@@ -68,7 +70,8 @@ Why a skill and not a hook or a script:
     "stripe": "--course-d",
     "palette": { "accent": "#2f5470", "deep": "#1f3b51", "soft": "#e9eff4" },
     "fonts": "Newsreader + Inter",
-    "contentShape": "container"
+    "contentShapeHint": "container",
+    "live": true
   },
   "DMBA6005": {
     "aliases": ["agile", "6005", "apd"],
@@ -76,11 +79,18 @@ Why a skill and not a hook or a script:
     "filePrefix": "DMBA6005",
     "stripe": "--course-e",
     "palette": { "accent": "#a8722c", "deep": "#6f4a17", "soft": "#f7efe2" },
-    "fonts": "TBD — must differ from every existing pairing",
-    "contentShape": "inline"
+    "fonts": "Sora + Karla",
+    "contentShapeHint": "inline",
+    "live": false,
+    "waitingFor": "Week 1's Pre-Live Session note — build nothing before then"
   }
 }
 ```
+
+The real file also carries `fontHref`, `hubPage`, `cardClass`, `referencePage`, per-subject
+`blockers`, a `_completedSem1` id lookup, and a `_globals` block holding the data-source URLs,
+the stale-note id and the publish rules. `contentShape` was renamed `contentShapeHint` to make
+it obvious it is **a hint, not a fact** — always detect shape at runtime.
 
 ---
 
@@ -112,9 +122,30 @@ The sync needs to know what is new since last time. Two options:
 A note is **changed** when its `Edited Time` is newer than the recorded value; a notebook is
 **new** when it is absent. This is exact and costs one fetch per note.
 
-Caveat worth deciding on: `Edited Time` on a *container* note (Shape A) does not necessarily
-move when a grandchild page is edited. For container subjects the manifest should record
-`editedTime` for every **leaf** page, not just the note.
+**Resolved 2026-08-05 — the leaf-timestamp plan does not work as written.** This section
+originally said the manifest should record `editedTime` for every leaf page of a container
+note. It cannot: `Edited Time` is a *Notes database row* property, and a child page inside a
+note is not a row. Fetching one returns `{"title": …}` and no timestamps at all.
+
+What is actually available, in descending order of trust:
+
+| Signal | Where it comes from | Trust |
+| --- | --- | --- |
+| `contentHash` of the harvested Markdown | computed by the skill | **exact** |
+| note `Edited Time` | Notes row property | exact, for the note row only |
+| tree shape — child ids and titles | the fetch | exact for added / removed / renamed pages |
+| `observedAt` — the `as of <ISO>` stamp in the fetch envelope | every page, including children | strong hint |
+
+`observedAt` was tested on 2026-08-05: the same page fetched twice minutes apart returned an
+identical value (`07:36:00.112Z`), and sibling pages returned different values — so it tracks
+content, not fetch time. It is undocumented, hence a hint rather than proof.
+
+**The two-stage rule the skill implements.** A week is CHANGED when the note's `Edited Time`,
+any `observedAt`, or the tree shape moved — this over-triggers, and over-triggering costs one
+harvest. The `contentHash` then decides whether to rebuild, so a false alarm never churns
+prose that was already reviewed. The residual risk is *under*-triggering, and the answer to
+that is a **deep pass**: re-harvest every topic and compare hashes, run on request or on
+suspicion.
 
 **Option B — no state, always re-harvest.** Simpler and always correct, but re-reads
 everything and re-derives pages that have not changed, which risks churning prose that was
@@ -257,9 +288,9 @@ Keep the fan-out to topics. A week with one topic gets one agent, not three.
 ## 6. The fragment spec
 
 Agents building page fragments must be handed a spec, or they invent class names and the
-assembly step becomes hand-editing. The spec used on the first run is reproduced at
-`.claude/skills/sync-subject/reference/fragment-spec.md` when the skill is built. Its
-essentials:
+assembly step becomes hand-editing. **The spec lives at
+`.claude/skills/sync-subject/reference/fragment-spec.md`** and is handed to every fragment
+agent verbatim. Its essentials:
 
 - **Content rules.** The harvested Markdown is the only permitted source. No outside
   knowledge, no invented examples, no completed truncations, no invented citations. Typos in
@@ -321,27 +352,39 @@ Agile weeks proper (ceremonies, artefacts, iteration) will want **cycle diagrams
 
 `CLAUDE.md`: *never change a page's visual identity without being asked*, and each artefact
 family owns its own palette and typography. DMBA 6008 took `--course-d` petrol blue with
-Newsreader + Inter. DMBA 6005 should take `--course-e` ochre `#a8722c` and a **different**
-type pairing — every one of Syne/DM Sans, IBM Plex, Playfair, Fraunces/Spline Sans, DM Serif
-Display/DM Mono, Space Grotesk and Newsreader/Inter is already spoken for in this repo.
-Choose the pairing with Aryan rather than picking one silently.
+Newsreader + Inter.
 
-### e. Current blocker
+**Settled 2026-08-05: DMBA 6005 takes `--course-e` ochre `#a8722c` with Sora + Karla.** Sora
+for display — geometric, wide, angular terminals, reading like product documentation rather
+than academia, which suits agile delivery material; Karla for body, humanist and warm. The
+`fontHref` is in `subjects.json`.
+
+The repo's fonts were inventoried before choosing, and thirteen are already spoken for: IBM
+Plex Mono, DM Sans, Inter, Syne, IBM Plex Sans, Playfair Display, DM Mono, Newsreader, DM
+Serif Display, Fraunces, Spline Sans, Space Mono and Space Grotesk. **Re-run that inventory
+before choosing a pairing for any future subject** —
+`grep -rhoE 'family=[A-Za-z+]+' --include='*.html' .`
+
+### e. On hold — settled 2026-08-05
 
 Only Week 0 is publishable. `Week1: Project Management` has its `- [ ] Pre-Live` item
 unticked and holds only a `Class Diary` live-session note. `New Notebook` is an empty
 placeholder and should be skipped, not rendered as a week.
 
-**Do not publish a DMBA 6005 hub with one week and two stubs** without checking whether Aryan
-wants the subject live yet — un-muting the `index.html` card is a visible statement that the
-subject has material.
+**Aryan's decision: hold the whole subject until Week 1's pre-live note exists**, then launch
+Week 0 and Week 1 together rather than ship a one-week subject. **Build nothing before then**
+— not even unpublished pages. The trigger to watch is a `Pre-Live Session` note appearing
+under notebook `3b17b336873c80ada0b3f4a02cb2dea8`; when it does, say so and ask whether to
+run. Un-muting the `index.html` card still needs a separate yes — it is a visible statement
+that the subject has material.
 
 ### f. Runbook — the first DMBA 6005 sync
 
-Run this once, when Aryan says the subject is ready to go live.
+Run this once, when Week 1's pre-live note exists **and** Aryan says go.
 
-1. **Ask two questions first** (§7d, §7e): which type pairing, and whether one published week
-   is enough to un-mute the card. Do not guess either.
+1. **Confirm the trigger.** Week 1 must have a `Pre-Live Session` note — a `Class Diary`
+   alone does not count. The pairing (Sora + Karla) and palette (`--course-e` ochre) are
+   already settled; un-muting the `index.html` card still needs its own yes (§7d, §7e).
 2. Resolve the course (`3a17b336873c80c284a7cd6be4a60c4d`) and its notebooks. Expect three.
    **Skip `New Notebook`** — it is an empty placeholder, not a week. Skip any notebook whose
    pre-live notes are all empty.
@@ -380,14 +423,22 @@ only 6005-specific things to keep in mind:
 
 ---
 
-## 8. Open decisions for the next session
+## 8. Decisions — settled 2026-08-05
 
-1. **Commit `docs/notion-sync-state.json`?** (§3) — a new tracked file, needs approval.
-2. **Manifest granularity for container subjects** — leaf `Edited Time` vs note `Edited Time`.
-3. **DMBA 6005 type pairing and whether to go live with one week** (§7d, §7e).
-4. **Images.** Every Notion image is a 5-minute presigned URL. Publishing one means
-   downloading and committing it. Is that wanted, and where do the files live?
-5. **Should the hub page show `Confidence`?** It is genuinely useful study telemetry and
-   deliberately excluded today as personal.
-6. **Does the pipeline ever run in reverse** — a page edited here flowing back to Notion? Not
-   designed for. Current model is Notion-authoritative, repo-published.
+All but one were settled with Aryan on 2026-08-05, when the skill was built. The skill at
+`.claude/skills/sync-subject/` implements them.
+
+1. **Commit `docs/notion-sync-state.json`?** — **Yes.** It exists, tracked, seeded with the
+   DMBA 6008 state.
+2. **Manifest granularity for container subjects** — **superseded.** Leaf `Edited Time` does
+   not exist; see the rewritten §3 for the signal hierarchy and the two-stage rule.
+3. **DMBA 6005 type pairing and whether to go live with one week** (§7d, §7e) — **settled.**
+   Pairing is **Sora + Karla**. Go-live is **held until Week 1's pre-live note exists**, then
+   both weeks launch together; nothing is built before then. Un-muting the card still needs a
+   yes.
+4. **Images** — **skip them.** Not downloaded, not linked, not committed. The sync reports
+   the count per week so Aryan can ask for a specific one.
+5. **Should the hub page show `Confidence`?** — **No.** It stays private, with
+   `Last Reviewed`, `Days Since` and `Favorite`.
+6. **Does the pipeline ever run in reverse?** — **No.** Notion is authoritative, the repo is
+   publish-only. The skill must never write to Notion.

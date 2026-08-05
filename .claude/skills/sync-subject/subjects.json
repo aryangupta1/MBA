@@ -1,0 +1,64 @@
+{
+  "_comment": "Subject registry for the sync-subject skill. Notion ids come from docs/notion-sync.md §1. contentShape is a HINT ONLY — always detect it at runtime per note (docs/notion-sync.md §1, 'Two content shapes').",
+
+  "DMBA6008": {
+    "aliases": ["finance", "6008", "fst", "finance strategy and technology"],
+    "name": "Finance, Strategy and Technology",
+    "semester": "SEM 2 2026",
+    "notionCourseId": "3097b336873c80c0948dcc805089b071",
+    "filePrefix": "DMBA6008",
+    "hubPage": "DMBA6008-weeks.html",
+    "cardClass": "card--6008",
+    "stripe": "--course-d",
+    "palette": { "accent": "#2f5470", "deep": "#1f3b51", "soft": "#e9eff4" },
+    "fonts": "Newsreader + Inter",
+    "fontHref": "https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600;700&display=swap",
+    "contentShapeHint": "container",
+    "referencePage": "DMBA6008-week1.html",
+    "live": true
+  },
+
+  "DMBA6005": {
+    "aliases": ["agile", "6005", "apd", "agile project development"],
+    "name": "Agile Project Development",
+    "semester": "SEM 2 2026",
+    "notionCourseId": "3a17b336873c80c284a7cd6be4a60c4d",
+    "filePrefix": "DMBA6005",
+    "hubPage": "DMBA6005-weeks.html",
+    "cardClass": "card--6005",
+    "stripe": "--course-e",
+    "palette": { "accent": "#a8722c", "deep": "#6f4a17", "soft": "#f7efe2" },
+    "fonts": "Sora + Karla",
+    "fontHref": "https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
+    "_fontsComment": "Chosen by Aryan 2026-08-05. Sora for display (geometric, wide, angular terminals — reads like product documentation, which suits agile delivery material), Karla for body (humanist, warm, slightly quirky). Verified free: the repo already uses IBM Plex Mono, DM Sans, Inter, Syne, IBM Plex Sans, Playfair Display, DM Mono, Newsreader, DM Serif Display, Fraunces, Spline Sans, Space Mono and Space Grotesk.",
+    "contentShapeHint": "inline",
+    "referencePage": "DMBA6008-week1.html",
+    "live": false,
+    "waitingFor": "Week 1's Pre-Live Session note. Aryan decided 2026-08-05 to hold the whole subject until it exists, then launch Week 0 and Week 1 together rather than publish a one-week subject. DO NOT build DMBA6005 pages before then — not even unpublished ones.",
+    "blockers": [
+      "live is false — un-muting the index.html card is a visible claim that the subject has material. Do not flip it without asking, even once Week 1 lands.",
+      "Notebook 3b37b336873c80db9388ee1a56192b33 ('New Notebook') is an empty placeholder. Skip it; never render it as a week."
+    ]
+  },
+
+  "_completedSem1": {
+    "_comment": "SEM 1 2026, all Completed. Their repo pages predate this pipeline and are hand-written; they are NOT synced from Notion. Listed only so a course id lookup does not come up empty.",
+    "DMBA6001": "3097b336873c80968073e1efcf72711d",
+    "DMBA6002": "3097b336873c80e0801fc3d2462d1cf9",
+    "DMBA6004": "3097b336873c80d3800df8c3f77b2a8b"
+  },
+
+  "_globals": {
+    "notionRootPage": "3097b336-873c-8025-b728-d96b85cbfec0",
+    "coursesDataSource": "collection://3097b336-873c-81b6-aa7c-000b6577c6c6",
+    "notebooksDataSource": "collection://3097b336-873c-814d-b93f-000b3ee9948a",
+    "notesDataSource": "collection://3097b336-873c-816a-b24d-000b141a5afe",
+    "staleNoteId": "83e72ed6-425f-4c30-9f45-c2f9c45e08fd",
+    "_staleNoteComment": "Present in the Notes relation of every 6008 and 6005 notebook and returns object_not_found. Skip it silently; it is not a failure.",
+    "publishableNoteType": "Pre-Live Session",
+    "neverPublishNoteTypes": ["Live Session", "Assessment"],
+    "neverPublishFields": ["Confidence", "Last Reviewed", "Days Since", "Favorite"],
+    "images": "skip",
+    "_imagesComment": "Decided 2026-08-05 by Aryan. Notion image URLs are 5-minute presigned S3 links, so they cannot be referenced. Publishing one means downloading and committing it. The sync SKIPS all images and REPORTS the count per week so Aryan can ask for a specific one."
+  }
+}
