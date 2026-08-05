@@ -145,17 +145,52 @@ Do not force finance's visual language onto a case study, or a case study's onto
 
 ---
 
-## 5. Volumes, per topic
+## 5. Volumes
+
+**The budget is per `.block`, and it is measured.**
 
 | Thing | Target |
 | --- | --- |
-| Summary prose | 900–1400 words |
-| Figures | 2–4 |
-| Glossary terms | 12–22 |
-| Flashcards | 18–28 |
+| Flowing prose | **≤ 160 words per `.block`**, floor 900 per topic |
+| Blocks per topic | 6–11 |
+| Figures | 2–4 per topic |
+| Glossary terms | 12–22 per topic |
+| Flashcards | 18–28 per topic |
 
-Scale down honestly for a thin source. A 700-word case study does not owe anyone 1400 words
-of summary — pad and you have broken rule 2.
+"Flowing prose" means `<p>` text. It excludes tables, figures, worked examples, callouts,
+formulas, `.steps` and `.takeaways` — those carry the study material and are not what
+bloats. Connective paragraphs are.
+
+`DMBA6008-week1.html`, the worked reference, runs **134 prose words per block**. That is the
+density to match.
+
+Check it before you hand back:
+
+```sh
+python3 .claude/skills/sync-subject/reference/checks.py --lengths <page>.html
+```
+
+Scale down honestly for a thin source. A 700-word case study does not owe anyone a full
+budget — pad and you have broken rule 2.
+
+### Why this is a hard gate now
+
+The first DMBA 6008 build shipped **~4,000 words per topic against a stated 900–1400
+budget**, roughly 3× over. The number was in this file the whole time and was ignored,
+because nothing measured it. It is measured now, and gate 6 blocks publication.
+
+### The four things that caused it
+
+1. **Prose that restates the table or figure beside it.** If the next element already says
+   it in a table row, do not also say it in a sentence. Introduce the table, do not
+   summarise it.
+2. **Repeated callouts.** One `callout--key` per block, maximum. The first build had a block
+   with three, two of which restated the block above.
+3. **A closing block that re-summarises the topic.** If the block has a `.takeaways` list or
+   a summary table, that *is* the summary — it does not also need two paragraphs of
+   narrative in front of it.
+4. **Definitions restated in every block that touches the term.** Define it once, in the
+   block that introduces it.
 
 ---
 
@@ -171,6 +206,11 @@ of summary — pad and you have broken rule 2.
 
 ## 7. Worked reference
 
-`DMBA6008-week1.html` is the reference implementation — 5 figures, 20 terms, 25 cards. Read
-its `#panel-summary` markup and its `TERMS` / `CARDS` arrays before writing your first line.
-Match its density and its register.
+`DMBA6008-week1.html` is the reference implementation — 8 blocks, 5 figures, 20 terms,
+25 cards, and 134 prose words per block. Read its `#panel-summary` markup and its `TERMS` /
+`CARDS` arrays before writing your first line. Match its density and its register.
+
+Do **not** use `DMBA6008-week0.html` as a density reference. It was the first build, it
+shipped roughly 3× over budget, and it was condensed after the fact on 2026-08-05 — its
+balance-sheet and P&L topics are still over. Its *structure* (subtabbed topics, the honest
+"not yet written" fourth panel) is worth copying; its verbosity is not.

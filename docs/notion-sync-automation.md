@@ -307,8 +307,11 @@ agent verbatim. Its essentials:
   classes `.svg-label` / `.svg-sub` / `.svg-mono` / `.svg-eyebrow`. Every label must fit its
   box. Unique id prefix per agent. Diagrams must show a mechanism or a comparison, never
   decoration.
-- **Volumes.** 900–1400 words of summary prose and 2–4 figures per topic; 12–22 glossary
-  terms; 18–28 flashcards.
+- **Volumes.** **≤ 160 words of flowing prose per `.block`** (floor 900 per topic) and 2–4
+  figures per topic; 12–22 glossary terms; 18–28 flashcards. Tables, figures, worked
+  examples, callouts and formulas do not count toward the prose budget — they carry the
+  study material. Connective paragraphs are what bloat, and gate 6 measures them. The
+  worked reference `DMBA6008-week1.html` runs 134 prose words per block.
 
 ---
 
@@ -399,9 +402,10 @@ Run this once, when Week 1's pre-live note exists **and** Aryan says go.
    topic sub-tabs — that machinery is only in `DMBA6008-week0.html` because it has four topics.
 6. Register both in `articlesBySubject.DMBA6005` in `library.html`. `DMBA6005` is already in
    `validSubjects`, so nothing to add there — but check.
-7. Only if Aryan agreed in step 1: drop `card--muted` from the DMBA 6005 card in `index.html`
-   and rewrite its `card-desc`.
-8. Run all five QA gates, **open the pages in a browser**, then update `CLAUDE.md`'s subject
+7. Drop `card--muted` from the DMBA 6005 card in `index.html`, rewrite its `card-desc`, and
+   set `live: true` in `subjects.json`. Aryan pre-approved this on 2026-08-05 — do not
+   re-ask, provided the subject actually has published pages.
+8. Run all six QA gates, **open the pages in a browser**, then update `CLAUDE.md`'s subject
    table and `next-prompt.md`.
 
 ### g. Runbook — updating DMBA 6005 once more weeks land

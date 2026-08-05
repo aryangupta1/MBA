@@ -40,7 +40,7 @@ Subjects are grouped by semester on `index.html`.
 
 Semester 2 pages are generated from the author's Notion notebooks by the **`sync-subject`
 skill** (`.claude/skills/sync-subject/`) — Aryan says *"update finance"* and it harvests,
-builds, registers, and runs five QA gates. Read
+builds, registers, and runs six QA gates. Read
 [docs/notion-sync.md](docs/notion-sync.md) before touching those pages — in particular,
 only **Pre-Live Session** notes may be published.
 

@@ -4,16 +4,21 @@
 Run:  python3 .claude/skills/sync-subject/reference/checks.py PAGE.html [PAGE.html ...]
 
 This is a *verification* tool, not a build step — it never writes to a page and
-nothing in the deploy path calls it. It covers QA gates 2, 3 and 5 from SKILL.md:
+nothing in the deploy path calls it. It covers QA gates 2, 3, 5 and 6 from SKILL.md:
 
   structure  tag balance, duplicate ids, aria-* targets, relative links,
              unlisted-content links
   svg        <text> estimated to overflow its parent <rect>
   layout     a <span> given box properties without being blockified
              (this is the class of bug the flashcard shipped with)
+  length     flowing prose per topic against the fragment-spec budget
 
 Gate 1 (fidelity) and gate 4 (privacy) are model work and are not automatable —
 see SKILL.md.
+
+Gate 6 exists because the first DMBA 6008 build shipped ~4,000 words per topic
+against a stated 900-1400 budget. The number was in the spec and was ignored,
+because nothing measured it. Pass --lengths to print the table without failing.
 
 Exit 0 = clean. Exit 1 = at least one finding. Findings print as
 FILE:LINE  GATE  message
@@ -248,8 +253,93 @@ def check_layout(path, text, found, parser):
                               'dropped' % (cls, boxed[cls])))
 
 
+# Flowing-prose budget, from reference/fragment-spec.md section 5.
+# "Prose" deliberately excludes tables, figures, worked examples, callouts,
+# formulas and list artefacts: those carry the study material and are not the
+# thing that bloats. Connective paragraphs are.
+#
+# The budget is per BLOCK, not per topic. A DMBA 6008 week-0 topic is a whole
+# financial statement across ten .block sections; a DMBA 6005 topic may be one.
+# A flat per-topic number punishes the first and lets the second sail through.
+PROSE_PER_BLOCK = 160
+PROSE_FLOOR = 900
+
+# Balanced-div blocks that count as artefacts rather than prose.
+ARTEFACT_DIVS = ('table-scroll', 'example-grid', 'callout', 'formula',
+                 'principles', 'fig-frame')
+
+
+def _strip_balanced(text, class_name):
+    """Remove <div class="...class_name..."> ... </div>, honouring nesting."""
+    spans = []
+    for m in re.finditer(r'<div\b[^>]*class="[^"]*\b%s\b[^"]*"[^>]*>' % class_name, text):
+        if spans and m.start() < spans[-1][1]:
+            continue
+        depth, end = 0, len(text)
+        for t in re.finditer(r'<div\b|</div>', text[m.start():]):
+            depth += 1 if t.group(0) == '<div' else -1
+            if depth == 0:
+                end = m.start() + t.end()
+                break
+        spans.append((m.start(), end))
+    for a, b in reversed(spans):
+        text = text[:a] + text[b:]
+    return text
+
+
+def prose_words(html):
+    """Words of flowing prose — artefacts removed."""
+    t = re.sub(r'<figure\b.*?</figure>', '', html, flags=re.S)
+    t = re.sub(r'<table\b.*?</table>', '', t, flags=re.S)
+    t = re.sub(r'<(ol|ul)\b[^>]*class="[^"]*\b(steps|takeaways)\b[^"]*".*?</\1>', '', t, flags=re.S)
+    for cls in ARTEFACT_DIVS:
+        t = _strip_balanced(t, cls)
+    t = re.sub(r'<svg\b.*?</svg>', '', t, flags=re.S)
+    return len(re.sub(r'<[^>]+>', ' ', t).split())
+
+
+def topics(text):
+    """[(name, html)] for each summary topic — subpanels if present, else one."""
+    m = re.search(r'<section\b[^>]*id="panel-summary".*?(?=<section\b[^>]*id="panel-|</main>)',
+                  text, re.S)
+    if not m:
+        return []
+    panel = m.group(0)
+    subs = re.findall(r'<div\b[^>]*class="subpanel[^"]*"[^>]*id="([^"]+)"[^>]*>', panel)
+    if not subs:
+        return [('summary', panel)]
+    out, bounds = [], []
+    for sid in subs:
+        i = panel.index('id="%s"' % sid)
+        bounds.append((sid, i))
+    for n, (sid, i) in enumerate(bounds):
+        j = bounds[n + 1][1] if n + 1 < len(bounds) else len(panel)
+        out.append((sid, panel[i:j]))
+    return out
+
+
+def check_length(path, text, found, report):
+    for name, html in topics(text):
+        prose = prose_words(html)
+        total = len(re.sub(r'<[^>]+>', ' ',
+                           re.sub(r'<svg\b.*?</svg>', '', html, flags=re.S)).split())
+        if total < 60:
+            continue                      # an honest "not yet written" panel
+        blocks = len(re.findall(r'<div class="block">', html)) or 1
+        budget = max(PROSE_FLOOR, blocks * PROSE_PER_BLOCK)
+        report.append((path, name, blocks, prose, budget, total))
+        if prose > budget:
+            line = text[:text.index(html[:60])].count('\n') + 1 if html[:60] in text else 1
+            found.append((path, line, 'length',
+                          'topic "%s" has %d words of flowing prose over %d blocks, against '
+                          'a %d budget (+%d) — condense before publishing'
+                          % (name, prose, blocks, budget, prose - budget)))
+
+
 def main(paths):
-    found = []
+    lengths_only = '--lengths' in paths
+    paths = [p for p in paths if p != '--lengths']
+    found, report = [], []
     for path in paths:
         try:
             text = open(path, encoding='utf-8').read()
@@ -259,6 +349,20 @@ def main(paths):
         parser = check_structure(path, text, found)
         check_svg(path, text, found)
         check_layout(path, text, found, parser)
+        check_length(path, text, found, report)
+
+    if report:
+        print('%-24s %-9s %7s %7s %7s %7s' %
+              ('FILE', 'TOPIC', 'BLOCKS', 'PROSE', 'BUDGET', 'TOTAL'))
+        for path, name, blocks, prose, budget, total in report:
+            print('%-24s %-9s %7d %7d %7d %7d%s'
+                  % (os.path.basename(path), name, blocks, prose, budget, total,
+                     '  OVER' if prose > budget else ''))
+        print('budget = %d prose words per .block (floor %d); TOTAL adds tables, '
+              'figures and examples\n' % (PROSE_PER_BLOCK, PROSE_FLOOR))
+
+    if lengths_only:
+        return 0
 
     if not found:
         print('OK — %d file(s), no findings' % len(paths))

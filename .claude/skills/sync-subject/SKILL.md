@@ -1,6 +1,6 @@
 ---
 name: sync-subject
-description: Sync a semester-2 subject's Notion notebooks into this repo's week study pages. Use when Aryan says "update finance", "sync 6008", "update agile", "sync my notes", or names a subject alongside Notion. Harvests Pre-Live Session notes only, builds the summary / key concepts / flashcards page, registers it, and runs five QA gates before reporting.
+description: Sync a semester-2 subject's Notion notebooks into this repo's week study pages. Use when Aryan says "update finance", "sync 6008", "update agile", "sync my notes", or names a subject alongside Notion. Harvests Pre-Live Session notes only, builds the summary / key concepts / flashcards page, registers it, and runs six QA gates before reporting.
 ---
 
 # sync-subject
@@ -38,7 +38,7 @@ Also excluded by default, as personal study telemetry: `Confidence`, `Last Revie
 | `subjects.json` | code ↔ aliases ↔ Notion id ↔ palette ↔ fonts, plus the global Notion ids and the stale-note id |
 | `reference/week-shell.html` | the week page with `{{PLACEHOLDER}}` and `<!--INSERT:-->` slots, extracted from `DMBA6008-week1.html` |
 | `reference/fragment-spec.md` | hand this to every fragment-building agent, verbatim |
-| `reference/checks.py` | QA gates 2, 3 and 5 — structure, SVG overflow, inline-layout |
+| `reference/checks.py` | QA gates 2, 3, 5 and 6 — structure, SVG overflow, inline-layout, prose length |
 | `../../../docs/notion-sync-state.json` | the manifest: what was published and when |
 
 `reference/checks.py` is a verification tool. It never writes to a page and nothing in the
@@ -180,6 +180,12 @@ Honour the Phase 1 scope: a "flashcards only" run asks for `CARDS` and nothing e
 Each returns `SUMMARY` (HTML fragment), `TERMS` and `CARDS` (JS object literals, one per
 line). Format and rules are all in the fragment spec.
 
+**Tell every builder its prose budget explicitly, in words, in the prompt** — do not rely on
+it reading §5. State: *"≤ 160 words of `<p>` prose per `.block`; tables, figures and worked
+examples do not count."* The first build had the budget available and blew it 3×; naming
+the number in the prompt is cheap insurance. Then verify with `checks.py --lengths` before
+assembling, not after.
+
 ---
 
 ## Phase 4 — Assemble and register
@@ -195,18 +201,22 @@ reason to route them through context.
    hand-written per-week counts**, which are the easiest thing to leave stale.
 4. Register in `library.html`. **`articlesBySubject` and `validSubjects` must be edited
    together** — a subject in one but not the other silently falls back to DMBA 6002.
-5. On a subject's **first** page only: drop `card--muted` from its `index.html` card and
-   rewrite the `card-desc`. For a subject whose `subjects.json` `live` is `false`, **ask
-   first** — un-muting is a visible claim that the subject has material.
+5. On a subject's **first** page only: drop `card--muted` from its `index.html` card, rewrite
+   the `card-desc`, and set `live: true` in `subjects.json`. For a subject whose
+   `subjects.json` `live` is `false`, **ask first** — un-muting is a visible claim that the
+   subject has material.
+   **Exception: DMBA 6005 is pre-approved** (Aryan, 2026-08-05). Un-mute it in the same run
+   that publishes its first pages, without asking. See the subject note below.
 
 ---
 
-## Phase 5 — QA *(five gates)*
+## Phase 5 — QA *(six gates)*
 
-The failure mode of a generative pipeline is confident, plausible, wrong content. These
-gates are the point of the whole design.
+The failure mode of a generative pipeline is confident, plausible, wrong content — and, as
+week 0 proved, confident, plausible, *far too much* content. These gates are the point of
+the whole design.
 
-Gates 2, 3 and 5 are one command:
+Gates 2, 3, 5 and 6 are one command:
 
 ```sh
 python3 .claude/skills/sync-subject/reference/checks.py <page>.html [...]
@@ -219,8 +229,23 @@ python3 .claude/skills/sync-subject/reference/checks.py <page>.html [...]
 | 3 | **SVG** | Every `<text>` fits its parent `<rect>` and sits inside the viewBox | `checks.py` |
 | 4 | **Privacy** | Nothing sourced from a `Live Session` or `Assessment` note; no lecturer or classmate names; no `Confidence` / `Last Reviewed` telemetry | agent |
 | 5 | **Layout** | A `<span>` given `width`/`height`/`min-height` must be blockified or have a flex/grid ancestor, or the box is silently dropped | `checks.py` |
+| 6 | **Length** | Flowing prose ≤ 160 words per `.block` — the fragment spec's budget, measured | `checks.py` |
 
 **Any hit blocks publication.** A gate-4 hit escalates to Aryan immediately.
+
+Gate 6 exists because the first week-0 build shipped **~4,000 words per topic against a
+stated 900–1400 budget** and nobody noticed until Aryan read it. The budget had been in
+`fragment-spec.md` from the start; what was missing was measurement. `--lengths` prints the
+table without failing, which is the fast way to check a draft mid-build:
+
+```sh
+python3 .claude/skills/sync-subject/reference/checks.py --lengths <page>.html
+```
+
+`DMBA6008-week0.html` was condensed to budget on 2026-08-05 in three passes: tighten wording,
+then delete restatement paragraphs, then strip industry illustrations. All topics now pass.
+The page went from ~11,850 summary words to ~8,270 with every table, figure, formula and
+worked example intact — the reduction is entirely prose.
 
 **Gate 1 is adversarial and context-starved by design.** Give the agent the built page and
 the harvest Markdown and **nothing else** — no web access, no prior knowledge of the
@@ -275,24 +300,27 @@ should need **two harvesters and two builders**. Keep the fan-out to topics.
 
 ## Subject-specific notes
 
-### DMBA 6005 — on hold until Week 1 exists
+### DMBA 6005 — cleared to launch, gated on one note
 
-**Do not build DMBA 6005 pages yet — not even unpublished ones.** Aryan decided on
-2026-08-05 to hold the whole subject until `Week1: Project Management` has a
-`Pre-Live Session` note, then launch Week 0 and Week 1 together rather than ship a one-week
-subject. Today Week 1 has only a `Class Diary`, which is a `Live Session` note and must
-never be published.
+This is the **next subject to go live**. Aryan cleared it on 2026-08-05: build Week 0 and
+Week 1 together, register them, and un-mute the homepage card in the same run.
 
-**The trigger to watch:** a `Pre-Live Session` note appearing under notebook
-`3b17b336873c80ada0b3f4a02cb2dea8`. When it does, tell Aryan the subject is ready and ask
-whether to go.
+**The one gate:** notebook `3b17b336873c80ada0b3f4a02cb2dea8` (`Week1: Project Management`)
+must hold a **`Pre-Live Session`** note. As of 2026-08-05 it held only a `Class Diary`,
+which is a `Live Session` note and must never be published.
 
-Settled and ready when that happens:
+- **If that note is not there: say so and stop.** Do not build a one-week subject, and do
+  not un-mute a subject with no material. Aryan decided against shipping Week 0 alone.
+- **If it is there: go.** He has already said yes — do not re-ask for permission to build
+  or to un-mute.
+
+Settled, do not re-ask:
 
 - **Type pairing: Sora + Karla** (chosen 2026-08-05), with the `--course-e` ochre palette.
   `fontHref` is in `subjects.json`.
-- **`live` is still `false`.** Un-muting the `index.html` card is a visible claim that the
-  subject has material — ask before flipping it, even once Week 1 lands.
+- **Un-muting is approved** (2026-08-05). Flip `subjects.json` `DMBA6005.live` to `true`,
+  drop `card--muted` from the `index.html` card, and rewrite its `card-desc` — conditional
+  only on the subject actually having published pages.
 - `New Notebook` (`3b37b336873c80db9388ee1a56192b33`) is an empty placeholder. Skip it;
   never render it as a week.
 - Week 0's `$RUs` note is **Shape B (inline)** — content sits on the note page itself. One
