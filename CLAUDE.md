@@ -35,8 +35,12 @@ Subjects are grouped by semester on `index.html`.
 
 | Code | Subject | Content |
 | --- | --- | --- |
-| DMBA 6008 | Finance, Strategy and Technology | None yet — card is muted, library renders empty |
+| DMBA 6008 | Finance, Strategy and Technology | Week hub + per-week study pages (summary & visuals, key concepts, flashcards), synced from Notion |
 | DMBA 6005 | Agile Project Development | None yet — card is muted, library renders empty |
+
+Semester 2 pages are generated from the author's Notion notebooks. Read
+[docs/notion-sync.md](docs/notion-sync.md) before touching them — in particular, only
+**Pre-Live Session** notes may be published.
 
 ## Hard constraints
 
@@ -78,6 +82,8 @@ before writing or editing any prose.
 | [docs/style-guide.md](docs/style-guide.md) | Design tokens, typography, components, accessibility |
 | [docs/content-guide.md](docs/content-guide.md) | Voice, referencing, AI acknowledgement, privacy |
 | [docs/workflows.md](docs/workflows.md) | Step-by-step recipes for common tasks |
+| [docs/notion-sync.md](docs/notion-sync.md) | Notion schema, the sync pipeline, and the publish rules |
+| [docs/notion-sync-automation.md](docs/notion-sync-automation.md) | Design for automating the sync |
 | [docs/next-prompt-protocol.md](docs/next-prompt-protocol.md) | How the handoff file works |
 
 ## Verifying work

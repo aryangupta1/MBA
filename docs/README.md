@@ -15,6 +15,8 @@ Start at [`../CLAUDE.md`](../CLAUDE.md) for the short version and the hard const
 | [style-guide.md](style-guide.md) | Design tokens, typography, colour, layout, components, motion, accessibility |
 | [content-guide.md](content-guide.md) | Voice, referencing, AI-use acknowledgement, unlisted content, academic integrity |
 | [workflows.md](workflows.md) | Recipes: new reading summary, new blog post, new unlisted appendix, publishing |
+| [notion-sync.md](notion-sync.md) | The Notion schema, the harvest → build → register pipeline, and what must never be published |
+| [notion-sync-automation.md](notion-sync-automation.md) | Design for the `"Update finance"` command, its QA gates, and extending it to DMBA 6005 |
 | [next-prompt-protocol.md](next-prompt-protocol.md) | How `next-prompt.md` is injected, honoured, and updated |
 
 ## The one-paragraph summary
