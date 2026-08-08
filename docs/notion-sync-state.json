@@ -22,9 +22,14 @@
     "  decides whether to rebuild. If Aryan says he edited a deep sub-page, run a deep pass:",
     "  re-harvest every topic and compare hashes.",
     "",
-    "  contentHash is null for every topic below because the 2026-08-05 build predates this file and",
-    "  its harvest lived in a session scratchpad that did not survive. The next run of each topic",
-    "  fills it in. Until then that topic falls back to timestamp-only detection."
+    "  contentHash is null for every DMBA6008 topic because the 2026-08-05 build predates this file",
+    "  and its harvest lived in a session scratchpad that did not survive. The next run of each of",
+    "  those topics fills it in; until then they fall back to timestamp-only detection.",
+    "  DMBA6005 was built on 2026-08-06 and every published topic carries a real hash.",
+    "",
+    "  contentHash is sha256 of the harvested Markdown, first 12 hex chars, computed AFTER stripping",
+    "  any <!-- ... --> annotations the skill itself adds — so a re-harvest of unchanged prose hashes",
+    "  identically even if the annotations are reworded. Empty and unpublished topics carry null."
   ],
 
   "DMBA6008": {
@@ -154,32 +159,146 @@
   },
 
   "DMBA6005": {
-    "lastSync": null,
+    "lastSync": "2026-08-06",
     "courseId": "3a17b336873c80c284a7cd6be4a60c4d",
-    "hubPage": null,
-    "weeks": {},
-    "note": "Not synced, and deliberately so. Aryan decided 2026-08-05 to hold the whole subject until Week 1 has a Pre-Live Session note, then launch Week 0 and Week 1 together rather than ship a one-week subject. BUILD NOTHING before then — not even unpublished pages. Type pairing is settled (Sora + Karla, --course-e ochre); un-muting the index.html card still needs a separate yes.",
-    "waitingOn": {
-      "notebookId": "3b17b336873c80ada0b3f4a02cb2dea8",
-      "notebookTopic": "Week1: Project Management",
-      "trigger": "a note of type `Pre-Live Session` appearing here — the existing `Class Diary` is a Live Session note and can never be published"
-    },
-    "readyWhenTriggered": {
-      "Week 0": {
-        "notebookId": "3ae7b336873c806da6b6e5630c66e3bb",
-        "noteName": "$RUs",
-        "shape": "inline",
-        "approxWords": 700,
-        "topics": 1,
-        "note": "A digital innovation case study. One topic, so one harvest agent and one fragment agent. Reach for option-comparison matrices, a customer-journey strip and a decision-rule table — not formulas."
-      }
-    },
+    "hubPage": "DMBA6005-weeks.html",
+    "note": "Launched 2026-08-06 with Week 0 and Week 1 together, once Week 1's `Learn` Pre-Live Session note appeared (created 2026-08-05T11:27Z, after the previous state record was written). index.html card un-muted and subjects.json `live` flipped to true in the same run, per Aryan's 2026-08-05 pre-approval. Type pairing: Sora + Karla, --course-e ochre.",
     "skippedNotebooks": [
       {
         "id": "3b37b336873c80db9388ee1a56192b33",
         "topic": "New Notebook",
         "reason": "empty placeholder — never render it as a week"
       }
-    ]
+    ],
+    "orphanNotes": [
+      {
+        "id": "3ae7b336873c803ab350c8e418970044",
+        "name": "Shadow Boxing",
+        "type": "Pre-Live Session",
+        "editedTime": "2026-07-31T06:43:17.898Z",
+        "observedAt": "2026-07-31T06:43:58.980Z",
+        "shape": "inline",
+        "contentHash": "sha256:b79d6fdc6312",
+        "published": true,
+        "publishedIn": "DMBA6005-week0.html",
+        "note": "Has a Course relation but NO Notebook relation, so it belongs to no week. Aryan directed 2026-08-06 that it publish under Week 0 (created two minutes after the Week 0 $RUs note and reads as course orientation). If he later files it under a notebook in Notion, move it to match."
+      }
+    ],
+    "weeks": {
+      "Week 0": {
+        "notebookId": "3ae7b336873c806da6b6e5630c66e3bb",
+        "notebookTopic": "Week 0",
+        "page": "DMBA6005-week0.html",
+        "notes": [
+          {
+            "id": "3ae7b336873c8055a70aebd7fa4e2893",
+            "name": "$RUs",
+            "type": "Pre-Live Session",
+            "shape": "inline",
+            "editedTime": "2026-07-31T09:38:00.034Z",
+            "observedAt": "2026-07-31T09:38:54.920Z",
+            "published": true,
+            "topics": [
+              {
+                "id": "3ae7b336873c8055a70aebd7fa4e2893",
+                "title": "$RUs Digital Innovation Case",
+                "observedAt": "2026-07-31T09:38:54.920Z",
+                "childCount": 0,
+                "shape": "inline",
+                "svgPrefix": "ru",
+                "contentHash": "sha256:6897afd8aa27",
+                "approxWords": 700,
+                "published": true
+              }
+            ]
+          }
+        ],
+        "built": { "figures": 4, "terms": 14, "cards": 28, "blocks": 7, "proseWords": 330 }
+      },
+
+      "Week 1": {
+        "notebookId": "3b17b336873c80ada0b3f4a02cb2dea8",
+        "notebookTopic": "Week1: Project Management",
+        "page": "DMBA6005-week1.html",
+        "notes": [
+          {
+            "id": "3b37b336873c80be943cd6edf683907c",
+            "name": "Learn",
+            "type": "Pre-Live Session",
+            "shape": "container",
+            "editedTime": "2026-08-05T11:32:09.748Z",
+            "observedAt": "2026-08-05T14:52:00.984Z",
+            "published": true,
+            "topics": [
+              {
+                "id": "3b37b336873c80e79fa6d2da60823299",
+                "title": "Introduction to project management",
+                "observedAt": "2026-08-05T12:59:24.907Z",
+                "childCount": 0,
+                "svgPrefix": "pm",
+                "contentHash": "sha256:daa555b21546",
+                "approxWords": 1400,
+                "published": true
+              },
+              {
+                "id": "3b37b336873c8098a70ee623f24d6528",
+                "title": "Your project with StellarCX",
+                "observedAt": "2026-08-05T14:21:38.214Z",
+                "childCount": 0,
+                "svgPrefix": "sx",
+                "contentHash": "sha256:e7977aad30b9",
+                "approxWords": 900,
+                "published": true,
+                "note": "Names case characters (Chris Gold, Dirk, Ivy, Andrew, Jeremy, Annie, Murray). Confirmed by Aryan 2026-08-06 as FICTIONAL simulation characters, not lecturers or classmates — cleared for publication. Do not re-ask; do re-check if the cast changes."
+              },
+              {
+                "id": "3b37b336873c8065bf14cfea1eb81df7",
+                "title": "Context Analysis for $RUs",
+                "observedAt": "2026-08-05T14:52:28.374Z",
+                "childCount": 0,
+                "svgPrefix": "ca",
+                "contentHash": "sha256:871531474ee4",
+                "approxWords": 300,
+                "published": true,
+                "state": "truncated",
+                "note": "UNFINISHED IN NOTION — the source ends mid-word at 'Their financial requir'. The page reproduces it exactly that far and then carries an honest note that the topic is still being written. NEVER complete the sentence. Re-harvest when Aryan finishes it."
+              },
+              {
+                "id": "3b37b336873c80cc83a8f80730d28817",
+                "title": "Creating your reflective journal",
+                "observedAt": "2026-08-05T11:32:03.447Z",
+                "childCount": 0,
+                "svgPrefix": null,
+                "contentHash": null,
+                "published": false,
+                "state": "empty",
+                "note": "Returns <empty-block/>. Rendered in the page's '14 / Not yet written' block. THAT BLOCK IS THE THING TO REPLACE when the note is written. Never fill it with generated content."
+              },
+              {
+                "id": "3b37b336873c80698a11eb104e178cb1",
+                "title": "Shadow Boxing Week 1",
+                "observedAt": "2026-08-05T11:32:12.663Z",
+                "childCount": 0,
+                "svgPrefix": null,
+                "contentHash": null,
+                "published": false,
+                "state": "empty",
+                "note": "Returns <empty-block/>. Distinct from the course-level `Shadow Boxing` orphan note, which covers the METHOD and is published in Week 0. What is missing here is the Week 1 scenario itself."
+              }
+            ]
+          },
+          {
+            "id": "3b17b336873c800e9208ca98bc0a8ada",
+            "name": "Class Diary",
+            "type": "Live Session",
+            "editedTime": "2026-08-03T09:44:27.187Z",
+            "observedAt": "2026-08-03T09:44:30.974Z",
+            "published": false,
+            "reason": "NEVER PUBLISH. Live Session type. Contains a note-to-self about outstanding work and a personal paraphrase of the lecture. Confirmed present and unpublished 2026-08-06."
+          }
+        ],
+        "built": { "figures": 5, "terms": 32, "cards": 53, "blocks": 15, "proseWords": 1043 }
+      }
+    }
   }
 }

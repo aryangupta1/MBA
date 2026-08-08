@@ -6,100 +6,68 @@
 >
 > Every session must leave this file updated before it ends.
 
-**Last updated:** 2026-08-05
-**Left by:** condensed the DMBA 6008 summaries to budget, added QA gate 6 (length), rewrote
-the volume rules across the skill and docs, committed and pushed
+**Last updated:** 2026-08-06
+**Left by:** launched DMBA 6005 — built Week 0 and Week 1 from Notion, registered them,
+un-muted the homepage card. All six gates pass. **Nothing is committed.**
 
 ---
 
 ## Current focus
 
-**Launch DMBA 6005 — Agile Project Development — and make it live.**
-
-Aryan is writing his `Week1: Project Management` notes in Notion. When they are done he will
-say **"update agile"**. That is the whole job: build Week 0 and Week 1 together, register
-them, and **un-mute the subject on the homepage**.
-
-**The hold is lifted and un-muting is pre-approved.** Aryan gave the yes on 2026-08-05
-("ensure handoff is focused on kicking off the next subject and making it live"). Do not
-re-ask whether to un-mute — but *do* confirm the notes actually exist before building.
+**Nothing in flight.** DMBA 6005 is live. The next sync is triggered by Aryan, not by this
+file — he says *"update agile"* or *"update finance"* and the skill runs.
 
 ## Do first
 
-1. **Verify the trigger before anything else.** DMBA 6005 launches only when notebook
-   `3b17b336873c80ada0b3f4a02cb2dea8` (`Week1: Project Management`) holds a
-   **`Pre-Live Session`** note. As of 2026-08-05 it held only a `Class Diary`, which is a
-   `Live Session` note and can **never** be published.
-   - **If the note is not there yet: say so plainly and stop.** Do not build a one-week
-     subject, and do not un-mute a subject with no material.
-2. Run the skill: `.claude/skills/sync-subject/` — `SKILL.md` is the procedure and outranks
-   `docs/notion-sync-automation.md`, which is only the rationale. Build **Week 0 and Week 1
-   in the same run**; Aryan decided against shipping a one-week subject.
-3. **Make it live** (this is the part that is new, and easy to forget):
-   - `subjects.json` → `DMBA6005.live` is `false`; set it `true`.
-   - `index.html` → drop `card--muted` from the DMBA 6005 card and rewrite its `card-desc`.
-   - `library.html` → add to **both** `articlesBySubject` **and** `validSubjects`. A subject
-     in one but not the other silently falls back to DMBA 6002.
-4. Run all six gates, then **open it in a browser** and walk `index.html` →
-   `library.html?subject=DMBA6005` → hub → week page → back link.
+1. **Ask whether to commit.** The 2026-08-06 DMBA 6005 launch is **uncommitted** in the
+   working tree: `DMBA6005-week0.html`, `DMBA6005-week1.html`, `DMBA6005-weeks.html` (new),
+   plus edits to `index.html`, `library.html`, `CLAUDE.md`, `docs/notion-sync.md`,
+   `docs/notion-sync-state.json`, `.claude/skills/sync-subject/{SKILL.md,subjects.json}`.
+   `.claude/skills/` and `docs/notion-sync-state.json` are still **untracked**.
+2. If Aryan reports anything wrong with the new pages, the harvest they were built from is
+   **gone** (session scratchpad). Re-harvest from Notion; the `contentHash` values in
+   `docs/notion-sync-state.json` tell you whether the source has moved since.
 
-## The length budget — read before building anything
+## What DMBA 6005 shipped as
 
-Week 0 of DMBA 6008 shipped at ~4,000 words per topic against a stated 900–1400 budget that
-nothing measured. Aryan called it "waaaay too long" and it was condensed in three passes on
-2026-08-05 (~11,850 → ~8,270 summary words, entirely prose; every table, figure, formula and
-worked example byte-identical). The rules now:
+| Page | Content | Built |
+| --- | --- | --- |
+| `DMBA6005-week0.html` | `$RUs` digital innovation case + `Shadow Boxing` method | 7 blocks, 4 figures, 14 terms, 28 cards, 330 prose words |
+| `DMBA6005-week1.html` | Intro to PM, StellarCX engagement, context analysis (partial) | 15 blocks, 5 figures, 32 terms, 53 cards, 1,043 prose words |
 
-- **≤ 160 words of flowing prose per `.block`**, floor 900 per topic.
-- Tables, figures, worked examples, callouts and formulas **do not count** — they carry the
-  study material. Connective paragraphs are what bloat.
-- **Gate 6 in `checks.py` measures it and blocks publication.**
-  `checks.py --lengths <page>.html` prints the table without failing — use it *mid-build*,
-  not after assembly.
-- **Name the number in every builder agent's prompt.** The budget sat in `fragment-spec.md`
-  the whole time and was still blown 3×. Naming it is the fix.
-- Match `DMBA6008-week1.html` — 134 prose words per block. **Do not copy week 0's density.**
-- The four things that caused the bloat are listed in `fragment-spec.md` §5: prose restating
-  the adjacent table, repeated callouts, a closing block that re-summarises, and definitions
-  repeated in every block that touches the term.
-
-## Settled for DMBA 6005 — do not re-ask
-
-- **Type pairing: Sora + Karla**, `--course-e` ochre palette. `fontHref` is in
-  `subjects.json`. Details in
-  [docs/notion-sync-automation.md §7](docs/notion-sync-automation.md#7-extending-to-dmba-6005).
-- **Un-muting is approved** (2026-08-05) — conditional only on the subject actually having
-  published pages.
-- `New Notebook` (`3b37b336873c80db9388ee1a56192b33`) is an empty placeholder. Skip it;
-  never render it as a week.
-- Week 0's `$RUs` note is **Shape B (inline)** — content sits on the note page itself. One
-  topic, so one agent.
-- Week 0 is a **strategic case, not a formula topic**: reach for option-comparison matrices,
-  a customer-journey strip and a decision-rule table — not equations. Cards shift from
-  "compute this" to "given this symptom, which option and why". Agile weeks proper will want
-  cycle diagrams and board/timeline strips; do not reuse Week 0's option-matrix vocabulary
-  just because it is there.
+Both are well under the 160-words-per-block budget — the sources are thin, and padding to
+budget would have broken the "do not add" rule.
 
 ## Open threads
 
-- [ ] **The skill has never run end-to-end.** Only Phase 0 has ever executed. Phases 2–6 fire
-      for the first time on this DMBA 6005 launch — expect to babysit it, and check the
-      harvest output before letting builders loose on it.
+- [ ] **DMBA 6005 Week 1 has three gaps that are gaps on purpose.** When Aryan writes them,
+      **replace the honest blocks — never generate into them**:
+      - `Context Analysis for $RUs` (`3b37b336873c8065bf14cfea1eb81df7`) ends **mid-word** at
+        *"Their financial requir"*. The page reproduces exactly that and stops.
+      - `Creating your reflective journal` (`3b37b336873c80cc83a8f80730d28817`) — empty.
+      - `Shadow Boxing Week 1` (`3b37b336873c80698a11eb104e178cb1`) — empty.
+      All three are block `14 / Not yet written` and block `13`'s closing note.
+- [ ] **Three typos were preserved verbatim, deliberately** — they are the author's words and
+      fixing them would change meaning. Worth Aryan correcting **in Notion**, then re-syncing:
+      - Week 0: *"could invest in technology that **does** address its real strategic need"* —
+        almost certainly missing "not", which inverts the sentence.
+      - Week 1: *"two connected **question**"*, *"frustrated mainly poor visibility"* (missing
+        "by"), *"the selected approach **is build** through short Agile iterations"*.
 - [ ] **No page has been checked at narrow width**, and the flashcard flip has not been tried
-      on a real touch device. Static checks cannot catch layout; Aryan found the last layout
-      bug by looking at the page after every gate passed.
+      on a real touch device. Aryan found the last layout bug by looking after every gate
+      passed. The five 6005/library/index pages were opened in a browser on 2026-08-06 but
+      **Aryan has not yet confirmed them**.
 - [ ] **DMBA 6008 Week 0 → "Assessing Financial Performance" is still empty in Notion.**
       Re-checked 2026-08-05. `DMBA6008-week0.html` renders an honest "not yet written" panel
-      listing the ten pending sub-pages — **that panel is the thing to replace** when Aryan
-      writes them.
+      listing the ten pending sub-pages — **that panel is the thing to replace**.
 - [ ] Optional, only if Aryan raises it: DMBA 6008 week 0 still reads long at 31 blocks even
       at budget. The lever is **structural, not verbal** — merge Goodwill into Intangibles and
       fold Asset quality into blocks 05/06, ~31 blocks → ~24. Costs no content. Ask first.
 - [ ] `.DS_Store` and `blogs/.DS_Store` are tracked in git. Untrack them and add a
       `.gitignore` when convenient — ask first, it rewrites tracked state.
-- [ ] Content pages (e.g. `DMBA6001-*.html`) still have no "back to library" link; the three
-      `DMBA6008-*.html` pages do. Retrofit the old ones when next editing them. See
-      [docs/conventions.md](docs/conventions.md#navigation).
+- [ ] Content pages (e.g. `DMBA6001-*.html`) still have no "back to library" link; the
+      `DMBA6008-*` and `DMBA6005-*` pages do. Retrofit the old ones when next editing them.
+      See [docs/conventions.md](docs/conventions.md#navigation).
 - [ ] DMBA 6004's full subject title is unresolved — Notion says "Digital Collaboration, Work
       and Organisation", the repo uses a short topic label. **Ask before reconciling.** Same
       mismatch for DMBA 6002.
@@ -107,42 +75,52 @@ worked example byte-identical). The rules now:
 ## Do not
 
 - **Do not publish `Live Session` or `Assessment` notes.** Only `Pre-Live Session`. GitHub
-  Pages makes everything public. DMBA 6005 Week 1's `Class Diary` and the DMBA 6008 Week 1
-  diary both contain candid remarks about the lecturer, about classmates' AI use, and about
-  what will be examined. See
-  [docs/notion-sync.md §6](docs/notion-sync.md#6-what-must-never-be-published).
-- **Do not fill an empty Notion topic with generated content.** An empty topic renders empty.
-  `DMBA6008-week0.html`'s fourth panel is the precedent.
-- Do not publish `Confidence`, `Last Reviewed`, `Favorite` or `Days Since` — Aryan confirmed
-  2026-08-05 this telemetry stays private.
-- Do not reference or commit a Notion image. Aryan decided 2026-08-05 that **images are
-  skipped**; the sync reports the count per week so he can ask for a specific one.
+  Pages makes everything public. DMBA 6005's `Class Diary`
+  (`3b17b336873c800e9208ca98bc0a8ada`) and the DMBA 6008 Week 1 diary are both excluded and
+  must stay so. See [docs/notion-sync.md §6](docs/notion-sync.md#6-what-must-never-be-published).
+- **Do not fill an empty Notion topic with generated content**, and **do not finish a
+  truncated sentence.** DMBA 6005 Week 1 is the live example.
+- Do not publish `Confidence`, `Last Reviewed`, `Favorite` or `Days Since` — telemetry stays
+  private (2026-08-05).
+- Do not reference or commit a Notion image; **images are skipped** (2026-08-05). DMBA 6005
+  had none in either week.
+- Do not re-ask whether to un-mute DMBA 6005 or whether the StellarCX case names are real —
+  both were settled 2026-08-06. The names (Chris Gold, Dirk, Ivy, Andrew, Jeremy, Annie,
+  Murray) are **fictional** simulation characters.
 - Do not write to Notion. One-way: Notion authoritative, repo publish-only.
 - Do not add a build step, npm dependency, or generator in the deploy path.
   (`reference/checks.py` is a verification tool — nothing at serve time calls it.)
 - Do not rename the legacy `DMBA-6001-*.html` files — shared URLs point at them.
 - Do not restyle existing pages wholesale; each page owns its visual identity.
-- Do not regenerate the semester-1 subjects (`DMBA6001`, `DMBA6002`, `DMBA6004`) — they are
-  `Completed` and hand-written from before this pipeline.
-- **Do not commit or push unless asked.** The working tree was clean as of 2026-08-05: the
-  condensation, the new gate and the doc rewrites are all on `origin/master`.
+- Do not regenerate the semester-1 subjects (`DMBA6001`, `DMBA6002`, `DMBA6004`).
+- **Do not commit or push unless asked.**
 
 ## Notes for the next session
 
 - **The pipeline hinges on the Notes `Type` field.** Everything else is plumbing.
-- **Detect content shape at runtime, never trust the config.** DMBA 6008 Week 1 proves both
-  shapes coexist inside one note: `Key Value Principle` is a container, `Key Definitions` is
-  inline.
+- **Walk the Course's `Notes` relation, not just the notebooks.** DMBA 6005's `Shadow Boxing`
+  note (`3ae7b336873c803ab350c8e418970044`) is `Pre-Live Session` with **no `Notebook`
+  relation** — a notebook-only walk misses it entirely. It is published under Week 0 by
+  Aryan's direction. This is new as of 2026-08-06 and is a general lesson.
+- **Detect content shape at runtime, never trust the config.** DMBA 6005 proves one subject
+  can use both: Week 0 inline, Week 1 container. `subjects.json` `contentShapeHint` says
+  `inline` and is wrong for Week 1 — it is a hint, nothing more.
+- **`checks.py`'s SVG gate counts raw whitespace inside `<text>`.** Wrapping a label across
+  source lines inflates its measured width and trips gate 3 as a false positive. Keep each
+  `<text>` on one source line; SVG collapses the whitespace on render anyway. This cost two
+  spurious findings on 2026-08-06.
 - **A child page has no `Edited Time`** — only a Notes database row does. Change detection
-  leans on the `as of` stamp in the fetch envelope, which was verified to be a content
-  timestamp, plus a content hash. Rationale in
+  leans on the `as of` stamp in the fetch envelope plus a content hash. Rationale in
   [docs/notion-sync-automation.md §3](docs/notion-sync-automation.md#3-change-detection).
-- `notion-query-data-sources` is **metered**; `notion-fetch` on a relation URL is not.
+- `contentHash` in `docs/notion-sync-state.json` is sha256 of the harvested Markdown, first
+  12 hex chars, computed **after** stripping the skill's own `<!-- -->` annotations.
+- `notion-query-data-sources` is **metered**; `notion-fetch` on a relation URL is not. The
+  whole 2026-08-06 sync used fetches only — no metered queries.
 - MCP tools are **deferred** — load schemas via `ToolSearch` (`select:<exact_tool_name>`).
-- Before choosing fonts for any future subject, inventory what is taken (thirteen already
-  are): `grep -rhoE 'family=[A-Za-z+]+' --include='*.html' .`
-- ⚠️ **The `SessionStart` hook did not fire on 2026-08-05** — this file was not in context and
-  had to be read manually. The script is fine (run by hand, emitted correct JSON) and
+- Before choosing fonts for any future subject, inventory what is taken (fifteen now are):
+  `grep -rhoE 'family=[A-Za-z+]+' --include='*.html' .`
+- ⚠️ **The `SessionStart` hook did not fire on 2026-08-05 or 2026-08-06** — this file was not
+  in context either time and had to be read manually. The script is fine and
   `.claude/settings.json` is wired correctly, so the likely cause is the project hook not
   being trusted/loaded. **If this note is not at the top of your context, read it yourself
-  and tell Aryan to open `/hooks` once.**
+  and tell Aryan to open `/hooks` once.** Two sessions running is no longer a fluke.

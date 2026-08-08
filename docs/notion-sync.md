@@ -270,13 +270,34 @@ Generating new academic argument, inventing a citation, or "improving" a claim i
 | Week 0 | `3a17b336873c805b9c4acdff38033d35` | `DMBA6008-week0.html` — balance sheet, P&amp;L, cash flow. "Assessing Financial Performance" is empty in Notion and shown as not yet written. |
 | Week 1 | `3b27b336873c8070953fd96878f5f2dc` | `DMBA6008-week1.html` — key value principles, concepts, assessing performance, key definitions |
 
-**DMBA 6005 Agile Project Development** — not yet synced. Three notebooks exist:
+**DMBA 6005 Agile Project Development** — synced 2026-08-06. Launched with both weeks at
+once, and the `index.html` card un-muted in the same run.
 
-| Notebook | State |
-| --- | --- |
-| `Week 0` (`3ae7b336873c806da6b6e5630c66e3bb`) | One pre-live note, `$RUs` — a ~700-word digital innovation case study, **inline** (Shape B). Ready to sync. |
-| `Week1: Project Management` (`3b17b336873c80ada0b3f4a02cb2dea8`) | Pre-live unwritten (`- [ ] Pre-Live` unticked). Only a `Class Diary` live-session note exists. Not publishable yet. |
-| `New Notebook` (`3b37b336873c80db9388ee1a56192b33`) | Empty placeholder. Skip. |
+| Week | Notion notebook | Published |
+| --- | --- | --- |
+| Week 0 | `3ae7b336873c806da6b6e5630c66e3bb` | `DMBA6005-week0.html` — the `$RUs` digital innovation case, plus the `Shadow Boxing` method note |
+| Week 1 | `3b17b336873c80ada0b3f4a02cb2dea8` | `DMBA6005-week1.html` — project management before execution, the StellarCX engagement, context analysis (partial) |
+| — | `3b37b336873c80db9388ee1a56192b33` (`New Notebook`) | Empty placeholder. Skipped. |
 
-See [notion-sync-automation.md](notion-sync-automation.md#extending-to-dmba-6005) for what
-changes when the pipeline runs against 6005.
+Three things about 6005 that differ from 6008, and will bite a later run:
+
+- **It uses both content shapes.** Week 0's notes are inline (Shape B); Week 1's `Learn`
+  note is a container (Shape A) with five sub-pages. `contentShapeHint` in `subjects.json`
+  says `inline` and is wrong for Week 1 — which is exactly why the shape is detected per
+  note at runtime.
+- **One pre-live note belongs to no week.** `Shadow Boxing`
+  (`3ae7b336873c803ab350c8e418970044`) has a `Course` relation but no `Notebook` relation,
+  so walking notebooks alone misses it. Aryan directed on 2026-08-06 that it publish under
+  Week 0. Walk the Course's `Notes` relation too, and reconcile against the notebooks.
+- **Week 1 is partly unwritten, and stays that way on the page.** `Context Analysis for
+  $RUs` ends mid-word at *"Their financial requir"*; `Creating your reflective journal` and
+  `Shadow Boxing Week 1` are empty. The page reproduces the truncation exactly and carries
+  honest "not yet written" blocks. **Never complete the sentence.**
+
+The case-study characters in `Your project with StellarCX` — Chris Gold, Dirk, Ivy, Andrew,
+Jeremy, Annie, and the client Murray — were confirmed by Aryan on 2026-08-06 to be
+**fictional simulation characters**, not lecturers or classmates, and are cleared for
+publication. Re-check if the cast changes.
+
+See [notion-sync-automation.md](notion-sync-automation.md#extending-to-dmba-6005) for the
+design rationale.

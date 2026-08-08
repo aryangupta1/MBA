@@ -32,12 +32,14 @@
     "fontHref": "https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
     "_fontsComment": "Chosen by Aryan 2026-08-05. Sora for display (geometric, wide, angular terminals — reads like product documentation, which suits agile delivery material), Karla for body (humanist, warm, slightly quirky). Verified free: the repo already uses IBM Plex Mono, DM Sans, Inter, Syne, IBM Plex Sans, Playfair Display, DM Mono, Newsreader, DM Serif Display, Fraunces, Spline Sans, Space Mono and Space Grotesk.",
     "contentShapeHint": "inline",
+    "_contentShapeComment": "Week 0's `$RUs` and `Shadow Boxing` notes are inline (Shape B); Week 1's `Learn` note is a container (Shape A) with five sub-pages. The subject uses BOTH shapes — detect per note at runtime, as the hint is only a hint.",
     "referencePage": "DMBA6008-week1.html",
-    "live": false,
-    "waitingFor": "Week 1's Pre-Live Session note. Aryan decided 2026-08-05 to hold the whole subject until it exists, then launch Week 0 and Week 1 together rather than publish a one-week subject. DO NOT build DMBA6005 pages before then — not even unpublished ones.",
+    "live": true,
+    "_liveComment": "Launched 2026-08-06 with Week 0 and Week 1 together, once Week 1's `Learn` Pre-Live Session note appeared. index.html card un-muted in the same run, per Aryan's 2026-08-05 pre-approval.",
     "blockers": [
-      "live is false — un-muting the index.html card is a visible claim that the subject has material. Do not flip it without asking, even once Week 1 lands.",
-      "Notebook 3b37b336873c80db9388ee1a56192b33 ('New Notebook') is an empty placeholder. Skip it; never render it as a week."
+      "Notebook 3b37b336873c80db9388ee1a56192b33 ('New Notebook') is an empty placeholder. Skip it; never render it as a week.",
+      "Note 3b17b336873c800e9208ca98bc0a8ada ('Class Diary', Week 1) is a Live Session note. NEVER publish it.",
+      "Note 3ae7b336873c803ab350c8e418970044 ('Shadow Boxing') is Pre-Live but has NO Notebook relation, so it belongs to no week. Aryan directed 2026-08-06 that it publish under Week 0. If he later files it under a notebook in Notion, move it to match."
     ]
   },
 

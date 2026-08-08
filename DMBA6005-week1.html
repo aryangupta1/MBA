@@ -1,0 +1,2149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 1 — Project management before execution — DMBA 6005</title>
+  <meta name="description" content="DMBA 6005 Week 1 study notes — solution fixation, design thinking, divergent and convergent thinking, the Double Diamond, the Triple Diamond, Agile versus agility, and the StellarCX consulting engagement with $RUs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --paper: #f5f3ee;
+      --paper2: #efece5;
+      --surface: #ffffff;
+      --surface2: #fbfaf7;
+      --ink: #16202a;
+      --ink2: #4a5b6b;
+      --ink3: #8798a6;
+      --line: #e2ded5;
+      --line2: #ece8e0;
+
+      /* Subject identity — --course-e from the house palette */
+      --petrol: #a8722c;
+      --petrol-deep: #6f4a17;
+      --petrol-soft: #f7efe2;
+      --petrol-glow: rgba(168, 114, 44, 0.13);
+
+      /* Verdict colours: value created / break-even / value destroyed */
+      --pos: #1f6a4a;
+      --pos-soft: #e6f1eb;
+      --neu: #8a6d1f;
+      --neu-soft: #f6f0df;
+      --neg: #b3402a;
+      --neg-soft: #f8e9e5;
+
+      --radius: 14px;
+      --radius-lg: 20px;
+      --font-display: 'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-sans: 'Karla', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: clip;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--petrol);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    .wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 clamp(1.1rem, 4vw, 1.75rem);
+    }
+
+    /* ── Back link ─────────────────────────────────────────── */
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: clamp(1.1rem, 3vw, 1.6rem) 0 0;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      color: var(--ink2);
+      text-decoration: none;
+      padding: 0.4rem 0.75rem 0.4rem 0.6rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface2);
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .back:hover {
+      color: var(--petrol);
+      border-color: var(--petrol);
+      background: var(--surface);
+    }
+
+    /* ── Header ────────────────────────────────────────────── */
+    header.hero {
+      position: relative;
+      padding: clamp(1.6rem, 5vw, 2.6rem) 0 clamp(1.4rem, 4vw, 2rem);
+    }
+
+    .eyebrow {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+      color: var(--petrol);
+      margin-bottom: 0.85rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(2rem, 6vw, 3rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+
+    h1 em {
+      font-style: normal;
+      font-weight: 600;
+      color: var(--petrol);
+    }
+
+    .standfirst {
+      margin-top: 1rem;
+      max-width: 62ch;
+      color: var(--ink2);
+      font-size: 1.02rem;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.35rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.34rem 0.7rem;
+    }
+
+    .pill .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--petrol);
+    }
+
+    /* ── Tabs ──────────────────────────────────────────────── */
+    .tabs {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(245, 243, 238, 0.93);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .tablist {
+      display: flex;
+      gap: 0.25rem;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 clamp(1.1rem, 4vw, 1.75rem);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tablist::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab {
+      flex: 0 0 auto;
+      appearance: none;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: var(--ink3);
+      padding: 0.9rem 0.75rem 0.75rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .tab:hover {
+      color: var(--ink);
+    }
+
+    .tab[aria-selected="true"] {
+      color: var(--petrol);
+      border-bottom-color: var(--petrol);
+    }
+
+    .tab .tab-num {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--ink3);
+      margin-right: 0.4rem;
+    }
+
+    .tab[aria-selected="true"] .tab-num {
+      color: var(--petrol);
+    }
+
+    /* ── Panels ────────────────────────────────────────────── */
+    .panel {
+      display: none;
+      padding: clamp(1.6rem, 5vw, 2.6rem) 0 clamp(3rem, 8vw, 4.5rem);
+    }
+
+    .panel.active {
+      display: block;
+      animation: fade-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* ── Summary prose ─────────────────────────────────────── */
+    .block {
+      margin-bottom: clamp(2rem, 5vw, 3rem);
+    }
+
+    .block-num {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--ink3);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(1.5rem, 3.6vw, 1.95rem);
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+      margin-bottom: 0.5rem;
+    }
+
+    h3 {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.005em;
+      margin: 1.6rem 0 0.6rem;
+    }
+
+    h4 {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin: 1.3rem 0 0.5rem;
+    }
+
+    p {
+      max-width: 68ch;
+      margin-bottom: 0.85rem;
+      color: var(--ink2);
+    }
+
+    p strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    ul,
+    ol {
+      max-width: 68ch;
+      margin: 0 0 0.9rem 1.15rem;
+      color: var(--ink2);
+    }
+
+    li {
+      margin-bottom: 0.32rem;
+    }
+
+    li::marker {
+      color: var(--ink3);
+    }
+
+    ul ul,
+    ol ol {
+      margin-top: 0.32rem;
+      margin-bottom: 0.3rem;
+    }
+
+    /* ── Formula ───────────────────────────────────────────── */
+    .formula {
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--petrol-deep);
+      background: var(--petrol-soft);
+      border-left: 3px solid var(--petrol);
+      border-radius: 0 8px 8px 0;
+      padding: 0.75rem 1rem;
+      margin: 0.9rem 0 1.1rem;
+      overflow-x: auto;
+    }
+
+    .formula-stack {
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.88em;
+      background: var(--petrol-soft);
+      color: var(--petrol-deep);
+      border-radius: 4px;
+      padding: 0.1em 0.35em;
+    }
+
+    /* ── Callouts ──────────────────────────────────────────── */
+    .callout {
+      display: flex;
+      gap: 0.85rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem 1.15rem;
+      margin: 1.2rem 0;
+      max-width: 68ch;
+    }
+
+    .callout .icon {
+      flex: 0 0 auto;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .callout p {
+      margin: 0;
+      color: var(--ink);
+    }
+
+    .callout--ask {
+      background: var(--petrol-soft);
+      border-color: rgba(168, 114, 44, 0.2);
+    }
+
+    .callout--ask p {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--petrol-deep);
+    }
+
+    .callout--key {
+      background: var(--neu-soft);
+      border-color: rgba(138, 109, 31, 0.24);
+    }
+
+    /* ── Tables ────────────────────────────────────────────── */
+    .table-scroll {
+      overflow-x: auto;
+      margin: 1rem 0 1.3rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+      min-width: 460px;
+    }
+
+    thead th {
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      background: var(--surface2);
+      padding: 0.7rem 0.95rem;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 0.7rem 0.95rem;
+      border-bottom: 1px solid var(--line2);
+      color: var(--ink2);
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody th {
+      text-align: left;
+      padding: 0.7rem 0.95rem;
+      border-bottom: 1px solid var(--line2);
+      font-weight: 600;
+      color: var(--ink);
+      vertical-align: top;
+    }
+
+    tbody tr:last-child th {
+      border-bottom: none;
+    }
+
+    .verdict {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.16rem 0.5rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .verdict--pos {
+      color: var(--pos);
+      background: var(--pos-soft);
+    }
+
+    .verdict--neu {
+      color: var(--neu);
+      background: var(--neu-soft);
+    }
+
+    .verdict--neg {
+      color: var(--neg);
+      background: var(--neg-soft);
+    }
+
+    /* ── Figures / SVG ─────────────────────────────────────── */
+    figure {
+      margin: 1.5rem 0 1.8rem;
+    }
+
+    .fig-frame {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: clamp(1rem, 3vw, 1.5rem);
+      overflow-x: auto;
+    }
+
+    .fig-frame svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      min-width: 420px;
+    }
+
+    figcaption {
+      margin-top: 0.7rem;
+      font-size: 0.78rem;
+      color: var(--ink3);
+      max-width: 68ch;
+    }
+
+    .svg-label {
+      font-family: 'Karla', system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      fill: var(--ink);
+    }
+
+    .svg-sub {
+      font-family: 'Karla', system-ui, sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      fill: var(--ink3);
+    }
+
+    .svg-mono {
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 11px;
+      fill: var(--petrol-deep);
+    }
+
+    .svg-eyebrow {
+      font-family: 'Karla', system-ui, sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      fill: var(--ink3);
+    }
+
+    /* ── Worked example cards ──────────────────────────────── */
+    .example-grid {
+      display: grid;
+      gap: 0.9rem;
+      margin: 1.2rem 0 1.4rem;
+    }
+
+    @media (min-width: 620px) {
+      .example-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .example {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.2rem;
+    }
+
+    .example h5 {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 0.7rem;
+    }
+
+    .example dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.2rem 0.9rem;
+      font-size: 0.85rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .example dt {
+      color: var(--ink3);
+    }
+
+    .example dd {
+      font-family: var(--font-mono);
+      color: var(--ink);
+      text-align: right;
+    }
+
+    .example .result {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--petrol-deep);
+      background: var(--petrol-soft);
+      border-radius: 8px;
+      padding: 0.5rem 0.7rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .example .note {
+      font-size: 0.82rem;
+      color: var(--ink2);
+      margin: 0;
+    }
+
+    .example--pos .result {
+      color: var(--pos);
+      background: var(--pos-soft);
+    }
+
+    .example--neg .result {
+      color: var(--neg);
+      background: var(--neg-soft);
+    }
+
+    /* ── Principle cards ───────────────────────────────────── */
+    .principles {
+      display: grid;
+      gap: 0.75rem;
+      margin: 1.2rem 0 1.5rem;
+      counter-reset: principle;
+    }
+
+    @media (min-width: 640px) {
+      .principles {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .principle {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem 1rem 2.9rem;
+    }
+
+    .principle::before {
+      counter-increment: principle;
+      content: counter(principle);
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      width: 1.35rem;
+      height: 1.35rem;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--surface);
+      background: var(--petrol);
+      border-radius: 50%;
+    }
+
+    .principle .p-name {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .principle .p-q {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--petrol);
+      margin-bottom: 0.45rem;
+    }
+
+    .principle .p-def {
+      font-size: 0.84rem;
+      color: var(--ink2);
+      margin: 0;
+    }
+
+    /* ── Takeaway list ─────────────────────────────────────── */
+    .takeaways {
+      list-style: none;
+      margin-left: 0;
+      display: grid;
+      gap: 0.55rem;
+      max-width: 68ch;
+    }
+
+    .takeaways li {
+      position: relative;
+      padding-left: 1.55rem;
+      margin: 0;
+      color: var(--ink2);
+    }
+
+    .takeaways li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.62em;
+      width: 8px;
+      height: 8px;
+      border: 2px solid var(--petrol);
+      border-radius: 50%;
+    }
+
+    /* ── Steps ─────────────────────────────────────────────── */
+    .steps {
+      list-style: none;
+      margin-left: 0;
+      counter-reset: step;
+      display: grid;
+      gap: 0.5rem;
+      max-width: 68ch;
+    }
+
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding: 0.6rem 0.9rem 0.6rem 2.6rem;
+      margin: 0;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-size: 0.88rem;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0.85rem;
+      top: 0.62rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--petrol);
+      font-weight: 500;
+    }
+
+    .steps strong {
+      color: var(--ink);
+    }
+
+    /* ── Glossary ──────────────────────────────────────────── */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      margin-bottom: 1.4rem;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .search {
+      flex: 1 1 220px;
+      min-width: 0;
+      font-family: inherit;
+      font-size: 0.88rem;
+      color: var(--ink);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.55rem 1rem;
+    }
+
+    .search::placeholder {
+      color: var(--ink3);
+    }
+
+    .count {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--ink3);
+      white-space: nowrap;
+    }
+
+    .glossary {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 700px) {
+      .glossary {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .term {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.05rem 1.15rem;
+    }
+
+    .term[hidden] {
+      display: none;
+    }
+
+    .term-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .term-name {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.06rem;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+
+    .term-src {
+      flex: 0 0 auto;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.16rem 0.45rem;
+      white-space: nowrap;
+    }
+
+    .term-src--own {
+      color: var(--petrol);
+      border-color: rgba(168, 114, 44, 0.3);
+      background: var(--petrol-soft);
+    }
+
+    .term-def {
+      font-size: 0.86rem;
+      color: var(--ink2);
+      margin: 0;
+      max-width: none;
+    }
+
+    .term-formula {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--petrol-deep);
+      background: var(--petrol-soft);
+      border-radius: 7px;
+      padding: 0.4rem 0.6rem;
+      margin-top: 0.7rem;
+      overflow-x: auto;
+    }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: var(--ink3);
+      font-size: 0.88rem;
+      background: var(--surface);
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+      padding: 2rem 1rem;
+    }
+
+    /* ── Flashcards ────────────────────────────────────────── */
+    .deck {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .deck-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .deck-count {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--ink3);
+    }
+
+    .deck-count strong {
+      color: var(--petrol);
+      font-weight: 500;
+    }
+
+    .progress {
+      flex: 1;
+      height: 3px;
+      background: var(--line);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--petrol);
+      border-radius: 999px;
+      transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .flip {
+      appearance: none;
+      display: block;
+      width: 100%;
+      border: none;
+      background: none;
+      padding: 0;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      perspective: 1400px;
+    }
+
+    /* Grid stacking rather than absolute positioning, so the card grows to fit
+       the taller of its two faces instead of clipping a long answer. */
+    .flip-inner {
+      display: grid;
+      position: relative;
+      width: 100%;
+      min-height: 300px;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .flip[aria-pressed="true"] .flip-inner {
+      transform: rotateY(180deg);
+    }
+
+    .face {
+      grid-area: 1 / 1;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+      border-radius: var(--radius-lg);
+      padding: clamp(1.5rem, 5vw, 2.25rem);
+      border: 1px solid var(--line);
+    }
+
+    .face-front {
+      background: var(--surface);
+      box-shadow: 0 18px 40px -28px rgba(22, 32, 42, 0.4);
+    }
+
+    .face-back {
+      background: var(--petrol-deep);
+      border-color: var(--petrol-deep);
+      color: #f7f2ea;
+      transform: rotateY(180deg);
+      box-shadow: 0 18px 40px -28px rgba(22, 32, 42, 0.55);
+    }
+
+    .face-tag {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+
+    .face-back .face-tag {
+      color: rgba(247, 242, 234, 0.6);
+    }
+
+    .face-text {
+      font-family: var(--font-display);
+      font-size: clamp(1.15rem, 3.4vw, 1.45rem);
+      line-height: 1.35;
+      font-weight: 400;
+      color: var(--ink);
+      max-width: none;
+      margin: 0;
+    }
+
+    .face-back .face-text {
+      color: #fbf7f1;
+      font-size: clamp(1.02rem, 3vw, 1.22rem);
+    }
+
+    .face-hint {
+      font-size: 0.72rem;
+      color: var(--ink3);
+      margin: 0;
+      max-width: none;
+    }
+
+    .face-back .face-hint {
+      color: rgba(247, 242, 234, 0.55);
+    }
+
+    .deck-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-top: 1.1rem;
+    }
+
+    .btn {
+      appearance: none;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--ink2);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.55rem 1.1rem;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn:hover:not(:disabled) {
+      color: var(--petrol);
+      border-color: var(--petrol);
+      transform: translateY(-1px);
+    }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn--ghost {
+      background: none;
+      border-color: transparent;
+      color: var(--ink3);
+      padding: 0.55rem 0.7rem;
+    }
+
+    .btn--ghost:hover {
+      border-color: var(--line);
+    }
+
+    .kbd-hint {
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--ink3);
+      margin-top: 1.1rem;
+    }
+
+    kbd {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-bottom-width: 2px;
+      border-radius: 5px;
+      padding: 0.05em 0.35em;
+      color: var(--ink2);
+    }
+
+    /* ── Footer ────────────────────────────────────────────── */
+    footer.page-foot {
+      border-top: 1px solid var(--line);
+      padding: 1.75rem 0 2.5rem;
+    }
+
+    footer.page-foot p {
+      font-size: 0.78rem;
+      color: var(--ink3);
+      margin-bottom: 0.35rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <a class="back" href="library.html?subject=DMBA6005"><span aria-hidden="true">←</span> DMBA 6005 Library</a>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">DMBA 6005 · Agile Project Development · Week 1</p>
+      <h1>Project management <em>before</em> execution</h1>
+      <p class="standfirst">Doing the thing right is not the same as doing the right thing. Week 1 works through design thinking, the Double and Triple Diamond, and where Agile genuinely helps — then puts it to work on the StellarCX engagement with $RUs.</p>
+      <div class="meta-row">
+        <span class="pill"><span class="dot" aria-hidden="true"></span> Pre-live session</span>
+        <span class="pill">32 key terms</span>
+        <span class="pill">53 flashcards</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Week 1 study modes">
+    <div class="tablist" role="tablist">
+      <button class="tab" id="tab-summary" role="tab" aria-selected="true" aria-controls="panel-summary"
+        data-panel="summary"><span class="tab-num" aria-hidden="true">01</span>Summary &amp; visuals</button>
+      <button class="tab" id="tab-terms" role="tab" aria-selected="false" aria-controls="panel-terms"
+        data-panel="terms" tabindex="-1"><span class="tab-num" aria-hidden="true">02</span>Key concepts</button>
+      <button class="tab" id="tab-cards" role="tab" aria-selected="false" aria-controls="panel-cards"
+        data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- ══════════════════ 01 · SUMMARY & VISUALS ══════════════════ -->
+    <section class="panel active" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" tabindex="0">
+
+      <div class="block">
+        <span class="block-num">01 / The premise</span>
+        <h2>Project management starts before execution</h2>
+        <p>Project management is not only about delivering work efficiently. It also involves determining whether
+          the proposed project is worth undertaking and whether it addresses the correct problem.</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Question</th>
+                <th scope="col">Focus</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Are we doing the right thing?</th>
+                <td>Problem relevance, user needs and strategic value</td>
+              </tr>
+              <tr>
+                <th scope="row">Are we doing it the right way?</th>
+                <td>Execution quality, resources, time, cost and delivery</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>A team can deliver a project on time and within budget while still creating little value if the original
+          problem was poorly defined.</p>
+
+        <h3>Project development vs project management</h3>
+        <ul>
+          <li><strong>Project Development</strong> — identifies the problem, explores opportunities and validates
+            the proposed concept.</li>
+          <li><strong>Project Management</strong> — coordinates the resources and activities required to deliver
+            it.</li>
+        </ul>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">🔑</span>
+          <p>Strong projects combine both rather than treating execution as the starting point.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <span class="block-num">02 / The failure mode</span>
+        <h2>Solution fixation</h2>
+        <p>Teams often jump directly from an initial problem statement to a familiar solution — a new application,
+          an AI feature, a marketing campaign, a major system replacement. Committing to an implementation before
+          understanding the underlying need is <strong>solution fixation</strong>.</p>
+
+        <h4>Consequences</h4>
+        <ul>
+          <li>Resources are spent solving the wrong problem</li>
+          <li>Important stakeholder perspectives are missed</li>
+          <li>Assumptions become embedded in the project</li>
+          <li>Late changes create greater cost and disruption</li>
+          <li>The output may be technically successful but strategically irrelevant</li>
+        </ul>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">🔑</span>
+          <p>Early exploration may appear slower, but it reduces expensive rework later.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <span class="block-num">03 / The method</span>
+        <h2>Design thinking in projects</h2>
+        <p>Design thinking provides a structured but creative way to investigate uncertain problems. Its major
+          characteristics are:</p>
+        <ul>
+          <li><strong>User-centred</strong> — begins with user needs and experiences</li>
+          <li><strong>Interdisciplinary</strong> — combines different professional perspectives</li>
+          <li><strong>Experiential</strong> — learns through observation, testing and interaction</li>
+          <li><strong>Iterative</strong> — ideas are repeatedly refined rather than developed once</li>
+          <li><strong>Open-ended</strong> — teams delay judgement while exploring possibilities</li>
+        </ul>
+
+        <p>Creativity here does not mean artistic ability. It means being able to reframe problems, question
+          assumptions and generate alternative approaches.</p>
+
+        <h3>Frameworks and judgement</h3>
+        <p>Frameworks provide principles and structure, but they do not automatically determine the correct
+          solution. Managers must still apply judgement, contextual knowledge, stakeholder insight and creative
+          problem solving.</p>
+      </div>
+
+      <div class="block">
+        <span class="block-num">04 / The two modes</span>
+        <h2>Divergent and convergent thinking</h2>
+        <p>Design thinking alternates between expanding and narrowing the project's focus.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 180" role="img" aria-labelledby="pm1-title pm1-desc">
+              <title id="pm1-title">Divergent and convergent thinking</title>
+              <desc id="pm1-desc">Two panels. On the left, divergent thinking fans outward from a single point:
+                its purpose is to explore broadly through research, questioning, brainstorming and stakeholder
+                engagement, and its output is multiple insights or alternatives. On the right, convergent thinking
+                narrows inward to a single point: its purpose is to create focus by evaluating evidence,
+                prioritising and deciding, and its output is a defined problem or a selected concept.</desc>
+
+              <rect x="0" y="26" width="350" height="130" rx="12" fill="#ffffff" stroke="#e2ded5" />
+              <text class="svg-eyebrow" x="16" y="46">DIVERGENT</text>
+              <path d="M34 100 L150 66 M34 100 L150 88 M34 100 L150 110 M34 100 L150 132" stroke="#a8722c"
+                stroke-width="1.5" fill="none" />
+              <circle cx="34" cy="100" r="4" fill="#a8722c" />
+              <text class="svg-label" x="166" y="88">Explore broadly</text>
+              <text class="svg-sub" x="166" y="105">research, questioning,</text>
+              <text class="svg-sub" x="166" y="117">brainstorming, stakeholders</text>
+              <text class="svg-sub" x="16" y="146">Output: multiple insights or alternatives</text>
+
+              <rect x="370" y="26" width="350" height="130" rx="12" fill="#ffffff" stroke="#e2ded5" />
+              <text class="svg-eyebrow" x="386" y="46">CONVERGENT</text>
+              <path d="M404 66 L520 100 M404 88 L520 100 M404 110 L520 100 M404 132 L520 100" stroke="#6f4a17"
+                stroke-width="1.5" fill="none" />
+              <circle cx="520" cy="100" r="4" fill="#6f4a17" />
+              <text class="svg-label" x="536" y="88">Create focus</text>
+              <text class="svg-sub" x="536" y="105">evaluate evidence,</text>
+              <text class="svg-sub" x="536" y="117">prioritise, decide</text>
+              <text class="svg-sub" x="386" y="146">Output: defined problem or selected concept</text>
+            </svg>
+          </div>
+          <figcaption>Divergence prevents the team accepting the first obvious answer; convergence prevents endless
+            analysis. Moving between the two allows exploration without losing decision discipline.</figcaption>
+        </figure>
+      </div>
+
+      <div class="block">
+        <span class="block-num">05 / The first framework</span>
+        <h2>The Double Diamond</h2>
+        <p>The Double Diamond divides project development into two connected question: what is the right problem to
+          solve, and what is the right way to solve it?</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 220" role="img" aria-labelledby="pm2-title pm2-desc">
+              <title id="pm2-title">The Double Diamond model</title>
+              <desc id="pm2-desc">Two diamond shapes in sequence. The first answers what is the right problem to
+                solve: its opening half is Discover, which diverges to investigate users, stakeholders, context and
+                possible problems, and its closing half is Define, which converges to select and frame the most
+                important problem. The second answers what is the right way to solve it: its opening half is Design
+                or Develop, which diverges to generate and prototype alternative solutions, and its closing half is
+                Deliver, which converges to select, refine and implement the strongest solution.</desc>
+              <text class="svg-eyebrow" x="0" y="14">THE DOUBLE DIAMOND</text>
+
+              <text class="svg-label" x="170" y="36" text-anchor="middle">What is the right problem to solve?</text>
+              <path d="M0 110 L170 52 L340 110 L170 168 Z" fill="#f7efe2" stroke="#a8722c" stroke-opacity="0.35"
+                stroke-width="1.5" />
+              <path d="M170 52 L170 168" stroke="#a8722c" stroke-opacity="0.3" stroke-width="1"
+                stroke-dasharray="4 4" />
+              <text class="svg-label" x="85" y="108" text-anchor="middle">Discover</text>
+              <text class="svg-sub" x="85" y="124" text-anchor="middle">diverge</text>
+              <text class="svg-label" x="255" y="108" text-anchor="middle">Define</text>
+              <text class="svg-sub" x="255" y="124" text-anchor="middle">converge</text>
+
+              <path d="M346 110 L370 110" stroke="#8798a6" stroke-width="1.5" />
+              <path d="M366 106 L374 110 L366 114 Z" fill="#8798a6" />
+
+              <text class="svg-label" x="550" y="36" text-anchor="middle">What is the right way to solve it?</text>
+              <path d="M380 110 L550 52 L720 110 L550 168 Z" fill="#f7efe2" stroke="#a8722c" stroke-opacity="0.35"
+                stroke-width="1.5" />
+              <path d="M550 52 L550 168" stroke="#a8722c" stroke-opacity="0.3" stroke-width="1"
+                stroke-dasharray="4 4" />
+              <text class="svg-label" x="465" y="108" text-anchor="middle">Design / Develop</text>
+              <text class="svg-sub" x="465" y="124" text-anchor="middle">diverge</text>
+              <text class="svg-label" x="635" y="108" text-anchor="middle">Deliver</text>
+              <text class="svg-sub" x="635" y="124" text-anchor="middle">converge</text>
+
+              <rect x="0" y="186" width="720" height="28" rx="9" fill="#6f4a17" />
+              <text class="svg-label" x="360" y="204" text-anchor="middle" fill="#ffffff">Each diamond begins with divergence and ends with convergence</text>
+            </svg>
+          </div>
+          <figcaption>The first diamond stops the team accepting the initial problem statement without
+            investigation. Its output should be an evidence-based problem definition, not a predetermined solution.
+          </figcaption>
+        </figure>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Stage</th>
+                <th scope="col">Thinking pattern</th>
+                <th scope="col">Core purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Discover</th>
+                <td><span class="verdict verdict--neu">Diverge</span></td>
+                <td>Investigate users, stakeholders, context and possible problems</td>
+              </tr>
+              <tr>
+                <th scope="row">Define</th>
+                <td><span class="verdict verdict--pos">Converge</span></td>
+                <td>Select and clearly frame the most important problem</td>
+              </tr>
+              <tr>
+                <th scope="row">Design / Develop</th>
+                <td><span class="verdict verdict--neu">Diverge</span></td>
+                <td>Generate and prototype alternative solutions</td>
+              </tr>
+              <tr>
+                <th scope="row">Deliver</th>
+                <td><span class="verdict verdict--pos">Converge</span></td>
+                <td>Select, refine and implement the strongest solution</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>The model is iterative</h3>
+        <p>Although the stages appear sequential, teams frequently move backwards and forwards. Testing a solution
+          may reveal that the problem was defined incorrectly, that requirements were missed, that stakeholder
+          priorities have changed, or that the concept is not technically or commercially viable.</p>
+        <p>Iteration is therefore a normal learning process rather than evidence that the project has failed.</p>
+      </div>
+
+      <div class="block">
+        <span class="block-num">06 / The extension</span>
+        <h2>The Triple Diamond and technology projects</h2>
+        <p>The Triple Diamond extends design thinking beyond concept selection into development, real-world
+          validation and scaled implementation. It better represents technology projects, where a promising
+          prototype must still become a reliable, integrated and adoptable system.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 200" role="img" aria-labelledby="pm3-title pm3-desc">
+              <title id="pm3-title">The Triple Diamond phases</title>
+              <desc id="pm3-desc">Four phases run in sequence. Discovery covers problem discovery, problem
+                definition, solution discovery and concept validation. Development covers iterative design, Agile
+                delivery, technical integration, stakeholder feedback and progressive refinement. Validation covers
+                pilot programs, limited releases, usability testing, performance testing, operational testing and
+                feedback from representative users. Rollout covers infrastructure scaling, user onboarding, training
+                and support, marketing and change management, operational readiness and ongoing performance
+                monitoring.</desc>
+              <text class="svg-eyebrow" x="0" y="14">THE TRIPLE DIAMOND</text>
+
+              <g>
+                <rect x="0" y="42" width="165" height="86" rx="10" fill="#f7efe2" stroke="#a8722c"
+                  stroke-opacity="0.25" />
+                <text class="svg-label" x="82" y="66" text-anchor="middle">Discovery</text>
+                <text class="svg-sub" x="82" y="86" text-anchor="middle">problem discovery,</text>
+                <text class="svg-sub" x="82" y="98" text-anchor="middle">definition, solution</text>
+                <text class="svg-sub" x="82" y="110" text-anchor="middle">discovery, validation</text>
+              </g>
+              <path d="M169 85 L179 85" stroke="#8798a6" stroke-width="1.5" />
+              <path d="M177 81 L183 85 L177 89 Z" fill="#8798a6" />
+
+              <g>
+                <rect x="185" y="42" width="165" height="86" rx="10" fill="#f7efe2" stroke="#a8722c"
+                  stroke-opacity="0.25" />
+                <text class="svg-label" x="267" y="66" text-anchor="middle">Development</text>
+                <text class="svg-sub" x="267" y="86" text-anchor="middle">iterative design,</text>
+                <text class="svg-sub" x="267" y="98" text-anchor="middle">Agile delivery,</text>
+                <text class="svg-sub" x="267" y="110" text-anchor="middle">integration, feedback</text>
+              </g>
+              <path d="M354 85 L364 85" stroke="#8798a6" stroke-width="1.5" />
+              <path d="M362 81 L368 85 L362 89 Z" fill="#8798a6" />
+
+              <g>
+                <rect x="370" y="42" width="165" height="86" rx="10" fill="#f7efe2" stroke="#a8722c"
+                  stroke-opacity="0.25" />
+                <text class="svg-label" x="452" y="66" text-anchor="middle">Validation</text>
+                <text class="svg-sub" x="452" y="86" text-anchor="middle">pilots, limited</text>
+                <text class="svg-sub" x="452" y="98" text-anchor="middle">releases, usability</text>
+                <text class="svg-sub" x="452" y="110" text-anchor="middle">and performance tests</text>
+              </g>
+              <path d="M539 85 L549 85" stroke="#8798a6" stroke-width="1.5" />
+              <path d="M547 81 L553 85 L547 89 Z" fill="#8798a6" />
+
+              <g>
+                <rect x="555" y="42" width="165" height="86" rx="10" fill="#6f4a17" />
+                <text class="svg-label" x="637" y="66" text-anchor="middle" fill="#ffffff">Rollout</text>
+                <text class="svg-sub" x="637" y="86" text-anchor="middle" fill="#d8c3a4">scaling, onboarding,</text>
+                <text class="svg-sub" x="637" y="98" text-anchor="middle" fill="#d8c3a4">training, change</text>
+                <text class="svg-sub" x="637" y="110" text-anchor="middle" fill="#d8c3a4">management, monitoring</text>
+              </g>
+
+              <rect x="0" y="152" width="720" height="30" rx="9" fill="#f6f0df" stroke="#8a6d1f"
+                stroke-opacity="0.24" />
+              <text class="svg-label" x="360" y="171" text-anchor="middle" fill="#8a6d1f">A rollout should be a measured expansion, not simply a launch date</text>
+            </svg>
+          </div>
+          <figcaption>Validation is the phase that decides whether the solution performs outside the controlled
+            development environment.</figcaption>
+        </figure>
+
+        <p>The purpose of Discovery is to avoid approving development based only on assumptions or enthusiasm. Once
+          validated, the concept is converted into a functional solution, and continues evolving as the team learns
+          about technical constraints and user expectations.</p>
+      </div>
+
+      <div class="block">
+        <span class="block-num">07 / The word itself</span>
+        <h2>Agile and agility</h2>
+        <p>The term <strong>Agile</strong> has two related meanings in project environments.</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Meaning</th>
+                <th scope="col">Explanation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Agile project management</th>
+                <td>A formal approach based on incremental delivery, feedback and continuous prioritisation</td>
+              </tr>
+              <tr>
+                <th scope="row">Operational agility</th>
+                <td>The broader ability to adapt when evidence, requirements or conditions change</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Agile delivery supports the Triple Diamond because development and validation continue through repeated
+          cycles rather than a single final release.</p>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">🔑</span>
+          <p>Agile execution does not compensate for poor problem selection. A team can efficiently build the wrong
+            product in short iterations.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <span class="block-num">08 / Worked example</span>
+        <h2>An AI customer support project</h2>
+        <p>A SaaS company may initially propose an AI chatbot because competitors have introduced one. Applying the
+          Double and Triple Diamond changes what gets built.</p>
+
+        <ol class="steps">
+          <li><strong>Discover</strong> — Research reveals customers are frustrated mainly poor visibility into
+            unresolved support cases</li>
+          <li><strong>Define</strong> — The core problem becomes lack of timely status information, not the absence
+            of a chatbot</li>
+          <li><strong>Design</strong> — Alternatives include proactive notifications, a case-tracking portal,
+            improved triage or an AI assistant</li>
+          <li><strong>Concept validation</strong> — Users test lightweight prototypes before major investment</li>
+          <li><strong>Development</strong> — The selected approach is build through short Agile iterations</li>
+          <li><strong>Validation</strong> — A pilot measures resolution time, customer satisfaction and support
+            workload</li>
+          <li><strong>Rollout</strong> — The system is progressively released with monitoring and user support</li>
+        </ol>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">🔑</span>
+          <p>The process shifts the project from “build an AI chatbot” to “improve the support experience using the
+            most appropriate solution”.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <span class="block-num">09 / Managerial implications</span>
+        <h2>The questions a project leader should ask</h2>
+        <ul class="takeaways">
+          <li>What evidence demonstrates that this is the real problem?</li>
+          <li>Whose needs are represented in the problem definition?</li>
+          <li>Have alternative explanations and solutions been explored?</li>
+          <li>What assumptions must be tested before major development?</li>
+          <li>What would invalidate the proposed concept?</li>
+          <li>How will feedback influence development decisions?</li>
+          <li>What evidence is required before rollout?</li>
+          <li>How will adoption and long-term value be measured?</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <span class="block-num">10 / The engagement</span>
+        <h2>StellarCX and $RUs</h2>
+        <p>The course runs a continuing Shadow Boxing simulation in which the StellarCX consulting team advises the
+          client, $RUs. Rather than receiving a perfectly defined project, the team must respond to incomplete
+          information, competing priorities, organisational politics, uncertain client expectations, limited budgets
+          and timelines, and changing project directions.</p>
+
+        <h3>The client</h3>
+        <p>$RUs is a successful Sydney-based financial services company led by Murray and his business partner. It
+          is financially successful and well managed, supported by a strong, stable income stream, and has
+          established credibility with its existing client base — while facing uncertainty about its future
+          growth.</p>
+
+        <p>Its core challenge is to attract and engage younger clients. That is not simply a marketing campaign;
+          StellarCX must identify a solution that responds to younger customers' needs, strengthens long-term
+          engagement, supports future growth, can scale across the business, and may use AI where it creates genuine
+          value.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 190" role="img" aria-labelledby="sx1-title sx1-desc">
+              <title id="sx1-title">From broad client concern to scalable implementation</title>
+              <desc id="sx1-desc">The consulting team must move from a broad client concern — difficulty attracting
+                younger customers — through four stages: a clearly defined problem, a validated strategic direction,
+                a feasible project concept, and a scalable implementation approach. The engagement therefore
+                involves both project development and project management.</desc>
+              <text class="svg-eyebrow" x="0" y="14">THE ENGAGEMENT</text>
+
+              <rect x="140" y="26" width="440" height="40" rx="10" fill="#6f4a17" />
+              <text class="svg-label" x="360" y="51" text-anchor="middle" fill="#ffffff">Broad concern: difficulty attracting younger customers</text>
+              <path d="M360 66 L360 78" stroke="#8798a6" stroke-width="1.5" />
+              <path d="M355 74 L360 82 L365 74 Z" fill="#8798a6" />
+
+              <g>
+                <rect x="0" y="86" width="165" height="56" rx="10" fill="#f7efe2" stroke="#a8722c"
+                  stroke-opacity="0.25" />
+                <text class="svg-eyebrow" x="82" y="104" text-anchor="middle">01</text>
+                <text class="svg-label" x="82" y="122" text-anchor="middle">Clearly defined</text>
+                <text class="svg-label" x="82" y="136" text-anchor="middle">problem</text>
+              </g>
+              <path d="M169 114 L179 114" stroke="#8798a6" stroke-width="1.5" />
+              <path d="M177 110 L183 114 L177 118 Z" fill="#8798a6" />
+
+              <g>
+                <rect x="185" y="86" width="165" height="56" rx="10" fill="#f7efe2" stroke="#a8722c"
+                  stroke-opacity="0.25" />
+                <text class="svg-eyebrow" x="267" y="104" text-anchor="middle">02</text>
+                <text class="svg-label" x="267" y="122" text-anchor="middle">Validated strategic</text>
+                <text class="svg-label" x="267" y="136" text-anchor="middle">direction</text>
+              </g>
+              <path d="M354 114 L364 114" stroke="#8798a6" stroke-width="1.5" />
+              <path d="M362 110 L368 114 L362 118 Z" fill="#8798a6" />
+
+              <g>
+                <rect x="370" y="86" width="165" height="56" rx="10" fill="#f7efe2" stroke="#a8722c"
+                  stroke-opacity="0.25" />
+                <text class="svg-eyebrow" x="452" y="104" text-anchor="middle">03</text>
+                <text class="svg-label" x="452" y="122" text-anchor="middle">Feasible project</text>
+                <text class="svg-label" x="452" y="136" text-anchor="middle">concept</text>
+              </g>
+              <path d="M539 114 L549 114" stroke="#8798a6" stroke-width="1.5" />
+              <path d="M547 110 L553 114 L547 118 Z" fill="#8798a6" />
+
+              <g>
+                <rect x="555" y="86" width="165" height="56" rx="10" fill="#a8722c" />
+                <text class="svg-eyebrow" x="637" y="104" text-anchor="middle" fill="#f7efe2">04</text>
+                <text class="svg-label" x="637" y="122" text-anchor="middle" fill="#ffffff">Scalable</text>
+                <text class="svg-label" x="637" y="136" text-anchor="middle" fill="#ffffff">implementation</text>
+              </g>
+
+              <rect x="0" y="152" width="720" height="30" rx="9" fill="#f6f0df" stroke="#8a6d1f"
+                stroke-opacity="0.24" />
+              <text class="svg-label" x="360" y="171" text-anchor="middle" fill="#8a6d1f">The engagement involves both project development and project management</text>
+            </svg>
+          </div>
+          <figcaption>Four stages between a vague client worry and something that can actually be built and
+            scaled.</figcaption>
+        </figure>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">🔑</span>
+          <p>AI is a possible enabler, not automatically the correct solution.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <span class="block-num">11 / The team</span>
+        <h2>The Gold Team, and what pulls it off course</h2>
+        <p>Chris Gold leads one of StellarCX's consulting teams. The team includes different disciplines,
+          motivations and working styles — differences that can improve the project, but may also create
+          tension.</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Team member</th>
+                <th scope="col">Role or perspective</th>
+                <th scope="col">Potential contribution or tension</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Chris Gold</th>
+                <td>Project manager and product owner</td>
+                <td>Values engagement and quality; must lead through ambiguity and competing priorities</td>
+              </tr>
+              <tr>
+                <th scope="row">Dirk</th>
+                <td>Senior contributor</td>
+                <td>Strong preference for practical work over meetings and organisational initiatives</td>
+              </tr>
+              <tr>
+                <th scope="row">Ivy</th>
+                <td>Experienced project manager</td>
+                <td>Brings experience coordinating people, timelines and deliverables</td>
+              </tr>
+              <tr>
+                <th scope="row">Andrew</th>
+                <td>Machine-learning specialist</td>
+                <td>Interested in career progression and securing a visible, successful AI project</td>
+              </tr>
+              <tr>
+                <th scope="row">Jeremy</th>
+                <td>New technical team member</td>
+                <td>Brings technical capability but is still learning the team and organisational context</td>
+              </tr>
+              <tr>
+                <th scope="row">Annie</th>
+                <td>Designer</td>
+                <td>Represents the design perspective and may support user-centred problem exploration</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 210" role="img" aria-labelledby="sx2-title sx2-desc">
+              <title id="sx2-title">What decides whether AI belongs in the project</title>
+              <desc id="sx2-desc">Two contrasting paths. Without discovery, technology bias, personal agendas and
+                premature execution lead to AI being treated as the project objective, chosen because it appears
+                innovative. With discovery and validation, AI is included only where it creates genuine value,
+                judged on whether it improves the customer experience or the business model.</desc>
+              <text class="svg-eyebrow" x="0" y="14">WHAT DECIDES WHETHER AI BELONGS</text>
+
+              <text class="svg-eyebrow" x="0" y="38">WITHOUT DISCOVERY</text>
+              <rect x="0" y="46" width="330" height="76" rx="10" fill="#ffffff" stroke="#e2ded5" />
+              <text class="svg-sub" x="16" y="68">Technology bias</text>
+              <text class="svg-sub" x="16" y="88">Personal agendas</text>
+              <text class="svg-sub" x="16" y="108">Premature execution</text>
+              <path d="M334 84 L370 84" stroke="#8798a6" stroke-width="1.5" />
+              <path d="M366 80 L374 84 L366 88 Z" fill="#8798a6" />
+              <rect x="380" y="46" width="340" height="76" rx="10" fill="#f8e9e5" />
+              <text class="svg-label" x="550" y="80" text-anchor="middle" fill="#b3402a">AI treated as the project objective</text>
+              <text class="svg-sub" x="550" y="98" text-anchor="middle">chosen because it appears innovative</text>
+
+              <text class="svg-eyebrow" x="0" y="146">WITH DISCOVERY</text>
+              <rect x="0" y="154" width="330" height="48" rx="10" fill="#ffffff" stroke="#e2ded5" />
+              <text class="svg-sub" x="16" y="176">Discovery and validation</text>
+              <text class="svg-sub" x="16" y="192">test the concept first</text>
+              <path d="M334 178 L370 178" stroke="#8798a6" stroke-width="1.5" />
+              <path d="M366 174 L374 178 L366 182 Z" fill="#8798a6" />
+              <rect x="380" y="154" width="340" height="48" rx="10" fill="#e6f1eb" />
+              <text class="svg-label" x="550" y="176" text-anchor="middle" fill="#1f6a4a">AI only where it creates genuine value</text>
+              <text class="svg-sub" x="550" y="192" text-anchor="middle">judged on customer experience or business model</text>
+            </svg>
+          </div>
+          <figcaption>The same technology, two different projects. Which one you get depends on whether discovery
+            happened before the decision.</figcaption>
+        </figure>
+
+        <h3>Project risks</h3>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Risk</th>
+                <th scope="col">Why it matters</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Technology bias</th>
+                <td>The team may choose AI because it appears innovative rather than because it solves the client's
+                  problem</td>
+              </tr>
+              <tr>
+                <th scope="row">Personal agendas</th>
+                <td>Career goals may influence recommendations and resource decisions</td>
+              </tr>
+              <tr>
+                <th scope="row">Premature execution</th>
+                <td>Pressure to show progress may cause the team to act before defining the problem</td>
+              </tr>
+              <tr>
+                <th scope="row">Poor collaboration</th>
+                <td>Different disciplines and work preferences may create conflict or silos</td>
+              </tr>
+              <tr>
+                <th scope="row">Client assumption bias</th>
+                <td>The team may accept $RUs's view of the problem without validating younger customers' needs</td>
+              </tr>
+              <tr>
+                <th scope="row">Weak engagement</th>
+                <td>A technically productive team may still perform poorly if members are disconnected or unheard
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="block">
+        <span class="block-num">12 / Your role</span>
+        <h2>Adviser, not deliverer</h2>
+        <p>The student acts as an adviser to the StellarCX team, deciding:</p>
+        <ul>
+          <li>What the team should do next</li>
+          <li>When it should accept or challenge the client's direction</li>
+          <li>What information is still missing</li>
+          <li>Which stakeholders should be consulted</li>
+          <li>Whether AI is appropriate</li>
+          <li>How competing views should be managed</li>
+          <li>When the project has enough evidence to proceed</li>
+        </ul>
+        <p>The objective is not only to deliver a solution, but to make defensible project decisions under
+          uncertainty.</p>
+
+        <div class="callout callout--ask">
+          <span class="icon" aria-hidden="true">❓</span>
+          <p>How might $RUs build scalable and valuable relationships with younger clients?</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <span class="block-num">13 / Context analysis</span>
+        <h2>Reading the environment before designing the solution</h2>
+        <p>Before designing a solution, StellarCX must understand the environment in which $RUs operates. Context
+          analysis identifies the real customer problem, market opportunities and threats, regulatory constraints,
+          changing customer expectations, competitor capabilities, and whether the proposed solution fits $RUs'
+          strengths.</p>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">🔑</span>
+          <p>Without this analysis, the team risks delivering an innovative solution that is irrelevant
+            non-compliant or commercially unviable.</p>
+        </div>
+
+        <h3>The Australian financial planning market</h3>
+        <p>The industry is shifting from serving mainly older, wealthy clients towards supporting younger people
+          with broader and more immediate financial needs.</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Traditional market</th>
+                <th scope="col">Emerging market</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Retirement planning</td>
+                <td>Budgeting and debt management</td>
+              </tr>
+              <tr>
+                <td>Investment portfolio management</td>
+                <td>HECS repayment</td>
+              </tr>
+              <tr>
+                <td>Superannuation</td>
+                <td>First-home purchasing</td>
+              </tr>
+              <tr>
+                <td>Tax structuring</td>
+                <td>Career and education decisions</td>
+              </tr>
+              <tr>
+                <td>Inheritance or wealth preservation</td>
+                <td>Starting a business</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Insurance</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Ethical investing</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Digital assets</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Early retirement planning</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Traditional services are commonly targeted at clients who already hold significant assets. The
+          opportunity is to build relationships <strong>before clients become wealthy</strong>, rather than waiting
+          until they approach retirement.</p>
+
+        <h3>The younger client segment</h3>
+        <p>Millennial and Gen Z clients are not simply younger versions of $RUs existing customers. Their financial
+          requir</p>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">✍️</span>
+          <p>My note stops there, mid-word. This topic is still being written in Notion, and nothing has been
+            generated to finish the sentence or the section. It will appear here once the note is complete.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <span class="block-num">14 / Not yet written</span>
+        <h2>Two topics still empty</h2>
+        <p>Two sub-pages of my Week 1 pre-live note exist in Notion but have no content yet. Nothing has been
+          generated to stand in for them.</p>
+        <ul>
+          <li><strong>Creating your reflective journal</strong> — empty</li>
+          <li><strong>Shadow Boxing Week 1</strong> — empty</li>
+        </ul>
+        <p>The Shadow Boxing <em>method</em> is covered in
+          <a href="DMBA6005-week0.html">Week 0 — The $RUs digital innovation case</a>; what is missing here is the
+          Week 1 scenario itself.</p>
+      </div>
+
+      <div class="block">
+        <span class="block-num">15 / Takeaways</span>
+        <h2>What to carry out of Week 1</h2>
+        <ul class="takeaways">
+          <li>Project success begins with problem selection and definition, not scheduling.</li>
+          <li>Efficient execution cannot rescue an irrelevant project.</li>
+          <li>Divergent thinking expands understanding; convergent thinking creates direction.</li>
+          <li>The Double Diamond connects problem discovery with solution development.</li>
+          <li>The Triple Diamond extends this logic through development, validation and rollout.</li>
+          <li>Iteration reduces uncertainty by exposing assumptions before they become expensive.</li>
+          <li>The $RUs problem is initially broad and requires further discovery.</li>
+          <li>StellarCX must avoid treating AI as the project objective.</li>
+          <li>Team members' motivations and working styles will influence decisions.</li>
+          <li>Effective project leadership requires managing both the work and the people performing it.</li>
+          <li>The central managerial challenge is to ensure teams are building the right solution and building it
+            effectively.</li>
+        </ul>
+      </div>
+
+    </section>
+
+    <!-- ══════════════════ 02 · KEY CONCEPTS ══════════════════ -->
+    <section class="panel" id="panel-terms" role="tabpanel" aria-labelledby="tab-terms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">02 / Reference</span>
+        <h2>Key concepts &amp; terminology</h2>
+        <p>Terms from the three written Week 1 pre-live topics — the project management introduction, the StellarCX engagement, and the context analysis — tagged by the topic they came from.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="term-search">Filter terms</label>
+          <input class="search" id="term-search" type="search" placeholder="Filter terms — try “diamond” or “diverge”"
+            autocomplete="off">
+          <span class="count" id="term-count" aria-live="polite">32 of 32</span>
+        </div>
+
+        <div class="glossary" id="glossary"></div>
+      </div>
+    </section>
+    <!-- ══════════════════ 03 · FLASHCARDS ══════════════════ -->
+    <section class="panel" id="panel-cards" role="tabpanel" aria-labelledby="tab-cards" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">03 / Active recall</span>
+        <h2>Flashcards</h2>
+        <p>A mix of framework recall — name the stages, name the phases — and judgement cards that hand you a project symptom and ask what a leader should do about it.</p>
+
+        <div class="deck">
+          <div class="deck-meta">
+            <span class="deck-count"><strong id="card-index">1</strong> / <span id="card-total">53</span></span>
+            <span class="progress"><span class="progress-fill" id="progress-fill"></span></span>
+          </div>
+
+          <button class="flip" id="flip-card" aria-pressed="false" aria-label="Flashcard — press to reveal the answer">
+            <span class="flip-inner">
+              <span class="face face-front">
+                <span class="face-tag">Question</span>
+                <span class="face-text" id="card-q"></span>
+                <span class="face-hint">Click, tap, or press Space to reveal</span>
+              </span>
+              <span class="face face-back">
+                <span class="face-tag">Answer</span>
+                <span class="face-text" id="card-a"></span>
+                <span class="face-hint">Press → for the next card</span>
+              </span>
+            </span>
+          </button>
+
+          <div class="deck-controls">
+            <button class="btn" id="prev-btn" type="button">← Previous</button>
+            <button class="btn btn--ghost" id="shuffle-btn" type="button">Shuffle</button>
+            <button class="btn" id="next-btn" type="button">Next →</button>
+          </div>
+
+          <p class="kbd-hint"><kbd>←</kbd> <kbd>→</kbd> to move · <kbd>Space</kbd> to flip · <kbd>S</kbd> to shuffle
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-foot">
+    <div class="wrap">
+      <p>DMBA 6005 Agile Project Development · Week 1 · Pre-live session</p>
+      <p>Compiled from my own pre-live notes for this week. Synced from Notion on 6 August 2026.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ── Tabs ─────────────────────────────────────────────── */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+
+      function selectTab(tab) {
+        tabs.forEach(function (t) {
+          var isTarget = t === tab;
+          var panel = document.getElementById('panel-' + t.getAttribute('data-panel'));
+          t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+          t.tabIndex = isTarget ? 0 : -1;
+          if (!panel) return;
+          panel.classList.toggle('active', isTarget);
+          if (isTarget) {
+            panel.removeAttribute('hidden');
+          } else {
+            panel.setAttribute('hidden', '');
+          }
+        });
+      }
+
+      tabs.forEach(function (tab, i) {
+        tab.addEventListener('click', function () { selectTab(tab); });
+        tab.addEventListener('keydown', function (e) {
+          var next = null;
+          if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+          if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+          if (!next) return;
+          e.preventDefault();
+          selectTab(next);
+          next.focus();
+        });
+      });
+
+      /* ── Key concepts ─────────────────────────────────────── */
+      var TERMS = [
+{ term: 'Project Development', src: 'Intro to PM', def: 'Identifies the problem, explores opportunities and validates the proposed concept. It sits before delivery, and strong projects combine it with project management rather than treating execution as the starting point.' },
+{ term: 'Project Management', src: 'Intro to PM', def: 'Coordinates the resources and activities required to deliver the project. On its own it answers “are we doing it the right way?” but not “are we doing the right thing?”' },
+{ term: 'Doing the right thing', src: 'Intro to PM', def: 'The question that focuses on problem relevance, user needs and strategic value — as opposed to execution quality, resources, time, cost and delivery.' },
+{ term: 'Solution fixation', src: 'Intro to PM', def: 'Committing to an implementation before understanding the underlying need. It arises when teams jump from an initial problem statement straight to a familiar solution such as a new application, an AI feature, a marketing campaign or a major system replacement.' },
+{ term: 'Design thinking', src: 'Intro to PM', def: 'A structured but creative way to investigate uncertain problems. It is user-centred, interdisciplinary, experiential, iterative and open-ended.' },
+{ term: 'Creativity (in projects)', src: 'Intro to PM', def: 'Not artistic ability, but the ability to reframe problems, question assumptions and generate alternative approaches.' },
+{ term: 'Divergent thinking', src: 'Intro to PM', def: 'Exploring broadly through research, questioning, brainstorming and stakeholder engagement. Its output is multiple insights or alternatives, and it prevents teams accepting the first obvious answer.' },
+{ term: 'Convergent thinking', src: 'Intro to PM', def: 'Creating focus by evaluating evidence, prioritising and making decisions. Its output is a defined problem or a selected concept, and it prevents endless analysis.' },
+{ term: 'The Double Diamond', src: 'Intro to PM', def: 'A model dividing project development into two connected questions — what is the right problem to solve, and what is the right way to solve it. Each diamond begins with divergence and ends with convergence.' },
+{ term: 'Discover', src: 'Intro to PM', def: 'The diverging first half of the first diamond. Purpose: investigate users, stakeholders, context and possible problems. Activities may include user research, stakeholder interviews, process observation, data analysis, assumption testing and examining the wider system.' },
+{ term: 'Define', src: 'Intro to PM', def: 'The converging second half of the first diamond. Purpose: select and clearly frame the most important problem. Its output should be a clear, evidence-based problem definition, not a predetermined solution.' },
+{ term: 'Design / Develop', src: 'Intro to PM', def: 'The diverging first half of the second diamond. Purpose: generate and prototype alternative solutions, which are prototyped, compared, tested with users, assessed for feasibility and refined against project objectives.' },
+{ term: 'Deliver', src: 'Intro to PM', def: 'The converging second half of the second diamond. Purpose: select, refine and implement the strongest solution.' },
+{ term: 'Iteration', src: 'Intro to PM', def: 'Moving backwards and forwards between stages rather than running them once in sequence. Testing may reveal the problem was defined incorrectly, requirements were missed, priorities changed, or the concept is not viable. Iteration is a normal learning process, not evidence of failure.' },
+{ term: 'The Triple Diamond', src: 'Intro to PM', def: 'An extension of design thinking beyond concept selection into development, real-world validation and scaled implementation. It better represents technology projects, where a promising prototype must still become a reliable, integrated and adoptable system.' },
+{ term: 'Discovery (Triple Diamond)', src: 'Intro to PM', def: 'The early exploration and definition of both problem and concept: problem discovery, problem definition, solution discovery and concept validation. Its purpose is to avoid approving development based only on assumptions or enthusiasm.' },
+{ term: 'Development (Triple Diamond)', src: 'Intro to PM', def: 'Converting the validated concept into a functional solution through iterative design, Agile delivery, technical integration, stakeholder feedback and progressive refinement.' },
+{ term: 'Validation (Triple Diamond)', src: 'Intro to PM', def: 'Placing the solution in conditions closer to real-world use — pilot programs, limited releases, usability testing, performance testing, operational testing and feedback from representative users. It determines whether the solution performs outside the controlled development environment.' },
+{ term: 'Rollout', src: 'Intro to PM', def: 'Expanding the validated solution to the broader market or organisation. It may require infrastructure scaling, user onboarding, training and support, marketing and change management, operational readiness and ongoing performance monitoring. A rollout should be a measured expansion, not simply a launch date.' },
+{ term: 'Agile project management', src: 'Intro to PM', def: 'A formal approach based on incremental delivery, feedback and continuous prioritisation. It supports the Triple Diamond because development and validation continue through repeated cycles rather than a single final release.' },
+{ term: 'Operational agility', src: 'Intro to PM', def: 'The broader ability to adapt when evidence, requirements or conditions change — the second sense of “Agile”, distinct from the formal delivery method.' },
+{ term: 'Shadow Boxing simulation', src: 'StellarCX', def: 'The continuing course simulation in which the StellarCX consulting team advises the client $RUs. Rather than a perfectly defined project, the team faces incomplete information, competing priorities, organisational politics, uncertain client expectations, limited budgets and timelines, and changing project directions.' },
+{ term: 'StellarCX', src: 'StellarCX', def: 'The consulting company engaged to help $RUs determine an appropriate strategy. It must move from a broad client concern to a clearly defined problem, a validated strategic direction, a feasible project concept and a scalable implementation approach.' },
+{ term: 'The Gold Team', src: 'StellarCX', def: 'The StellarCX consulting team led by Chris Gold, comprising Chris Gold, Dirk, Ivy, Andrew, Jeremy and Annie. Its mix of disciplines, motivations and working styles can improve the project but may also create tension.' },
+{ term: 'Technology bias', src: 'StellarCX', def: 'The risk that the team chooses AI because it appears innovative rather than because it solves the client’s problem.' },
+{ term: 'Personal agendas', src: 'StellarCX', def: 'The risk that career goals influence recommendations and resource decisions.' },
+{ term: 'Client assumption bias', src: 'StellarCX', def: 'The risk that the team accepts $RUs’s view of the problem without validating younger customers’ needs.' },
+{ term: 'Weak engagement', src: 'StellarCX', def: 'The risk that a technically productive team still performs poorly because members are disconnected or unheard.' },
+{ term: 'Central project question', src: 'StellarCX', def: 'How might $RUs build scalable and valuable relationships with younger clients? AI should only become part of the project if discovery and validation show that it improves the customer experience or business model.' },
+{ term: 'Context analysis', src: 'Context Analysis', def: 'Understanding the environment in which $RUs operates before designing a solution. It identifies the real customer problem, market opportunities and threats, regulatory constraints, changing customer expectations, competitor capabilities, and whether the proposed solution fits $RUs’ strengths.' },
+{ term: 'Traditional market', src: 'Context Analysis', def: 'The historical focus of financial advisers — retirement planning, investment portfolio management, superannuation, tax structuring, and inheritance or wealth preservation — commonly targeted at clients who already hold significant assets.' },
+{ term: 'Emerging market', src: 'Context Analysis', def: 'Advice for younger clients across different stages of wealth creation: budgeting and debt management, HECS repayment, first-home purchasing, career and education decisions, starting a business, insurance, ethical investing, digital assets and early retirement planning.' }
+      ];
+
+      var glossaryEl = document.getElementById('glossary');
+      var countEl = document.getElementById('term-count');
+      var searchEl = document.getElementById('term-search');
+
+      function escapeHtml(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      glossaryEl.innerHTML = TERMS.map(function (t) {
+        var tag = t.own
+          ? '<span class="term-src term-src--own">Key Definitions</span>'
+          : '<span class="term-src">' + escapeHtml(t.src) + '</span>';
+        return '<article class="term" data-search="' +
+          escapeHtml((t.term + ' ' + t.def + ' ' + (t.formula || '')).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' + escapeHtml(t.term) + '</h3>' + tag + '</div>' +
+          '<p class="term-def">' + escapeHtml(t.def) + '</p>' +
+          (t.formula ? '<div class="term-formula">' + escapeHtml(t.formula) + '</div>' : '') +
+          '</article>';
+      }).join('') + '<p class="no-results" id="no-results" hidden>No terms match that filter.</p>';
+
+      var termEls = Array.prototype.slice.call(glossaryEl.querySelectorAll('.term'));
+      var noResultsEl = document.getElementById('no-results');
+
+      searchEl.addEventListener('input', function () {
+        var q = searchEl.value.trim().toLowerCase();
+        var shown = 0;
+        termEls.forEach(function (el) {
+          var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+          if (match) { el.removeAttribute('hidden'); shown++; }
+          else { el.setAttribute('hidden', ''); }
+        });
+        countEl.textContent = shown + ' of ' + TERMS.length;
+        if (shown === 0) { noResultsEl.removeAttribute('hidden'); }
+        else { noResultsEl.setAttribute('hidden', ''); }
+      });
+
+      /* ── Flashcards ───────────────────────────────────────── */
+      var CARDS = [
+{ q: 'Beyond delivering work efficiently, what else does project management involve?', a: 'Determining whether the proposed project is worth undertaking, and whether it addresses the correct problem.' },
+{ q: '“Are we doing the right thing?” — what does that question focus on?', a: 'Problem relevance, user needs and strategic value.' },
+{ q: '“Are we doing it the right way?” — what does that question focus on?', a: 'Execution quality, resources, time, cost and delivery.' },
+{ q: 'A team delivers on time and on budget but creates little value. What went wrong?', a: 'The original problem was poorly defined — execution quality cannot rescue a badly chosen problem.' },
+{ q: 'What is the difference between project development and project management?', a: 'Development identifies the problem, explores opportunities and validates the concept; management coordinates the resources and activities required to deliver it.' },
+{ q: 'What is solution fixation?', a: 'Committing to an implementation before understanding the underlying need.' },
+{ q: 'Give three examples of solutions teams jump to prematurely.', a: 'Any three of: a new application, an AI feature, a marketing campaign, or a major system replacement.' },
+{ q: 'Name three consequences of premature execution.', a: 'Any three of: resources spent on the wrong problem; missed stakeholder perspectives; assumptions embedded in the project; late changes costing more; output that is technically successful but strategically irrelevant.' },
+{ q: 'Why is early exploration worth the apparent delay?', a: 'It may appear slower, but it reduces expensive rework later.' },
+{ q: 'What are the five characteristics of design thinking?', a: 'User-centred, interdisciplinary, experiential, iterative and open-ended.' },
+{ q: 'What does creativity mean in a project context?', a: 'Not artistic ability — the ability to reframe problems, question assumptions and generate alternative approaches.' },
+{ q: 'Do project frameworks determine the correct solution?', a: 'No. They provide principles and structure, but managers must still apply judgement, contextual knowledge, stakeholder insight and creative problem solving.' },
+{ q: 'What is the purpose and output of divergent thinking?', a: 'Purpose: explore broadly, through research, questioning, brainstorming and stakeholder engagement. Output: multiple insights or alternatives.' },
+{ q: 'What is the purpose and output of convergent thinking?', a: 'Purpose: create focus, by evaluating evidence, prioritising and deciding. Output: a defined problem or a selected concept.' },
+{ q: 'Why are both thinking modes required?', a: 'Divergence stops teams accepting the first obvious answer; convergence stops endless analysis. Moving between them allows exploration without losing decision discipline.' },
+{ q: 'What two questions does the Double Diamond divide project development into?', a: 'What is the right problem to solve? And what is the right way to solve it?' },
+{ q: 'Name the four stages of the Double Diamond and whether each diverges or converges.', a: 'Discover (diverge), Define (converge), Design / Develop (diverge), Deliver (converge).' },
+{ q: 'What should the first diamond output?', a: 'A clear, evidence-based problem definition — not a predetermined solution.' },
+{ q: 'Name three activities that belong to the Discover stage.', a: 'Any three of: user research, stakeholder interviews, process observation, data analysis, assumption testing, examining the wider system.' },
+{ q: 'What happens to potential solutions in the second diamond?', a: 'They are prototyped, compared, tested with users, assessed for feasibility, and refined against project objectives.' },
+{ q: 'Testing reveals the problem was defined incorrectly. Has the project failed?', a: 'No. Iteration is a normal learning process, not evidence of failure — teams frequently move backwards and forwards between stages.' },
+{ q: 'What does the Triple Diamond add beyond the Double Diamond?', a: 'It extends design thinking beyond concept selection into development, real-world validation and scaled implementation.' },
+{ q: 'Why does the Triple Diamond suit technology projects better?', a: 'Because a promising prototype must still become a reliable, integrated and adoptable system.' },
+{ q: 'What are the four steps inside Triple Diamond Discovery?', a: 'Problem discovery, problem definition, solution discovery, and concept validation.' },
+{ q: 'What is the purpose of the Discovery phase?', a: 'To avoid approving development based only on assumptions or enthusiasm.' },
+{ q: 'What does the Validation phase determine?', a: 'Whether the solution performs effectively outside the controlled development environment.' },
+{ q: 'Name three mechanisms used in Validation.', a: 'Any three of: pilot programs, limited releases, usability testing, performance testing, operational testing, feedback from representative users.' },
+{ q: 'What should a rollout be, and what should it not be?', a: 'A measured expansion — not simply a launch date.' },
+{ q: 'What are the two meanings of “Agile”?', a: 'Agile project management — a formal approach based on incremental delivery, feedback and continuous prioritisation. And operational agility — the broader ability to adapt when evidence, requirements or conditions change.' },
+{ q: 'Can Agile execution rescue a badly chosen problem?', a: 'No. A team can efficiently build the wrong product in short iterations.' },
+{ q: 'A SaaS company proposes an AI chatbot because competitors have one. What does Discover reveal?', a: 'That customers are frustrated mainly poor visibility into unresolved support cases.' },
+{ q: 'In the AI support example, how does Define reframe the problem?', a: 'The core problem becomes lack of timely status information, not the absence of a chatbot.' },
+{ q: 'In the AI support example, what does the pilot measure?', a: 'Resolution time, customer satisfaction and support workload.' },
+{ q: 'What does the AI support example shift the project from, and to?', a: 'From “build an AI chatbot” to “improve the support experience using the most appropriate solution”.' },
+{ q: 'Name three questions a project leader should ask about the problem definition.', a: 'Any three of: What evidence demonstrates this is the real problem? Whose needs are represented? Have alternatives been explored? What assumptions must be tested? What would invalidate the concept?' },
+{ q: 'What kind of conditions must the StellarCX team respond to?', a: 'Incomplete information, competing priorities, organisational politics, uncertain client expectations, limited budgets and timelines, and changing project directions.' },
+{ q: 'What is $RUs’ current position?', a: 'Financially successful and well managed, with a strong stable income stream and established credibility with existing clients — but facing uncertainty about future growth.' },
+{ q: 'What must a StellarCX solution do, beyond running a marketing campaign?', a: 'Respond to younger customers’ needs, strengthen long-term engagement, support future growth, scale across the business, and use AI only where it creates genuine value.' },
+{ q: 'What four things must StellarCX move the broad client concern towards?', a: 'A clearly defined problem, a validated strategic direction, a feasible project concept, and a scalable implementation approach.' },
+{ q: 'Who leads the Gold Team, and in what dual role?', a: 'Chris Gold — project manager and product owner.' },
+{ q: 'Which team member is most likely to push for an AI solution, and why?', a: 'Andrew, the machine-learning specialist — he is interested in career progression and securing a visible, successful AI project.' },
+{ q: 'What tension does Dirk bring to the team?', a: 'A strong preference for practical work over meetings and organisational initiatives.' },
+{ q: 'What is technology bias as a project risk?', a: 'The team may choose AI because it appears innovative rather than because it solves the client’s problem.' },
+{ q: 'What is client assumption bias?', a: 'Accepting $RUs’s view of the problem without validating younger customers’ needs.' },
+{ q: 'A team is technically productive but several members are disconnected and unheard. Which named risk is that?', a: 'Weak engagement — a technically productive team may still perform poorly.' },
+{ q: 'What is the student’s objective in the simulation?', a: 'Not only to deliver a solution, but to make defensible project decisions under uncertainty.' },
+{ q: 'What is the central project question?', a: 'How might $RUs build scalable and valuable relationships with younger clients?' },
+{ q: 'Under what condition should AI become part of the project?', a: 'Only if discovery and validation show that it improves the customer experience or the business model.' },
+{ q: 'What does context analysis help the team identify?', a: 'The real customer problem, market opportunities and threats, regulatory constraints, changing customer expectations, competitor capabilities, and whether the solution fits $RUs’ strengths.' },
+{ q: 'What is the risk of skipping context analysis?', a: 'Delivering an innovative solution that is irrelevant, non-compliant or commercially unviable.' },
+{ q: 'What has the Australian financial planning industry historically focused on?', a: 'Retirement planning, investment portfolio management, superannuation, tax structuring, and inheritance or wealth preservation — for clients who already hold significant assets.' },
+{ q: 'Name four advice needs of the emerging younger market.', a: 'Any four of: budgeting and debt management, HECS repayment, first-home purchasing, career and education decisions, starting a business, insurance, ethical investing, digital assets, early retirement planning.' },
+{ q: 'What is the strategic opportunity in the emerging market?', a: 'To build relationships before clients become wealthy, rather than waiting until they approach retirement.' }
+      ];
+
+      var order = CARDS.map(function (_, i) { return i; });
+      var pos = 0;
+
+      var flipBtn = document.getElementById('flip-card');
+      var qEl = document.getElementById('card-q');
+      var aEl = document.getElementById('card-a');
+      var idxEl = document.getElementById('card-index');
+      var totalEl = document.getElementById('card-total');
+      var fillEl = document.getElementById('progress-fill');
+      var prevBtn = document.getElementById('prev-btn');
+      var nextBtn = document.getElementById('next-btn');
+      var shuffleBtn = document.getElementById('shuffle-btn');
+
+      totalEl.textContent = CARDS.length;
+
+      function render() {
+        var card = CARDS[order[pos]];
+        flipBtn.setAttribute('aria-pressed', 'false');
+        // Swap the text only once the card is edge-on, so the answer is never
+        // readable through the flip.
+        window.setTimeout(function () {
+          qEl.textContent = card.q;
+          aEl.textContent = card.a;
+        }, flipBtn.getAttribute('data-flipped') === 'true' ? 180 : 0);
+        flipBtn.setAttribute('data-flipped', 'false');
+        idxEl.textContent = pos + 1;
+        fillEl.style.width = ((pos + 1) / CARDS.length * 100) + '%';
+        prevBtn.disabled = pos === 0;
+        nextBtn.disabled = pos === CARDS.length - 1;
+      }
+
+      function flip() {
+        var flipped = flipBtn.getAttribute('aria-pressed') === 'true';
+        flipBtn.setAttribute('aria-pressed', flipped ? 'false' : 'true');
+        flipBtn.setAttribute('data-flipped', flipped ? 'false' : 'true');
+      }
+
+      function go(delta) {
+        var next = pos + delta;
+        if (next < 0 || next >= CARDS.length) return;
+        pos = next;
+        render();
+      }
+
+      flipBtn.addEventListener('click', flip);
+      prevBtn.addEventListener('click', function () { go(-1); });
+      nextBtn.addEventListener('click', function () { go(1); });
+
+      shuffleBtn.addEventListener('click', function () {
+        for (var i = order.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = order[i];
+          order[i] = order[j];
+          order[j] = tmp;
+        }
+        pos = 0;
+        render();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        var panel = document.getElementById('panel-cards');
+        if (panel.hasAttribute('hidden')) return;
+        var tag = (e.target.tagName || '').toLowerCase();
+        if (tag === 'input' || tag === 'textarea') return;
+
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+        else if (e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); flip(); }
+        else if (e.key === 's' || e.key === 'S') { e.preventDefault(); shuffleBtn.click(); }
+      });
+
+      render();
+    })();
+  </script>
+</body>
+
+</html>

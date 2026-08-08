@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weeks — DMBA 6005 Agile Project Development</title>
+  <meta name="description"
+    content="Week-by-week study pages for DMBA 6005: summaries and visuals, key concepts, and flashcards built from each week's pre-live notes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --paper: #f5f3ee;
+      --paper2: #efece5;
+      --surface: #ffffff;
+      --surface2: #fbfaf7;
+      --ink: #16202a;
+      --ink2: #4a5b6b;
+      --ink3: #8798a6;
+      --line: #e2ded5;
+      --line2: #ece8e0;
+
+      /* Subject identity — --course-e from the house palette */
+      --petrol: #a8722c;
+      --petrol-deep: #6f4a17;
+      --petrol-soft: #f7efe2;
+      --petrol-glow: rgba(168, 114, 44, 0.13);
+
+      --pos: #1f6a4a;
+      --pos-soft: #e6f1eb;
+      --neu: #8a6d1f;
+      --neu-soft: #f6f0df;
+
+      --radius: 14px;
+      --radius-lg: 20px;
+      --font-display: 'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-sans: 'Karla', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: clip;
+      background:
+        radial-gradient(ellipse 90% 60% at 12% -8%, var(--petrol-glow), transparent 52%),
+        linear-gradient(170deg, var(--paper2) 0%, var(--paper) 44%, #f2efe9 100%);
+      background-attachment: fixed;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--petrol);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    .wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 clamp(1.1rem, 4vw, 1.75rem);
+    }
+
+    /* ── Back link ─────────────────────────────────────────── */
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: clamp(1.1rem, 3vw, 1.6rem) 0 0;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink2);
+      text-decoration: none;
+      padding: 0.4rem 0.75rem 0.4rem 0.6rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface2);
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .back:hover {
+      color: var(--petrol);
+      border-color: var(--petrol);
+      background: var(--surface);
+    }
+
+    /* ── Header ────────────────────────────────────────────── */
+    header.hero {
+      padding: clamp(1.75rem, 5vw, 2.75rem) 0 clamp(1.5rem, 4vw, 2.25rem);
+    }
+
+    .eyebrow {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+      color: var(--petrol);
+      margin-bottom: 0.85rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(2.1rem, 6.5vw, 3.2rem);
+      line-height: 1.06;
+      letter-spacing: -0.022em;
+    }
+
+    h1 em {
+      font-style: normal;
+      font-weight: 600;
+      color: var(--petrol);
+    }
+
+    .standfirst {
+      margin-top: 1rem;
+      max-width: 60ch;
+      color: var(--ink2);
+      font-size: 1.02rem;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.4rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.34rem 0.7rem;
+    }
+
+    .pill .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--petrol);
+    }
+
+    /* ── Section head ──────────────────────────────────────── */
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-bottom: 0.7rem;
+      margin-bottom: 1.1rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+
+    .section-note {
+      font-size: 0.75rem;
+      color: var(--ink3);
+    }
+
+    /* ── Week cards ────────────────────────────────────────── */
+    .weeks {
+      display: grid;
+      gap: 0.9rem;
+      list-style: none;
+    }
+
+    .week {
+      position: relative;
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: clamp(1.2rem, 3.5vw, 1.6rem) clamp(1.2rem, 3.5vw, 1.75rem) clamp(1.2rem, 3.5vw, 1.5rem);
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+      box-shadow: 0 14px 34px -28px rgba(22, 32, 42, 0.4);
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+      animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .week::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 14px;
+      bottom: 14px;
+      width: 3px;
+      border-radius: 0 3px 3px 0;
+      background: var(--petrol);
+    }
+
+    .week:hover {
+      transform: translateY(-3px);
+      border-color: rgba(168, 114, 44, 0.34);
+      box-shadow: 0 22px 48px -28px rgba(22, 32, 42, 0.45);
+    }
+
+    .weeks li:nth-child(1) .week {
+      animation-delay: 0.06s;
+    }
+
+    .weeks li:nth-child(2) .week {
+      animation-delay: 0.14s;
+    }
+
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .week-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .week-num {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--petrol);
+      background: var(--petrol-soft);
+      border-radius: 999px;
+      padding: 0.22rem 0.6rem;
+    }
+
+    .arrow {
+      font-size: 1.05rem;
+      color: var(--ink3);
+      transition: transform 0.25s ease, color 0.25s ease;
+    }
+
+    .week:hover .arrow {
+      color: var(--petrol);
+      transform: translateX(3px);
+    }
+
+    .week-title {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(1.4rem, 3.6vw, 1.8rem);
+      line-height: 1.18;
+      letter-spacing: -0.015em;
+      margin-bottom: 0.45rem;
+    }
+
+    .week-desc {
+      color: var(--ink2);
+      font-size: 0.92rem;
+      max-width: 62ch;
+      margin-bottom: 1rem;
+    }
+
+    .topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 1.05rem;
+    }
+
+    .topic {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--ink2);
+      background: var(--surface2);
+      border: 1px solid var(--line2);
+      border-radius: 7px;
+      padding: 0.25rem 0.55rem;
+    }
+
+    .topic--pending {
+      color: var(--ink3);
+      border-style: dashed;
+      background: none;
+    }
+
+    .whats-inside {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1.15rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--line2);
+    }
+
+    .inside {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: var(--ink2);
+    }
+
+    .inside .n {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--petrol);
+    }
+
+    /* ── Upcoming placeholder ──────────────────────────────── */
+    .upcoming {
+      margin-top: 0.9rem;
+      border: 1px dashed var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.4);
+      padding: 1.35rem 1.5rem;
+      text-align: center;
+    }
+
+    .upcoming p {
+      font-size: 0.85rem;
+      color: var(--ink3);
+      margin: 0;
+    }
+
+    /* ── How this works ────────────────────────────────────── */
+    .explain {
+      margin-top: clamp(2.25rem, 6vw, 3.25rem);
+    }
+
+    .explain-grid {
+      display: grid;
+      gap: 0.8rem;
+      counter-reset: mode;
+    }
+
+    @media (min-width: 700px) {
+      .explain-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .mode {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.2rem;
+    }
+
+    .mode h3 {
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .mode h3::before {
+      counter-increment: mode;
+      content: '0' counter(mode);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--petrol);
+    }
+
+    .mode p {
+      font-size: 0.83rem;
+      color: var(--ink2);
+      margin: 0;
+    }
+
+    /* ── Footer ────────────────────────────────────────────── */
+    footer.page-foot {
+      border-top: 1px solid var(--line);
+      margin-top: clamp(2.5rem, 7vw, 3.75rem);
+      padding: 1.75rem 0 2.75rem;
+    }
+
+    footer.page-foot p {
+      font-size: 0.78rem;
+      color: var(--ink3);
+      margin-bottom: 0.35rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <a class="back" href="library.html?subject=DMBA6005"><span aria-hidden="true">←</span> DMBA 6005 Library</a>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">DMBA 6005 · 2026 Semester 2</p>
+      <h1>Agile Project <em>Development</em></h1>
+      <p class="standfirst">Week-by-week study pages built from my pre-live notes. Each week opens into a summary
+        with visuals, a searchable concept reference, and a flashcard deck for active recall.</p>
+      <div class="meta-row">
+        <span class="pill"><span class="dot" aria-hidden="true"></span> In progress</span>
+        <span class="pill">2 weeks published</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section aria-labelledby="weeks-label">
+      <div class="section-head">
+        <h2 class="section-label" id="weeks-label">Weeks</h2>
+        <span class="section-note">Pre-live material</span>
+      </div>
+
+      <ul class="weeks">
+        <li>
+          <a class="week" href="DMBA6005-week0.html">
+            <div class="week-top">
+              <span class="week-num">Week 00</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </div>
+            <h3 class="week-title">The $RUs digital innovation case</h3>
+            <p class="week-desc">A financial services firm wants younger clients and has three digital options on
+              the table. Diagnosing which problem it actually has — awareness, engagement, conversion or service
+              experience — is what decides between them.</p>
+            <div class="topics">
+              <span class="topic">$RUs Digital Innovation Case</span>
+              <span class="topic">Shadow Boxing</span>
+            </div>
+            <div class="whats-inside">
+              <span class="inside"><span class="n">4</span> visuals</span>
+              <span class="inside"><span class="n">14</span> key concepts</span>
+              <span class="inside"><span class="n">28</span> flashcards</span>
+            </div>
+          </a>
+        </li>
+
+        <li>
+          <a class="week" href="DMBA6005-week1.html">
+            <div class="week-top">
+              <span class="week-num">Week 01</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </div>
+            <h3 class="week-title">Project management before execution</h3>
+            <p class="week-desc">Solution fixation, design thinking, and the Double and Triple Diamond — then the
+              StellarCX engagement with $RUs, the Gold Team, and what pulls a project towards the wrong
+              answer.</p>
+            <div class="topics">
+              <span class="topic">Introduction to project management</span>
+              <span class="topic">Your project with StellarCX</span>
+              <span class="topic topic--pending">Context Analysis for $RUs — unfinished</span>
+              <span class="topic topic--pending">Creating your reflective journal — not yet written</span>
+              <span class="topic topic--pending">Shadow Boxing Week 1 — not yet written</span>
+            </div>
+            <div class="whats-inside">
+              <span class="inside"><span class="n">5</span> visuals</span>
+              <span class="inside"><span class="n">32</span> key concepts</span>
+              <span class="inside"><span class="n">53</span> flashcards</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <div class="upcoming">
+        <p>Later weeks appear here as their pre-live notes are written.</p>
+      </div>
+    </section>
+
+    <section class="explain" aria-labelledby="explain-label">
+      <div class="section-head">
+        <h2 class="section-label" id="explain-label">What is in each week</h2>
+      </div>
+      <div class="explain-grid">
+        <div class="mode">
+          <h3>Summary &amp; visuals</h3>
+          <p>The whole week's pre-live content, condensed and diagrammed — the option matrices, decision rules and
+            process models that matter, in reading order.</p>
+        </div>
+        <div class="mode">
+          <h3>Key concepts</h3>
+          <p>Every term from the week in one filterable reference, so a definition is two keystrokes away rather
+            than a scroll.</p>
+        </div>
+        <div class="mode">
+          <h3>Flashcards</h3>
+          <p>A flippable deck for active recall. Answer out loud, then flip. Shuffle to break the order effect
+            before an assessment.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-foot">
+    <div class="wrap">
+      <p>DMBA 6005 Agile Project Development · 2026 Semester 2 · University of Sydney Business School</p>
+      <p>Built from my own pre-live notes. Live-session material is not published here.</p>
+    </div>
+  </footer>
+</body>
+
+</html>

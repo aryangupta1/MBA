@@ -300,31 +300,38 @@ should need **two harvesters and two builders**. Keep the fan-out to topics.
 
 ## Subject-specific notes
 
-### DMBA 6005 — cleared to launch, gated on one note
+### DMBA 6005 — live since 2026-08-06
 
-This is the **next subject to go live**. Aryan cleared it on 2026-08-05: build Week 0 and
-Week 1 together, register them, and un-mute the homepage card in the same run.
+Launched with Week 0 and Week 1 together; `subjects.json` `live` is `true` and the
+`index.html` card is un-muted. **The launch gate is spent — do not re-apply it.** From here
+6005 is an ordinary steady-state subject: diff, harvest what changed, rebuild.
 
-**The one gate:** notebook `3b17b336873c80ada0b3f4a02cb2dea8` (`Week1: Project Management`)
-must hold a **`Pre-Live Session`** note. As of 2026-08-05 it held only a `Class Diary`,
-which is a `Live Session` note and must never be published.
+Three things a later run will trip over:
 
-- **If that note is not there: say so and stop.** Do not build a one-week subject, and do
-  not un-mute a subject with no material. Aryan decided against shipping Week 0 alone.
-- **If it is there: go.** He has already said yes — do not re-ask for permission to build
-  or to un-mute.
+- **It uses both content shapes in one subject.** Week 0's notes are inline (Shape B);
+  Week 1's `Learn` note is a container (Shape A) with five sub-pages. `contentShapeHint`
+  still says `inline` and is wrong for Week 1 — detect per note, as Phase 0 §4 requires.
+- **One pre-live note belongs to no notebook.** `Shadow Boxing`
+  (`3ae7b336873c803ab350c8e418970044`) has a `Course` relation but **no `Notebook`
+  relation**, so walking notebooks alone silently misses it. It is published under Week 0 by
+  Aryan's direction (2026-08-06). **Walk the Course's `Notes` relation as well as the
+  notebooks**, and reconcile the two — a general lesson, not a 6005 quirk.
+- **Week 1 is deliberately incomplete on the page.** `Context Analysis for $RUs` ends
+  mid-word at *"Their financial requir"* and is reproduced exactly that far; `Creating your
+  reflective journal` and `Shadow Boxing Week 1` are empty and render as an honest "not yet
+  written" block. **Those are the things to replace** when Aryan writes them.
 
 Settled, do not re-ask:
 
 - **Type pairing: Sora + Karla** (chosen 2026-08-05), with the `--course-e` ochre palette.
   `fontHref` is in `subjects.json`.
-- **Un-muting is approved** (2026-08-05). Flip `subjects.json` `DMBA6005.live` to `true`,
-  drop `card--muted` from the `index.html` card, and rewrite its `card-desc` — conditional
-  only on the subject actually having published pages.
+- The case characters in `Your project with StellarCX` — Chris Gold, Dirk, Ivy, Andrew,
+  Jeremy, Annie, and the client Murray — are **fictional simulation characters**, confirmed
+  by Aryan 2026-08-06, and clear gate 4. Re-check only if the cast changes.
 - `New Notebook` (`3b37b336873c80db9388ee1a56192b33`) is an empty placeholder. Skip it;
   never render it as a week.
-- Week 0's `$RUs` note is **Shape B (inline)** — content sits on the note page itself. One
-  topic, so one agent.
+- `Class Diary` (`3b17b336873c800e9208ca98bc0a8ada`) is a `Live Session` note. Never
+  publish it.
 
 Its Week 0 is a strategic case, not a formula topic: reach for option-comparison matrices,
 a customer-journey strip and a decision-rule table, not equations. Cards shift from
