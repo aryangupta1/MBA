@@ -69,7 +69,10 @@ not. One query to list a course's notebooks is fine; a query per note is waste �
 2. Fetch the course page, then each notebook in its `Notebooks` relation.
    - **Skip any `<page>` carrying a `deleted` attribute** — archived notebooks stay in the
      relation.
-   - **Skip empty placeholder notebooks** (`New Notebook` and anything like it).
+   - **Skip empty placeholder notebooks** (`New Notebook` and anything like it) — but
+     **re-check them every run**. An empty placeholder is one rename away from being a real
+     week; DMBA 6005's `New Notebook` became `Week 2: Agile` on 2026-08-08. Judge on what the
+     notebook contains today, never on a name recorded in `subjects.json`.
 3. Fetch each note in each notebook's `Notes` relation, for `Type` and `Edited Time`.
    - **Skip the stale note id in `subjects.json` `_globals.staleNoteId`.** It 404s from
      every notebook and is not a failure.
@@ -362,8 +365,11 @@ Settled, do not re-ask:
 - The case characters in `Your project with StellarCX` — Chris Gold, Dirk, Ivy, Andrew,
   Jeremy, Annie, and the client Murray — are **fictional simulation characters**, confirmed
   by Aryan 2026-08-06, and clear gate 4. Re-check only if the cast changes.
-- `New Notebook` (`3b37b336873c80db9388ee1a56192b33`) is an empty placeholder. Skip it;
-  never render it as a week.
+- `3b37b336873c80db9388ee1a56192b33` was the empty `New Notebook` placeholder. On
+  2026-08-08 Aryan **renamed it `Week 2: Agile` and filled it**, and it is now published.
+  The old "skip it" rule was removed on 2026-08-10. **General lesson: a notebook being empty
+  is a fact about the day you looked, not a permanent property.** Re-check every notebook
+  listed as skipped on each run — including the ones this file tells you to skip.
 - `Class Diary` (`3b17b336873c800e9208ca98bc0a8ada`) is a `Live Session` note. Never
   publish it.
 

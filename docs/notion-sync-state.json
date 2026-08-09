@@ -31,9 +31,8 @@
     "  any <!-- ... --> annotations the skill itself adds — so a re-harvest of unchanged prose hashes",
     "  identically even if the annotations are reworded. Empty and unpublished topics carry null."
   ],
-
   "DMBA6008": {
-    "lastSync": "2026-08-05",
+    "lastSync": "2026-08-10",
     "courseId": "3097b336873c80c0948dcc805089b071",
     "hubPage": "DMBA6008-weeks.html",
     "skippedNotebooks": [
@@ -96,17 +95,27 @@
                 "state": "empty",
                 "note": "All ten sub-pages are blank in Notion and the item is unticked in the Week 0 notebook todo. Spot-checked again 2026-08-05 ('Returns' returns <empty-block/>, 'Summary' returns <blank-page/>). DMBA6008-week0.html renders an honest 'not yet written' panel listing the ten pending sub-pages. THAT PANEL IS THE THING TO REPLACE when Aryan writes these notes. Never fill it with generated content.",
                 "pendingChildren": [
-                  "Returns", "Risks", "Cash", "The right question", "CEO Bonus",
-                  "Working Capital Assessment", "Sustainable Growth Part 1",
-                  "Sustainable Growth part 2", "Risk Assessment", "Summary"
+                  "Returns",
+                  "Risks",
+                  "Cash",
+                  "The right question",
+                  "CEO Bonus",
+                  "Working Capital Assessment",
+                  "Sustainable Growth Part 1",
+                  "Sustainable Growth part 2",
+                  "Risk Assessment",
+                  "Summary"
                 ]
               }
             ]
           }
         ],
-        "built": { "figures": 12, "terms": 66, "cards": 88 }
+        "built": {
+          "figures": 12,
+          "terms": 66,
+          "cards": 88
+        }
       },
-
       "Week 1": {
         "notebookId": "3b27b336873c8070953fd96878f5f2dc",
         "notebookTopic": "Week 1: Key value principles",
@@ -126,7 +135,11 @@
                 "title": "Key Value Principle",
                 "observedAt": "2026-08-05T07:36:00.112Z",
                 "childCount": 3,
-                "children": ["Overview", "Concepts", "Assessing Financial Performance"],
+                "children": [
+                  "Overview",
+                  "Concepts",
+                  "Assessing Financial Performance"
+                ],
                 "svgPrefix": "fig",
                 "contentHash": null,
                 "published": true
@@ -153,21 +166,104 @@
             "reason": "NEVER PUBLISH. Live Session type. Contains candid remarks about the lecturer, about classmates' use of AI, and about what will be examined in assessments. Also contains one Notion image. Re-confirmed present and unpublished 2026-08-05."
           }
         ],
-        "built": { "figures": 5, "terms": 20, "cards": 25 }
+        "built": {
+          "figures": 5,
+          "terms": 20,
+          "cards": 25
+        }
+      },
+      "Week 2": {
+        "notebookId": "3b77b336873c802182a3cf5b76484dd1",
+        "notebookTopic": "Week 2: Drivers of Returns",
+        "page": "DMBA6008-week2.html",
+        "notes": [
+          {
+            "id": "3b77b336873c80e9b860e5d9891e0602",
+            "name": "Learn",
+            "type": "Pre-Live Session",
+            "shape": "container",
+            "editedTime": "2026-08-09T05:27:18.357Z",
+            "observedAt": "2026-08-09T16:03:03.336Z",
+            "published": true,
+            "topics": [
+              {
+                "id": "3b77b336873c807d8de0f31dc13deea2",
+                "title": "Assets reflect the business model",
+                "childCount": 0,
+                "svgPrefix": "ab",
+                "contentHash": "sha256:97247fd8bba2",
+                "approxWords": 604,
+                "published": true,
+                "note": "One Notion image under 'Common-Size Asset Analysis' was SKIPPED per the images policy."
+              },
+              {
+                "id": "3b77b336873c80078761fcc705a0bc6e",
+                "title": "Drivers of returns",
+                "childCount": 0,
+                "svgPrefix": "dr",
+                "contentHash": "sha256:46ddfd51e63e",
+                "approxWords": 626,
+                "published": true,
+                "note": "One image SKIPPED. Two author quirks reproduced verbatim: 'absorb sustainable cash' (probably meant unsustainable) and the heading/table mismatch 'Volume x Margin' vs 'Volume + Margin'."
+              },
+              {
+                "id": "3b77b336873c8069bb14de97d3caba02",
+                "title": "DuPont model example",
+                "childCount": 0,
+                "svgPrefix": "dp",
+                "contentHash": "sha256:7e990cbe2d54",
+                "approxWords": 632,
+                "published": true,
+                "note": "TWO images SKIPPED, and they carried the whole algebraic decomposition. Despite the title there is NO numeric worked example in the harvestable text, so the published topic is qualitative only. If Aryan wants the worked example, the images must be downloaded and committed — ask him."
+              },
+              {
+                "id": "3b77b336873c80d09a82f37ef4bf6864",
+                "title": "Sustainable Growth",
+                "childCount": 0,
+                "svgPrefix": null,
+                "contentHash": null,
+                "published": false,
+                "state": "empty",
+                "note": "Returns <empty-block/>. Rendered as an honest 'not yet written' block. THAT BLOCK IS THE THING TO REPLACE when the note is written. Never fill it with generated content."
+              }
+            ]
+          }
+        ],
+        "built": {
+          "figures": 9,
+          "terms": 53,
+          "cards": 80,
+          "blocks": 23
+        }
       }
-    }
+    },
+    "skippedNotes": [
+      {
+        "ids": [
+          "30d7b336873c806d9982c4466d7fcd2e",
+          "30d7b336873c80ccaaa5d933ede29f49",
+          "30d7b336873c80d9bb40eee9549f9747"
+        ],
+        "names": [
+          "The balance sheet",
+          "The profit and loss statement",
+          "Cash Flow"
+        ],
+        "reason": "Legacy Feb-2026 notes in the ARCHIVED Week 0 notebook (30d7b336873c80518357fb50b62720b2). They carry NO `Type` property at all, so rule 1 applies — if unsure of a note's Type, do not publish. They are also superseded by the current Week 0 note. 'Cash Flow' additionally ends abruptly at a bare '# Free Cash Flow (FCF)' heading. Checked 2026-08-10."
+      }
+    ]
   },
-
   "DMBA6005": {
-    "lastSync": "2026-08-06",
+    "lastSync": "2026-08-10",
     "courseId": "3a17b336873c80c284a7cd6be4a60c4d",
     "hubPage": "DMBA6005-weeks.html",
     "note": "Launched 2026-08-06 with Week 0 and Week 1 together, once Week 1's `Learn` Pre-Live Session note appeared (created 2026-08-05T11:27Z, after the previous state record was written). index.html card un-muted and subjects.json `live` flipped to true in the same run, per Aryan's 2026-08-05 pre-approval. Type pairing: Sora + Karla, --course-e ochre.",
     "skippedNotebooks": [
       {
         "id": "3b37b336873c80db9388ee1a56192b33",
-        "topic": "New Notebook",
-        "reason": "empty placeholder — never render it as a week"
+        "topic": "Week 2: Agile",
+        "reason": "NO LONGER SKIPPED. This was the empty 'New Notebook' placeholder until 2026-08-08, when Aryan renamed it 'Week 2: Agile' and filled it. Published 2026-08-10 as DMBA6005-week2.html. Kept here as the record of why the old skip rule was removed: a notebook being empty is a fact about the day you looked, not a permanent property.",
+        "status": "now published"
       }
     ],
     "orphanNotes": [
@@ -213,9 +309,14 @@
             ]
           }
         ],
-        "built": { "figures": 4, "terms": 14, "cards": 28, "blocks": 7, "proseWords": 330 }
+        "built": {
+          "figures": 4,
+          "terms": 14,
+          "cards": 28,
+          "blocks": 7,
+          "proseWords": 330
+        }
       },
-
       "Week 1": {
         "notebookId": "3b17b336873c80ada0b3f4a02cb2dea8",
         "notebookTopic": "Week1: Project Management",
@@ -254,14 +355,14 @@
               {
                 "id": "3b37b336873c8065bf14cfea1eb81df7",
                 "title": "Context Analysis for $RUs",
-                "observedAt": "2026-08-05T14:52:28.374Z",
+                "observedAt": "2026-08-08T08:05:04.802Z",
                 "childCount": 0,
                 "svgPrefix": "ca",
-                "contentHash": "sha256:871531474ee4",
-                "approxWords": 300,
+                "contentHash": "sha256:0c9db3cddc74",
+                "approxWords": 1281,
                 "published": true,
-                "state": "truncated",
-                "note": "UNFINISHED IN NOTION — the source ends mid-word at 'Their financial requir'. The page reproduces it exactly that far and then carries an honest note that the topic is still being written. NEVER complete the sentence. Re-harvest when Aryan finishes it."
+                "state": "complete",
+                "note": "WAS truncated mid-word at 'Their financial requir'. Aryan finished it; re-harvested and rebuilt 2026-08-10 as ten blocks replacing the old stub. The old honest 'still being written' note is gone."
               },
               {
                 "id": "3b37b336873c80cc83a8f80730d28817",
@@ -276,14 +377,14 @@
               },
               {
                 "id": "3b37b336873c80698a11eb104e178cb1",
-                "title": "Shadow Boxing Week 1",
+                "title": "Shadow Boxing: Cost, Scope or Schedule?",
                 "observedAt": "2026-08-05T11:32:12.663Z",
                 "childCount": 0,
                 "svgPrefix": null,
                 "contentHash": null,
                 "published": false,
-                "state": "empty",
-                "note": "Returns <empty-block/>. Distinct from the course-level `Shadow Boxing` orphan note, which covers the METHOD and is published in Week 0. What is missing here is the Week 1 scenario itself."
+                "state": "excluded",
+                "note": "EXCLUDED by syncRules no-shadow-boxing-after-week-0 (Aryan, 2026-08-10). Renamed from 'Shadow Boxing Week 1'. Not harvested, so its current content is unknown and deliberately so. No placeholder is rendered for it."
               }
             ]
           },
@@ -297,8 +398,96 @@
             "reason": "NEVER PUBLISH. Live Session type. Contains a note-to-self about outstanding work and a personal paraphrase of the lecture. Confirmed present and unpublished 2026-08-06."
           }
         ],
-        "built": { "figures": 5, "terms": 32, "cards": 53, "blocks": 15, "proseWords": 1043 }
+        "built": {
+          "figures": 8,
+          "terms": 51,
+          "cards": 76,
+          "blocks": 24,
+          "proseWords": 1656
+        }
+      },
+      "Week 2": {
+        "notebookId": "3b37b336873c80db9388ee1a56192b33",
+        "notebookTopic": "Week 2: Agile",
+        "page": "DMBA6005-week2.html",
+        "notes": [
+          {
+            "id": "3b67b336873c80bb925ac7104c21bdaa",
+            "name": "Learn",
+            "type": "Pre-Live Session",
+            "shape": "container",
+            "editedTime": "2026-08-09T13:37:01.210Z",
+            "observedAt": "2026-08-09T14:53:49.166Z",
+            "published": true,
+            "topics": [
+              {
+                "id": "3b67b336873c80e68c66eab329bc5af4",
+                "title": "Delivering a valuable customer experience",
+                "childCount": 0,
+                "svgPrefix": "cx",
+                "contentHash": "sha256:eccded8b9274",
+                "approxWords": 759,
+                "published": true
+              },
+              {
+                "id": "3b67b336873c80cfafdac59d4234069f",
+                "title": "Agile History and Scrum Roles",
+                "childCount": 0,
+                "svgPrefix": "ag",
+                "contentHash": "sha256:394425861b21",
+                "approxWords": 722,
+                "published": true,
+                "note": "The source contains NO DATES — no year, no Snowbird, no signatories. None were added. Its final takeaway ends mid-typo at 'beyond the mechanics of Scru,' and is reproduced exactly that far."
+              },
+              {
+                "id": "3b67b336873c8077a52eea551629db35",
+                "title": "Bidding and winning projects",
+                "childCount": 0,
+                "svgPrefix": "bd",
+                "contentHash": "sha256:1ac088a046c8",
+                "approxWords": 609,
+                "published": true,
+                "note": "One takeaway is garbled in the source ('built before funding formal decisions') and is reproduced as written, not repaired."
+              },
+              {
+                "id": "3b77b336873c80a28719fa728075a49a",
+                "title": "Shadow Boxing",
+                "published": false,
+                "state": "excluded",
+                "contentHash": null,
+                "note": "EXCLUDED by syncRules no-shadow-boxing-after-week-0."
+              }
+            ]
+          }
+        ],
+        "built": {
+          "figures": 12,
+          "terms": 60,
+          "cards": 84,
+          "blocks": 28
+        }
       }
-    }
+    },
+    "syncRules": [
+      {
+        "id": "no-shadow-boxing-after-week-0",
+        "setBy": "Aryan, 2026-08-10",
+        "effect": "No Shadow Boxing note or sub-page is published for Week 1 or later. Enforced in both discovery flows.",
+        "excludedThisRun": [
+          {
+            "id": "3b37b336873c80698a11eb104e178cb1",
+            "title": "Shadow Boxing: Cost, Scope or Schedule?",
+            "week": "Week 1",
+            "note": "Renamed from 'Shadow Boxing Week 1' between 2026-08-05 and 2026-08-08 and may now have content. NOT harvested and NOT checked — the rule excludes it before shape detection."
+          },
+          {
+            "id": "3b77b336873c80a28719fa728075a49a",
+            "title": "Shadow Boxing",
+            "week": "Week 2",
+            "note": "Sub-page of the Week 2 Learn note. Excluded. No placeholder rendered, no topic chip on the hub."
+          }
+        ]
+      }
+    ]
   }
 }

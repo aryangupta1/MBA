@@ -247,6 +247,13 @@ about the lecturer, about other students' use of AI, and about what will be exam
 6005's contains a note-to-self. None of that belongs on a public site. It is harvested to
 scratchpad for reference and marked **do not publish**.
 
+**When skipping an image costs content, say so.** DMBA 6008 Week 2's `DuPont model example`
+is the live case: despite its title, every number and the whole algebraic decomposition lived
+in two Notion images, so the harvestable text contains no worked example at all. The published
+topic is therefore qualitative only. That is the correct outcome under the images policy, but
+it is a real loss and Aryan cannot see it from the page — report it, and offer to commit the
+images if he wants the example.
+
 Also excluded by default, as personal study telemetry rather than coursework:
 
 - the Notebooks `Confidence` field (`Not Confident` etc.)
@@ -283,21 +290,22 @@ Generating new academic argument, inventing a citation, or "improving" a claim i
 
 ## 7. Current state
 
-**DMBA 6008 Finance, Strategy and Technology** — synced 2026-08-05.
+**DMBA 6008 Finance, Strategy and Technology** — synced 2026-08-10.
 
 | Week | Notion notebook | Published |
 | --- | --- | --- |
 | Week 0 | `3a17b336873c805b9c4acdff38033d35` | `DMBA6008-week0.html` — balance sheet, P&amp;L, cash flow. "Assessing Financial Performance" is empty in Notion and shown as not yet written. |
 | Week 1 | `3b27b336873c8070953fd96878f5f2dc` | `DMBA6008-week1.html` — key value principles, concepts, assessing performance, key definitions |
+| Week 2 | `3b77b336873c802182a3cf5b76484dd1` | `DMBA6008-week2.html` — the asset mix as a business-model signal, drivers of return, the DuPont decomposition. "Sustainable Growth" is empty in Notion and shown as not yet written. |
 
-**DMBA 6005 Agile Project Development** — synced 2026-08-06. Launched with both weeks at
+**DMBA 6005 Agile Project Development** — synced 2026-08-10. Launched with both weeks at
 once, and the `index.html` card un-muted in the same run.
 
 | Week | Notion notebook | Published |
 | --- | --- | --- |
 | Week 0 | `3ae7b336873c806da6b6e5630c66e3bb` | `DMBA6005-week0.html` — the `$RUs` digital innovation case, plus the `Shadow Boxing` method note |
 | Week 1 | `3b17b336873c80ada0b3f4a02cb2dea8` | `DMBA6005-week1.html` — project management before execution, the StellarCX engagement, context analysis (partial) |
-| — | `3b37b336873c80db9388ee1a56192b33` (`New Notebook`) | Empty placeholder. Skipped. |
+| Week 2 | `3b37b336873c80db9388ee1a56192b33` | `DMBA6005-week2.html` — CX, Agile history and Scrum roles, bidding and winning projects. **This notebook was the empty `New Notebook` placeholder until 2026-08-08, when it was renamed `Week 2: Agile` and filled.** |
 
 Three things about 6005 that differ from 6008, and will bite a later run:
 

@@ -1,0 +1,2547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 2 — Drivers of returns — DMBA 6008</title>
+  <meta name="description" content="Week 2 of DMBA 6008: how the asset mix reveals the business model, what drives return on assets, and the DuPont decomposition of ROA and ROE — summaries and visuals, key concepts, and flashcards.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ======================================================================
+       DESK — house design system, study-page profile.
+       A macOS window floating over the desktop wallpaper. The window holds the
+       whole week; the dock at the foot of the screen is the site navigation.
+       Tokens and components: docs/design-system.md
+       ====================================================================== */
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      /* surfaces */
+      --paper: #F4F1E9;
+      --paper2: #EFEBE1;
+      --surface: #FFFFFF;
+      --surface2: #FBFAF7;
+      --rule: rgba(28, 26, 22, 0.07);
+
+      /* ink */
+      --ink: #141317;
+      --ink2: #57534B;
+      --ink3: #8C867A;
+      --line: #E4E0D5;
+      --line2: #EFEBE2;
+
+      /* accents shared across the house */
+      --lime: #D6F24E;
+      --butter: #EDE884;
+      --blush: #F9DCDC;
+      --sky: #D7E4F8;
+      --mint: #D1EEDA;
+      --lilac: #E6DDF3;
+      --sand: #F2EEBD;
+      --pin: #E8453C;
+      --ink-blue: #3B6FE0;
+
+      /* mac window chrome */
+      --tl-red: #FD5D5C;
+      --tl-amber: #FAC900;
+      --tl-green: #28C840;
+
+      /* Subject identity. --accent* is the modern name; the --petrol* aliases
+         are kept so the hand-authored hex literals inside the SVG figures stay
+         in tune with the chrome. */
+      --accent: #2F5470;
+      --accent-deep: #1F3B51;
+      --accent-soft: #E9EFF4;
+      --accent-glow: rgba(47, 84, 112, 0.13);
+      --petrol: var(--accent);
+      --petrol-deep: var(--accent-deep);
+      --petrol-soft: var(--accent-soft);
+      --petrol-glow: var(--accent-glow);
+
+      /* Verdict colours: value created / break-even / value destroyed */
+      --pos: #1F6A4A;
+      --pos-soft: #E6F1EB;
+      --neu: #8A6D1F;
+      --neu-soft: #F6F0DF;
+      --neg: #B3402A;
+      --neg-soft: #F8E9E5;
+
+      /* geometry */
+      --radius: 14px;
+      --radius-lg: 20px;
+      --r-win: 24px;
+      --r-pill: 999px;
+      --bar: 46px;
+
+      /* elevation */
+      --sh-win: 0 4px 29px rgba(0, 0, 0, 0.16);
+      --sh-card: 0 22px 48px -26px rgba(20, 19, 23, 0.55);
+      --sh-float: 0 40px 90px -32px rgba(10, 18, 30, 0.7);
+
+      /* type */
+      --font-display: 'Mona Sans', 'Helvetica Neue', Arial, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.62;
+      color: var(--ink);
+      background: #3F6EA4;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      padding-bottom: 104px;      /* clearance for the fixed dock */
+    }
+
+    /* ── The desktop behind the window ─────────────────────────────────── */
+    .desk {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      background: linear-gradient(180deg, #33587F 0%, #4C7BA8 30%, #7CA0BE 56%, #9FB4AF 74%, #A7B677 100%);
+    }
+    .desk::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(52% 26% at 50% 16%, rgba(255, 255, 255, 0.55), transparent 66%),
+        radial-gradient(26% 14% at 74% 22%, rgba(255, 255, 255, 0.34), transparent 70%);
+      filter: blur(10px);
+    }
+    .desk::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 20, 34, 0.34), rgba(10, 20, 34, 0.5));
+    }
+    .desk-hills {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      width: 100%;
+      height: 52%;
+      display: block;
+      filter: blur(1.5px);
+    }
+
+    /* ── Stage + back link ─────────────────────────────────────────────── */
+    .stage {
+      width: min(1080px, calc(100% - 2 * clamp(12px, 3vw, 32px)));
+      margin-inline: auto;
+      padding: clamp(16px, 3vw, 34px) 0 clamp(40px, 6vw, 70px);
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: clamp(14px, 2vw, 20px);
+      padding: 9px 18px;
+      border-radius: var(--r-pill);
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .back:hover { background: rgba(255, 255, 255, 0.28); transform: translateX(-3px); }
+
+    /* ── The window ────────────────────────────────────────────────────── */
+    /* No overflow:hidden — descendants need position:sticky to reach the
+       viewport, so the corners are rounded on the first and last children. */
+    .win {
+      position: relative;
+      background: var(--surface);
+      border-radius: var(--r-win);
+      box-shadow: var(--sh-win), var(--sh-float);
+    }
+
+    .win-bar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: var(--bar);
+      padding: 0 14px;
+      border-radius: var(--r-win) var(--r-win) 0 0;
+      background: rgba(241, 239, 234, 0.92);
+      backdrop-filter: blur(14px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
+      border-bottom: 1px solid rgba(20, 19, 23, 0.09);
+    }
+    .win-lights { display: flex; gap: 7px; flex: 0 0 auto; }
+    .win-lights i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+    .win-lights i:nth-child(1) { background: var(--tl-red); }
+    .win-lights i:nth-child(2) { background: var(--tl-amber); }
+    .win-lights i:nth-child(3) { background: var(--tl-green); }
+    .win-addr {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding: 5px 16px;
+      border-radius: var(--r-pill);
+      background: rgba(20, 19, 23, 0.06);
+      font-size: 0.75rem;
+      color: var(--ink2);
+      text-align: center;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .win-tool {
+      flex: 0 0 auto;
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.58rem;
+      letter-spacing: -0.02em;
+    }
+    @media (max-width: 560px) { .win-addr { font-size: 0.68rem; padding: 4px 10px; } }
+
+    .wrap {
+      width: min(880px, calc(100% - 2 * clamp(18px, 5vw, 44px)));
+      margin-inline: auto;
+    }
+
+    /* ── Hero ──────────────────────────────────────────────────────────── */
+    header.hero {
+      position: relative;
+      padding: clamp(38px, 6vw, 72px) 0 clamp(28px, 4vw, 44px);
+      background:
+        radial-gradient(ellipse 80% 70% at 12% 0%, var(--accent-glow), transparent 58%),
+        linear-gradient(180deg, var(--paper2), var(--surface) 78%);
+      overflow: hidden;
+    }
+    header.hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--rule) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+      background-size: 74px 74px;
+      mask-image: radial-gradient(ellipse 78% 70% at 50% 30%, #000, transparent 76%);
+      -webkit-mask-image: radial-gradient(ellipse 78% 70% at 50% 30%, #000, transparent 76%);
+    }
+    header.hero > .wrap { position: relative; z-index: 2; }
+
+    .eyebrow {
+      display: inline-block;
+      margin: 0 0 18px;
+      padding: 7px 16px 7px 30px;
+      position: relative;
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transform: rotate(-2deg);
+      box-shadow: 0 6px 16px -9px rgba(20, 19, 23, 0.6);
+    }
+    .eyebrow::before {
+      content: "";
+      position: absolute;
+      left: 11px;
+      top: -8px;
+      width: 10px;
+      height: 24px;
+      border: 2px solid rgba(20, 19, 23, 0.35);
+      border-radius: 6px;
+      border-bottom-color: transparent;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2.1rem, 6vw, 3.6rem);
+      line-height: 0.94;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+
+    .standfirst {
+      margin: 0;
+      max-width: 60ch;
+      font-size: clamp(1rem, 1.7vw, 1.14rem);
+      line-height: 1.58;
+      color: var(--ink2);
+    }
+
+    .meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(22px, 3vw, 32px); }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 15px;
+      border-radius: var(--r-pill);
+      background: #fff;
+      border: 1px solid var(--line);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--ink2);
+      box-shadow: 0 4px 10px -6px rgba(20, 19, 23, 0.4);
+    }
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--pos);
+      animation: ping 2.6s ease-out infinite;
+    }
+    @keyframes ping {
+      0%   { box-shadow: 0 0 0 0 rgba(31, 106, 74, 0.55); }
+      70%  { box-shadow: 0 0 0 7px rgba(31, 106, 74, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(31, 106, 74, 0); }
+    }
+
+    /* ── Mode tabs — a macOS segmented control ─────────────────────────── */
+    .tabs {
+      position: sticky;
+      top: var(--bar);
+      z-index: 20;
+      padding: 12px 0;
+      background: rgba(251, 250, 247, 0.9);
+      backdrop-filter: blur(12px) saturate(160%);
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+      border-block: 1px solid var(--line2);
+    }
+    .tablist {
+      width: min(880px, calc(100% - 2 * clamp(18px, 5vw, 44px)));
+      margin-inline: auto;
+      display: flex;
+      gap: 4px;
+      padding: 4px;
+      border-radius: var(--r-pill);
+      background: rgba(20, 19, 23, 0.05);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tablist::-webkit-scrollbar { display: none; }
+    .tab {
+      flex: 1 1 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+      padding: 10px 18px;
+      border: 0;
+      border-radius: var(--r-pill);
+      background: transparent;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .tab:hover { color: var(--ink); background: rgba(255, 255, 255, 0.7); }
+    .tab-num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.66rem;
+      letter-spacing: 0.02em;
+      opacity: 0.55;
+    }
+    .tab[aria-selected="true"] {
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: 0 2px 8px -2px rgba(20, 19, 23, 0.28);
+    }
+    .tab[aria-selected="true"] .tab-num { color: var(--accent); opacity: 1; }
+
+    .panel { display: none; }
+    .panel.active { display: block; animation: fade-up 0.45s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+    @keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    main.wrap { padding-top: clamp(30px, 5vw, 52px); }
+
+    /* ── Topic sub-tabs (used where a week splits into topics) ─────────── */
+    .subtabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: clamp(26px, 4vw, 40px);
+    }
+    .subtab {
+      padding: 9px 17px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .subtab:hover { border-color: var(--accent); color: var(--ink); }
+    .subtab[aria-selected="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+    .subtab--empty { color: var(--ink3); border-style: dashed; }
+    .subtab--empty[aria-selected="true"] { background: var(--ink3); border-color: var(--ink3); color: #ffffff; }
+    .subpanel { display: none; }
+    .subpanel.active { display: block; animation: fade-up 0.4s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+
+    .unwritten {
+      padding: clamp(24px, 4vw, 38px);
+      border: 1.5px dashed var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--surface2);
+    }
+    .unwritten h2 { margin-top: 0.5rem; }
+    .unwritten ul { color: var(--ink2); }
+
+    /* ── Content blocks ────────────────────────────────────────────────── */
+    .block {
+      margin-bottom: clamp(40px, 6vw, 68px);
+      scroll-margin-top: calc(var(--bar) + 90px);
+    }
+    .block:last-child { margin-bottom: 0; }
+    .block-num {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 5px 13px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0 0 0.7rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+    h3 {
+      margin: 2rem 0 0.6rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.12rem, 2.2vw, 1.32rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+    h4 {
+      margin: 1.6rem 0 0.5rem;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: -0.01em;
+    }
+    h5 {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+    }
+    p { margin: 0 0 1rem; }
+    .block > p, .unwritten > p { color: var(--ink2); }
+    strong { font-weight: 700; color: var(--ink); }
+    em { font-style: italic; }
+    a { color: var(--accent); text-underline-offset: 3px; }
+
+    ul, ol { margin: 0 0 1.1rem; padding-left: 1.3rem; color: var(--ink2); }
+    li { margin-bottom: 0.5rem; }
+    li::marker { color: var(--accent); }
+
+    .takeaways {
+      list-style: none;
+      margin: 1.4rem 0;
+      padding: clamp(18px, 3vw, 26px) clamp(18px, 3vw, 28px);
+      background: var(--surface2);
+      border: 1px solid var(--line2);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--sh-card);
+    }
+    .takeaways li {
+      position: relative;
+      margin: 0 0 0.75rem;
+      padding-left: 1.9rem;
+      color: var(--ink2);
+    }
+    .takeaways li:last-child { margin-bottom: 0; }
+    .takeaways li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      background: var(--lime);
+      box-shadow: 0 0 0 3px rgba(214, 242, 78, 0.3);
+    }
+
+    .steps { counter-reset: step; list-style: none; padding-left: 0; margin: 1.4rem 0; }
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      margin-bottom: 1rem;
+      padding-left: 2.6rem;
+      color: var(--ink2);
+    }
+    .steps li::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 0.05em;
+      width: 1.9rem;
+      height: 1.9rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    .steps li strong { display: block; color: var(--ink); }
+
+    /* ── Callouts ──────────────────────────────────────────────────────── */
+    .callout {
+      display: flex;
+      gap: 14px;
+      margin: 1.6rem 0;
+      padding: clamp(18px, 3vw, 24px);
+      border-radius: var(--radius-lg);
+      background: var(--sand);
+      box-shadow: 6px 6px 0 rgba(20, 19, 23, 0.06);
+    }
+    .callout p { margin: 0; font-size: 1.02rem; font-weight: 600; line-height: 1.5; color: var(--ink); }
+    .callout p + p { margin-top: 0.7rem; font-weight: 400; color: var(--ink2); }
+    .icon { flex: 0 0 auto; font-size: 1.15rem; line-height: 1.35; }
+    .callout--key { background: var(--sand); }
+    .callout--ask { background: var(--sky); }
+
+    /* ── Tables ────────────────────────────────────────────────────────── */
+    .table-scroll {
+      margin: 1.5rem 0;
+      overflow-x: auto;
+      border: 1px solid var(--line2);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      box-shadow: var(--sh-card);
+      -webkit-overflow-scrolling: touch;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 460px; }
+    thead th {
+      position: sticky;
+      top: 0;
+      background: var(--paper2);
+      text-align: left;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    tbody th { text-align: left; font-weight: 700; color: var(--ink); }
+    td, tbody th { padding: 12px 16px; border-bottom: 1px solid var(--line2); vertical-align: top; color: var(--ink2); }
+    tbody tr:last-child td, tbody tr:last-child th { border-bottom: 0; }
+    tbody tr:hover { background: var(--surface2); }
+
+    .verdict {
+      display: inline-block;
+      padding: 3px 11px;
+      border-radius: var(--r-pill);
+      font-size: 0.72rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .verdict--pos { background: var(--pos-soft); color: var(--pos); }
+    .verdict--neu { background: var(--neu-soft); color: var(--neu); }
+    .verdict--neg { background: var(--neg-soft); color: var(--neg); }
+
+    /* ── Formulas ──────────────────────────────────────────────────────── */
+    .formula {
+      margin: 1.3rem 0;
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: #F2F0EA;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      box-shadow: var(--sh-card);
+    }
+    .formula-stack { display: flex; flex-direction: column; gap: 6px; }
+    .formula-stack span { display: block; white-space: nowrap; }
+
+    /* ── Worked examples ───────────────────────────────────────────────── */
+    .example-grid { display: grid; gap: 16px; margin: 1.5rem 0; }
+    @media (min-width: 620px) { .example-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); } }
+    .example {
+      padding: 20px 22px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .example--pos { border-color: rgba(31, 106, 74, 0.35); background: linear-gradient(180deg, var(--pos-soft), #fff 46%); }
+    .example--neg { border-color: rgba(179, 64, 42, 0.35); background: linear-gradient(180deg, var(--neg-soft), #fff 46%); }
+    .example dl { margin: 0; font-size: 0.86rem; }
+    .example dt { font-weight: 600; color: var(--ink2); }
+    .example dd { margin: 0 0 0.5rem; font-family: var(--font-mono); color: var(--ink); }
+    .result {
+      margin: 0.9rem 0 0;
+      padding-top: 0.8rem;
+      border-top: 1px dashed var(--line);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--accent-deep);
+    }
+    .note { font-size: 0.84rem; color: var(--ink3); }
+
+    /* ── Principle cards ───────────────────────────────────────────────── */
+    .principles { display: grid; gap: 14px; counter-reset: principle; margin: 1.6rem 0; }
+    @media (min-width: 640px) { .principles { grid-template-columns: 1fr 1fr; } }
+    .principle {
+      position: relative;
+      counter-increment: principle;
+      padding: 22px 22px 22px 62px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+      transition: transform 0.24s ease, box-shadow 0.24s ease;
+    }
+    .principle:hover { transform: translateY(-3px); box-shadow: 0 30px 56px -30px rgba(20, 19, 23, 0.6); }
+    .principle::before {
+      content: counter(principle, decimal-leading-zero);
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      opacity: 0.4;
+    }
+    .p-name { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .p-q { font-size: 0.88rem; font-style: italic; color: var(--accent-deep); margin-bottom: 8px; }
+    .p-def { margin: 0; font-size: 0.88rem; color: var(--ink2); }
+
+    /* ── Figures ───────────────────────────────────────────────────────── */
+    figure { margin: 1.8rem 0; }
+    .fig-frame {
+      overflow-x: auto;
+      padding: clamp(16px, 3vw, 26px);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+      -webkit-overflow-scrolling: touch;
+    }
+    .fig-frame svg { width: 100%; height: auto; min-width: 420px; display: block; }
+    figcaption {
+      margin-top: 0.75rem;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: var(--ink3);
+    }
+    .svg-label { font-family: var(--font-sans); font-size: 12px; font-weight: 600; fill: var(--ink); }
+    .svg-sub { font-family: var(--font-sans); font-size: 10px; font-weight: 500; fill: var(--ink3); }
+    .svg-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      fill: var(--ink3);
+    }
+    .svg-mono { font-family: var(--font-mono); font-size: 11px; font-weight: 600; fill: var(--accent-deep); }
+
+    /* ── Key concepts ──────────────────────────────────────────────────── */
+    .toolbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 1.1rem; }
+    .search {
+      flex: 1 1 240px;
+      min-width: 0;
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--ink);
+      box-shadow: 0 4px 12px -8px rgba(20, 19, 23, 0.5);
+    }
+    .search:focus { outline: 3px solid var(--accent-glow); outline-offset: 0; border-color: var(--accent); }
+    .count {
+      flex: 0 0 auto;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.3rem; }
+    .chip {
+      padding: 7px 15px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .chip:hover { border-color: var(--accent); color: var(--ink); }
+    .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+
+    .glossary { display: grid; gap: 12px; }
+    .term {
+      position: relative;
+      padding: 18px 20px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .term:hover { transform: translateY(-2px); box-shadow: var(--sh-card); }
+    .term[hidden] { display: none; }
+    .term-topic {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 3px 10px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .term-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .term-name {
+      margin: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: -0.02em;
+    }
+    .term-src {
+      flex: 0 0 auto;
+      max-width: 45%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--ink3);
+    }
+    .term-src--own {
+      padding: 2px 9px;
+      border-radius: var(--r-pill);
+      background: var(--lime);
+      color: var(--ink);
+    }
+    .term-def { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--ink2); }
+    .term-formula {
+      margin-top: 0.7rem;
+      padding: 9px 13px;
+      border-radius: 10px;
+      background: var(--paper2);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-deep);
+      overflow-x: auto;
+    }
+    .no-results { padding: 26px; text-align: center; color: var(--ink3); }
+
+    /* ── Flashcards ────────────────────────────────────────────────────── */
+    .deck { margin-top: 1.4rem; }
+    .deck-meta { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .deck-count { font-size: 0.8rem; font-weight: 600; color: var(--ink3); font-variant-numeric: tabular-nums; }
+    .deck-count strong { color: var(--ink); }
+    .progress { flex: 1 1 auto; height: 6px; border-radius: var(--r-pill); background: rgba(20, 19, 23, 0.08); overflow: hidden; }
+    .progress-fill {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: var(--r-pill);
+      background: linear-gradient(90deg, var(--accent), var(--lime));
+      transition: width 0.3s ease;
+    }
+
+    .flip {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: none;
+      perspective: 1400px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .flip-inner {
+      position: relative;
+      display: block;
+      min-height: 320px;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.3, 1);
+    }
+    .flip[aria-pressed="true"] .flip-inner { transform: rotateY(180deg); }
+    .face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      padding: clamp(24px, 4vw, 40px);
+      border-radius: var(--radius-lg);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      text-align: left;
+    }
+    .face-front {
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .face-back {
+      background: linear-gradient(150deg, var(--accent-deep), var(--accent));
+      color: #F2F0EA;
+      transform: rotateY(180deg);
+      box-shadow: var(--sh-card);
+    }
+    .face-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+    .face-back .face-tag { color: rgba(242, 240, 234, 0.65); }
+    .face-topic { font-weight: 600; letter-spacing: 0.04em; text-transform: none; opacity: 0.8; }
+    .face-back .face-topic { color: rgba(242, 240, 234, 0.75); }
+    .face-text {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.1rem, 3.2vw, 1.42rem);
+      line-height: 1.28;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .face-back .face-text { color: #FBFAF7; font-weight: 600; font-size: clamp(0.98rem, 2.8vw, 1.18rem); line-height: 1.5; }
+    .face-hint { font-size: 0.74rem; color: var(--ink3); }
+    .face-back .face-hint { color: rgba(242, 240, 234, 0.6); }
+
+    .deck-controls { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+    .btn {
+      flex: 1 1 auto;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: var(--r-pill);
+      background: var(--ink);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+      box-shadow: 0 12px 22px -16px rgba(20, 19, 23, 0.9);
+    }
+    .btn:hover:not(:disabled) { transform: translateY(-2px); }
+    .btn:disabled { opacity: 0.34; cursor: not-allowed; }
+    .btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+    .btn--ghost:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
+
+    .kbd-hint { margin: 14px 0 0; font-size: 0.76rem; color: var(--ink3); text-align: center; }
+    kbd {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-bottom-width: 2px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink2);
+    }
+
+    /* ── Footer ────────────────────────────────────────────────────────── */
+    footer.page-foot {
+      margin-top: clamp(50px, 8vw, 88px);
+      padding: clamp(30px, 5vw, 46px) 0;
+      border-radius: 0 0 var(--r-win) var(--r-win);
+      background: var(--butter);
+    }
+    footer.page-foot p {
+      margin: 0 0 0.4rem;
+      font-size: 0.84rem;
+      color: rgba(20, 19, 23, 0.78);
+    }
+    footer.page-foot p:first-child { font-weight: 700; color: var(--ink); }
+    footer.page-foot p:last-child { margin-bottom: 0; }
+
+    /* ── Dock ──────────────────────────────────────────────────────────── */
+    .dock {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 18px 40px -18px rgba(20, 19, 23, 0.6);
+      max-width: calc(100vw - 24px);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .dock::-webkit-scrollbar { display: none; }
+    .dock-item {
+      position: relative;
+      flex: 0 0 auto;
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      background: linear-gradient(160deg, #fff, #EDEAE2);
+      box-shadow: 0 2px 6px rgba(20, 19, 23, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.3), box-shadow 0.22s ease;
+    }
+    .dock-item:hover, .dock-item:focus-visible {
+      transform: translateY(-12px) scale(1.14);
+      box-shadow: 0 14px 26px -10px rgba(20, 19, 23, 0.5);
+    }
+    .dock-item[data-tint="lime"]  { background: linear-gradient(160deg, #E9FB88, var(--lime)); }
+    .dock-item[data-tint="sky"]   { background: linear-gradient(160deg, #EDF3FD, var(--sky)); }
+    .dock-item[data-tint="blush"] { background: linear-gradient(160deg, #FDF0F0, var(--blush)); }
+    .dock-item[data-tint="mint"]  { background: linear-gradient(160deg, #EAF8EE, var(--mint)); }
+    .dock-item[data-tint="lilac"] { background: linear-gradient(160deg, #F4EFFB, var(--lilac)); }
+    .dock-item[data-tint="sand"]  { background: linear-gradient(160deg, #FAF8DE, var(--sand)); }
+    .dock-item::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      padding: 5px 11px;
+      border-radius: 9px;
+      background: rgba(20, 19, 23, 0.92);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.72rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    .dock-item:hover::after, .dock-item:focus-visible::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .dock-item[aria-current="page"] {
+      box-shadow: 0 2px 6px rgba(20, 19, 23, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 0 0 2px var(--ink);
+    }
+    .dock-sep { flex: 0 0 auto; width: 1px; height: 34px; background: rgba(20, 19, 23, 0.14); margin: 0 2px; }
+    @media (max-width: 600px) {
+      body { padding-bottom: 84px; }
+      .dock { gap: 6px; padding: 7px 9px; bottom: 12px; }
+      .dock-item { width: 44px; height: 44px; font-size: 0.68rem; }
+      .dock-item::after { display: none; }
+      .dock-sep { height: 28px; }
+    }
+
+    /* ── Accessibility ─────────────────────────────────────────────────── */
+    :focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 3px; border-radius: 8px; }
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      z-index: 200;
+      padding: 12px 20px;
+      background: var(--ink);
+      color: #fff;
+      border-radius: 0 0 10px 0;
+      text-decoration: none;
+    }
+    .skip:focus { left: 0; }
+    .visually-hidden, .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#panel-summary">Skip to content</a>
+
+  <div class="desk" aria-hidden="true">
+    <svg class="desk-hills" viewBox="0 0 1440 600" preserveAspectRatio="none" focusable="false">
+      <defs>
+        <linearGradient id="dh1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#A9BE8C"/><stop offset="1" stop-color="#8FA96E"/>
+        </linearGradient>
+        <linearGradient id="dh2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#C6D25E"/><stop offset="1" stop-color="#9DB248"/>
+        </linearGradient>
+        <linearGradient id="dh3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#7FA045"/><stop offset="1" stop-color="#4F7431"/>
+        </linearGradient>
+        <linearGradient id="dh4" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#5C8235"/><stop offset="1" stop-color="#33501F"/>
+        </linearGradient>
+      </defs>
+      <path fill="url(#dh1)" d="M0 214C176 132 352 108 566 168c214 60 366 122 552 96 122-17 232-70 322-124V600H0Z"/>
+      <path fill="url(#dh2)" d="M0 322C154 240 330 226 520 276c190 50 336 118 522 96 132-16 268-84 398-152V600H0Z"/>
+      <path fill="url(#dh3)" d="M0 430C132 356 302 330 486 372c184 42 326 110 512 92 130-13 288-72 442-140V600H0Z"/>
+      <path fill="url(#dh4)" d="M0 536C160 470 356 452 556 486c200 34 346 78 512 62 138-14 254-52 372-98V600H0Z"/>
+    </svg>
+  </div>
+
+  <div class="stage">
+    <a class="back" href="DMBA6008-weeks.html"><span aria-hidden="true">←</span> All weeks</a>
+
+    <div class="win">
+      <div class="win-bar">
+        <span class="win-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="win-addr">DMBA 6008 &nbsp;/&nbsp; Week 2 &mdash; Drivers of returns</span>
+        <span class="win-tool" aria-hidden="true">MBA</span>
+      </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">DMBA 6008 · Finance, Strategy and Technology · Week 2</p>
+      <h1>Drivers of <em>returns</em></h1>
+      <p class="standfirst">Return comes from two places at once — how profitably a business trades, and how much capital it ties up to do it. Week 2 reads the asset mix for the business model, then takes return apart into the drivers behind it.</p>
+      <div class="meta-row">
+        <span class="pill"><span class="dot" aria-hidden="true"></span> Pre-live session</span>
+        <span class="pill">53 key terms</span>
+        <span class="pill">80 flashcards</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Week 2 study modes">
+    <div class="tablist" role="tablist">
+      <button class="tab" id="tab-summary" role="tab" aria-selected="true" aria-controls="panel-summary"
+        data-panel="summary"><span class="tab-num" aria-hidden="true">01</span>Summary &amp; visuals</button>
+      <button class="tab" id="tab-terms" role="tab" aria-selected="false" aria-controls="panel-terms"
+        data-panel="terms" tabindex="-1"><span class="tab-num" aria-hidden="true">02</span>Key concepts</button>
+      <button class="tab" id="tab-cards" role="tab" aria-selected="false" aria-controls="panel-cards"
+        data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- ══════════════════ 01 · SUMMARY & VISUALS ══════════════════ -->
+    <section class="panel active" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" tabindex="0">
+            <div class="block">
+              <span class="block-num">01 / The core idea</span>
+              <h2>Asset structure as a business model signal</h2>
+              <p>The combination of assets a company holds should broadly reflect how it creates and delivers value. Read
+                that way, the balance sheet becomes useful for understanding the economic model behind the business, not
+                just its financial position.</p>
+
+              <figure>
+                <div class="fig-frame">
+                  <svg viewBox="0 0 720 226" role="img" aria-labelledby="abfig1-title abfig1-desc">
+                    <title id="abfig1-title">Asset mix as a business model signal</title>
+                    <desc id="abfig1-desc">The combination of assets is read as a signal. The mix can reveal whether a business is primarily capital intensive, inventory-driven, credit-based, acquisition-led, or dependent on intellectual property and software. Reading it that way turns the balance sheet into a description of the economic model behind the business, not just its financial position.</desc>
+
+                    <text class="svg-eyebrow" x="0" y="14">WHAT THE COMBINATION OF ASSETS SIGNALS</text>
+
+                    <g>
+                      <rect x="0" y="54" width="150" height="110" rx="12" fill="#2F5470" />
+                      <text class="svg-label" x="75" y="98" text-anchor="middle" fill="#FFFFFF">Asset mix</text>
+                      <text class="svg-sub" x="75" y="118" text-anchor="middle" fill="#C3D4E0">how value is created</text>
+                      <text class="svg-sub" x="75" y="131" text-anchor="middle" fill="#C3D4E0">and delivered</text>
+                    </g>
+
+                    <path d="M156 109 L180 109" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M174 104 L182 109 L174 114 Z" fill="#8C867A" />
+
+                    <g>
+                      <rect x="190" y="42" width="330" height="26" rx="8" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                      <text class="svg-label" x="204" y="59">Capital intensive</text>
+                    </g>
+                    <g>
+                      <rect x="190" y="74" width="330" height="26" rx="8" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                      <text class="svg-label" x="204" y="91">Inventory-driven</text>
+                    </g>
+                    <g>
+                      <rect x="190" y="106" width="330" height="26" rx="8" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                      <text class="svg-label" x="204" y="123">Credit-based</text>
+                    </g>
+                    <g>
+                      <rect x="190" y="138" width="330" height="26" rx="8" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                      <text class="svg-label" x="204" y="155">Acquisition-led</text>
+                    </g>
+                    <g>
+                      <rect x="190" y="170" width="330" height="26" rx="8" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                      <text class="svg-label" x="204" y="187">Dependent on IP and software</text>
+                    </g>
+
+                    <path d="M526 55 L536 55 L536 183 L526 183" stroke="#8C867A" stroke-width="1.2" fill="none" />
+                    <path d="M536 109 L554 109" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M548 104 L556 109 L548 114 Z" fill="#8C867A" />
+
+                    <g>
+                      <rect x="562" y="54" width="158" height="110" rx="12" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.45" />
+                      <text class="svg-label" x="641" y="94" text-anchor="middle" fill="#1F3B51">Economic model</text>
+                      <text class="svg-label" x="641" y="110" text-anchor="middle" fill="#1F3B51">behind the business</text>
+                      <text class="svg-sub" x="641" y="130" text-anchor="middle">not just its</text>
+                      <text class="svg-sub" x="641" y="143" text-anchor="middle">financial position</text>
+                    </g>
+                  </svg>
+                </div>
+                <figcaption>The mix is the signal. The same five readings are available from a balance sheet that was never
+                  written to describe a business model.</figcaption>
+              </figure>
+
+              <div class="callout callout--ask">
+                <span class="icon" aria-hidden="true">❓</span>
+                <p>Does the asset structure make sense given how the company operates?</p>
+              </div>
+            </div>
+
+            <div class="block">
+              <span class="block-num">02 / Putting firms on one scale</span>
+              <h2>Common-size asset analysis</h2>
+              <p>Common-size analysis expresses each asset category as a percentage of total assets. Stating every category
+                on the same scale allows comparison between companies of very different sizes, and helps identify
+                differences driven by their business models and industries.</p>
+
+              <figure>
+                <div class="fig-frame">
+                  <svg viewBox="0 0 720 200" role="img" aria-labelledby="abfig2-title abfig2-desc">
+                    <title id="abfig2-title">Common-size normalisation</title>
+                    <desc id="abfig2-desc">Two companies with asset bases of very different dollar size. Dividing each asset category by total assets restates both on a percentage scale, so the balance sheets become directly comparable and the differences that remain are the ones driven by business model and industry.</desc>
+
+                    <text class="svg-eyebrow" x="0" y="14">EACH CATEGORY AS A PERCENTAGE OF TOTAL ASSETS</text>
+
+                    <text class="svg-sub" x="0" y="48">Company A</text>
+                    <rect x="0" y="56" width="256" height="34" rx="8" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                    <text class="svg-label" x="128" y="78" text-anchor="middle" fill="#1F3B51">large $ asset base</text>
+
+                    <text class="svg-sub" x="0" y="118">Company B</text>
+                    <rect x="0" y="126" width="118" height="34" rx="8" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                    <text class="svg-sub" x="126" y="147">smaller $ asset base</text>
+
+                    <path d="M262 73 L292 73" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M286 68 L294 73 L286 78 Z" fill="#8C867A" />
+                    <path d="M262 143 L292 143" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M286 138 L294 143 L286 148 Z" fill="#8C867A" />
+
+                    <g>
+                      <rect x="300" y="80" width="128" height="56" rx="10" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.45" />
+                      <text class="svg-label" x="364" y="104" text-anchor="middle" fill="#1F3B51">÷ total assets</text>
+                      <text class="svg-sub" x="364" y="121" text-anchor="middle">for each category</text>
+                    </g>
+
+                    <path d="M434 73 L464 73" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M458 68 L466 73 L458 78 Z" fill="#8C867A" />
+                    <path d="M434 143 L464 143" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M458 138 L466 143 L458 148 Z" fill="#8C867A" />
+
+                    <rect x="472" y="56" width="248" height="34" rx="8" fill="#2F5470" />
+                    <text class="svg-label" x="596" y="78" text-anchor="middle" fill="#FFFFFF">A — % of total assets</text>
+                    <rect x="472" y="126" width="248" height="34" rx="8" fill="#2F5470" fill-opacity="0.62" />
+                    <text class="svg-label" x="596" y="148" text-anchor="middle" fill="#FFFFFF">B — % of total assets</text>
+
+                    <text class="svg-sub" x="472" y="184">Differences that remain are driven by</text>
+                    <text class="svg-sub" x="472" y="196">business model and industry</text>
+                  </svg>
+                </div>
+                <figcaption>Size stops being the difference between the two balance sheets, so whatever is still different
+                  has to be explained by something else.</figcaption>
+              </figure>
+            </div>
+
+            <div class="block">
+              <span class="block-num">03 / Reading the categories</span>
+              <h2>What different asset categories reveal</h2>
+              <p>Each category carries a signal about the activity that sits behind it.</p>
+
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Asset category</th>
+                      <th scope="col">High proportion may indicate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Inventory</th>
+                      <td>Manufacturing, distribution or retail activities</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Receivables</th>
+                      <td>Customers receive credit or payment occurs after service delivery</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">PPE</th>
+                      <td>Capital-intensive operations requiring physical infrastructure</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Goodwill</th>
+                      <td>Significant historical acquisition activity and acquisition premiums</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Other intangibles</th>
+                      <td>Reliance on software, intellectual property, licenses, product development or similar
+                        non-physical assets</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="callout callout--key">
+                <span class="icon" aria-hidden="true">💡</span>
+                <p>The value comes from interpreting these categories <strong>together</strong>, rather than judging any
+                  single number in isolation.</p>
+              </div>
+            </div>
+
+            <div class="block">
+              <span class="block-num">04 / Patterns</span>
+              <h2>Business model patterns</h2>
+              <p>What separates these patterns is not the size of the balance sheet but which categories carry the weight,
+                and whether that weight sits in current or non-current assets.</p>
+
+              <figure>
+                <div class="fig-frame">
+                  <svg viewBox="0 0 720 252" role="img" aria-labelledby="abfig3-title abfig3-desc">
+                    <title id="abfig3-title">Where each business model carries its asset weight</title>
+                    <desc id="abfig3-desc">A matrix of four business models against five asset categories. Capital-intensive businesses carry high plant, property and equipment. Digital platforms carry low inventory and low plant, property and equipment, a larger proportion of other intangibles, and goodwill where growth has come through acquisitions. Manufacturing and biopharma carry high inventory and high plant, property and equipment, with significant other intangibles from development activity. Retail carries substantial inventory and may carry high receivables. Cells are blank where the notes do not say.</desc>
+
+                    <text class="svg-eyebrow" x="0" y="14">FOUR MODELS · FIVE CATEGORIES</text>
+
+                    <text class="svg-sub" x="207" y="34" text-anchor="middle">Inventory</text>
+                    <text class="svg-sub" x="321" y="34" text-anchor="middle">Receivables</text>
+                    <text class="svg-sub" x="435" y="34" text-anchor="middle">PPE</text>
+                    <text class="svg-sub" x="549" y="34" text-anchor="middle">Goodwill</text>
+                    <text class="svg-sub" x="663" y="34" text-anchor="middle">Other intangibles</text>
+                    <line x1="0" y1="42" x2="720" y2="42" stroke="#8C867A" stroke-opacity="0.35" stroke-width="1" />
+
+                    <text class="svg-label" x="0" y="67">Capital intensive</text>
+                    <rect x="391" y="52" width="88" height="20" rx="6" fill="#2F5470" />
+                    <text class="svg-sub" x="435" y="66" text-anchor="middle" fill="#FFFFFF">high</text>
+                    <line x1="0" y1="84" x2="720" y2="84" stroke="#8C867A" stroke-opacity="0.18" stroke-width="1" />
+
+                    <text class="svg-label" x="0" y="109">Digital platform</text>
+                    <rect x="163" y="94" width="88" height="20" rx="6" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.6" />
+                    <text class="svg-sub" x="207" y="108" text-anchor="middle">low</text>
+                    <rect x="391" y="94" width="88" height="20" rx="6" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.6" />
+                    <text class="svg-sub" x="435" y="108" text-anchor="middle">low</text>
+                    <rect x="505" y="94" width="88" height="20" rx="6" fill="#E9EFF4" />
+                    <text class="svg-sub" x="549" y="108" text-anchor="middle" fill="#1F3B51">if acquisitive</text>
+                    <rect x="619" y="94" width="88" height="20" rx="6" fill="#E9EFF4" />
+                    <text class="svg-sub" x="663" y="108" text-anchor="middle" fill="#1F3B51">larger share</text>
+                    <line x1="0" y1="126" x2="720" y2="126" stroke="#8C867A" stroke-opacity="0.18" stroke-width="1" />
+
+                    <text class="svg-label" x="0" y="145">Manufacturing</text>
+                    <text class="svg-label" x="0" y="161">&amp; biopharma</text>
+                    <rect x="163" y="136" width="88" height="20" rx="6" fill="#2F5470" />
+                    <text class="svg-sub" x="207" y="150" text-anchor="middle" fill="#FFFFFF">high</text>
+                    <rect x="391" y="136" width="88" height="20" rx="6" fill="#2F5470" />
+                    <text class="svg-sub" x="435" y="150" text-anchor="middle" fill="#FFFFFF">high</text>
+                    <rect x="619" y="136" width="88" height="20" rx="6" fill="#E9EFF4" />
+                    <text class="svg-sub" x="663" y="150" text-anchor="middle" fill="#1F3B51">significant</text>
+                    <line x1="0" y1="172" x2="720" y2="172" stroke="#8C867A" stroke-opacity="0.18" stroke-width="1" />
+
+                    <text class="svg-label" x="0" y="197">Retail</text>
+                    <rect x="163" y="182" width="88" height="20" rx="6" fill="#2F5470" />
+                    <text class="svg-sub" x="207" y="196" text-anchor="middle" fill="#FFFFFF">substantial</text>
+                    <rect x="277" y="182" width="88" height="20" rx="6" fill="#E9EFF4" />
+                    <text class="svg-sub" x="321" y="196" text-anchor="middle" fill="#1F3B51">if credit</text>
+                    <line x1="0" y1="214" x2="720" y2="214" stroke="#8C867A" stroke-opacity="0.35" stroke-width="1" />
+
+                    <rect x="0" y="228" width="14" height="14" rx="4" fill="#2F5470" />
+                    <text class="svg-sub" x="20" y="239">stated as high</text>
+                    <rect x="120" y="228" width="14" height="14" rx="4" fill="#E9EFF4" />
+                    <text class="svg-sub" x="140" y="239">stated as present or conditional</text>
+                    <rect x="330" y="228" width="14" height="14" rx="4" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.6" />
+                    <text class="svg-sub" x="350" y="239">stated as low</text>
+                    <text class="svg-sub" x="470" y="239">blank — the notes do not say</text>
+                  </svg>
+                </div>
+                <figcaption>Blank cells are silence, not zero. The notes describe each model by the categories it leans on,
+                  and say nothing about the rest.</figcaption>
+              </figure>
+
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Pattern</th>
+                      <th scope="col">Asset profile</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Capital intensive</th>
+                      <td>Businesses requiring aircraft, buildings, factories or other major infrastructure will normally
+                        have a high proportion of <strong>PPE</strong>. Their balance sheets are therefore weighted toward
+                        <strong>non-current assets</strong>. Significant capital must be committed before revenue can be
+                        generated.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Digital platform</th>
+                      <td>Usually hold relatively little inventory and physical infrastructure. A larger proportion of
+                        assets may instead consist of software and other intangibles, and goodwill where growth has
+                        occurred through acquisitions.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Manufacturing &amp; biopharma</th>
+                      <td>Manufacturing creates a need for both <em>inventory</em>, as products move through production and
+                        distribution, and <em>PPE</em>, because production requires facilities and equipment.
+                        Research-intensive industries can additionally hold significant <strong>intangible
+                          assets</strong> arising from development activity.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Retail</th>
+                      <td>Can hold relatively high <strong>current assets</strong>: substantial inventory available for
+                        sale, and receivables where customers are offered financing or credit. Their asset structure
+                        reflects both <strong>stock management and customer payment arrangements</strong>.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="example-grid">
+                <div class="example">
+                  <h5>Technology example</h5>
+                  <p class="result">A SaaS platform would normally be expected to have much less inventory and PPE than a
+                    hardware manufacturer.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="block">
+              <span class="block-num">05 / Strategy signals</span>
+              <h2>Asset mix can reveal strategy</h2>
+              <p>The balance sheet can provide clues about strategic choices.</p>
+
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Signal</th>
+                      <th scope="col">What it may indicate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">High goodwill</th>
+                      <td>Growth may have relied heavily on acquisitions</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">High intangibles</th>
+                      <td>Value creation may depend on technology IP or development</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">High PPE</th>
+                      <td>Operations require substantial physical capital</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">High receivables</th>
+                      <td>Customer credit is an important part of the commercial model</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">High inventory</th>
+                      <td>Working capital management is strategically important</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="callout callout--key">
+                <span class="icon" aria-hidden="true">💡</span>
+                <p>Changes in asset composition over time can indicate that the <strong>business model or growth strategy is
+                    changing</strong>.</p>
+              </div>
+            </div>
+
+            <div class="block">
+              <span class="block-num">06 / Analytical takeaway</span>
+              <h2>Judge the mix against the model, not a benchmark</h2>
+              <p>A company&#8217;s asset mix should be assessed against its business model, industry and strategy, rather
+                than against a universal benchmark.</p>
+
+              <h3>Key questions</h3>
+              <ul>
+                <li>Does the asset structure logically match how the company earns revenue?</li>
+                <li>Which assets are essential to delivering the business model?</li>
+                <li>Is growth being created organically or through acquisitions?</li>
+                <li>Are unusually high inventory or receivables creating working capital risk?</li>
+                <li>Does an unexpected asset balance require further investigation?</li>
+              </ul>
+
+              <ul class="takeaways">
+                <li>The combination of assets should broadly reflect how a company creates and delivers value.</li>
+                <li>Common-size analysis puts companies of very different sizes on one scale.</li>
+                <li>Categories are read together, rather than judging any single number in isolation.</li>
+                <li>Capital-intensive balance sheets tilt to non-current assets; retail can tilt to current assets.</li>
+                <li>Digital platforms may hold their weight in software, other intangibles and goodwill.</li>
+                <li>A change in asset composition is itself a signal worth investigating.</li>
+              </ul>
+
+              <div class="callout callout--key">
+                <span class="icon" aria-hidden="true">💡</span>
+                <p>The balance sheet can act as a <strong>financial fingerprint of the business model</strong> — it shows
+                  where capital is committed and what resources management depends on to create value.</p>
+              </div>
+            </div>
+
+            <div class="block">
+              <span class="block-num">07 / The core idea</span>
+              <h2>Return is driven by both profitability and capital use</h2>
+              <p>Measures such as <strong>ROA and ROE</strong> combine two things at once: an income statement outcome —
+                profitability — and a balance sheet base, the assets or equity used to generate that profit.</p>
+
+              <figure>
+                <div class="fig-frame">
+                  <svg viewBox="0 0 720 185" role="img" aria-labelledby="drfig1-title drfig1-desc">
+                    <title id="drfig1-title">The two halves of a return measure</title>
+                    <desc id="drfig1-desc">A return measure such as return on assets or return on equity draws on two
+                      statements at once. From the income statement it takes profitability, the outcome. From the balance
+                      sheet it takes the base — the assets or equity used to generate that profit. Both feed the single
+                      measure, so a return can be improved from either side.</desc>
+
+                    <text class="svg-eyebrow" x="0" y="14">A RETURN MEASURE COMBINES TWO STATEMENTS</text>
+
+                    <rect x="0" y="34" width="264" height="62" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                    <text class="svg-label" x="132" y="62" text-anchor="middle">Income statement outcome</text>
+                    <text class="svg-sub" x="132" y="80" text-anchor="middle">profitability</text>
+
+                    <rect x="0" y="110" width="264" height="62" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                    <text class="svg-label" x="132" y="134" text-anchor="middle">Balance sheet base</text>
+                    <text class="svg-sub" x="132" y="152" text-anchor="middle">assets or equity used</text>
+                    <text class="svg-sub" x="132" y="165" text-anchor="middle">to generate that profit</text>
+
+                    <path d="M264 65 C 292 65, 300 103, 324 103" fill="none" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M264 141 C 292 141, 300 103, 324 103" fill="none" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M318 98 L326 103 L318 108 Z" fill="#8C867A" />
+
+                    <rect x="340" y="70" width="280" height="66" rx="10" fill="#2F5470" />
+                    <text class="svg-label" x="480" y="98" text-anchor="middle" fill="#FFFFFF">ROA and ROE</text>
+                    <text class="svg-sub" x="480" y="118" text-anchor="middle" fill="#E9EFF4">combine both, in a single measure</text>
+                  </svg>
+                </div>
+                <figcaption>Because the measure has two halves, so does the management task — the profit earned, and the
+                  capital standing behind it.</figcaption>
+              </figure>
+
+              <div class="callout callout--key">
+                <span class="icon" aria-hidden="true">💡</span>
+                <p>Improving returns is not only about increasing profit, it also requires managing how much capital is tied
+                  up in the business.</p>
+              </div>
+            </div>
+
+            <div class="block">
+              <span class="block-num">08 / The driver chain</span>
+              <h2>From market position through to return</h2>
+              <p>Returns can be understood as a chain that runs from market position through to return. Each financial
+                outcome along it has its own main drivers and its own management focus.</p>
+
+              <figure>
+                <div class="fig-frame">
+                  <svg viewBox="0 0 720 100" role="img" aria-labelledby="drfig2-title drfig2-desc">
+                    <title id="drfig2-title">The chain from market position to return</title>
+                    <desc id="drfig2-desc">Market position feeds volume and margin, which feed profitability, which feeds
+                      asset and capital efficiency, which produces the return.</desc>
+
+                    <text class="svg-eyebrow" x="0" y="14">RETURNS UNDERSTOOD AS A CHAIN</text>
+
+                    <rect x="0" y="30" width="120" height="58" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                    <text class="svg-label" x="60" y="64" text-anchor="middle">Market position</text>
+                    <path d="M122 59 L142 59" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M140 55 L148 59 L140 63 Z" fill="#8C867A" />
+
+                    <rect x="150" y="30" width="120" height="58" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                    <text class="svg-label" x="210" y="56" text-anchor="middle">Volume &amp;</text>
+                    <text class="svg-label" x="210" y="72" text-anchor="middle">Margin</text>
+                    <path d="M272 59 L292 59" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M290 55 L298 59 L290 63 Z" fill="#8C867A" />
+
+                    <rect x="300" y="30" width="120" height="58" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                    <text class="svg-label" x="360" y="64" text-anchor="middle">Profitability</text>
+                    <path d="M422 59 L442 59" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M440 55 L448 59 L440 63 Z" fill="#8C867A" />
+
+                    <rect x="450" y="30" width="120" height="58" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                    <text class="svg-label" x="510" y="56" text-anchor="middle">Asset/Capital</text>
+                    <text class="svg-label" x="510" y="72" text-anchor="middle">Efficiency</text>
+                    <path d="M572 59 L592 59" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M590 55 L598 59 L590 63 Z" fill="#8C867A" />
+
+                    <rect x="600" y="30" width="120" height="58" rx="10" fill="#2F5470" />
+                    <text class="svg-label" x="660" y="64" text-anchor="middle" fill="#FFFFFF">Return</text>
+                  </svg>
+                </div>
+                <figcaption>The chain reads left to right: each link is the base the next one works from.</figcaption>
+              </figure>
+
+              <p>The core driver chain names those drivers and that focus, outcome by outcome.</p>
+
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Financial outcome</th>
+                      <th scope="col">Main drivers</th>
+                      <th scope="col">Management focus</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Profitability</th>
+                      <td>Volume + Margin</td>
+                      <td>Product mix, pricing, demand</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Asset Efficiency</th>
+                      <td>Asset utilisation</td>
+                      <td>Capacity and productive use of assets</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Working Capital</th>
+                      <td>Inventory, receivables, payables</td>
+                      <td>Prevent growth from absorbing excessive cash</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Capital Structure</th>
+                      <td>Debt/equity funding mix</td>
+                      <td>Finance assets appropriately</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Sustained Returns</th>
+                      <td>Competitive advantage period</td>
+                      <td>Protect returns from competitive erosion</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="block">
+              <span class="block-num">09 / Profitability</span>
+              <h2>Volume × margin</h2>
+              <p>Profitability fundamentally depends on <strong>volume</strong> — how much the business sells — and
+                <strong>margin</strong>, the profit generated from each sale. Products can have different combinations of
+                the two:</p>
+              <ul>
+                <li>High volume / low margin</li>
+                <li>Low volume / high margin</li>
+              </ul>
+              <p>Management therefore needs to decide <strong>which products, customers and markets deserve investment</strong>
+                rather than simply maximising sales.</p>
+
+              <h3>Technology example</h3>
+              <div class="example-grid">
+                <div class="example">
+                  <h5>Basic plan</h5>
+                  <p>High volume, with lower margins.</p>
+                </div>
+                <div class="example">
+                  <h5>Enterprise contracts</h5>
+                  <p>Fewer customers, but larger margins.</p>
+                </div>
+              </div>
+              <p class="note">A SaaS company may balance the two.</p>
+            </div>
+
+            <div class="block">
+              <span class="block-num">10 / Balance sheet drivers</span>
+              <h2>Assets, working capital and funding</h2>
+
+              <h3>Asset utilisation</h3>
+              <p>The issue is whether assets are being used hard enough to generate revenue.</p>
+              <ul>
+                <li>Spare or under-utilised capacity reduces returns</li>
+                <li>Surplus assets may need to be <strong>sold, redeployed or restructured</strong></li>
+              </ul>
+              <div class="callout callout--ask">
+                <span class="icon" aria-hidden="true">❓</span>
+                <p>Are those assets producing enough income?</p>
+              </div>
+
+              <h3>Working capital</h3>
+              <p>Growth can increase requirements for:</p>
+              <ul>
+                <li>Inventory</li>
+                <li>Receivables</li>
+                <li>Payables</li>
+              </ul>
+              <p>Poor working capital management can cause a growing, profitable business to <strong>absorb sustainable
+                cash</strong>. Management must therefore consider the <strong>cash requirement created by growth</strong>,
+                not just the additional revenue.</p>
+
+              <h3>Capital structure</h3>
+              <p>Returns are also influenced by the <strong>funding mix between debt and equity</strong>. The appropriate mix
+                depends on how the business chooses to finance the assets needed to operate and grow.</p>
+            </div>
+
+            <div class="block">
+              <span class="block-num">11 / External drivers</span>
+              <h2>Financial outcomes reflect what is happening competitively</h2>
+              <p>Key factors include:</p>
+              <ul>
+                <li>Consumer demand</li>
+                <li>Competitive behaviour</li>
+                <li>Continued competitiveness</li>
+                <li>Efficiency of asset management</li>
+                <li>Funding decisions</li>
+              </ul>
+              <div class="callout callout--key">
+                <span class="icon" aria-hidden="true">💡</span>
+                <p>Financial ratios should be interpreted alongside the company’s market and strategic position.</p>
+              </div>
+            </div>
+
+            <div class="block">
+              <span class="block-num">12 / Competitive advantage period</span>
+              <h2>How long can superior returns last?</h2>
+              <p>The <strong>competitive advantage period</strong> is the period for which a company can maintain returns
+                above its cost of capital before competitors catch up. A strong current return is therefore not enough.</p>
+
+              <figure>
+                <div class="fig-frame">
+                  <svg viewBox="0 0 720 225" role="img" aria-labelledby="drfig3-title drfig3-desc">
+                    <title id="drfig3-title">The competitive advantage period and how returns erode</title>
+                    <desc id="drfig3-desc">Returns run above the cost of capital line for a limited stretch, then fall back
+                      towards it as competitors catch up. That stretch is the competitive advantage period. Beneath it, the
+                      sequence without continued investment and innovation: competitive advantage, then imitation and
+                      competition, then margin erosion, then lower returns.</desc>
+
+                    <text class="svg-eyebrow" x="0" y="14">RETURNS ABOVE THE COST OF CAPITAL, FOR A LIMITED PERIOD</text>
+
+                    <path d="M100 54 L300 54 C 400 54, 470 106, 560 108 L560 108 L100 108 Z" fill="#E6F1EB" />
+                    <line x1="100" y1="108" x2="700" y2="108" stroke="#8C867A" stroke-width="1.5" stroke-dasharray="5 4" />
+                    <text class="svg-sub" x="0" y="112">cost of capital</text>
+                    <path d="M100 54 L300 54 C 400 54, 470 106, 560 108 L700 108" fill="none" stroke="#1F6A4A" stroke-width="2" />
+                    <text class="svg-label" x="210" y="46" text-anchor="middle" fill="#1F6A4A">returns above the cost of capital</text>
+                    <text class="svg-sub" x="700" y="96" text-anchor="end">competitors catch up</text>
+
+                    <path d="M100 118 L100 128 L560 128 L560 118" fill="none" stroke="#2F5470" stroke-width="1.5" />
+                    <text class="svg-label" x="330" y="146" text-anchor="middle">competitive advantage period</text>
+
+                    <text class="svg-eyebrow" x="0" y="170">WITHOUT CONTINUED INVESTMENT AND INNOVATION</text>
+
+                    <rect x="0" y="180" width="165" height="36" rx="8" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                    <text class="svg-label" x="82" y="203" text-anchor="middle">Competitive advantage</text>
+                    <path d="M166 198 L178 198" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M176 194 L184 198 L176 202 Z" fill="#8C867A" />
+
+                    <rect x="185" y="180" width="165" height="36" rx="8" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                    <text class="svg-label" x="267" y="203" text-anchor="middle">Imitation / Competition</text>
+                    <path d="M351 198 L363 198" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M361 194 L369 198 L361 202 Z" fill="#8C867A" />
+
+                    <rect x="370" y="180" width="165" height="36" rx="8" fill="#F6F0DF" />
+                    <text class="svg-label" x="452" y="203" text-anchor="middle" fill="#8A6D1F">Margin erosion</text>
+                    <path d="M536 198 L548 198" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M546 194 L554 198 L546 202 Z" fill="#8C867A" />
+
+                    <rect x="555" y="180" width="165" height="36" rx="8" fill="#F8E9E5" />
+                    <text class="svg-label" x="637" y="203" text-anchor="middle" fill="#B3402A">Lower returns</text>
+                  </svg>
+                </div>
+                <figcaption>The shaded stretch is the whole of the advantage. Where the line meets the cost of capital, the
+                  superior return has gone — which is why the period, not the level, is the question.</figcaption>
+              </figure>
+
+              <div class="callout callout--ask">
+                <span class="icon" aria-hidden="true">❓</span>
+                <p>How long can this level of superior return realistically continue?</p>
+              </div>
+            </div>
+
+            <div class="block">
+              <span class="block-num">13 / Sustainable advantage</span>
+              <h2>What holds the period open</h2>
+              <p>Competitive advantage may be supported by:</p>
+
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Source of advantage</th>
+                      <th scope="col">What it provides</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Superior brand</th>
+                      <td>Customers continue choosing or paying more for the offering</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Core-category innovation</th>
+                      <td>The company remains ahead of competitors in its main market</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Strategic partnerships</th>
+                      <td>Relationships provide capabilities or market access competitors cannot easily replicate</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <p>These advantages require <strong>continuous maintenance and reinvestment</strong> rather than being treated
+                as permanent.</p>
+            </div>
+
+            <div class="block">
+              <span class="block-num">14 / Analytical takeaway</span>
+              <h2>What to carry out of drivers of returns</h2>
+              <ul class="takeaways">
+                <li>A return measure combines an income statement outcome with a balance sheet base.</li>
+                <li>Returns improve by raising profit <em>and</em> by managing the capital tied up in the business.</li>
+                <li>Profitability depends on volume and margin, so products, customers and markets differ in what they
+                  deserve.</li>
+                <li>Spare or under-utilised capacity reduces returns; surplus assets may need to be sold, redeployed or
+                  restructured.</li>
+                <li>Growth creates a cash requirement, not only additional revenue.</li>
+                <li>The funding mix between debt and equity should suit the assets being financed.</li>
+                <li>Financial ratios should be read alongside the company’s market and strategic position.</li>
+                <li>Sustainable value creation depends on whether the company can preserve the competitive advantages
+                  supporting those returns.</li>
+              </ul>
+
+              <h3>Key management questions</h3>
+              <ol class="steps">
+                <li>What is driving returns: <strong>margin, volume or asset efficiency</strong>?</li>
+                <li>Are assets producing adequate revenue, or is there excessive capacity?</li>
+                <li>Will growth create excessive <strong>working-capital requirements</strong>?</li>
+                <li>Is the funding mix appropriate?</li>
+              </ol>
+
+              <div class="callout callout--ask">
+                <span class="icon" aria-hidden="true">❓</span>
+                <p>How long can the company maintain superior returns before competitors erode them?</p>
+              </div>
+            </div>
+
+            <div class="block">
+              <span class="block-num">15 / The purpose</span>
+              <h2>Why decompose a return at all</h2>
+              <p>The DuPont model breaks return measures into their underlying drivers. That lets an analyst explain
+                <strong>why ROA or ROE changed</strong>, rather than simply observing that they changed.</p>
+
+              <div class="callout callout--key">
+                <span class="icon" aria-hidden="true">💡</span>
+                <p>An improving financial ratio is only meaningful once the driver of that improvement is understood.</p>
+              </div>
+            </div>
+
+            <div class="block">
+              <span class="block-num">16 / Return on assets</span>
+              <h2>The two drivers behind ROA</h2>
+              <p>The first DuPont relationship splits the return on assets into the two drivers that produce it.</p>
+
+              <div class="formula">ROA = Asset Utilisation x Profit Margin</div>
+
+              <p>Each driver carries its own management interpretation.</p>
+
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Driver</th>
+                      <th scope="col">What it measures</th>
+                      <th scope="col">Management interpretation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Asset utilisation</th>
+                      <td>Revenue generated per dollar of assets</td>
+                      <td>How effectively assets generate sales</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Profit margin</th>
+                      <td>Profit generated per dollar of revenue</td>
+                      <td>Pricing power and/or control of expenses</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">ROA</th>
+                      <td>Profit generated from the asset base</td>
+                      <td>Overall operating efficiency of invested assets</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="block">
+              <span class="block-num">17 / Return on equity</span>
+              <h2>Adding financial leverage</h2>
+              <p>The model then introduces <strong>financial leverage</strong>. Fully expanded, the return to shareholders
+                carries a third term.</p>
+
+              <div class="formula">ROE = Asset Utilisation x Profit Margin x Financial Leverage</div>
+
+              <p>The <strong>assets-to-equity ratio</strong> shows how much of the asset base exists for each dollar of
+                shareholder equity. A higher ratio generally indicates that <strong>more assets are being financed through
+                  debt relative to equity</strong>.</p>
+
+              <figure>
+                <div class="fig-frame">
+                  <svg viewBox="0 0 720 210" role="img" aria-labelledby="dpfig1-title dpfig1-desc">
+                    <title id="dpfig1-title">The DuPont decomposition, from ROA to ROE</title>
+                    <desc id="dpfig1-desc">Return on assets equals asset utilisation multiplied by profit margin, where asset utilisation is revenue generated per dollar of assets and profit margin is profit generated per dollar of revenue. Financial leverage sits outside the return on assets relationship. Return on equity equals those same two operating drivers multiplied by financial leverage, measured as assets to equity.</desc>
+
+                    <text class="svg-eyebrow" x="0" y="14">THE DECOMPOSITION</text>
+
+                    <rect x="0" y="28" width="118" height="62" rx="10" fill="#2F5470" />
+                    <text class="svg-label" x="59" y="52" text-anchor="middle" fill="#FFFFFF">Return on</text>
+                    <text class="svg-label" x="59" y="68" text-anchor="middle" fill="#FFFFFF">Assets</text>
+
+                    <text class="svg-label" x="130" y="64" text-anchor="middle" fill="#8C867A">=</text>
+
+                    <rect x="142" y="28" width="176" height="62" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.3" />
+                    <text class="svg-label" x="230" y="52" text-anchor="middle">Asset Utilisation</text>
+                    <text class="svg-sub" x="230" y="68" text-anchor="middle">Revenue generated per</text>
+                    <text class="svg-sub" x="230" y="80" text-anchor="middle">dollar of assets</text>
+
+                    <text class="svg-label" x="330" y="64" text-anchor="middle" fill="#8C867A">×</text>
+
+                    <rect x="342" y="28" width="176" height="62" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.3" />
+                    <text class="svg-label" x="430" y="52" text-anchor="middle">Profit Margin</text>
+                    <text class="svg-sub" x="430" y="68" text-anchor="middle">Profit generated per</text>
+                    <text class="svg-sub" x="430" y="80" text-anchor="middle">dollar of revenue</text>
+
+                    <rect x="542" y="28" width="178" height="62" rx="10" fill="none" stroke="#8C867A" stroke-opacity="0.4" stroke-dasharray="4 4" />
+                    <text class="svg-sub" x="631" y="55" text-anchor="middle">leverage is not part</text>
+                    <text class="svg-sub" x="631" y="67" text-anchor="middle">of return on assets</text>
+
+                    <rect x="0" y="112" width="118" height="54" rx="10" fill="#1F3B51" />
+                    <text class="svg-label" x="59" y="132" text-anchor="middle" fill="#FFFFFF">Return on</text>
+                    <text class="svg-label" x="59" y="148" text-anchor="middle" fill="#FFFFFF">Equity</text>
+
+                    <text class="svg-label" x="130" y="142" text-anchor="middle" fill="#8C867A">=</text>
+
+                    <rect x="142" y="112" width="376" height="54" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.3" />
+                    <text class="svg-label" x="330" y="134" text-anchor="middle">Asset Utilisation × Profit Margin</text>
+                    <text class="svg-sub" x="330" y="152" text-anchor="middle">the two operating drivers</text>
+
+                    <text class="svg-label" x="530" y="142" text-anchor="middle" fill="#8C867A">×</text>
+
+                    <rect x="542" y="112" width="178" height="54" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.3" />
+                    <text class="svg-label" x="631" y="134" text-anchor="middle">Financial Leverage</text>
+                    <text class="svg-sub" x="631" y="152" text-anchor="middle">assets to equity</text>
+
+                    <text class="svg-sub" x="0" y="192">A higher assets-to-equity ratio generally indicates more assets financed through debt relative to equity.</text>
+                  </svg>
+                </div>
+                <figcaption>The operating drivers are unchanged between the two returns. Leverage is the only term the
+                  equity view adds.</figcaption>
+              </figure>
+            </div>
+
+            <div class="block">
+              <span class="block-num">18 / Reading a higher ROE</span>
+              <h2>Higher ROE is not always better</h2>
+              <p>An increase in ROE can come from very different sources.</p>
+
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Cause of higher ROE</th>
+                      <th scope="col">Interpretation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Higher asset utilisation</th>
+                      <td>Assets are generating more revenue</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Higher profit margin</th>
+                      <td>Revenue is being converted into more profit</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Higher leverage</th>
+                      <td>More debt is being used relative to equity</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <p>The first two represent improvements in <strong>operating performance</strong>. The third can increase
+                shareholder returns mathematically, but it also introduces <strong>greater financial risk</strong>.</p>
+
+              <figure>
+                <div class="fig-frame">
+                  <svg viewBox="0 0 720 200" role="img" aria-labelledby="dpfig2-title dpfig2-desc">
+                    <title id="dpfig2-title">Three causes of a higher return on equity, sorted by what they mean</title>
+                    <desc id="dpfig2-desc">A higher return on equity can trace back to three different causes. Higher asset utilisation means assets are generating more revenue, and higher profit margin means revenue is being converted into more profit; both are improvements in operating performance. Higher leverage means more debt is being used relative to equity, which introduces greater financial risk rather than better operations.</desc>
+
+                    <text class="svg-eyebrow" x="0" y="14">THREE CAUSES, TWO VERY DIFFERENT MEANINGS</text>
+
+                    <rect x="248" y="24" width="224" height="32" rx="8" fill="#2F5470" />
+                    <text class="svg-label" x="360" y="45" text-anchor="middle" fill="#FFFFFF">Higher ROE</text>
+
+                    <path d="M360 56 L360 70 L112 70 L112 84" stroke="#8C867A" stroke-width="1.5" fill="none" />
+                    <path d="M360 56 L360 84" stroke="#8C867A" stroke-width="1.5" fill="none" />
+                    <path d="M360 56 L360 70 L608 70 L608 84" stroke="#8C867A" stroke-width="1.5" fill="none" />
+                    <path d="M107 79 L112 87 L117 79 Z" fill="#8C867A" />
+                    <path d="M355 79 L360 87 L365 79 Z" fill="#8C867A" />
+                    <path d="M603 79 L608 87 L613 79 Z" fill="#8C867A" />
+
+                    <rect x="0" y="90" width="224" height="58" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.3" />
+                    <text class="svg-label" x="112" y="112" text-anchor="middle">Higher asset utilisation</text>
+                    <text class="svg-sub" x="112" y="128" text-anchor="middle">Assets are generating</text>
+                    <text class="svg-sub" x="112" y="140" text-anchor="middle">more revenue</text>
+
+                    <rect x="248" y="90" width="224" height="58" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.3" />
+                    <text class="svg-label" x="360" y="112" text-anchor="middle">Higher profit margin</text>
+                    <text class="svg-sub" x="360" y="128" text-anchor="middle">Revenue is being converted</text>
+                    <text class="svg-sub" x="360" y="140" text-anchor="middle">into more profit</text>
+
+                    <rect x="496" y="90" width="224" height="58" rx="10" fill="#F8E9E5" stroke="#B3402A" stroke-opacity="0.3" />
+                    <text class="svg-label" x="608" y="112" text-anchor="middle">Higher leverage</text>
+                    <text class="svg-sub" x="608" y="128" text-anchor="middle">More debt is being used</text>
+                    <text class="svg-sub" x="608" y="140" text-anchor="middle">relative to equity</text>
+
+                    <rect x="0" y="162" width="472" height="28" rx="8" fill="#E6F1EB" />
+                    <text class="svg-label" x="236" y="181" text-anchor="middle" fill="#1F6A4A">Improvements in operating performance</text>
+
+                    <rect x="496" y="162" width="224" height="28" rx="8" fill="#F8E9E5" />
+                    <text class="svg-label" x="608" y="181" text-anchor="middle" fill="#B3402A">Greater financial risk</text>
+                  </svg>
+                </div>
+                <figcaption>The same headline movement in ROE arrives by three routes. Two of them are operating news; the
+                  third is a financing choice.</figcaption>
+              </figure>
+
+              <div class="callout callout--key">
+                <span class="icon" aria-hidden="true">💡</span>
+                <p>ROE should never be interpreted without examining what caused it to change.</p>
+              </div>
+            </div>
+
+            <div class="block">
+              <span class="block-num">19 / Evaluating an acquisition</span>
+              <h2>Why a bigger profit proves little</h2>
+              <p>An acquisition will normally increase:</p>
+              <ul>
+                <li>Assets</li>
+                <li>Revenue</li>
+                <li>Expenses</li>
+                <li>Potentially profit</li>
+              </ul>
+              <p>Therefore, <strong>higher absolute profit after an acquisition is weak evidence of success</strong>.</p>
+
+              <div class="callout callout--ask">
+                <span class="icon" aria-hidden="true">❓</span>
+                <p>Has the management generated a better return from the additional capital invested?</p>
+              </div>
+
+              <p>DuPont analysis helps separate the acquisition’s effects into:</p>
+              <ol class="steps">
+                <li>Changes in <strong>asset productivity</strong></li>
+                <li>Changes in <strong>profitability</strong></li>
+                <li>Changes in <strong>financial leverage</strong></li>
+              </ol>
+            </div>
+
+            <div class="block">
+              <span class="block-num">20 / Offsetting drivers</span>
+              <h2>One component improves as another weakens</h2>
+              <p>A transaction may improve one component while weakening another.</p>
+
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Higher asset utilisation</th>
+                      <th scope="col">Lower profit margin</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Assets generate more revenue</td>
+                      <td>Additional revenue carries proportionately higher expenses</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <p>These effects can offset each other, leaving <strong>ROA unchanged</strong>. This demonstrates why analysing
+                only revenue growth, profit growth or one financial ratio can give an incomplete picture.</p>
+            </div>
+
+            <div class="block">
+              <span class="block-num">21 / The appearance of improvement</span>
+              <h2>Leverage can look like better performance</h2>
+
+              <div class="formula">Unchanged ROA + Higher Leverage → Higher ROE</div>
+
+              <ul>
+                <li>Underlying operating returns have not improved</li>
+                <li>Shareholders appear to earn a higher return</li>
+                <li>Improvement comes from using more debt</li>
+              </ul>
+
+              <p>Higher ROE may reflect greater risk rather than better management performance.</p>
+
+              <figure>
+                <div class="fig-frame">
+                  <svg viewBox="0 0 720 230" role="img" aria-labelledby="dpfig3-title dpfig3-desc">
+                    <title id="dpfig3-title">How an unchanged operating return can still produce a higher ROE</title>
+                    <desc id="dpfig3-desc">In the first step, higher asset utilisation, where assets generate more revenue, is combined with a lower profit margin, where the additional revenue carries proportionately higher expenses; the two effects offset each other and return on assets is unchanged. In the second step, that unchanged return on assets is combined with higher leverage, meaning more debt relative to equity, and return on equity rises even though operating returns have not improved.</desc>
+
+                    <text class="svg-eyebrow" x="0" y="14">FIRST — THE DRIVERS OFFSET</text>
+
+                    <rect x="0" y="26" width="200" height="58" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.3" />
+                    <text class="svg-label" x="100" y="48" text-anchor="middle">Higher asset utilisation</text>
+                    <text class="svg-sub" x="100" y="66" text-anchor="middle">Assets generate more revenue</text>
+
+                    <text class="svg-label" x="214" y="60" text-anchor="middle" fill="#8C867A">+</text>
+
+                    <rect x="228" y="26" width="200" height="58" rx="10" fill="#F8E9E5" stroke="#B3402A" stroke-opacity="0.3" />
+                    <text class="svg-label" x="328" y="45" text-anchor="middle">Lower profit margin</text>
+                    <text class="svg-sub" x="328" y="61" text-anchor="middle">Additional revenue carries</text>
+                    <text class="svg-sub" x="328" y="73" text-anchor="middle">proportionately higher expenses</text>
+
+                    <path d="M442 55 L462 55" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M456 50 L464 55 L456 60 Z" fill="#8C867A" />
+
+                    <rect x="470" y="26" width="250" height="58" rx="10" fill="#F6F0DF" />
+                    <text class="svg-label" x="595" y="50" text-anchor="middle" fill="#8A6D1F">ROA unchanged</text>
+                    <text class="svg-sub" x="595" y="68" text-anchor="middle">the effects offset each other</text>
+
+                    <text class="svg-eyebrow" x="0" y="112">THEN — LEVERAGE IS ADDED</text>
+
+                    <rect x="0" y="124" width="200" height="58" rx="10" fill="#F6F0DF" />
+                    <text class="svg-label" x="100" y="148" text-anchor="middle" fill="#8A6D1F">Unchanged ROA</text>
+                    <text class="svg-sub" x="100" y="166" text-anchor="middle">operating returns the same</text>
+
+                    <text class="svg-label" x="214" y="158" text-anchor="middle" fill="#8C867A">+</text>
+
+                    <rect x="228" y="124" width="200" height="58" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.3" />
+                    <text class="svg-label" x="328" y="148" text-anchor="middle">Higher leverage</text>
+                    <text class="svg-sub" x="328" y="166" text-anchor="middle">more debt relative to equity</text>
+
+                    <path d="M442 153 L462 153" stroke="#8C867A" stroke-width="1.5" />
+                    <path d="M456 148 L464 153 L456 158 Z" fill="#8C867A" />
+
+                    <rect x="470" y="124" width="250" height="58" rx="10" fill="#F8E9E5" stroke="#B3402A" stroke-opacity="0.3" />
+                    <text class="svg-label" x="595" y="148" text-anchor="middle" fill="#B3402A">Higher ROE</text>
+                    <text class="svg-sub" x="595" y="166" text-anchor="middle">shareholders appear to earn more</text>
+
+                    <text class="svg-sub" x="0" y="210">Higher ROE may reflect greater risk rather than better management performance.</text>
+                  </svg>
+                </div>
+                <figcaption>Nothing in the operating half of the chain moved. The headline return still rose.</figcaption>
+              </figure>
+            </div>
+
+            <div class="block">
+              <span class="block-num">22 / Management and takeaway</span>
+              <h2>Judging the source of a return</h2>
+              <p>DuPont analysis is useful when assessing management bonuses or strategic performance. Management should not
+                necessarily be rewarded simply because profit increased or ROE increased.</p>
+
+              <p>Analysts should determine whether the improvement came from:</p>
+              <ul>
+                <li>Generating operating efficiency</li>
+                <li>Better margins</li>
+                <li>Productive deployment of new assets</li>
+                <li>Simply greater leverage</li>
+              </ul>
+
+              <div class="callout callout--key">
+                <span class="icon" aria-hidden="true">🚨</span>
+                <p>Management performance should be evaluated on the quality and source of returns, not just the headline
+                  return.</p>
+              </div>
+
+              <h3>Analytical takeaway</h3>
+              <p>The DuPont model turns a return ratio into a <strong>financial story</strong>.</p>
+
+              <div class="formula">ROE = Asset Efficiency x Profitability x Leverage</div>
+
+              <p>When evaluating a strategic decision, ask:</p>
+              <ul class="takeaways">
+                <li>Did the investment improve asset utilisation?</li>
+                <li>Did margins improve or deteriorate?</li>
+                <li>Did ROA improve?</li>
+                <li>Is higher ROE driven by better operations or simply more debt?</li>
+                <li>Has management increased returns by creating value, or by increasing shareholder risk?</li>
+              </ul>
+            </div>
+
+      <div class="block">
+        <span class="block-num">23 / Not yet written</span>
+        <h2>One topic still empty</h2>
+        <p>A fourth sub-page of my Week 2 pre-live note exists in Notion but has no content yet.
+          Nothing has been generated to stand in for it.</p>
+        <ul>
+          <li><strong>Sustainable Growth</strong> — empty</li>
+        </ul>
+        <p>It will appear here once the note is written.</p>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 02 · KEY CONCEPTS ══════════════════ -->
+    <section class="panel" id="panel-terms" role="tabpanel" aria-labelledby="tab-terms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">02 / Reference</span>
+        <h2>Key concepts &amp; terminology</h2>
+        <p>Every term from the week&rsquo;s three written topics in one filterable reference, so a definition is two keystrokes away rather than a scroll.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="term-search">Filter terms</label>
+          <input class="search" id="term-search" type="search" placeholder="Filter terms — try “leverage” or “utilisation”"
+            autocomplete="off">
+          <span class="count" id="term-count" aria-live="polite">53 of 53</span>
+        </div>
+
+        <div class="glossary" id="glossary"></div>
+      </div>
+    </section>
+    <!-- ══════════════════ 03 · FLASHCARDS ══════════════════ -->
+    <section class="panel" id="panel-cards" role="tabpanel" aria-labelledby="tab-cards" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">03 / Active recall</span>
+        <h2>Flashcards</h2>
+        <p>A flippable deck for active recall. Answer out loud, then flip. Shuffle to break the order effect before an assessment.</p>
+
+        <div class="deck">
+          <div class="deck-meta">
+            <span class="deck-count"><strong id="card-index">1</strong> / <span id="card-total">80</span></span>
+            <span class="progress"><span class="progress-fill" id="progress-fill"></span></span>
+          </div>
+
+          <button class="flip" id="flip-card" aria-pressed="false" aria-label="Flashcard — press to reveal the answer">
+            <span class="flip-inner">
+              <span class="face face-front">
+                <span class="face-tag">Question</span>
+                <span class="face-text" id="card-q"></span>
+                <span class="face-hint">Click, tap, or press Space to reveal</span>
+              </span>
+              <span class="face face-back">
+                <span class="face-tag">Answer</span>
+                <span class="face-text" id="card-a"></span>
+                <span class="face-hint">Press → for the next card</span>
+              </span>
+            </span>
+          </button>
+
+          <div class="deck-controls">
+            <button class="btn" id="prev-btn" type="button">← Previous</button>
+            <button class="btn btn--ghost" id="shuffle-btn" type="button">Shuffle</button>
+            <button class="btn" id="next-btn" type="button">Next →</button>
+          </div>
+
+          <p class="kbd-hint"><kbd>←</kbd> <kbd>→</kbd> to move · <kbd>Space</kbd> to flip · <kbd>S</kbd> to shuffle
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-foot">
+    <div class="wrap">
+      <p>DMBA 6008 Finance, Strategy and Technology · Week 2 · Pre-live session</p>
+      <p>Compiled from my own pre-live notes for this week. Synced from Notion on 10 August 2026.</p>
+    </div>
+  </footer>
+    </div><!-- /.win -->
+  </div><!-- /.stage -->
+
+  <nav class="dock" aria-label="Site">
+    <a class="dock-item" data-tint="lime" data-label="Home" href="index.html"><span aria-hidden="true">&#8962;</span><span class="sr-only">Home</span></a>
+    <a class="dock-item" data-label="Library" href="library.html"><span aria-hidden="true">&#9776;</span><span class="sr-only">Library</span></a>
+    <span class="dock-sep" aria-hidden="true"></span>
+    <a class="dock-item" data-tint="sky" data-label="DMBA 6008 &mdash; Finance" href="DMBA6008-weeks.html">6008</a>
+    <a class="dock-item" data-tint="sand" data-label="DMBA 6005 &mdash; Agile" href="DMBA6005-weeks.html">6005</a>
+    <span class="dock-sep" aria-hidden="true"></span>
+    <a class="dock-item" data-tint="mint" data-label="DMBA 6001 &mdash; Readings" href="library.html?subject=DMBA6001">6001</a>
+    <a class="dock-item" data-tint="blush" data-label="DMBA 6002 &mdash; Assessments" href="library.html?subject=DMBA6002">6002</a>
+    <a class="dock-item" data-tint="lilac" data-label="DMBA 6004 &mdash; Remote work" href="library.html?subject=DMBA6004">6004</a>
+  </nav>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ── Tabs ─────────────────────────────────────────────── */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+
+      function selectTab(tab) {
+        tabs.forEach(function (t) {
+          var isTarget = t === tab;
+          var panel = document.getElementById('panel-' + t.getAttribute('data-panel'));
+          t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+          t.tabIndex = isTarget ? 0 : -1;
+          if (!panel) return;
+          panel.classList.toggle('active', isTarget);
+          if (isTarget) {
+            panel.removeAttribute('hidden');
+          } else {
+            panel.setAttribute('hidden', '');
+          }
+        });
+      }
+
+      tabs.forEach(function (tab, i) {
+        tab.addEventListener('click', function () { selectTab(tab); });
+        tab.addEventListener('keydown', function (e) {
+          var next = null;
+          if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+          if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+          if (!next) return;
+          e.preventDefault();
+          selectTab(next);
+          next.focus();
+        });
+      });
+
+      /* ── Key concepts ─────────────────────────────────────── */
+      var TERMS = [
+        { term: 'Asset structure (asset mix)', src: 'Asset structure', def: 'The combination of assets a company holds. It should broadly reflect how the company creates and delivers value, which makes the balance sheet useful for understanding the economic model behind the business, not just its financial position.' },
+        { term: 'Common-size asset analysis', src: 'Common-size analysis', def: 'Expresses each asset category as a percentage of total assets. This allows comparison between companies of very different sizes and helps identify differences driven by their business models and industries.' },
+        { term: 'Inventory', src: 'Asset categories', def: 'A high proportion may indicate manufacturing, distribution or retail activities. In manufacturing it arises as products move through production and distribution; in retail it is stock held available for sale.' },
+        { term: 'Receivables', src: 'Asset categories', def: 'A high proportion may indicate that customers receive credit or that payment occurs after service delivery.' },
+        { term: 'PPE', src: 'Asset categories', def: 'A high proportion may indicate capital-intensive operations requiring physical infrastructure.' },
+        { term: 'Goodwill', src: 'Asset categories', def: 'A high proportion may indicate significant historical acquisition activity and acquisition premiums.' },
+        { term: 'Other intangibles', src: 'Asset categories', def: 'A high proportion may indicate reliance on software, intellectual property, licenses, product development or similar non-physical assets.' },
+        { term: 'Capital-intensive business', src: 'Business model patterns', def: 'A business requiring aircraft, buildings, factories or other major infrastructure. It will normally have a high proportion of PPE, so its balance sheet is weighted toward non-current assets, and significant capital must be committed before revenue can be generated.' },
+        { term: 'Digital platform business', src: 'Business model patterns', def: 'Usually holds relatively little inventory and physical infrastructure. A larger proportion of assets may instead consist of software and other intangibles, and goodwill where growth has occurred through acquisitions.' },
+        { term: 'Manufacturing business', src: 'Business model patterns', def: 'Manufacturing creates a need for both inventory, as products move through production and distribution, and PPE, because production requires facilities and equipment.' },
+        { term: 'Research-intensive industry', src: 'Business model patterns', def: 'Can additionally hold significant intangible assets arising from development activity, on top of the inventory and PPE that production itself requires.' },
+        { term: 'Retail business', src: 'Business model patterns', def: 'Can hold relatively high current assets, because it may require substantial inventory available for sale and receivables where customers are offered financing or credit. Its asset structure reflects both stock management and customer payment arrangements.' },
+        { term: 'Non-current asset weighting', src: 'Business model patterns', def: 'The tilt of a balance sheet toward non-current assets, characteristic of businesses whose operations require major physical infrastructure.' },
+        { term: 'Current asset weighting', src: 'Business model patterns', def: 'The tilt of a balance sheet toward current assets, seen where a business carries substantial inventory for sale and receivables from customers offered credit.' },
+        { term: 'Working capital risk', src: 'Analytical takeaway', def: 'The concern raised when inventory or receivables are unusually high. Where inventory is high, working capital management is strategically important.' },
+        { term: 'Acquisition-led growth', src: 'Strategy signals', def: 'A pattern signalled by high goodwill, indicating that growth may have relied heavily on acquisitions rather than on organic expansion.' },
+        { term: 'Change in asset composition', src: 'Strategy signals', def: 'A shift in the asset mix over time, which can indicate that the business model or growth strategy is changing.' },
+        { term: 'Financial fingerprint', src: 'Analytical takeaway', def: 'The balance sheet read as a fingerprint of the business model: it shows where capital is committed and what resources management depends on to create value.' },
+        { term: 'Return measures (ROA and ROE)', src: 'Drivers of returns', def: 'Measures that combine an income statement outcome — profitability — with a balance sheet base: the assets or equity used to generate that profit.' },
+        { term: 'Core Driver Chain', src: 'Drivers of returns', def: 'The set of financial outcomes that drive return — profitability, asset efficiency, working capital, capital structure and sustained returns — each with its own main drivers and management focus.' },
+        { term: 'Return chain', src: 'Drivers of returns', formula: 'Market position → Volume & Margin → Profitability → Asset/Capital Efficiency → Return', def: 'Returns understood as a chain running from market position through to return. Sustainable value creation depends on whether the company can preserve the competitive advantages supporting those returns.' },
+        { term: 'Profitability', src: 'Drivers of returns', formula: 'Profitability: Volume × Margin', def: 'Fundamentally depends on volume and margin. Management focus sits on product mix, pricing and demand.' },
+        { term: 'Volume', src: 'Drivers of returns', def: 'How much the business sells.' },
+        { term: 'Margin', src: 'Drivers of returns', def: 'Profit generated from each sale.' },
+        { term: 'Asset utilisation', src: 'Drivers of returns', def: 'Whether assets are being used hard enough to generate revenue. Spare or under-utilised capacity reduces returns. The management focus is capacity and the productive use of assets.' },
+        { term: 'Surplus assets', src: 'Drivers of returns', def: 'Assets that are not producing enough income and may need to be sold, redeployed or restructured.' },
+        { term: 'Working capital', src: 'Drivers of returns', def: 'Inventory, receivables and payables. Growth can increase the requirements for each, and the management focus is preventing growth from absorbing excessive cash.' },
+        { term: 'Cash requirement created by growth', src: 'Drivers of returns', def: 'What management must consider alongside the additional revenue growth brings. Poor working capital management can cause a growing, profitable business to absorb sustainable cash.' },
+        { term: 'Capital structure', src: 'Drivers of returns', def: 'The funding mix between debt and equity. The appropriate mix depends on how the business chooses to finance the assets needed to operate and grow.' },
+        { term: 'External drivers of return', src: 'Drivers of returns', def: 'Consumer demand, competitive behaviour, continued competitiveness, efficiency of asset management and funding decisions — the competitive reality that financial outcomes ultimately reflect.' },
+        { term: 'Competitive advantage period', src: 'Drivers of returns', def: 'The period for which a company can maintain returns above its cost of capital before competitors catch up. A strong current return is therefore not enough.' },
+        { term: 'Sustained returns', src: 'Drivers of returns', def: 'The financial outcome driven by the competitive advantage period, where the management focus is protecting returns from competitive erosion.' },
+        { term: 'Margin erosion', src: 'Drivers of returns', formula: 'Competitive advantage → Imitation/Competition → Margin erosion → Lower returns', def: 'What follows without continued investment and innovation, as imitation and competition catch up with the advantage.' },
+        { term: 'Superior brand', src: 'Drivers of returns', def: 'A source of sustainable advantage: customers continue choosing or paying more for the offering.' },
+        { term: 'Core-category innovation', src: 'Drivers of returns', def: 'A source of sustainable advantage: the company remains ahead of competitors in its main market.' },
+        { term: 'Strategic partnerships', src: 'Drivers of returns', def: 'A source of sustainable advantage: relationships provide capabilities or market access competitors cannot easily replicate.' },
+        { term: 'Sustainable value creation', src: 'Drivers of returns', def: 'Depends on whether the company can preserve the competitive advantages supporting its returns. Those advantages require continuous maintenance and reinvestment rather than being treated as permanent.' },
+                { term: 'DuPont model', src: 'DuPont model example', def: 'A method that breaks return measures into their underlying drivers, allowing analysts to explain why ROA or ROE changed rather than simply observing that they changed.' },
+                { term: 'Asset Utilisation', src: 'DuPont model example', def: 'Revenue generated per dollar of assets. It tells management how effectively assets generate sales.' },
+                { term: 'Profit Margin', src: 'DuPont model example', def: 'Profit generated per dollar of revenue. It reflects pricing power and/or control of expenses.' },
+                { term: 'Return on Assets (ROA)', src: 'DuPont model example', formula: 'ROA = Asset Utilisation x Profit Margin', def: 'Profit generated from the asset base — the overall operating efficiency of invested assets.' },
+                { term: 'Return on Equity (ROE)', src: 'DuPont model example', formula: 'ROE = Asset Utilisation x Profit Margin x Financial Leverage', def: 'The fully expanded DuPont relationship: the two operating drivers of ROA multiplied by financial leverage.' },
+                { term: 'Financial Leverage', src: 'DuPont model example', def: 'The third term the DuPont model introduces when moving from return on assets to return on equity. It is the only element the equity view adds to the operating drivers.' },
+                { term: 'Assets-to-equity ratio', src: 'DuPont model example', def: 'Shows how much of the asset base exists for each dollar of shareholder equity. A higher ratio generally indicates that more assets are being financed through debt relative to equity.' },
+                { term: 'Operating performance', src: 'DuPont model example', def: 'The category covering higher asset utilisation and higher profit margin. Where these drive a higher ROE, assets are generating more revenue or revenue is being converted into more profit.' },
+                { term: 'Financial risk', src: 'DuPont model example', def: 'What higher leverage introduces. Leverage can increase shareholder returns mathematically, but it does so by using more debt relative to equity rather than by improving operations.' },
+                { term: 'Offsetting drivers', src: 'DuPont model example', def: 'A transaction may improve one component while weakening another — higher asset utilisation alongside a lower profit margin — and the effects can offset each other, leaving ROA unchanged.' },
+                { term: 'Asset productivity', src: 'DuPont model example', def: 'One of the three effects DuPont analysis separates an acquisition into, alongside changes in profitability and changes in financial leverage.' },
+                { term: 'Absolute profit after an acquisition', src: 'DuPont model example', def: 'Weak evidence of success. An acquisition will normally increase assets, revenue, expenses and potentially profit, so a larger profit figure on its own says little about the return earned on the additional capital.' },
+                { term: 'Leverage-driven ROE', src: 'DuPont model example', formula: 'Unchanged ROA + Higher Leverage → Higher ROE', def: 'Underlying operating returns have not improved, shareholders appear to earn a higher return, and the improvement comes from using more debt. It may reflect greater risk rather than better management performance.' },
+                { term: 'Headline return', src: 'DuPont model example', def: 'The reported return figure taken at face value. Management performance should be evaluated on the quality and source of returns, not just the headline return.' },
+                { term: 'Financial story', src: 'DuPont model example', formula: 'ROE = Asset Efficiency x Profitability x Leverage', def: 'What the DuPont model turns a return ratio into — a decomposition that identifies which driver moved rather than only that the ratio moved.' },
+                { term: 'Management incentives', src: 'DuPont model example', def: 'DuPont analysis is useful when assessing management bonuses or strategic performance. Management should not necessarily be rewarded simply because profit or ROE increased.' },
+      ];
+
+      var glossaryEl = document.getElementById('glossary');
+      var countEl = document.getElementById('term-count');
+      var searchEl = document.getElementById('term-search');
+
+      function escapeHtml(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      glossaryEl.innerHTML = TERMS.map(function (t) {
+        var tag = t.own
+          ? '<span class="term-src term-src--own">Key Definitions</span>'
+          : '<span class="term-src">' + escapeHtml(t.src) + '</span>';
+        return '<article class="term" data-search="' +
+          escapeHtml((t.term + ' ' + t.def + ' ' + (t.formula || '')).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' + escapeHtml(t.term) + '</h3>' + tag + '</div>' +
+          '<p class="term-def">' + escapeHtml(t.def) + '</p>' +
+          (t.formula ? '<div class="term-formula">' + escapeHtml(t.formula) + '</div>' : '') +
+          '</article>';
+      }).join('') + '<p class="no-results" id="no-results" hidden>No terms match that filter.</p>';
+
+      var termEls = Array.prototype.slice.call(glossaryEl.querySelectorAll('.term'));
+      var noResultsEl = document.getElementById('no-results');
+
+      searchEl.addEventListener('input', function () {
+        var q = searchEl.value.trim().toLowerCase();
+        var shown = 0;
+        termEls.forEach(function (el) {
+          var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+          if (match) { el.removeAttribute('hidden'); shown++; }
+          else { el.setAttribute('hidden', ''); }
+        });
+        countEl.textContent = shown + ' of ' + TERMS.length;
+        if (shown === 0) { noResultsEl.removeAttribute('hidden'); }
+        else { noResultsEl.setAttribute('hidden', ''); }
+      });
+
+      /* ── Flashcards ───────────────────────────────────────── */
+      var CARDS = [
+        { q: 'What should a company’s combination of assets broadly reflect?', a: 'How the company creates and delivers value.' },
+        { q: 'Which five business characteristics can the asset mix reveal?', a: 'Whether the business is primarily capital intensive, inventory-driven, credit-based, acquisition-led, or dependent on intellectual property and software.' },
+        { q: 'What is the question to ask of any asset structure?', a: 'Does the asset structure make sense given how the company operates?' },
+        { q: 'Define common-size asset analysis.', a: 'It expresses each asset category as a percentage of total assets.' },
+        { q: 'Why is common-size analysis useful?', a: 'It allows comparison between companies of very different sizes and helps identify differences driven by their business models and industries.' },
+        { q: 'A high proportion of inventory may indicate what?', a: 'Manufacturing, distribution or retail activities.' },
+        { q: 'A high proportion of receivables may indicate what?', a: 'That customers receive credit, or that payment occurs after service delivery.' },
+        { q: 'A high proportion of PPE may indicate what?', a: 'Capital-intensive operations requiring physical infrastructure.' },
+        { q: 'A high proportion of goodwill may indicate what?', a: 'Significant historical acquisition activity and acquisition premiums.' },
+        { q: 'A high proportion of other intangibles may indicate what?', a: 'Reliance on software, intellectual property, licenses, product development or similar non-physical assets.' },
+        { q: 'Where does the value of category analysis actually come from?', a: 'From interpreting the categories together, rather than judging any single number in isolation.' },
+        { q: 'What does a capital-intensive balance sheet look like?', a: 'A high proportion of PPE, so the balance sheet is weighted toward non-current assets.' },
+        { q: 'Why do capital-intensive models tie up the balance sheet early?', a: 'Significant capital must be committed before revenue can be generated.' },
+        { q: 'What does a digital platform business usually hold little of?', a: 'Inventory and physical infrastructure.' },
+        { q: 'Where does a digital platform business tend to carry its assets instead?', a: 'In software and other intangibles, and in goodwill where growth has occurred through acquisitions.' },
+        { q: 'Compare a SaaS platform with a hardware manufacturer.', a: 'A SaaS platform would normally be expected to have much less inventory and PPE than a hardware manufacturer.' },
+        { q: 'Why does manufacturing need both inventory and PPE?', a: 'Inventory, as products move through production and distribution; PPE, because production requires facilities and equipment.' },
+        { q: 'What do research-intensive industries hold in addition?', a: 'Significant intangible assets arising from development activity.' },
+        { q: 'Why can retail businesses hold relatively high current assets?', a: 'They may require substantial inventory available for sale, and receivables where customers are offered financing or credit.' },
+        { q: 'What does a retailer’s asset structure reflect?', a: 'Both stock management and customer payment arrangements.' },
+        { q: 'High goodwill — what strategic reading?', a: 'Growth may have relied heavily on acquisitions.' },
+        { q: 'High intangibles — what strategic reading?', a: 'Value creation may depend on technology IP or development.' },
+        { q: 'High receivables — what strategic reading?', a: 'Customer credit is an important part of the commercial model.' },
+        { q: 'High inventory — what strategic reading?', a: 'Working capital management is strategically important.' },
+        { q: 'What can changes in asset composition over time indicate?', a: 'That the business model or growth strategy is changing.' },
+        { q: 'Against what should a company’s asset mix be assessed?', a: 'Its business model, industry and strategy — rather than a universal benchmark.' },
+        { q: 'Which key question tests for working capital risk?', a: 'Are unusually high inventory or receivables creating working capital risk?' },
+        { q: 'In what sense is the balance sheet a financial fingerprint?', a: 'It shows where capital is committed and what resources management depends on to create value.' },
+        { q: 'What two things does a return measure such as ROA or ROE combine?', a: 'An income statement outcome — profitability — and a balance sheet base: the assets or equity used to generate that profit.' },
+        { q: 'Why is increasing profit not enough to improve returns?', a: 'Improving returns also requires managing how much capital is tied up in the business.' },
+        { q: 'Name the five financial outcomes in the core driver chain.', a: 'Profitability, asset efficiency, working capital, capital structure, and sustained returns.' },
+        { q: 'What does profitability fundamentally depend on?', a: 'Volume — how much the business sells — and margin, the profit generated from each sale.' },
+        { q: 'Which two volume-and-margin combinations do the notes name?', a: 'High volume / low margin, and low volume / high margin.' },
+        { q: 'What decision does the volume and margin trade-off force on management?', a: 'Deciding which products, customers and markets deserve investment, rather than simply maximising sales.' },
+        { q: 'Give the technology example of balancing volume against margin.', a: 'A SaaS company may balance a high-volume basic plan with lower margins against enterprise contracts with fewer customers but larger margins.' },
+        { q: 'What is the central issue in asset utilisation?', a: 'Whether assets are being used hard enough to generate revenue — are those assets producing enough income?' },
+        { q: 'What does spare or under-utilised capacity do to returns?', a: 'It reduces them.' },
+        { q: 'What may need to happen to surplus assets?', a: 'They may need to be sold, redeployed or restructured.' },
+        { q: 'Which three working capital items can growth increase the requirements for?', a: 'Inventory, receivables and payables.' },
+        { q: 'What can poor working capital management do to a growing, profitable business?', a: 'It can cause the business to absorb sustainable cash.' },
+        { q: 'What must management consider about growth beyond the additional revenue?', a: 'The cash requirement created by growth.' },
+        { q: 'How does capital structure influence returns?', a: 'Through the funding mix between debt and equity. The appropriate mix depends on how the business chooses to finance the assets needed to operate and grow.' },
+        { q: 'Name the external drivers of return.', a: 'Consumer demand, competitive behaviour, continued competitiveness, efficiency of asset management, and funding decisions.' },
+        { q: 'What should financial ratios be interpreted alongside?', a: 'The company’s market and strategic position.' },
+        { q: 'Define the competitive advantage period.', a: 'The period for which a company can maintain returns above its cost of capital before competitors catch up.' },
+        { q: 'A business reports a strong current return. What must management still ask?', a: 'How long can this level of superior return realistically continue?' },
+        { q: 'What is the sequence that follows without continued investment and innovation?', a: 'Competitive advantage → Imitation/Competition → Margin erosion → Lower returns.' },
+        { q: 'What does a superior brand provide?', a: 'Customers continue choosing or paying more for the offering.' },
+        { q: 'What does core-category innovation provide?', a: 'The company remains ahead of competitors in its main market.' },
+        { q: 'What do strategic partnerships provide?', a: 'Relationships provide capabilities or market access competitors cannot easily replicate.' },
+        { q: 'How must the sources of competitive advantage be treated over time?', a: 'They require continuous maintenance and reinvestment rather than being treated as permanent.' },
+        { q: 'State the return chain from market position through to return.', a: 'Market position → Volume & Margin → Profitability → Asset/Capital Efficiency → Return.' },
+        { q: 'What does sustainable value creation ultimately depend on?', a: 'Whether the company can preserve the competitive advantages supporting those returns.' },
+        { q: 'What are the four key management questions on returns?', a: 'What is driving returns — margin, volume or asset efficiency? Are assets producing adequate revenue, or is there excessive capacity? Will growth create excessive working-capital requirements? Is the funding mix appropriate?' },
+                { q: 'What does the DuPont model do to a return measure?', a: 'It breaks the return into its underlying drivers, so an analyst can explain why ROA or ROE changed rather than only observing that it changed.' },
+                { q: 'State the DuPont relationship for return on assets.', a: 'ROA = Asset Utilisation x Profit Margin' },
+                { q: 'What does asset utilisation measure, and what does it tell management?', a: 'Revenue generated per dollar of assets — how effectively assets generate sales.' },
+                { q: 'What does profit margin measure, and what does it tell management?', a: 'Profit generated per dollar of revenue — pricing power and/or control of expenses.' },
+                { q: 'What does ROA measure in DuPont terms?', a: 'Profit generated from the asset base — the overall operating efficiency of invested assets.' },
+                { q: 'What does the model introduce to move from ROA to ROE?', a: 'Financial leverage.' },
+                { q: 'State the fully expanded DuPont relationship for return on equity.', a: 'ROE = Asset Utilisation x Profit Margin x Financial Leverage' },
+                { q: 'What does the assets-to-equity ratio show?', a: 'How much of the asset base exists for each dollar of shareholder equity.' },
+                { q: 'What does a higher assets-to-equity ratio generally indicate?', a: 'That more assets are being financed through debt relative to equity.' },
+                { q: 'Name the three causes of a higher ROE.', a: 'Higher asset utilisation, higher profit margin, and higher leverage.' },
+                { q: 'Which causes of a higher ROE represent operating performance?', a: 'Higher asset utilisation and higher profit margin. Higher leverage does not.' },
+                { q: 'Why is a leverage-driven rise in ROE different in kind?', a: 'It can increase shareholder returns mathematically, but it also introduces greater financial risk.' },
+                { q: 'What should never be done with ROE?', a: 'Interpreting it without examining what caused it to change.' },
+                { q: 'What does an acquisition normally increase?', a: 'Assets, revenue, expenses and potentially profit.' },
+                { q: 'Why is higher absolute profit after an acquisition weak evidence of success?', a: 'Because an acquisition normally increases assets, revenue and expenses as well, so a larger profit figure on its own is weak evidence that the return on the extra capital invested has improved.' },
+                { q: 'What question should be put to management after an acquisition?', a: 'Has management generated a better return from the additional capital invested?' },
+                { q: 'Into which three effects does DuPont analysis separate an acquisition?', a: 'Changes in asset productivity, changes in profitability, and changes in financial leverage.' },
+                { q: 'Give the offsetting-driver case.', a: 'Higher asset utilisation — assets generate more revenue — offset by a lower profit margin, because the additional revenue carries proportionately higher expenses.' },
+                { q: 'What is the result when the two drivers offset each other?', a: 'ROA is left unchanged.' },
+                { q: 'What does the offsetting case demonstrate about analysis?', a: 'That analysing only revenue growth, profit growth or one financial ratio can give an incomplete picture.' },
+                { q: 'What does unchanged ROA plus higher leverage produce?', a: 'Higher ROE — even though underlying operating returns have not improved and the improvement comes from using more debt.' },
+                { q: 'When leverage lifts ROE, what may the higher figure actually reflect?', a: 'Greater risk rather than better management performance.' },
+                { q: 'Why should management not be rewarded simply because profit or ROE increased?', a: 'Because performance should be evaluated on the quality and source of the returns, not just the headline return.' },
+                { q: 'What four possible sources of improvement should analysts test?', a: 'Generating operating efficiency, better margins, productive deployment of new assets, or simply greater leverage.' },
+                { q: 'What does the DuPont model turn a return ratio into, and in what form?', a: 'A financial story: ROE = Asset Efficiency x Profitability x Leverage.' },
+                { q: 'When is an improving financial ratio meaningful?', a: 'Only once the driver of that improvement is understood.' },
+      ];
+
+      var order = CARDS.map(function (_, i) { return i; });
+      var pos = 0;
+
+      var flipBtn = document.getElementById('flip-card');
+      var qEl = document.getElementById('card-q');
+      var aEl = document.getElementById('card-a');
+      var idxEl = document.getElementById('card-index');
+      var totalEl = document.getElementById('card-total');
+      var fillEl = document.getElementById('progress-fill');
+      var prevBtn = document.getElementById('prev-btn');
+      var nextBtn = document.getElementById('next-btn');
+      var shuffleBtn = document.getElementById('shuffle-btn');
+
+      totalEl.textContent = CARDS.length;
+
+      function render() {
+        var card = CARDS[order[pos]];
+        flipBtn.setAttribute('aria-pressed', 'false');
+        // Swap the text only once the card is edge-on, so the answer is never
+        // readable through the flip.
+        window.setTimeout(function () {
+          qEl.textContent = card.q;
+          aEl.textContent = card.a;
+        }, flipBtn.getAttribute('data-flipped') === 'true' ? 180 : 0);
+        flipBtn.setAttribute('data-flipped', 'false');
+        idxEl.textContent = pos + 1;
+        fillEl.style.width = ((pos + 1) / CARDS.length * 100) + '%';
+        prevBtn.disabled = pos === 0;
+        nextBtn.disabled = pos === CARDS.length - 1;
+      }
+
+      function flip() {
+        var flipped = flipBtn.getAttribute('aria-pressed') === 'true';
+        flipBtn.setAttribute('aria-pressed', flipped ? 'false' : 'true');
+        flipBtn.setAttribute('data-flipped', flipped ? 'false' : 'true');
+      }
+
+      function go(delta) {
+        var next = pos + delta;
+        if (next < 0 || next >= CARDS.length) return;
+        pos = next;
+        render();
+      }
+
+      flipBtn.addEventListener('click', flip);
+      prevBtn.addEventListener('click', function () { go(-1); });
+      nextBtn.addEventListener('click', function () { go(1); });
+
+      shuffleBtn.addEventListener('click', function () {
+        for (var i = order.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = order[i];
+          order[i] = order[j];
+          order[j] = tmp;
+        }
+        pos = 0;
+        render();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        var panel = document.getElementById('panel-cards');
+        if (panel.hasAttribute('hidden')) return;
+        var tag = (e.target.tagName || '').toLowerCase();
+        if (tag === 'input' || tag === 'textarea') return;
+
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+        else if (e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); flip(); }
+        else if (e.key === 's' || e.key === 'S') { e.preventDefault(); shuffleBtn.click(); }
+      });
+
+      render();
+    })();
+  </script>
+</body>
+
+</html>

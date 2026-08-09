@@ -50,7 +50,7 @@
     ],
 
     "blockers": [
-      "Notebook 3b37b336873c80db9388ee1a56192b33 ('New Notebook') is an empty placeholder. Skip it; never render it as a week.",
+      "Notebook 3b37b336873c80db9388ee1a56192b33 WAS an empty placeholder called 'New Notebook'. On 2026-08-08 it was RENAMED to 'Week 2: Agile' and filled. It is now a real week and MUST be synced. The old skip rule was removed on 2026-08-10 — it would have silently dropped the entire week. Lesson: a notebook's emptiness is a fact about today, never a permanent property. Re-check every skipped notebook each run rather than trusting this list.",
       "Note 3b17b336873c800e9208ca98bc0a8ada ('Class Diary', Week 1) is a Live Session note. NEVER publish it.",
       "Note 3ae7b336873c803ab350c8e418970044 ('Shadow Boxing') is Pre-Live but has NO Notebook relation, so it belongs to no week. Aryan directed 2026-08-06 that it publish under Week 0. If he later files it under a notebook in Notion, move it to match. This is the ONLY Shadow Boxing note that may be published — see syncRules 'no-shadow-boxing-after-week-0'.",
       "Note 3b37b336873c80698a11eb104e178cb1 ('Shadow Boxing Week 1') and every later Shadow Boxing note are EXCLUDED by syncRules 'no-shadow-boxing-after-week-0'. Skip silently; do not report them as gaps."
