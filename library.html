@@ -153,6 +153,45 @@
     }
     .library-title span { color: var(--lime); }
 
+    /* ── Heritage notice — a taped note above a Semester 1 list ────────── */
+    .notice {
+      position: relative;
+      width: min(760px, calc(100% - 2 * var(--gap)));
+      margin: 0 auto clamp(26px, 4vw, 40px);
+      padding: 22px 26px 24px;
+      background: var(--sand);
+      border-radius: var(--radius-lg);
+      box-shadow: 6px 6px 0 rgba(20, 19, 23, 0.07);
+      transform: rotate(-0.7deg);
+    }
+    .notice::before {
+      content: "";
+      position: absolute;
+      left: 26px;
+      top: -10px;
+      width: 12px;
+      height: 28px;
+      border: 2.5px solid rgba(20, 19, 23, 0.38);
+      border-radius: 7px;
+      border-bottom-color: transparent;
+    }
+    .notice-title {
+      margin: 0 0 8px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .notice p {
+      margin: 0;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--ink2);
+    }
+    .notice strong { font-weight: 700; color: var(--ink); }
+
     /* ── Pinboard of articles ──────────────────────────────────────────── */
     .page {
       position: relative;
@@ -325,6 +364,16 @@
   </header>
 
   <main class="page">
+    <aside class="notice" id="heritage-notice" hidden>
+      <p class="notice-title">Heritage pages &mdash; original styling preserved</p>
+      <p>
+        These were written during Semester 1, before the site had a design system. Each one
+        keeps the palette, typography and layout it was published with, so the look changes
+        from page to page. They are deliberately <strong>not</strong> restyled: the design was
+        part of the work, and rewriting it now would misrepresent what was submitted.
+        Semester 2 pages follow the current house style.
+      </p>
+    </aside>
     <ul class="articles" id="article-list"></ul>
   </main>
 
@@ -401,6 +450,13 @@
             '<p class="label">' + s.term + '</p></li>';
         }).join('');
         return;
+      }
+
+      // Semester 1 pages predate the design system and keep their own identities.
+      // Say so, once, at the top of those lists.
+      var heritageSubjects = ['DMBA6001', 'DMBA6002', 'DMBA6004'];
+      if (heritageSubjects.includes(subject)) {
+        document.getElementById('heritage-notice').removeAttribute('hidden');
       }
 
       var displayCode = subject.replace(/(\d{4})$/, ' $1');

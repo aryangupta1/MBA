@@ -66,8 +66,10 @@ flashcard flip, tab switching, sub-tabs, topic chips and term filter all still w
 - [ ] **Aryan has not yet eyeballed any of this** — it was verified in a headless browser at
       desktop and narrow widths, not on his machine, and never on a real touch device.
 - [ ] **The Semester 1 artefact pages and `blogs/` were deliberately left alone.** They keep
-      their own identities per `CLAUDE.md`. If Aryan wants them converted, that is a new job
-      and a large one (16 pages).
+      their own identities per `CLAUDE.md`, and `library.html` now says so to the reader: a
+      "Heritage pages" notice heads the `DMBA6001` / `6002` / `6004` lists (opt in via
+      `heritageSubjects` in `library.html`). If Aryan wants them converted, that is a new job
+      and a large one (16 pages) — and it would make that notice a lie.
 - [ ] **The inline SVG figures still hard-code their fills** (~40–90 hex literals per week
       page). That is why each subject kept its accent hue and why the week pages still alias
       `--petrol*` to `--accent*`. Migrating those fills to `var(--…)` would be a real

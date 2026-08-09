@@ -37,8 +37,11 @@ window over a dimmed desktop. That last move is exactly what a week study page i
 | `.claude/skills/sync-subject/reference/week-shell.html` | `only-accessible-by-url/` |
 
 Semester 1 pages keep the visual identity they were written with — that is a standing
-constraint in [`../CLAUDE.md`](../CLAUDE.md), not an oversight. `library.html` is the
-obvious next candidate and has **not** been converted; it still uses the older warm palette.
+constraint in [`../CLAUDE.md`](../CLAUDE.md), not an oversight. `library.html` says so to
+the reader: a `.notice` panel appears at the top of the `DMBA6001`, `DMBA6002` and
+`DMBA6004` lists explaining that those pages are preserved as published rather than
+restyled. Add a subject to `heritageSubjects` in `library.html` to opt it in; the notice
+never shows on a Semester 2 list or on the all-subjects index.
 
 There is still **no build step and no shared stylesheet.** Every page carries the system
 inline in its own `<style>` block. That is duplication on purpose: it is what keeps each
