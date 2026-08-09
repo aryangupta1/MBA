@@ -9,7 +9,8 @@
 **Last updated:** 2026-08-09
 **Left by:** a complete UI overhaul. `index.html`, `library.html` and every Semester 2 page
 were rebuilt on a new house design system — **DESK** — documented in
-[docs/design-system.md](docs/design-system.md). **Nothing is committed.**
+[docs/design-system.md](docs/design-system.md). **Committed and pushed to `master`**
+(`90fb6da`, `92f5931`), so it is live on GitHub Pages.
 
 ---
 
@@ -23,14 +24,13 @@ Aryan, not by this file — he says *"update agile"* or *"update finance"* and t
 1. **Read [docs/design-system.md](docs/design-system.md) before changing how any covered
    page looks.** It is now referenced from `CLAUDE.md`, `docs/README.md` and
    `docs/style-guide.md`, and it wins over the style guide for the pages it lists.
-2. **Ask whether to commit.** Everything below is uncommitted:
-   - **New:** `docs/design-system.md`
-   - **Rebuilt:** `index.html`, `library.html`, `DMBA6008-weeks.html`, `DMBA6005-weeks.html`
-   - **Re-skinned (content and script untouched):** `DMBA6008-week0/1.html`,
-     `DMBA6005-week0/1.html`
-   - **Pipeline:** `.claude/skills/sync-subject/{SKILL.md,subjects.json,reference/week-shell.html}`
-   - **Docs:** `CLAUDE.md`, `docs/README.md`, `docs/style-guide.md`
-   The 2026-08-06 DMBA 6005 launch is *also* still uncommitted underneath this.
+2. **The working tree is clean and `master` is pushed.** The overhaul shipped as two
+   commits, which also carried the previously-uncommitted 2026-08-06 DMBA 6005 launch:
+   - `90fb6da` — the design system: `docs/design-system.md` (new); `index.html`,
+     `library.html`, `DMBA60xx-weeks.html` rebuilt; `DMBA60xx-week0/1.html` re-skinned with
+     content and script untouched; `.claude/skills/sync-subject/*` and the docs rewired.
+   - `92f5931` — the "Heritage pages" notice on the Semester 1 library lists.
+   If Aryan dislikes anything, **revert or amend — do not rebuild from scratch.**
 
 ## What the overhaul shipped
 
