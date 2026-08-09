@@ -73,6 +73,20 @@ not. One query to list a course's notebooks is fine; a query per note is waste �
 3. Fetch each note in each notebook's `Notes` relation, for `Type` and `Edited Time`.
    - **Skip the stale note id in `subjects.json` `_globals.staleNoteId`.** It 404s from
      every notebook and is not a failure.
+   - **Apply the subject's `syncRules`.** These are per-subject exclusions and they bind
+     **both discovery flows** — this per-notebook walk *and* the Course-level `Notes` walk
+     in §3a. Enforcing a rule in only one flow lets the note in through the other. Drop
+     excluded notes here, before shape detection and before any harvest agent is spawned,
+     and list them in the Phase 0 table as `SKIPPED  <rule id>`.
+   - Live rule today: **DMBA 6005 `no-shadow-boxing-after-week-0`** — no `Shadow Boxing`
+     note or sub-page is published for Week 1 or later. Week 0's is already published and
+     stays. Set by Aryan, 2026-08-10.
+
+3a. **Also fetch the Course's own `Notes` relation** and reconcile it with what the
+   notebooks gave you. A pre-live note can carry a `Course` relation and **no `Notebook`
+   relation**, in which case walking notebooks alone silently misses it — DMBA 6005's Week 0
+   `Shadow Boxing` note is the live example. Same `Type` filter, same `staleNoteId` skip,
+   and **the same `syncRules`**.
 4. **Detect the content shape per note, at runtime.** If the note's `<content>` is nothing
    but `<page url=…>` links, it is a container (Shape A) — recurse to the leaves. Otherwise
    the body is the content (Shape B). Never trust `contentShapeHint`; a subject can change
@@ -108,6 +122,7 @@ NEW        Week 2 "Cost of capital" — 1 pre-live note, 4 sub-pages, ~3,100 wor
 CHANGED    Week 0 → "Assessing Financial Performance" — was empty, now 6 of 10 written
 UNCHANGED  Week 1
 SKIPPED    Live-session note in Week 2 — not publishable (docs/notion-sync.md §6)
+SKIPPED    Shadow Boxing Week 1 — syncRules: no-shadow-boxing-after-week-0
 SKIPPED    3 images in Week 2 — see "Images" below
 ```
 
@@ -323,10 +338,19 @@ Three things a later run will trip over:
   relation**, so walking notebooks alone silently misses it. It is published under Week 0 by
   Aryan's direction (2026-08-06). **Walk the Course's `Notes` relation as well as the
   notebooks**, and reconcile the two — a general lesson, not a 6005 quirk.
+- **No Shadow Boxing content after Week 0.** `syncRules` →
+  `no-shadow-boxing-after-week-0`, set by Aryan on 2026-08-10. Any note or sub-page whose
+  title starts with `Shadow Boxing` outside Week 0 is dropped in Phase 0 — **in both
+  discovery flows** — and reported as `SKIPPED`. Week 0's stays published. Do not render a
+  "not yet written" placeholder for the excluded ones, do not give them a topic chip on the
+  hub, and do not let them contribute terms or flashcards. `Shadow Boxing Week 1`
+  (`3b37b336873c80698a11eb104e178cb1`) is empty and is now permanently out of scope, so it
+  is no longer a gap waiting to be filled.
 - **Week 1 is deliberately incomplete on the page.** `Context Analysis for $RUs` ends
-  mid-word at *"Their financial requir"* and is reproduced exactly that far; `Creating your
-  reflective journal` and `Shadow Boxing Week 1` are empty and render as an honest "not yet
-  written" block. **Those are the things to replace** when Aryan writes them.
+  mid-word at *"Their financial requir"* and is reproduced exactly that far, and `Creating
+  your reflective journal` is empty and renders as an honest "not yet written" block.
+  **Those are the things to replace** when Aryan writes them. `Shadow Boxing Week 1` used to
+  be listed alongside them; it is now excluded by `syncRules` and must not reappear.
 
 Settled, do not re-ask:
 

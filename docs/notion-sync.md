@@ -255,6 +255,26 @@ Also excluded by default, as personal study telemetry rather than coursework:
 
 Publishing any of these is a per-subject decision for the author, not a default.
 
+### Per-subject exclusions — `syncRules`
+
+Beyond the `Type` filter, a subject can carry named exclusions in `subjects.json` under
+`syncRules`. They are author decisions, not inferences, and they are **permanent until the
+author revokes them** — a run must not treat an excluded note as a gap to be filled later.
+
+**A `syncRule` binds both discovery flows.** Notes reach the pipeline two ways: the
+per-notebook `Notes` relation walk, and the Course-level `Notes` relation walk that catches
+notes carrying no `Notebook` relation. A rule enforced in only one flow is not enforced —
+the note simply arrives through the other. Apply exclusions in Phase 0, before shape
+detection and before any harvest agent is spawned, and report each as
+`SKIPPED  <rule id>`.
+
+| Subject | Rule | Effect |
+| --- | --- | --- |
+| DMBA 6005 | `no-shadow-boxing-after-week-0` | No note or sub-page whose title starts with `Shadow Boxing` is published for **Week 1 or any later week**. Week 0's `Shadow Boxing` method note (`3ae7b336873c803ab350c8e418970044`) is already published and stays. Set by Aryan, 2026-08-10. |
+
+An excluded note gets **no** "not yet written" placeholder, **no** topic chip on the hub
+page, and contributes **no** terms or flashcards. It is out of scope, not pending.
+
 Academic integrity, unchanged from [content-guide.md](content-guide.md): summarising and
 restructuring the student's own notes is fine and is the whole point of this pipeline.
 Generating new academic argument, inventing a citation, or "improving" a claim is not.
@@ -290,9 +310,14 @@ Three things about 6005 that differ from 6008, and will bite a later run:
   so walking notebooks alone misses it. Aryan directed on 2026-08-06 that it publish under
   Week 0. Walk the Course's `Notes` relation too, and reconcile against the notebooks.
 - **Week 1 is partly unwritten, and stays that way on the page.** `Context Analysis for
-  $RUs` ends mid-word at *"Their financial requir"*; `Creating your reflective journal` and
-  `Shadow Boxing Week 1` are empty. The page reproduces the truncation exactly and carries
-  honest "not yet written" blocks. **Never complete the sentence.**
+  $RUs` ends mid-word at *"Their financial requir"* and `Creating your reflective journal`
+  is empty. The page reproduces the truncation exactly and carries an honest "not yet
+  written" block. **Never complete the sentence.**
+- **No Shadow Boxing content after Week 0.** `syncRules` → `no-shadow-boxing-after-week-0`
+  (§6), set by Aryan on 2026-08-10. `Shadow Boxing Week 1`
+  (`3b37b336873c80698a11eb104e178cb1`) and every later one are dropped in Phase 0, in both
+  discovery flows. They were removed from the Week 1 page and the hub on the same day, so a
+  later run finding them again must skip them rather than re-add them.
 
 The case-study characters in `Your project with StellarCX` — Chris Gold, Dirk, Ivy, Andrew,
 Jeremy, Annie, and the client Murray — were confirmed by Aryan on 2026-08-06 to be

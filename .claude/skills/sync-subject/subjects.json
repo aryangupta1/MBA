@@ -36,10 +36,24 @@
     "referencePage": "DMBA6008-week1.html",
     "live": true,
     "_liveComment": "Launched 2026-08-06 with Week 0 and Week 1 together, once Week 1's `Learn` Pre-Live Session note appeared. index.html card un-muted in the same run, per Aryan's 2026-08-05 pre-approval.",
+    "syncRules": [
+      {
+        "id": "no-shadow-boxing-after-week-0",
+        "rule": "Never sync or publish Shadow Boxing content for Week 1 or any later week.",
+        "setBy": "Aryan, 2026-08-10",
+        "allowed": "Week 0 only. Note 3ae7b336873c803ab350c8e418970044 is already published there and stays.",
+        "match": "Any note OR container sub-page whose title starts with 'Shadow Boxing' (case-insensitive), reached from any notebook other than Week 0 — including a note with no Notebook relation that a later run cannot place.",
+        "appliesToBothFlows": "MUST be enforced in BOTH discovery flows: (1) the per-notebook `Notes` relation walk, and (2) the Course-level `Notes` relation walk that catches notes with no Notebook relation. Enforcing it in only one lets the note in through the other.",
+        "action": "Drop it in Phase 0, before shape detection and before any harvest agent is spawned. Report it as SKIPPED with this rule id. Do NOT render a 'not yet written' placeholder for it, do NOT count it in the topic chips on the hub page, and do NOT let it contribute terms or flashcards.",
+        "whyItMatters": "The Week 1 note (3b37b336873c80698a11eb104e178cb1) is empty, and the ones after it will be too. Every run would otherwise re-detect them as CHANGED and re-add a placeholder Aryan does not want."
+      }
+    ],
+
     "blockers": [
       "Notebook 3b37b336873c80db9388ee1a56192b33 ('New Notebook') is an empty placeholder. Skip it; never render it as a week.",
       "Note 3b17b336873c800e9208ca98bc0a8ada ('Class Diary', Week 1) is a Live Session note. NEVER publish it.",
-      "Note 3ae7b336873c803ab350c8e418970044 ('Shadow Boxing') is Pre-Live but has NO Notebook relation, so it belongs to no week. Aryan directed 2026-08-06 that it publish under Week 0. If he later files it under a notebook in Notion, move it to match."
+      "Note 3ae7b336873c803ab350c8e418970044 ('Shadow Boxing') is Pre-Live but has NO Notebook relation, so it belongs to no week. Aryan directed 2026-08-06 that it publish under Week 0. If he later files it under a notebook in Notion, move it to match. This is the ONLY Shadow Boxing note that may be published — see syncRules 'no-shadow-boxing-after-week-0'.",
+      "Note 3b37b336873c80698a11eb104e178cb1 ('Shadow Boxing Week 1') and every later Shadow Boxing note are EXCLUDED by syncRules 'no-shadow-boxing-after-week-0'. Skip silently; do not report them as gaps."
     ]
   },
 

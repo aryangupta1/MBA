@@ -74,12 +74,13 @@ flashcard flip, tab switching, sub-tabs, topic chips and term filter all still w
       page). That is why each subject kept its accent hue and why the week pages still alias
       `--petrol*` to `--accent*`. Migrating those fills to `var(--…)` would be a real
       improvement — see [docs/design-system.md §3](docs/design-system.md#3-tokens).
-- [ ] **DMBA 6005 Week 1 has three gaps that are gaps on purpose.** When Aryan writes them,
+- [ ] **DMBA 6005 Week 1 has two gaps that are gaps on purpose.** When Aryan writes them,
       **replace the honest blocks — never generate into them**:
       - `Context Analysis for $RUs` (`3b37b336873c8065bf14cfea1eb81df7`) ends **mid-word** at
         *"Their financial requir"*. The page reproduces exactly that and stops.
       - `Creating your reflective journal` (`3b37b336873c80cc83a8f80730d28817`) — empty.
-      - `Shadow Boxing Week 1` (`3b37b336873c80698a11eb104e178cb1`) — empty.
+      `Shadow Boxing Week 1` used to be a third. It is **no longer a gap** — Aryan excluded
+      all Shadow Boxing content from Week 1 onwards on 2026-08-10 (see "Do not").
 - [ ] **Three typos were preserved verbatim, deliberately** — they are the author's words.
       Worth Aryan correcting **in Notion**, then re-syncing:
       - Week 0: *"could invest in technology that **does** address its real strategic need"* —
@@ -112,6 +113,15 @@ flashcard flip, tab switching, sub-tabs, topic chips and term filter all still w
   null guards and `aria-pressed` on `#flip-card` is the only source of truth for the flip.
 - **Do not restore the per-subject font pairings.** `{{FONT_HREF}}` is the house link for
   every subject now.
+- **Do not sync any DMBA 6005 `Shadow Boxing` content for Week 1 or later.** Aryan's rule,
+  2026-08-10 — `subjects.json` → `syncRules` → `no-shadow-boxing-after-week-0`, documented in
+  [docs/notion-sync.md §6](docs/notion-sync.md#6-what-must-never-be-published) and `SKILL.md`
+  Phase 0 §3/§3a. It binds **both** discovery flows: the per-notebook `Notes` walk *and* the
+  Course-level `Notes` walk. Week 0's Shadow Boxing method note stays published. An excluded
+  note is **out of scope, not pending** — no "not yet written" placeholder, no topic chip, no
+  terms or flashcards. It scopes to notes/sub-pages *titled* `Shadow Boxing`; the Week 1
+  prose describing the simulation came from the `Your project with StellarCX` note and stays.
+  If Aryan wants that gone too, he has to say so.
 - **Do not publish `Live Session` or `Assessment` notes.** Only `Pre-Live Session`. DMBA
   6005's `Class Diary` (`3b17b336873c800e9208ca98bc0a8ada`) and the DMBA 6008 Week 1 diary
   are both excluded and must stay so.
