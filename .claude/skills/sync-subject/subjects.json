@@ -10,9 +10,9 @@
     "hubPage": "DMBA6008-weeks.html",
     "cardClass": "card--6008",
     "stripe": "--course-d",
-    "palette": { "accent": "#2f5470", "deep": "#1f3b51", "soft": "#e9eff4" },
-    "fonts": "Newsreader + Inter",
-    "fontHref": "https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600;700&display=swap",
+    "palette": { "accent": "#2F5470", "deep": "#1F3B51", "soft": "#E9EFF4", "glow": "rgba(47, 84, 112, 0.13)" },
+    "fonts": "Mona Sans + Plus Jakarta Sans (house — see docs/design-system.md)",
+    "fontHref": "https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
     "contentShapeHint": "container",
     "referencePage": "DMBA6008-week1.html",
     "live": true
@@ -27,10 +27,10 @@
     "hubPage": "DMBA6005-weeks.html",
     "cardClass": "card--6005",
     "stripe": "--course-e",
-    "palette": { "accent": "#a8722c", "deep": "#6f4a17", "soft": "#f7efe2" },
-    "fonts": "Sora + Karla",
-    "fontHref": "https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
-    "_fontsComment": "Chosen by Aryan 2026-08-05. Sora for display (geometric, wide, angular terminals — reads like product documentation, which suits agile delivery material), Karla for body (humanist, warm, slightly quirky). Verified free: the repo already uses IBM Plex Mono, DM Sans, Inter, Syne, IBM Plex Sans, Playfair Display, DM Mono, Newsreader, DM Serif Display, Fraunces, Spline Sans, Space Mono and Space Grotesk.",
+    "palette": { "accent": "#A8722C", "deep": "#6F4A17", "soft": "#F7EFE2", "glow": "rgba(168, 114, 44, 0.13)" },
+    "fonts": "Mona Sans + Plus Jakarta Sans (house — see docs/design-system.md)",
+    "fontHref": "https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
+    "_fontsComment": "Per-subject fonts were retired on 2026-08-09 when the DESK design system landed. Every semester-2 page now uses the house pair; a subject's identity is carried by `palette` alone. The pre-DESK choice here was Sora + Karla.",
     "contentShapeHint": "inline",
     "_contentShapeComment": "Week 0's `$RUs` and `Shadow Boxing` notes are inline (Shape B); Week 1's `Learn` note is a container (Shape A) with five sub-pages. The subject uses BOTH shapes — detect per note at runtime, as the hint is only a hint.",
     "referencePage": "DMBA6008-week1.html",
@@ -48,6 +48,13 @@
     "DMBA6001": "3097b336873c80968073e1efcf72711d",
     "DMBA6002": "3097b336873c80e0801fc3d2462d1cf9",
     "DMBA6004": "3097b336873c80d3800df8c3f77b2a8b"
+  },
+
+  "_designSystem": {
+    "_comment": "All semester-2 pages are built on DESK. Read docs/design-system.md before changing any page chrome. The week shell carries the whole stylesheet inline; the only per-subject knobs are the four {{ACCENT*}} placeholders, fed from `palette` above.",
+    "doc": "docs/design-system.md",
+    "shell": ".claude/skills/sync-subject/reference/week-shell.html",
+    "accentPlaceholders": ["{{ACCENT}}", "{{ACCENT_DEEP}}", "{{ACCENT_SOFT}}", "{{ACCENT_GLOW}}"]
   },
 
   "_globals": {

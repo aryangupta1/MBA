@@ -1,5 +1,10 @@
 # Style guide
 
+> **Scope note (2026-08-09).** `index.html` and every 2026 Semester 2 page now follow
+> **DESK**, documented in [design-system.md](design-system.md). This guide still governs
+> `library.html`, the Semester 1 artefact pages and the `blogs/` sub-site. Where the two
+> disagree about a DESK page, `design-system.md` wins.
+
 ## The governing principle
 
 **Shared surfaces are consistent; artefact pages are individual.**

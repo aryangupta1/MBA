@@ -55,9 +55,13 @@ only **Pre-Live Session** notes may be published.
   `blogs/assets/`.
 - **`library.html` is the site registry.** A new page that is not added to the
   `articlesBySubject` object in `library.html` is unreachable. Always register it.
-- **Never change a page's visual identity without being asked.** Each artefact page owns
-  its own palette and typography by design. The style guide governs *new* pages and the
-  shared surfaces (`index.html`, `library.html`, `blogs/assets/`).
+- **`index.html` and every Semester 2 page follow the DESK design system.** Read
+  [docs/design-system.md](docs/design-system.md) before changing how any of them looks.
+  A subject's identity there is **four `--accent*` values and nothing else** — same fonts,
+  same components, same dock on every page. If a change needs a second token, stop and ask.
+- **Never change a Semester 1 page's visual identity without being asked.** Those artefact
+  pages each own their palette and typography by design, and `library.html` and `blogs/`
+  still follow the older [style guide](docs/style-guide.md).
 - **`only-accessible-by-url/` is unlisted content.** Never link to it from `index.html`,
   `library.html`, or any indexed page. Keep the `noindex` meta and the `robots.txt` rule.
 - **Do not commit or push unless the user asks.**
@@ -81,7 +85,8 @@ before writing or editing any prose.
 | [docs/README.md](docs/README.md) | Index of all documentation |
 | [docs/architecture.md](docs/architecture.md) | Site map, routing, how pages connect, deployment |
 | [docs/conventions.md](docs/conventions.md) | File naming, page anatomy, registration, git |
-| [docs/style-guide.md](docs/style-guide.md) | Design tokens, typography, components, accessibility |
+| [docs/design-system.md](docs/design-system.md) | **DESK** — the house system for `index.html` and all Semester 2 pages. Tokens, components, the three page profiles |
+| [docs/style-guide.md](docs/style-guide.md) | The older language — still governs `library.html`, Semester 1 pages and `blogs/` |
 | [docs/content-guide.md](docs/content-guide.md) | Voice, referencing, AI acknowledgement, privacy |
 | [docs/workflows.md](docs/workflows.md) | Step-by-step recipes for common tasks |
 | [docs/notion-sync.md](docs/notion-sync.md) | Notion schema, the sync pipeline, and the publish rules |

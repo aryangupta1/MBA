@@ -36,7 +36,7 @@ Also excluded by default, as personal study telemetry: `Confidence`, `Last Revie
 | Path | What it is |
 | --- | --- |
 | `subjects.json` | code ↔ aliases ↔ Notion id ↔ palette ↔ fonts, plus the global Notion ids and the stale-note id |
-| `reference/week-shell.html` | the week page with `{{PLACEHOLDER}}` and `<!--INSERT:-->` slots, extracted from `DMBA6008-week1.html` |
+| `reference/week-shell.html` | the week page with `{{PLACEHOLDER}}` and `<!--INSERT:-->` slots. Built on the **DESK** design system — read [`docs/design-system.md`](../../../docs/design-system.md) before touching its `<style>` block or page chrome |
 | `reference/fragment-spec.md` | hand this to every fragment-building agent, verbatim |
 | `reference/checks.py` | QA gates 2, 3, 5 and 6 — structure, SVG overflow, inline-layout, prose length |
 | `../../../docs/notion-sync-state.json` | the manifest: what was published and when |
@@ -197,6 +197,13 @@ reason to route them through context.
 2. Fill every `{{PLACEHOLDER}}`; replace `<!--INSERT:SUMMARY-->` with the concatenated
    summary fragments; replace `/*TERMS*/[]/*END_TERMS*/` and `/*CARDS*/[]/*END_CARDS*/`
    with the merged arrays. `{{TERM_COUNT}}` and `{{CARD_COUNT}}` must match the arrays.
+   The four **`{{ACCENT}}` / `{{ACCENT_DEEP}}` / `{{ACCENT_SOFT}}` / `{{ACCENT_GLOW}}`**
+   placeholders come straight from `subjects.json` → `palette` → `accent` / `deep` / `soft`
+   / `glow`. They are the *only* per-subject visual knobs: every semester-2 page shares one
+   stylesheet and one type pair. `{{FONT_HREF}}` is the house font link and is identical for
+   every subject — do not swap in a per-subject pairing. `{{HUB_PAGE}}` is the back link and
+   comes from `subjects.json` → `hubPage`; a week page's parent is its **week hub**, never
+   `library.html`.
 3. Update the hub page `<prefix>-weeks.html` — add the week card and fix **its
    hand-written per-week counts**, which are the easiest thing to leave stale.
 4. Register in `library.html`. **`articlesBySubject` and `validSubjects` must be edited
@@ -323,8 +330,11 @@ Three things a later run will trip over:
 
 Settled, do not re-ask:
 
-- **Type pairing: Sora + Karla** (chosen 2026-08-05), with the `--course-e` ochre palette.
-  `fontHref` is in `subjects.json`.
+- **Type pairing: the house pair, Mona Sans + Plus Jakarta Sans**, with the `--course-e`
+  ochre palette (`#A8722C`) as this subject's accent. The per-subject Sora + Karla pairing
+  was retired on 2026-08-09 when the DESK design system landed — see
+  [`docs/design-system.md`](../../../docs/design-system.md). `fontHref` in `subjects.json`
+  now holds the house link for every subject.
 - The case characters in `Your project with StellarCX` — Chris Gold, Dirk, Ivy, Andrew,
   Jeremy, Annie, and the client Murray — are **fictional simulation characters**, confirmed
   by Aryan 2026-08-06, and clear gate 4. Re-check only if the cast changes.

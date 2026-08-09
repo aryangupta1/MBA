@@ -12,7 +12,8 @@ Start at [`../CLAUDE.md`](../CLAUDE.md) for the short version and the hard const
 | --- | --- |
 | [architecture.md](architecture.md) | Site map, the two page families, routing through `library.html`, deployment |
 | [conventions.md](conventions.md) | File naming, directory layout, page anatomy, registration, navigation, git |
-| [style-guide.md](style-guide.md) | Design tokens, typography, colour, layout, components, motion, accessibility |
+| [design-system.md](design-system.md) | **DESK** — the house design system: the desktop metaphor, tokens, components, the three page profiles. Governs `index.html` and all Semester 2 pages |
+| [style-guide.md](style-guide.md) | The older language — design tokens, typography, colour, layout, components, motion, accessibility. Still governs `library.html`, Semester 1 pages and `blogs/` |
 | [content-guide.md](content-guide.md) | Voice, referencing, AI-use acknowledgement, unlisted content, academic integrity |
 | [workflows.md](workflows.md) | Recipes: new reading summary, new blog post, new unlisted appendix, publishing |
 | [notion-sync.md](notion-sync.md) | The Notion schema, the harvest → build → register pipeline, and what must never be published |
