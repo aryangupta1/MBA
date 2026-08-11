@@ -559,6 +559,9 @@
     .callout p { margin: 0; font-size: 1.02rem; font-weight: 600; line-height: 1.5; color: var(--ink); }
     .callout p + p { margin-top: 0.7rem; font-weight: 400; color: var(--ink2); }
     .icon { flex: 0 0 auto; font-size: 1.15rem; line-height: 1.35; }
+    /* A callout with more than one paragraph wraps them in a div, or the flex
+       row would lay the paragraphs out side by side. */
+    .callout > div { flex: 1 1 auto; min-width: 0; }
     .callout--key { background: var(--sand); }
     .callout--ask { background: var(--sky); }
 

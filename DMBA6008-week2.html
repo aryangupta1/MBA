@@ -558,6 +558,9 @@
     .callout p { margin: 0; font-size: 1.02rem; font-weight: 600; line-height: 1.5; color: var(--ink); }
     .callout p + p { margin-top: 0.7rem; font-weight: 400; color: var(--ink2); }
     .icon { flex: 0 0 auto; font-size: 1.15rem; line-height: 1.35; }
+    /* A callout with more than one paragraph wraps them in a div, or the flex
+       row would lay the paragraphs out side by side. */
+    .callout > div { flex: 1 1 auto; min-width: 0; }
     .callout--key { background: var(--sand); }
     .callout--ask { background: var(--sky); }
 
@@ -1102,8 +1105,9 @@
       <p class="standfirst">Return comes from two places at once — how profitably a business trades, and how much capital it ties up to do it. Week 2 reads the asset mix for the business model, then takes return apart into the drivers behind it.</p>
       <div class="meta-row">
         <span class="pill"><span class="dot" aria-hidden="true"></span> Pre-live session</span>
-        <span class="pill">53 key terms</span>
-        <span class="pill">80 flashcards</span>
+        <span class="pill">73 key terms</span>
+        <span class="pill">108 flashcards</span>
+        <span class="pill">8 discussion questions</span>
       </div>
     </div>
   </header>
@@ -1116,6 +1120,8 @@
         data-panel="terms" tabindex="-1"><span class="tab-num" aria-hidden="true">02</span>Key concepts</button>
       <button class="tab" id="tab-cards" role="tab" aria-selected="false" aria-controls="panel-cards"
         data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
+      <button class="tab" id="tab-discussion" role="tab" aria-selected="false" aria-controls="panel-discussion"
+        data-panel="discussion" tabindex="-1"><span class="tab-num" aria-hidden="true">04</span>Discussion</button>
     </div>
   </nav>
 
@@ -2164,16 +2170,296 @@
               </ul>
             </div>
 
-      <div class="block">
-        <span class="block-num">23 / Not yet written</span>
-        <h2>One topic still empty</h2>
-        <p>A fourth sub-page of my Week 2 pre-live note exists in Notion but has no content yet.
-          Nothing has been generated to stand in for it.</p>
-        <ul>
-          <li><strong>Sustainable Growth</strong> — empty</li>
-        </ul>
-        <p>It will appear here once the note is written.</p>
-      </div>
+                  <div class="block">
+                    <span class="block-num">23 / The core idea</span>
+                    <h2>What sustainable growth means</h2>
+                    <p>The <strong>sustainable growth rate (SGR)</strong> is the maximum rate at which a business can grow while
+                      keeping its financial policies broadly unchanged, particularly its <strong>capital structure</strong>.</p>
+
+                    <div class="callout callout--ask">
+                      <span class="icon" aria-hidden="true">❓</span>
+                      <p>How fast can we grow without requiring an unsustainable increase in debt or new equity?</p>
+                    </div>
+                  </div>
+
+                  <div class="block">
+                    <span class="block-num">24 / Why growth needs financing</span>
+                    <h2>Growth has to be paid for</h2>
+                    <p>Revenue growth often requires additional resources such as:</p>
+                    <ul>
+                      <li>More <strong>working capital</strong></li>
+                      <li>Additional <strong>inventory and receivables</strong></li>
+                      <li>More <strong>non-current assets</strong></li>
+                      <li>Additional funding to finance those assets</li>
+                    </ul>
+
+                    <div class="formula">Revenue Growth → More Assets → More Financing Required</div>
+
+                    <p>Growth is only &#8220;free&#8221; when the business has enough unused capacity in its existing assets to
+                      support additional revenue.</p>
+                  </div>
+
+                  <div class="block">
+                    <span class="block-num">25 / Core drivers</span>
+                    <h2>Return on assets, leverage and retention</h2>
+                    <p>The sustainable growth rate reflects three broad factors.</p>
+
+                    <div class="formula">SGR is driven by Return on Assets, Leverage and Retention</div>
+
+                    <figure>
+                      <div class="fig-frame">
+                        <svg viewBox="0 0 720 190" role="img" aria-labelledby="sgfig1-title sgfig1-desc">
+                          <title id="sgfig1-title">The three drivers behind the sustainable growth rate</title>
+                          <desc id="sgfig1-desc">Three drivers feed the sustainable growth rate. Return on assets, because higher asset productivity generates more profit from the existing capital base. Equity to assets, or leverage, because it determines how much growth can be financed without changing financial risk. And the retention ratio, one minus the dividend payout ratio, because it determines how much profit remains in the business to finance future growth. Together they set the maximum rate of growth that keeps financial policies broadly unchanged.</desc>
+
+                          <text class="svg-eyebrow" x="0" y="14">SGR IS DRIVEN BY RETURN ON ASSETS, LEVERAGE AND RETENTION</text>
+
+                          <rect x="0" y="28" width="300" height="44" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                          <text class="svg-label" x="16" y="48">Return on assets</text>
+                          <text class="svg-sub" x="16" y="63">higher asset productivity</text>
+
+                          <rect x="0" y="80" width="300" height="44" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                          <text class="svg-label" x="16" y="100">Equity-to-assets / leverage</text>
+                          <text class="svg-sub" x="16" y="115">how much growth can be financed</text>
+
+                          <rect x="0" y="132" width="300" height="44" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                          <text class="svg-label" x="16" y="152">Retention ratio</text>
+                          <text class="svg-sub" x="16" y="167">1 &#8722; dividend payout ratio</text>
+
+                          <path d="M302 50 C 340 50, 360 102, 392 102" fill="none" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M302 102 L392 102" fill="none" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M302 154 C 340 154, 360 102, 392 102" fill="none" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M390 97 L398 102 L390 107 Z" fill="#8C867A" />
+
+                          <rect x="410" y="66" width="310" height="72" rx="12" fill="#2F5470" />
+                          <text class="svg-label" x="565" y="96" text-anchor="middle" fill="#FFFFFF">Sustainable growth rate</text>
+                          <text class="svg-sub" x="565" y="114" text-anchor="middle" fill="#E9EFF4">the maximum rate of growth with</text>
+                          <text class="svg-sub" x="565" y="127" text-anchor="middle" fill="#E9EFF4">financial policies broadly unchanged</text>
+                        </svg>
+                      </div>
+                      <figcaption>Three dials, one ceiling. Two of them are operating decisions and one is a dividend decision.</figcaption>
+                    </figure>
+
+                    <div class="table-scroll">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th scope="col">Driver</th>
+                            <th scope="col">Why it matters</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">Return on assets</th>
+                            <td>Higher asset productivity generates more profit from the existing capital base</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Equity-to-assets / leverage</th>
+                            <td>Determines how much growth can be financed without changing financial risk</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Retention ratio</th>
+                            <td>Determines how much profit remains in the business to finance future growth</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="formula">Retention Ratio = 1 - Dividend Payout Ratio</div>
+
+                    <p>Higher dividend payouts therefore leave <strong>less internally generated funding available for
+                      growth.</strong></p>
+                  </div>
+
+                  <div class="block">
+                    <span class="block-num">26 / Above the rate</span>
+                    <h2>Growth above the sustainable rate</h2>
+                    <p>If management targets growth above the SGR while operational and financial drivers remain unchanged:</p>
+                    <ul>
+                      <li>Required assets increase faster than retained equity</li>
+                      <li>Retained earnings become insufficient to finance the growth</li>
+                      <li>Additional debt becomes the balancing source of finance</li>
+                      <li>The debt-to-equity ratio rises</li>
+                    </ul>
+
+                    <div class="formula">Growth &gt; SGR → Higher Leverage</div>
+
+                    <figure>
+                      <div class="fig-frame">
+                        <svg viewBox="0 0 720 168" role="img" aria-labelledby="sgfig2-title sgfig2-desc">
+                          <title id="sgfig2-title">What happens when growth is pushed above the sustainable rate</title>
+                          <desc id="sgfig2-desc">With the operational and financial drivers unchanged, required assets increase faster than retained equity, so retained earnings become insufficient to finance the growth, so additional debt becomes the balancing source of finance, and the debt-to-equity ratio rises. The result is a warning sign: growth may be commercially achievable but financially unsustainable at the existing risk level.</desc>
+
+                          <text class="svg-eyebrow" x="0" y="14">DRIVERS UNCHANGED, GROWTH TARGET ABOVE THE SGR</text>
+
+                          <rect x="0" y="30" width="166" height="64" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                          <text class="svg-label" x="14" y="52">Required assets</text>
+                          <text class="svg-sub" x="14" y="70">increase faster than</text>
+                          <text class="svg-sub" x="14" y="83">retained equity</text>
+                          <path d="M168 62 L180 62" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M178 57 L186 62 L178 67 Z" fill="#8C867A" />
+
+                          <rect x="184" y="30" width="166" height="64" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                          <text class="svg-label" x="198" y="52">Retained earnings</text>
+                          <text class="svg-sub" x="198" y="70">become insufficient</text>
+                          <text class="svg-sub" x="198" y="83">to finance the growth</text>
+                          <path d="M352 62 L364 62" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M362 57 L370 62 L362 67 Z" fill="#8C867A" />
+
+                          <rect x="368" y="30" width="166" height="64" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                          <text class="svg-label" x="382" y="52">Additional debt</text>
+                          <text class="svg-sub" x="382" y="70">becomes the balancing</text>
+                          <text class="svg-sub" x="382" y="83">source of finance</text>
+                          <path d="M536 62 L548 62" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M546 57 L554 62 L546 67 Z" fill="#8C867A" />
+
+                          <rect x="552" y="30" width="168" height="64" rx="10" fill="#F8E9E5" stroke="#B3402A" stroke-opacity="0.3" />
+                          <text class="svg-label" x="566" y="56" fill="#B3402A">Debt-to-equity</text>
+                          <text class="svg-sub" x="566" y="74">ratio rises</text>
+
+                          <rect x="0" y="112" width="720" height="36" rx="8" fill="#F6F0DF" />
+                          <text class="svg-label" x="360" y="135" text-anchor="middle" fill="#8A6D1F">Commercially achievable, but financially unsustainable at the existing risk level</text>
+                        </svg>
+                      </div>
+                      <figcaption>Nothing in the chain is a demand problem. Each link is a financing consequence of the last.</figcaption>
+                    </figure>
+
+                    <p>This creates a potential warning sign because growth may be commercially achievable but financially
+                      unsustainable at the existing risk level.</p>
+                  </div>
+
+                  <div class="block">
+                    <span class="block-num">27 / A constraint, not a forecast</span>
+                    <h2>Sustainable growth is constraint based</h2>
+                    <p>The SGR assumes important operating and financial relationships remain broadly unchanged, such as:</p>
+                    <ul>
+                      <li>Expense margins</li>
+                      <li>Working-capital requirements</li>
+                      <li>Asset utilisation</li>
+                      <li>Dividend policy</li>
+                      <li>Target capital structure</li>
+                    </ul>
+                    <p>If these remain constant, the SGR represents the growth rate that keeps the firm&#8217;s
+                      <strong>debt-to-equity relationship unchanged.</strong></p>
+
+                    <div class="callout callout--key">
+                      <span class="icon" aria-hidden="true">💡</span>
+                      <p>So the measure is not a forecast of demand; it is a <strong>financing constraint on growth</strong></p>
+                    </div>
+                  </div>
+
+                  <div class="block">
+                    <span class="block-num">28 / Management levers</span>
+                    <h2>Raising the sustainable growth rate</h2>
+                    <p>If management wants to grow faster without increasing leverage, it must change one or more underlying
+                      drivers. Possible responses include:</p>
+                    <ul>
+                      <li>Increase profitability → generate more internal funds</li>
+                      <li>Improve asset utilisation → generate more revenue without proportional asset growth</li>
+                      <li>Reduce working-capital requirements → release cash</li>
+                      <li>Retain more earnings → reduce the dividend payout</li>
+                      <li>Raise new equity → increase the equity funding base</li>
+                    </ul>
+
+                    <div class="callout callout--ask">
+                      <span class="icon" aria-hidden="true">❓</span>
+                      <p>What operational or financing change will make that growth possible?</p>
+                    </div>
+                  </div>
+
+                  <div class="block">
+                    <span class="block-num">29 / Asset capacity</span>
+                    <h2>Growth and asset capacity</h2>
+                    <p>A critical assumption is whether existing assets have spare capacity.</p>
+
+                    <figure>
+                      <div class="fig-frame">
+                        <svg viewBox="0 0 720 190" role="img" aria-labelledby="sgfig3-title sgfig3-desc">
+                          <title id="sgfig3-title">Whether growth needs new assets depends on spare capacity</title>
+                          <desc id="sgfig3-desc">The question is whether existing assets have spare capacity. If assets are fully utilised, more revenue means more assets are needed. But if spare capacity exists, more revenue means better asset utilisation instead, which can allow the business to grow faster before requiring substantial new financing.</desc>
+
+                          <text class="svg-eyebrow" x="0" y="14">THE SAME REVENUE GROWTH, TWO STARTING POINTS</text>
+
+                          <rect x="0" y="52" width="170" height="64" rx="10" fill="#2F5470" />
+                          <text class="svg-label" x="85" y="80" text-anchor="middle" fill="#FFFFFF">Do existing assets</text>
+                          <text class="svg-label" x="85" y="96" text-anchor="middle" fill="#FFFFFF">have spare capacity?</text>
+
+                          <path d="M172 84 C 198 84, 202 46, 224 46" fill="none" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M222 41 L230 46 L222 51 Z" fill="#8C867A" />
+                          <path d="M172 84 C 198 84, 202 128, 224 128" fill="none" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M222 123 L230 128 L222 133 Z" fill="#8C867A" />
+
+                          <rect x="236" y="22" width="196" height="48" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                          <text class="svg-label" x="334" y="51" text-anchor="middle">Assets fully utilised</text>
+                          <path d="M434 46 L450 46" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M448 41 L456 46 L448 51 Z" fill="#8C867A" />
+
+                          <rect x="462" y="22" width="258" height="48" rx="10" fill="#F6F0DF" />
+                          <text class="svg-mono" x="591" y="42" text-anchor="middle" fill="#8A6D1F">More Revenue →</text>
+                          <text class="svg-mono" x="591" y="58" text-anchor="middle" fill="#8A6D1F">More Assets Needed</text>
+
+                          <rect x="236" y="104" width="196" height="48" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.25" />
+                          <text class="svg-label" x="334" y="133" text-anchor="middle">Spare capacity exists</text>
+                          <path d="M434 128 L450 128" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M448 123 L456 128 L448 133 Z" fill="#8C867A" />
+
+                          <rect x="462" y="104" width="258" height="48" rx="10" fill="#E6F1EB" />
+                          <text class="svg-mono" x="591" y="124" text-anchor="middle" fill="#1F6A4A">More Revenue →</text>
+                          <text class="svg-mono" x="591" y="140" text-anchor="middle" fill="#1F6A4A">Better Asset Utilisation</text>
+
+                          <text class="svg-sub" x="0" y="178">Spare capacity can allow the business to grow faster before requiring substantial new financing.</text>
+                        </svg>
+                      </div>
+                      <figcaption>The fork is decided before the growth plan is written, by how hard the existing assets are already
+                        working.</figcaption>
+                    </figure>
+
+                    <p>However, management should not overuse existing assets if doing so would:</p>
+                    <ul>
+                      <li>Reduce service quality</li>
+                      <li>Increase failures or maintenance</li>
+                      <li>Create operational bottlenecks</li>
+                    </ul>
+                  </div>
+
+                  <div class="block">
+                    <span class="block-num">30 / Strategic importance</span>
+                    <h2>Where strategy meets finance</h2>
+                    <p>The sustainable growth rate connects <strong>strategy with finance.</strong> Management may identify strong
+                      customer demand and attractive market opportunities, but demand alone does not determine feasible growth. A
+                      credible growth strategy must align:</p>
+
+                    <div class="formula">Market Opportunity + Operational Capacity + Financing Capacity</div>
+
+                    <p>Otherwise, aggressive growth can increase leverage and financial risk even when revenue and profits are
+                      increasing.</p>
+                  </div>
+
+                  <div class="block">
+                    <span class="block-num">31 / Analytical takeaway</span>
+                    <h2>Testing a growth plan</h2>
+
+                    <div class="callout callout--ask">
+                      <span class="icon" aria-hidden="true">❓</span>
+                      <p>Can we finance and operationally support 20% more growth without changing our acceptable level of risk?</p>
+                    </div>
+
+                    <p>When analysing growth plans, ask:</p>
+                    <ul class="takeaways">
+                      <li>Will growth require proportional investment in new assets?</li>
+                      <li>Are existing assets already at capacity?</li>
+                      <li>How much additional working capital will growth absorb?</li>
+                      <li>Are retained earnings sufficient to finance expansion?</li>
+                      <li>Will leverage rise beyond an acceptable level?</li>
+                      <li>Could profitability, asset efficiency or retention be improved instead?</li>
+                    </ul>
+
+                    <div class="callout callout--key">
+                      <span class="icon" aria-hidden="true">💡</span>
+                      <p>Growth should be assessed against the business&#8217;s financial capacity to support it, not simply
+                        management ambition or market demand.</p>
+                    </div>
+                  </div>
     </section>
 
     <!-- ══════════════════ 02 · KEY CONCEPTS ══════════════════ -->
@@ -2181,13 +2467,13 @@
       <div class="block">
         <span class="block-num">02 / Reference</span>
         <h2>Key concepts &amp; terminology</h2>
-        <p>Every term from the week&rsquo;s three written topics in one filterable reference, so a definition is two keystrokes away rather than a scroll.</p>
+        <p>Every term from the week&rsquo;s four topics in one filterable reference, so a definition is two keystrokes away rather than a scroll.</p>
 
         <div class="toolbar">
           <label class="visually-hidden" for="term-search">Filter terms</label>
           <input class="search" id="term-search" type="search" placeholder="Filter terms — try “leverage” or “utilisation”"
             autocomplete="off">
-          <span class="count" id="term-count" aria-live="polite">53 of 53</span>
+          <span class="count" id="term-count" aria-live="polite">73 of 73</span>
         </div>
 
         <div class="glossary" id="glossary"></div>
@@ -2202,7 +2488,7 @@
 
         <div class="deck">
           <div class="deck-meta">
-            <span class="deck-count"><strong id="card-index">1</strong> / <span id="card-total">80</span></span>
+            <span class="deck-count"><strong id="card-index">1</strong> / <span id="card-total">108</span></span>
             <span class="progress"><span class="progress-fill" id="progress-fill"></span></span>
           </div>
 
@@ -2232,12 +2518,842 @@
         </div>
       </div>
     </section>
+
+    <!-- ══════════════════ 04 · DISCUSSION QUESTIONS ══════════════════ -->
+    <section class="panel" id="panel-discussion" role="tabpanel" aria-labelledby="tab-discussion" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">04 / Live session</span>
+        <h2>Discussion questions</h2>
+        <p>The eight questions set for the Week&nbsp;2 live session, each worked through with a
+          diagram and a real company whose economics show the mechanism in action.</p>
+
+        <div class="callout callout--ask">
+          <span class="icon" aria-hidden="true">❓</span>
+          <div><p>Where these came from, and what was done to them.</p>
+          <p>The questions and a first pass at the answers come from my Week&nbsp;2 live-session
+            note, where they are marked as <strong>supplied AI-generated responses</strong>. The
+            answers here have been rewritten and extended — sharper reasoning, a diagram and an
+            industry example for each — to make them useful for revision rather than just
+            complete. Unlike the rest of this site, this tab is <strong>not</strong> a
+            transcription of my own notes.</p>
+          <p>The company examples illustrate a mechanism, not a measurement:
+            <strong>no financial figures are quoted anywhere in this tab</strong>. Any arithmetic
+            shown is explicitly labelled as illustrative, with invented inputs.</p></div>
+        </div>
+      </div>
+
+                  <div class="block">
+                    <span class="block-num">Q1 / Reading a high ROA</span>
+                    <h2>What does a high ROA tell us about a business model — and what might it conceal?</h2>
+                    <p>Return on assets is a fraction, so it can rise for two entirely different reasons: the numerator did
+                      better, or the denominator got smaller. Only the first is unambiguously good news.</p>
+
+                    <div class="formula">ROA = Profit ÷ Assets</div>
+
+                    <p>A genuinely high reading points to pricing power, tight cost control, or assets that are worked hard.
+                      But the identical reading appears when assets have simply left the balance sheet — rented rather than
+                      owned, operated by a franchisee, or built in someone else’s factory. It appears again when an ageing
+                      asset base is being run down rather than replaced, because accumulated depreciation shrinks the
+                      denominator each year while the plant keeps producing.</p>
+
+                    <p>So the useful question is never how high the ratio is. It is which half of it moved, and why.</p>
+
+                    <figure>
+                      <div class="fig-frame">
+                        <svg viewBox="0 0 720 262" role="img" aria-labelledby="dqa1-title dqa1-desc">
+                          <title id="dqa1-title">Two routes to the same high return on assets</title>
+                          <desc id="dqa1-desc">Return on assets is profit divided by assets, so a high reading can arrive by two routes. The numerator route means profit is genuinely higher on the same asset base, through pricing power, lower unit cost, or more throughput from the same assets. The denominator route means the asset base the profit is divided by has shrunk — because assets are rented rather than owned, production is outsourced to third parties, ageing assets are not being replaced, or an accounting choice rather than an operating change has moved the number. Only the first route is evidence of better operations.</desc>
+
+                          <text class="svg-eyebrow" x="0" y="14">THE SAME HIGH ROA, TWO VERY DIFFERENT CAUSES</text>
+                          <text class="svg-mono" x="0" y="52">ROA = Profit ÷ Assets</text>
+
+                          <rect x="260" y="26" width="200" height="34" rx="10" fill="#2F5470" />
+                          <text class="svg-label" x="360" y="48" text-anchor="middle" fill="#FFFFFF">High ROA</text>
+
+                          <path d="M360 60 L360 76 L170 76 L170 86" stroke="#8C867A" stroke-width="1.5" fill="none" />
+                          <path d="M360 60 L360 76 L550 76 L550 86" stroke="#8C867A" stroke-width="1.5" fill="none" />
+                          <path d="M165 84 L170 92 L175 84 Z" fill="#8C867A" />
+                          <path d="M545 84 L550 92 L555 84 Z" fill="#8C867A" />
+
+                          <rect x="0" y="94" width="340" height="44" rx="10" fill="#E6F1EB" />
+                          <text class="svg-label" x="170" y="115" text-anchor="middle" fill="#1F6A4A">Numerator route</text>
+                          <text class="svg-sub" x="170" y="131" text-anchor="middle">profit is higher on the same asset base</text>
+
+                          <rect x="380" y="94" width="340" height="44" rx="10" fill="#F6F0DF" />
+                          <text class="svg-label" x="550" y="115" text-anchor="middle" fill="#8A6D1F">Denominator route</text>
+                          <text class="svg-sub" x="550" y="131" text-anchor="middle">the base it is divided by has shrunk</text>
+
+                          <rect x="0" y="150" width="340" height="40" rx="8" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.45" />
+                          <text class="svg-sub" x="170" y="168" text-anchor="middle">Pricing power, or a lower unit cost</text>
+                          <text class="svg-sub" x="170" y="182" text-anchor="middle">More throughput from the same assets</text>
+
+                          <rect x="380" y="150" width="164" height="40" rx="8" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.45" />
+                          <text class="svg-sub" x="462" y="168" text-anchor="middle">Assets rented,</text>
+                          <text class="svg-sub" x="462" y="182" text-anchor="middle">not owned</text>
+
+                          <rect x="556" y="150" width="164" height="40" rx="8" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.45" />
+                          <text class="svg-sub" x="638" y="168" text-anchor="middle">Production made</text>
+                          <text class="svg-sub" x="638" y="182" text-anchor="middle">by someone else</text>
+
+                          <rect x="380" y="196" width="164" height="40" rx="8" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.45" />
+                          <text class="svg-sub" x="462" y="214" text-anchor="middle">Ageing assets</text>
+                          <text class="svg-sub" x="462" y="228" text-anchor="middle">not replaced</text>
+
+                          <rect x="556" y="196" width="164" height="40" rx="8" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.45" />
+                          <text class="svg-sub" x="638" y="214" text-anchor="middle">An accounting choice,</text>
+                          <text class="svg-sub" x="638" y="228" text-anchor="middle">not an operating one</text>
+
+                          <text class="svg-sub" x="0" y="256">Only the left route is operating news. The right route may be deliberate strategy, or it may be neglect.</text>
+                        </svg>
+                      </div>
+                      <figcaption>The ratio cannot tell the two routes apart on its own. Reading it means deciding which half of
+                        the fraction moved.</figcaption>
+                    </figure>
+
+                    <div class="table-scroll">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th scope="col">What shrank the asset base</th>
+                            <th scope="col">Benign reading</th>
+                            <th scope="col">Worrying reading</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">Assets leased, not owned</th>
+                            <td><span class="verdict verdict--pos">Capital discipline</span> flexibility without owning the
+                              infrastructure</td>
+                            <td><span class="verdict verdict--neg">Hidden obligation</span> the commitment is still there, only
+                              the asset is not</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Production outsourced</th>
+                            <td><span class="verdict verdict--pos">Focus</span> capital concentrated where the advantage sits</td>
+                            <td><span class="verdict verdict--neu">Dependence</span> the capacity, and its risk, belongs to a
+                              supplier</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Assets not replaced</th>
+                            <td><span class="verdict verdict--neu">Timing</span> a genuine pause in the replacement cycle</td>
+                            <td><span class="verdict verdict--neg">Underinvestment</span> today’s return borrowed from tomorrow’s
+                              capacity</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Recognition or measurement</th>
+                            <td><span class="verdict verdict--neu">Policy</span> a defensible accounting choice</td>
+                            <td><span class="verdict verdict--neg">Presentation</span> the ratio moved while the business did
+                              not</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="callout callout--key">
+                      <span class="icon" aria-hidden="true">🔑</span>
+                      <p>A high ROA describes <strong>where the assets are</strong> as much as how well they are used — and assets
+                        can be efficient, or simply absent.</p>
+                    </div>
+
+                    <div class="example-grid">
+                      <div class="example">
+                        <h5>Industry example — Apple</h5>
+                        <p>Apple designs its products and has them assembled by contract manufacturers, so much of the plant that
+                          physically makes an iPhone sits on another company’s balance sheet rather than Apple’s.</p>
+                        <p class="result">The efficiency is real, but part of it is a decision about whose balance sheet carries
+                          the factory.</p>
+                      </div>
+                      <div class="example">
+                        <h5>In class — the angle to take</h5>
+                        <p>Resist grading the level. Ask instead whether the asset base shrank because capital was released, or
+                          because capital was never committed — and who is holding the risk that came off the balance sheet.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="block">
+                    <span class="block-num">Q2 / The speed limit</span>
+                    <h2>Can a company grow too quickly?</h2>
+                    <p>Yes — and the failure is a cash failure, not a profit failure. Growth is bought before it is paid for:
+                      inventory, wages and capacity go out the door first, and the customer pays later. Every additional dollar
+                      of sales therefore drags a slice of working capital and fixed assets behind it.</p>
+
+                    <p>Cash generated internally grows roughly in step with profit and the share of it retained. Cash absorbed
+                      by growth rises faster than that. Past the point where the two lines cross, the shortfall must come from
+                      borrowing or new equity — and a company that keeps accelerating through that point can be profitable and
+                      out of cash at the same time.</p>
+
+                    <p>The non-financial limits bind at the same moment: hiring, service quality and culture rarely scale as
+                      quickly as an order book.</p>
+
+                    <figure>
+                      <div class="fig-frame">
+                        <svg viewBox="0 0 720 246" role="img" aria-labelledby="dqa2-title dqa2-desc">
+                          <title id="dqa2-title">Where the self-funded growth rate runs out</title>
+                          <desc id="dqa2-desc">Two lines plotted against the growth rate. Cash generated internally is broadly flat, set by profitability and the share of earnings retained. Cash absorbed by growth rises steadily as the growth rate increases, because faster growth requires more inventory, receivables and capacity. The two lines cross at the sustainable growth rate. To the right of that crossing point the business consumes more cash than it produces, and the difference has to be funded from outside with debt or new equity.</desc>
+
+                          <text class="svg-eyebrow" x="0" y="14">WHAT GROWTH COSTS, AGAINST WHAT THE BUSINESS GENERATES</text>
+
+                          <rect x="361" y="40" width="279" height="150" fill="#F8E9E5" fill-opacity="0.6" />
+                          <text class="svg-label" x="500" y="70" text-anchor="middle" fill="#B3402A">beyond here, growth must be</text>
+                          <text class="svg-label" x="500" y="86" text-anchor="middle" fill="#B3402A">funded from outside</text>
+
+                          <path d="M90 40 L90 190 L660 190" stroke="#8C867A" stroke-width="1.2" fill="none" />
+
+                          <path d="M90 120 L640 120" stroke="#1F6A4A" stroke-width="2" fill="none" />
+                          <text class="svg-sub" x="96" y="112" fill="#1F6A4A">cash generated internally</text>
+
+                          <path d="M90 186 L640 52" stroke="#B3402A" stroke-width="2" fill="none" />
+                          <text class="svg-sub" x="636" y="46" text-anchor="end" fill="#B3402A">cash absorbed by growth</text>
+
+                          <circle cx="361" cy="120" r="5" fill="#2F5470" />
+                          <path d="M361 120 L361 190" stroke="#2F5470" stroke-width="1" stroke-dasharray="4 4" />
+                          <text class="svg-label" x="361" y="207" text-anchor="middle" fill="#1F3B51">sustainable growth rate</text>
+
+                          <text class="svg-sub" x="90" y="32">cash</text>
+                          <text class="svg-sub" x="600" y="207">growth rate</text>
+
+                          <text class="svg-sub" x="0" y="234">Growth past the crossing point is funded with debt or new equity — the company stays profitable, and runs short of cash.</text>
+                        </svg>
+                      </div>
+                      <figcaption>Nothing here is about whether the growth is worth having. It is about whether the business can
+                        pay for it out of its own earnings.</figcaption>
+                    </figure>
+
+                    <div class="callout callout--key">
+                      <span class="icon" aria-hidden="true">🔑</span>
+                      <p>Fast growth does not fail because it is unprofitable. It fails because the cash arrives after the
+                        spending, and the gap widens with every extra unit sold.</p>
+                    </div>
+
+                    <div class="example-grid">
+                      <div class="example">
+                        <h5>Industry example — Tesla’s Model 3 ramp</h5>
+                        <p>Tesla built assembly capacity and its supply chain ahead of the deliveries that would pay for them,
+                          and returned to capital markets repeatedly through the ramp. The binding constraint in that period was
+                          cash and production, not demand.</p>
+                        <p class="result">Order book full, balance sheet stretched — the classic shape of growing faster than
+                          internal funding allows.</p>
+                      </div>
+                      <div class="example">
+                        <h5>Illustrative — not real company data</h5>
+                        <p>Assume, purely to see the mechanism, that every $100 of new sales needs $40 tied up in stock and
+                          receivables, and that customers pay two months later.</p>
+                        <p class="result">Doubling sales locks up $40 for every $100 of the increase before a cent of it returns.
+                          Both numbers here are invented.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="block">
+                    <span class="block-num">Q3 / Same ratio, different path</span>
+                    <h2>How can two companies with similar ROA be on very different trajectories?</h2>
+                    <p>ROA is a product, not a level — margin multiplied by asset turnover. Two firms can land on the same
+                      number from opposite corners: one selling a little at a large mark-up, the other selling a great deal at a
+                      small one. The ratio is identical; almost nothing else is.</p>
+
+                    <div class="formula">ROA = Profit Margin x Asset Turnover</div>
+
+                    <p>The two models break differently, which is what makes the trajectories diverge. The high-margin firm is
+                      exposed to anything that dents desirability or pricing power. The high-turnover firm is exposed to
+                      anything that interrupts volume, because a thin margin gives it nothing to absorb the shock with.</p>
+
+                    <p>ROA is also silent on how the asset base was funded. A firm expanding out of retained earnings and one
+                      expanding on new borrowing can post the same return while accumulating very different risk.</p>
+
+                    <figure>
+                      <div class="fig-frame">
+                        <svg viewBox="0 0 720 262" role="img" aria-labelledby="dqa3-title dqa3-desc">
+                          <title id="dqa3-title">One return on assets, two business models</title>
+                          <desc id="dqa3-desc">Profit margin is plotted on the vertical axis and asset turnover on the horizontal axis. Because return on assets is margin multiplied by turnover, every point along a single curve represents the same return. A luxury house sits at the top left with a high margin and slow turnover. A warehouse club sits at the bottom right with a thin margin and fast turnover. Both earn the same return by opposite means. Below the curve, a reminder that the same point can be reached while funding expansion from retained earnings or from rising debt, which are very different trajectories.</desc>
+
+                          <text class="svg-eyebrow" x="0" y="14">ONE CURVE, ONE RETURN, TWO OPPOSITE MODELS</text>
+
+                          <path d="M110 40 L110 200 L660 200" stroke="#8C867A" stroke-width="1.2" fill="none" />
+                          <text class="svg-sub" x="110" y="32">profit margin</text>
+                          <text class="svg-sub" x="660" y="192" text-anchor="end">asset turnover</text>
+
+                          <path d="M150 56 C 232 152, 300 176, 640 182" stroke="#2F5470" stroke-width="2" fill="none" />
+                          <text class="svg-sub" x="360" y="128" text-anchor="middle" fill="#2F5470">every point on this curve is the same ROA</text>
+
+                          <circle cx="156" cy="62" r="6" fill="#2F5470" />
+                          <text class="svg-label" x="176" y="58" fill="#1F3B51">High margin, slow turnover</text>
+                          <text class="svg-sub" x="176" y="73">a luxury house</text>
+
+                          <circle cx="620" cy="181" r="6" fill="#2F5470" />
+                          <text class="svg-label" x="604" y="164" text-anchor="end" fill="#1F3B51">Thin margin, fast turnover</text>
+                          <text class="svg-sub" x="604" y="179" text-anchor="end">a warehouse club</text>
+
+                          <text class="svg-eyebrow" x="0" y="222">SAME POINT ON THE CURVE — STILL DIFFERENT TRAJECTORIES</text>
+
+                          <rect x="0" y="230" width="352" height="30" rx="8" fill="#E6F1EB" />
+                          <text class="svg-label" x="176" y="249" text-anchor="middle" fill="#1F6A4A">Expansion funded by retained earnings</text>
+
+                          <rect x="368" y="230" width="352" height="30" rx="8" fill="#F8E9E5" />
+                          <text class="svg-label" x="544" y="249" text-anchor="middle" fill="#B3402A">Expansion funded by rising debt</text>
+                        </svg>
+                      </div>
+                      <figcaption>The curve is the set of all the ways to earn one return. Where a firm sits on it, and how it
+                        paid to get there, are the things the ratio leaves out.</figcaption>
+                    </figure>
+
+                    <div class="table-scroll">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th scope="col"></th>
+                            <th scope="col">High margin, slow turnover</th>
+                            <th scope="col">Thin margin, fast turnover</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">Where the return comes from</th>
+                            <td>Each unit carries a lot of profit</td>
+                            <td>Each asset is turned over many times</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">What protects it</th>
+                            <td>Brand, scarcity, pricing power</td>
+                            <td>Scale, cost position, logistics</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">What breaks it</th>
+                            <td><span class="verdict verdict--neg">Desirability</span> discounting, once started, is hard to
+                              reverse</td>
+                            <td><span class="verdict verdict--neg">Volume</span> a small fall in throughput wipes out a thin
+                              margin</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Growth needs</th>
+                            <td>Patience, and protection of the price</td>
+                            <td>Capital for capacity, and working capital to fill it</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="callout callout--key">
+                      <span class="icon" aria-hidden="true">🔑</span>
+                      <p>Equal ROA is not equal performance. Decompose it before comparing, then ask how each firm is paying for
+                        the assets underneath it.</p>
+                    </div>
+
+                    <div class="example-grid">
+                      <div class="example">
+                        <h5>Industry example — the two ends of one curve</h5>
+                        <p><strong>Costco</strong> deliberately caps the mark-up it takes on merchandise and earns from moving
+                          enormous volume through its warehouses, supported by membership fees.</p>
+                        <p><strong>Hermès</strong> constrains the supply of its leather goods and sells through its own
+                          boutiques, earning a large margin on a small number of units.</p>
+                        <p class="result">Opposite corners of the same curve — and opposite answers to almost every strategic
+                          question that follows.</p>
+                      </div>
+                      <div class="example">
+                        <h5>In class — the angle to take</h5>
+                        <p>Push the discussion past the decomposition to funding. Two firms on the same curve, one self-funding
+                          and one borrowing to expand, are not equally safe — and the ratio will not tell you which is which.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="block">
+                    <span class="block-num">Q4 / An acceptable decline</span>
+                    <h2>When is it strategically acceptable to run a declining ROA?</h2>
+                    <p>When the denominator arrives before the numerator. Capacity, platforms and market entry are paid for up
+                      front and load slowly, so the asset base steps up in one year while the profit it supports appears over
+                      several. The ratio falls first and recovers later — a J-curve, not a failure.</p>
+
+                    <p>That is only acceptable on two conditions. The new capital must be expected to earn more than it costs,
+                      and the dip must be caused by investment rather than by erosion. In the headline ratio those two look
+                      identical. Underneath, they do not.</p>
+
+                    <p>Split the movement with DuPont. Assets added ahead of revenue show up as falling asset turnover with the
+                      margin roughly intact. Competitive erosion shows up in the margin. The first is a timing problem; the
+                      second is a business problem.</p>
+
+                    <figure>
+                      <div class="fig-frame">
+                        <svg viewBox="0 0 720 268" role="img" aria-labelledby="dqa4-title dqa4-desc">
+                          <title id="dqa4-title">Two dips in return on assets that look the same and are not</title>
+                          <desc id="dqa4-desc">Return on assets is plotted over time against the level it held before an investment. During the investment window the asset base grows before the revenue it will carry, and the return falls. In the first path the return then recovers and rises above where it began, because the new assets eventually earn. In the second path, drawn dashed, the return keeps falling, because the cause was competitive erosion rather than investment. The two are distinguished by which driver moved: falling asset turnover with a stable margin indicates capacity added ahead of revenue, while a falling margin indicates erosion.</desc>
+
+                          <text class="svg-eyebrow" x="0" y="14">A DIP IN ROA HAS TWO VERY DIFFERENT CAUSES</text>
+
+                          <rect x="180" y="40" width="200" height="150" rx="8" fill="#E9EFF4" />
+                          <text class="svg-label" x="280" y="60" text-anchor="middle" fill="#1F3B51">assets added first</text>
+                          <text class="svg-sub" x="280" y="76" text-anchor="middle">revenue has not caught up</text>
+
+                          <path d="M100 40 L100 190 L690 190" stroke="#8C867A" stroke-width="1.2" fill="none" />
+                          <text class="svg-sub" x="100" y="32">ROA</text>
+                          <text class="svg-sub" x="686" y="206" text-anchor="end">time</text>
+
+                          <path d="M100 100 L680 100" stroke="#8C867A" stroke-width="1" stroke-dasharray="5 5" />
+                          <text class="svg-sub" x="104" y="94">the level before the investment</text>
+
+                          <path d="M100 100 C 150 118, 210 150, 280 150 C 400 150, 560 92, 680 70" stroke="#1F6A4A" stroke-width="2" fill="none" />
+                          <text class="svg-label" x="676" y="60" text-anchor="end" fill="#1F6A4A">investment dip — recovers</text>
+
+                          <path d="M280 150 C 420 158, 540 170, 680 178" stroke="#B3402A" stroke-width="2" stroke-dasharray="6 4" fill="none" />
+                          <text class="svg-label" x="676" y="194" text-anchor="end" fill="#B3402A">erosion — no recovery</text>
+
+                          <text class="svg-eyebrow" x="0" y="226">TELLING THEM APART</text>
+
+                          <rect x="0" y="232" width="352" height="28" rx="8" fill="#E6F1EB" />
+                          <text class="svg-sub" x="176" y="250" text-anchor="middle" fill="#1F6A4A">turnover falls, margin holds — capacity added</text>
+
+                          <rect x="368" y="232" width="352" height="28" rx="8" fill="#F8E9E5" />
+                          <text class="svg-sub" x="544" y="250" text-anchor="middle" fill="#B3402A">margin falls — competitive erosion</text>
+                        </svg>
+                      </div>
+                      <figcaption>Both paths leave the same footprint in the first year or two. Only the driver that moved says
+                        which one you are looking at.</figcaption>
+                    </figure>
+
+                    <p>The diagnostic runs in a fixed order.</p>
+
+                    <ol class="steps">
+                      <li>Confirm the asset base actually <strong>grew</strong> — a falling ROA on a flat asset base is not an
+                        investment story at all.</li>
+                      <li>Check whether the <strong>margin held</strong>. If it fell, the problem is in the business, not in the
+                        timing.</li>
+                      <li>Ask whether the new capital is expected to earn more than it <strong>costs</strong>, and over what
+                        period.</li>
+                      <li>Set a date by which the return should have recovered, and hold management to it.</li>
+                    </ol>
+
+                    <div class="callout callout--key">
+                      <span class="icon" aria-hidden="true">🔑</span>
+                      <p>A declining ROA is defensible when it is the <strong>timing</strong> of a good investment. It is
+                        indefensible when it is the <strong>arithmetic</strong> of a deteriorating one — and only the drivers
+                        underneath tell you which.</p>
+                    </div>
+
+                    <div class="example-grid">
+                      <div class="example">
+                        <h5>Industry example — Amazon</h5>
+                        <p>Amazon ran thin retail margins for years while pushing cash into fulfilment capacity, and later into
+                          the data centres behind AWS. The infrastructure was built ahead of the volume it would eventually
+                          carry, so the asset base grew before the earnings it supported.</p>
+                        <p class="result">The asset base led; the return followed. That is the shape a J-curve is supposed to
+                          have.</p>
+                      </div>
+                      <div class="example">
+                        <h5>In class — the angle to take</h5>
+                        <p>Concede the point quickly, then add the condition. A declining ROA buys nothing on its own; it is
+                          acceptable only where there is a stated return, a stated horizon, and a driver split that shows
+                          turnover — not margin — doing the falling.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="block">
+                    <span class="block-num">Q5 / Capital allocation</span>
+                    <h2>How do capital allocation decisions shape sustainable growth and long-term returns?</h2>
+                    <p>Capital allocation is the standing decision about where each dollar of earned cash goes — back into the
+                      existing business, into an acquisition, against debt, or out to shareholders. It matters twice over. The
+                      share retained sets the ceiling on growth the firm can fund itself; the return earned on what is retained
+                      decides whether that growth is worth having.</p>
+
+                    <div class="formula">SGR is driven by Return on Assets, Leverage and Retention</div>
+
+                    <p>Retention alone is not a strategy. Earnings ploughed into projects that return less than the cost of
+                      capital still enlarge the asset base, so the reported return is diluted while the balance sheet grows.
+                      Paying everything out avoids that trap but caps self-funded growth at nothing, leaving expansion dependent
+                      on markets that may not be open.</p>
+
+                    <div class="callout callout--key">
+                      <span class="icon" aria-hidden="true">💡</span>
+                      <div><p>Retention sets how fast the business can grow on its own; the return on what is retained decides whether
+                        that growth creates value.</p>
+                      <p>In class: the sharper question is not whether management reinvests, but at what return — the sustainable
+                        growth relation multiplies the two together.</p></div>
+                    </div>
+
+                    <figure>
+                      <div class="fig-frame">
+                        <svg viewBox="0 0 720 264" role="img" aria-labelledby="dqb5-title dqb5-desc">
+                          <title id="dqb5-title">The two decisions inside capital allocation</title>
+                          <desc id="dqb5-desc">Earnings split into a retained share and a distributed share. The retained share passes a test — what return does the new capital earn. Above the cost of capital, value is created. Below it, the asset base grows and the reported return is diluted. The distributed share leaves less self-funded growth, so expansion depends on outside funding. The sustainable growth rate is the return on equity multiplied by the retention ratio, which is the growth a business can fund from its own earnings.</desc>
+
+                          <text class="svg-eyebrow" x="0" y="14">TWO DECISIONS, NOT ONE — HOW MUCH IS KEPT, AND WHAT IT EARNS</text>
+
+                          <rect x="0" y="44" width="118" height="120" rx="12" fill="#2F5470" />
+                          <text class="svg-label" x="59" y="98" text-anchor="middle" fill="#FFFFFF">Earnings</text>
+                          <text class="svg-sub" x="59" y="116" text-anchor="middle" fill="#C3D4E0">cash the business</text>
+                          <text class="svg-sub" x="59" y="130" text-anchor="middle" fill="#C3D4E0">has generated</text>
+
+                          <path d="M118 104 L136 104 L136 76 L148 76" stroke="#8C867A" stroke-width="1.5" fill="none" />
+                          <path d="M142 71 L150 76 L142 81 Z" fill="#8C867A" />
+                          <path d="M118 104 L136 104 L136 136 L148 136" stroke="#8C867A" stroke-width="1.5" fill="none" />
+                          <path d="M142 131 L150 136 L142 141 Z" fill="#8C867A" />
+
+                          <rect x="156" y="52" width="164" height="48" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.3" />
+                          <text class="svg-label" x="238" y="74" text-anchor="middle">Retained</text>
+                          <text class="svg-sub" x="238" y="90" text-anchor="middle">the retention ratio b</text>
+
+                          <rect x="156" y="112" width="164" height="48" rx="10" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.45" />
+                          <text class="svg-label" x="238" y="134" text-anchor="middle">Distributed</text>
+                          <text class="svg-sub" x="238" y="150" text-anchor="middle">dividends and buy-backs</text>
+
+                          <path d="M320 76 L344 76" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M338 71 L346 76 L338 81 Z" fill="#8C867A" />
+
+                          <rect x="352" y="44" width="140" height="64" rx="10" fill="#F6F0DF" />
+                          <text class="svg-label" x="422" y="72" text-anchor="middle" fill="#8A6D1F">What return does</text>
+                          <text class="svg-label" x="422" y="88" text-anchor="middle" fill="#8A6D1F">the capital earn?</text>
+
+                          <path d="M492 76 L508 76 L508 50 L518 50" stroke="#8C867A" stroke-width="1.5" fill="none" />
+                          <path d="M512 45 L520 50 L512 55 Z" fill="#8C867A" />
+                          <path d="M492 76 L508 76 L508 106 L518 106" stroke="#8C867A" stroke-width="1.5" fill="none" />
+                          <path d="M512 101 L520 106 L512 111 Z" fill="#8C867A" />
+                          <path d="M320 136 L508 136 L508 162 L518 162" stroke="#8C867A" stroke-width="1.5" fill="none" />
+                          <path d="M512 157 L520 162 L512 167 Z" fill="#8C867A" />
+
+                          <rect x="528" y="26" width="192" height="48" rx="10" fill="#E6F1EB" />
+                          <text class="svg-label" x="624" y="48" text-anchor="middle" fill="#1F6A4A">Above cost of capital</text>
+                          <text class="svg-sub" x="624" y="64" text-anchor="middle">value created</text>
+
+                          <rect x="528" y="82" width="192" height="48" rx="10" fill="#F8E9E5" />
+                          <text class="svg-label" x="624" y="104" text-anchor="middle" fill="#B3402A">Below cost of capital</text>
+                          <text class="svg-sub" x="624" y="120" text-anchor="middle">asset base grows, return dilutes</text>
+
+                          <rect x="528" y="138" width="192" height="48" rx="10" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.45" />
+                          <text class="svg-label" x="624" y="160" text-anchor="middle">Less self-funded growth</text>
+                          <text class="svg-sub" x="624" y="176" text-anchor="middle">growth needs outside funding</text>
+
+                          <rect x="0" y="206" width="720" height="48" rx="10" fill="#E9EFF4" />
+                          <text class="svg-mono" x="360" y="228" text-anchor="middle">return x leverage x retention</text>
+                          <text class="svg-sub" x="360" y="244" text-anchor="middle">the growth a business can fund from its own earnings</text>
+                        </svg>
+                      </div>
+                      <figcaption>The retention decision fixes the speed limit. The test in the middle decides whether travelling
+                        at it is worth anything.</figcaption>
+                    </figure>
+
+                    <div class="example-grid">
+                      <div class="example">
+                        <h5>Industry example — Berkshire Hathaway</h5>
+                        <p>Berkshire has retained essentially all of its earnings for decades rather than paying a common
+                          dividend, on the stated logic that cash is worth keeping only while it can be redeployed at an
+                          attractive return.</p>
+                        <p class="result">The two decisions are treated as one: capital is retained <em>because</em> there is
+                          somewhere worthwhile to put it, not as a default.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="block">
+                    <span class="block-num">Q6 / Ratio versus value</span>
+                    <h2>Is maximising ROA always in shareholders’ best interest?</h2>
+                    <p>No — because shareholders own value, not a ratio, and a ratio can be raised by shrinking what sits
+                      beneath it. Value created is the spread between the return and the cost of capital, multiplied by the
+                      capital on which it is earned, and compounded for as long as the advantage lasts. A firm can lift its
+                      average return by declining every project that beats the cost of capital but sits below its current
+                      average, and be worth less for it.</p>
+
+                    <figure>
+                      <div class="fig-frame">
+                        <svg viewBox="0 0 720 244" role="img" aria-labelledby="dqb6-title dqb6-desc">
+                          <title id="dqb6-title">Why the accept band is wider than the ratio suggests</title>
+                          <desc id="dqb6-desc">Projects are arranged by the return they earn. Below the cost of capital a project destroys value and is rejected under either rule. Between the cost of capital and the firm’s current average return, a project creates value but lowers the average, so the ratio rule rejects it while the value rule accepts it. Above the current average, a project creates value and raises the average, and either rule accepts it. The ratio rule beats the current average; the value rule beats the cost of capital.</desc>
+
+                          <text class="svg-eyebrow" x="0" y="14">A PROJECT CAN CREATE VALUE AND STILL PULL THE AVERAGE DOWN</text>
+
+                          <text class="svg-eyebrow" x="60" y="44">LOWER RETURN</text>
+                          <text class="svg-eyebrow" x="720" y="44" text-anchor="end">HIGHER RETURN</text>
+
+                          <rect x="60" y="60" width="160" height="90" rx="10" fill="#F8E9E5" />
+                          <text class="svg-label" x="140" y="92" text-anchor="middle" fill="#B3402A">Destroys value</text>
+                          <text class="svg-sub" x="140" y="112" text-anchor="middle">rejected either way</text>
+
+                          <rect x="220" y="60" width="250" height="90" rx="10" fill="#F6F0DF" />
+                          <text class="svg-label" x="345" y="92" text-anchor="middle" fill="#8A6D1F">Creates value but</text>
+                          <text class="svg-label" x="345" y="108" text-anchor="middle" fill="#8A6D1F">lowers the average</text>
+                          <text class="svg-sub" x="345" y="128" text-anchor="middle">only the ratio rule rejects it</text>
+
+                          <rect x="470" y="60" width="250" height="90" rx="10" fill="#E6F1EB" />
+                          <text class="svg-label" x="595" y="92" text-anchor="middle" fill="#1F6A4A">Creates value and</text>
+                          <text class="svg-label" x="595" y="108" text-anchor="middle" fill="#1F6A4A">raises the average</text>
+                          <text class="svg-sub" x="595" y="128" text-anchor="middle">accepted either way</text>
+
+                          <line x1="220" y1="52" x2="220" y2="168" stroke="#2F5470" stroke-width="1.5" stroke-dasharray="5 4" />
+                          <line x1="470" y1="52" x2="470" y2="168" stroke="#2F5470" stroke-width="1.5" stroke-dasharray="5 4" />
+                          <text class="svg-sub" x="220" y="182" text-anchor="middle">cost of capital</text>
+                          <text class="svg-sub" x="470" y="182" text-anchor="middle">current average return</text>
+
+                          <rect x="0" y="200" width="350" height="34" rx="8" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.3" />
+                          <text class="svg-label" x="175" y="222" text-anchor="middle">Ratio rule — beat the current average</text>
+
+                          <rect x="370" y="200" width="350" height="34" rx="8" fill="#2F5470" />
+                          <text class="svg-label" x="545" y="222" text-anchor="middle" fill="#FFFFFF">Value rule — beat the cost of capital</text>
+                        </svg>
+                      </div>
+                      <figcaption>The middle band is the whole argument. Everything in it makes the owners richer and the ratio
+                        worse.</figcaption>
+                    </figure>
+
+                    <p>The same pressure discourages spending that is expensed rather than capitalised — research, brand,
+                      training — and rewards deferring maintenance, since both flatter the numerator or shrink the denominator
+                      today at the cost of the advantage period tomorrow.</p>
+
+                    <div class="table-scroll">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th scope="col">Using ROA as</th>
+                            <th scope="col">What it does</th>
+                            <th scope="col">Verdict</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">A scoreboard</th>
+                            <td>Reports the return the assets already in place are earning</td>
+                            <td><span class="verdict verdict--pos">sound</span></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">A hurdle for new projects</th>
+                            <td>Rejects value-creating investment that sits below the current average</td>
+                            <td><span class="verdict verdict--neg">wrong rule</span></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">A management target</th>
+                            <td>Rewards shrinking the denominator — deferred maintenance, expensed investment, moving assets off
+                              the balance sheet rather than out of the business</td>
+                            <td><span class="verdict verdict--neu">gameable</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="callout callout--key">
+                      <span class="icon" aria-hidden="true">💡</span>
+                      <div><p>ROA is a good scoreboard and a poor hurdle: owners are made better off by every project that beats the
+                        cost of capital, including ones that lower the average.</p>
+                      <p>In class: ask what the ratio would do if the firm simply sold its lowest-returning division. The average
+                        rises, and the owners are not obviously richer.</p></div>
+                    </div>
+
+                    <div class="example-grid">
+                      <div class="example">
+                        <h5>Industry example — Amazon</h5>
+                        <p>For much of its history Amazon reported thin profits while directing operating cash into fulfilment
+                          capacity and, later, AWS — both large, asset-heavy commitments that enlarge the denominator long before
+                          they show up in the numerator.</p>
+                        <p class="result">A management team optimising near-term return on assets would have found the case for
+                          building either of them very hard to make.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="block">
+                    <span class="block-num">Q7 / External conditions</span>
+                    <h2>How can external conditions change sustainable growth while ROA holds steady?</h2>
+                    <p>ROA is measured above the financing line, so it can sit still while the terms on which growth is financed
+                      move underneath it. Three channels do the work. Borrowing cost is charged after the operating result, so a
+                      stable operating return can still leave less profit to retain. Availability is separate from price —
+                      lenders and equity markets decide whether funding beyond internally generated cash is offered at all.</p>
+
+                    <figure>
+                      <div class="fig-frame">
+                        <svg viewBox="0 0 720 262" role="img" aria-labelledby="dqb7-title dqb7-desc">
+                          <title id="dqb7-title">Three external channels that compress growth while the operating return is unchanged</title>
+                          <desc id="dqb7-desc">The return on assets is unchanged, because the operating engine is the same. Three external channels still act on growth. The cost of borrowing is charged below the operating line, so less profit is left to retain. The availability of funding is decided by lenders and markets, which determine whether growth beyond earnings can be financed at all. Inflation means the same volume of trade ties up more working capital and costs more to replace. Together they narrow the growth the business can fund and finance, even though the return on assets has not moved.</desc>
+
+                          <text class="svg-eyebrow" x="0" y="14">THE OPERATING RETURN HOLDS; THE FUNDING OF GROWTH DOES NOT</text>
+
+                          <rect x="0" y="26" width="720" height="32" rx="8" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.3" />
+                          <text class="svg-label" x="360" y="47" text-anchor="middle" fill="#1F3B51">ROA unchanged — the operating engine is the same</text>
+
+                          <rect x="0" y="76" width="230" height="80" rx="10" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.45" />
+                          <text class="svg-label" x="115" y="100" text-anchor="middle">Cost of borrowing</text>
+                          <text class="svg-sub" x="115" y="118" text-anchor="middle">interest is charged below</text>
+                          <text class="svg-sub" x="115" y="132" text-anchor="middle">the operating line, so less</text>
+                          <text class="svg-sub" x="115" y="146" text-anchor="middle">profit is left to retain</text>
+
+                          <rect x="245" y="76" width="230" height="80" rx="10" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.45" />
+                          <text class="svg-label" x="360" y="100" text-anchor="middle">Availability of funding</text>
+                          <text class="svg-sub" x="360" y="118" text-anchor="middle">lenders and markets decide</text>
+                          <text class="svg-sub" x="360" y="132" text-anchor="middle">whether growth beyond</text>
+                          <text class="svg-sub" x="360" y="146" text-anchor="middle">earnings can be financed</text>
+
+                          <rect x="490" y="76" width="230" height="80" rx="10" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.45" />
+                          <text class="svg-label" x="605" y="100" text-anchor="middle">Inflation</text>
+                          <text class="svg-sub" x="605" y="118" text-anchor="middle">the same volume of trade</text>
+                          <text class="svg-sub" x="605" y="132" text-anchor="middle">ties up more working capital</text>
+                          <text class="svg-sub" x="605" y="146" text-anchor="middle">and costs more to replace</text>
+
+                          <path d="M115 160 L115 172" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M110 167 L115 175 L120 167 Z" fill="#8C867A" />
+                          <path d="M360 160 L360 172" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M355 167 L360 175 L365 167 Z" fill="#8C867A" />
+                          <path d="M605 160 L605 172" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M600 167 L605 175 L610 167 Z" fill="#8C867A" />
+
+                          <text class="svg-eyebrow" x="0" y="192">WHAT THE BUSINESS CAN FUND AND FINANCE</text>
+
+                          <rect x="150" y="200" width="440" height="22" rx="6" fill="#2F5470" />
+                          <text class="svg-label" x="370" y="215" text-anchor="middle" fill="#FFFFFF">growth the firm can fund and finance</text>
+                          <text class="svg-sub" x="0" y="215">easier conditions</text>
+
+                          <rect x="150" y="230" width="250" height="22" rx="6" fill="#2F5470" fill-opacity="0.55" />
+                          <text class="svg-label" x="275" y="245" text-anchor="middle" fill="#FFFFFF">narrower</text>
+                          <text class="svg-sub" x="0" y="245">tighter conditions</text>
+                          <text class="svg-sub" x="412" y="245">same ROA, less growth to fund</text>
+                        </svg>
+                      </div>
+                      <figcaption>Nothing in the top bar moves. The bar at the foot is what the firm can actually do about it.</figcaption>
+                    </figure>
+
+                    <p>Inflation is the quiet one: the same physical volume of trade ties up more working capital and costs more
+                      to replace, while historical-cost depreciation understates that replacement bill — so a steady reported ROA
+                      can conceal a rising real reinvestment requirement. Volatility does the rest, since uncertain earnings make
+                      prudent managers hold buffers instead of funding growth.</p>
+
+                    <div class="callout callout--key">
+                      <span class="icon" aria-hidden="true">💡</span>
+                      <div><p>Sustainable growth depends on the price, the availability and the real cost of the capital that funds
+                        asset growth — none of which appear anywhere in ROA.</p>
+                      <p>In class: keep the price of funding and its availability apart. They move for different reasons and
+                        constrain growth in different ways.</p></div>
+                    </div>
+
+                    <div class="example-grid">
+                      <div class="example">
+                        <h5>Industry example — Qantas and the airline fleet</h5>
+                        <p>An aircraft fleet is bought or leased, never funded out of a single year’s trading. Like every large
+                          carrier, Qantas renews and expands its fleet on financing terms set outside the business.</p>
+                        <p class="result">Capacity growth is therefore governed by the cost and availability of that financing,
+                          even in a year when the flying operation itself performs exactly as before.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="block">
+                    <span class="block-num">Q8 / High return, real risk</span>
+                    <h2>How can a high-ROA company still face distress or strategic risk?</h2>
+                    <p>A high ROA says the assets currently in the business earn well. It is silent on three things that decide
+                      survival. It is an average, so it hides how few products, customers or markets produce the profit. It is a
+                      snapshot, so it says nothing about how long the advantage period stays open. And it is struck above the
+                      financing line, so it is blind to the fixed obligations sitting on top of those assets.</p>
+
+                    <figure>
+                      <div class="fig-frame">
+                        <svg viewBox="0 0 720 258" role="img" aria-labelledby="dqb8-title dqb8-desc">
+                          <title id="dqb8-title">What a high return on assets does not measure, and how distress arrives anyway</title>
+                          <desc id="dqb8-desc">On the left, return on assets measures operating profit against the assets employed, as an average struck at one moment. Below the financing line sit interest and lease payments that do not fall when earnings fall, and debt that matures on a date the business does not choose. On the right, the sequence: a high return today, then an earnings dip caused by a rival or a lost customer, then payments that are fixed and dated and do not move with it, then distress.</desc>
+
+                          <text class="svg-eyebrow" x="0" y="14">ROA IS STRUCK ABOVE THE FINANCING LINE</text>
+
+                          <rect x="0" y="26" width="430" height="78" rx="10" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.3" />
+                          <text class="svg-label" x="215" y="50" text-anchor="middle">What ROA measures</text>
+                          <text class="svg-sub" x="215" y="70" text-anchor="middle">operating profit against the assets employed</text>
+                          <text class="svg-sub" x="215" y="86" text-anchor="middle">an average, struck at one moment</text>
+
+                          <line x1="0" y1="116" x2="430" y2="116" stroke="#8C867A" stroke-width="1.5" stroke-dasharray="5 4" />
+                          <text class="svg-eyebrow" x="0" y="130">THE FINANCING LINE</text>
+
+                          <rect x="0" y="138" width="430" height="100" rx="10" fill="#F8E9E5" />
+                          <text class="svg-label" x="215" y="162" text-anchor="middle" fill="#B3402A">What sits below it</text>
+                          <text class="svg-sub" x="215" y="182" text-anchor="middle">interest and lease payments that do not</text>
+                          <text class="svg-sub" x="215" y="196" text-anchor="middle">fall when earnings fall</text>
+                          <text class="svg-sub" x="215" y="214" text-anchor="middle">debt that matures on a date the business</text>
+                          <text class="svg-sub" x="215" y="228" text-anchor="middle">does not choose</text>
+
+                          <rect x="460" y="26" width="260" height="44" rx="10" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.45" />
+                          <text class="svg-label" x="590" y="46" text-anchor="middle">High ROA today</text>
+                          <text class="svg-sub" x="590" y="62" text-anchor="middle">profitable on the assets it has</text>
+
+                          <path d="M590 70 L590 82" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M585 77 L590 85 L595 77 Z" fill="#8C867A" />
+
+                          <rect x="460" y="90" width="260" height="44" rx="10" fill="#F6F0DF" />
+                          <text class="svg-label" x="590" y="110" text-anchor="middle" fill="#8A6D1F">Earnings dip</text>
+                          <text class="svg-sub" x="590" y="126" text-anchor="middle">a rival, or a lost customer</text>
+
+                          <path d="M590 134 L590 146" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M585 141 L590 149 L595 141 Z" fill="#8C867A" />
+
+                          <rect x="460" y="152" width="260" height="44" rx="10" fill="#F6F0DF" />
+                          <text class="svg-label" x="590" y="172" text-anchor="middle" fill="#8A6D1F">The payments do not</text>
+                          <text class="svg-sub" x="590" y="188" text-anchor="middle">they are fixed and dated</text>
+
+                          <path d="M590 196 L590 208" stroke="#8C867A" stroke-width="1.5" />
+                          <path d="M585 203 L590 211 L595 203 Z" fill="#8C867A" />
+
+                          <rect x="460" y="214" width="260" height="36" rx="10" fill="#F8E9E5" />
+                          <text class="svg-label" x="590" y="237" text-anchor="middle" fill="#B3402A">Distress</text>
+                        </svg>
+                      </div>
+                      <figcaption>The ratio is computed entirely in the top-left box. Everything that actually ends a company
+                        sits outside it.</figcaption>
+                    </figure>
+
+                    <p>Distress arrives where those meet: interest, leases and maturing debt do not fall when earnings do, and a
+                      business can be profitable on paper while failing to pay on the day payment falls due. A high return can
+                      even be the warning — earned by refusing to reinvest, it buys today’s ratio with tomorrow’s position.</p>
+
+                    <div class="table-scroll">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th scope="col">Blind spot</th>
+                            <th scope="col">The question the ratio hides</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">Concentration</th>
+                            <td>How many products, customers or markets is the profit actually coming from?</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Durability</th>
+                            <td>Is the competitive advantage period opening or closing?</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Financing structure</th>
+                            <td>ROA is struck before interest — how much debt sits on those assets, and when does it mature?</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Liquidity timing</th>
+                            <td>Does the cash arrive before the obligations fall due, or after?</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Measurement</th>
+                            <td>Is the denominator small because the business is lean, or because its real commitments are
+                              expensed or held off the balance sheet?</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="callout callout--key">
+                      <span class="icon" aria-hidden="true">🚨</span>
+                      <div><p>A high ROA describes the assets in place today; distress comes from concentration, from a closing
+                        advantage period, and from the obligations ROA is measured above.</p>
+                      <p>In class: pair the ratio with two questions — how many sources produce the profit, and what has to be
+                        paid whether or not it keeps arriving.</p></div>
+                    </div>
+
+                    <div class="example-grid">
+                      <div class="example">
+                        <h5>Industry example — Nokia</h5>
+                        <p>Nokia’s handset business was highly profitable and led the market before the
+                          smartphone displaced it. The returns were real, and were being earned on assets already in place.</p>
+                        <p class="result">What the ratio could not report was how long the position behind it would hold — which
+                          turned out to be the only question that mattered.</p>
+                      </div>
+                    </div>
+                  </div>
+    </section>
   </main>
 
   <footer class="page-foot">
     <div class="wrap">
       <p>DMBA 6008 Finance, Strategy and Technology · Week 2 · Pre-live session</p>
-      <p>Compiled from my own pre-live notes for this week. Synced from Notion on 10 August 2026.</p>
+      <p>Compiled from my own pre-live notes for this week, plus the live session&rsquo;s discussion
+        questions in the fourth tab. Synced from Notion on 12 August 2026.</p>
     </div>
   </footer>
     </div><!-- /.win -->
@@ -2346,6 +3462,26 @@
                 { term: 'Headline return', src: 'DuPont model example', def: 'The reported return figure taken at face value. Management performance should be evaluated on the quality and source of returns, not just the headline return.' },
                 { term: 'Financial story', src: 'DuPont model example', formula: 'ROE = Asset Efficiency x Profitability x Leverage', def: 'What the DuPont model turns a return ratio into — a decomposition that identifies which driver moved rather than only that the ratio moved.' },
                 { term: 'Management incentives', src: 'DuPont model example', def: 'DuPont analysis is useful when assessing management bonuses or strategic performance. Management should not necessarily be rewarded simply because profit or ROE increased.' },
+        { term: 'Sustainable growth rate (SGR)', src: 'Sustainable growth', formula: 'SGR is driven by Return on Assets, Leverage and Retention', def: 'The maximum rate at which a business can grow while keeping its financial policies broadly unchanged, particularly its capital structure.' },
+        { term: 'Growth financing chain', src: 'Why growth needs financing', formula: 'Revenue Growth → More Assets → More Financing Required', def: 'Revenue growth often requires more working capital, additional inventory and receivables, more non-current assets, and additional funding to finance those assets.' },
+        { term: 'Free growth', src: 'Why growth needs financing', def: 'Growth is only ‘free’ when the business has enough unused capacity in its existing assets to support additional revenue.' },
+        { term: 'Return on assets (as a growth driver)', src: 'Core drivers', def: 'Higher asset productivity generates more profit from the existing capital base.' },
+        { term: 'Equity-to-assets / leverage', src: 'Core drivers', def: 'Determines how much growth can be financed without changing financial risk.' },
+        { term: 'Retention ratio', src: 'Core drivers', formula: 'Retention Ratio = 1 - Dividend Payout Ratio', def: 'Determines how much profit remains in the business to finance future growth.' },
+        { term: 'Dividend payout ratio', src: 'Core drivers', def: 'The complement of the retention ratio. Higher dividend payouts therefore leave less internally generated funding available for growth.' },
+        { term: 'Growth above the SGR', src: 'Growth above the sustainable rate', formula: 'Growth > SGR → Higher Leverage', def: 'With the operational and financial drivers unchanged, required assets increase faster than retained equity, retained earnings become insufficient, additional debt becomes the balancing source of finance, and the debt-to-equity ratio rises.' },
+        { term: 'Warning sign', src: 'Growth above the sustainable rate', def: 'Growth may be commercially achievable but financially unsustainable at the existing risk level.' },
+        { term: 'Debt-to-equity relationship', src: 'Constraint-based growth', def: 'What the SGR holds still. If the underlying relationships remain constant, the SGR is the growth rate that keeps the firm’s debt-to-equity relationship unchanged.' },
+        { term: 'SGR assumptions', src: 'Constraint-based growth', def: 'The relationships assumed to remain broadly unchanged: expense margins, working-capital requirements, asset utilisation, dividend policy and target capital structure.' },
+        { term: 'Financing constraint on growth', src: 'Constraint-based growth', def: 'What the measure actually is. The SGR is not a forecast of demand.' },
+        { term: 'Management levers', src: 'Management levers', def: 'To grow faster without increasing leverage: increase profitability, improve asset utilisation, reduce working-capital requirements, retain more earnings, or raise new equity.' },
+        { term: 'Asset utilisation (as a lever)', src: 'Management levers', def: 'Improving it generates more revenue without proportional asset growth.' },
+        { term: 'Working-capital requirements', src: 'Management levers', def: 'One of the resources growth absorbs, and one of the relationships the SGR assumes constant. Reducing the requirement releases cash.' },
+        { term: 'Spare capacity', src: 'Growth and asset capacity', formula: 'Spare capacity: More Revenue → Better Asset Utilisation', def: 'Where it exists, growth can be absorbed by using existing assets better, which can allow the business to grow faster before requiring substantial new financing.' },
+        { term: 'Full utilisation', src: 'Growth and asset capacity', formula: 'Fully utilised: More Revenue → More Assets Needed', def: 'Where assets are already fully utilised, additional revenue requires additional assets.' },
+        { term: 'Overuse of existing assets', src: 'Growth and asset capacity', def: 'The limit on leaning harder on the asset base: management should not do it where it would reduce service quality, increase failures or maintenance, or create operational bottlenecks.' },
+        { term: 'Credible growth strategy', src: 'Strategic importance', formula: 'Market Opportunity + Operational Capacity + Financing Capacity', def: 'What a growth strategy must align. Demand alone does not determine feasible growth.' },
+        { term: 'Capital structure', src: 'Sustainable growth', def: 'The financial policy the SGR holds broadly unchanged; a target capital structure is one of the relationships the measure assumes stays constant.' }
       ];
 
       var glossaryEl = document.getElementById('glossary');
@@ -2466,6 +3602,34 @@
                 { q: 'What four possible sources of improvement should analysts test?', a: 'Generating operating efficiency, better margins, productive deployment of new assets, or simply greater leverage.' },
                 { q: 'What does the DuPont model turn a return ratio into, and in what form?', a: 'A financial story: ROE = Asset Efficiency x Profitability x Leverage.' },
                 { q: 'When is an improving financial ratio meaningful?', a: 'Only once the driver of that improvement is understood.' },
+        { q: 'Define the sustainable growth rate.', a: 'The maximum rate at which a business can grow while keeping its financial policies broadly unchanged, particularly its capital structure.' },
+        { q: 'What is the question the sustainable growth rate answers?', a: 'How fast can we grow without requiring an unsustainable increase in debt or new equity?' },
+        { q: 'Which four additional resources can revenue growth require?', a: 'More working capital, additional inventory and receivables, more non-current assets, and additional funding to finance those assets.' },
+        { q: 'State the growth financing chain.', a: 'Revenue Growth → More Assets → More Financing Required.' },
+        { q: 'When is growth “free”?', a: 'Only when the business has enough unused capacity in its existing assets to support additional revenue.' },
+        { q: 'Which three broad factors drive the sustainable growth rate?', a: 'Return on assets, equity-to-assets or leverage, and the retention ratio.' },
+        { q: 'Why does return on assets matter to sustainable growth?', a: 'Higher asset productivity generates more profit from the existing capital base.' },
+        { q: 'Why does the equity-to-assets ratio matter to sustainable growth?', a: 'It determines how much growth can be financed without changing financial risk.' },
+        { q: 'Why does the retention ratio matter to sustainable growth?', a: 'It determines how much profit remains in the business to finance future growth.' },
+        { q: 'Give the formula for the retention ratio.', a: 'Retention Ratio = 1 - Dividend Payout Ratio.' },
+        { q: 'What does a higher dividend payout do to growth funding?', a: 'It leaves less internally generated funding available for growth.' },
+        { q: 'What happens to required assets if growth is targeted above the SGR with drivers unchanged?', a: 'Required assets increase faster than retained equity.' },
+        { q: 'If retained earnings are insufficient to finance growth, what becomes the balancing source of finance?', a: 'Additional debt.' },
+        { q: 'What happens to the debt-to-equity ratio when growth runs above the SGR?', a: 'It rises.' },
+        { q: 'Complete the relationship: Growth > SGR → ?', a: 'Higher leverage.' },
+        { q: 'Why is growth above the SGR a potential warning sign?', a: 'Growth may be commercially achievable but financially unsustainable at the existing risk level.' },
+        { q: 'Which five relationships does the SGR assume remain broadly unchanged?', a: 'Expense margins, working-capital requirements, asset utilisation, dividend policy and target capital structure.' },
+        { q: 'If those relationships remain constant, what does the SGR represent?', a: 'The growth rate that keeps the firm’s debt-to-equity relationship unchanged.' },
+        { q: 'Is the SGR a forecast of demand?', a: 'No — it is a financing constraint on growth.' },
+        { q: 'Name the five possible responses if management wants to grow faster without increasing leverage.', a: 'Increase profitability, improve asset utilisation, reduce working-capital requirements, retain more earnings, or raise new equity.' },
+        { q: 'What does improving asset utilisation achieve?', a: 'It generates more revenue without proportional asset growth.' },
+        { q: 'What does reducing working-capital requirements achieve?', a: 'It releases cash.' },
+        { q: 'If assets are fully utilised, what does more revenue require?', a: 'More assets.' },
+        { q: 'If spare capacity exists, what does more revenue mean instead?', a: 'Better asset utilisation, which can allow the business to grow faster before requiring substantial new financing.' },
+        { q: 'When should management not overuse existing assets?', a: 'Where doing so would reduce service quality, increase failures or maintenance, or create operational bottlenecks.' },
+        { q: 'Which three things must a credible growth strategy align?', a: 'Market opportunity, operational capacity and financing capacity.' },
+        { q: 'Does strong customer demand determine feasible growth?', a: 'No — demand alone does not determine feasible growth.' },
+        { q: 'What should growth be assessed against?', a: 'The business’s financial capacity to support it, not simply management ambition or market demand.' }
       ];
 
       var order = CARDS.map(function (_, i) { return i; });

@@ -558,6 +558,9 @@
     .callout p { margin: 0; font-size: 1.02rem; font-weight: 600; line-height: 1.5; color: var(--ink); }
     .callout p + p { margin-top: 0.7rem; font-weight: 400; color: var(--ink2); }
     .icon { flex: 0 0 auto; font-size: 1.15rem; line-height: 1.35; }
+    /* A callout with more than one paragraph wraps them in a div, or the flex
+       row would lay the paragraphs out side by side. */
+    .callout > div { flex: 1 1 auto; min-width: 0; }
     .callout--key { background: var(--sand); }
     .callout--ask { background: var(--sky); }
 
@@ -1894,8 +1897,8 @@
 
               <div class="callout callout--key">
                 <span class="icon" aria-hidden="true">💡</span>
-                <p><strong>Forced Prioritisation</strong></p>
-                <p>Not everything valuable can or should be done simultaneously.</p>
+                <div><p><strong>Forced Prioritisation</strong></p>
+                <p>Not everything valuable can or should be done simultaneously.</p></div>
               </div>
             </div>
 
@@ -2207,9 +2210,9 @@
 
               <div class="callout callout--key">
                 <span class="icon" aria-hidden="true">💡</span>
-                <p>Create shared ownership before the formal decision occurs.</p>
+                <div><p>Create shared ownership before the formal decision occurs.</p>
                 <p>By the time the bid reaches the approval stage, key stakeholders should already understand, influence
-                  and ideally support the project.</p>
+                  and ideally support the project.</p></div>
               </div>
             </div>
 

@@ -262,6 +262,27 @@ Also excluded by default, as personal study telemetry rather than coursework:
 
 Publishing any of these is a per-subject decision for the author, not a default.
 
+### The one carve-out — DMBA 6008 discussion questions
+
+Aryan directed on 2026-08-10 that DMBA 6008's live-session **`Discussion Questions`**
+sub-page be published from **Week 2 onwards**, as a fourth tab on the week page.
+
+Take that child page and **nothing else** from a `Live Session` note. The rest of those notes
+stays unpublished and rule 1 still governs it. First run, 2026-08-12: the Week 2 `Live` note
+(`3b97b336873c80f88fa0d476b75e6439`) contained *only* the Discussion Questions child, so
+nothing had to be cut — do not assume that holds next time.
+
+The tab is also the only place on the site where the **"do not add" rule is suspended**: the
+supplied answers are marked *"Supplied AI-generated responses"* in Notion, and Aryan asked for
+them to be improved with outside knowledge, industry examples and diagrams. Two guardrails
+apply, and they are what keep it honest:
+
+1. **No financial statistic about a real company, ever.** Companies illustrate a mechanism.
+   Any ROA, margin, turnover, revenue, rate or date-stamped figure is a blocking defect.
+   Illustrative arithmetic needs invented inputs and an explicit label.
+2. **A provenance note heads the panel**, stating the answers were AI-generated and have been
+   rewritten — so the tab is never mistaken for Aryan's own coursework.
+
 ### Per-subject exclusions — `syncRules`
 
 Beyond the `Type` filter, a subject can carry named exclusions in `subjects.json` under

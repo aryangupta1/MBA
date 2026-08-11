@@ -32,7 +32,7 @@
     "  identically even if the annotations are reworded. Empty and unpublished topics carry null."
   ],
   "DMBA6008": {
-    "lastSync": "2026-08-10",
+    "lastSync": "2026-08-12",
     "courseId": "3097b336873c80c0948dcc805089b071",
     "hubPage": "DMBA6008-weeks.html",
     "skippedNotebooks": [
@@ -183,7 +183,7 @@
             "type": "Pre-Live Session",
             "shape": "container",
             "editedTime": "2026-08-09T05:27:18.357Z",
-            "observedAt": "2026-08-09T16:03:03.336Z",
+            "observedAt": "2026-08-11T14:01:00.010Z",
             "published": true,
             "topics": [
               {
@@ -220,20 +220,42 @@
                 "id": "3b77b336873c80d09a82f37ef4bf6864",
                 "title": "Sustainable Growth",
                 "childCount": 0,
-                "svgPrefix": null,
-                "contentHash": null,
-                "published": false,
-                "state": "empty",
-                "note": "Returns <empty-block/>. Rendered as an honest 'not yet written' block. THAT BLOCK IS THE THING TO REPLACE when the note is written. Never fill it with generated content."
+                "svgPrefix": "sg",
+                "contentHash": "sha256:d5077f7a9f5a",
+                "published": true,
+                "state": "complete",
+                "note": "WAS EMPTY until 2026-08-11. Aryan wrote it; harvested and published 2026-08-12, replacing the honest 'not yet written' block. The author writes his own forms of the relationships (e.g. 'Retention Ratio = 1 - Dividend Payout Ratio', 'SGR is driven by Return on Assets, Leverage and Retention') — the textbook g = ROE x b form is NOT in the source and must never be substituted.",
+                "observedAt": "2026-08-11T14:01:55.957Z",
+                "approxWords": 684
               }
             ]
           }
         ],
         "built": {
-          "figures": 9,
-          "terms": 53,
-          "cards": 80,
-          "blocks": 23
+          "figures": 20,
+          "terms": 73,
+          "cards": 108,
+          "blocks": 31,
+          "discussionQuestions": 8
+        },
+        "discussionTab": {
+          "sourceNoteId": "3b97b336873c80f88fa0d476b75e6439",
+          "sourceNoteName": "Live",
+          "sourceNoteType": "Live Session",
+          "sourceChildId": "3b97b336873c804f83a2d85e1c1d6b1d",
+          "sourceChildName": "Discussion Questions",
+          "published": true,
+          "note": "CARVE-OUT from the never-publish-Live-Session rule, directed by Aryan 2026-08-10 for DMBA 6008 Week 2 onwards. ONLY the 'Discussion Questions' child page was taken; this Live note contained nothing else, so nothing had to be cut. The source answers are labelled in Notion as 'Supplied AI-generated responses'; the published answers were rewritten and extended with outside knowledge, industry examples and diagrams at Aryan's explicit request — the ONLY place on the site where the no-additions rule is suspended. Guardrail: no financial statistic about any real company appears in the tab, and a provenance note heads the panel.",
+          "companiesCited": [
+            "Apple",
+            "Tesla",
+            "Costco",
+            "Hermes",
+            "Amazon",
+            "Berkshire Hathaway",
+            "Qantas",
+            "Nokia"
+          ]
         }
       }
     },
@@ -254,7 +276,7 @@
     ]
   },
   "DMBA6005": {
-    "lastSync": "2026-08-10",
+    "lastSync": "2026-08-12",
     "courseId": "3a17b336873c80c284a7cd6be4a60c4d",
     "hubPage": "DMBA6005-weeks.html",
     "note": "Launched 2026-08-06 with Week 0 and Week 1 together, once Week 1's `Learn` Pre-Live Session note appeared (created 2026-08-05T11:27Z, after the previous state record was written). index.html card un-muted and subjects.json `live` flipped to true in the same run, per Aryan's 2026-08-05 pre-approval. Type pairing: Sora + Karla, --course-e ochre.",
@@ -328,7 +350,7 @@
             "type": "Pre-Live Session",
             "shape": "container",
             "editedTime": "2026-08-05T11:32:09.748Z",
-            "observedAt": "2026-08-05T14:52:00.984Z",
+            "observedAt": "2026-08-08T08:31:03.063Z",
             "published": true,
             "topics": [
               {
@@ -386,7 +408,8 @@
                 "state": "excluded",
                 "note": "EXCLUDED by syncRules no-shadow-boxing-after-week-0 (Aryan, 2026-08-10). Renamed from 'Shadow Boxing Week 1'. Not harvested, so its current content is unknown and deliberately so. No placeholder is rendered for it."
               }
-            ]
+            ],
+            "note": "Note-level observedAt moved to 2026-08-08T08:31 with no change in any of the four harvestable topics (latest 08:05). The only candidate is the EXCLUDED 'Shadow Boxing: Cost, Scope or Schedule?' sub-page, renamed between 08-05 and 08-08. Recorded here so it stops re-triggering a harvest."
           },
           {
             "id": "3b17b336873c800e9208ca98bc0a8ada",

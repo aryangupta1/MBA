@@ -29,6 +29,36 @@ Also excluded by default, as personal study telemetry: `Confidence`, `Last Revie
 `Days Since`, `Favorite`, and the unticked todo lists on notebook pages.
 (Confirmed by Aryan 2026-08-05: confidence stays off the public site.)
 
+### The one carve-out from rule 1 — DMBA 6008 discussion questions
+
+Aryan directed on **2026-08-10** that DMBA 6008's live-session **`Discussion Questions`
+sub-page** be published, from **Week 2 onwards**, as a fourth tab.
+
+This is a **narrow carve-out, not a repeal.** Take the `Discussion Questions` child page and
+**nothing else** from a `Live Session` note. Everything else in those notes — remarks about
+the lecturer, about classmates' use of AI, about what will be examined, notes-to-self — stays
+unpublished, and rule 1 still governs it. If a future Live note mixes diary material *into*
+the discussion page, cut it and say so in the report.
+
+The discussion tab is also the **only** place on the site where the "do not add" rule is
+suspended. Aryan asked for the supplied answers to be improved with outside knowledge, real
+industry examples and diagrams. That licence covers **this tab only** — the summary, key
+concepts and flashcards remain a transcription of his own notes.
+
+Two guardrails make that safe, and they are not optional:
+
+- **Never state a financial statistic about a real company.** Use companies for durable,
+  structural, common-knowledge mechanics. Any ROA, margin, turnover, revenue, rate, share
+  price or date-stamped figure is a publication-blocking defect. Illustrative arithmetic is
+  allowed only with invented inputs and an explicit "illustrative" label.
+- **Carry a provenance note at the top of the panel** saying the source answers were
+  AI-generated and that these have been rewritten, so a reader is never misled into thinking
+  the tab is Aryan's own coursework.
+
+Build it with `{{DISCUSSION_TAB}}`-style slots: `week-shell.html` carries
+`<!--INSERT:DISCUSSION_TAB-->` and `<!--INSERT:DISCUSSION_PANEL-->`. A week with no
+discussion questions leaves both empty and shows three tabs, not four.
+
 ---
 
 ## Files this skill owns

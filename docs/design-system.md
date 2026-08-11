@@ -216,6 +216,23 @@ Butter panel, a giant italic Mona Sans watermark drifting behind at
 `rgba(255,255,255,.3–.45)`, and one large display statement. The marquee is decorative,
 `aria-hidden`, and stops under `prefers-reduced-motion`.
 
+### The fourth tab
+
+A week page carries three tabs by default — Summary & visuals, Key concepts, Flashcards. A
+week that has discussion questions gets a fourth, **Discussion**, wired the same way: a
+`.tab` with `data-panel="discussion"` and a `<section class="panel" id="panel-discussion">`.
+The existing script picks it up with no change, because it maps `data-panel` to
+`panel-<value>` generically and its arrow-key handler walks whatever `.tab` elements exist.
+
+`week-shell.html` carries `<!--INSERT:DISCUSSION_TAB-->` and
+`<!--INSERT:DISCUSSION_PANEL-->`; a week without discussion questions leaves both empty and
+renders three tabs.
+
+> **A `.callout` with more than one paragraph must wrap them in a `<div>`.** `.callout` is a
+> flex row, so sibling `<p>` elements lay out *side by side* — three paragraphs render as
+> three columns. The rule `.callout > div { flex: 1 1 auto; min-width: 0 }` exists for this.
+> Found and fixed on 2026-08-12 after it shipped in seven callouts.
+
 ### Study-page components
 
 The week pages keep their full component vocabulary and their entire inline script

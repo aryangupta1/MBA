@@ -558,6 +558,9 @@
     .callout p { margin: 0; font-size: 1.02rem; font-weight: 600; line-height: 1.5; color: var(--ink); }
     .callout p + p { margin-top: 0.7rem; font-weight: 400; color: var(--ink2); }
     .icon { flex: 0 0 auto; font-size: 1.15rem; line-height: 1.35; }
+    /* A callout with more than one paragraph wraps them in a div, or the flex
+       row would lay the paragraphs out side by side. */
+    .callout > div { flex: 1 1 auto; min-width: 0; }
     .callout--key { background: var(--sand); }
     .callout--ask { background: var(--sky); }
 
@@ -1116,6 +1119,7 @@
         data-panel="terms" tabindex="-1"><span class="tab-num" aria-hidden="true">02</span>Key concepts</button>
       <button class="tab" id="tab-cards" role="tab" aria-selected="false" aria-controls="panel-cards"
         data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
+<!--INSERT:DISCUSSION_TAB-->
     </div>
   </nav>
 
@@ -1182,6 +1186,7 @@
         </div>
       </div>
     </section>
+<!--INSERT:DISCUSSION_PANEL-->
   </main>
 
   <footer class="page-foot">
