@@ -6,16 +6,42 @@
 >
 > Every session must leave this file updated before it ends.
 
-**Last updated:** 2026-08-12
-**Left by:** a re-sync of both subjects. DMBA 6008 Week 2 gained its **Sustainable Growth**
-topic (it was empty) and a new **fourth tab: Discussion questions**, built from the live
-session at Aryan's direction. Committed and pushed to `master`.
+**Last updated:** 2026-08-12 (second session)
+**Left by:** the Summary & visuals panel is now **indexed, collapsible and searchable** on all
+six week pages and in the shell. Earlier the same day: a re-sync of both subjects, DMBA 6008
+Week 2's **Sustainable Growth** topic, and the **Discussion questions** tab.
+**The index work is NOT committed** — Aryan did not ask. Everything before it is pushed.
 
 ---
 
 ## Current focus
 
 **Nothing in flight.** Both subjects match Notion as of 2026-08-12.
+
+**Uncommitted in the working tree:** the summary index / collapse / search enhancement on the
+six week pages, `week-shell.html`, `docs/design-system.md` and `SKILL.md`. Ask before
+committing it.
+
+### The summary index — what it is and why it works this way
+
+Aryan's complaint was that a 31-block week is "a cluster fuck of notes" with no way in. The
+Summary & visuals panel now builds a `.toc` card at load — search box, Expand/Collapse-all,
+and a two-column list of every section — and turns each `.block` into a `<details>` folded
+behind its own heading.
+
+**It is generated at runtime from the blocks already on the page, and that is deliberate.**
+Nothing in the authored markup changed, so: the index cannot drift from the content, a
+re-sync inherits it for free, `checks.py` still measures the same `.block` elements, and with
+JS off the page reads exactly as before. **Do not hand-author a contents list.**
+
+Rules it applies: a week over **12 sections opens collapsed** (an outline you pick from);
+shorter weeks stay open. Search filters the index and the body together and auto-expands
+matches. A week split into topic subpanels gets **one index per subpanel**; a subpanel with
+fewer than four sections gets none. It reuses the existing `.toolbar` / `.search` / `.count`
+components rather than adding new ones.
+
+Verified: all six pages, 106 links, zero console errors, zero horizontal overflow at 390 px
+(the list drops to one column), and the six QA gates still pass.
 
 ## Do first
 

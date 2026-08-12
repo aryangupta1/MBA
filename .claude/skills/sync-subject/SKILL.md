@@ -252,6 +252,9 @@ reason to route them through context.
    every subject — do not swap in a per-subject pairing. `{{HUB_PAGE}}` is the back link and
    comes from `subjects.json` → `hubPage`; a week page's parent is its **week hub**, never
    `library.html`.
+   The summary **index, collapse and search** needs nothing from you — the shell's script
+   builds it at load from whatever `.block` elements the summary ends up with. Do not
+   hand-author a contents list; it would drift.
 3. Update the hub page `<prefix>-weeks.html` — add the week card and fix **its
    hand-written per-week counts**, which are the easiest thing to leave stale.
 4. Register in `library.html`. **`articlesBySubject` and `validSubjects` must be edited

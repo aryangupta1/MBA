@@ -233,6 +233,29 @@ renders three tabs.
 > three columns. The rule `.callout > div { flex: 1 1 auto; min-width: 0 }` exists for this.
 > Found and fixed on 2026-08-12 after it shipped in seven callouts.
 
+### The summary index — contents, collapse, search
+
+A week's Summary & visuals panel builds its own **index** at load: a `.toc` card holding a
+search box, Expand/Collapse-all buttons and a two-column list of every section. Each `.block`
+is turned into a `<details class="block-d">` whose `<summary>` is the eyebrow plus the `h2`,
+so the whole section folds away behind its own heading.
+
+**It is generated at runtime from the blocks already on the page.** Nothing in the authored
+markup changes, which is deliberate and worth preserving:
+
+- the index can never drift out of sync with the content,
+- a re-sync inherits it with no extra work,
+- `checks.py` still measures exactly the same `.block` elements for the prose budget,
+- and with JavaScript off the page reads as it always did — every section open, no index.
+
+**A week longer than 12 sections opens collapsed**, as an outline you pick from; a shorter one
+stays open and reads straight through. Searching filters the index and the body together and
+auto-expands whatever matches. A week split into topic subpanels gets one index per subpanel;
+a subpanel with fewer than four sections gets none, since it navigates fine on its own.
+
+The search reuses the existing `.toolbar` / `.search` / `.count` components rather than
+introducing new ones.
+
 ### Study-page components
 
 The week pages keep their full component vocabulary and their entire inline script
