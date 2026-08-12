@@ -1131,6 +1131,13 @@
     .block-d > summary h2 { transition: color 0.2s ease; }
     .block-d > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 4px; border-radius: 10px; }
     .block-d:not([open]) > summary h2 { margin-bottom: 0; }
+    /* Topic chips built at runtime use aria-pressed; the sub-tabbed weeks
+       use aria-selected. Same look for both. */
+    .subtab[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
 
     /* ── Accessibility ─────────────────────────────────────────────────── */
     :focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 3px; border-radius: 8px; }
@@ -1236,7 +1243,7 @@
 
     <!-- ══════════════════ 01 · SUMMARY & VISUALS ══════════════════ -->
     <section class="panel active" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" tabindex="0">
-            <div class="block">
+            <div class="block" data-topic="Assets reflect the business model">
               <span class="block-num">01 / The core idea</span>
               <h2>Asset structure as a business model signal</h2>
               <p>The combination of assets a company holds should broadly reflect how it creates and delivers value. Read
@@ -1305,7 +1312,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Assets reflect the business model">
               <span class="block-num">02 / Putting firms on one scale</span>
               <h2>Common-size asset analysis</h2>
               <p>Common-size analysis expresses each asset category as a percentage of total assets. Stating every category
@@ -1358,7 +1365,7 @@
               </figure>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Assets reflect the business model">
               <span class="block-num">03 / Reading the categories</span>
               <h2>What different asset categories reveal</h2>
               <p>Each category carries a signal about the activity that sits behind it.</p>
@@ -1404,7 +1411,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Assets reflect the business model">
               <span class="block-num">04 / Patterns</span>
               <h2>Business model patterns</h2>
               <p>What separates these patterns is not the size of the balance sheet but which categories carry the weight,
@@ -1519,7 +1526,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Assets reflect the business model">
               <span class="block-num">05 / Strategy signals</span>
               <h2>Asset mix can reveal strategy</h2>
               <p>The balance sheet can provide clues about strategic choices.</p>
@@ -1564,7 +1571,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Assets reflect the business model">
               <span class="block-num">06 / Analytical takeaway</span>
               <h2>Judge the mix against the model, not a benchmark</h2>
               <p>A company&#8217;s asset mix should be assessed against its business model, industry and strategy, rather
@@ -1595,7 +1602,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Drivers of returns">
               <span class="block-num">07 / The core idea</span>
               <h2>Return is driven by both profitability and capital use</h2>
               <p>Measures such as <strong>ROA and ROE</strong> combine two things at once: an income statement outcome —
@@ -1641,7 +1648,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Drivers of returns">
               <span class="block-num">08 / The driver chain</span>
               <h2>From market position through to return</h2>
               <p>Returns can be understood as a chain that runs from market position through to return. Each financial
@@ -1727,7 +1734,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Drivers of returns">
               <span class="block-num">09 / Profitability</span>
               <h2>Volume × margin</h2>
               <p>Profitability fundamentally depends on <strong>volume</strong> — how much the business sells — and
@@ -1754,7 +1761,7 @@
               <p class="note">A SaaS company may balance the two.</p>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Drivers of returns">
               <span class="block-num">10 / Balance sheet drivers</span>
               <h2>Assets, working capital and funding</h2>
 
@@ -1785,7 +1792,7 @@
                 depends on how the business chooses to finance the assets needed to operate and grow.</p>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Drivers of returns">
               <span class="block-num">11 / External drivers</span>
               <h2>Financial outcomes reflect what is happening competitively</h2>
               <p>Key factors include:</p>
@@ -1802,7 +1809,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Drivers of returns">
               <span class="block-num">12 / Competitive advantage period</span>
               <h2>How long can superior returns last?</h2>
               <p>The <strong>competitive advantage period</strong> is the period for which a company can maintain returns
@@ -1860,7 +1867,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Drivers of returns">
               <span class="block-num">13 / Sustainable advantage</span>
               <h2>What holds the period open</h2>
               <p>Competitive advantage may be supported by:</p>
@@ -1894,7 +1901,7 @@
                 as permanent.</p>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Drivers of returns">
               <span class="block-num">14 / Analytical takeaway</span>
               <h2>What to carry out of drivers of returns</h2>
               <ul class="takeaways">
@@ -1925,7 +1932,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="DuPont model example">
               <span class="block-num">15 / The purpose</span>
               <h2>Why decompose a return at all</h2>
               <p>The DuPont model breaks return measures into their underlying drivers. That lets an analyst explain
@@ -1937,7 +1944,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="DuPont model example">
               <span class="block-num">16 / Return on assets</span>
               <h2>The two drivers behind ROA</h2>
               <p>The first DuPont relationship splits the return on assets into the two drivers that produce it.</p>
@@ -1976,7 +1983,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="DuPont model example">
               <span class="block-num">17 / Return on equity</span>
               <h2>Adding financial leverage</h2>
               <p>The model then introduces <strong>financial leverage</strong>. Fully expanded, the return to shareholders
@@ -2042,7 +2049,7 @@
               </figure>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="DuPont model example">
               <span class="block-num">18 / Reading a higher ROE</span>
               <h2>Higher ROE is not always better</h2>
               <p>An increase in ROE can come from very different sources.</p>
@@ -2125,7 +2132,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="DuPont model example">
               <span class="block-num">19 / Evaluating an acquisition</span>
               <h2>Why a bigger profit proves little</h2>
               <p>An acquisition will normally increase:</p>
@@ -2150,7 +2157,7 @@
               </ol>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="DuPont model example">
               <span class="block-num">20 / Offsetting drivers</span>
               <h2>One component improves as another weakens</h2>
               <p>A transaction may improve one component while weakening another.</p>
@@ -2176,7 +2183,7 @@
                 only revenue growth, profit growth or one financial ratio can give an incomplete picture.</p>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="DuPont model example">
               <span class="block-num">21 / The appearance of improvement</span>
               <h2>Leverage can look like better performance</h2>
 
@@ -2242,7 +2249,7 @@
               </figure>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="DuPont model example">
               <span class="block-num">22 / Management and takeaway</span>
               <h2>Judging the source of a return</h2>
               <p>DuPont analysis is useful when assessing management bonuses or strategic performance. Management should not
@@ -2277,7 +2284,7 @@
               </ul>
             </div>
 
-                  <div class="block">
+                  <div class="block" data-topic="Sustainable Growth">
                     <span class="block-num">23 / The core idea</span>
                     <h2>What sustainable growth means</h2>
                     <p>The <strong>sustainable growth rate (SGR)</strong> is the maximum rate at which a business can grow while
@@ -2289,7 +2296,7 @@
                     </div>
                   </div>
 
-                  <div class="block">
+                  <div class="block" data-topic="Sustainable Growth">
                     <span class="block-num">24 / Why growth needs financing</span>
                     <h2>Growth has to be paid for</h2>
                     <p>Revenue growth often requires additional resources such as:</p>
@@ -2306,7 +2313,7 @@
                       support additional revenue.</p>
                   </div>
 
-                  <div class="block">
+                  <div class="block" data-topic="Sustainable Growth">
                     <span class="block-num">25 / Core drivers</span>
                     <h2>Return on assets, leverage and retention</h2>
                     <p>The sustainable growth rate reflects three broad factors.</p>
@@ -2378,7 +2385,7 @@
                       growth.</strong></p>
                   </div>
 
-                  <div class="block">
+                  <div class="block" data-topic="Sustainable Growth">
                     <span class="block-num">26 / Above the rate</span>
                     <h2>Growth above the sustainable rate</h2>
                     <p>If management targets growth above the SGR while operational and financial drivers remain unchanged:</p>
@@ -2435,7 +2442,7 @@
                       unsustainable at the existing risk level.</p>
                   </div>
 
-                  <div class="block">
+                  <div class="block" data-topic="Sustainable Growth">
                     <span class="block-num">27 / A constraint, not a forecast</span>
                     <h2>Sustainable growth is constraint based</h2>
                     <p>The SGR assumes important operating and financial relationships remain broadly unchanged, such as:</p>
@@ -2455,7 +2462,7 @@
                     </div>
                   </div>
 
-                  <div class="block">
+                  <div class="block" data-topic="Sustainable Growth">
                     <span class="block-num">28 / Management levers</span>
                     <h2>Raising the sustainable growth rate</h2>
                     <p>If management wants to grow faster without increasing leverage, it must change one or more underlying
@@ -2474,7 +2481,7 @@
                     </div>
                   </div>
 
-                  <div class="block">
+                  <div class="block" data-topic="Sustainable Growth">
                     <span class="block-num">29 / Asset capacity</span>
                     <h2>Growth and asset capacity</h2>
                     <p>A critical assumption is whether existing assets have spare capacity.</p>
@@ -2529,7 +2536,7 @@
                     </ul>
                   </div>
 
-                  <div class="block">
+                  <div class="block" data-topic="Sustainable Growth">
                     <span class="block-num">30 / Strategic importance</span>
                     <h2>Where strategy meets finance</h2>
                     <p>The sustainable growth rate connects <strong>strategy with finance.</strong> Management may identify strong
@@ -2542,7 +2549,7 @@
                       increasing.</p>
                   </div>
 
-                  <div class="block">
+                  <div class="block" data-topic="Sustainable Growth">
                     <span class="block-num">31 / Analytical takeaway</span>
                     <h2>Testing a growth plan</h2>
 
@@ -3813,6 +3820,8 @@
       render();
     })();
 
+
+
     /* ── Summary index, collapse and search ─────────────────────────────
        Progressive enhancement, built at runtime from the blocks that are
        already on the page. Nothing in the authored markup changes, so the
@@ -3957,12 +3966,52 @@
         var input = toc.querySelector('.search');
         var count = toc.querySelector('.count');
         var empty = toc.querySelector('.toc-empty');
+        var activeTopic = '';
+
+        // ── Topic chips ────────────────────────────────────────────────
+        // Built from the data-topic each block carries, so a week reads one
+        // topic at a time the way the sub-tabbed weeks already do. A block
+        // with no data-topic (a week-level takeaway, say) always shows.
+        var topics = [], emptyTopics = {};
+        items.forEach(function (it) {
+          var t = it.block.getAttribute('data-topic');
+          it.topic = t || '';
+          if (!t) return;
+          if (topics.indexOf(t) === -1) topics.push(t);
+          if (it.block.getAttribute('data-topic-empty') === 'true') emptyTopics[t] = true;
+        });
+
+        if (topics.length > 1) {
+          var chips = document.createElement('div');
+          chips.className = 'subtabs';
+          chips.setAttribute('aria-label', 'Topics');
+          ['All'].concat(topics).forEach(function (label, k) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'subtab' + (emptyTopics[label] ? ' subtab--empty' : '');
+            b.setAttribute('aria-pressed', k === 0 ? 'true' : 'false');
+            b.setAttribute('data-topic', k === 0 ? '' : label);
+            b.textContent = label;
+            chips.appendChild(b);
+          });
+          chips.addEventListener('click', function (e) {
+            var b = e.target && e.target.closest ? e.target.closest('button') : null;
+            if (!b) return;
+            activeTopic = b.getAttribute('data-topic') || '';
+            Array.prototype.forEach.call(chips.children, function (c) {
+              c.setAttribute('aria-pressed', c === b ? 'true' : 'false');
+            });
+            applyFilter();
+          });
+          container.insertBefore(chips, toc);
+        }
 
         function applyFilter() {
           var q = input.value.trim().toLowerCase();
           var shown = 0;
           items.forEach(function (it) {
-            var hit = !q || it.text.indexOf(q) !== -1;
+            var hit = (!q || it.text.indexOf(q) !== -1) &&
+                      (!activeTopic || !it.topic || it.topic === activeTopic);
             if (hit) {
               it.block.removeAttribute('hidden');
               it.li.removeAttribute('hidden');

@@ -1132,6 +1132,13 @@
     .block-d > summary h2 { transition: color 0.2s ease; }
     .block-d > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 4px; border-radius: 10px; }
     .block-d:not([open]) > summary h2 { margin-bottom: 0; }
+    /* Topic chips built at runtime use aria-pressed; the sub-tabbed weeks
+       use aria-selected. Same look for both. */
+    .subtab[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
 
     /* ── Accessibility ─────────────────────────────────────────────────── */
     :focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 3px; border-radius: 8px; }
@@ -1236,7 +1243,7 @@
     <!-- ══════════════════ 01 · SUMMARY & VISUALS ══════════════════ -->
     <section class="panel active" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" tabindex="0">
 
-      <div class="block">
+      <div class="block" data-topic="Overview">
         <span class="block-num">01 / The core idea</span>
         <h2>Value creation logic, end to end</h2>
         <p>The key value principle links business activity into a single chain. Assets generate revenue, revenue
@@ -1322,7 +1329,7 @@
         </div>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Concepts">
         <span class="block-num">02 / Return on assets</span>
         <h2>What ROA actually measures</h2>
         <p>ROA measures the efficiency of asset usage — how much profit is generated per unit of investment. A higher
@@ -1355,7 +1362,7 @@
         </div>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Concepts">
         <span class="block-num">03 / Financing the assets</span>
         <h2>Capital structure and the hurdle rate</h2>
         <p>Each capital provider demands compensation for the risk they take. Debt is lower risk, so it carries a
@@ -1393,7 +1400,7 @@
           Above it, excess value is created.</p>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Concepts">
         <span class="block-num">04 / The decision rule</span>
         <h2>The value creation test</h2>
         <div class="formula">Value Spread = Return on Assets − WACC</div>
@@ -1466,7 +1473,7 @@
         </div>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Concepts">
         <span class="block-num">05 / The time dimension</span>
         <h2>Why single-year ROA is not enough</h2>
         <p>ROA is a snapshot metric. Investments, however, last multiple years, generate uneven cash flows, and
@@ -1554,7 +1561,7 @@
           the annual value signal, and NPV the total lifetime value.</p>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Concepts">
         <span class="block-num">06 / The eight principles</span>
         <h2>Value creation as a decision cascade</h2>
         <p>Value creation is a connected sequence, each principle a filter. An investment may pass one stage and fail a
@@ -1741,7 +1748,7 @@
         </div>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Assessing Financial Performance">
         <span class="block-num">07 / Assessing performance</span>
         <h2>Why performance needs ratios</h2>
         <p>Absolute assets, revenue and profit mislead when businesses differ in size &#8212; a bigger business earns more
@@ -2223,6 +2230,8 @@
       render();
     })();
 
+
+
     /* ── Summary index, collapse and search ─────────────────────────────
        Progressive enhancement, built at runtime from the blocks that are
        already on the page. Nothing in the authored markup changes, so the
@@ -2367,12 +2376,52 @@
         var input = toc.querySelector('.search');
         var count = toc.querySelector('.count');
         var empty = toc.querySelector('.toc-empty');
+        var activeTopic = '';
+
+        // ── Topic chips ────────────────────────────────────────────────
+        // Built from the data-topic each block carries, so a week reads one
+        // topic at a time the way the sub-tabbed weeks already do. A block
+        // with no data-topic (a week-level takeaway, say) always shows.
+        var topics = [], emptyTopics = {};
+        items.forEach(function (it) {
+          var t = it.block.getAttribute('data-topic');
+          it.topic = t || '';
+          if (!t) return;
+          if (topics.indexOf(t) === -1) topics.push(t);
+          if (it.block.getAttribute('data-topic-empty') === 'true') emptyTopics[t] = true;
+        });
+
+        if (topics.length > 1) {
+          var chips = document.createElement('div');
+          chips.className = 'subtabs';
+          chips.setAttribute('aria-label', 'Topics');
+          ['All'].concat(topics).forEach(function (label, k) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'subtab' + (emptyTopics[label] ? ' subtab--empty' : '');
+            b.setAttribute('aria-pressed', k === 0 ? 'true' : 'false');
+            b.setAttribute('data-topic', k === 0 ? '' : label);
+            b.textContent = label;
+            chips.appendChild(b);
+          });
+          chips.addEventListener('click', function (e) {
+            var b = e.target && e.target.closest ? e.target.closest('button') : null;
+            if (!b) return;
+            activeTopic = b.getAttribute('data-topic') || '';
+            Array.prototype.forEach.call(chips.children, function (c) {
+              c.setAttribute('aria-pressed', c === b ? 'true' : 'false');
+            });
+            applyFilter();
+          });
+          container.insertBefore(chips, toc);
+        }
 
         function applyFilter() {
           var q = input.value.trim().toLowerCase();
           var shown = 0;
           items.forEach(function (it) {
-            var hit = !q || it.text.indexOf(q) !== -1;
+            var hit = (!q || it.text.indexOf(q) !== -1) &&
+                      (!activeTopic || !it.topic || it.topic === activeTopic);
             if (hit) {
               it.block.removeAttribute('hidden');
               it.li.removeAttribute('hidden');

@@ -30,7 +30,17 @@ Nothing in the authored markup changed, so: the index cannot drift from the cont
 re-sync inherits it for free, `checks.py` still measures the same `.block` elements, and with
 JS off the page reads exactly as before. **Do not hand-author a contents list.**
 
-Rules it applies: a week over **12 sections opens collapsed** (an outline you pick from);
+**Topic chips** sit above the index on every flat week — the same `.subtabs` control Week 0
+already had — built from a `data-topic` attribute on each `.block`. That attribute is the one
+authored part: **a new week must set it**, or the chips do not appear. A block with no
+`data-topic` is week-level and shows under every topic; a topic that is empty in Notion gets
+`data-topic-empty="true"` and renders dimmed. Chips and search compose.
+
+`checks.py` was taught to match `<div class="block"` rather than the exact string
+`<div class="block">`, since blocks now carry attributes. Without that its prose-budget gate
+silently collapsed to "1 block" and failed every page.
+
+Rules the index applies: a week over **12 sections opens collapsed** (an outline you pick from);
 shorter weeks stay open. Search filters the index and the body together and auto-expands
 matches. A week split into topic subpanels gets **one index per subpanel**; a subpanel with
 fewer than four sections gets none. It reuses the existing `.toolbar` / `.search` / `.count`

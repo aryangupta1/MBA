@@ -255,6 +255,12 @@ reason to route them through context.
    The summary **index, collapse and search** needs nothing from you — the shell's script
    builds it at load from whatever `.block` elements the summary ends up with. Do not
    hand-author a contents list; it would drift.
+   **You must, however, set `data-topic` on every `.block`**, naming the Notion topic the
+   block was built from: `<div class="block" data-topic="Drivers of returns">`. That is what
+   draws the topic chips, and only the sync knows the mapping. Leave it **off** a week-level
+   block (a closing takeaway) so it shows under every topic. If a topic is empty in Notion,
+   put `data-topic-empty="true"` on its "not yet written" block and it renders as a dimmed
+   chip, the way DMBA 6008 Week 0 shows *Assessing Financial Performance*.
 3. Update the hub page `<prefix>-weeks.html` — add the week card and fix **its
    hand-written per-week counts**, which are the easiest thing to leave stale.
 4. Register in `library.html`. **`articlesBySubject` and `validSubjects` must be edited

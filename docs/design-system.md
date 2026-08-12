@@ -256,6 +256,24 @@ a subpanel with fewer than four sections gets none, since it navigates fine on i
 The search reuses the existing `.toolbar` / `.search` / `.count` components rather than
 introducing new ones.
 
+**Topic chips.** Above the index sits a `.subtabs` row — the same control DMBA 6008 Week 0
+uses for its sub-tabbed topics — letting a reader take one topic at a time. It is built from
+a `data-topic` attribute carried by each `.block`, naming the Notion topic that block came
+from. Rules:
+
+- a block with **no** `data-topic` is week-level (a closing takeaway, say) and shows in every
+  view, so the week's conclusion is never filtered away;
+- a topic that is empty in Notion is marked `data-topic-empty="true"` on its placeholder
+  block and renders as a dimmed `.subtab--empty` chip, matching how Week 0 shows
+  *Assessing Financial Performance*;
+- chips use `aria-pressed` (they are filters), where Week 0's real sub-tabs use
+  `aria-selected` (they switch panels). Both get the same look;
+- fewer than two topics and no chip row is drawn;
+- the chip and the search compose — pick a topic, then search inside it.
+
+`data-topic` is the one piece of this that is authored rather than derived, because only the
+sync knows which topic a block came from. **A new week must set it** (see `SKILL.md`).
+
 ### Study-page components
 
 The week pages keep their full component vocabulary and their entire inline script

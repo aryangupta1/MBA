@@ -325,7 +325,9 @@ def check_length(path, text, found, report):
                            re.sub(r'<svg\b.*?</svg>', '', html, flags=re.S)).split())
         if total < 60:
             continue                      # an honest "not yet written" panel
-        blocks = len(re.findall(r'<div class="block">', html)) or 1
+        # `class="block"` may carry attributes (e.g. data-topic), so match the
+        # opening tag rather than one exact string.
+        blocks = len(re.findall(r'<div class="block"[ >]', html)) or 1
         budget = max(PROSE_FLOOR, blocks * PROSE_PER_BLOCK)
         report.append((path, name, blocks, prose, budget, total))
         if prose > budget:

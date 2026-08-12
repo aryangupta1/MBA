@@ -1131,6 +1131,13 @@
     .block-d > summary h2 { transition: color 0.2s ease; }
     .block-d > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 4px; border-radius: 10px; }
     .block-d:not([open]) > summary h2 { margin-bottom: 0; }
+    /* Topic chips built at runtime use aria-pressed; the sub-tabbed weeks
+       use aria-selected. Same look for both. */
+    .subtab[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
 
     /* ── Accessibility ─────────────────────────────────────────────────── */
     :focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 3px; border-radius: 8px; }
@@ -1233,7 +1240,7 @@
 
     <!-- ══════════════════ 01 · SUMMARY & VISUALS ══════════════════ -->
     <section class="panel active" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" tabindex="0">
-            <div class="block">
+            <div class="block" data-topic="Delivering a valuable customer experience">
               <span class="block-num">01 / The core idea</span>
               <h2>Customer experience beyond the product</h2>
               <p>Customer experience (CX) looks beyond the product itself to the customer’s <strong>entire experience with
@@ -1279,7 +1286,7 @@
                 support, billing, upgrades, reliability and renewal.</p>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Delivering a valuable customer experience">
               <span class="block-num">02 / The journey</span>
               <h2>Touchpoints</h2>
               <p>A <strong>touchpoint</strong> is any point where the customer interacts with the organisation, its
@@ -1332,7 +1339,7 @@
               </figure>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Delivering a valuable customer experience">
               <span class="block-num">03 / The evolution</span>
               <h2>Three waves of customer experience</h2>
               <p>CX has developed through three broad waves. Each wave brought a main focus, and each carried its own
@@ -1396,7 +1403,7 @@
               </figure>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Delivering a valuable customer experience">
               <span class="block-num">04 / The measure</span>
               <h2>Limitation of CX metrics</h2>
               <p>Measures such as NPS can be useful signals. However, once organisations pressure customers or employees
@@ -1409,7 +1416,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Delivering a valuable customer experience">
               <span class="block-num">05 / The levels</span>
               <h2>From UI to customer experience</h2>
               <p>Digital experiences operate at several levels.</p>
@@ -1506,7 +1513,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Delivering a valuable customer experience">
               <span class="block-num">06 / The horizon</span>
               <h2>CX as long-term value creation</h2>
               <p>Organisations should not evaluate customers solely through the profitability of a single transaction. A
@@ -1525,7 +1532,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Delivering a valuable customer experience">
               <span class="block-num">07 / The enabler</span>
               <h2>Role of digital technology</h2>
               <p>The combination of <strong>mobile, cloud computing, AI and digital channels</strong> enables more
@@ -1540,7 +1547,7 @@
                 digital interface has little value if it does not solve an important customer problem.</p>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Delivering a valuable customer experience">
               <span class="block-num">08 / The method</span>
               <h2>Why agile supports better CX</h2>
               <p>Rather than developing a complete solution before showing customers or stakeholders:</p>
@@ -1585,7 +1592,7 @@
                 or evolve during development.</p>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Delivering a valuable customer experience">
               <span class="block-num">09 / Analytical takeaways</span>
               <h2>What to carry out of this topic</h2>
               <ul class="takeaways">
@@ -1602,7 +1609,7 @@
               </ul>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Agile History and Scrum Roles">
               <span class="block-num">10 / The origin</span>
               <h2>Why Agile emerged</h2>
               <p>Agile developed largely in response to <strong>poor software project outcomes</strong> under highly
@@ -1677,7 +1684,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Agile History and Scrum Roles">
               <span class="block-num">11 / The values</span>
               <h2>The Agile Manifesto</h2>
               <p>The manifesto sets out four values. Each is written as a matter of emphasis between two things that both
@@ -1729,7 +1736,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Agile History and Scrum Roles">
               <span class="block-num">12 / The framework</span>
               <h2>Scrum as an Agile implementation</h2>
               <p>Scrum introduces enough structure to make adaptability manageable. Teams are empowered to adapt, but
@@ -1747,7 +1754,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Agile History and Scrum Roles">
               <span class="block-num">13 / The roles</span>
               <h2>Scrum roles and their strategic purpose</h2>
               <p>Three roles carry the framework. Each holds a different core accountability, and each matters for a
@@ -1835,7 +1842,7 @@
               </figure>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Agile History and Scrum Roles">
               <span class="block-num">14 / Boundary spanning</span>
               <h2>The Product Owner</h2>
               <p>The Product Owner acts as an <strong>interpreter between the organisation and delivery team</strong>. The
@@ -1854,7 +1861,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Agile History and Scrum Roles">
               <span class="block-num">15 / Autonomous delivery</span>
               <h2>The Development Team</h2>
               <p>The team is:</p>
@@ -1873,7 +1880,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Agile History and Scrum Roles">
               <span class="block-num">16 / Process governance</span>
               <h2>The Scrum Master</h2>
               <p>The scrum master is primarily a <strong>facilitator and coach</strong>, not a traditional project manager.
@@ -1892,7 +1899,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Agile History and Scrum Roles">
               <span class="block-num">17 / Bounded flexibility</span>
               <h2>Sprints</h2>
               <p>A sprint creates a temporary period of <strong>focus and stability</strong>, commonly framed in the course
@@ -1949,7 +1956,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Agile History and Scrum Roles">
               <span class="block-num">18 / Prioritisation</span>
               <h2>Product backlog and sprint backlog</h2>
               <ul>
@@ -2009,7 +2016,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Agile History and Scrum Roles">
               <span class="block-num">19 / Analytical takeaways</span>
               <h2>What the week is arguing</h2>
               <ul class="takeaways">
@@ -2028,7 +2035,7 @@
               </ul>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Bidding and winning projects">
               <span class="block-num">20 / The premise</span>
               <h2>Winning starts before the bid</h2>
               <p>Large project bids should be treated as <strong>calculated risks</strong>, not isolated application
@@ -2051,7 +2058,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Bidding and winning projects">
               <span class="block-num">21 / The four elements</span>
               <h2>Integrated project planning</h2>
               <p>Project components should not be designed independently.</p>
@@ -2129,7 +2136,7 @@
               </figure>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Bidding and winning projects">
               <span class="block-num">22 / Sequencing</span>
               <h2>Stakeholder engagement before approval</h2>
               <p>Stakeholder engagement should begin <strong>before funding or formal approval is secured</strong>. This
@@ -2177,7 +2184,7 @@
               </figure>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Bidding and winning projects">
               <span class="block-num">23 / Cultural engagement</span>
               <h2>Cultural engagement and protocol</h2>
               <p>When projects involve First Nations or other culturally significant communities, engagement must go
@@ -2192,7 +2199,7 @@
               </ul>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Bidding and winning projects">
               <span class="block-num">24 / Uncertainty</span>
               <h2>Transparency under uncertainty</h2>
               <p>Large bids require specificity even when important details remain uncertain. Rather than pretending all
@@ -2242,7 +2249,7 @@
               </figure>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Bidding and winning projects">
               <span class="block-num">25 / Oversight</span>
               <h2>Governance of large projects</h2>
               <p>Typical governance in large projects typically may involve:</p>
@@ -2259,7 +2266,7 @@
                 implementation details evolve.</p>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Bidding and winning projects">
               <span class="block-num">26 / The sponsor</span>
               <h2>The importance of sponsor buy-in</h2>
               <p>Strong sponsors can:</p>
@@ -2272,7 +2279,7 @@
               </ul>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Bidding and winning projects">
               <span class="block-num">27 / Influence</span>
               <h2>“Soft power” in winning projects</h2>
               <p>Project approval is partly a formal process and partly a <strong>relationship-building process</strong>.
@@ -2323,7 +2330,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Bidding and winning projects">
               <span class="block-num">28 / Takeaways</span>
               <h2>Analytical takeaways</h2>
               <ul class="takeaways">
@@ -2721,6 +2728,8 @@
       render();
     })();
 
+
+
     /* ── Summary index, collapse and search ─────────────────────────────
        Progressive enhancement, built at runtime from the blocks that are
        already on the page. Nothing in the authored markup changes, so the
@@ -2865,12 +2874,52 @@
         var input = toc.querySelector('.search');
         var count = toc.querySelector('.count');
         var empty = toc.querySelector('.toc-empty');
+        var activeTopic = '';
+
+        // ── Topic chips ────────────────────────────────────────────────
+        // Built from the data-topic each block carries, so a week reads one
+        // topic at a time the way the sub-tabbed weeks already do. A block
+        // with no data-topic (a week-level takeaway, say) always shows.
+        var topics = [], emptyTopics = {};
+        items.forEach(function (it) {
+          var t = it.block.getAttribute('data-topic');
+          it.topic = t || '';
+          if (!t) return;
+          if (topics.indexOf(t) === -1) topics.push(t);
+          if (it.block.getAttribute('data-topic-empty') === 'true') emptyTopics[t] = true;
+        });
+
+        if (topics.length > 1) {
+          var chips = document.createElement('div');
+          chips.className = 'subtabs';
+          chips.setAttribute('aria-label', 'Topics');
+          ['All'].concat(topics).forEach(function (label, k) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'subtab' + (emptyTopics[label] ? ' subtab--empty' : '');
+            b.setAttribute('aria-pressed', k === 0 ? 'true' : 'false');
+            b.setAttribute('data-topic', k === 0 ? '' : label);
+            b.textContent = label;
+            chips.appendChild(b);
+          });
+          chips.addEventListener('click', function (e) {
+            var b = e.target && e.target.closest ? e.target.closest('button') : null;
+            if (!b) return;
+            activeTopic = b.getAttribute('data-topic') || '';
+            Array.prototype.forEach.call(chips.children, function (c) {
+              c.setAttribute('aria-pressed', c === b ? 'true' : 'false');
+            });
+            applyFilter();
+          });
+          container.insertBefore(chips, toc);
+        }
 
         function applyFilter() {
           var q = input.value.trim().toLowerCase();
           var shown = 0;
           items.forEach(function (it) {
-            var hit = !q || it.text.indexOf(q) !== -1;
+            var hit = (!q || it.text.indexOf(q) !== -1) &&
+                      (!activeTopic || !it.topic || it.topic === activeTopic);
             if (hit) {
               it.block.removeAttribute('hidden');
               it.li.removeAttribute('hidden');

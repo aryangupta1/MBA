@@ -1131,6 +1131,13 @@
     .block-d > summary h2 { transition: color 0.2s ease; }
     .block-d > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 4px; border-radius: 10px; }
     .block-d:not([open]) > summary h2 { margin-bottom: 0; }
+    /* Topic chips built at runtime use aria-pressed; the sub-tabbed weeks
+       use aria-selected. Same look for both. */
+    .subtab[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
 
     /* ── Accessibility ─────────────────────────────────────────────────── */
     :focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 3px; border-radius: 8px; }
@@ -1234,7 +1241,7 @@
     <!-- ══════════════════ 01 · SUMMARY & VISUALS ══════════════════ -->
     <section class="panel active" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" tabindex="0">
 
-      <div class="block">
+      <div class="block" data-topic="Introduction to project management">
         <span class="block-num">01 / The premise</span>
         <h2>Project management starts before execution</h2>
         <p>Project management is not only about delivering work efficiently. It also involves determining whether
@@ -1278,7 +1285,7 @@
         </div>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Introduction to project management">
         <span class="block-num">02 / The failure mode</span>
         <h2>Solution fixation</h2>
         <p>Teams often jump directly from an initial problem statement to a familiar solution — a new application,
@@ -1300,7 +1307,7 @@
         </div>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Introduction to project management">
         <span class="block-num">03 / The method</span>
         <h2>Design thinking in projects</h2>
         <p>Design thinking provides a structured but creative way to investigate uncertain problems. Its major
@@ -1322,7 +1329,7 @@
           problem solving.</p>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Introduction to project management">
         <span class="block-num">04 / The two modes</span>
         <h2>Divergent and convergent thinking</h2>
         <p>Design thinking alternates between expanding and narrowing the project's focus.</p>
@@ -1363,7 +1370,7 @@
         </figure>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Introduction to project management">
         <span class="block-num">05 / The first framework</span>
         <h2>The Double Diamond</h2>
         <p>The Double Diamond divides project development into two connected question: what is the right problem to
@@ -1454,7 +1461,7 @@
         <p>Iteration is therefore a normal learning process rather than evidence that the project has failed.</p>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Introduction to project management">
         <span class="block-num">06 / The extension</span>
         <h2>The Triple Diamond and technology projects</h2>
         <p>The Triple Diamond extends design thinking beyond concept selection into development, real-world
@@ -1529,7 +1536,7 @@
           about technical constraints and user expectations.</p>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Introduction to project management">
         <span class="block-num">07 / The word itself</span>
         <h2>Agile and agility</h2>
         <p>The term <strong>Agile</strong> has two related meanings in project environments.</p>
@@ -1565,7 +1572,7 @@
         </div>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Introduction to project management">
         <span class="block-num">08 / Worked example</span>
         <h2>An AI customer support project</h2>
         <p>A SaaS company may initially propose an AI chatbot because competitors have introduced one. Applying the
@@ -1592,7 +1599,7 @@
         </div>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Introduction to project management">
         <span class="block-num">09 / Managerial implications</span>
         <h2>The questions a project leader should ask</h2>
         <ul class="takeaways">
@@ -1607,7 +1614,7 @@
         </ul>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Your project with StellarCX">
         <span class="block-num">10 / The engagement</span>
         <h2>StellarCX and $RUs</h2>
         <p>The course runs a continuing Shadow Boxing simulation in which the StellarCX consulting team advises the
@@ -1693,7 +1700,7 @@
         </div>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Your project with StellarCX">
         <span class="block-num">11 / The team</span>
         <h2>The Gold Team, and what pulls it off course</h2>
         <p>Chris Gold leads one of StellarCX's consulting teams. The team includes different disciplines,
@@ -1821,7 +1828,7 @@
         </div>
       </div>
 
-      <div class="block">
+      <div class="block" data-topic="Your project with StellarCX">
         <span class="block-num">12 / Your role</span>
         <h2>Adviser, not deliverer</h2>
         <p>The student acts as an adviser to the StellarCX team, deciding:</p>
@@ -1843,7 +1850,7 @@
         </div>
       </div>
 
-            <div class="block">
+            <div class="block" data-topic="Context Analysis for $RUs">
               <span class="block-num">13 / Why it matters</span>
               <h2>Reading the environment before designing the solution</h2>
               <p>Before designing a solution, StellarCX must understand the environment in which $RUs operates. Context
@@ -1864,7 +1871,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Context Analysis for $RUs">
               <span class="block-num">14 / The market</span>
               <h2>The Australian financial planning market</h2>
               <p>The financial planning industry is shifting from serving mainly older, wealthy clients towards supporting
@@ -1898,7 +1905,7 @@
                 waiting until they approach retirement.</p>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Context Analysis for $RUs">
               <span class="block-num">15 / The segment</span>
               <h2>The younger client segment</h2>
               <p>Millennial and Gen Z clients are not simply younger versions of $RUs existing customers. Their financial
@@ -1987,7 +1994,7 @@
               </figure>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Context Analysis for $RUs">
               <span class="block-num">16 / The competition</span>
               <h2>Competitive environment</h2>
               <p>Banks and major financial institutions, and independent boutique firms such as $RUs, bring different
@@ -2056,7 +2063,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Context Analysis for $RUs">
               <span class="block-num">17 / Trust</span>
               <h2>Trust and industry reputation</h2>
               <p>Trust is a central issue in financial planning because clients must disclose sensitive information and
@@ -2090,7 +2097,7 @@
               </ul>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Context Analysis for $RUs">
               <span class="block-num">18 / Regulation</span>
               <h2>Regulatory context</h2>
               <p>Financial advice operates within a highly regulated environment overseen by bodies including the
@@ -2148,7 +2155,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Context Analysis for $RUs">
               <span class="block-num">19 / Wealth over time</span>
               <h2>Superannuation and intergenerational wealth</h2>
               <p>Superannuation remains important to younger clients because decisions made early can influence long-term
@@ -2175,7 +2182,7 @@
                 the existing older client, $RUs could engage the wider family before wealth is transferred.</p>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Context Analysis for $RUs">
               <span class="block-num">20 / The challenge</span>
               <h2>The strategic challenge for $RUs</h2>
               <p>$RUs wants to become relevant to clients under 40 while maintaining its established strengths. This
@@ -2198,7 +2205,7 @@
               </ol>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Context Analysis for $RUs">
               <span class="block-num">21 / The opportunity</span>
               <h2>A potential market opportunity</h2>
               <p>A promising strategic position is to help younger professionals manage both:</p>
@@ -2252,7 +2259,7 @@
                 StellarCX must test through customer research.</p>
             </div>
 
-            <div class="block">
+            <div class="block" data-topic="Context Analysis for $RUs">
               <span class="block-num">22 / What it means for the project</span>
               <h2>Implications for the StellarCX project</h2>
               <p>StellarCX should not begin by deciding what technology to build. The discovery process should first
@@ -2291,7 +2298,7 @@
               </ul>
             </div>
 
-      <div class="block">
+      <div class="block" data-topic="Creating your reflective journal" data-topic-empty="true">
         <span class="block-num">23 / Not yet written</span>
         <h2>One topic still empty</h2>
         <p>One sub-page of my Week 1 pre-live note exists in Notion but has no content yet. Nothing has been
@@ -2685,6 +2692,8 @@
       render();
     })();
 
+
+
     /* ── Summary index, collapse and search ─────────────────────────────
        Progressive enhancement, built at runtime from the blocks that are
        already on the page. Nothing in the authored markup changes, so the
@@ -2829,12 +2838,52 @@
         var input = toc.querySelector('.search');
         var count = toc.querySelector('.count');
         var empty = toc.querySelector('.toc-empty');
+        var activeTopic = '';
+
+        // ── Topic chips ────────────────────────────────────────────────
+        // Built from the data-topic each block carries, so a week reads one
+        // topic at a time the way the sub-tabbed weeks already do. A block
+        // with no data-topic (a week-level takeaway, say) always shows.
+        var topics = [], emptyTopics = {};
+        items.forEach(function (it) {
+          var t = it.block.getAttribute('data-topic');
+          it.topic = t || '';
+          if (!t) return;
+          if (topics.indexOf(t) === -1) topics.push(t);
+          if (it.block.getAttribute('data-topic-empty') === 'true') emptyTopics[t] = true;
+        });
+
+        if (topics.length > 1) {
+          var chips = document.createElement('div');
+          chips.className = 'subtabs';
+          chips.setAttribute('aria-label', 'Topics');
+          ['All'].concat(topics).forEach(function (label, k) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'subtab' + (emptyTopics[label] ? ' subtab--empty' : '');
+            b.setAttribute('aria-pressed', k === 0 ? 'true' : 'false');
+            b.setAttribute('data-topic', k === 0 ? '' : label);
+            b.textContent = label;
+            chips.appendChild(b);
+          });
+          chips.addEventListener('click', function (e) {
+            var b = e.target && e.target.closest ? e.target.closest('button') : null;
+            if (!b) return;
+            activeTopic = b.getAttribute('data-topic') || '';
+            Array.prototype.forEach.call(chips.children, function (c) {
+              c.setAttribute('aria-pressed', c === b ? 'true' : 'false');
+            });
+            applyFilter();
+          });
+          container.insertBefore(chips, toc);
+        }
 
         function applyFilter() {
           var q = input.value.trim().toLowerCase();
           var shown = 0;
           items.forEach(function (it) {
-            var hit = !q || it.text.indexOf(q) !== -1;
+            var hit = (!q || it.text.indexOf(q) !== -1) &&
+                      (!activeTopic || !it.topic || it.topic === activeTopic);
             if (hit) {
               it.block.removeAttribute('hidden');
               it.li.removeAttribute('hidden');

@@ -1131,6 +1131,13 @@
     .block-d > summary h2 { transition: color 0.2s ease; }
     .block-d > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 4px; border-radius: 10px; }
     .block-d:not([open]) > summary h2 { margin-bottom: 0; }
+    /* Topic chips built at runtime use aria-pressed; the sub-tabbed weeks
+       use aria-selected. Same look for both. */
+    .subtab[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
 
     /* ── Accessibility ─────────────────────────────────────────────────── */
     :focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 3px; border-radius: 8px; }
@@ -1469,6 +1476,8 @@
       render();
     })();
 
+
+
     /* ── Summary index, collapse and search ─────────────────────────────
        Progressive enhancement, built at runtime from the blocks that are
        already on the page. Nothing in the authored markup changes, so the
@@ -1613,12 +1622,52 @@
         var input = toc.querySelector('.search');
         var count = toc.querySelector('.count');
         var empty = toc.querySelector('.toc-empty');
+        var activeTopic = '';
+
+        // ── Topic chips ────────────────────────────────────────────────
+        // Built from the data-topic each block carries, so a week reads one
+        // topic at a time the way the sub-tabbed weeks already do. A block
+        // with no data-topic (a week-level takeaway, say) always shows.
+        var topics = [], emptyTopics = {};
+        items.forEach(function (it) {
+          var t = it.block.getAttribute('data-topic');
+          it.topic = t || '';
+          if (!t) return;
+          if (topics.indexOf(t) === -1) topics.push(t);
+          if (it.block.getAttribute('data-topic-empty') === 'true') emptyTopics[t] = true;
+        });
+
+        if (topics.length > 1) {
+          var chips = document.createElement('div');
+          chips.className = 'subtabs';
+          chips.setAttribute('aria-label', 'Topics');
+          ['All'].concat(topics).forEach(function (label, k) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'subtab' + (emptyTopics[label] ? ' subtab--empty' : '');
+            b.setAttribute('aria-pressed', k === 0 ? 'true' : 'false');
+            b.setAttribute('data-topic', k === 0 ? '' : label);
+            b.textContent = label;
+            chips.appendChild(b);
+          });
+          chips.addEventListener('click', function (e) {
+            var b = e.target && e.target.closest ? e.target.closest('button') : null;
+            if (!b) return;
+            activeTopic = b.getAttribute('data-topic') || '';
+            Array.prototype.forEach.call(chips.children, function (c) {
+              c.setAttribute('aria-pressed', c === b ? 'true' : 'false');
+            });
+            applyFilter();
+          });
+          container.insertBefore(chips, toc);
+        }
 
         function applyFilter() {
           var q = input.value.trim().toLowerCase();
           var shown = 0;
           items.forEach(function (it) {
-            var hit = !q || it.text.indexOf(q) !== -1;
+            var hit = (!q || it.text.indexOf(q) !== -1) &&
+                      (!activeTopic || !it.topic || it.topic === activeTopic);
             if (hit) {
               it.block.removeAttribute('hidden');
               it.li.removeAttribute('hidden');
