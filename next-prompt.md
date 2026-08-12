@@ -10,17 +10,13 @@
 **Left by:** the Summary & visuals panel is now **indexed, collapsible and searchable** on all
 six week pages and in the shell. Earlier the same day: a re-sync of both subjects, DMBA 6008
 Week 2's **Sustainable Growth** topic, and the **Discussion questions** tab.
-**The index work is NOT committed** — Aryan did not ask. Everything before it is pushed.
+All of it is committed and pushed to `master` (`7bc5e31`).
 
 ---
 
 ## Current focus
 
 **Nothing in flight.** Both subjects match Notion as of 2026-08-12.
-
-**Uncommitted in the working tree:** the summary index / collapse / search enhancement on the
-six week pages, `week-shell.html`, `docs/design-system.md` and `SKILL.md`. Ask before
-committing it.
 
 ### The summary index — what it is and why it works this way
 
