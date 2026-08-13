@@ -170,6 +170,40 @@ Each returns `SUMMARY` (HTML fragment), `TERMS` (JS array), `CARDS` (JS array).
 Give each agent a **unique SVG id prefix** (`bs`, `pl`, `cf`) so `aria-labelledby` targets
 do not collide when the fragments are concatenated into one page.
 
+### Step 3b — Derive the Acronyms and Formulas tabs
+
+These two tabs are **derived from the assembled page, not harvested from Notion.** Run the
+extraction after Step 4 has produced the page, against the page itself — the summary blocks,
+the `TERMS` array and the `CARDS` array. Deriving them from the built page rather than the
+raw harvest means they can only ever contain material that already passed gate 1.
+
+Both are a reference index, not new content, and the same "do not add" rule governs them:
+
+- **A formula is copied character for character.** If the notes write
+  `ROA = Asset Utilisation x Profit Margin` with a lowercase `x`, it stays a lowercase `x`.
+  Never substitute the textbook form of a relationship — DMBA 6008 states the sustainable
+  growth rate one way in Week 0 (`SGR = ROE x Retention Rate`) and a different way in Week 2
+  (`SGR is driven by Return on Assets, Leverage and Retention`). **Both are correct, because
+  both are his.** Do not reconcile them, and never let one week's algebra leak into another's.
+- If the same relationship appears in two genuinely different vocabularies on one page,
+  **list both** — the difference is his.
+- An **acronym** takes the page's own expansion where the page gives one. Where it does not,
+  the standard expansion is allowed (an expansion is a dictionary fact, not an argument), but
+  the panel's intro paragraph must say so, and a definition is never invented — an entry with
+  nothing to say gives the expansion and stops.
+- Skip markup: class names, `aria-*` values, SVG ids, course codes and site chrome are not
+  acronyms.
+
+Order acronyms alphabetically; order formulas as the page introduces them, so they follow
+the week's teaching sequence.
+
+**Emit a tab only if its array is non-empty.** An Agile or strategy week legitimately has no
+formulas, and gets no Formulas tab. Do not pad one to fill the template.
+
+The slots are `<!--INSERT:ACRONYMS_TAB-->` / `<!--INSERT:ACRONYMS_PANEL-->` /
+`<!--INSERT:ACRONYMS_DATA-->` and the same three for `FORMULAS`. The shared `buildRef()`
+renderer already sits in the shell and no-ops when a tab is absent.
+
 ### Step 4 — Assemble, register, verify
 
 1. Paste the fragments into the week-page shell; merge the `TERMS` and `CARDS` arrays.
@@ -217,10 +251,12 @@ These all bit during the first run.
 - **Images are useless in a static page.** Notion returns presigned S3 URLs carrying
   `X-Amz-Expires=300`. They die in five minutes. To publish an image it must be downloaded
   (`notion-download-attachment`) and committed to the repo — which makes it public. Ask first.
-- **Empty pages are real content signals.** All ten children of DMBA 6008 Week 0's
-  "Assessing Financial Performance" are empty, matching the unticked item in that notebook's
-  todo list. Render this honestly as "not yet written". **Never fill a gap with invented
-  material.**
+- **Empty pages are real content signals.** Render them honestly as "not yet written".
+  **Never fill a gap with invented material.** The live example is DMBA 6005 Week 1's
+  `Creating your reflective journal`, still `<empty-block/>`. The original example — DMBA
+  6008 Week 0's "Assessing Financial Performance", ten blank children matching an unticked
+  todo item — **was written on 2026-08-12/13 and is now published**, which is the point:
+  emptiness is a fact about the day you looked. Re-check every placeholder on every run.
 - **Truncated sentences and bare headings exist.** e.g. `"Analysts may examine profit before and "`,
   and a `# Key Insight` heading with nothing under it. Reproduce or omit — never complete.
 - **Notion titles can contain escaped characters.** DMBA 6005's Week 0 note is named
@@ -311,16 +347,30 @@ Generating new academic argument, inventing a citation, or "improving" a claim i
 
 ## 7. Current state
 
-**DMBA 6008 Finance, Strategy and Technology** — synced 2026-08-10.
+**DMBA 6008 Finance, Strategy and Technology** — synced 2026-08-14.
 
 | Week | Notion notebook | Published |
 | --- | --- | --- |
-| Week 0 | `3a17b336873c805b9c4acdff38033d35` | `DMBA6008-week0.html` — balance sheet, P&amp;L, cash flow. "Assessing Financial Performance" is empty in Notion and shown as not yet written. |
+| Week 0 | `3a17b336873c805b9c4acdff38033d35` | `DMBA6008-week0.html` — balance sheet, P&amp;L, cash flow, and **assessing financial performance, written 2026-08-12/13 and published 2026-08-14**. All four topics are now live; the "not yet written" panel is gone. |
 | Week 1 | `3b27b336873c8070953fd96878f5f2dc` | `DMBA6008-week1.html` — key value principles, concepts, assessing performance, key definitions |
-| Week 2 | `3b77b336873c802182a3cf5b76484dd1` | `DMBA6008-week2.html` — the asset mix as a business-model signal, drivers of return, the DuPont decomposition. "Sustainable Growth" is empty in Notion and shown as not yet written. |
+| Week 2 | `3b77b336873c802182a3cf5b76484dd1` | `DMBA6008-week2.html` — the asset mix as a business-model signal, drivers of return, the DuPont decomposition, sustainable growth, plus the live-session discussion questions |
 
-**DMBA 6005 Agile Project Development** — synced 2026-08-10. Launched with both weeks at
-once, and the `index.html` card un-muted in the same run.
+> **Week 0's fourth topic is the case that justifies the deep pass.** When Aryan wrote it,
+> the note row's `Edited Time` **did not move** — it still reads 2026-07-24. Only the
+> grandchild's `observedAt` did. A run trusting `Edited Time` alone would have reported the
+> week unchanged and silently missed 5,090 words. The topic was also **restructured**: ten
+> blank sub-pages (including `Sustainable Growth Part 1`, `Part 2` and `Summary`) became
+> eight written ones. Tree shape is a change signal for exactly this reason.
+
+> **The same concept is now stated two ways across the subject, and both are correct.**
+> Week 0 gives `SGR = ROE x Retention Rate`; Week 2 gives `SGR is driven by Return on
+> Assets, Leverage and Retention` and never writes the product form. **Do not reconcile
+> them** — each page reproduces the algebra of the notes it was built from, and a future
+> sync must not let one week's form leak into the other.
+
+**DMBA 6005 Agile Project Development** — synced 2026-08-14 (re-checked; all three weeks
+byte-identical in Notion, nothing rebuilt). Launched with two weeks at once, and the
+`index.html` card un-muted in the same run.
 
 | Week | Notion notebook | Published |
 | --- | --- | --- |

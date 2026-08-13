@@ -377,6 +377,14 @@
       letter-spacing: 0.02em;
       opacity: 0.55;
     }
+
+    /* Six tabs do not fit one row on a phone, and .tablist hides its scrollbar,
+       so on narrow screens the row wraps and the decorative numbers step aside. */
+    @media (max-width: 700px) {
+      .tablist { flex-wrap: wrap; border-radius: var(--radius-lg); }
+      .tab { padding: 9px 14px; font-size: 0.82rem; }
+      .tab-num { display: none; }
+    }
     .tab[aria-selected="true"] {
       background: var(--surface);
       color: var(--ink);
@@ -806,6 +814,10 @@
       color: var(--accent-deep);
       overflow-x: auto;
     }
+    /* ── Acronym headings (Acronyms tab; everything else reuses .term) ─── */
+    .term-abbr { font-family: var(--font-mono); font-weight: 700; color: var(--accent-deep); }
+    .term-long { font-weight: 500; color: var(--ink2); }
+
     .no-results { padding: 26px; text-align: center; color: var(--ink3); }
 
     /* ── Flashcards ────────────────────────────────────────────────────── */
@@ -1234,6 +1246,8 @@
       <button class="tab" id="tab-cards" role="tab" aria-selected="false" aria-controls="panel-cards"
         data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
 <!--INSERT:DISCUSSION_TAB-->
+<!--INSERT:ACRONYMS_TAB-->
+<!--INSERT:FORMULAS_TAB-->
     </div>
   </nav>
 
@@ -1301,6 +1315,8 @@
       </div>
     </section>
 <!--INSERT:DISCUSSION_PANEL-->
+<!--INSERT:ACRONYMS_PANEL-->
+<!--INSERT:FORMULAS_PANEL-->
   </main>
 
   <footer class="page-foot">
@@ -1398,6 +1414,40 @@
         if (shown === 0) { noResultsEl.removeAttribute('hidden'); }
         else { noResultsEl.setAttribute('hidden', ''); }
       });
+
+      /* ── Acronyms & formulas ──────────────────────────────── */
+      /* Both reference tabs are a filtered list of .term cards, so they share
+         one renderer with the key-concepts glossary's markup and behaviour.
+         It no-ops when a week does not emit that tab. */
+      function buildRef(listId, items, toHtml, emptyMsg) {
+        var listEl = document.getElementById(listId);
+        var countEl = document.getElementById(listId + '-count');
+        var searchEl = document.getElementById(listId + '-search');
+        if (!listEl || !countEl || !searchEl) return;
+
+        listEl.innerHTML = items.map(toHtml).join('') +
+          '<p class="no-results" hidden>' + emptyMsg + '</p>';
+
+        var els = Array.prototype.slice.call(listEl.querySelectorAll('.term'));
+        var noneEl = listEl.querySelector('.no-results');
+        countEl.textContent = items.length + ' of ' + items.length;
+
+        searchEl.addEventListener('input', function () {
+          var q = searchEl.value.trim().toLowerCase();
+          var shown = 0;
+          els.forEach(function (el) {
+            var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+            if (match) { el.removeAttribute('hidden'); shown++; }
+            else { el.setAttribute('hidden', ''); }
+          });
+          countEl.textContent = shown + ' of ' + items.length;
+          if (shown === 0) { noneEl.removeAttribute('hidden'); }
+          else { noneEl.setAttribute('hidden', ''); }
+        });
+      }
+
+<!--INSERT:ACRONYMS_DATA-->
+<!--INSERT:FORMULAS_DATA-->
 
       /* ── Flashcards ───────────────────────────────────────── */
       var CARDS = /*CARDS*/[]/*END_CARDS*/;

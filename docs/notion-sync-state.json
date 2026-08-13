@@ -32,7 +32,7 @@
     "  identically even if the annotations are reworded. Empty and unpublished topics carry null."
   ],
   "DMBA6008": {
-    "lastSync": "2026-08-12",
+    "lastSync": "2026-08-14",
     "courseId": "3097b336873c80c0948dcc805089b071",
     "hubPage": "DMBA6008-weeks.html",
     "skippedNotebooks": [
@@ -54,7 +54,7 @@
             "type": "Pre-Live Session",
             "shape": "container",
             "editedTime": "2026-07-24T07:23:49.527Z",
-            "observedAt": "2026-08-03T13:42:57.590Z",
+            "observedAt": "2026-08-13T15:26:51.185Z",
             "published": true,
             "topics": [
               {
@@ -87,33 +87,41 @@
               {
                 "id": "3a17b336873c806db1dfcb0bc131e2f0",
                 "title": "Assessing Financial Performance",
-                "observedAt": "2026-07-24T16:46:20.506Z",
-                "childCount": 10,
-                "svgPrefix": null,
-                "contentHash": null,
-                "published": false,
-                "state": "empty",
-                "note": "All ten sub-pages are blank in Notion and the item is unticked in the Week 0 notebook todo. Spot-checked again 2026-08-05 ('Returns' returns <empty-block/>, 'Summary' returns <blank-page/>). DMBA6008-week0.html renders an honest 'not yet written' panel listing the ten pending sub-pages. THAT PANEL IS THE THING TO REPLACE when Aryan writes these notes. Never fill it with generated content.",
-                "pendingChildren": [
+                "observedAt": "2026-08-13T15:33:00.110Z",
+                "childCount": 8,
+                "children": [
                   "Returns",
                   "Risks",
                   "Cash",
                   "The right question",
                   "CEO Bonus",
                   "Working Capital Assessment",
-                  "Sustainable Growth Part 1",
-                  "Sustainable Growth part 2",
-                  "Risk Assessment",
-                  "Summary"
-                ]
+                  "Sustainable Growth Part",
+                  "Risk Assessment"
+                ],
+                "svgPrefix": "afa + afb",
+                "contentHash": null,
+                "approxWords": 5090,
+                "published": true,
+                "note": "WAS EMPTY UNTIL 2026-08-13. Written by Aryan 08-12/13 and published 2026-08-14. The topic was restructured as well as filled: it had ten blank sub-pages (including \"Sustainable Growth Part 1\", \"Part 2\" and \"Summary\") and now has eight written ones. The note row's Edited Time did NOT move (still 2026-07-24) — only the grandchild observedAt did, which is exactly the under-trigger risk the deep pass exists for. 4 images SKIPPED; two of them (in Risks and Cash) very likely carry formula definitions the prose introduces and then does not state.",
+                "imagesSkipped": 4
               }
             ]
           }
         ],
         "built": {
-          "figures": 12,
-          "terms": 66,
-          "cards": 88
+          "figures": 19,
+          "terms": 107,
+          "cards": 146,
+          "blocks": 50,
+          "blocksByTopic": {
+            "sub-bs": 10,
+            "sub-pl": 11,
+            "sub-cf": 10,
+            "sub-afp": 19
+          },
+          "acronyms": 23,
+          "formulas": 82
         }
       },
       "Week 1": {
@@ -169,7 +177,9 @@
         "built": {
           "figures": 5,
           "terms": 20,
-          "cards": 25
+          "cards": 25,
+          "acronyms": 6,
+          "formulas": 23
         }
       },
       "Week 2": {
@@ -236,7 +246,9 @@
           "terms": 73,
           "cards": 108,
           "blocks": 31,
-          "discussionQuestions": 8
+          "discussionQuestions": 8,
+          "acronyms": 7,
+          "formulas": 16
         },
         "discussionTab": {
           "sourceNoteId": "3b97b336873c80f88fa0d476b75e6439",
@@ -276,10 +288,10 @@
     ]
   },
   "DMBA6005": {
-    "lastSync": "2026-08-12",
+    "lastSync": "2026-08-14",
     "courseId": "3a17b336873c80c284a7cd6be4a60c4d",
     "hubPage": "DMBA6005-weeks.html",
-    "note": "Launched 2026-08-06 with Week 0 and Week 1 together, once Week 1's `Learn` Pre-Live Session note appeared (created 2026-08-05T11:27Z, after the previous state record was written). index.html card un-muted and subjects.json `live` flipped to true in the same run, per Aryan's 2026-08-05 pre-approval. Type pairing: Sora + Karla, --course-e ochre.",
+    "note": "Launched 2026-08-06 with Week 0 and Week 1 together, once Week 1's `Learn` Pre-Live Session note appeared (created 2026-08-05T11:27Z, after the previous state record was written). index.html card un-muted and subjects.json `live` flipped to true in the same run, per Aryan's 2026-08-05 pre-approval. Type pairing: Sora + Karla, --course-e ochre. Re-checked 2026-08-14: all three weeks byte-identical in Notion, nothing rebuilt. Acronyms/Formulas reference tabs added to all three pages from their existing content.",
     "skippedNotebooks": [
       {
         "id": "3b37b336873c80db9388ee1a56192b33",
@@ -336,7 +348,10 @@
           "terms": 14,
           "cards": 28,
           "blocks": 7,
-          "proseWords": 330
+          "proseWords": 330,
+          "acronyms": 1,
+          "formulas": 0,
+          "formulasTabOmitted": "no formula is stated anywhere in this week — the tab is not emitted"
         }
       },
       "Week 1": {
@@ -426,7 +441,10 @@
           "terms": 51,
           "cards": 76,
           "blocks": 24,
-          "proseWords": 1656
+          "proseWords": 1656,
+          "acronyms": 5,
+          "formulas": 0,
+          "formulasTabOmitted": "no formula is stated anywhere in this week — the tab is not emitted"
         }
       },
       "Week 2": {
@@ -487,7 +505,9 @@
           "figures": 12,
           "terms": 60,
           "cards": 84,
-          "blocks": 28
+          "blocks": 28,
+          "acronyms": 8,
+          "formulas": 9
         }
       }
     },

@@ -378,6 +378,14 @@
       letter-spacing: 0.02em;
       opacity: 0.55;
     }
+
+    /* Six tabs do not fit one row on a phone, and .tablist hides its scrollbar,
+       so on narrow screens the row wraps and the decorative numbers step aside. */
+    @media (max-width: 700px) {
+      .tablist { flex-wrap: wrap; border-radius: var(--radius-lg); }
+      .tab { padding: 9px 14px; font-size: 0.82rem; }
+      .tab-num { display: none; }
+    }
     .tab[aria-selected="true"] {
       background: var(--surface);
       color: var(--ink);
@@ -807,6 +815,10 @@
       color: var(--accent-deep);
       overflow-x: auto;
     }
+    /* ── Acronym headings (Acronyms tab; everything else reuses .term) ─── */
+    .term-abbr { font-family: var(--font-mono); font-weight: 700; color: var(--accent-deep); }
+    .term-long { font-weight: 500; color: var(--ink2); }
+
     .no-results { padding: 26px; text-align: center; color: var(--ink3); }
 
     /* ── Flashcards ────────────────────────────────────────────────────── */
@@ -1235,6 +1247,10 @@
         data-panel="terms" tabindex="-1"><span class="tab-num" aria-hidden="true">02</span>Key concepts</button>
       <button class="tab" id="tab-cards" role="tab" aria-selected="false" aria-controls="panel-cards"
         data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
+      <button class="tab" id="tab-acronyms" role="tab" aria-selected="false" aria-controls="panel-acronyms"
+        data-panel="acronyms" tabindex="-1"><span class="tab-num" aria-hidden="true">04</span>Acronyms</button>
+      <button class="tab" id="tab-formulas" role="tab" aria-selected="false" aria-controls="panel-formulas"
+        data-panel="formulas" tabindex="-1"><span class="tab-num" aria-hidden="true">05</span>Formulas</button>
     </div>
   </nav>
 
@@ -2008,6 +2024,42 @@
         </div>
       </div>
     </section>
+
+    <!-- ══════════════════ 04 · ACRONYMS ══════════════════ -->
+    <section class="panel" id="panel-acronyms" role="tabpanel" aria-labelledby="tab-acronyms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">04 / Shorthand</span>
+        <h2>Acronyms &amp; abbreviations</h2>
+        <p>Every abbreviation this week uses, expanded. Where my notes spell one out, the expansion is theirs; a few are used without ever being expanded, and those carry the standard expansion so the tab stays usable.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="acronyms-search">Filter acronyms</label>
+          <input class="search" id="acronyms-search" type="search" placeholder="Filter &mdash; try &ldquo;WACC&rdquo; or &ldquo;NPV&rdquo;"
+            autocomplete="off">
+          <span class="count" id="acronyms-count" aria-live="polite">6 of 6</span>
+        </div>
+
+        <div class="glossary" id="acronyms"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 05 · FORMULAS ══════════════════ -->
+    <section class="panel" id="panel-formulas" role="tabpanel" aria-labelledby="tab-formulas" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">05 / Quick reference</span>
+        <h2>Formulas</h2>
+        <p>Every formula, identity and chain stated in this week&rsquo;s notes, in the order the notes introduce them &mdash; including the worked numbers, so the arithmetic is here as well as the algebra. Copied as written.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="formulas-search">Filter formulas</label>
+          <input class="search" id="formulas-search" type="search" placeholder="Filter formulas &mdash; try &ldquo;spread&rdquo; or &ldquo;NPV&rdquo;"
+            autocomplete="off">
+          <span class="count" id="formulas-count" aria-live="polite">23 of 23</span>
+        </div>
+
+        <div class="glossary" id="formulas"></div>
+      </div>
+    </section>
   </main>
 
   <footer class="page-foot">
@@ -2126,6 +2178,92 @@
         if (shown === 0) { noResultsEl.removeAttribute('hidden'); }
         else { noResultsEl.setAttribute('hidden', ''); }
       });
+
+      /* ── Acronyms & formulas ──────────────────────────────── */
+      /* Both tabs are a filtered list of .term cards, so they share one
+         renderer with the key-concepts glossary's markup and behaviour. */
+      function buildRef(listId, items, toHtml, emptyMsg) {
+        var listEl = document.getElementById(listId);
+        var countEl = document.getElementById(listId + '-count');
+        var searchEl = document.getElementById(listId + '-search');
+        if (!listEl || !countEl || !searchEl) return;
+
+        listEl.innerHTML = items.map(toHtml).join('') +
+          '<p class="no-results" hidden>' + emptyMsg + '</p>';
+
+        var els = Array.prototype.slice.call(listEl.querySelectorAll('.term'));
+        var noneEl = listEl.querySelector('.no-results');
+        countEl.textContent = items.length + ' of ' + items.length;
+
+        searchEl.addEventListener('input', function () {
+          var q = searchEl.value.trim().toLowerCase();
+          var shown = 0;
+          els.forEach(function (el) {
+            var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+            if (match) { el.removeAttribute('hidden'); shown++; }
+            else { el.setAttribute('hidden', ''); }
+          });
+          countEl.textContent = shown + ' of ' + items.length;
+          if (shown === 0) { noneEl.removeAttribute('hidden'); }
+          else { noneEl.setAttribute('hidden', ''); }
+        });
+      }
+
+      var ACRONYMS = [
+        { abbr: 'IP', long: 'Intellectual property', def: 'Listed at the head of the value creation chain as one of the assets a business deploys, alongside machines, software and people.', src: 'Overview' },
+        { abbr: 'NPV', long: 'Net Present Value', def: 'Measures the dollar amount of value created by investing in an asset, comparing the present value of future cash flows with the initial investment outlay across the investment\'s whole life.', src: 'Concepts' },
+        { abbr: 'PV', long: 'Present value', def: 'The worth today of future cash flows once discounted back into today\'s dollars; NPV compares it with the initial investment.', src: 'Concepts' },
+        { abbr: 'ROA', long: 'Return on Assets', def: 'Measures profit generated by an asset divided by the dollar size of the asset — the efficiency of asset usage. A higher ROA means better asset productivity.', src: 'Concepts' },
+        { abbr: 'SaaS', long: 'Software as a service', def: '', src: 'Concepts' },
+        { abbr: 'WACC', long: 'Weighted Average Cost of Capital', def: 'The blended cost of all financing sources, weighted by the proportion of debt and equity in the capital structure — the minimum return the firm must earn, and managerially the hurdle rate.', src: 'Concepts' }
+      ];
+
+      buildRef('acronyms', ACRONYMS, function (a) {
+        return '<article class="term" data-search="' +
+          escapeHtml((a.abbr + ' ' + a.long + ' ' + a.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' +
+          '<span class="term-abbr">' + escapeHtml(a.abbr) + '</span>' +
+          (a.long ? ' &middot; <span class="term-long">' + escapeHtml(a.long) + '</span>' : '') +
+          '</h3><span class="term-src">' + escapeHtml(a.src) + '</span></div>' +
+          (a.def ? '<p class="term-def">' + escapeHtml(a.def) + '</p>' : '') +
+          '</article>';
+      }, 'No acronyms match that filter.');
+
+      var FORMULAS = [
+        { name: 'The value creation chain', expr: 'Assets → Revenue → Profit → Return on Assets', def: 'The chain of business activity: assets generate revenue, revenue becomes profit after costs, and profit is judged against the asset base that produced it. The return is then compared against WACC.', src: 'Overview' },
+        { name: 'The value creation test', expr: 'ROA > WACC → value created', def: 'The whole chain reduces to this one comparison — everything upstream only matters insofar as it moves the gap between what assets earn and what capital costs.', src: 'Overview' },
+        { name: 'Return on assets', expr: 'Return on Assets = Profit / Assets', def: 'The efficiency of asset usage — how much profit is generated per unit of investment. A higher ROA means better asset productivity.', src: 'Concepts' },
+        { name: 'ROA, basic example', expr: 'ROA = 20 / 200 = 10%', def: 'Worked example: profit of $20 on assets of $200.', src: 'Concepts' },
+        { name: 'ROA, SaaS example', expr: 'ROA = 7.5 / 50 = 15%', def: 'A SaaS company with $50M total assets and $7.5M annual profit, invested in cloud servers, engineers and customer acquisition systems. The assets are highly productive if WACC < 15%.', src: 'Concepts' },
+        { name: 'Weighted average cost of capital', expr: 'WACC = (weight of debt × cost of debt) + (weight of equity × cost of equity)', def: 'The blended cost of all financing sources — the minimum return the firm must earn. Managerially it is the hurdle rate: below it, investors are not compensated enough; above it, excess value is created.', src: 'Concepts' },
+        { name: 'WACC, stated in words', expr: 'WACC = Weighted cost of capital', def: 'The line used in the unified formula stack, where WACC\'s job is named as the cost of financing.', src: 'Concepts' },
+        { name: 'The value spread', expr: 'Value Spread = Return on Assets − WACC', def: 'The annual value signal. The spread, not the level, is the signal — an 8% return is not weak in the abstract, it is weak against a 10% hurdle.', src: 'Concepts' },
+        { name: 'Break-even case', expr: 'ROA = WACC', def: 'Break-even: investors receive exactly their required return.', src: 'Concepts' },
+        { name: 'Value destroyed case', expr: 'ROA < WACC', def: 'Value destroyed: accounting profit does not justify the capital cost.', src: 'Concepts' },
+        { name: 'Positive spread, worked', expr: 'Value Spread = +2%', def: 'ROA of 12% against a WACC of 10%. Value is created: the assets earn more than the required return, so the firm is economically profitable, not just accounting profitable.', src: 'Concepts' },
+        { name: 'Negative spread, worked', expr: 'Value Spread = −2%', def: 'ROA of 8% against a WACC of 10%. The business is destroying value — accounting profit is not enough to justify the capital cost.', src: 'Concepts' },
+        { name: 'Net present value', expr: 'NPV = sum of discounted cash flows − initial investment', def: 'Evaluates total value over time by converting all future cash flows into today\'s dollars — answering what single-year ROA cannot, since investments last multiple years, generate uneven cash flows and involve upfront costs.', src: 'Concepts' },
+        { name: 'NPV worked example', expr: 'NPV = $120 − $100 = $20', def: 'An initial investment of $100 today against future cash flows whose present value is $120.', src: 'Concepts' },
+        { name: 'NPV decision', expr: 'NPV = +$20 → invest', def: 'The decision that follows from the worked example: a positive NPV means invest.', src: 'Concepts' },
+        { name: 'Positive NPV', expr: 'NPV > 0', def: 'Value creation.', src: 'Concepts' },
+        { name: 'Zero NPV', expr: 'NPV = 0', def: 'Break-even.', src: 'Concepts' },
+        { name: 'Negative NPV', expr: 'NPV < 0', def: 'Value destruction.', src: 'Concepts' },
+        { name: 'Asset utilisation', expr: 'Asset Utilisation = Revenue / Assets', def: 'Measures how well the asset base generates revenue. A higher ratio means each dollar invested in assets produces more revenue — but a high ratio can sit on weak margins.', src: 'Assessing Financial Performance' },
+        { name: 'Profit margin', expr: 'Profit Margin = Profit / Revenue', def: 'Measures how well revenue converts to profit, reflecting pricing power, lower costs, process efficiency or product mix. A strong margin still fails if the revenue demands an excessive asset base.', src: 'Assessing Financial Performance' },
+        { name: 'ROA decomposed', expr: 'Return on Assets = Asset Utilisation × Profit Margin', def: 'One return, two levers. The decomposition tells management where weak performance comes from — underused assets or poor margins — rather than only that it exists.', src: 'Assessing Financial Performance' },
+        { name: 'ROA decomposed, in components', expr: 'Profit / Assets  = Revenue / Assets × Profit / Revenue', def: 'The same decomposition written out in its component ratios. A business can improve its return by generating more revenue from existing assets, raising the profit earned per dollar of revenue, or both.', src: 'Assessing Financial Performance' },
+        { name: 'Performance spread', expr: 'Performance Spread = Return on Assets − WACC', def: 'Risk-adjusted performance. Positive means the return exceeds the risk-adjusted requirement, zero means investors receive exactly their required return, negative means the return is insufficient for the risk and capital employed.', src: 'Assessing Financial Performance' }
+      ];
+
+      buildRef('formulas', FORMULAS, function (f) {
+        return '<article class="term" data-search="' +
+          escapeHtml((f.name + ' ' + f.expr + ' ' + f.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' + escapeHtml(f.name) + '</h3>' +
+          '<span class="term-src">' + escapeHtml(f.src) + '</span></div>' +
+          '<div class="term-formula">' + escapeHtml(f.expr) + '</div>' +
+          (f.def ? '<p class="term-def">' + escapeHtml(f.def) + '</p>' : '') +
+          '</article>';
+      }, 'No formulas match that filter.');
 
       /* ── Flashcards ───────────────────────────────────────── */
       var CARDS = [

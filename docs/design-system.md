@@ -216,17 +216,62 @@ Butter panel, a giant italic Mona Sans watermark drifting behind at
 `rgba(255,255,255,.3–.45)`, and one large display statement. The marquee is decorative,
 `aria-hidden`, and stops under `prefers-reduced-motion`.
 
-### The fourth tab
+### Tabs beyond the first three
 
-A week page carries three tabs by default — Summary & visuals, Key concepts, Flashcards. A
-week that has discussion questions gets a fourth, **Discussion**, wired the same way: a
-`.tab` with `data-panel="discussion"` and a `<section class="panel" id="panel-discussion">`.
-The existing script picks it up with no change, because it maps `data-panel` to
-`panel-<value>` generically and its arrow-key handler walks whatever `.tab` elements exist.
+A week page carries three tabs by default — Summary & visuals, Key concepts, Flashcards.
+Anything past those is **optional and content-driven**: the tab exists only if the week
+actually has that material. All of them are wired identically — a `.tab` with
+`data-panel="<key>"` and a `<section class="panel" id="panel-<key>">`. The existing script
+picks each one up with no change, because it maps `data-panel` to `panel-<value>`
+generically and its arrow-key handler walks whatever `.tab` elements exist.
 
-`week-shell.html` carries `<!--INSERT:DISCUSSION_TAB-->` and
-`<!--INSERT:DISCUSSION_PANEL-->`; a week without discussion questions leaves both empty and
-renders three tabs.
+| Tab | `data-panel` | Emitted when |
+| --- | --- | --- |
+| **Discussion** | `discussion` | the week has live-session discussion questions (DMBA 6008, Week 2 onwards) |
+| **Acronyms** | `acronyms` | the week's content uses at least one abbreviation |
+| **Formulas** | `formulas` | the week's content states at least one formula, identity or chain |
+
+`week-shell.html` carries a slot pair for each — `<!--INSERT:DISCUSSION_TAB-->` /
+`<!--INSERT:DISCUSSION_PANEL-->`, and the same for `ACRONYMS` and `FORMULAS`, plus
+`<!--INSERT:ACRONYMS_DATA-->` / `<!--INSERT:FORMULAS_DATA-->` inside the script. A week that
+leaves them all empty renders three tabs, and nothing else on the page notices.
+
+**An empty tab is never emitted.** A strategy week with no equations gets no Formulas tab
+rather than a Formulas tab saying it has none — the same rule the Discussion tab follows,
+and the same instinct as the "not yet written" placeholder: show the absence where the
+reader is looking for the content, not as a dead control in the navigation.
+
+**Acronyms and Formulas are derived, not authored.** Both are lifted from material already
+on the page and are a reference index of it, not new content. See
+[`notion-sync.md`](notion-sync.md) for the extraction rules — in particular that a formula
+is copied character for character, including Aryan's `x` where he does not write `×`.
+
+### The reference tabs reuse `.term`
+
+Acronyms and Formulas add **no new component**. Both render a `.glossary` of `.term` cards
+through one shared `buildRef()` helper, with the same `.toolbar` / `.search` / `.count`
+filtering as Key concepts:
+
+- a **formula** card is `.term-name` + `.term-src` + `.term-formula` + `.term-def` — every
+  one of which already existed;
+- an **acronym** card is the same, with the heading split into
+  `<span class="term-abbr">ROA</span> · <span class="term-long">Return on assets</span>`.
+
+Those two spans are the only CSS this added: `.term-abbr` is mono, bold, `--accent-deep`;
+`.term-long` is regular weight in `--ink2`. No new tokens.
+
+> **Six tabs do not fit one row on a phone.** `.tablist` is a flex row with
+> `overflow-x: auto` **and a hidden scrollbar**, so anything past the viewport is
+> unreachable with no affordance that it exists — at 390 px the row needs ~945 px for six
+> tabs against ~351 px available. `@media (max-width: 700px)` therefore sets
+> `.tablist { flex-wrap: wrap }`, trims `.tab` padding and font, and hides the decorative
+> `.tab-num`. Six tabs then wrap to three reachable rows. Added 2026-08-14 with the
+> reference tabs; the overflow itself pre-dated them (three tabs already needed ~508 px).
+
+> **A `.callout` with more than one paragraph must wrap them in a `<div>`.** `.callout` is a
+> flex row, so sibling `<p>` elements lay out *side by side* — three paragraphs render as
+> three columns. The rule `.callout > div { flex: 1 1 auto; min-width: 0 }` exists for this.
+> Found and fixed on 2026-08-12 after it shipped in seven callouts.
 
 > **A `.callout` with more than one paragraph must wrap them in a `<div>`.** `.callout` is a
 > flex row, so sibling `<p>` elements lay out *side by side* — three paragraphs render as
@@ -264,8 +309,10 @@ from. Rules:
 - a block with **no** `data-topic` is week-level (a closing takeaway, say) and shows in every
   view, so the week's conclusion is never filtered away;
 - a topic that is empty in Notion is marked `data-topic-empty="true"` on its placeholder
-  block and renders as a dimmed `.subtab--empty` chip, matching how Week 0 shows
-  *Assessing Financial Performance*;
+  block and renders as a dimmed `.subtab--empty` chip, as DMBA 6005 Week 1 does for
+  *Creating your reflective journal*. When the topic is eventually written, **both** the
+  attribute and the `subtab--empty` class come off — DMBA 6008 Week 0's *Assessing
+  Financial Performance* made that trip on 2026-08-14;
 - chips use `aria-pressed` (they are filters), where Week 0's real sub-tabs use
   `aria-selected` (they switch panels). Both get the same look;
 - fewer than two topics and no chip row is drawn;

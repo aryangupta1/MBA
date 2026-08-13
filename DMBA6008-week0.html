@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Week 0 — Fundamentals of financial management — DMBA 6008</title>
   <meta name="description"
-    content="Week 0 of DMBA 6008: the balance sheet, the profit and loss statement, and cash flow — summaries and visuals, key concepts, and flashcards.">
+    content="Week 0 of DMBA 6008: the balance sheet, the profit and loss statement, cash flow, and assessing financial performance — summaries and visuals, key concepts, acronyms, formulas and flashcards.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -377,6 +377,14 @@
       font-size: 0.66rem;
       letter-spacing: 0.02em;
       opacity: 0.55;
+    }
+
+    /* Six tabs do not fit one row on a phone, and .tablist hides its scrollbar,
+       so on narrow screens the row wraps and the decorative numbers step aside. */
+    @media (max-width: 700px) {
+      .tablist { flex-wrap: wrap; border-radius: var(--radius-lg); }
+      .tab { padding: 9px 14px; font-size: 0.82rem; }
+      .tab-num { display: none; }
     }
     .tab[aria-selected="true"] {
       background: var(--surface);
@@ -807,6 +815,10 @@
       color: var(--accent-deep);
       overflow-x: auto;
     }
+    /* ── Acronym headings (Acronyms tab; everything else reuses .term) ─── */
+    .term-abbr { font-family: var(--font-mono); font-weight: 700; color: var(--accent-deep); }
+    .term-long { font-weight: 500; color: var(--ink2); }
+
     .no-results { padding: 26px; text-align: center; color: var(--ink3); }
 
     /* ── Flashcards ────────────────────────────────────────────────────── */
@@ -1219,12 +1231,13 @@
       <h1>Fundamentals of <em>financial management</em></h1>
       <p class="standfirst">Three statements, one business. The balance sheet says what the firm owns and owes, the
         profit and loss statement says how it traded, and the cash flow statement says whether any of it turned into
-        money.</p>
+        money. Then a fourth topic turns all three into a judgement: what the returns are, what risk sits behind
+        them, and whether the performance can last.</p>
       <div class="meta-row">
         <span class="pill"><span class="dot" aria-hidden="true"></span> Pre-live session</span>
-        <span class="pill">66 key terms</span>
-        <span class="pill">88 flashcards</span>
-        <span class="pill">12 visuals</span>
+        <span class="pill">107 key terms</span>
+        <span class="pill">146 flashcards</span>
+        <span class="pill">19 visuals</span>
       </div>
     </div>
   </header>
@@ -1237,6 +1250,10 @@
         data-panel="terms" tabindex="-1"><span class="tab-num" aria-hidden="true">02</span>Key concepts</button>
       <button class="tab" id="tab-cards" role="tab" aria-selected="false" aria-controls="panel-cards"
         data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
+      <button class="tab" id="tab-acronyms" role="tab" aria-selected="false" aria-controls="panel-acronyms"
+        data-panel="acronyms" tabindex="-1"><span class="tab-num" aria-hidden="true">04</span>Acronyms</button>
+      <button class="tab" id="tab-formulas" role="tab" aria-selected="false" aria-controls="panel-formulas"
+        data-panel="formulas" tabindex="-1"><span class="tab-num" aria-hidden="true">05</span>Formulas</button>
     </div>
   </nav>
 
@@ -1252,7 +1269,7 @@
           tabindex="-1">The Profit and Loss Statement</button>
         <button class="subtab" role="tab" aria-selected="false" aria-controls="sub-cf" data-sub="cf"
           tabindex="-1">Cash Flow</button>
-        <button class="subtab subtab--empty" role="tab" aria-selected="false" aria-controls="sub-afp" data-sub="afp"
+        <button class="subtab" role="tab" aria-selected="false" aria-controls="sub-afp" data-sub="afp"
           tabindex="-1">Assessing Financial Performance</button>
       </div>
 
@@ -4115,29 +4132,1354 @@
       </div>
 
       <div class="subpanel" id="sub-afp" role="tabpanel" tabindex="0" hidden>
-        <div class="unwritten">
-          <span class="block-num">04 / Not yet written</span>
-          <h2>Assessing Financial Performance</h2>
-          <p>This topic exists in my Week 0 notebook but has not been written yet — all ten of its sub-pages are
-            still empty, and the item is unticked in the notebook's todo list.</p>
-          <p>Nothing has been generated to stand in for it. It will appear here once the notes exist.</p>
-          <p>The sub-pages waiting to be filled:</p>
-          <ul>
-            <li>Returns</li>
-            <li>Risks</li>
-            <li>Cash</li>
-            <li>The right question</li>
-            <li>CEO Bonus</li>
-            <li>Working Capital Assessment</li>
-            <li>Sustainable Growth Part 1</li>
-            <li>Sustainable Growth Part 2</li>
-            <li>Risk Assessment</li>
-            <li>Summary</li>
-          </ul>
-          <p>Week 1 covers a topic of the same name, written from a different angle — see
-            <a href="DMBA6008-week1.html">Week 1 — Key value principles</a>.
-          </p>
+<div class="block">
+  <span class="block-num">01 / The return chain</span>
+  <h2>Raw numbers cannot judge performance</h2>
+  <p>Raw revenue, profit and asset values cannot determine financial performance on their own because they ignore the
+    resources required to generate those outcomes. Returns analysis links the income statement and the balance sheet
+    to assess how effectively the business converts its asset base into profit.</p>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Measure</th>
+          <th scope="col">Formula</th>
+          <th scope="col">What it diagnoses</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Asset utilisation</th>
+          <td>Revenue / Assets</td>
+          <td>How effectively assets generate revenue</td>
+        </tr>
+        <tr>
+          <th scope="row">Profit margin</th>
+          <td>Profit / Revenue</td>
+          <td>How effectively revenue is converted into profit</td>
+        </tr>
+        <tr>
+          <th scope="row">Return on assets (ROA)</th>
+          <td>Profit / Assets</td>
+          <td>Overall effectiveness of assets in generating profit</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="formula">ROA = Asset Utilisation x Profit Margin</div>
+
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>ROA tells us the outcome; asset utilisation and margin help explain why that outcome occurred.</p>
+  </div>
+</div>
+
+<div class="block">
+  <span class="block-num">02 / Two drivers</span>
+  <h2>How a business improves its return on assets</h2>
+  <p>A business can improve its return on assets through two broad mechanisms.</p>
+  <ul>
+    <li><strong>Make assets work harder</strong> — generate more revenue from the existing asset base, reflected in
+      higher asset utilisation.</li>
+    <li><strong>Earn more from each dollar of revenue</strong> — improve pricing, product mix or cost efficiency,
+      reflected in a higher profit margin.</li>
+  </ul>
+
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>A high-margin, asset intensive business may produce the same ROA as a lower-margin business with very efficient
+      asset utilisation.</p>
+  </div>
+
+  <h3>Why decomposition matters</h3>
+  <p>A software company may have strong margins because incremental software sales have relatively low costs, but weak
+    asset utilisation after a large acquisition increases its asset base. Even if profit grows, ROA may fail if the
+    additional assets do not generate enough incremental revenue and profit.</p>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 720 210" role="img" aria-labelledby="afa1-title afa1-desc">
+        <title id="afa1-title">One return on assets, two operating models</title>
+        <desc id="afa1-desc">Two businesses are compared on the two drivers of return on assets. The first has low
+          asset utilisation and a high profit margin; the second has high asset utilisation and a low profit margin;
+          both arrive at the same return on assets. A third row shows a software company with weak asset utilisation
+          after a large acquisition but a strong profit margin, where return on assets may still fail.</desc>
+
+        <text class="svg-eyebrow" x="0" y="14">SIMILAR ROA, VERY DIFFERENT OPERATING MODELS</text>
+
+        <text class="svg-sub" x="150" y="36">Asset utilisation</text>
+        <text class="svg-sub" x="370" y="36">Profit margin</text>
+        <text class="svg-sub" x="590" y="36">Outcome</text>
+
+        <text class="svg-sub" x="0" y="56">High-margin,</text>
+        <text class="svg-sub" x="0" y="68">asset intensive</text>
+        <rect x="150" y="52" width="200" height="12" rx="6" fill="#E9EFF4" />
+        <rect x="150" y="52" width="64" height="12" rx="6" fill="#2F5470" fill-opacity="0.35" />
+        <rect x="370" y="52" width="200" height="12" rx="6" fill="#E9EFF4" />
+        <rect x="370" y="52" width="150" height="12" rx="6" fill="#2F5470" fill-opacity="0.75" />
+
+        <text class="svg-sub" x="0" y="92">Lower-margin,</text>
+        <text class="svg-sub" x="0" y="104">efficient utilisation</text>
+        <rect x="150" y="88" width="200" height="12" rx="6" fill="#E9EFF4" />
+        <rect x="150" y="88" width="152" height="12" rx="6" fill="#2F5470" fill-opacity="0.75" />
+        <rect x="370" y="88" width="200" height="12" rx="6" fill="#E9EFF4" />
+        <rect x="370" y="88" width="62" height="12" rx="6" fill="#2F5470" fill-opacity="0.35" />
+
+        <path d="M596 56 L604 56 L604 96 L596 96" fill="none" stroke="#8798A6" stroke-width="1.5" />
+        <text class="svg-label" x="612" y="80">Same ROA</text>
+
+        <rect x="0" y="118" width="720" height="24" rx="8" fill="#E9EFF4" />
+        <text class="svg-label" x="360" y="134" text-anchor="middle">ROA alone hides which driver is doing the
+          work</text>
+
+        <text class="svg-eyebrow" x="0" y="160">WHY DECOMPOSITION MATTERS — A SOFTWARE COMPANY</text>
+
+        <text class="svg-sub" x="0" y="176">Software</text>
+        <text class="svg-sub" x="0" y="188">company</text>
+        <rect x="150" y="172" width="200" height="12" rx="6" fill="#E9EFF4" />
+        <rect x="150" y="172" width="56" height="12" rx="6" fill="#2F5470" fill-opacity="0.35" />
+        <rect x="370" y="172" width="200" height="12" rx="6" fill="#E9EFF4" />
+        <rect x="370" y="172" width="170" height="12" rx="6" fill="#2F5470" fill-opacity="0.75" />
+        <text class="svg-sub" x="150" y="200">assets up after a large acquisition</text>
+        <text class="svg-sub" x="370" y="200">low incremental cost of sales</text>
+        <text class="svg-label" x="590" y="182">ROA may fail</text>
+      </svg>
+    </div>
+    <figcaption>The two drivers move independently. Reading them together is what turns a return figure into a
+      diagnosis.</figcaption>
+  </figure>
+
+  <p>That is what makes the decomposition useful for diagnosing whether performance problems originate primary from
+    asset productivity or the profitability of sales.</p>
+
+  <h3>Interpreting business performance</h3>
+  <p>A larger company is not necessarily a better-performing company simple because it has more assets, higher revenue
+    or greater absolute profit.</p>
+
+  <div class="callout callout--ask">
+    <span class="icon" aria-hidden="true">❓</span>
+    <p>How effectively does the business generate earnings from the resources committed to it?</p>
+  </div>
+
+  <ul class="takeaways">
+    <li>ROA integrates profitability and asset efficiency into one measure.</li>
+    <li>Use asset utilisation and profit margin to diagnose the drivers behind ROA, rather than treating ratios
+      independently.</li>
+    <li>When ROA changes, ask whether asset utilisation changed, whether profit margin changed, and which factor is
+      driving the change.</li>
+    <li>Ask whether newly acquired or invested assets are generating sufficient incremental returns.</li>
+  </ul>
+</div>
+
+<div class="block">
+  <span class="block-num">03 / Return on equity</span>
+  <h2>The owners’ return, and what financing does to it</h2>
+  <p>Return on Equity (ROE) measures the return generated on the owners’ investment in the business. Profits generated
+    for shareholders can either be distributed as dividends or retained and reinvested in the business.</p>
+  <p>ROE should not be interpreted without considering how the business is financed. A business can increase ROE by
+    financing more of its assets with debt rather than equity, leaving less equity supporting the same business. A
+    higher ROE therefore does not automatically mean better underlying business performance — the higher return may
+    partly result from financial leverage rather than superior profitability or asset efficiency.</p>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 720 210" role="img" aria-labelledby="afa2-title afa2-desc">
+        <title id="afa2-title">The same business financed two ways</title>
+        <desc id="afa2-desc">One asset base is financed twice. In the first structure equity funds most of the assets
+          and return on equity is lower. In the second, debt funds more of the same assets, the equity slice shrinks
+          and return on equity rises without any change in the underlying business. Three consequences follow: a
+          higher return on equity, fixed financial obligations, and higher financial risk to owners.</desc>
+
+        <text class="svg-eyebrow" x="0" y="14">THE SAME ASSETS, FINANCED TWO WAYS</text>
+        <text class="svg-sub" x="580" y="28">Return on equity</text>
+
+        <text class="svg-sub" x="0" y="54">More equity</text>
+        <rect x="150" y="36" width="400" height="28" rx="8" fill="#E9EFF4" />
+        <rect x="150" y="36" width="140" height="28" rx="8" fill="#2F5470" fill-opacity="0.3" />
+        <text class="svg-label" x="220" y="55" text-anchor="middle">Debt</text>
+        <text class="svg-label" x="420" y="55" text-anchor="middle">Equity</text>
+        <rect x="580" y="42" width="120" height="14" rx="7" fill="#E9EFF4" />
+        <rect x="580" y="42" width="50" height="14" rx="7" fill="#2F5470" fill-opacity="0.5" />
+
+        <text class="svg-sub" x="0" y="100">More debt,</text>
+        <text class="svg-sub" x="0" y="112">less equity</text>
+        <rect x="150" y="88" width="400" height="28" rx="8" fill="#E9EFF4" />
+        <rect x="150" y="88" width="290" height="28" rx="8" fill="#2F5470" fill-opacity="0.3" />
+        <text class="svg-label" x="295" y="107" text-anchor="middle">Debt</text>
+        <text class="svg-label" x="495" y="107" text-anchor="middle">Equity</text>
+        <rect x="580" y="94" width="120" height="14" rx="7" fill="#E9EFF4" />
+        <rect x="580" y="94" width="98" height="14" rx="7" fill="#2F5470" fill-opacity="0.8" />
+
+        <text class="svg-eyebrow" x="0" y="148">WHAT COMES WITH IT</text>
+
+        <rect x="0" y="158" width="232" height="44" rx="10" fill="#E9EFF4" />
+        <text class="svg-label" x="116" y="178" text-anchor="middle">Higher ROE</text>
+        <text class="svg-sub" x="116" y="194" text-anchor="middle">less equity, same business</text>
+
+        <rect x="244" y="158" width="232" height="44" rx="10" fill="#E9EFF4" />
+        <text class="svg-label" x="360" y="178" text-anchor="middle">Fixed obligations</text>
+        <text class="svg-sub" x="360" y="194" text-anchor="middle">debt must be services</text>
+
+        <rect x="488" y="158" width="232" height="44" rx="10" fill="#2F5470" />
+        <text class="svg-label" x="604" y="178" text-anchor="middle" fill="#FFFFFF">Higher financial risk</text>
+        <text class="svg-sub" x="604" y="194" text-anchor="middle" fill="#C3D4E0">borne by the owners</text>
+      </svg>
+    </div>
+    <figcaption>Nothing on the asset side moved between the two rows. The return to owners rose because the base it is
+      measured against shrank.</figcaption>
+  </figure>
+
+  <h3>The risk-return trade off</h3>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Higher Debt</th>
+          <th scope="col">Effect</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Less equity required</th>
+          <td>Can increase ROE</td>
+        </tr>
+        <tr>
+          <th scope="row">Debt must be services</th>
+          <td>Creates fixed financial obligations</td>
+        </tr>
+        <tr>
+          <th scope="row">Poor trading conditions</th>
+          <td>Greater difficulty meeting interest and repayments</td>
+        </tr>
+        <tr>
+          <th scope="row">Greater leverage</th>
+          <td>Higher financial risk to owners</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>Leverage can amplify owners’ returns, but it also increases the risk being taken to generate those returns.</p>
+  </div>
+</div>
+
+<div class="block">
+  <span class="block-num">04 / Two kinds of risk</span>
+  <h2>Where the risk comes from</h2>
+  <p>Financial risk arises from the financing structure of the business, particularly the use of debt. Debt creates
+    obligations that remain even when business performance deteriorates. Greater financial risk can mean:</p>
+  <ul>
+    <li>Greater volatility in returns/profits to owners</li>
+    <li>Greater pressure on cash flows</li>
+    <li>Difficulty servicing interest when revenue or profit fails</li>
+    <li>Difficulty repaying debt under adverse trading conditions</li>
+  </ul>
+
+  <div class="callout callout--ask">
+    <span class="icon" aria-hidden="true">❓</span>
+    <p>What level of financial risk is required to generate that ROE?</p>
+  </div>
+
+  <h3>Business risk</h3>
+  <p>Business risk arises from the underlying operations and industry of the business rather than from its financing
+    choices. It reflects the stability and predictability of earnings, and a business with relatively stable earnings
+    has lower business risk because its future cash flows are more predictable. Potential sources identified
+    include:</p>
+  <ul>
+    <li>Uncertain or emerging markets</li>
+    <li>Entrepreneurial/new ventures</li>
+    <li>Exchange-rate exposure</li>
+    <li>Commodity-price exposure</li>
+    <li>Variability in customer demand or industry conditions</li>
+  </ul>
+</div>
+
+<div class="block">
+  <span class="block-num">05 / Reading both together</span>
+  <h2>Business risk against financial risk</h2>
+  <p>These risks need to be considered together.</p>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Risk</th>
+          <th scope="col">Driven by</th>
+          <th scope="col">Core question</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Business risk</th>
+          <td>Operations and industry</td>
+          <td>How predictable are earnings and cash flows?</td>
+        </tr>
+        <tr>
+          <th scope="row">Financial risk</th>
+          <td>Debt and financing structure</td>
+          <td>Can the business meet its financial obligations?</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>A business with stable cash flows and low business risk may be better positioned to carry debt, because it has
+    greater certainty about its ability to service that debt. Conversely, a business with highly uncertain earnings may
+    have less capacity to safely take on substantial financial leverage.</p>
+
+  <h3>What the ROA–ROE difference reveals</h3>
+  <p>ROA assesses returns generated from the assets of the business, whereas ROE assesses returns generated for equity
+    owners. A company can therefore have a relatively weaker ROA and a relatively stronger ROE if debt financing
+    increases the return attributable to the smaller equity base. That difference is a warning sign to investigate
+    leverage and financial risk, rather than assuming the higher ROE represents superior performance.</p>
+
+  <ul class="takeaways">
+    <li>Higher ROE must be interpreted alongside financial leverage.</li>
+    <li>Debt can improve owners’ returns without improving the underlying productivity of the business.</li>
+    <li>Higher expected returns generally need to be considered against the additional risk taken to achieve them.</li>
+    <li>Assess business risk and financial risk together when deciding whether debt levels are sustainable.</li>
+    <li>When comparing businesses, ask whether high ROE comes from genuinely strong performance or greater leverage,
+      how stable earnings and cash flows are, whether debt could still be serviced if trading conditions deteriorated,
+      and whether the level of debt is appropriate given the underlying business risk.</li>
+  </ul>
+</div>
+
+<div class="block">
+  <span class="block-num">06 / Cash committed to operations</span>
+  <h2>Working capital and operating cash</h2>
+  <p>Working capital represents funds committed to the day-to-day operations of the business.</p>
+  <div class="formula">Working Capital = Short-term Assets - Short-term Liabilities</div>
+  <p>Working capital is necessary to operate, but excessive amounts can tie up cash that could otherwise be invested
+    elsewhere. The key analytical issue is therefore not simply how much working capital exists, but how efficiently it
+    is being managed and converted back into cash.</p>
+
+  <h3>Cash flow from operations</h3>
+  <p>Cash flow from operating activities (CFOA) shows the cash generated by the core operations of the business. Unlike
+    accounting profit, CFOA reflects actual cash movement. A useful performance ratio is:</p>
+  <div class="formula">CFOA / revenue</div>
+  <p>This shows how much operating cash is generated from each dollar of revenue. A lower ratio may indicate that
+    revenue growth is not translating efficiently into cash.</p>
+
+  <div class="example-grid">
+    <div class="example">
+      <h5>CFOA margin of 10%</h5>
+      <p class="result">$0.10 of operating cash per $1 of revenue</p>
+    </div>
+    <div class="example">
+      <h5>CFOA margin of 6%</h5>
+      <p class="result">$0.06 of operating cash per $1 of revenue</p>
+    </div>
+  </div>
+</div>
+
+<div class="block">
+  <span class="block-num">07 / Profit versus cash</span>
+  <h2>A profitable business can still be short of cash</h2>
+  <p>A profitable business can still experience cash pressure, so profit and CFOA must be compared. Strong working
+    capital management should generally support good conversion of profit into operating cash flow.</p>
+  <div class="formula">Accounting Profit vs CFOA</div>
+  <p>If CFOA &lt;&lt; Profit, this is a signal to investigate where cash is being absorbed.</p>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 720 210" role="img" aria-labelledby="afa3-title afa3-desc">
+        <title id="afa3-title">Where the gap between profit and operating cash flow goes</title>
+        <desc id="afa3-desc">A tall bar for profit sits beside a much shorter bar for cash flow from operating
+          activities. The dashed gap between them points to a panel listing the places the cash may have been
+          absorbed: increasing inventory, customers taking longer to pay, greater amounts of credit being extended to
+          customers, and other working-capital requirements. The panel notes the difference does not automatically
+          mean poor performance.</desc>
+
+        <text class="svg-eyebrow" x="0" y="14">WHEN CFOA IS MUCH SMALLER THAN PROFIT</text>
+
+        <line x1="40" y1="152" x2="280" y2="152" stroke="#E2DED5" stroke-width="2" />
+        <rect x="60" y="44" width="70" height="108" rx="4" fill="#2F5470" fill-opacity="0.8" />
+        <text class="svg-label" x="95" y="172" text-anchor="middle">Profit</text>
+        <rect x="170" y="104" width="70" height="48" rx="4" fill="#2F5470" fill-opacity="0.4" />
+        <text class="svg-label" x="205" y="172" text-anchor="middle">CFOA</text>
+        <rect x="170" y="44" width="70" height="56" rx="4" fill="none" stroke="#8798A6" stroke-width="1"
+          stroke-dasharray="4 3" />
+        <text class="svg-sub" x="205" y="36" text-anchor="middle">the gap</text>
+
+        <path d="M252 72 L296 72" stroke="#8798A6" stroke-width="1.5" />
+        <path d="M290 67 L298 72 L290 77 Z" fill="#8798A6" />
+
+        <rect x="310" y="34" width="410" height="140" rx="12" fill="#E9EFF4" />
+        <text class="svg-eyebrow" x="328" y="56">WHERE THE CASH IS ABSORBED</text>
+        <text class="svg-sub" x="328" y="78">Increasing inventory</text>
+        <text class="svg-sub" x="328" y="96">Customers taking longer to pay</text>
+        <text class="svg-sub" x="328" y="114">Greater amounts of credit extended to customers</text>
+        <text class="svg-sub" x="328" y="132">Other working-capital requirements</text>
+        <text class="svg-label" x="328" y="158">Investigate — not automatically poor performance</text>
+      </svg>
+    </div>
+    <figcaption>The gap is a question, not a verdict. It identifies an area requiring further investigation.
+    </figcaption>
+  </figure>
+
+  <h3>Working capital as a cash-flow diagnosis</h3>
+  <p>A business can report increasing revenue and profit whilst simultaneously consuming cash if more funds become tied
+    up in operating assets. Where profit is strong but CFOA is weak, the next analytical step is to examine the
+    business’s working capital cycle and potential funding gap.</p>
+
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>Profit measures economic performance; operating cash flow reveals whether that performance is actually producing
+      cash.</p>
+  </div>
+
+  <h3>Why this matters for management</h3>
+  <p>Poor cash conversion can restrict a firm’s ability to fund new investments, repay debt, distribute dividends,
+    respond to unexpected pressures and finance continued growth internally. Profitable growth can still create
+    financial strain if the additional sales require increasingly large amounts of working capital.</p>
+
+  <ul class="takeaways">
+    <li>Working capital is cash committed to operations and therefore has an opportunity cost.</li>
+    <li>CFOA / revenue indicates how effectively sales are converting into operating cash.</li>
+    <li>Compare profit with CFOA to assess the quality of reported earnings and cash conversion.</li>
+    <li>Strong profit with weak CFOA should trigger investigation of inventory, receivables and other working-capital
+      demands.</li>
+    <li>A manager should ask whether revenue growth is producing proportionate cash flow, why CFOA is materially
+      different from profit, whether working capital is absorbing increasing amounts of cash, and whether growth is
+      creating a larger funding requirement.</li>
+  </ul>
+</div>
+
+<div class="block">
+  <span class="block-num">08 / The right question</span>
+  <h2>Ratios are diagnostic tools, not answers</h2>
+  <p>Financial ratios are most useful as diagnostic tools, but not as the final answers. The goal is to use them to
+    identify where performance looks strong or weak and then ask what may be causing it. A dashboard of ratios can
+    summarise performance, but a favourable ratio may hide a future weakness, while an unfavourable ratio may have a
+    reasonable explanation.</p>
+
+  <div class="formula">What is the ratio ? → Why is it at that level ? → Is it sustainable? → What risks sit behind it?
+  </div>
+
+  <h3>Key diagnostic questions</h3>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Area</th>
+          <th scope="col">What the ratio may suggest</th>
+          <th scope="col">The right question</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Asset utilisation</th>
+          <td>Assets are generating revenue efficiently</td>
+          <td>Are assets being maintained and replaced adequately, or is performance being boosted by an
+            ageing/depreciated asset base</td>
+        </tr>
+        <tr>
+          <th scope="row">Profit margin</th>
+          <td>Strong conversion of revenue into profit</td>
+          <td>Is the margin sustainable, or is it being achieved by cutting important spending such as employees,
+            innovation or future capability?</td>
+        </tr>
+        <tr>
+          <th scope="row">Return on assets</th>
+          <td>Strong return from the asset base</td>
+          <td>Is the higher return justified once the <strong>risk of the business</strong> is considered</td>
+        </tr>
+        <tr>
+          <th scope="row">Debt / Leverage</th>
+          <td>Debt is being used to finance assets</td>
+          <td>Is the level of debt excessive relative to the stability and diversification of cash flows</td>
+        </tr>
+        <tr>
+          <th scope="row">Business risk</th>
+          <td>Earnings may be more less predictable</td>
+          <td>How stable are cash flows, markets, management capability and access to future opportunities?</td>
+        </tr>
+        <tr>
+          <th scope="row">Return on equity</th>
+          <td>Shareholders are receiving a strong return</td>
+          <td>Is the return high enough for the <strong>risk shareholders are taking?</strong></td>
+        </tr>
+        <tr>
+          <th scope="row">Cash / working capital</th>
+          <td>Profit may or may not be converted well into cash</td>
+          <td>Is cash being trapped in inventory or receivables? Is there a funding gap?</td>
+        </tr>
+        <tr>
+          <th scope="row">Supplier credit</th>
+          <td>Payables may help finance operations</td>
+          <td>Is the business overly dependent on supplier credit that could be reduced or withdrawn?</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Sustainability matters more than the current number</h3>
+  <p>A strong current ratio can sometimes be achieved at the expense of future performance.</p>
+  <ul>
+    <li>High asset utilisation may reflect underinvestment in replacement assets</li>
+    <li>High profit margins may result from postponing discretionary but strategically important spending</li>
+    <li>High ROE may be driven by debt rather than stronger operating performance</li>
+    <li>Strong cash flow may partly depend on stretching supplier payments</li>
+  </ul>
+
+  <div class="callout callout--ask">
+    <span class="icon" aria-hidden="true">❓</span>
+    <p>Is current financial performance being achieved in a way that can be sustained?</p>
+  </div>
+</div>
+
+<div class="block">
+  <span class="block-num">09 / Return against risk</span>
+  <h2>Risk changes the meaning of a return</h2>
+  <p>Returns cannot be assessed independently of risk. A higher ROA or ROE is only attractive if the return is
+    sufficient compensation for business risk, financial risk and the uncertainty of future cash flows. This introduces
+    the concept of a required return.</p>
+  <p>If the shareholders require a 20% return for the level of risk they are taking but the business generates only
+    19%, the return may look high in isolation but may still be insufficient relative to risk.</p>
+  <div class="formula">Actual Return should be assessed against Required Return</div>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 720 170" role="img" aria-labelledby="afa4-title afa4-desc">
+        <title id="afa4-title">Actual return measured against required return</title>
+        <desc id="afa4-desc">A single bar shows a generated return of 19 per cent stopping just short of a marked line
+          at the 20 per cent return shareholders require for the level of risk they are taking. The return looks high
+          in isolation but falls below the requirement.</desc>
+
+        <text class="svg-eyebrow" x="0" y="14">RETURN MEASURED AGAINST WHAT THE RISK REQUIRES</text>
+
+        <rect x="0" y="60" width="720" height="26" rx="8" fill="#E9EFF4" />
+        <rect x="0" y="60" width="547" height="26" rx="8" fill="#2F5470" fill-opacity="0.85" />
+        <text class="svg-mono" x="273" y="78" text-anchor="middle" fill="#FFFFFF">19% generated</text>
+
+        <line x1="576" y1="46" x2="576" y2="100" stroke="#B3402A" stroke-width="2" />
+        <text class="svg-label" x="576" y="40" text-anchor="middle" fill="#B3402A">20% required</text>
+        <text class="svg-sub" x="720" y="114" text-anchor="end">the return required for the level of risk taken</text>
+
+        <rect x="0" y="128" width="720" height="28" rx="8" fill="#E9EFF4" />
+        <text class="svg-label" x="360" y="147" text-anchor="middle">Looks high in isolation, still insufficient
+          relative to risk</text>
+      </svg>
+    </div>
+    <figcaption>The bar is not judged by its own length. It is judged by where it stops relative to the marked
+      line.</figcaption>
+  </figure>
+
+  <h3>Some risks cannot be reduced to a ratio</h3>
+  <p>Business risk is partly qualitative and there is no single calculation that captures it completely. Analysts also
+    need to consider the stability of earnings and cash flows, diversification, access to markets, the quality and
+    capability of management, industry conditions and exposure to uncertainty. Good financial analysis therefore
+    combines quantitative ratios with qualitative judgement.</p>
+</div>
+
+<div class="block">
+  <span class="block-num">10 / The diagnostic process</span>
+  <h2>What the analysis is actually for</h2>
+  <ol class="steps">
+    <li><strong>Observe the ratio:</strong> identify unusual strengths, weaknesses or trends.</li>
+    <li><strong>Diagnose the driver:</strong> determine what operational, financing or working-capital factors explain
+      it.</li>
+    <li><strong>Assess risk:</strong> consider whether the result comes with additional business or financial riskl.
+    </li>
+    <li><strong>Test sustainability:</strong> ask whether current performance can continue without damaging future
+      capability.</li>
+    <li><strong>Compare with required performance:</strong> determine whether the return is sufficient given the
+      resources and risks involved.</li>
+  </ol>
+
+  <p>The purpose of financial analysis is not simply to identify the company with the highest ratio. A good analyst
+    therefore sues ratios to generate better questions, then combines profitability, asset efficiency, leverage, risk
+    and cash-flow evidence to form an overall judgement of financial health.</p>
+
+  <div class="callout callout--ask">
+    <span class="icon" aria-hidden="true">❓</span>
+    <p>What explains the ratio, what risks were taken to achieve it, and is that performance sustainable?</p>
+  </div>
+</div>
+
+      <div class="block">
+        <span class="block-num">11 / CEO bonus</span>
+        <h2>A stable ROE over a weakening business</h2>
+        <p>ROE should never be used alone to judge management performance. Here the CEO argues for a bonus because ROE
+          has remained constant, despite profits failing during a difficult trading period.</p>
+
+        <div class="callout callout--ask">
+          <span class="icon" aria-hidden="true">❓</span>
+          <p>Was ROE maintained through stronger underlying performance, or through increased financial leverage?</p>
         </div>
+
+        <p>The supporting ratios show deterioration in the core business.</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Measure</th>
+                <th scope="col">Trend</th>
+                <th scope="col">Interpretation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Asset utilisation</th>
+                <td><span class="verdict verdict--neg">Declining</span></td>
+                <td>More assets are being employed without a matching increase in revenue</td>
+              </tr>
+              <tr>
+                <th scope="row">Profit margin</th>
+                <td><span class="verdict verdict--neg">Declining</span></td>
+                <td>Less profit is being generated from each dollar of revenue</td>
+              </tr>
+              <tr>
+                <th scope="row">ROA</th>
+                <td><span class="verdict verdict--neg">Declining</span></td>
+                <td>Overall operating effectiveness of the asset base is worsening</td>
+              </tr>
+              <tr>
+                <th scope="row">ROE</th>
+                <td><span class="verdict verdict--neu">Stable</span></td>
+                <td>Appears strong, but requires explanation</td>
+              </tr>
+              <tr>
+                <th scope="row">Leverage</th>
+                <td><span class="verdict verdict--neg">Increasing</span></td>
+                <td>More debt is being used relative to shareholder equity</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>The combination of failing asset utilisation and falling margins meaning <strong>underlying operational
+            performance is deteriorating</strong>.</p>
+
+        <div class="formula">ROE = ROA x Financial Leverage</div>
+
+        <p>The business increases debt relative to equity. As equity becomes a smaller proportion of total financing,
+          the remaining shareholder funds are more highly leveraged, so the headline ROE can look healthy even while
+          the business itself becomes less efficient and more risky.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 200" role="img" aria-labelledby="afb1-title afb1-desc">
+              <title id="afb1-title">How leverage holds ROE flat while the business weakens</title>
+              <desc id="afb1-desc">Asset utilisation and profit margin are both declining, so return on assets
+                declines. Return on assets is multiplied by financial leverage, which is increasing. The two movements
+                offset, so return on equity stays stable even though operations are deteriorating and financial risk
+                is rising.</desc>
+
+              <text class="svg-eyebrow" x="0" y="14">WHY A FALLING BUSINESS CAN STILL SHOW A FLAT ROE</text>
+
+              <g>
+                <rect x="0" y="30" width="150" height="44" rx="10" fill="#E9EFF4" stroke="#2F5470"
+                  stroke-opacity="0.25" />
+                <text class="svg-label" x="75" y="50" text-anchor="middle">Asset utilisation</text>
+                <text class="svg-sub" x="75" y="65" text-anchor="middle">declining</text>
+              </g>
+              <g>
+                <rect x="0" y="86" width="150" height="44" rx="10" fill="#E9EFF4" stroke="#2F5470"
+                  stroke-opacity="0.25" />
+                <text class="svg-label" x="75" y="106" text-anchor="middle">Profit margin</text>
+                <text class="svg-sub" x="75" y="121" text-anchor="middle">declining</text>
+              </g>
+
+              <path d="M156 52 C 176 52, 176 74, 190 78" stroke="#8798a6" stroke-width="1.5" fill="none" />
+              <path d="M156 108 C 176 108, 176 86, 190 82" stroke="#8798a6" stroke-width="1.5" fill="none" />
+              <path d="M184 75 L194 80 L184 85 Z" fill="#8798a6" />
+
+              <g>
+                <rect x="200" y="58" width="130" height="44" rx="10" fill="#E9EFF4" stroke="#2F5470"
+                  stroke-opacity="0.25" />
+                <text class="svg-label" x="265" y="78" text-anchor="middle">ROA</text>
+                <text class="svg-sub" x="265" y="93" text-anchor="middle">declining</text>
+              </g>
+
+              <text class="svg-label" x="352" y="85" text-anchor="middle" fill="#8798a6">x</text>
+
+              <g>
+                <rect x="374" y="58" width="150" height="44" rx="10" fill="#ffffff" stroke="#e2ded5" />
+                <text class="svg-label" x="449" y="78" text-anchor="middle">Financial leverage</text>
+                <text class="svg-sub" x="449" y="93" text-anchor="middle">increasing</text>
+              </g>
+
+              <text class="svg-label" x="546" y="85" text-anchor="middle" fill="#8798a6">=</text>
+
+              <g>
+                <rect x="568" y="58" width="152" height="44" rx="10" fill="#2F5470" />
+                <text class="svg-label" x="644" y="78" text-anchor="middle" fill="#ffffff">ROE</text>
+                <text class="svg-sub" x="644" y="93" text-anchor="middle" fill="#c3d4e0">stable</text>
+              </g>
+
+              <text class="svg-eyebrow" x="0" y="152">THE HEADLINE HIDES THE MECHANISM</text>
+              <rect x="0" y="162" width="720" height="30" rx="8" fill="#f6e9e6" />
+              <text class="svg-label" x="360" y="181" text-anchor="middle" fill="#b3402a">Same ROE, less efficient
+                operations, more financial risk</text>
+            </svg>
+          </div>
+          <figcaption>Two declining drivers and one rising one can cancel out. The reported number is unchanged; what
+            produced it is not.</figcaption>
+        </figure>
+      </div>
+
+      <div class="block">
+        <span class="block-num">12 / Judging the claim</span>
+        <h2>Rewarding the metric or the business</h2>
+        <p>Increasing debt does not repair weak operating performance. It can instead <strong>mask
+            deterioration</strong>, supporting shareholder returns while increasing:</p>
+        <ul>
+          <li>Interest obligations</li>
+          <li>Repayment commitments</li>
+          <li>Exposure to downturns</li>
+          <li>Financial risk</li>
+        </ul>
+        <p>A CEO should not be rewarded simply for delivering a target financial ratio. The analyst should determine
+          <strong>how the result was achieved.</strong>
+        </p>
+
+        <h3>On the information provided</h3>
+        <ul>
+          <li>Assets increased without sufficient revenue growth</li>
+          <li>Margins deteriorated</li>
+          <li>ROA declined</li>
+          <li>Debt increased</li>
+          <li>Financial risk increased</li>
+          <li>Leverage kept ROE artificially stable</li>
+        </ul>
+        <p>The maintained ROE reflects <strong>financial engineering through leverage rather than improved operating
+            performance</strong>.</p>
+
+        <h3>Management incentive risk</h3>
+        <p>If executives are rewarded for metrics such as ROE, they may have incentives to improve the metric in ways
+          that do not strengthen long-term business performance. Performance measures should therefore consider
+          operating efficiency, profitability, asset productivity, leverage and risk, and the sustainability of
+          returns.</p>
+
+        <h3>When evaluating management performance, ask</h3>
+        <ul class="takeaways">
+          <li>Is ROE supported by improving ROA, margins and asset utilisation?</li>
+          <li>Has leverage increased simply to maintain shareholder returns?</li>
+          <li>Is management creating stronger underlying performance or merely taking financial risk?</li>
+          <li>Is the apparent performance sustainable?</li>
+        </ul>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>Never reward the outcome before understanding the mechanism that produced it.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <span class="block-num">13 / Working capital</span>
+        <h2>How long cash stays trapped in operations</h2>
+        <p>Working capital represents funds committed to the firm’s day-to-day operating cycle. The managerial issue is
+          the <strong>opportunity cost</strong> of these funds: money tied up in working capital cannot be deployed
+          elsewhere for investment or growth.</p>
+        <div class="formula">Working Capital = Short-term Assets - Short-term Liabilities</div>
+        <ul>
+          <li><strong>Inventory</strong> — cash tied up before goods are sold</li>
+          <li><strong>Receivables</strong> — cash tied up after a sale waiting for customers to pay</li>
+          <li><strong>Payables</strong> — supplier credit that helps finance operations</li>
+        </ul>
+
+        <h3>Measuring the operating cycle in days</h3>
+        <div class="formula formula-stack">
+          <span>Days Inventory    = Inventory / COGS per day</span>
+          <span>COGS per day      = Annual COGS / 365</span>
+          <span>Days Receivables  = Receivables / Revenue per day</span>
+          <span>Revenue per day   = Annual Revenue / 365</span>
+          <span>Days Payables     = Payables / COGS per day</span>
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Measure</th>
+                <th scope="col">What it measures</th>
+                <th scope="col">What a change may indicate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Days Inventory</th>
+                <td>How long cash remains tied up in inventory before sale</td>
+                <td>A rising number may warrant investigation into slow-moving inventory, excess stock or deterioration
+                  in inventory quality</td>
+              </tr>
+              <tr>
+                <th scope="row">Days Receivables</th>
+                <td>How long customers take to pay after a sale</td>
+                <td>Longer collection periods may indicate more generous credit policies, weaker collection processes
+                  or poorer-quality receivables</td>
+              </tr>
+              <tr>
+                <th scope="row">Days Payables</th>
+                <td>How long the business takes to pay suppliers</td>
+                <td>Supplier credit effectively provides short-term financing for the operating cycle</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 234" role="img" aria-labelledby="afb2-title afb2-desc">
+              <title id="afb2-title">The operating cash cycle and the funding gap</title>
+              <desc id="afb2-desc">Days in inventory followed by days in receivables together make the operating cash
+                cycle. Days in payables covers only the first part of that period. The remainder, from the end of
+                supplier credit to the point cash is collected, is the funding gap the firm must finance itself.</desc>
+
+              <text class="svg-eyebrow" x="0" y="14">FROM CASH SPENT TO CASH COLLECTED</text>
+
+              <rect x="0" y="28" width="300" height="34" rx="6" fill="#E9EFF4" stroke="#2F5470"
+                stroke-opacity="0.30" />
+              <text class="svg-label" x="150" y="50" text-anchor="middle">Days Inventory</text>
+              <rect x="300" y="28" width="260" height="34" rx="6" fill="#2F5470" fill-opacity="0.30" />
+              <text class="svg-label" x="430" y="50" text-anchor="middle">Days Receivables</text>
+
+              <path d="M0 70 L0 78 L560 78 L560 70" stroke="#8798a6" stroke-width="1.2" fill="none" />
+              <text class="svg-sub" x="280" y="92" text-anchor="middle">Operating Cash Cycle</text>
+
+              <rect x="0" y="104" width="200" height="34" rx="6" fill="#ffffff" stroke="#e2ded5" />
+              <text class="svg-label" x="100" y="126" text-anchor="middle">Days Payables</text>
+              <text class="svg-sub" x="212" y="126">supplier credit finances this much</text>
+
+              <rect x="200" y="150" width="360" height="34" rx="6" fill="#2F5470" />
+              <text class="svg-label" x="380" y="166" text-anchor="middle" fill="#ffffff">Funding Gap</text>
+              <text class="svg-sub" x="380" y="178" text-anchor="middle" fill="#c3d4e0">the firm must finance this
+                period itself</text>
+
+              <text class="svg-mono" x="0" y="208">Operating Cash Cycle = Days Inventory + Days Receivables</text>
+              <text class="svg-mono" x="0" y="226">Funding Gap = OCC - Days Payables</text>
+            </svg>
+          </div>
+          <figcaption>Supplier credit pays for the front of the cycle. Everything to the right of it is the firm’s own
+            money, committed until customers pay.</figcaption>
+        </figure>
+      </div>
+
+      <div class="block">
+        <span class="block-num">14 / The funding gap</span>
+        <h2>What the gap costs to finance</h2>
+        <p>The gap can be translated into a funding requirement expressed as a share of annual revenue.</p>
+        <div class="formula">Funding Gap / 365</div>
+
+        <div class="example-grid">
+          <div class="example">
+            <h5>From days to a share of revenue</h5>
+            <dl>
+              <dt>Funding gap</dt>
+              <dd>103 days</dd>
+              <dt>Days in year</dt>
+              <dd>365</dd>
+            </dl>
+            <p class="result">103 / 365 = ~28%</p>
+            <p class="note">Roughly 28% of annual revenue may need to be funded to support the working-capital gap —
+              for every $100 of revenue, approximately $28 of funding may be required.</p>
+          </div>
+          <div class="example">
+            <h5>From revenue share to interest cost</h5>
+            <dl>
+              <dt>Amount to finance</dt>
+              <dd>$28 million</dd>
+              <dt>Cost of funds</dt>
+              <dd>10%</dd>
+            </dl>
+            <p class="result">$28m x 10% = $2.8m</p>
+            <p class="note">Annual interest cost of carrying the working-capital gap.</p>
+          </div>
+        </div>
+
+        <p>A longer funding gap means more capital is tied up for longer. This can:</p>
+        <ul>
+          <li>Increase borrowing requirements</li>
+          <li>Increase interest expense</li>
+          <li>Weaken operating cash flow</li>
+          <li>Reduce funds available for investment</li>
+          <li>Place greater pressure on liquidity as the business grows</li>
+        </ul>
+        <p>Reducing the funding gap can therefore <strong>release cash and improve value without requiring additional
+            revenue growth.</strong></p>
+
+        <h3>When the gap increases</h3>
+        <p>An increase should not simply be accepted as a normal consequence of growth. Ask which component is
+          responsible.</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Driver</th>
+                <th scope="col">Possible issue</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Increase in inventory days</th>
+                <td>Excess, obsolete or slow-moving stock</td>
+              </tr>
+              <tr>
+                <th scope="row">Increase in receivable days</th>
+                <td>Weaker credit policy or slower customer payments</td>
+              </tr>
+              <tr>
+                <th scope="row">Decrease in payable days</th>
+                <td>Less supplier credit / faster payments</td>
+              </tr>
+              <tr>
+                <th scope="row">Increase in funding gap</th>
+                <td>More external funding required to support outcomes</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>The source particularly highlights investing whether deterioration is coming from <strong>inventory quality
+            and/or customer credit policies.</strong></p>
+
+        <h3>The key questions</h3>
+        <ul class="takeaways">
+          <li>Is the funding gap increasing?</li>
+          <li>Is inventory being held for too long?</li>
+          <li>Are customers taking longer to pay?</li>
+          <li>Is supplier credit sufficient?</li>
+          <li>What is the financing cost of the working-capital requirement?</li>
+        </ul>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>Reducing unnecessary days in the operating cycle can release cash, lower financing costs and improve
+            financial health even without increasing profit.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <span class="block-num">15 / Sustainable growth</span>
+        <h2>How fast the business can grow on its own settings</h2>
+        <p>The sustainable growth rate (SGR) estimates how quickly a business can grow revenue without issuing new
+          equity or allowing its debt ratios to increase, assuming its underlying financial settings remain broadly
+          unchanged.</p>
+        <p>Revenue growth usually requires additional assets to support higher sales volumes, working capital,
+          inventory and receivables, and operating capacity. If retained earnings are insufficient to finance these
+          assets, the firm may need to raise more debt, increasing financial risk, or issue new equity, which may be
+          costly and dilute existing owners.</p>
+
+        <div class="callout callout--ask">
+          <span class="icon" aria-hidden="true">❓</span>
+          <p>Can the company’s current financing and operating model support that growth?</p>
+        </div>
+
+        <div class="formula formula-stack">
+          <span>SGR            = ROE x Retention Rate</span>
+          <span>ROE            = Profit After Tax / Beginning Equity</span>
+          <span>Retention Rate = Retained Earnings / Profit</span>
+        </div>
+        <p>The retention rate represents the proportion of profit <strong>kept and reinvested</strong> rather than paid
+          as dividends.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 190" role="img" aria-labelledby="afb3-title afb3-desc">
+              <title id="afb3-title">Sustainable growth rate worked through</title>
+              <desc id="afb3-desc">Return on equity of fifty per cent multiplied by a retention rate of fifty per cent
+                gives a sustainable growth rate of twenty-five per cent, meaning revenue can grow by about a quarter
+                financed by retained earnings and proportionate debt, without new equity or a higher debt to equity
+                ratio.</desc>
+
+              <text class="svg-eyebrow" x="0" y="14">GROWTH THE BUSINESS CAN FUND FROM ITS OWN PROFITS</text>
+
+              <g>
+                <rect x="0" y="28" width="200" height="76" rx="10" fill="#E9EFF4" stroke="#2F5470"
+                  stroke-opacity="0.25" />
+                <text class="svg-label" x="100" y="48" text-anchor="middle">ROE</text>
+                <text class="svg-sub" x="100" y="64" text-anchor="middle">Profit After Tax /</text>
+                <text class="svg-sub" x="100" y="76" text-anchor="middle">Beginning Equity</text>
+                <text class="svg-mono" x="100" y="96" text-anchor="middle">50%</text>
+              </g>
+
+              <text class="svg-label" x="216" y="70" text-anchor="middle" fill="#8798a6">x</text>
+
+              <g>
+                <rect x="232" y="28" width="200" height="76" rx="10" fill="#E9EFF4" stroke="#2F5470"
+                  stroke-opacity="0.25" />
+                <text class="svg-label" x="332" y="48" text-anchor="middle">Retention Rate</text>
+                <text class="svg-sub" x="332" y="64" text-anchor="middle">Retained Earnings /</text>
+                <text class="svg-sub" x="332" y="76" text-anchor="middle">Profit</text>
+                <text class="svg-mono" x="332" y="96" text-anchor="middle">50%</text>
+              </g>
+
+              <text class="svg-label" x="448" y="70" text-anchor="middle" fill="#8798a6">=</text>
+
+              <g>
+                <rect x="464" y="28" width="256" height="76" rx="10" fill="#2F5470" />
+                <text class="svg-label" x="592" y="52" text-anchor="middle" fill="#ffffff">SGR</text>
+                <text class="svg-sub" x="592" y="68" text-anchor="middle" fill="#c3d4e0">Sustainable Growth Rate</text>
+                <text class="svg-mono" x="592" y="92" text-anchor="middle" fill="#ffffff">25%</text>
+              </g>
+
+              <rect x="0" y="124" width="720" height="52" rx="10" fill="#E9EFF4" />
+              <text class="svg-label" x="360" y="148" text-anchor="middle">Grow revenue by approximately 25%, financed
+                through retained earnings and proportionate debt,</text>
+              <text class="svg-sub" x="360" y="165" text-anchor="middle">without issuing new equity and without
+                increasing the debt-to-equity ratio</text>
+            </svg>
+          </div>
+          <figcaption>Two policy choices — how profitable the equity is, and how much of the profit stays in — set the
+            growth the business can fund without changing its financing.</figcaption>
+        </figure>
+
+        <div class="example-grid">
+          <div class="example">
+            <h5>Worked example</h5>
+            <dl>
+              <dt>ROE</dt>
+              <dd>50%</dd>
+              <dt>Retention Rate</dt>
+              <dd>50%</dd>
+            </dl>
+            <p class="result">SGR = 50%x50% = 25%</p>
+            <p class="note">The business can grow revenue by approximately 25% while financing growth through retained
+              earnings and proportionate debt, without issuing new equity or increasing its debt-to-equity ratio.</p>
+          </div>
+          <div class="example">
+            <h5>Core assumptions</h5>
+            <dl>
+              <dt>ROE</dt>
+              <dd>approximately unchanged</dd>
+              <dt>Payout / retention</dt>
+              <dd>policy unchanged</dd>
+              <dt>Debt-to-equity</dt>
+              <dd>relationship unchanged</dd>
+              <dt>Operating structure</dt>
+              <dd>underlying structure unchanged</dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>SGR connects profitability, dividend policy, financing and growth capacity.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <span class="block-num">16 / Growth above SGR</span>
+        <h2>When actual growth outruns the benchmark</h2>
+        <p>Actual growth exceeding SGR is <strong>not automatically bad,</strong> it means the analyst should
+          investigate <strong>how the extra growth was financed or enabled</strong>.</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Driver</th>
+                <th scope="col">Effect</th>
+                <th scope="col">Interpretation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">More debt</th>
+                <td>Debt ratio rises</td>
+                <td><span class="verdict verdict--neg">Higher financial risk</span></td>
+              </tr>
+              <tr>
+                <th scope="row">New equity</th>
+                <td>More owner funding</td>
+                <td><span class="verdict verdict--neu">Can support growth, but may be costly/dilutive</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Lower dividends</th>
+                <td>Retention rate rises</td>
+                <td><span class="verdict verdict--neu">More internal finance, but less cash to shareholders</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Higher margins / lower costs</th>
+                <td>ROE can improve</td>
+                <td><span class="verdict verdict--pos">More profits available to support growth</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Better asset utilisation</th>
+                <td>More revenue from existing assets</td>
+                <td><span class="verdict verdict--pos">Strong operational explanation for faster growth</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>The strongest outcome is when growth above the SGR is achieved through improved asset utilisation, this
+          occurs when revenue grows faster than assets. The business can then support additional sales without an
+          equivalent increase in assets and financing.</p>
+        <ul>
+          <li>Spare productivity capacity</li>
+          <li>Better use of existing assets</li>
+          <li>Improving working-capital management</li>
+        </ul>
+
+        <h3>Improving the rate itself</h3>
+        <p>Since SGR = ROE x Retention, businesses can increase SGR by changing the drivers of either component.
+          However, not all approaches are equally attractive.</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Approach</th>
+                <th scope="col">Effect</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Cut dividends</th>
+                <td>Increases retention, but reduces shareholder distributions</td>
+              </tr>
+              <tr>
+                <th scope="row">Raise equity</th>
+                <td>Supports growth, but introduces additional owner capital</td>
+              </tr>
+              <tr>
+                <th scope="row">Increase debt</th>
+                <td>Can support growth but increases financial risk</td>
+              </tr>
+              <tr>
+                <th scope="row">Cut costs</th>
+                <td>May improve profitability, but could damage long-term capability if excessive</td>
+              </tr>
+              <tr>
+                <th scope="row">Improve asset utilisation</th>
+                <td>Supports more revenue from the existing asset base and can represent genuine productivity
+                  improvement</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Operational efficiency and asset utilisation are the more attractive path to supporting higher sustainable
+          growth.</p>
+
+        <h3>When actual growth &gt; SGR, ask</h3>
+        <ul class="takeaways">
+          <li>Has leverage increased?</li>
+          <li>Has new equity been issues?</li>
+          <li>Has the retention/dividend policy changed?</li>
+          <li>Have margins improved?</li>
+          <li>Has asset utilisation improved?</li>
+        </ul>
+
+        <p>SGR is not a maximum growth limit, it is a benchmark for assessing whether growth is consistent with the
+          firm’s existing profitability, dividend policy and financing structure.</p>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>Growth supported by greater efficiency can be positive. Growth funded mainly through increasing debt may
+            instead indicate rising financial risk and potential future distress.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <span class="block-num">17 / Financial risk</span>
+        <h2>The risk you can measure</h2>
+        <p>Financial risk arises from the use of debt financing and the firm’s ability to meet its debt obligations.</p>
+
+        <div class="callout callout--ask">
+          <span class="icon" aria-hidden="true">❓</span>
+          <p>How much debt does the firm carry? Can earnings comfortably cover interest? Can operating cash flow meet
+            short-term obligations?</p>
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Ratio</th>
+                <th scope="col">Formula</th>
+                <th scope="col">What it indicates</th>
+                <th scope="col">General rule of thumb from topic</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Debt / Assets</th>
+                <td>Debt ÷ Assets</td>
+                <td>Proportion of assets financed by debt</td>
+                <td>Preferably <strong>&lt; 50%</strong></td>
+              </tr>
+              <tr>
+                <th scope="row">Debt / Equity</th>
+                <td>Debt ÷ Equity</td>
+                <td>Debt relative to shareholder financing</td>
+                <td>Preferably <strong>&lt; 100%</strong></td>
+              </tr>
+              <tr>
+                <th scope="row">Interest Cover</th>
+                <td>EBIT ÷ Interest Expense</td>
+                <td>Ability of earnings to service interest</td>
+                <td>Preferably <strong>≥ 3×</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>These are guidelines, not universal limits. Appropriate leverage depends on the stability and predictability
+          of the business.</p>
+
+        <div class="formula">Interest Cover = EBIT / Interest Expense</div>
+        <p>An interest cover of 3x means the business generates $3 of EBIT for every $1 of interest expense. A higher
+          ratio provides a greater margin of safety if earnings decline. A failing interest cover may signal increasing
+          debt costs, weakening profitability, or declining capacity to service borrowing.</p>
+
+        <h3>Cash and short-term risk</h3>
+        <div class="formula">Cash Flow from Operations vs Current Liabilities</div>
+        <p>Debt ratios alone do not show whether the firm has enough cash to meet obligations. If operating cash flow
+          is insufficient, the business may need to raise additional debt, use cash reserves or sell assets — which
+          increases vulnerability during periods of financial stress.</p>
+
+        <h3>Liquidity and access to funding</h3>
+        <ul class="takeaways">
+          <li>Does the business have access to additional borrowing?</li>
+          <li>Does it have sufficient cash reserves?</li>
+          <li>Could it survive a temporary fall in prices, demand or production?</li>
+        </ul>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>Holding excessive cash may reduce returns, but having access to liquidity provides resilience during
+            temporary disruption.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <span class="block-num">18 / Business risk</span>
+        <h2>The risk that needs judgement</h2>
+        <p>Business risk comes from the firm’s operating model, industry and competitive environment. Unlike financial
+          risk, many elements cannot be captured by one ratio.</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Risk area</th>
+                <th scope="col">Why it matters</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Key customer dependence</th>
+                <td>Losing one major customer could materially reduce revenue</td>
+              </tr>
+              <tr>
+                <th scope="row">Key supplier dependence</th>
+                <td>Supplier failure or loss could disrupt operations</td>
+              </tr>
+              <tr>
+                <th scope="row">Reliance on a major project</th>
+                <td>Failure or delay of one project could materially damage performance</td>
+              </tr>
+              <tr>
+                <th scope="row">Low revenue diversification</th>
+                <td>Greater exposure to disruption in one product, service or market</td>
+              </tr>
+              <tr>
+                <th scope="row">Limited access to funding</th>
+                <td>Less ability to survive temporary financial stress</td>
+              </tr>
+              <tr>
+                <th scope="row">Poor asset replacement</th>
+                <td>Older assets may become inefficient or technologically obsolete</td>
+              </tr>
+              <tr>
+                <th scope="row">Low asset saleability</th>
+                <td>Harder to raise cash during an economic downturn or disruption</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Diversification as risk protection</h3>
+        <p>A diversified business is generally less dependent on any single customer, supplier, product, service,
+          market or project, and is therefore more resilient if one part is disrupted. The topic also recognises that
+          <strong>specialisation can create expertise</strong>, so the issue is not diversification for its own sake,
+          but avoiding excessive concentration risk.</p>
+
+        <h3>Asset replacement and future risk</h3>
+        <p>An apparently efficient asset base may become a risk if management is <strong>underinvesting in replacement
+            assets</strong>.</p>
+        <div class="formula">CAPEX vs Depreciation</div>
+        <p>If depreciation consistently exceeds replacement investment, assets may be ageing without sufficient
+          reinvestment — declining productive capacity, higher maintenance requirements, technological obsolescence and
+          reduced ability to generate future revenue. There is no strict ratio, but the relationship should be
+          monitored <strong>over time</strong>.</p>
+      </div>
+
+      <div class="block">
+        <span class="block-num">19 / Benchmarking risk</span>
+        <h2>The same ratio, two different risks</h2>
+        <p>Financial ratios should not be judged in isolation. Compare them with the firm’s historical performance and
+          with relevant industry benchmarks. A debt ratio that is reasonable for a stable, predictable business may be
+          excessive for a highly cyclical or volatile company, and a firm with stable cash flows may safely support
+          more debt than a volatile firm exposed to uncertain prices or earnings.</p>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>The same financial ratio can imply different levels of risk depending on the business model.</p>
+        </div>
+
+        <h3>Integrated risk assessment</h3>
+        <p>A strong assessment combines both quantitative and qualitative evidence.</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Financial risk — assess</th>
+                <th scope="col">Business risk — assess</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Debt / Assets</td>
+                <td>Concentration of customers and suppliers</td>
+              </tr>
+              <tr>
+                <td>Debt / Equity</td>
+                <td>Reliance on major projects</td>
+              </tr>
+              <tr>
+                <td>Interest Cover</td>
+                <td>Revenue diversification</td>
+              </tr>
+              <tr>
+                <td>CFOA relative to short-term obligations</td>
+                <td>Access to funding</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>Asset replacement</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>Ability to sell assets during distress</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Risk assessment is not about finding one “safe” ratio</h3>
+        <ul class="takeaways">
+          <li>Is leverage appropriate for the stability of the firm’s cash flows?</li>
+          <li>Can earnings and operating cash comfortably service debt?</li>
+          <li>Is the business overly dependent on one customer, supplier or project?</li>
+          <li>Is management investing enough to maintain productive assets?</li>
+          <li>Does the firm have access to liquidity during a downturn?</li>
+          <li>How do these risks compare with the firm’s history and its industry?</li>
+        </ul>
+
+        <p>Financial health depends not only on the return being generated, but on <strong>how much risk the business
+            must carry to generate and sustain that return</strong>.</p>
+      </div>
       </div>
     </section>
 
@@ -4146,9 +5488,11 @@
       <div class="block">
         <span class="block-num">02 / Reference</span>
         <h2>Key concepts &amp; terminology</h2>
-        <p>Every term across the three written topics, with its formula where the notes give one. A few concepts —
-          depreciation, impairment, capital expenditure, working capital — appear more than once because each
-          statement frames them differently; the topic tag tells you which framing you are reading.</p>
+        <p>Every term across all four topics, with its formula where the notes give one. A number of concepts —
+          depreciation, impairment, capital expenditure, working capital, return on equity, financial and business
+          risk — appear more than once because each statement, and each part of the performance assessment, frames
+          them differently; the tag on each card names the section it was written in, so it tells you which framing
+          you are reading.</p>
 
         <div class="toolbar">
           <label class="visually-hidden" for="term-search">Filter terms</label>
@@ -4204,12 +5548,48 @@
         </div>
       </div>
     </section>
+
+    <!-- ══════════════════ 04 · ACRONYMS ══════════════════ -->
+    <section class="panel" id="panel-acronyms" role="tabpanel" aria-labelledby="tab-acronyms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">04 / Shorthand</span>
+        <h2>Acronyms &amp; abbreviations</h2>
+        <p>Every abbreviation across the week&rsquo;s four topics, expanded. Most are spelt out in my own notes; D&amp;A, GST, HR, IT, SaaS and WC are not, and carry the standard expansion so the tab stays usable. The tag on each card names the section it was written in.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="acronyms-search">Filter acronyms</label>
+          <input class="search" id="acronyms-search" type="search" placeholder="Filter &mdash; try &ldquo;EBITDA&rdquo; or &ldquo;CFOA&rdquo;"
+            autocomplete="off">
+          <span class="count" id="acronyms-count" aria-live="polite">23 of 23</span>
+        </div>
+
+        <div class="glossary" id="acronyms"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 05 · FORMULAS ══════════════════ -->
+    <section class="panel" id="panel-formulas" role="tabpanel" aria-labelledby="tab-formulas" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">05 / Quick reference</span>
+        <h2>Formulas</h2>
+        <p>The densest reference on the site &mdash; every formula, identity, ratio and worked calculation stated across the four topics, in the order the notes introduce them. Copied character for character, which means the same relationship sometimes appears twice in different notation, and the multiplication sign is sometimes &ldquo;x&rdquo; and sometimes &ldquo;&times;&rdquo;. That is how I wrote it.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="formulas-search">Filter formulas</label>
+          <input class="search" id="formulas-search" type="search" placeholder="Filter formulas &mdash; try &ldquo;margin&rdquo; or &ldquo;cash&rdquo;"
+            autocomplete="off">
+          <span class="count" id="formulas-count" aria-live="polite">82 of 82</span>
+        </div>
+
+        <div class="glossary" id="formulas"></div>
+      </div>
+    </section>
   </main>
 
   <footer class="page-foot">
     <div class="wrap">
       <p>DMBA 6008 Finance, Strategy and Technology · Week 0 · Pre-live session</p>
-      <p>Compiled from my own pre-live notes for this week. Synced from Notion on 5 August 2026.</p>
+      <p>Compiled from my own pre-live notes for this week. Synced from Notion on 14 August 2026.</p>
     </div>
   </footer>
     </div><!-- /.win -->
@@ -4234,6 +5614,7 @@
       var BS = 'The Balance Sheet';
       var PL = 'Profit and Loss';
       var CF = 'Cash Flow';
+      var AFP = 'Assessing Financial Performance';
 
       function tag(topic, arr) {
         return arr.map(function (o) { o.topic = topic; return o; });
@@ -4370,6 +5751,49 @@
   { term: 'Days Receivables', src: 'Operating Cash Cycle', formula: 'Days receivables = Accounts receivable / (Revenue / 365)', def: 'The average time between making a sale and collecting cash — it measures how quickly customers pay after a sale.' },
   { term: 'Days Payables', src: 'Operating Cash Cycle', formula: 'Days payables = Accounts payable / (Cost of goods sold / 365)', def: 'Suppliers partly finance the operating cycle by allowing time to pay. Higher days payable means the business retains cash longer; lower days payable means suppliers are being paid faster, increasing the firm’s funding requirement.' },
   { term: 'Funding Gap', src: 'Operating Cash Cycle', formula: 'Funding gap = Operating cash cycle − Days payables', def: 'Measures how long the business must finance its operations before customer cash is received. In the case it rose from 50 days to 102 days, about 52 additional days of financing.' }
+]),
+        tag(AFP, [
+  { term: 'Returns Analysis', src: 'Returns', def: 'Links the income statement and the balance sheet to assess how effectively the business converts its asset base into profit. Raw revenue, profit and asset values cannot determine performance on their own because they ignore the resources required to generate those outcomes.' },
+  { term: 'Asset Utilisation', src: 'Returns', formula: 'Asset utilisation = Revenue / Assets', def: 'Diagnoses how effectively assets generate revenue. Improving it means making the assets work harder — generating more revenue from the existing asset base.' },
+  { term: 'Profit Margin', src: 'Returns', formula: 'Profit margin = Profit / Revenue', def: 'Diagnoses how effectively revenue is converted into profit. It improves through better pricing, product mix or cost efficiency — earning more from each dollar of revenue.' },
+  { term: 'Return on Assets (ROA)', src: 'Returns', formula: 'ROA = Profit / Assets', def: 'Diagnoses the overall effectiveness of assets in generating profit, integrating profitability and asset efficiency into one measure. It tells us the outcome, not why the outcome occurred.' },
+  { term: 'ROA Decomposition', src: 'Returns', formula: 'ROA = Asset Utilisation x Profit Margin', def: 'Splits the return into its two operating drivers so that a change in ROA can be traced to asset productivity or to the profitability of sales, rather than treating the ratios independently.' },
+  { term: 'Return on Equity (ROE)', src: 'Risks', def: 'Measures the return generated on the owners’ investment in the business. Profits generated for shareholders can either be distributed as dividends or retained and reinvested. ROE should not be interpreted without considering how the business is financed.' },
+  { term: 'Financial Leverage', src: 'Risks', def: 'Financing a greater share of the assets with debt rather than equity. With less equity supporting the same business, ROE can rise even though profitability and asset efficiency are unchanged.' },
+  { term: 'Risk-Return Trade Off', src: 'Risks', def: 'Less equity required can increase ROE, but debt must be services, which creates fixed financial obligations, makes interest and repayments harder to meet in poor trading conditions, and raises financial risk to owners.' },
+  { term: 'Financial Risk', src: 'Risks', def: 'Arises from the financing structure of the business, particularly the use of debt. Debt creates obligations that remain even when performance deteriorates, bringing greater volatility in returns to owners, greater pressure on cash flows, and difficulty servicing interest when revenue or profit fails.' },
+  { term: 'Business Risk', src: 'Risks', def: 'Arises from the underlying operations and industry rather than from financing choices, and reflects the stability and predictability of earnings. Sources include uncertain or emerging markets, new ventures, exchange-rate and commodity-price exposure, and variability in customer demand.' },
+  { term: 'ROA versus ROE', src: 'Risks', def: 'ROA assesses returns generated from the assets of the business; ROE assesses returns generated for equity owners. A weaker ROA alongside a stronger ROE is a warning sign to investigate leverage and financial risk rather than to assume superior performance.' },
+  { term: 'Working Capital', src: 'Cash', formula: 'Working Capital = Short-term Assets - Short-term Liabilities', def: 'Funds committed to the day-to-day operations of the business. It is necessary to operate, but excessive amounts tie up cash that could be invested elsewhere, so it carries an opportunity cost.' },
+  { term: 'Cash Flow from Operating Activities (CFOA)', src: 'Cash', def: 'The cash generated by the core operations of the business. Unlike accounting profit, CFOA reflects actual cash movement.' },
+  { term: 'CFOA Margin', src: 'Cash', formula: 'CFOA / revenue', def: 'Shows how much operating cash is generated from each dollar of revenue — a 10% margin is $0.10 per $1 of revenue, a 6% margin is $0.06. A lower ratio may indicate that revenue growth is not translating efficiently into cash.' },
+  { term: 'Cash Conversion', src: 'Cash', def: 'How well reported profit turns into operating cash. Where CFOA is far below profit, investigate increasing inventory, customers taking longer to pay, greater credit extended to customers, and other working-capital requirements. The difference identifies an area requiring investigation, not automatically poor performance.' },
+  { term: 'Ratios as Diagnostic Tools', src: 'The right question', def: 'Ratios are most useful for identifying where performance looks strong or weak and then asking what may be causing it. A favourable ratio may hide a future weakness, while an unfavourable ratio may have a reasonable explanation.' },
+  { term: 'Sustainability of Performance', src: 'The right question', def: 'Whether current financial performance is being achieved in a way that can be sustained. High asset utilisation may reflect underinvestment in replacement assets; high margins may come from postponing strategically important spending; high ROE may be driven by debt; strong cash flow may depend on stretching supplier payments.' },
+  { term: 'Required Return', src: 'The right question', formula: 'Actual Return should be assessed against Required Return', def: 'The return needed to compensate for business risk, financial risk and the uncertainty of future cash flows. If shareholders require 20% and the business generates 19%, the return may look high in isolation but may still be insufficient relative to risk.' },
+  { term: 'Qualitative Business Risk', src: 'The right question', def: 'Business risk is partly qualitative and no single calculation captures it completely. Stability of earnings and cash flows, diversification, access to markets, quality of management, industry conditions and exposure to uncertainty must also be weighed, so good analysis combines quantitative ratios with qualitative judgement.' },
+  { term: 'Supplier Credit', src: 'The right question', def: 'Payables may help finance operations. The diagnostic question is whether the business is overly dependent on supplier credit that could be reduced or withdrawn.' },
+  { term: 'Financial Leverage', src: 'CEO Bonus', formula: 'ROE = ROA x Financial Leverage', def: 'The use of debt rather than equity to finance the assets. As equity becomes a smaller proportion of total financing, the remaining shareholder funds are more highly leveraged, so a headline ROE can be held stable even while ROA declines.' },
+  { term: 'Management Incentive Risk', src: 'CEO Bonus', def: 'The governance risk that executives rewarded for a metric such as ROE have incentives to improve the metric in ways that do not strengthen long-term business performance — optimising the metric rather than the business.' },
+  { term: 'Working Capital', src: 'Working Capital Assessment', formula: 'Working Capital = Short-term Assets - Short-term Liabilities', def: 'Funds committed to the firm’s day-to-day operating cycle: inventory tied up before goods are sold, receivables tied up after a sale, and payables that help finance operations. Its managerial cost is opportunity cost — money tied up here cannot be deployed elsewhere for investment or growth.' },
+  { term: 'Days Inventory', src: 'Working Capital Assessment', formula: 'Days Inventory = Inventory / COGS per day', def: 'How long cash remains tied up in inventory before sale. A rising number may warrant investigation into slow-moving inventory, excess stock or deterioration in inventory quality.' },
+  { term: 'COGS per day', src: 'Working Capital Assessment', formula: 'COGS per day = Annual COGS / 365', def: 'The daily cost-of-goods-sold denominator used to convert inventory and payables balances into days.' },
+  { term: 'Days Receivables', src: 'Working Capital Assessment', formula: 'Days Receivables = Receivables / Revenue per day', def: 'How long customers take to pay after a sale. Longer collection periods may indicate more generous credit policies, weaker collection processes or poorer-quality receivables.' },
+  { term: 'Revenue per day', src: 'Working Capital Assessment', formula: 'Revenue per day = Annual Revenue / 365', def: 'The daily revenue denominator used to convert the receivables balance into days.' },
+  { term: 'Days Payables', src: 'Working Capital Assessment', formula: 'Days Payables = Payables / COGS per day', def: 'How long the business takes to pay suppliers. Supplier credit effectively provides short-term financing for the operating cycle.' },
+  { term: 'Operating Cash Cycle (OCC)', src: 'Working Capital Assessment', formula: 'Operating Cash Cycle = Days Inventory + Days Receivables', def: 'The period from cash going into inventory through to cash being collected from customers, before any allowance for supplier credit.' },
+  { term: 'Funding Gap', src: 'Working Capital Assessment', formula: 'Funding Gap = OCC - Days Payables', def: 'The operating cash cycle adjusted for supplier credit — the period for which the firm must finance its working-capital requirements itself. Divided by 365 it gives the share of annual revenue that must be funded.' },
+  { term: 'Sustainable Growth Rate (SGR)', src: 'Sustainable Growth Part', formula: 'SGR = ROE x Retention Rate', def: 'How quickly a business can grow revenue without issuing new equity or allowing its debt ratios to increase, assuming its underlying financial settings remain broadly unchanged. It is a benchmark, not a maximum growth limit.' },
+  { term: 'Return on Equity (ROE)', src: 'Sustainable Growth Part', formula: 'ROE = Profit After Tax / Beginning Equity', def: 'The return generated on the owners’ investment, measured against the equity the business started the period with. It is the first component of the sustainable growth rate.' },
+  { term: 'Retention Rate', src: 'Sustainable Growth Part', formula: 'Retention Rate = Retained Earnings / Profit', def: 'The proportion of profit kept and reinvested rather than paid out as dividends. It is the second component of the sustainable growth rate.' },
+  { term: 'Growth Above SGR', src: 'Sustainable Growth Part', def: 'Actual growth exceeding the sustainable growth rate. Not automatically bad — it is a signal to investigate how the extra growth was financed or enabled: more debt, new equity, lower dividends, higher margins or better asset utilisation.' },
+  { term: 'Debt / Assets', src: 'Risk Assessment', formula: 'Debt ÷ Assets', def: 'The proportion of assets financed by debt. The general rule of thumb given in the topic is preferably below 50%.' },
+  { term: 'Debt / Equity', src: 'Risk Assessment', formula: 'Debt ÷ Equity', def: 'Debt relative to shareholder financing. The general rule of thumb given in the topic is preferably below 100%.' },
+  { term: 'Interest Cover', src: 'Risk Assessment', formula: 'Interest Cover = EBIT / Interest Expense', def: 'The ability of earnings to service interest, preferably at least 3×. A cover of 3x means the business generates $3 of EBIT for every $1 of interest expense; a higher ratio provides a greater margin of safety if earnings decline.' },
+  { term: 'Financial Risk', src: 'Risk Assessment', def: 'Risk arising from the use of debt financing and the firm’s ability to meet its debt obligations. It is the part of risk that can often be measured — debt ratios, interest cover, and operating cash flow against short-term obligations.' },
+  { term: 'Business Risk', src: 'Risk Assessment', def: 'Risk from the firm’s operating model, industry and competitive environment. Unlike financial risk, many elements cannot be captured by one ratio — customer and supplier concentration, reliance on a major project, revenue diversification, access to funding, asset replacement and asset saleability.' },
+  { term: 'Diversification', src: 'Risk Assessment', def: 'Reduced dependence on any single customer, supplier, product, service, market or project, improving resilience when one part of the business is disrupted. The topic also recognises that specialisation can create expertise, so the issue is avoiding excessive concentration rather than diversifying for its own sake.' },
+  { term: 'Asset Replacement', src: 'Risk Assessment', formula: 'CAPEX vs Depreciation', def: 'Whether management is reinvesting enough to maintain the productive asset base. If depreciation consistently exceeds replacement investment, assets may be ageing without sufficient reinvestment. There is no strict ratio, but the relationship should be monitored over time.' }
 ])
       );
 
@@ -4426,9 +5850,171 @@
         else { noResultsEl.setAttribute('hidden', ''); }
       }
 
-      buildChips(termChipsEl, ['All', BS, PL, CF], function (t) { termTopic = t; filterTerms(); });
+      buildChips(termChipsEl, ['All', BS, PL, CF, AFP], function (t) { termTopic = t; filterTerms(); });
       searchEl.addEventListener('input', filterTerms);
       filterTerms();
+
+      /* ── Acronyms & formulas ──────────────────────────────── */
+      /* Both tabs are a filtered list of .term cards, so they share one
+         renderer with the key-concepts glossary's markup and behaviour. */
+      function buildRef(listId, items, toHtml, emptyMsg) {
+        var listEl = document.getElementById(listId);
+        var countEl = document.getElementById(listId + '-count');
+        var searchEl = document.getElementById(listId + '-search');
+        if (!listEl || !countEl || !searchEl) return;
+
+        listEl.innerHTML = items.map(toHtml).join('') +
+          '<p class="no-results" hidden>' + emptyMsg + '</p>';
+
+        var els = Array.prototype.slice.call(listEl.querySelectorAll('.term'));
+        var noneEl = listEl.querySelector('.no-results');
+        countEl.textContent = items.length + ' of ' + items.length;
+
+        searchEl.addEventListener('input', function () {
+          var q = searchEl.value.trim().toLowerCase();
+          var shown = 0;
+          els.forEach(function (el) {
+            var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+            if (match) { el.removeAttribute('hidden'); shown++; }
+            else { el.setAttribute('hidden', ''); }
+          });
+          countEl.textContent = shown + ' of ' + items.length;
+          if (shown === 0) { noneEl.removeAttribute('hidden'); }
+          else { noneEl.setAttribute('hidden', ''); }
+        });
+      }
+
+      var ACRONYMS = [
+        { abbr: 'CAPEX', long: 'Capital expenditure', def: 'Spending to acquire or improve a non-current asset with benefits extending beyond one accounting period. It is recorded as an asset rather than an immediate expense, and its cost is recognised gradually through depreciation or amortisation.', src: 'Other categories of cost' },
+        { abbr: 'CFFA', long: 'Cash Flow from Financing Activities', def: 'Cash raised from or returned to lenders and owners — borrowings, debt repayments, equity contributions and dividends. It reveals how funds are raised and whether financing decisions are increasing risk.', src: 'Cash related to financing' },
+        { abbr: 'CFIA', long: 'Cash Flow from Investing Activities', def: 'Cash used to buy, or received from selling, long-term assets. It indicates whether the business is maintaining its asset base, expanding capacity, or investing in assets that may generate future revenue.', src: 'Cash related to investments' },
+        { abbr: 'CFOA', long: 'Cash Flow from Operating Activities', def: 'Cash generated or consumed by normal day-to-day operations. It shows whether the core business can fund itself without relying excessively on borrowing or new shareholder funding.', src: 'Operating Cash Flow' },
+        { abbr: 'COGS', long: 'Cost of Goods Sold', def: 'Also called cost of sales — the costs directly tied to producing, purchasing, delivering or selling. It excludes broader operating costs such as corporate administration, HR and some marketing.', src: 'Gross profit & Gross Margin' },
+        { abbr: 'D&A', long: 'Depreciation and amortisation', def: 'The non-cash asset charges that sit between EBITDA and EBIT. EBITDA is sometimes read as operating cash profit because D&A are non-cash.', src: 'Different Levels of Profit' },
+        { abbr: 'EBIT', long: 'Earnings before interest and tax', def: 'Operating profit. Unlike EBITDA it includes depreciation and amortisation, so it counts the cost of consuming operating assets, and it measures performance before financing and tax.', src: 'Different Levels of Profit' },
+        { abbr: 'EBITDA', long: 'earnings before interest, tax, depreciation and amortisation', def: 'Widely used to compare operating performance between firms. It is not cash flow: it ignores receivables, payables, capital expenditure, interest and tax, so strong EBITDA can coexist with cash pressure.', src: 'Different Levels of Profit' },
+        { abbr: 'FCF', long: 'Free Cash Flow', def: 'What remains after operations generate cash and long-term assets are paid for — the cash available to financiers for debt repayment, dividends and buybacks. It is not a statement line item.', src: 'What is free cash flow?' },
+        { abbr: 'GST', long: 'Goods and services tax', def: 'Cash receipts from customers may include GST collected for the government, which is not revenue — one reason receipts and reported revenue differ.', src: 'Operating Cash Flow' },
+        { abbr: 'HR', long: 'Human resources', def: 'Named as an operating expenditure cost, and among the broader operating costs that cost of goods sold excludes.', src: 'Other categories of cost' },
+        { abbr: 'IT', long: 'Information technology', def: 'Named among operating expenditure costs, and cited as a mixed or step cost — IT capacity is stable initially but rises when activity passes a threshold.', src: 'Other categories of cost' },
+        { abbr: 'NPAT', long: 'Net profit after tax', def: 'The final bottom-line profit after all recognised expenses. It may be retained within the business, added to retained earnings, or used to support dividend payments.', src: 'Different Levels of Profit' },
+        { abbr: 'OCC', long: 'Operating Cash Cycle', def: 'How long cash is tied up in inventory and receivables before it is collected. Deducting days payables from it leaves the funding gap the firm must finance itself.', src: 'Operating Cash Cycle' },
+        { abbr: 'OPEX', long: 'Operating expenditure', def: 'Costs of running the wider business — head-office rent, admin salaries, HR and IT, insurance, advertising, utilities, commissions, interest, tax, depreciation, amortisation and impairment. Generally recognised as an expense.', src: 'Other categories of cost' },
+        { abbr: 'P&L', long: 'profit and loss statement', def: 'Reports trading performance over a specific period — a month, quarter or year. The balance sheet shows position at a date; the P&L measures performance over time.', src: 'Overview' },
+        { abbr: 'PPE', long: 'Property, plant and equipment', def: 'In Practice 1 the cost of PPE rose $10m against $10m of depreciation, leaving net book value unchanged at $115m — assets replaced at roughly the rate they are consumed.', src: 'Practice 1' },
+        { abbr: 'R&D', long: 'Research and development', def: 'Named among the costs gross profit must still cover, alongside marketing, administration, interest, tax and any remaining profit for shareholders.', src: 'Gross profit & Gross Margin' },
+        { abbr: 'ROA', long: 'Return on Assets', def: 'Diagnoses the overall effectiveness of assets in generating profit, integrating profitability and asset efficiency into one measure. It tells us the outcome, not why the outcome occurred.', src: 'Returns' },
+        { abbr: 'ROE', long: 'Return on Equity', def: 'The return generated on the owners\' investment in the business. It should not be interpreted without considering how the business is financed, because leverage can raise it without better underlying performance.', src: 'Risks' },
+        { abbr: 'SaaS', long: 'Software as a service', def: 'The recurring-subscription business used as a running example — collecting an annual subscription upfront while recognising the revenue gradually, the unearned amount sitting as a liability.', src: 'Operating Cash Flow' },
+        { abbr: 'SGR', long: 'sustainable growth rate', def: 'How quickly a business can grow revenue without issuing new equity or allowing its debt ratios to increase, assuming its underlying financial settings remain broadly unchanged. A benchmark, not a maximum growth limit.', src: 'Sustainable Growth Part' },
+        { abbr: 'WC', long: 'Working capital', def: 'Used in the Practice 2 waterfall label "Cash before WC movements" — the $24.8m of cash earnings recorded before working capital absorbed $26m.', src: 'Practice 2' }
+      ];
+
+      buildRef('acronyms', ACRONYMS, function (a) {
+        return '<article class="term" data-search="' +
+          escapeHtml((a.abbr + ' ' + a.long + ' ' + a.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' +
+          '<span class="term-abbr">' + escapeHtml(a.abbr) + '</span>' +
+          (a.long ? ' &middot; <span class="term-long">' + escapeHtml(a.long) + '</span>' : '') +
+          '</h3><span class="term-src">' + escapeHtml(a.src) + '</span></div>' +
+          (a.def ? '<p class="term-def">' + escapeHtml(a.def) + '</p>' : '') +
+          '</article>';
+      }, 'No acronyms match that filter.');
+
+      var FORMULAS = [
+        { name: 'The accounting equation', expr: 'Assets = Liabilities + Equity', def: 'The balance sheet is based on the accounting equation, where the left side must balance with the right side.', src: 'Summing up the balance sheet' },
+        { name: 'Woolworths equation check', expr: '$23 Billion = $13 Billion + $10 Billion', def: 'Verification that the two sides of the equation agree: assets of $23 Billion, liabilities of $13 Billion and equity of $10 Billion.', src: 'Why Start with the Balance Sheet?' },
+        { name: 'Equity as net worth', expr: 'Equity = Assets − Liabilities', def: 'Equity is the owners\' residual claim after liabilities are deducted from assets — what it owns less what it owes, the net worth of the company.', src: 'Equity' },
+        { name: 'Carrying value', expr: 'Carrying Value = Original Asset Cost − Accumulated Depreciation', def: 'The remaining balance of an asset, also called book value. It is an accounting amount and may not equal the asset\'s current market value.', src: 'Non-Current Assets & Depreciation' },
+        { name: 'Goodwill on acquisition', expr: 'Goodwill = Purchase Price − Fair value of identifiable net assets', def: 'The premium paid above the fair value of the acquired identifiable net assets, recorded on the buyer\'s balance sheet.', src: 'Goodwill' },
+        { name: 'Warranty provision estimate', expr: 'Warranty provision = $100 million × 3% = $3 million', def: 'Annual sales of $100 million with a historical claim rate of 3% give a $3 million liability, even though the exact claims and payment dates are unknown.', src: 'Liabilities' },
+        { name: 'Retained earnings roll-forward', expr: 'Closing retained earnings = Opening retained earnings + Profit − Dividends', def: 'Profit raises retained earnings; losses and dividends reduce them. Retention funds growth without new debt or equity.', src: 'Equity' },
+        { name: 'Profit', expr: 'Profit = Revenue − Expenses', def: 'The core formula of the P&L. Profit occurs when revenue exceeds expenses; a loss occurs when expenses exceed revenue.', src: 'Overview' },
+        { name: 'Cash-basis profit', expr: 'Cash-basis profit = Cash received from revenue − Cash paid for expenses', def: 'Records revenue when cash is received and expenses when cash is paid. It can distort performance by recording revenue and its related costs in different periods.', src: 'Accrual Accounting' },
+        { name: 'Accrual profit', expr: 'Accrual profit = Revenue earned − Expenses incurred', def: 'Records revenue when earned and expenses when resources are consumed or obligations incurred. Payment timing affects cash flow, but not the measurement of profit.', src: 'Accrual Accounting' },
+        { name: 'Allocating a cost to a period', expr: 'Period expense = Estimated total cost × Proportion allocated to the period', def: 'Some expenses need management to estimate how much was consumed, which period benefited, and how a total cost should be spread.', src: 'Assumptions on Expenses' },
+        { name: 'Annual depreciation, four-year life', expr: 'Annual depreciation = $120,000 / 4 years = $30,000', def: 'Servers bought for $120,000 and expected to support subscriptions for four years.', src: 'Assumptions on Expenses' },
+        { name: 'Annual depreciation, three-year life', expr: '$120,000 / 3 years = $40,000', def: 'If rapid obsolescence means the same servers are useful for only three years, the annual expense rises — the assumption changes reported profit even though the cash payment is unchanged.', src: 'Assumptions on Expenses' },
+        { name: 'Cash received against revenue', expr: 'Cash received = Revenue earned + Unearned revenue', def: 'Where a customer pays before delivery, cash is recorded as an asset and unearned revenue as a liability — the obligation to deliver in the future.', src: 'Assumptions on Revenue' },
+        { name: 'Bundled support revenue', expr: 'Support revenue recognised = $800 / 2 = $400', def: 'Enterprise hardware plus a two-year support package sells for a combined $8000, support valued at $800. Hardware revenue of $7200 is recognised immediately; the $800 starts as a liability.', src: 'Assumptions on Revenue' },
+        { name: 'Percentage of completion', expr: 'Percentage completed = Costs incurred / Total estimated costs', def: 'Long-term project revenue may be recognised progressively rather than on completion, with completion estimated from costs incurred.', src: 'Assumptions on Revenue' },
+        { name: 'Revenue on a long-term contract', expr: 'Revenue recognised = Contract value × Percentage completed', def: 'Understated cost estimates make a project look further advanced and pull revenue forward.', src: 'Assumptions on Revenue' },
+        { name: 'Worked completion example', expr: '$450,000 / $900,000 = 50% complete', def: 'A $1 million contract with $900,000 estimated costs and $450,000 incurred. Management still judges total project costs, work completed, future overruns and whether the obligation is satisfied.', src: 'Assumptions on Revenue' },
+        { name: 'Gross profit', expr: 'Gross profit = Revenue − Cost of goods sold', def: 'The profit remaining after the direct costs of generating revenue. It measures product profitability before broader operating costs.', src: 'Gross profit & Gross Margin' },
+        { name: 'Gross margin', expr: 'Gross margin = Gross profit / Revenue × 100', def: 'Expresses gross profit as a percentage of revenue, so profitability can be compared across firms and periods of different sizes.', src: 'Gross profit & Gross Margin' },
+        { name: 'EBITDA', expr: 'EBITDA = Gross profit − OPEX excluding depreciation and amortisation', def: 'Operating earnings before non-cash asset expenses. Useful for comparing operating performance, but not the same as cash flow.', src: 'Different Levels of Profit' },
+        { name: 'EBIT', expr: 'EBIT = EBITDA − Depreciation − Amortisation', def: 'Operating performance after asset consumption. It measures performance before financing and tax, which suits comparing companies with similar operations but different debt.', src: 'Different Levels of Profit' },
+        { name: 'Profit before tax', expr: 'Profit before tax = EBIT − Interest expense', def: 'Profit after financing costs. A large difference between EBIT and profit before tax may indicate substantial debt-servicing costs.', src: 'Different Levels of Profit' },
+        { name: 'Net profit after tax', expr: 'Net profit after tax = Profit before tax − Tax', def: 'The final bottom-line profit after all recognised expenses.', src: 'Different Levels of Profit' },
+        { name: 'Comprehensive income', expr: 'Comprehensive income = NPAT + Other comprehensive income', def: 'Extends the P&L with gains or losses that change equity without being trading profit — generally movements in asset values or exchange rates rather than completed transactions.', src: 'Comprehensive Income' },
+        { name: 'Vertical analysis of an expense', expr: 'Expense percentage = Expense / Revenue × 100', def: 'States each item as a percentage of revenue: COGS at 71% of revenue means about 71 cents of every sales dollar goes to direct cost.', src: 'Analysing a Profit and Loss Statement' },
+        { name: 'Profit margin on revenue', expr: 'Profit margin = Profit measure / Revenue × 100', def: 'Any profit level stated as a percentage of revenue, so gross, EBITDA, EBIT and NPAT margins can be tracked over several periods.', src: 'Analysing a Profit and Loss Statement' },
+        { name: 'Interest cover', expr: 'Interest cover = EBIT / Net interest expense', def: 'Whether operating profit is sufficient to meet interest obligations. A declining ratio may indicate increasing financial risk even when the company remains profitable.', src: 'Analysing a Profit and Loss Statement' },
+        { name: 'Woolworths interest cover', expr: 'Interest cover = $2.3bn / $0.2bn = approximately 11.5 times', def: 'EBIT of approximately $2.3bn against net interest expense of approximately $200m — substantially more operating profit than required to meet interest expense.', src: 'Analysing a Profit and Loss Statement' },
+        { name: 'The three buckets', expr: 'CFOA + CFIA + CFFA = Net change in cash', def: 'Every line of the statement lands in one of three buckets, and the three buckets must add to the movement in the cash balance.', src: 'Insights gained from cash flow statements' },
+        { name: 'Operating cash flow build-up', expr: 'CFOA = Cash received from customers − cash paid to suppliers and employers − interest paid + interest received − income tax paid', def: 'Measures cash from day-to-day operations — whether the core business funds itself without leaning on borrowing or new shareholder money.', src: 'Operating Cash Flow' },
+        { name: 'Profit-to-cash reconciliation', expr: 'Profit after tax + Non-cash expenses ± Working capital movements = Operating cash flow', def: 'Non-cash expenses cut profit but not cash, so they are added back. Working capital, by contrast, absorbs operating cash.', src: 'Operating Cash Flow' },
+        { name: 'Asset replacement ratio', expr: 'Asset replacement ratio = Capital expenditure / Depreciation Expense', def: 'Approximately 1.0 suggests assets are replaced at roughly the rate they depreciate; consistently above 1.0 suggests expansion; consistently below 1.0 suggests underinvestment. Assess over three to four years.', src: 'Cash related to investments' },
+        { name: 'Financing cash flow example', expr: '$120m inflow − $350m dividends = −$230m', def: 'The dividend was funded by $200m from operating cash flow, $120m from new debt or equity, and $30m from existing cash reserves.', src: 'Cash related to financing' },
+        { name: 'Operating cash conversion', expr: 'Operating cash conversion = CFOA / Cash receipts from customers', def: 'How much operating cash is generated per dollar received from customers — approximately 5% for Woolworths and 16% for Qantas.', src: 'Telling a cash flow story' },
+        { name: 'Free cash flow', expr: 'Free cash flow = Cash flow from operating activities + Cash flow from investing activities', def: 'What remains after operations generate cash and long-term assets are paid for — the cash available to financiers.', src: 'What is free cash flow?' },
+        { name: 'Free cash flow, second form', expr: 'FCF = Operating Cash Flow − Net Investment Expenditure', def: 'The same relationship stated as operating cash less what had to be reinvested in long-term assets.', src: 'What is free cash flow?' },
+        { name: 'Woolworths free cash flow', expr: '$3.1bn CFOA + (−$1.4bn CFIA) = $1.7bn FCF', def: 'Woolworths generated $3.1bn of operating cash and invested $1.4bn, leaving $1.7bn of free cash flow against a $0.5bn dividend.', src: 'What is free cash flow?' },
+        { name: 'Dividend coverage', expr: 'FCF compared with dividends paid', def: 'FCF above dividends means distributions are internally supported; FCF below means debt, equity or reserves are filling the gap, and repeated shortfalls suggest an unsustainable dividend policy.', src: 'What is free cash flow?' },
+        { name: 'Cash absorbed by working capital', expr: 'Cash absorbed by working capital = $16m + $10m = $26m', def: 'Receivables and inventory increased by $16m while payables decreased by $10m, so working capital absorbed $26m of cash.', src: 'Practice 1' },
+        { name: 'Increase in retained earnings', expr: 'Increase in retained earnings = Profit after tax − Dividends = $14.8m − $10.0m = $4.8m', def: 'Cash rose $2m, but through borrowing rather than cash generation — dividends are draining internal finance.', src: 'Practice 1' },
+        { name: 'Practice 2 free cash flow', expr: '−$1.2m operating cash flow − $10.0m investment = −$11.2m FCF', def: 'The company reports profit while core operations consume cash, leaving negative free cash flow before any distribution.', src: 'Practice 2' },
+        { name: 'Total funding requirement', expr: '$11.2m + $10.0m dividends = $21.2m total funding requirement', def: 'Adding the dividend to the free cash flow shortfall gives the amount that had to be financed externally.', src: 'Practice 2' },
+        { name: 'Why cash still rose', expr: '$23.2m new long-term debt − $21.2m shortfall = $2.0m added to the bank balance', def: 'The rise in cash was not performance — the company simply borrowed more than it immediately spent.', src: 'Practice 2' },
+        { name: 'Working capital', expr: 'Working capital = Current assets − Current liabilities', def: 'The current assets of the business less its current liabilities. A longer operating cash cycle generally means more cash is required to support day-to-day operations.', src: 'Operating Cash Cycle' },
+        { name: 'Operating cash cycle', expr: 'Operating cash cycle = Days inventory + Days receivables', def: 'How long cash sits in inventory and receivables before collection, and so how well working capital is managed. A longer cycle needs more cash to run the business.', src: 'Operating Cash Cycle' },
+        { name: 'Days inventory', expr: 'Days inventory = Inventory / (Cost of goods sold / 365)', def: 'The average hold before sale. In services, work in progress behaves like inventory, since time is committed before payment.', src: 'Operating Cash Cycle' },
+        { name: 'Days receivables', expr: 'Days receivables = Accounts receivable / (Revenue / 365)', def: 'The average wait for payment after a sale.', src: 'Operating Cash Cycle' },
+        { name: 'Days payables', expr: 'Days payables = Accounts payable / (Cost of goods sold / 365)', def: 'Suppliers finance part of the cycle: higher days payable keeps cash longer, lower days payable demands more internal cash or debt.', src: 'Operating Cash Cycle' },
+        { name: 'Funding gap', expr: 'Funding gap = Operating cash cycle − Days payables', def: 'Everything past supplier credit terms the business has to fund itself.', src: 'Operating Cash Cycle' },
+        { name: 'Worked operating cash cycle', expr: 'Operating cash cycle = 47 + 38 = 85 days', def: 'Previous period: inventory held 47 days and receivables a further 38 days.', src: 'Operating Cash Cycle' },
+        { name: 'Worked funding gap', expr: '85 days OCC − 35 days payables = 50-day funding gap', def: 'Suppliers financed the first 35 days, leaving a 50-day gap the business had to finance itself. In the current period the gap rose to 102 days.', src: 'Operating Cash Cycle' },
+        { name: 'Asset utilisation', expr: 'Asset utilisation = Revenue / Assets', def: 'How effectively assets generate revenue. Improving it means making the assets work harder — generating more revenue from the existing asset base.', src: 'Returns' },
+        { name: 'Profit margin', expr: 'Profit margin = Profit / Revenue', def: 'How effectively revenue is converted into profit. It improves through better pricing, product mix or cost efficiency.', src: 'Returns' },
+        { name: 'Return on assets', expr: 'ROA = Profit / Assets', def: 'The overall effectiveness of assets in generating profit, integrating profitability and asset efficiency into one measure.', src: 'Returns' },
+        { name: 'ROA decomposition', expr: 'ROA = Asset Utilisation x Profit Margin', def: 'ROA tells us the outcome; asset utilisation and margin help explain why that outcome occurred. A high-margin, asset intensive business may produce the same ROA as a lower-margin business with very efficient utilisation.', src: 'Returns' },
+        { name: 'Working capital, short-term form', expr: 'Working Capital = Short-term Assets - Short-term Liabilities', def: 'Funds committed to the day-to-day operations of the business. Necessary to operate, but excessive amounts tie up cash that could be invested elsewhere.', src: 'Cash' },
+        { name: 'CFOA margin', expr: 'CFOA / revenue', def: 'How much operating cash is generated from each dollar of revenue — a 10% margin is $0.10 per $1, a 6% margin is $0.06. A lower ratio may indicate revenue growth is not translating efficiently into cash.', src: 'Cash' },
+        { name: 'Profit against cash', expr: 'Accounting Profit vs CFOA', def: 'A profitable business can still experience cash pressure, so profit and CFOA must be compared. If CFOA << Profit, investigate where cash is being absorbed.', src: 'Cash' },
+        { name: 'The ratio question chain', expr: 'What is the ratio ? → Why is it at that level ? → Is it sustainable? → What risks sit behind it?', def: 'Ratios are diagnostic tools, not final answers. A favourable ratio may hide a future weakness, while an unfavourable ratio may have a reasonable explanation.', src: 'The right question' },
+        { name: 'Return against requirement', expr: 'Actual Return should be assessed against Required Return', def: 'If shareholders require a 20% return for the risk they are taking but the business generates only 19%, the return may look high in isolation but still be insufficient relative to risk.', src: 'The right question' },
+        { name: 'ROE and leverage', expr: 'ROE = ROA x Financial Leverage', def: 'As equity becomes a smaller proportion of total financing, the headline ROE can look healthy even while the business becomes less efficient and more risky.', src: 'CEO Bonus' },
+        { name: 'Days inventory', expr: 'Days Inventory = Inventory / COGS per day', def: 'How long cash remains tied up in inventory before sale. A rising number may warrant investigation into slow-moving inventory, excess stock or deterioration in inventory quality.', src: 'Working Capital Assessment' },
+        { name: 'COGS per day', expr: 'COGS per day = Annual COGS / 365', def: 'The daily cost-of-goods-sold denominator used to convert inventory and payables balances into days.', src: 'Working Capital Assessment' },
+        { name: 'Days receivables', expr: 'Days Receivables = Receivables / Revenue per day', def: 'How long customers take to pay after a sale. Longer collection periods may indicate more generous credit policies, weaker collection processes or poorer-quality receivables.', src: 'Working Capital Assessment' },
+        { name: 'Revenue per day', expr: 'Revenue per day = Annual Revenue / 365', def: 'The daily revenue denominator used to convert the receivables balance into days.', src: 'Working Capital Assessment' },
+        { name: 'Days payables', expr: 'Days Payables = Payables / COGS per day', def: 'How long the business takes to pay suppliers. Supplier credit effectively provides short-term financing for the operating cycle.', src: 'Working Capital Assessment' },
+        { name: 'Operating cash cycle', expr: 'Operating Cash Cycle = Days Inventory + Days Receivables', def: 'The period from cash going into inventory through to cash being collected from customers, before any allowance for supplier credit.', src: 'Working Capital Assessment' },
+        { name: 'Funding gap', expr: 'Funding Gap = OCC - Days Payables', def: 'The operating cash cycle adjusted for supplier credit — the period the firm must finance itself.', src: 'Working Capital Assessment' },
+        { name: 'Gap as a share of revenue', expr: 'Funding Gap / 365', def: 'Translates the gap in days into a funding requirement expressed as a share of annual revenue.', src: 'Working Capital Assessment' },
+        { name: 'Worked share of revenue', expr: '103 / 365 = ~28%', def: 'Roughly 28% of annual revenue may need to be funded to support the working-capital gap — for every $100 of revenue, approximately $28 of funding may be required.', src: 'Working Capital Assessment' },
+        { name: 'Interest cost of the gap', expr: '$28m x 10% = $2.8m', def: 'Annual interest cost of carrying the working-capital gap when $28 million is financed at a 10% cost of funds.', src: 'Working Capital Assessment' },
+        { name: 'Sustainable growth rate', expr: 'SGR = ROE x Retention Rate', def: 'How quickly a business can grow revenue without issuing new equity or allowing its debt ratios to increase, assuming its underlying financial settings remain broadly unchanged.', src: 'Sustainable Growth Part' },
+        { name: 'ROE for the SGR', expr: 'ROE = Profit After Tax / Beginning Equity', def: 'The return on the owners\' investment measured against the equity the business started the period with — the first component of the sustainable growth rate.', src: 'Sustainable Growth Part' },
+        { name: 'Retention rate', expr: 'Retention Rate = Retained Earnings / Profit', def: 'The proportion of profit kept and reinvested rather than paid out as dividends — the second component of the sustainable growth rate.', src: 'Sustainable Growth Part' },
+        { name: 'Worked sustainable growth rate', expr: 'SGR = 50%x50% = 25%', def: 'The business can grow revenue by approximately 25% financed through retained earnings and proportionate debt, without issuing new equity or increasing its debt-to-equity ratio.', src: 'Sustainable Growth Part' },
+        { name: 'Debt to assets', expr: 'Debt ÷ Assets', def: 'The proportion of assets financed by debt. The general rule of thumb given in the topic is preferably below 50%.', src: 'Risk Assessment' },
+        { name: 'Debt to equity', expr: 'Debt ÷ Equity', def: 'Debt relative to shareholder financing. The general rule of thumb given in the topic is preferably below 100%.', src: 'Risk Assessment' },
+        { name: 'Interest cover, ratio table', expr: 'EBIT ÷ Interest Expense', def: 'The ability of earnings to service interest, preferably at least 3×.', src: 'Risk Assessment' },
+        { name: 'Interest cover', expr: 'Interest Cover = EBIT / Interest Expense', def: 'A cover of 3x means the business generates $3 of EBIT for every $1 of interest expense. A higher ratio provides a greater margin of safety if earnings decline.', src: 'Risk Assessment' },
+        { name: 'Short-term cash risk', expr: 'Cash Flow from Operations vs Current Liabilities', def: 'Debt ratios alone do not show whether the firm has enough cash to meet obligations. If operating cash flow is insufficient, the business may need more debt, cash reserves or asset sales.', src: 'Risk Assessment' },
+        { name: 'Asset replacement', expr: 'CAPEX vs Depreciation', def: 'If depreciation consistently exceeds replacement investment, assets may be ageing without sufficient reinvestment. There is no strict ratio, but the relationship should be monitored over time.', src: 'Risk Assessment' }
+      ];
+
+      buildRef('formulas', FORMULAS, function (f) {
+        return '<article class="term" data-search="' +
+          escapeHtml((f.name + ' ' + f.expr + ' ' + f.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' + escapeHtml(f.name) + '</h3>' +
+          '<span class="term-src">' + escapeHtml(f.src) + '</span></div>' +
+          '<div class="term-formula">' + escapeHtml(f.expr) + '</div>' +
+          (f.def ? '<p class="term-def">' + escapeHtml(f.def) + '</p>' : '') +
+          '</article>';
+      }, 'No formulas match that filter.');
 
       /* ── Flashcards ───────────────────────────────────────── */
       var CARDS = [].concat(
@@ -4525,6 +6111,66 @@
   { q: 'Give the operating cash cycle, the funding gap, and the three day-count formulas.', a: 'Operating cash cycle = days inventory + days receivables. Funding gap = operating cash cycle − days payables. Days inventory = Inventory / (Cost of goods sold / 365). Days receivables = Accounts receivable / (Revenue / 365). Days payables = Accounts payable / (Cost of goods sold / 365).' },
   { q: 'In the operating cash cycle case, what were the previous-period figures and what happened?', a: 'Days inventory 47, days receivables 38, operating cash cycle 85, days payables 35, funding gap 50. Inventory rose by 12 days, receivables by 17 days, the cycle by 29 days, payables fell to 11 days, and the funding gap increased to 102 days — approximately 52 additional days of financing.' },
   { q: 'What can a business do about a growing funding gap?', a: 'Borrow additional funds, use existing cash reserves, renegotiate supplier terms, improve customer collections, or reduce excess inventory. Additional borrowing also creates interest costs, affecting both profit and cash flow.' }
+]),
+        tag(AFP, [
+  { q: 'Why can’t raw revenue, profit and asset values determine financial performance?', a: 'Because they ignore the resources required to generate those outcomes.' },
+  { q: 'Give the formula for asset utilisation and say what it diagnoses.', a: 'Revenue / Assets — how effectively assets generate revenue.' },
+  { q: 'Give the formula for profit margin and say what it diagnoses.', a: 'Profit / Revenue — how effectively revenue is converted into profit.' },
+  { q: 'Give the formula for return on assets and say what it diagnoses.', a: 'Profit / Assets — the overall effectiveness of assets in generating profit.' },
+  { q: 'Decompose ROA into its two drivers.', a: 'ROA = Asset Utilisation x Profit Margin.' },
+  { q: 'What does ROA tell you, and what do its two components add?', a: 'ROA tells us the outcome; asset utilisation and margin help explain why that outcome occurred.' },
+  { q: 'Name the two broad mechanisms for improving return on assets.', a: 'Make assets work harder — more revenue from the existing asset base, raising asset utilisation. Or earn more from each dollar of revenue — better pricing, product mix or cost efficiency, raising profit margin.' },
+  { q: 'Can two businesses with similar ROA have very different operating models?', a: 'Yes. A high-margin, asset intensive business may produce the same ROA as a lower-margin business with very efficient asset utilisation.' },
+  { q: 'Give the software company example of why decomposition matters.', a: 'Strong margins because incremental software sales have relatively low costs, but weak asset utilisation after a large acquisition increases the asset base. Even if profit grows, ROA may fail if the additional assets do not generate enough incremental revenue and profit.' },
+  { q: 'Is a larger company a better-performing company?', a: 'Not necessarily — not simple because it has more assets, higher revenue or greater absolute profit. Ask how effectively it generates earnings from the resources committed to it.' },
+  { q: 'What does return on equity measure?', a: 'The return generated on the owners’ investment in the business.' },
+  { q: 'How can a business raise ROE without improving the underlying business?', a: 'By financing more of its assets with debt rather than equity, so less equity supports the same business. The higher return may result from financial leverage rather than superior profitability or asset efficiency.' },
+  { q: 'Where does financial risk come from?', a: 'From the financing structure of the business, particularly the use of debt. Debt creates obligations that remain even when business performance deteriorates.' },
+  { q: 'Where does business risk come from, and what does it reflect?', a: 'From the underlying operations and industry rather than financing choices. It reflects the stability and predictability of earnings.' },
+  { q: 'Which business is better positioned to carry debt, and why?', a: 'One with stable cash flows and low business risk, because it has greater certainty about its ability to service that debt. A business with highly uncertain earnings has less capacity to safely take on substantial leverage.' },
+  { q: 'A company shows a relatively weak ROA but a relatively strong ROE. What does that suggest?', a: 'Debt financing may be increasing the return attributable to a smaller equity base. It is a warning sign to investigate leverage and financial risk, not evidence of superior performance.' },
+  { q: 'Give the working capital formula and say what it represents.', a: 'Working Capital = Short-term Assets - Short-term Liabilities. It represents funds committed to the day-to-day operations of the business.' },
+  { q: 'Why is excessive working capital a problem?', a: 'It ties up cash that could otherwise be invested elsewhere, so it has an opportunity cost. The issue is not how much exists, but how efficiently it is managed and converted back into cash.' },
+  { q: 'What is CFOA and how does it differ from accounting profit?', a: 'Cash flow from operating activities shows the cash generated by the core operations. Unlike accounting profit, it reflects actual cash movement.' },
+  { q: 'A business has a CFOA margin of 10%. What does that mean, and what would 6% mean?', a: '$0.10 of operating cash per $1 of revenue; at 6%, $0.06 per $1. A lower ratio may indicate revenue growth is not translating efficiently into cash.' },
+  { q: 'CFOA is far below profit. What should be investigated?', a: 'Where the cash is being absorbed — increasing inventory, customers taking longer to pay, greater amounts of credit being extended to customers, or other working-capital requirements.' },
+  { q: 'State the distinction between profit and operating cash flow.', a: 'Profit measures economic performance; operating cash flow reveals whether that performance is actually producing cash.' },
+  { q: 'State the four-step question chain for reading a ratio.', a: 'What is the ratio ? → Why is it at that level ? → Is it sustainable? → What risks sit behind it?' },
+  { q: 'Asset utilisation looks strong. What is the right question?', a: 'Are assets being maintained and replaced adequately, or is performance being boosted by an ageing/depreciated asset base.' },
+  { q: 'Shareholders require 20% and the business generates 19%. How is that read?', a: 'The return may look high in isolation but may still be insufficient relative to risk. Actual return should be assessed against required return.' },
+  { q: 'Why can business risk not be reduced to a ratio?', a: 'It is partly qualitative — no single calculation captures stability of earnings, diversification, access to markets, management capability, industry conditions and exposure to uncertainty. Good analysis combines quantitative ratios with qualitative judgement.' },
+  { q: 'State the five steps of the diagnostic process.', a: 'Observe the ratio, diagnose the driver, assess risk, test sustainability, and compare with required performance.' },
+  { q: 'What is the purpose of financial analysis?', a: 'Not simply to identify the company with the highest ratio. A good analyst sues ratios to generate better questions, then combines profitability, asset efficiency, leverage, risk and cash-flow evidence to form an overall judgement of financial health.' },
+  { q: 'The CEO argues for a bonus because ROE has remained constant, despite profits failing during a difficult trading period. What is the first question to ask?', a: 'Was ROE maintained through stronger underlying performance, or through increased financial leverage?' },
+  { q: 'In the CEO bonus case, what do asset utilisation, profit margin, ROA, ROE and leverage each do?', a: 'Asset utilisation, profit margin and ROA all decline; ROE is stable; leverage increases.' },
+  { q: 'Write the relationship that lets a stable ROE sit on a declining ROA.', a: 'ROE = ROA x Financial Leverage. A rising leverage multiplier offsets a falling ROA.' },
+  { q: 'Why is increasing debt to hold ROE up a warning sign?', a: 'It does not repair weak operating performance. It masks deterioration while increasing interest obligations, repayment commitments, exposure to downturns and financial risk.' },
+  { q: 'On the information given, what does the maintained ROE actually reflect?', a: 'Financial engineering through leverage rather than improved operating performance.' },
+  { q: 'What broader governance issue does the CEO bonus example raise?', a: 'If executives are rewarded for a metric such as ROE, they may have incentives to improve the metric in ways that do not strengthen long-term business performance.' },
+  { q: 'Define working capital and name its three typical components.', a: 'Working Capital = Short-term Assets - Short-term Liabilities. Components: inventory, receivables and payables.' },
+  { q: 'Why does working capital have a cost even when it is fully funded?', a: 'Opportunity cost — money tied up in working capital cannot be deployed elsewhere for investment or growth.' },
+  { q: 'Give the formula for days in inventory and its denominator.', a: 'Days Inventory = Inventory / COGS per day, where COGS per day = Annual COGS / 365.' },
+  { q: 'Give the formula for days in receivables and its denominator.', a: 'Days Receivables = Receivables / Revenue per day, where Revenue per day = Annual Revenue / 365.' },
+  { q: 'Give the formula for days in payables.', a: 'Days Payables = Payables / COGS per day.' },
+  { q: 'What is the operating cash cycle, and what is the funding gap?', a: 'Operating Cash Cycle = Days Inventory + Days Receivables. Funding Gap = OCC - Days Payables.' },
+  { q: 'The funding gap is 103 days. What share of annual revenue may need funding?', a: '103 / 365 = ~28%. Roughly 28% of annual revenue may need to be funded — about $28 for every $100 of revenue.' },
+  { q: 'If $28 million of working-capital funding is financed at 10%, what is the annual interest cost?', a: '$28m x 10% = $2.8m of annual interest cost.' },
+  { q: 'The funding gap has increased. Which components should you check?', a: 'An increase in inventory days, an increase in receivable days, or a decrease in payable days.' },
+  { q: 'Why does reducing the funding gap create value?', a: 'It releases cash and improves value without requiring additional revenue growth — lower borrowing, lower interest expense and less pressure on liquidity.' },
+  { q: 'What does the sustainable growth rate estimate?', a: 'How quickly a business can grow revenue without issuing new equity or allowing its debt ratios to increase, assuming its underlying financial settings remain broadly unchanged.' },
+  { q: 'State the sustainable growth rate formula and its two components.', a: 'SGR = ROE x Retention Rate, where ROE = Profit After Tax / Beginning Equity and Retention Rate = Retained Earnings / Profit.' },
+  { q: 'ROE is 50% and the retention rate is 50%. What is the SGR, and what does it mean?', a: 'SGR = 50%x50% = 25%. The business can grow revenue by approximately 25% financed through retained earnings and proportionate debt, without issuing new equity or increasing its debt-to-equity ratio.' },
+  { q: 'What does SGR assume stays constant?', a: 'ROE, the dividend payout / retention policy, the debt-to-equity relationship and the underlying operating structure.' },
+  { q: 'Actual growth exceeds SGR. Is that bad?', a: 'Not automatically. It means the analyst should investigate how the extra growth was financed or enabled.' },
+  { q: 'Which explanation for growth above SGR is the strongest, and why?', a: 'Improved asset utilisation — revenue growing faster than assets, so additional sales are supported without an equivalent increase in assets and financing.' },
+  { q: 'Name the three key financial risk ratios and their rules of thumb from the topic.', a: 'Debt ÷ Assets preferably < 50%; Debt ÷ Equity preferably < 100%; EBIT ÷ Interest Expense preferably ≥ 3×.' },
+  { q: 'What does an interest cover of 3x mean in dollars?', a: 'The business generates $3 of EBIT for every $1 of interest expense.' },
+  { q: 'What might a failing interest cover signal?', a: 'Increasing debt costs, weakening profitability, or declining capacity to service borrowing.' },
+  { q: 'Debt ratios look fine. Why is that not enough?', a: 'They do not show whether the firm has enough cash. Compare cash flow from operations with current liabilities — annual CFOA should comfortably support short-term liabilities.' },
+  { q: 'Name three sources of business risk from the topic.', a: 'Any three of: key customer dependence, key supplier dependence, reliance on a major project, low revenue diversification, limited access to funding, poor asset replacement, low asset saleability.' },
+  { q: 'What comparison tests whether management is underinvesting in the asset base?', a: 'CAPEX vs Depreciation. If depreciation consistently exceeds replacement investment, assets may be ageing without sufficient reinvestment.' },
+  { q: 'Why can the same debt ratio be safe for one firm and excessive for another?', a: 'The same financial ratio can imply different levels of risk depending on the business model — a stable, predictable business can carry debt that would be excessive for a highly cyclical or volatile one.' },
+  { q: 'What is the central insight of the risk assessment topic?', a: 'Financial health depends not only on the return being generated, but on how much risk the business must carry to generate and sustain that return.' }
 ])
       );
 
@@ -4601,7 +6247,7 @@
         render();
       });
 
-      buildChips(cardChipsEl, ['All', BS, PL, CF], function (t) { deckTopic = t; rebuildDeck(); });
+      buildChips(cardChipsEl, ['All', BS, PL, CF, AFP], function (t) { deckTopic = t; rebuildDeck(); });
 
       document.addEventListener('keydown', function (e) {
         var panel = document.getElementById('panel-cards');

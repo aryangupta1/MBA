@@ -377,6 +377,14 @@
       letter-spacing: 0.02em;
       opacity: 0.55;
     }
+
+    /* Six tabs do not fit one row on a phone, and .tablist hides its scrollbar,
+       so on narrow screens the row wraps and the decorative numbers step aside. */
+    @media (max-width: 700px) {
+      .tablist { flex-wrap: wrap; border-radius: var(--radius-lg); }
+      .tab { padding: 9px 14px; font-size: 0.82rem; }
+      .tab-num { display: none; }
+    }
     .tab[aria-selected="true"] {
       background: var(--surface);
       color: var(--ink);
@@ -806,6 +814,10 @@
       color: var(--accent-deep);
       overflow-x: auto;
     }
+    /* ── Acronym headings (Acronyms tab; everything else reuses .term) ─── */
+    .term-abbr { font-family: var(--font-mono); font-weight: 700; color: var(--accent-deep); }
+    .term-long { font-weight: 500; color: var(--ink2); }
+
     .no-results { padding: 26px; text-align: center; color: var(--ink3); }
 
     /* ── Flashcards ────────────────────────────────────────────────────── */
@@ -1233,6 +1245,8 @@
         data-panel="terms" tabindex="-1"><span class="tab-num" aria-hidden="true">02</span>Key concepts</button>
       <button class="tab" id="tab-cards" role="tab" aria-selected="false" aria-controls="panel-cards"
         data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
+      <button class="tab" id="tab-acronyms" role="tab" aria-selected="false" aria-controls="panel-acronyms"
+        data-panel="acronyms" tabindex="-1"><span class="tab-num" aria-hidden="true">04</span>Acronyms</button>
     </div>
   </nav>
 
@@ -2388,6 +2402,24 @@
         </div>
       </div>
     </section>
+
+    <!-- ══════════════════ 04 · ACRONYMS ══════════════════ -->
+    <section class="panel" id="panel-acronyms" role="tabpanel" aria-labelledby="tab-acronyms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">04 / Shorthand</span>
+        <h2>Acronyms &amp; abbreviations</h2>
+        <p>Every abbreviation this week uses, expanded. My notes never spell any of these out, so the expansions here are the standard ones; where the notes say nothing about what the thing actually is, the entry gives the expansion and stops rather than inventing a definition.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="acronyms-search">Filter acronyms</label>
+          <input class="search" id="acronyms-search" type="search" placeholder="Filter &mdash; try &ldquo;HECS&rdquo; or &ldquo;SaaS&rdquo;"
+            autocomplete="off">
+          <span class="count" id="acronyms-count" aria-live="polite">5 of 5</span>
+        </div>
+
+        <div class="glossary" id="acronyms"></div>
+      </div>
+    </section>
   </main>
 
   <footer class="page-foot">
@@ -2537,6 +2569,55 @@
         if (shown === 0) { noResultsEl.removeAttribute('hidden'); }
         else { noResultsEl.setAttribute('hidden', ''); }
       });
+
+      /* ── Acronyms & formulas ──────────────────────────────── */
+      /* Both tabs are a filtered list of .term cards, so they share one
+         renderer with the key-concepts glossary's markup and behaviour. */
+      function buildRef(listId, items, toHtml, emptyMsg) {
+        var listEl = document.getElementById(listId);
+        var countEl = document.getElementById(listId + '-count');
+        var searchEl = document.getElementById(listId + '-search');
+        if (!listEl || !countEl || !searchEl) return;
+
+        listEl.innerHTML = items.map(toHtml).join('') +
+          '<p class="no-results" hidden>' + emptyMsg + '</p>';
+
+        var els = Array.prototype.slice.call(listEl.querySelectorAll('.term'));
+        var noneEl = listEl.querySelector('.no-results');
+        countEl.textContent = items.length + ' of ' + items.length;
+
+        searchEl.addEventListener('input', function () {
+          var q = searchEl.value.trim().toLowerCase();
+          var shown = 0;
+          els.forEach(function (el) {
+            var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+            if (match) { el.removeAttribute('hidden'); shown++; }
+            else { el.setAttribute('hidden', ''); }
+          });
+          countEl.textContent = shown + ' of ' + items.length;
+          if (shown === 0) { noneEl.removeAttribute('hidden'); }
+          else { noneEl.setAttribute('hidden', ''); }
+        });
+      }
+
+      var ACRONYMS = [
+        { abbr: 'AI', long: 'Artificial intelligence', def: 'A possible enabler, not automatically the correct solution. It should be included only where discovery and validation show it improves the customer experience or business model, and should support qualified advisers rather than operate as an uncontrolled substitute for professional judgement.', src: 'Your project with StellarCX' },
+        { abbr: 'Gen Z', long: 'Generation Z', def: 'Millennial and Gen Z clients are not simply younger versions of $RUs existing customers. Their financial circumstances, expectations and behaviours are different.', src: 'Context Analysis for $RUs' },
+        { abbr: 'HECS', long: 'Higher Education Contribution Scheme', def: '', src: 'Context Analysis for $RUs' },
+        { abbr: 'PM', long: 'Project management', def: 'Coordinates the resources and activities required to deliver the project. On its own it answers “are we doing it the right way?” but not “are we doing the right thing?”', src: 'Introduction to project management' },
+        { abbr: 'SaaS', long: 'Software as a service', def: '', src: 'Introduction to project management' }
+      ];
+
+      buildRef('acronyms', ACRONYMS, function (a) {
+        return '<article class="term" data-search="' +
+          escapeHtml((a.abbr + ' ' + a.long + ' ' + a.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' +
+          '<span class="term-abbr">' + escapeHtml(a.abbr) + '</span>' +
+          (a.long ? ' &middot; <span class="term-long">' + escapeHtml(a.long) + '</span>' : '') +
+          '</h3><span class="term-src">' + escapeHtml(a.src) + '</span></div>' +
+          (a.def ? '<p class="term-def">' + escapeHtml(a.def) + '</p>' : '') +
+          '</article>';
+      }, 'No acronyms match that filter.');
 
       /* ── Flashcards ───────────────────────────────────────── */
       var CARDS = [

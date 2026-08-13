@@ -20,9 +20,12 @@ procedure; that file is the ground truth about the data.
    about what will be examined. `Assessment` notes are unsubmitted academic work. GitHub
    Pages makes every committed file public. If you are ever unsure of a note's `Type`, do
    not publish it.
-2. **An empty topic renders as empty.** Never fill a gap with generated material.
-   `DMBA6008-week0.html`'s fourth panel is the precedent — an honest "not yet written"
-   block listing what is pending.
+2. **An empty topic renders as empty.** Never fill a gap with generated material — an honest
+   "not yet written" block listing what is pending. `DMBA6005-week1.html`'s
+   `Creating your reflective journal` is the live example. `DMBA6008-week0.html`'s fourth
+   panel was the original one and **was filled on 2026-08-14**, which is the lesson worth
+   keeping: a placeholder is a claim about the day you looked, so **re-check every one on
+   every run** rather than trusting this file.
 3. **Do not commit or push.** `CLAUDE.md` forbids it unless Aryan asks.
 
 Also excluded by default, as personal study telemetry: `Confidence`, `Last Reviewed`,
@@ -236,6 +239,30 @@ assembling, not after.
 
 ---
 
+## Phase 3b — Derive the Acronyms and Formulas tabs
+
+Two reference tabs sit after the deck: **Acronyms** and **Formulas**. They are **derived
+from the assembled page, not from the harvest** — run this after Phase 4 has built the page,
+one agent per page, reading the summary blocks, `TERMS` and `CARDS`. Deriving from the built
+page means these tabs can only ever contain material that already passed gate 1.
+
+Hand the agent `docs/notion-sync.md` §3b. The rules that actually bite:
+
+- **A formula is copied character for character** — his lowercase `x`, his `÷`, his spacing.
+  **Never substitute a textbook form.** 6008 states the sustainable growth rate one way in
+  Week 0 and a different way in Week 2; both are his, do not reconcile them, and never let
+  one week's algebra leak into another's.
+- An acronym takes the page's own expansion where it gives one; otherwise the standard
+  expansion is allowed, but **the panel intro must say so**. Never invent a definition.
+- **Emit a tab only if its array is non-empty.** An Agile or strategy week has no formulas
+  and gets no Formulas tab. Do not pad one to fill the template.
+
+Slots: `<!--INSERT:ACRONYMS_TAB-->` / `_PANEL` / `_DATA`, and the same three for `FORMULAS`.
+The shared `buildRef()` renderer is already in the shell and no-ops when a tab is absent, so
+there is no JS to write. Everything renders as `.term` cards — **no new component**.
+
+---
+
 ## Phase 4 — Assemble and register
 
 **Splice with a script, not by hand.** Summary blobs run 5–7k words each and there is no
@@ -260,7 +287,10 @@ reason to route them through context.
    draws the topic chips, and only the sync knows the mapping. Leave it **off** a week-level
    block (a closing takeaway) so it shows under every topic. If a topic is empty in Notion,
    put `data-topic-empty="true"` on its "not yet written" block and it renders as a dimmed
-   chip, the way DMBA 6008 Week 0 shows *Assessing Financial Performance*.
+   chip, the way DMBA 6005 Week 1 shows *Creating your reflective journal*. (DMBA 6008
+   Week 0 showed *Assessing Financial Performance* that way until it was written and
+   published on 2026-08-14 — filling one means dropping both the attribute and the
+   `subtab--empty` class.)
 3. Update the hub page `<prefix>-weeks.html` — add the week card and fix **its
    hand-written per-week counts**, which are the easiest thing to leave stale.
 4. Register in `library.html`. **`articlesBySubject` and `validSubjects` must be edited

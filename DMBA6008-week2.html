@@ -377,6 +377,14 @@
       letter-spacing: 0.02em;
       opacity: 0.55;
     }
+
+    /* Six tabs do not fit one row on a phone, and .tablist hides its scrollbar,
+       so on narrow screens the row wraps and the decorative numbers step aside. */
+    @media (max-width: 700px) {
+      .tablist { flex-wrap: wrap; border-radius: var(--radius-lg); }
+      .tab { padding: 9px 14px; font-size: 0.82rem; }
+      .tab-num { display: none; }
+    }
     .tab[aria-selected="true"] {
       background: var(--surface);
       color: var(--ink);
@@ -806,6 +814,10 @@
       color: var(--accent-deep);
       overflow-x: auto;
     }
+    /* ── Acronym headings (Acronyms tab; everything else reuses .term) ─── */
+    .term-abbr { font-family: var(--font-mono); font-weight: 700; color: var(--accent-deep); }
+    .term-long { font-weight: 500; color: var(--ink2); }
+
     .no-results { padding: 26px; text-align: center; color: var(--ink3); }
 
     /* ── Flashcards ────────────────────────────────────────────────────── */
@@ -1236,6 +1248,10 @@
         data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
       <button class="tab" id="tab-discussion" role="tab" aria-selected="false" aria-controls="panel-discussion"
         data-panel="discussion" tabindex="-1"><span class="tab-num" aria-hidden="true">04</span>Discussion</button>
+      <button class="tab" id="tab-acronyms" role="tab" aria-selected="false" aria-controls="panel-acronyms"
+        data-panel="acronyms" tabindex="-1"><span class="tab-num" aria-hidden="true">05</span>Acronyms</button>
+      <button class="tab" id="tab-formulas" role="tab" aria-selected="false" aria-controls="panel-formulas"
+        data-panel="formulas" tabindex="-1"><span class="tab-num" aria-hidden="true">06</span>Formulas</button>
     </div>
   </nav>
 
@@ -3461,6 +3477,42 @@
                     </div>
                   </div>
     </section>
+
+    <!-- ══════════════════ 05 · ACRONYMS ══════════════════ -->
+    <section class="panel" id="panel-acronyms" role="tabpanel" aria-labelledby="tab-acronyms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">05 / Shorthand</span>
+        <h2>Acronyms &amp; abbreviations</h2>
+        <p>Every abbreviation this week uses, expanded. Where my notes spell one out, the expansion is theirs &mdash; including PPE, which they write as &ldquo;plant, property and equipment&rdquo;. Items tagged Discussion appear only in the fourth tab.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="acronyms-search">Filter acronyms</label>
+          <input class="search" id="acronyms-search" type="search" placeholder="Filter &mdash; try &ldquo;ROE&rdquo; or &ldquo;SGR&rdquo;"
+            autocomplete="off">
+          <span class="count" id="acronyms-count" aria-live="polite">7 of 7</span>
+        </div>
+
+        <div class="glossary" id="acronyms"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 06 · FORMULAS ══════════════════ -->
+    <section class="panel" id="panel-formulas" role="tabpanel" aria-labelledby="tab-formulas" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">06 / Quick reference</span>
+        <h2>Formulas</h2>
+        <p>Every formula, identity and chain stated in this week&rsquo;s notes, in the order the notes introduce them. Copied as written &mdash; where the same relationship is stated twice in different vocabularies, both forms are kept, because that difference is mine.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="formulas-search">Filter formulas</label>
+          <input class="search" id="formulas-search" type="search" placeholder="Filter formulas &mdash; try &ldquo;leverage&rdquo; or &ldquo;growth&rdquo;"
+            autocomplete="off">
+          <span class="count" id="formulas-count" aria-live="polite">16 of 16</span>
+        </div>
+
+        <div class="glossary" id="formulas"></div>
+      </div>
+    </section>
   </main>
 
   <footer class="page-foot">
@@ -3633,6 +3685,86 @@
         if (shown === 0) { noResultsEl.removeAttribute('hidden'); }
         else { noResultsEl.setAttribute('hidden', ''); }
       });
+
+      /* ── Acronyms & formulas ──────────────────────────────── */
+      /* Both tabs are a filtered list of .term cards, so they share one
+         renderer with the key-concepts glossary's markup and behaviour. */
+      function buildRef(listId, items, toHtml, emptyMsg) {
+        var listEl = document.getElementById(listId);
+        var countEl = document.getElementById(listId + '-count');
+        var searchEl = document.getElementById(listId + '-search');
+        if (!listEl || !countEl || !searchEl) return;
+
+        listEl.innerHTML = items.map(toHtml).join('') +
+          '<p class="no-results" hidden>' + emptyMsg + '</p>';
+
+        var els = Array.prototype.slice.call(listEl.querySelectorAll('.term'));
+        var noneEl = listEl.querySelector('.no-results');
+        countEl.textContent = items.length + ' of ' + items.length;
+
+        searchEl.addEventListener('input', function () {
+          var q = searchEl.value.trim().toLowerCase();
+          var shown = 0;
+          els.forEach(function (el) {
+            var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+            if (match) { el.removeAttribute('hidden'); shown++; }
+            else { el.setAttribute('hidden', ''); }
+          });
+          countEl.textContent = shown + ' of ' + items.length;
+          if (shown === 0) { noneEl.removeAttribute('hidden'); }
+          else { noneEl.setAttribute('hidden', ''); }
+        });
+      }
+
+      var ACRONYMS = [
+        { abbr: 'AWS', long: 'Amazon Web Services', def: 'Named as where Amazon later directed cash after fulfilment capacity — data centres built ahead of the volume they would carry, a large asset-heavy commitment that enlarges the denominator long before it shows up in the numerator.', src: 'Discussion' },
+        { abbr: 'IP', long: 'intellectual property', def: 'A high proportion of other intangibles may indicate reliance on software, intellectual property, licenses or product development. High intangibles signal that value creation may depend on technology IP or development.', src: 'Assets reflect the business model' },
+        { abbr: 'PPE', long: 'plant, property and equipment', def: 'A high proportion may indicate capital-intensive operations requiring physical infrastructure. Businesses needing aircraft, buildings or factories normally carry high PPE, so their balance sheets are weighted toward non-current assets.', src: 'Assets reflect the business model' },
+        { abbr: 'ROA', long: 'Return on Assets', def: 'Profit generated from the asset base — the overall operating efficiency of invested assets. Like ROE it combines an income statement outcome, profitability, with a balance sheet base.', src: 'Drivers of returns' },
+        { abbr: 'ROE', long: 'Return on Equity', def: 'The return to shareholders. It adds financial leverage to the two operating drivers behind ROA, and should never be interpreted without examining what caused it to change.', src: 'Drivers of returns' },
+        { abbr: 'SaaS', long: 'Software as a Service', def: 'A SaaS platform would normally be expected to have much less inventory and PPE than a hardware manufacturer. A SaaS company may balance a high-volume basic plan against enterprise contracts with larger margins.', src: 'Assets reflect the business model' },
+        { abbr: 'SGR', long: 'sustainable growth rate', def: 'The maximum rate at which a business can grow while keeping its financial policies broadly unchanged, particularly its capital structure. It is not a forecast of demand; it is a financing constraint on growth.', src: 'Sustainable Growth' }
+      ];
+
+      buildRef('acronyms', ACRONYMS, function (a) {
+        return '<article class="term" data-search="' +
+          escapeHtml((a.abbr + ' ' + a.long + ' ' + a.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' +
+          '<span class="term-abbr">' + escapeHtml(a.abbr) + '</span>' +
+          (a.long ? ' &middot; <span class="term-long">' + escapeHtml(a.long) + '</span>' : '') +
+          '</h3><span class="term-src">' + escapeHtml(a.src) + '</span></div>' +
+          (a.def ? '<p class="term-def">' + escapeHtml(a.def) + '</p>' : '') +
+          '</article>';
+      }, 'No acronyms match that filter.');
+
+      var FORMULAS = [
+        { name: 'The return chain', expr: 'Market position → Volume & Margin → Profitability → Asset/Capital Efficiency → Return', def: 'Returns understood as a chain running from market position through to return. Each link is the base the next one works from, and each financial outcome has its own main drivers and management focus.', src: 'Drivers of returns' },
+        { name: 'Profitability', expr: 'Profitability: Volume × Margin', def: 'Profitability fundamentally depends on volume — how much the business sells — and margin, the profit generated from each sale. The management focus is product mix, pricing and demand.', src: 'Drivers of returns' },
+        { name: 'How margins erode', expr: 'Competitive advantage → Imitation/Competition → Margin erosion → Lower returns', def: 'What follows without continued investment and innovation, as imitation and competition catch up with the advantage and the competitive advantage period closes.', src: 'Drivers of returns' },
+        { name: 'Return on assets, decomposed', expr: 'ROA = Asset Utilisation x Profit Margin', def: 'The first DuPont relationship. Asset utilisation is revenue generated per dollar of assets; profit margin is profit generated per dollar of revenue. Leverage is not part of return on assets.', src: 'DuPont model example' },
+        { name: 'Return on equity, fully expanded', expr: 'ROE = Asset Utilisation x Profit Margin x Financial Leverage', def: 'The model adds financial leverage — assets to equity — to the two operating drivers. A higher assets-to-equity ratio generally indicates more assets financed through debt relative to equity.', src: 'DuPont model example' },
+        { name: 'Leverage lifting ROE', expr: 'Unchanged ROA + Higher Leverage → Higher ROE', def: 'Underlying operating returns have not improved, shareholders appear to earn a higher return, and the improvement comes from using more debt. Higher ROE may reflect greater risk rather than better management performance.', src: 'DuPont model example' },
+        { name: 'ROE as a financial story', expr: 'ROE = Asset Efficiency x Profitability x Leverage', def: 'The takeaway form of the decomposition — what the DuPont model turns a return ratio into, so a strategic decision can be tested driver by driver rather than on the headline return.', src: 'DuPont model example' },
+        { name: 'Growth financing chain', expr: 'Revenue Growth → More Assets → More Financing Required', def: 'Revenue growth often requires more working capital, additional inventory and receivables, more non-current assets, and additional funding to finance those assets.', src: 'Sustainable Growth' },
+        { name: 'Drivers of sustainable growth', expr: 'SGR is driven by Return on Assets, Leverage and Retention', def: 'The three broad factors reflected in the sustainable growth rate: return on assets, equity-to-assets or leverage, and the retention ratio.', src: 'Sustainable Growth' },
+        { name: 'Retention ratio', expr: 'Retention Ratio = 1 - Dividend Payout Ratio', def: 'Determines how much profit remains in the business to finance future growth. Higher dividend payouts therefore leave less internally generated funding available for growth.', src: 'Sustainable Growth' },
+        { name: 'Growing above the rate', expr: 'Growth > SGR → Higher Leverage', def: 'With the operational and financial drivers unchanged, required assets increase faster than retained equity, retained earnings become insufficient, additional debt becomes the balancing source of finance, and the debt-to-equity ratio rises.', src: 'Sustainable Growth' },
+        { name: 'Growth with assets fully utilised', expr: 'Fully utilised: More Revenue → More Assets Needed', def: 'Where existing assets are already fully utilised, additional revenue requires additional assets.', src: 'Sustainable Growth' },
+        { name: 'Growth with spare capacity', expr: 'Spare capacity: More Revenue → Better Asset Utilisation', def: 'Where spare capacity exists, growth can be absorbed by using existing assets better, which can allow the business to grow faster before requiring substantial new financing.', src: 'Sustainable Growth' },
+        { name: 'A credible growth strategy', expr: 'Market Opportunity + Operational Capacity + Financing Capacity', def: 'What a growth strategy must align. Demand alone does not determine feasible growth; otherwise aggressive growth can increase leverage and financial risk even when revenue and profits are increasing.', src: 'Sustainable Growth' },
+        { name: 'Return on assets as a fraction', expr: 'ROA = Profit ÷ Assets', def: 'Written as a fraction to show it can rise for two entirely different reasons: the numerator did better, or the denominator got smaller. Only the first is unambiguously good news.', src: 'Discussion' },
+        { name: 'ROA as margin times turnover', expr: 'ROA = Profit Margin x Asset Turnover', def: 'ROA is a product, not a level. Two firms can land on the same number from opposite corners — a large mark-up on few units, or a small mark-up on many.', src: 'Discussion' }
+      ];
+
+      buildRef('formulas', FORMULAS, function (f) {
+        return '<article class="term" data-search="' +
+          escapeHtml((f.name + ' ' + f.expr + ' ' + f.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' + escapeHtml(f.name) + '</h3>' +
+          '<span class="term-src">' + escapeHtml(f.src) + '</span></div>' +
+          '<div class="term-formula">' + escapeHtml(f.expr) + '</div>' +
+          (f.def ? '<p class="term-def">' + escapeHtml(f.def) + '</p>' : '') +
+          '</article>';
+      }, 'No formulas match that filter.');
 
       /* ── Flashcards ───────────────────────────────────────── */
       var CARDS = [

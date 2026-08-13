@@ -377,6 +377,14 @@
       letter-spacing: 0.02em;
       opacity: 0.55;
     }
+
+    /* Six tabs do not fit one row on a phone, and .tablist hides its scrollbar,
+       so on narrow screens the row wraps and the decorative numbers step aside. */
+    @media (max-width: 700px) {
+      .tablist { flex-wrap: wrap; border-radius: var(--radius-lg); }
+      .tab { padding: 9px 14px; font-size: 0.82rem; }
+      .tab-num { display: none; }
+    }
     .tab[aria-selected="true"] {
       background: var(--surface);
       color: var(--ink);
@@ -806,6 +814,10 @@
       color: var(--accent-deep);
       overflow-x: auto;
     }
+    /* ── Acronym headings (Acronyms tab; everything else reuses .term) ─── */
+    .term-abbr { font-family: var(--font-mono); font-weight: 700; color: var(--accent-deep); }
+    .term-long { font-weight: 500; color: var(--ink2); }
+
     .no-results { padding: 26px; text-align: center; color: var(--ink3); }
 
     /* ── Flashcards ────────────────────────────────────────────────────── */
@@ -1233,6 +1245,10 @@
         data-panel="terms" tabindex="-1"><span class="tab-num" aria-hidden="true">02</span>Key concepts</button>
       <button class="tab" id="tab-cards" role="tab" aria-selected="false" aria-controls="panel-cards"
         data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
+      <button class="tab" id="tab-acronyms" role="tab" aria-selected="false" aria-controls="panel-acronyms"
+        data-panel="acronyms" tabindex="-1"><span class="tab-num" aria-hidden="true">04</span>Acronyms</button>
+      <button class="tab" id="tab-formulas" role="tab" aria-selected="false" aria-controls="panel-formulas"
+        data-panel="formulas" tabindex="-1"><span class="tab-num" aria-hidden="true">05</span>Formulas</button>
     </div>
   </nav>
 
@@ -2407,6 +2423,42 @@
         </div>
       </div>
     </section>
+
+    <!-- ══════════════════ 04 · ACRONYMS ══════════════════ -->
+    <section class="panel" id="panel-acronyms" role="tabpanel" aria-labelledby="tab-acronyms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">04 / Shorthand</span>
+        <h2>Acronyms &amp; abbreviations</h2>
+        <p>Every abbreviation this week uses, expanded. CRM, CX, NPS, UI and UX are spelt out in my own notes; AI, CEO and SaaS are not, and carry the standard expansion so the tab stays usable.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="acronyms-search">Filter acronyms</label>
+          <input class="search" id="acronyms-search" type="search" placeholder="Filter &mdash; try &ldquo;CX&rdquo; or &ldquo;NPS&rdquo;"
+            autocomplete="off">
+          <span class="count" id="acronyms-count" aria-live="polite">8 of 8</span>
+        </div>
+
+        <div class="glossary" id="acronyms"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 05 · FORMULAS ══════════════════ -->
+    <section class="panel" id="panel-formulas" role="tabpanel" aria-labelledby="tab-formulas" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">05 / Quick reference</span>
+        <h2>Formulas</h2>
+        <p>Agile week, so these are sequences and identities rather than arithmetic &mdash; the chains the notes draw, and the three lines that separate Agile from Scrum. No velocity, WIP or burndown formula appears in my notes, so none appears here.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="formulas-search">Filter formulas</label>
+          <input class="search" id="formulas-search" type="search" placeholder="Filter formulas &mdash; try &ldquo;agile&rdquo; or &ldquo;journey&rdquo;"
+            autocomplete="off">
+          <span class="count" id="formulas-count" aria-live="polite">9 of 9</span>
+        </div>
+
+        <div class="glossary" id="formulas"></div>
+      </div>
+    </section>
   </main>
 
   <footer class="page-foot">
@@ -2565,6 +2617,80 @@
         if (shown === 0) { noResultsEl.removeAttribute('hidden'); }
         else { noResultsEl.setAttribute('hidden', ''); }
       });
+
+      /* ── Acronyms & formulas ──────────────────────────────── */
+      /* Both tabs are a filtered list of .term cards, so they share one
+         renderer with the key-concepts glossary's markup and behaviour. */
+      function buildRef(listId, items, toHtml, emptyMsg) {
+        var listEl = document.getElementById(listId);
+        var countEl = document.getElementById(listId + '-count');
+        var searchEl = document.getElementById(listId + '-search');
+        if (!listEl || !countEl || !searchEl) return;
+
+        listEl.innerHTML = items.map(toHtml).join('') +
+          '<p class="no-results" hidden>' + emptyMsg + '</p>';
+
+        var els = Array.prototype.slice.call(listEl.querySelectorAll('.term'));
+        var noneEl = listEl.querySelector('.no-results');
+        countEl.textContent = items.length + ' of ' + items.length;
+
+        searchEl.addEventListener('input', function () {
+          var q = searchEl.value.trim().toLowerCase();
+          var shown = 0;
+          els.forEach(function (el) {
+            var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+            if (match) { el.removeAttribute('hidden'); shown++; }
+            else { el.setAttribute('hidden', ''); }
+          });
+          countEl.textContent = shown + ' of ' + items.length;
+          if (shown === 0) { noneEl.removeAttribute('hidden'); }
+          else { noneEl.setAttribute('hidden', ''); }
+        });
+      }
+
+      var ACRONYMS = [
+        { abbr: 'AI', long: 'Artificial intelligence', def: 'Named alongside mobile, cloud and digital channels as a technology enabling more sophisticated customer experiences, and part of the Digital CX wave. Technology is an enabler of CX rather than the objective itself.', src: 'Digital Technology' },
+        { abbr: 'CEO', long: 'Chief executive officer', def: 'Listed among those typically involved in the governance of large projects: elected representatives, senior executives, CEO or executive sponsors, project control groups, and formal reporting and oversight.', src: 'Governance' },
+        { abbr: 'CRM', long: 'Customer Relationship Management', def: 'The first wave of CX. Main focus: recording customers and managing relationships. Limitation: primarily organisation-centred customer data.', src: 'Evolution of CX' },
+        { abbr: 'CX', long: 'Customer experience', def: 'Looks beyond the product itself to the customer’s entire experience with an organisation. Value is created across multiple touch points, so a strong CX considers the full relationship, not merely whether the core product works.', src: 'Customer Experience' },
+        { abbr: 'NPS', long: 'Net Promoter Score', def: 'The example given of a Customer Advocacy measure — a metric of customer perceptions and recommendations. It can be a useful signal, but it is an indicator, not an outcome.', src: 'Evolution of CX' },
+        { abbr: 'SaaS', long: 'Software as a service', def: 'For SaaS platforms, value is not only the software features. It also includes onboarding, account setup, support, billing, upgrades, reliability and renewal.', src: 'Customer Experience' },
+        { abbr: 'UI', long: 'User interface', def: 'The level concerned with how the user directly interacts with the digital product. The second of the four levels at which digital experiences operate.', src: 'UI to CX' },
+        { abbr: 'UX', long: 'User experience', def: 'The level concerned with how effectively and easily the user experiences that interaction. CX is broader than UX.', src: 'UI to CX' }
+      ];
+
+      buildRef('acronyms', ACRONYMS, function (a) {
+        return '<article class="term" data-search="' +
+          escapeHtml((a.abbr + ' ' + a.long + ' ' + a.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' +
+          '<span class="term-abbr">' + escapeHtml(a.abbr) + '</span>' +
+          (a.long ? ' &middot; <span class="term-long">' + escapeHtml(a.long) + '</span>' : '') +
+          '</h3><span class="term-src">' + escapeHtml(a.src) + '</span></div>' +
+          (a.def ? '<p class="term-def">' + escapeHtml(a.def) + '</p>' : '') +
+          '</article>';
+      }, 'No acronyms match that filter.');
+
+      var FORMULAS = [
+        { name: 'The digital customer journey', expr: 'Discovery → sign-up → onboarding → product use → support → billing → renewal', def: 'The touchpoint sequence given for a digital business. Each stage is a point where the customer interacts with the organisation, its people, systems or product.', src: 'Touchpoints' },
+        { name: 'The four experience levels', expr: 'Design → UI → UX → CX', def: 'The sequence of levels at which digital experiences operate: the problem and proposed solution, how the user directly interacts, how easily that interaction is experienced, and the broader relationship across all organisational touchpoints. CX is therefore broader than UX.', src: 'UI to CX' },
+        { name: 'The agile feedback cycle', expr: 'Prototype → Feedback → Learn → Adjust → Repeat', def: 'The agile cycle used instead of developing a complete solution before showing customers or stakeholders. Frequent feedback reduces the risk of investing significant time and resources into a solution that customers ultimately do not value.', src: 'Agile & CX' },
+        { name: 'The waterfall sequence', expr: 'Requirements → Analysis → Design → Development → Testing → Release', def: 'The fixed order of stages traditional waterfall development typically ran through, on the assumption that requirements could be sufficiently understood before development began.', src: 'Why Agile Emerged' },
+        { name: 'Agile is not Scrum', expr: 'Agile ≠ Scrum', def: 'Agile is fundamentally a set of principles, not a particular meeting structure or project-management tool, so it cannot be equated with any single framework.', src: 'Agile Manifesto' },
+        { name: 'Agile as philosophy', expr: 'Agile = Philosophy / principles', def: 'What Agile itself is — a philosophy and a set of principles rather than a prescribed process.', src: 'Agile Manifesto' },
+        { name: 'Scrum as one framework', expr: 'Scrum = One framework for implementing those principles', def: 'Scrum’s place relative to Agile: one way of putting the principles into practice, not the principles themselves.', src: 'Agile Manifesto' },
+        { name: 'The four bid elements', expr: 'Idea + Budget + Timeline + Stakeholders', def: 'The elements a strong proposal develops together. Considering them simultaneously helps expose feasibility gaps, unrealistic assumptions, missing stakeholders, funding shortfalls and delivery risks.', src: 'Before the bid' },
+        { name: 'The engagement sequence', expr: 'Proposed process → Stakeholder feedback → Resource planning → Refined implementation', def: 'The order in which engagement feeds the plan: feedback is gathered before resources are planned, so it can still change what is implemented.', src: 'Stakeholder engagement' }
+      ];
+
+      buildRef('formulas', FORMULAS, function (f) {
+        return '<article class="term" data-search="' +
+          escapeHtml((f.name + ' ' + f.expr + ' ' + f.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' + escapeHtml(f.name) + '</h3>' +
+          '<span class="term-src">' + escapeHtml(f.src) + '</span></div>' +
+          '<div class="term-formula">' + escapeHtml(f.expr) + '</div>' +
+          (f.def ? '<p class="term-def">' + escapeHtml(f.def) + '</p>' : '') +
+          '</article>';
+      }, 'No formulas match that filter.');
 
       /* ── Flashcards ───────────────────────────────────────── */
       var CARDS = [
