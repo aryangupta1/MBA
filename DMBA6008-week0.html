@@ -344,6 +344,11 @@
       width: min(880px, calc(100% - 2 * clamp(18px, 5vw, 44px)));
       margin-inline: auto;
       display: flex;
+      /* Wraps at ANY width, not only on a phone: .tablist hides its scrollbar, so a row
+         that overflows leaves the last tab unreachable with no affordance. Six tabs need
+         ~857px and five need ~727px, so a 700px breakpoint left every laptop width
+         between clipping. Wrapping only engages when the row genuinely does not fit. */
+      flex-wrap: wrap;
       gap: 4px;
       padding: 4px;
       border-radius: var(--r-pill);
@@ -379,10 +384,11 @@
       opacity: 0.55;
     }
 
-    /* Six tabs do not fit one row on a phone, and .tablist hides its scrollbar,
-       so on narrow screens the row wraps and the decorative numbers step aside. */
+    /* On a phone the row also drops its decorative numbers and tightens up, and the
+       pill radius gives way to a rounded rectangle. Wrapping itself is unconditional
+       and lives on .tablist above. */
     @media (max-width: 700px) {
-      .tablist { flex-wrap: wrap; border-radius: var(--radius-lg); }
+      .tablist { border-radius: var(--radius-lg); }
       .tab { padding: 9px 14px; font-size: 0.82rem; }
       .tab-num { display: none; }
     }

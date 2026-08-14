@@ -1,0 +1,3028 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 3 — Ideation and prototyping — DMBA 6005</title>
+  <meta name="description" content="Week 3 of DMBA 6005: design thinking and how ideas are generated and narrowed, and why prototypes are built early, cheaply and deliberately imperfect — summaries and visuals, key concepts, and flashcards.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ======================================================================
+       DESK — house design system, study-page profile.
+       A macOS window floating over the desktop wallpaper. The window holds the
+       whole week; the dock at the foot of the screen is the site navigation.
+       Tokens and components: docs/design-system.md
+       ====================================================================== */
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      /* surfaces */
+      --paper: #F4F1E9;
+      --paper2: #EFEBE1;
+      --surface: #FFFFFF;
+      --surface2: #FBFAF7;
+      --rule: rgba(28, 26, 22, 0.07);
+
+      /* ink */
+      --ink: #141317;
+      --ink2: #57534B;
+      --ink3: #8C867A;
+      --line: #E4E0D5;
+      --line2: #EFEBE2;
+
+      /* accents shared across the house */
+      --lime: #D6F24E;
+      --butter: #EDE884;
+      --blush: #F9DCDC;
+      --sky: #D7E4F8;
+      --mint: #D1EEDA;
+      --lilac: #E6DDF3;
+      --sand: #F2EEBD;
+      --pin: #E8453C;
+      --ink-blue: #3B6FE0;
+
+      /* mac window chrome */
+      --tl-red: #FD5D5C;
+      --tl-amber: #FAC900;
+      --tl-green: #28C840;
+
+      /* Subject identity. --accent* is the modern name; the --petrol* aliases
+         are kept so the hand-authored hex literals inside the SVG figures stay
+         in tune with the chrome. */
+      --accent: #A8722C;
+      --accent-deep: #6F4A17;
+      --accent-soft: #F7EFE2;
+      --accent-glow: rgba(168, 114, 44, 0.13);
+      --petrol: var(--accent);
+      --petrol-deep: var(--accent-deep);
+      --petrol-soft: var(--accent-soft);
+      --petrol-glow: var(--accent-glow);
+
+      /* Verdict colours: value created / break-even / value destroyed */
+      --pos: #1F6A4A;
+      --pos-soft: #E6F1EB;
+      --neu: #8A6D1F;
+      --neu-soft: #F6F0DF;
+      --neg: #B3402A;
+      --neg-soft: #F8E9E5;
+
+      /* geometry */
+      --radius: 14px;
+      --radius-lg: 20px;
+      --r-win: 24px;
+      --r-pill: 999px;
+      --bar: 46px;
+
+      /* elevation */
+      --sh-win: 0 4px 29px rgba(0, 0, 0, 0.16);
+      --sh-card: 0 22px 48px -26px rgba(20, 19, 23, 0.55);
+      --sh-float: 0 40px 90px -32px rgba(10, 18, 30, 0.7);
+
+      /* type */
+      --font-display: 'Mona Sans', 'Helvetica Neue', Arial, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.62;
+      color: var(--ink);
+      background: #3F6EA4;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      padding-bottom: 104px;      /* clearance for the fixed dock */
+    }
+
+    /* ── The desktop behind the window ─────────────────────────────────── */
+    .desk {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      background: linear-gradient(180deg, #33587F 0%, #4C7BA8 30%, #7CA0BE 56%, #9FB4AF 74%, #A7B677 100%);
+    }
+    .desk::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(52% 26% at 50% 16%, rgba(255, 255, 255, 0.55), transparent 66%),
+        radial-gradient(26% 14% at 74% 22%, rgba(255, 255, 255, 0.34), transparent 70%);
+      filter: blur(10px);
+    }
+    .desk::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 20, 34, 0.34), rgba(10, 20, 34, 0.5));
+    }
+    .desk-hills {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      width: 100%;
+      height: 52%;
+      display: block;
+      filter: blur(1.5px);
+    }
+
+    /* ── Stage + back link ─────────────────────────────────────────────── */
+    .stage {
+      width: min(1080px, calc(100% - 2 * clamp(12px, 3vw, 32px)));
+      margin-inline: auto;
+      padding: clamp(16px, 3vw, 34px) 0 clamp(40px, 6vw, 70px);
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: clamp(14px, 2vw, 20px);
+      padding: 9px 18px;
+      border-radius: var(--r-pill);
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .back:hover { background: rgba(255, 255, 255, 0.28); transform: translateX(-3px); }
+
+    /* ── The window ────────────────────────────────────────────────────── */
+    /* No overflow:hidden — descendants need position:sticky to reach the
+       viewport, so the corners are rounded on the first and last children. */
+    .win {
+      position: relative;
+      background: var(--surface);
+      border-radius: var(--r-win);
+      box-shadow: var(--sh-win), var(--sh-float);
+    }
+
+    .win-bar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: var(--bar);
+      padding: 0 14px;
+      border-radius: var(--r-win) var(--r-win) 0 0;
+      background: rgba(241, 239, 234, 0.92);
+      backdrop-filter: blur(14px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
+      border-bottom: 1px solid rgba(20, 19, 23, 0.09);
+    }
+    .win-lights { display: flex; gap: 7px; flex: 0 0 auto; }
+    .win-lights i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+    .win-lights i:nth-child(1) { background: var(--tl-red); }
+    .win-lights i:nth-child(2) { background: var(--tl-amber); }
+    .win-lights i:nth-child(3) { background: var(--tl-green); }
+    .win-addr {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding: 5px 16px;
+      border-radius: var(--r-pill);
+      background: rgba(20, 19, 23, 0.06);
+      font-size: 0.75rem;
+      color: var(--ink2);
+      text-align: center;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .win-tool {
+      flex: 0 0 auto;
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.58rem;
+      letter-spacing: -0.02em;
+    }
+    @media (max-width: 560px) { .win-addr { font-size: 0.68rem; padding: 4px 10px; } }
+
+    .wrap {
+      width: min(880px, calc(100% - 2 * clamp(18px, 5vw, 44px)));
+      margin-inline: auto;
+    }
+
+    /* ── Hero ──────────────────────────────────────────────────────────── */
+    header.hero {
+      position: relative;
+      padding: clamp(38px, 6vw, 72px) 0 clamp(28px, 4vw, 44px);
+      background:
+        radial-gradient(ellipse 80% 70% at 12% 0%, var(--accent-glow), transparent 58%),
+        linear-gradient(180deg, var(--paper2), var(--surface) 78%);
+      overflow: hidden;
+    }
+    header.hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--rule) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+      background-size: 74px 74px;
+      mask-image: radial-gradient(ellipse 78% 70% at 50% 30%, #000, transparent 76%);
+      -webkit-mask-image: radial-gradient(ellipse 78% 70% at 50% 30%, #000, transparent 76%);
+    }
+    header.hero > .wrap { position: relative; z-index: 2; }
+
+    .eyebrow {
+      display: inline-block;
+      margin: 0 0 18px;
+      padding: 7px 16px 7px 30px;
+      position: relative;
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transform: rotate(-2deg);
+      box-shadow: 0 6px 16px -9px rgba(20, 19, 23, 0.6);
+    }
+    .eyebrow::before {
+      content: "";
+      position: absolute;
+      left: 11px;
+      top: -8px;
+      width: 10px;
+      height: 24px;
+      border: 2px solid rgba(20, 19, 23, 0.35);
+      border-radius: 6px;
+      border-bottom-color: transparent;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2.1rem, 6vw, 3.6rem);
+      line-height: 0.94;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+
+    .standfirst {
+      margin: 0;
+      max-width: 60ch;
+      font-size: clamp(1rem, 1.7vw, 1.14rem);
+      line-height: 1.58;
+      color: var(--ink2);
+    }
+
+    .meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(22px, 3vw, 32px); }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 15px;
+      border-radius: var(--r-pill);
+      background: #fff;
+      border: 1px solid var(--line);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--ink2);
+      box-shadow: 0 4px 10px -6px rgba(20, 19, 23, 0.4);
+    }
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--pos);
+      animation: ping 2.6s ease-out infinite;
+    }
+    @keyframes ping {
+      0%   { box-shadow: 0 0 0 0 rgba(31, 106, 74, 0.55); }
+      70%  { box-shadow: 0 0 0 7px rgba(31, 106, 74, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(31, 106, 74, 0); }
+    }
+
+    /* ── Mode tabs — a macOS segmented control ─────────────────────────── */
+    .tabs {
+      position: sticky;
+      top: var(--bar);
+      z-index: 20;
+      padding: 12px 0;
+      background: rgba(251, 250, 247, 0.9);
+      backdrop-filter: blur(12px) saturate(160%);
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+      border-block: 1px solid var(--line2);
+    }
+    .tablist {
+      width: min(880px, calc(100% - 2 * clamp(18px, 5vw, 44px)));
+      margin-inline: auto;
+      display: flex;
+      /* Wraps at ANY width, not only on a phone: .tablist hides its scrollbar, so a row
+         that overflows leaves the last tab unreachable with no affordance. Six tabs need
+         ~857px and five need ~727px, so a 700px breakpoint left every laptop width
+         between clipping. Wrapping only engages when the row genuinely does not fit. */
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 4px;
+      border-radius: var(--r-pill);
+      background: rgba(20, 19, 23, 0.05);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tablist::-webkit-scrollbar { display: none; }
+    .tab {
+      flex: 1 1 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+      padding: 10px 18px;
+      border: 0;
+      border-radius: var(--r-pill);
+      background: transparent;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .tab:hover { color: var(--ink); background: rgba(255, 255, 255, 0.7); }
+    .tab-num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.66rem;
+      letter-spacing: 0.02em;
+      opacity: 0.55;
+    }
+
+    /* On a phone the row also drops its decorative numbers and tightens up, and the
+       pill radius gives way to a rounded rectangle. Wrapping itself is unconditional
+       and lives on .tablist above. */
+    @media (max-width: 700px) {
+      .tablist { border-radius: var(--radius-lg); }
+      .tab { padding: 9px 14px; font-size: 0.82rem; }
+      .tab-num { display: none; }
+    }
+    .tab[aria-selected="true"] {
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: 0 2px 8px -2px rgba(20, 19, 23, 0.28);
+    }
+    .tab[aria-selected="true"] .tab-num { color: var(--accent); opacity: 1; }
+
+    .panel { display: none; }
+    .panel.active { display: block; animation: fade-up 0.45s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+    @keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    main.wrap { padding-top: clamp(30px, 5vw, 52px); }
+
+    /* ── Topic sub-tabs (used where a week splits into topics) ─────────── */
+    .subtabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: clamp(26px, 4vw, 40px);
+    }
+    .subtab {
+      padding: 9px 17px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .subtab:hover { border-color: var(--accent); color: var(--ink); }
+    .subtab[aria-selected="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+    .subtab--empty { color: var(--ink3); border-style: dashed; }
+    .subtab--empty[aria-selected="true"] { background: var(--ink3); border-color: var(--ink3); color: #ffffff; }
+    .subpanel { display: none; }
+    .subpanel.active { display: block; animation: fade-up 0.4s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+
+    .unwritten {
+      padding: clamp(24px, 4vw, 38px);
+      border: 1.5px dashed var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--surface2);
+    }
+    .unwritten h2 { margin-top: 0.5rem; }
+    .unwritten ul { color: var(--ink2); }
+
+    /* ── Content blocks ────────────────────────────────────────────────── */
+    .block {
+      margin-bottom: clamp(40px, 6vw, 68px);
+      scroll-margin-top: calc(var(--bar) + 90px);
+    }
+    .block:last-child { margin-bottom: 0; }
+    .block-num {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 5px 13px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0 0 0.7rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+    h3 {
+      margin: 2rem 0 0.6rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.12rem, 2.2vw, 1.32rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+    h4 {
+      margin: 1.6rem 0 0.5rem;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: -0.01em;
+    }
+    h5 {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+    }
+    p { margin: 0 0 1rem; }
+    .block > p, .unwritten > p { color: var(--ink2); }
+    strong { font-weight: 700; color: var(--ink); }
+    em { font-style: italic; }
+    a { color: var(--accent); text-underline-offset: 3px; }
+
+    ul, ol { margin: 0 0 1.1rem; padding-left: 1.3rem; color: var(--ink2); }
+    li { margin-bottom: 0.5rem; }
+    li::marker { color: var(--accent); }
+
+    .takeaways {
+      list-style: none;
+      margin: 1.4rem 0;
+      padding: clamp(18px, 3vw, 26px) clamp(18px, 3vw, 28px);
+      background: var(--surface2);
+      border: 1px solid var(--line2);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--sh-card);
+    }
+    .takeaways li {
+      position: relative;
+      margin: 0 0 0.75rem;
+      padding-left: 1.9rem;
+      color: var(--ink2);
+    }
+    .takeaways li:last-child { margin-bottom: 0; }
+    .takeaways li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      background: var(--lime);
+      box-shadow: 0 0 0 3px rgba(214, 242, 78, 0.3);
+    }
+
+    .steps { counter-reset: step; list-style: none; padding-left: 0; margin: 1.4rem 0; }
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      margin-bottom: 1rem;
+      padding-left: 2.6rem;
+      color: var(--ink2);
+    }
+    .steps li::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 0.05em;
+      width: 1.9rem;
+      height: 1.9rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    .steps li strong { display: block; color: var(--ink); }
+
+    /* ── Callouts ──────────────────────────────────────────────────────── */
+    .callout {
+      display: flex;
+      gap: 14px;
+      margin: 1.6rem 0;
+      padding: clamp(18px, 3vw, 24px);
+      border-radius: var(--radius-lg);
+      background: var(--sand);
+      box-shadow: 6px 6px 0 rgba(20, 19, 23, 0.06);
+    }
+    .callout p { margin: 0; font-size: 1.02rem; font-weight: 600; line-height: 1.5; color: var(--ink); }
+    .callout p + p { margin-top: 0.7rem; font-weight: 400; color: var(--ink2); }
+    .icon { flex: 0 0 auto; font-size: 1.15rem; line-height: 1.35; }
+    /* A callout with more than one paragraph wraps them in a div, or the flex
+       row would lay the paragraphs out side by side. */
+    .callout > div { flex: 1 1 auto; min-width: 0; }
+    .callout--key { background: var(--sand); }
+    .callout--ask { background: var(--sky); }
+
+    /* ── Tables ────────────────────────────────────────────────────────── */
+    .table-scroll {
+      margin: 1.5rem 0;
+      overflow-x: auto;
+      border: 1px solid var(--line2);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      box-shadow: var(--sh-card);
+      -webkit-overflow-scrolling: touch;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 460px; }
+    thead th {
+      position: sticky;
+      top: 0;
+      background: var(--paper2);
+      text-align: left;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    tbody th { text-align: left; font-weight: 700; color: var(--ink); }
+    td, tbody th { padding: 12px 16px; border-bottom: 1px solid var(--line2); vertical-align: top; color: var(--ink2); }
+    tbody tr:last-child td, tbody tr:last-child th { border-bottom: 0; }
+    tbody tr:hover { background: var(--surface2); }
+
+    .verdict {
+      display: inline-block;
+      padding: 3px 11px;
+      border-radius: var(--r-pill);
+      font-size: 0.72rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .verdict--pos { background: var(--pos-soft); color: var(--pos); }
+    .verdict--neu { background: var(--neu-soft); color: var(--neu); }
+    .verdict--neg { background: var(--neg-soft); color: var(--neg); }
+
+    /* ── Formulas ──────────────────────────────────────────────────────── */
+    .formula {
+      margin: 1.3rem 0;
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: #F2F0EA;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      box-shadow: var(--sh-card);
+    }
+    .formula-stack { display: flex; flex-direction: column; gap: 6px; }
+    .formula-stack span { display: block; white-space: nowrap; }
+
+    /* ── Worked examples ───────────────────────────────────────────────── */
+    .example-grid { display: grid; gap: 16px; margin: 1.5rem 0; }
+    @media (min-width: 620px) { .example-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); } }
+    .example {
+      padding: 20px 22px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .example--pos { border-color: rgba(31, 106, 74, 0.35); background: linear-gradient(180deg, var(--pos-soft), #fff 46%); }
+    .example--neg { border-color: rgba(179, 64, 42, 0.35); background: linear-gradient(180deg, var(--neg-soft), #fff 46%); }
+    .example dl { margin: 0; font-size: 0.86rem; }
+    .example dt { font-weight: 600; color: var(--ink2); }
+    .example dd { margin: 0 0 0.5rem; font-family: var(--font-mono); color: var(--ink); }
+    .result {
+      margin: 0.9rem 0 0;
+      padding-top: 0.8rem;
+      border-top: 1px dashed var(--line);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--accent-deep);
+    }
+    .note { font-size: 0.84rem; color: var(--ink3); }
+
+    /* ── Principle cards ───────────────────────────────────────────────── */
+    .principles { display: grid; gap: 14px; counter-reset: principle; margin: 1.6rem 0; }
+    @media (min-width: 640px) { .principles { grid-template-columns: 1fr 1fr; } }
+    .principle {
+      position: relative;
+      counter-increment: principle;
+      padding: 22px 22px 22px 62px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+      transition: transform 0.24s ease, box-shadow 0.24s ease;
+    }
+    .principle:hover { transform: translateY(-3px); box-shadow: 0 30px 56px -30px rgba(20, 19, 23, 0.6); }
+    .principle::before {
+      content: counter(principle, decimal-leading-zero);
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      opacity: 0.4;
+    }
+    .p-name { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .p-q { font-size: 0.88rem; font-style: italic; color: var(--accent-deep); margin-bottom: 8px; }
+    .p-def { margin: 0; font-size: 0.88rem; color: var(--ink2); }
+
+    /* ── Figures ───────────────────────────────────────────────────────── */
+    figure { margin: 1.8rem 0; }
+    .fig-frame {
+      overflow-x: auto;
+      padding: clamp(16px, 3vw, 26px);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+      -webkit-overflow-scrolling: touch;
+    }
+    .fig-frame svg { width: 100%; height: auto; min-width: 420px; display: block; }
+    figcaption {
+      margin-top: 0.75rem;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: var(--ink3);
+    }
+    .svg-label { font-family: var(--font-sans); font-size: 12px; font-weight: 600; fill: var(--ink); }
+    .svg-sub { font-family: var(--font-sans); font-size: 10px; font-weight: 500; fill: var(--ink3); }
+    .svg-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      fill: var(--ink3);
+    }
+    .svg-mono { font-family: var(--font-mono); font-size: 11px; font-weight: 600; fill: var(--accent-deep); }
+
+    /* ── Key concepts ──────────────────────────────────────────────────── */
+    .toolbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 1.1rem; }
+    .search {
+      flex: 1 1 240px;
+      min-width: 0;
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--ink);
+      box-shadow: 0 4px 12px -8px rgba(20, 19, 23, 0.5);
+    }
+    .search:focus { outline: 3px solid var(--accent-glow); outline-offset: 0; border-color: var(--accent); }
+    .count {
+      flex: 0 0 auto;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.3rem; }
+    .chip {
+      padding: 7px 15px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .chip:hover { border-color: var(--accent); color: var(--ink); }
+    .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+
+    .glossary { display: grid; gap: 12px; }
+    .term {
+      position: relative;
+      padding: 18px 20px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .term:hover { transform: translateY(-2px); box-shadow: var(--sh-card); }
+    .term[hidden] { display: none; }
+    .term-topic {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 3px 10px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .term-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .term-name {
+      margin: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: -0.02em;
+    }
+    .term-src {
+      flex: 0 0 auto;
+      max-width: 45%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--ink3);
+    }
+    .term-src--own {
+      padding: 2px 9px;
+      border-radius: var(--r-pill);
+      background: var(--lime);
+      color: var(--ink);
+    }
+    .term-def { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--ink2); }
+    .term-formula {
+      margin-top: 0.7rem;
+      padding: 9px 13px;
+      border-radius: 10px;
+      background: var(--paper2);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-deep);
+      overflow-x: auto;
+    }
+    /* ── Acronym headings (Acronyms tab; everything else reuses .term) ─── */
+    .term-abbr { font-family: var(--font-mono); font-weight: 700; color: var(--accent-deep); }
+    .term-long { font-weight: 500; color: var(--ink2); }
+
+    .no-results { padding: 26px; text-align: center; color: var(--ink3); }
+
+    /* ── Flashcards ────────────────────────────────────────────────────── */
+    .deck { margin-top: 1.4rem; }
+    .deck-meta { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .deck-count { font-size: 0.8rem; font-weight: 600; color: var(--ink3); font-variant-numeric: tabular-nums; }
+    .deck-count strong { color: var(--ink); }
+    .progress { flex: 1 1 auto; height: 6px; border-radius: var(--r-pill); background: rgba(20, 19, 23, 0.08); overflow: hidden; }
+    .progress-fill {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: var(--r-pill);
+      background: linear-gradient(90deg, var(--accent), var(--lime));
+      transition: width 0.3s ease;
+    }
+
+    .flip {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: none;
+      perspective: 1400px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .flip-inner {
+      position: relative;
+      display: block;
+      min-height: 320px;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.3, 1);
+    }
+    .flip[aria-pressed="true"] .flip-inner { transform: rotateY(180deg); }
+    .face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      padding: clamp(24px, 4vw, 40px);
+      border-radius: var(--radius-lg);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      text-align: left;
+    }
+    .face-front {
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .face-back {
+      background: linear-gradient(150deg, var(--accent-deep), var(--accent));
+      color: #F2F0EA;
+      transform: rotateY(180deg);
+      box-shadow: var(--sh-card);
+    }
+    .face-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+    .face-back .face-tag { color: rgba(242, 240, 234, 0.65); }
+    .face-topic { font-weight: 600; letter-spacing: 0.04em; text-transform: none; opacity: 0.8; }
+    .face-back .face-topic { color: rgba(242, 240, 234, 0.75); }
+    .face-text {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.1rem, 3.2vw, 1.42rem);
+      line-height: 1.28;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .face-back .face-text { color: #FBFAF7; font-weight: 600; font-size: clamp(0.98rem, 2.8vw, 1.18rem); line-height: 1.5; }
+    .face-hint { font-size: 0.74rem; color: var(--ink3); }
+    .face-back .face-hint { color: rgba(242, 240, 234, 0.6); }
+
+    .deck-controls { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+    .btn {
+      flex: 1 1 auto;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: var(--r-pill);
+      background: var(--ink);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+      box-shadow: 0 12px 22px -16px rgba(20, 19, 23, 0.9);
+    }
+    .btn:hover:not(:disabled) { transform: translateY(-2px); }
+    .btn:disabled { opacity: 0.34; cursor: not-allowed; }
+    .btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+    .btn--ghost:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
+
+    .kbd-hint { margin: 14px 0 0; font-size: 0.76rem; color: var(--ink3); text-align: center; }
+    kbd {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-bottom-width: 2px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink2);
+    }
+
+    /* ── Footer ────────────────────────────────────────────────────────── */
+    footer.page-foot {
+      margin-top: clamp(50px, 8vw, 88px);
+      padding: clamp(30px, 5vw, 46px) 0;
+      border-radius: 0 0 var(--r-win) var(--r-win);
+      background: var(--butter);
+    }
+    footer.page-foot p {
+      margin: 0 0 0.4rem;
+      font-size: 0.84rem;
+      color: rgba(20, 19, 23, 0.78);
+    }
+    footer.page-foot p:first-child { font-weight: 700; color: var(--ink); }
+    footer.page-foot p:last-child { margin-bottom: 0; }
+
+    /* ── Dock ──────────────────────────────────────────────────────────── */
+    .dock {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 18px 40px -18px rgba(20, 19, 23, 0.6);
+      max-width: calc(100vw - 24px);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .dock::-webkit-scrollbar { display: none; }
+    .dock-item {
+      position: relative;
+      flex: 0 0 auto;
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      background: linear-gradient(160deg, #fff, #EDEAE2);
+      box-shadow: 0 2px 6px rgba(20, 19, 23, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.3), box-shadow 0.22s ease;
+    }
+    .dock-item:hover, .dock-item:focus-visible {
+      transform: translateY(-12px) scale(1.14);
+      box-shadow: 0 14px 26px -10px rgba(20, 19, 23, 0.5);
+    }
+    .dock-item[data-tint="lime"]  { background: linear-gradient(160deg, #E9FB88, var(--lime)); }
+    .dock-item[data-tint="sky"]   { background: linear-gradient(160deg, #EDF3FD, var(--sky)); }
+    .dock-item[data-tint="blush"] { background: linear-gradient(160deg, #FDF0F0, var(--blush)); }
+    .dock-item[data-tint="mint"]  { background: linear-gradient(160deg, #EAF8EE, var(--mint)); }
+    .dock-item[data-tint="lilac"] { background: linear-gradient(160deg, #F4EFFB, var(--lilac)); }
+    .dock-item[data-tint="sand"]  { background: linear-gradient(160deg, #FAF8DE, var(--sand)); }
+    .dock-item::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      padding: 5px 11px;
+      border-radius: 9px;
+      background: rgba(20, 19, 23, 0.92);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.72rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    .dock-item:hover::after, .dock-item:focus-visible::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .dock-item[aria-current="page"] {
+      box-shadow: 0 2px 6px rgba(20, 19, 23, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 0 0 2px var(--ink);
+    }
+    .dock-sep { flex: 0 0 auto; width: 1px; height: 34px; background: rgba(20, 19, 23, 0.14); margin: 0 2px; }
+    @media (max-width: 600px) {
+      body { padding-bottom: 84px; }
+      .dock { gap: 6px; padding: 7px 9px; bottom: 12px; }
+      .dock-item { width: 44px; height: 44px; font-size: 0.68rem; }
+      .dock-item::after { display: none; }
+      .dock-sep { height: 28px; }
+    }
+
+    /* ── Summary index, collapse and search ───────────────────────────────
+       The index is BUILT AT RUNTIME from the blocks themselves (see the
+       script), so it can never drift from the content and a re-sync needs
+       no extra work. With JavaScript off the summary reads exactly as it
+       did before — every block is open and there is simply no index. */
+    .toc {
+      margin-bottom: clamp(28px, 4vw, 44px);
+      padding: clamp(18px, 3vw, 24px);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .toc-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .toc-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .toc-actions { display: flex; gap: 8px; }
+    .toc-btn {
+      padding: 6px 13px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .toc-btn:hover { border-color: var(--accent); color: var(--ink); }
+    .toc .toolbar { margin-bottom: 0.9rem; }
+    .toc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 2px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 640px) { .toc-list { grid-template-columns: 1fr 1fr; column-gap: 14px; } }
+    .toc-list.is-long { max-height: 19rem; overflow-y: auto; }
+    .toc-list li[hidden] { display: none; }
+    .toc-list a {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      padding: 7px 10px;
+      border-radius: 10px;
+      color: var(--ink2);
+      text-decoration: none;
+      font-size: 0.86rem;
+      line-height: 1.4;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+    .toc-list a:hover { background: var(--accent-soft); color: var(--ink); }
+    .toc-n {
+      flex: 0 0 auto;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+    .toc-empty { margin: 0; padding: 14px 10px 4px; color: var(--ink3); font-size: 0.86rem; }
+
+    /* A block becomes a disclosure. `.block` itself is untouched so the
+       prose-budget gate still measures the same thing. */
+    .block[hidden] { display: none; }
+    .block-d > summary {
+      list-style: none;
+      cursor: pointer;
+      position: relative;
+      padding-right: 34px;
+    }
+    .block-d > summary::-webkit-details-marker { display: none; }
+    .block-d > summary::after {
+      content: "";
+      position: absolute;
+      right: 8px;
+      top: 0.75em;
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid var(--ink3);
+      border-bottom: 2px solid var(--ink3);
+      transform: rotate(45deg);
+      transition: transform 0.22s ease, border-color 0.22s ease;
+    }
+    .block-d[open] > summary::after { transform: rotate(-135deg); }
+    .block-d > summary:hover h2 { color: var(--accent); }
+    .block-d > summary:hover::after { border-color: var(--accent); }
+    .block-d > summary h2 { transition: color 0.2s ease; }
+    .block-d > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 4px; border-radius: 10px; }
+    .block-d:not([open]) > summary h2 { margin-bottom: 0; }
+    /* Topic chips built at runtime use aria-pressed; the sub-tabbed weeks
+       use aria-selected. Same look for both. */
+    .subtab[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    /* ── Accessibility ─────────────────────────────────────────────────── */
+    :focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 3px; border-radius: 8px; }
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      z-index: 200;
+      padding: 12px 20px;
+      background: var(--ink);
+      color: #fff;
+      border-radius: 0 0 10px 0;
+      text-decoration: none;
+    }
+    .skip:focus { left: 0; }
+    .visually-hidden, .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#panel-summary">Skip to content</a>
+
+  <div class="desk" aria-hidden="true">
+    <svg class="desk-hills" viewBox="0 0 1440 600" preserveAspectRatio="none" focusable="false">
+      <defs>
+        <linearGradient id="dh1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#A9BE8C"/><stop offset="1" stop-color="#8FA96E"/>
+        </linearGradient>
+        <linearGradient id="dh2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#C6D25E"/><stop offset="1" stop-color="#9DB248"/>
+        </linearGradient>
+        <linearGradient id="dh3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#7FA045"/><stop offset="1" stop-color="#4F7431"/>
+        </linearGradient>
+        <linearGradient id="dh4" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#5C8235"/><stop offset="1" stop-color="#33501F"/>
+        </linearGradient>
+      </defs>
+      <path fill="url(#dh1)" d="M0 214C176 132 352 108 566 168c214 60 366 122 552 96 122-17 232-70 322-124V600H0Z"/>
+      <path fill="url(#dh2)" d="M0 322C154 240 330 226 520 276c190 50 336 118 522 96 132-16 268-84 398-152V600H0Z"/>
+      <path fill="url(#dh3)" d="M0 430C132 356 302 330 486 372c184 42 326 110 512 92 130-13 288-72 442-140V600H0Z"/>
+      <path fill="url(#dh4)" d="M0 536C160 470 356 452 556 486c200 34 346 78 512 62 138-14 254-52 372-98V600H0Z"/>
+    </svg>
+  </div>
+
+  <div class="stage">
+    <a class="back" href="DMBA6005-weeks.html"><span aria-hidden="true">←</span> All weeks</a>
+
+    <div class="win">
+      <div class="win-bar">
+        <span class="win-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="win-addr">DMBA 6005 &nbsp;/&nbsp; Week 3 &mdash; Ideation and prototyping</span>
+        <span class="win-tool" aria-hidden="true">MBA</span>
+      </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">DMBA 6005 · Agile Project Development · Week 3</p>
+      <h1>Ideation and <em>prototyping</em></h1>
+      <p class="standfirst">Two strands, and two sub-pages I have not written yet. How design thinking opens a problem up and then narrows it back down — and why a prototype is built early, kept rough, and used to learn rather than to impress.</p>
+      <div class="meta-row">
+        <span class="pill"><span class="dot" aria-hidden="true"></span> Pre-live session</span>
+        <span class="pill">37 key terms</span>
+        <span class="pill">50 flashcards</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Week 3 study modes">
+    <div class="tablist" role="tablist">
+      <button class="tab" id="tab-summary" role="tab" aria-selected="true" aria-controls="panel-summary"
+        data-panel="summary"><span class="tab-num" aria-hidden="true">01</span>Summary &amp; visuals</button>
+      <button class="tab" id="tab-terms" role="tab" aria-selected="false" aria-controls="panel-terms"
+        data-panel="terms" tabindex="-1"><span class="tab-num" aria-hidden="true">02</span>Key concepts</button>
+      <button class="tab" id="tab-cards" role="tab" aria-selected="false" aria-controls="panel-cards"
+        data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
+      <button class="tab" id="tab-acronyms" role="tab" aria-selected="false" aria-controls="panel-acronyms"
+        data-panel="acronyms" tabindex="-1"><span class="tab-num" aria-hidden="true">04</span>Acronyms</button>
+      <button class="tab" id="tab-formulas" role="tab" aria-selected="false" aria-controls="panel-formulas"
+        data-panel="formulas" tabindex="-1"><span class="tab-num" aria-hidden="true">05</span>Formulas</button>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- ══════════════════ 01 · SUMMARY & VISUALS ══════════════════ -->
+    <section class="panel active" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" tabindex="0">
+<div class="block" data-topic="Ideation and design thinking">
+        <span class="block-num">01 / The core idea</span>
+        <h2>Design thinking as a problem-solving approach</h2>
+        <p>Design thinking is a <strong>human-centred, iterative approach</strong> for understanding problems and
+          developing solutions around genuine user needs rather than assumed requirements.</p>
+
+        <div class="formula">Empathise → Define → Ideate → Prototype → Test → Iterate</div>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 170" role="img" aria-labelledby="idefig1-title idefig1-desc">
+              <title id="idefig1-title">The design thinking sequence and its return path</title>
+              <desc id="idefig1-desc">Six stages run left to right: empathise, define, ideate, prototype, test and
+                iterate. A dashed path runs back underneath from the last stage to the first, showing that research,
+                prototyping or testing can change what the team believes the problem is and send it back to a stage it
+                thought it had finished.</desc>
+
+              <text class="svg-eyebrow" x="0" y="14">THE STAGES RUN FORWARD — AND BACK</text>
+
+              <rect x="0" y="34" width="100" height="46" rx="10" fill="#F7EFE2" stroke="#A8722C"
+                stroke-opacity="0.35" />
+              <text class="svg-label" x="50" y="62" text-anchor="middle">Empathise</text>
+              <path d="M104 57 L118 57" stroke="#A8722C" stroke-width="1.5" />
+              <path d="M116 53 L122 57 L116 61 Z" fill="#A8722C" />
+
+              <rect x="124" y="34" width="100" height="46" rx="10" fill="#F7EFE2" stroke="#A8722C"
+                stroke-opacity="0.35" />
+              <text class="svg-label" x="174" y="62" text-anchor="middle">Define</text>
+              <path d="M228 57 L242 57" stroke="#A8722C" stroke-width="1.5" />
+              <path d="M240 53 L246 57 L240 61 Z" fill="#A8722C" />
+
+              <rect x="248" y="34" width="100" height="46" rx="10" fill="#F7EFE2" stroke="#A8722C"
+                stroke-opacity="0.35" />
+              <text class="svg-label" x="298" y="62" text-anchor="middle">Ideate</text>
+              <path d="M352 57 L366 57" stroke="#A8722C" stroke-width="1.5" />
+              <path d="M364 53 L370 57 L364 61 Z" fill="#A8722C" />
+
+              <rect x="372" y="34" width="100" height="46" rx="10" fill="#F7EFE2" stroke="#A8722C"
+                stroke-opacity="0.35" />
+              <text class="svg-label" x="422" y="62" text-anchor="middle">Prototype</text>
+              <path d="M476 57 L490 57" stroke="#A8722C" stroke-width="1.5" />
+              <path d="M488 53 L494 57 L488 61 Z" fill="#A8722C" />
+
+              <rect x="496" y="34" width="100" height="46" rx="10" fill="#F7EFE2" stroke="#A8722C"
+                stroke-opacity="0.35" />
+              <text class="svg-label" x="546" y="62" text-anchor="middle">Test</text>
+              <path d="M600 57 L614 57" stroke="#A8722C" stroke-width="1.5" />
+              <path d="M612 53 L618 57 L612 61 Z" fill="#A8722C" />
+
+              <rect x="620" y="34" width="100" height="46" rx="10" fill="#6F4A17" />
+              <text class="svg-label" x="670" y="62" text-anchor="middle" fill="#FFFFFF">Iterate</text>
+
+              <path d="M670 80 L670 116 Q670 126 660 126 L60 126 Q50 126 50 116 L50 100" fill="none" stroke="#A8722C"
+                stroke-opacity="0.7" stroke-width="1.5" stroke-dasharray="4 4" />
+              <path d="M45 99 L50 87 L55 99 Z" fill="#A8722C" />
+
+              <text class="svg-sub" x="360" y="146" text-anchor="middle">what a team learns later can send it back to
+                an earlier stage</text>
+            </svg>
+          </div>
+          <figcaption>The stages are worked in that order, but the arrow also runs backwards. What a team learns while
+            researching, prototyping or testing can change what it believes the problem is.</figcaption>
+        </figure>
+
+        <h3>Ideation within design thinking</h3>
+        <p>Ideation is the <strong>divergent</strong> process of generating many possible solutions before deciding
+          which ones deserve further development.</p>
+        <ul>
+          <li>Prioritise <strong>possibility before perfection</strong></li>
+          <li>Suspend judgement during initial idea generation</li>
+          <li>Challenge assumptions and obvious solutions</li>
+          <li>Encourage unconventional ideas because they can reveal new directions</li>
+          <li>Narrow ideas only <strong>after sufficient exploration</strong></li>
+        </ul>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>Separate <strong>idea generation</strong> from <strong>idea evaluation</strong>. Judging ideas too early
+            reduces the solution space.</p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Ideation and design thinking">
+        <span class="block-num">02 / Two modes</span>
+        <h2>Divergent and convergent thinking</h2>
+        <p>A strong design process deliberately alternates between expansion and selection. Rather than beginning with
+          a predetermined answer, we need to explore both the <strong>problem space</strong> and the
+          <strong>solution space</strong>.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 200" role="img" aria-labelledby="idefig2-title idefig2-desc">
+              <title id="idefig2-title">Diverge and converge, run twice</title>
+              <desc id="idefig2-desc">Two diamonds side by side. In the first, the problem space, the team diverges to
+                explore possible underlying problems and then converges to identify the problem worth solving. In the
+                second, the solution space, the team diverges to generate multiple responses and then converges to
+                select candidates for prototyping and testing.</desc>
+
+              <text class="svg-eyebrow" x="180" y="18" text-anchor="middle">PROBLEM SPACE</text>
+              <text class="svg-eyebrow" x="540" y="18" text-anchor="middle">SOLUTION SPACE</text>
+
+              <polygon points="20,95 180,45 340,95 180,145" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.55"
+                stroke-width="1.5" />
+              <line x1="180" y1="45" x2="180" y2="145" stroke="#A8722C" stroke-opacity="0.35" stroke-dasharray="4 4" />
+              <text class="svg-label" x="110" y="99" text-anchor="middle">Diverge</text>
+              <text class="svg-label" x="250" y="99" text-anchor="middle">Converge</text>
+
+              <path d="M346 95 L370 95" stroke="#6F4A17" stroke-width="1.5" />
+              <path d="M368 91 L374 95 L368 99 Z" fill="#6F4A17" />
+
+              <polygon points="380,95 540,45 700,95 540,145" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.55"
+                stroke-width="1.5" />
+              <line x1="540" y1="45" x2="540" y2="145" stroke="#A8722C" stroke-opacity="0.35" stroke-dasharray="4 4" />
+              <text class="svg-label" x="470" y="99" text-anchor="middle">Diverge</text>
+              <text class="svg-label" x="610" y="99" text-anchor="middle">Converge</text>
+
+              <text class="svg-sub" x="180" y="168" text-anchor="middle">Explore possible underlying problems</text>
+              <text class="svg-sub" x="180" y="182" text-anchor="middle">→ identify the problem worth solving</text>
+              <text class="svg-sub" x="540" y="168" text-anchor="middle">Generate multiple responses</text>
+              <text class="svg-sub" x="540" y="182" text-anchor="middle">→ select candidates for prototyping/testing</text>
+            </svg>
+          </div>
+          <figcaption>The same pair of moves is run twice — once on the problem, once on the solution. Only after the
+            first pass does the team know which problem is worth solving.</figcaption>
+        </figure>
+
+        <p>The two modes and the question each one asks:</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Thinking mode</th>
+                <th scope="col">Purpose</th>
+                <th scope="col">Key question</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Divergent</th>
+                <td>Explore many problems, perspectives or solutions</td>
+                <td><em>What else could be happening / possible?</em></td>
+              </tr>
+              <tr>
+                <th scope="row">Convergent</th>
+                <td>Evaluate and prioritise the strongest options</td>
+                <td><em>Which problems or solution should we pursue?</em></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="formula formula-stack">
+          <span>Problems:  explore possible underlying problems → identify the problem worth solving</span>
+          <span>Solutions: generate multiple responses → select candidates for prototyping/testing</span>
+        </div>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>A project can meet <strong>scope, cost and schedule</strong> yet still fail if it solves the wrong
+            problem.</p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Ideation and design thinking">
+        <span class="block-num">03 / Framing</span>
+        <h2>Start with the user, not the requested solution</h2>
+        <p>A client’s requested feature should be initially treated as a <strong>hypothesis about the
+          solution</strong>, not necessarily as the true problem.</p>
+
+        <div class="formula">Observe users → understand needs/behaviours → define problem → generate solutions → test
+        </div>
+
+        <p>Useful techniques include:</p>
+        <ul>
+          <li>Bringing customers directly into workshoips</li>
+          <li>Using customer stories or recorded experiences</li>
+          <li>Observing behaviour rather than relying only on stated preferences</li>
+          <li>Co-designing with users and staff</li>
+        </ul>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>Before investing heavily in delivery, test whether the proposed project solves something customers
+            actually value.</p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Ideation and design thinking">
+        <span class="block-num">04 / Evidence</span>
+        <h2>Research should enable decisions</h2>
+        <p>Design thinking requires research, but <strong>more research is not automatically better</strong>. The
+          mistake is following the methodology so rigidly that the team collects information without converting it into
+          useful business insight.</p>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>Research effort should be proportionate to the problem: some situations only require a small number of
+            participants, while others demand much larger evidence bases.</p>
+        </div>
+
+        <div class="formula">Research → synthesis → insight → decision</div>
+
+        <p>The design process is a <strong>tool for reaching better outcomes</strong>, not a checklist that must be
+          followed mechanically.</p>
+      </div>
+
+      <div class="block" data-topic="Ideation and design thinking">
+        <span class="block-num">05 / Who counts as a user</span>
+        <h2>Designing beyond the “average” user</h2>
+        <p>Designing only for the typical customer can unintentionally exclude important groups. Teams should
+          deliberately consider <strong>edge users</strong>, including people with:</p>
+        <ul>
+          <li>Accessibility requirements</li>
+          <li>Financial hardship or vulnerability</li>
+          <li>Limited digital access</li>
+          <li>Different levels of technological confidence</li>
+        </ul>
+
+        <p>Designing with these users can:</p>
+        <ul>
+          <li>Expose weaknesses invisible when studying typical customers</li>
+          <li>Make products more inclusive</li>
+          <li>Reduce downstream accessibility and service risks</li>
+          <li>Sometimes improve the experience for the broader customer base</li>
+        </ul>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>Design for variation in human needs, not an imaginary average customer.</p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Ideation and design thinking">
+        <span class="block-num">06 / Representing users</span>
+        <h2>Personas, and where user understanding comes from</h2>
+        <p>Personas can help teams represent different user behaviours during design but their usefulness depends on
+          how they are created.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 200" role="img" aria-labelledby="idefig3-title idefig3-desc">
+              <title id="idefig3-title">Weak and strong personas compared by what they are built from</title>
+              <desc id="idefig3-desc">Two cards side by side. The weak persona is built largely from assumption and is
+                summarised by the phrase imagine what this type of customer probably wants. The strong persona is built
+                from research identifying differences in needs, behaviours, motivations, circumstances and product or
+                service usage.</desc>
+
+              <text class="svg-eyebrow" x="0" y="16">WHAT THE PERSONA IS BUILT FROM</text>
+
+              <rect x="0" y="28" width="340" height="150" rx="12" fill="#FFFFFF" stroke="#6F4A17"
+                stroke-opacity="0.25" />
+              <text class="svg-eyebrow" x="16" y="50">WEAK PERSONA</text>
+              <text class="svg-label" x="16" y="72">Built largely from assumption</text>
+              <text class="svg-sub" x="16" y="94">“Imagine what this type of</text>
+              <text class="svg-sub" x="16" y="107">customer probably wants”</text>
+              <rect x="16" y="138" width="120" height="24" rx="12" fill="#F7EFE2" />
+              <text class="svg-label" x="76" y="154" text-anchor="middle">Assumption</text>
+
+              <rect x="380" y="28" width="340" height="150" rx="12" fill="#F7EFE2" stroke="#6F4A17"
+                stroke-opacity="0.45" />
+              <text class="svg-eyebrow" x="396" y="50">STRONG PERSONA</text>
+              <text class="svg-label" x="396" y="72">Built from research identifying</text>
+              <text class="svg-label" x="396" y="88">differences in:</text>
+              <text class="svg-sub" x="396" y="110">Needs · Behaviours · Motivations</text>
+              <text class="svg-sub" x="396" y="123">Circumstances · Product/service usage</text>
+              <rect x="396" y="138" width="120" height="24" rx="12" fill="#6F4A17" />
+              <text class="svg-label" x="456" y="154" text-anchor="middle" fill="#FFFFFF">Evidence</text>
+            </svg>
+          </div>
+          <figcaption>The two look alike on the page. What separates them is whether the differences they describe were
+            researched or imagined.</figcaption>
+        </figure>
+
+        <p>The purpose is <strong>not demographic storytelling</strong>. It is identifying meaningful behavioural
+          differences that should change the design. AI can accelerate persona creation, but it <strong>cannot replace
+          validation with real users</strong>.</p>
+
+        <h3>Empathy is necessary but insufficient</h3>
+        <p>There are three complementary sources of user understanding.</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Source</th>
+                <th scope="col">Contribution</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Empathy</th>
+                <td>Ability to understand and advocate for another person’s perspective</td>
+              </tr>
+              <tr>
+                <th scope="row">Lived experience</th>
+                <td>Direct experience of the situation being designed for</td>
+              </tr>
+              <tr>
+                <th scope="row">Lived expertise</th>
+                <td>Broader knowledge gained by representing or working extensively with affected communities</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Using all three reduces the risk of designers believing that simply <strong>imagining themselves in somebody
+          else’s position</strong> gives them complete understanding.</p>
+      </div>
+
+      <div class="block" data-topic="Ideation and design thinking">
+        <span class="block-num">07 / Where design sits</span>
+        <h2>Multidisciplinary design</h2>
+        <p>Human-centred design works best when it is integrated with other business capabilities rather than isolated
+          as a “creative” activity.</p>
+
+        <h3>A–E framework</h3>
+        <p>The notes give five headings and no more — nothing is written under any of them:</p>
+        <ul>
+          <li>A &mdash; Architecture &amp; Technology</li>
+          <li>B &mdash; Business &amp; Experience</li>
+          <li>C &mdash; Change &amp; Capability</li>
+          <li>D &mdash; Data &amp; AI</li>
+          <li>E &mdash; Execution</li>
+        </ul>
+
+        <p>One relationship is worked through: business + experience.</p>
+        <ul>
+          <li>Business provides commercial and organisational constraints</li>
+          <li>Design provides customer/user understanding</li>
+          <li>Neither should dominate the decision independently</li>
+        </ul>
+
+        <h3>Technology example</h3>
+        <p>For a SaaS product, customer research may identify onboarding friction qualitatively, while product
+          analytics reveal precisely where customers abandon the workflow.</p>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>Human insight explains <em>why</em>; data helps establish <em>where/how often</em>.</p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Ideation and design thinking">
+        <span class="block-num">08 / The three tests</span>
+        <h2>Desirability, feasibility and viability</h2>
+        <p>After divergent ideation, ideas need to survive three different tests.</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Lens</th>
+                <th scope="col">Core question</th>
+                <th scope="col">Typical considerations</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Desirability</th>
+                <td>Do users want or benefit from it?</td>
+                <td>Trust, usefulness, accessibility, experience</td>
+              </tr>
+              <tr>
+                <th scope="row">Feasibility</th>
+                <td>Can we realistically deliver it?</td>
+                <td>Technology, skills, data, integration, resources</td>
+              </tr>
+              <tr>
+                <th scope="row">Viability</th>
+                <td>Should the organisation sustain it?</td>
+                <td>Cost, revenue/value, scale, risk, strategy</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 270" role="img" aria-labelledby="idefig4-title idefig4-desc">
+              <title id="idefig4-title">Desirability, feasibility and viability as three overlapping tests</title>
+              <desc id="idefig4-desc">Three overlapping circles labelled desirability, feasibility and viability. The
+                strongest innovation sits in the region where all three overlap. A technically impressive solution can
+                fail because nobody wants it, and a desirable solution can fail because it cannot be delivered
+                economically or safely.</desc>
+
+              <text class="svg-eyebrow" x="0" y="16">AN IDEA HAS TO SURVIVE ALL THREE</text>
+
+              <text class="svg-sub" x="8" y="44">A technically impressive solution</text>
+              <text class="svg-sub" x="8" y="57">can fail because nobody wants it</text>
+              <text class="svg-sub" x="712" y="44" text-anchor="end">A desirable solution can fail because</text>
+              <text class="svg-sub" x="712" y="57" text-anchor="end">it cannot be delivered economically or safely</text>
+
+              <circle cx="325" cy="110" r="80" fill="#A8722C" fill-opacity="0.18" stroke="#6F4A17"
+                stroke-opacity="0.5" />
+              <circle cx="395" cy="110" r="80" fill="#A8722C" fill-opacity="0.18" stroke="#6F4A17"
+                stroke-opacity="0.5" />
+              <circle cx="360" cy="178" r="80" fill="#A8722C" fill-opacity="0.18" stroke="#6F4A17"
+                stroke-opacity="0.5" />
+
+              <text class="svg-label" x="8" y="120">Desirability</text>
+              <line x1="92" y1="116" x2="247" y2="110" stroke="#6F4A17" stroke-opacity="0.45" />
+              <text class="svg-label" x="712" y="120" text-anchor="end">Feasibility</text>
+              <line x1="628" y1="116" x2="473" y2="110" stroke="#6F4A17" stroke-opacity="0.45" />
+              <text class="svg-label" x="360" y="238" text-anchor="middle">Viability</text>
+
+              <text class="svg-label" x="360" y="136" text-anchor="middle" fill="#6F4A17">Strongest</text>
+              <text class="svg-label" x="360" y="149" text-anchor="middle" fill="#6F4A17">innovation</text>
+            </svg>
+          </div>
+          <figcaption>The strongest innovation usually sits where desirability, feasibility and viability overlap. Each
+            lens is a separate test, and an idea can pass one while failing another.</figcaption>
+        </figure>
+      </div>
+
+      <div class="block" data-topic="Ideation and design thinking">
+        <span class="block-num">09 / The case</span>
+        <h2>Applying the framework: the $RUs digital human AI advisor</h2>
+        <p>The proposed <strong>AI financial-services digital human should initially be treated as an idea to
+          investigate — not as the already-defined solution.</strong></p>
+
+        <div class="callout callout--ask">
+          <span class="icon" aria-hidden="true">❓</span>
+          <p>What problem would a digital human solve better than the alternatives?</p>
+        </div>
+
+        <h3>Desirability ideas</h3>
+        <p>If approaching the activity through desirability, potential concepts include:</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Concept</th>
+                <th scope="col">What it does</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Financial starting-point conversation</th>
+                <td>AI asks younger customers about goals such as buying property, investing or building wealth and
+                  identifies useful next steps</td>
+              </tr>
+              <tr>
+                <th scope="row">Financial concept translator</th>
+                <td>Converts complex superannuation, investment, trust and tax terminology into conversational
+                  explanations</td>
+              </tr>
+              <tr>
+                <th scope="row">Life-event navigator</th>
+                <td>Adapts conversations around marriage, children, inheritance, overseas investments or career
+                  changes</td>
+              </tr>
+              <tr>
+                <th scope="row">Advisor hand-off</th>
+                <td>Allows customers to explore anonymously/independently before transferring complex issues to a human
+                  adviser with context preserved</td>
+              </tr>
+              <tr>
+                <th scope="row">Inclusive interaction modes</th>
+                <td>digital human plus text, accessibility controls and alternatives for customers who dislike
+                  avatar-based interaction</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--ask">
+          <span class="icon" aria-hidden="true">❓</span>
+          <p>What prevents younger customers from engaging with financial advice earlier, and which parts of that
+            experience should technology improve?</p>
+        </div>
+
+        <h3>Feasibility ideas</h3>
+        <p>If approaching the activity through feasibility, StellarCX should test whether the digital human can
+          realistically be delivered with current technology, data and organisational capabilities.</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Consideration</th>
+                <th scope="col">What it means</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">AI knowledge boundaries</th>
+                <td>restrict the digital human to approved $RUs information rather than allowing unrestricted financial
+                  advice</td>
+              </tr>
+              <tr>
+                <th scope="row">Human escalation</th>
+                <td>automatically transfer complex, sensitive or regulated questions to a qualified adviser</td>
+              </tr>
+              <tr>
+                <th scope="row">Existing-system integration</th>
+                <td>connect with CRM, appointment booking and customer information where technically appropriate</td>
+              </tr>
+              <tr>
+                <th scope="row">Pilot before full deployment</th>
+                <td>begin with lower-risk use cases such as education, FAQs and appointment preparation before
+                  expanding functionality</td>
+              </tr>
+              <tr>
+                <th scope="row">Multiple interfaces</th>
+                <td>Offer text/chat alongside the digital human so the underlying AI service is not dependent on the
+                  avatar experience</td>
+              </tr>
+              <tr>
+                <th scope="row">Data and privacy controls</th>
+                <td>ensure customer information can be handled securely and appropriately</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--ask">
+          <span class="icon" aria-hidden="true">❓</span>
+          <p>Can $RUs deliver the experience reliably, securely and within its current technological, regulatory and
+            resource constraints?</p>
+        </div>
+
+        <h3>Viability ideas</h3>
+        <p>If approaching the activity through viability, the focus shifts from <em>can we build it?</em> to <em>does
+          it create sustainable value for $RUs?</em></p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Concept</th>
+                <th scope="col">What it does</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Lead-generation channel</th>
+                <td>Use the digital human to convert younger visitors into consultations with human advisers</td>
+              </tr>
+              <tr>
+                <th scope="row">Lower-cost early engagement</th>
+                <td>handle basic education and initial enquiries digitally while reserving adviser time for
+                  higher-value conversations</td>
+              </tr>
+              <tr>
+                <th scope="row">Relationship-building pathway</th>
+                <td>engage customers earlier in their financial lives so $RUs can potentially support them across
+                  future life stages</td>
+              </tr>
+              <tr>
+                <th scope="row">Scalable service model</th>
+                <td>allow many customers to receive basic guidance simultaneously without requiring proportional growth
+                  in adviser numbers</td>
+              </tr>
+              <tr>
+                <th scope="row">Cross-service discovery</th>
+                <td>identify relevant needs across superannuation, wealth management, trusts and other $RUs services
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Measure commercial value</th>
+                <td>track engagement, adviser bookings, conversion, retention and cost-to-serve rather than judging
+                  success by AI usage alone</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--ask">
+          <span class="icon" aria-hidden="true">❓</span>
+          <p>Will the digital human create enough customer and business value to justify its ongoing cost, risk and
+            operational complexity?</p>
+        </div>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>The digital human should be treated as a <strong>business model and service design decision</strong>, not
+            merely a technology investment.</p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Ideation and design thinking">
+        <span class="block-num">10 / Takeaways</span>
+        <h2>Analytical takeaways</h2>
+        <ul class="takeaways">
+          <li><strong>Do not confuse the client’s requested solution with the underlying problem</strong></li>
+          <li>Diverge before converging: explore both <strong>multiple problems and multiple solutions</strong></li>
+          <li>Strong design combines <strong>human evidence, business requirements, technology and data</strong></li>
+          <li>Personas require <strong>research validation</strong>, not imagination alone</li>
+          <li>Include <strong>edge users</strong>, not merely the average customer</li>
+          <li>Judge proposed innovations through <strong>desirability, feasibility and viability</strong></li>
+          <li>For $RUs, the key issue is whether the digital human genuinely removes barriers to earlier financial
+            engagement - not simply whether AI technology can be built.</li>
+        </ul>
+      </div>
+
+<div class="block" data-topic="Why we prototype">
+  <span class="block-num">11 / The core idea</span>
+  <h2>Prototype to learn, not to prove</h2>
+  <p>A <strong>prototype</strong> is an intentionally incomplete representation of an idea used to make it tangible
+    enough to <strong>test, discuss and improve before committing to full development</strong>. The objective is not
+    to make the first idea look impressive. it is to <strong>learn quickly and cheaply</strong>.</p>
+
+  <p>Prototyping helps teams:</p>
+  <ul>
+    <li>Turn abstract ideas into something observable</li>
+    <li>Test assumptions rather than rely on guesses</li>
+    <li>Expose weaknesses while they are still inexpensive to fix</li>
+    <li>Gather user and stakeholder feedback</li>
+    <li>Compare alternative solutions</li>
+    <li>Refine the idea through repeated iteration</li>
+    <li>Avoid substantial investment in the wrong solution</li>
+  </ul>
+
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>Prototype to learn, not to prove that your first idea was right</p>
+  </div>
+</div>
+
+<div class="block" data-topic="Why we prototype">
+  <span class="block-num">12 / Fidelity</span>
+  <h2>Why prototypes should initially be imperfect</h2>
+  <p>Early prototypes should deliberately be <strong>quick, inexpensive and low-fidelity</strong>. The more effort
+    invested in an idea, the harder it becomes psychologically and organisationally to abandon it.</p>
+
+  <p>A highly polished early prototype can create:</p>
+  <ul>
+    <li>Attachment to the solution</li>
+    <li>Resistance to criticism</li>
+    <li>Pressure to continue because of time already invested</li>
+    <li>Reduced willingness to explore alternatives</li>
+  </ul>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 720 200" role="img" aria-labelledby="wpfig1-title wpfig1-desc">
+        <title id="wpfig1-title">Effort invested against willingness to abandon an idea</title>
+        <desc id="wpfig1-desc">Two opposing wedges run left to right along an axis of increasing effort. The upper
+          wedge, the team's willingness to change or discard the prototype, is widest at the low-effort end and narrows
+          almost to nothing at the high-effort end. The lower wedge — attachment, resistance and pressure to continue —
+          starts almost invisible at the low-effort end and widens as effort accumulates.</desc>
+
+        <text class="svg-eyebrow" x="0" y="14">EFFORT INVESTED VERSUS WILLINGNESS TO ABANDON</text>
+
+        <polygon points="0,34 700,84 700,96 0,96" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.4" />
+        <text class="svg-label" x="12" y="62" fill="#141317">Willingness to change or discard</text>
+
+        <polygon points="0,112 700,104 700,156 0,124" fill="#6F4A17" />
+        <text class="svg-label" x="688" y="134" text-anchor="end" fill="#FFFFFF">Attachment, resistance, pressure to
+          continue</text>
+
+        <line x1="0" y1="176" x2="710" y2="176" stroke="#8C867A" stroke-width="1.5" />
+        <polygon points="704,171 716,176 704,181" fill="#8C867A" />
+        <text class="svg-sub" x="0" y="194">low effort — quick, cheap, low-fidelity</text>
+        <text class="svg-sub" x="712" y="194" text-anchor="end">high effort — polished</text>
+      </svg>
+    </div>
+    <figcaption>The two wedges move in opposite directions. Every hour spent polishing an early prototype costs the
+      team some of its freedom to walk away.</figcaption>
+  </figure>
+
+  <div class="formula">Change → Discard → Rebuild → Compare</div>
+  <p>Keeping the prototype cheap protects the team from becoming committed to an idea before evidence shows that it
+    deserves commitment.</p>
+
+  <h3>Prototype fidelity should follow learning needs</h3>
+  <p>Early prototypes might include:</p>
+  <ul>
+    <li>Sketches</li>
+    <li>Paper interfaces</li>
+    <li>Storyboards</li>
+    <li>Wireframes</li>
+    <li>Simple models</li>
+    <li>Mock-ups</li>
+    <li>Clickable demonstrations</li>
+  </ul>
+  <p>More detailed prototypes should emerge only when the team needs to test more specific aspects of the proposed
+    solution.</p>
+</div>
+
+<div class="block" data-topic="Why we prototype">
+  <span class="block-num">13 / Agile design</span>
+  <h2>Prototyping as Agile design</h2>
+  <p>Prototyping and <strong>Agile project management</strong> share the same underlying logic.</p>
+  <div class="formula">Build something small → Test → Learn → Adapt → Repeat</div>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 720 160" role="img" aria-labelledby="wpfig2-title wpfig2-desc">
+        <title id="wpfig2-title">The build, test, learn, adapt cycle</title>
+        <desc id="wpfig2-desc">Four stages run left to right — build something small, test, learn, adapt — and a dashed
+          return path runs back from adapt to build, labelled repeat. The loop closes rather than ending, so each pass
+          starts again from a small build informed by what the last pass revealed.</desc>
+
+        <text class="svg-eyebrow" x="0" y="14">THE LOGIC PROTOTYPING SHARES WITH AGILE</text>
+
+        <rect x="0" y="36" width="150" height="56" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+        <text class="svg-label" x="75" y="60" text-anchor="middle">Build something</text>
+        <text class="svg-label" x="75" y="76" text-anchor="middle">small</text>
+
+        <line x1="154" y1="64" x2="180" y2="64" stroke="#8C867A" stroke-width="1.5" />
+        <polygon points="176,59 186,64 176,69" fill="#8C867A" />
+
+        <rect x="190" y="36" width="150" height="56" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+        <text class="svg-label" x="265" y="70" text-anchor="middle">Test</text>
+
+        <line x1="344" y1="64" x2="370" y2="64" stroke="#8C867A" stroke-width="1.5" />
+        <polygon points="366,59 376,64 366,69" fill="#8C867A" />
+
+        <rect x="380" y="36" width="150" height="56" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+        <text class="svg-label" x="455" y="70" text-anchor="middle">Learn</text>
+
+        <line x1="534" y1="64" x2="560" y2="64" stroke="#8C867A" stroke-width="1.5" />
+        <polygon points="556,59 566,64 556,69" fill="#8C867A" />
+
+        <rect x="570" y="36" width="150" height="56" rx="10" fill="#6F4A17" />
+        <text class="svg-label" x="645" y="70" text-anchor="middle" fill="#FFFFFF">Adapt</text>
+
+        <path d="M645 96 L645 140 L75 140 L75 104" stroke="#8C867A" stroke-width="1.5" stroke-dasharray="5 4"
+          fill="none" />
+        <polygon points="70,104 75,94 80,104" fill="#8C867A" />
+        <rect x="324" y="127" width="72" height="20" rx="6" fill="#FFFFFF" />
+        <text class="svg-label" x="360" y="141" text-anchor="middle">Repeat</text>
+      </svg>
+    </div>
+    <figcaption>The arrow back is the whole point. Nothing in the sequence is a final step, which is what reduces the
+      cost of learning.</figcaption>
+  </figure>
+
+  <p>Both reject the assumption that every requirement and solution can be correctly determined at the beginning of a
+    project. The parallel holds line by line:</p>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Agile</th>
+          <th scope="col">Prototyping</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Small delivery increments</th>
+          <td>Small representations of the solution</td>
+        </tr>
+        <tr>
+          <th scope="row">Frequent feedback</th>
+          <td>Frequent user testing</td>
+        </tr>
+        <tr>
+          <th scope="row">Adapt backlog/requirements</th>
+          <td>Adapt design</td>
+        </tr>
+        <tr>
+          <th scope="row">Respond to change</th>
+          <td>Revise assumptions</td>
+        </tr>
+        <tr>
+          <th scope="row">Continuous improvement</th>
+          <td>Iterative refinement</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>This is why prototyping can be considered <strong>Agile design</strong>: it brings experimentation and adaptability
+    into the design stage rather than waiting until development is substantially complete.</p>
+
+  <h3>Why this matters</h3>
+  <p>Early testing helps prevent teams from entering long development cycles before discovering that:</p>
+  <ul>
+    <li>Customers do not understand the solution</li>
+    <li>Assumptions were incorrect</li>
+    <li>Important requirements were missed</li>
+    <li>The proposed feature is technically problematic</li>
+    <li>The solution does not address the underlying problem</li>
+  </ul>
+
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p><strong>Build early and test often</strong> reduces the cost of learning</p>
+  </div>
+</div>
+
+<div class="block" data-topic="Why we prototype">
+  <span class="block-num">14 / From ideation to prototype</span>
+  <h2>Diverge, converge, then make it tangible</h2>
+  <p>Prototyping follows naturally from ideation. Teams initially generate a <strong>wide range of possible
+      solutions</strong> without judging them too early; the objective is to expand the solution space and challenge
+    obvious answers. Teams then evaluate ideas and narrow them to the most promising directions.</p>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 720 210" role="img" aria-labelledby="wpfig3-title wpfig3-desc">
+        <title id="wpfig3-title">Divergence and convergence feeding prototypes</title>
+        <desc id="wpfig3-desc">A diamond widens from a single point on the left as the team diverges to explore a wide
+          range of possible solutions, then narrows again on the right as it converges on the most promising
+          directions. The narrow right-hand point feeds a prototype stage. A dashed path returns from the prototypes
+          back into the diamond, because testing may reveal new possibilities and open the exploration again.</desc>
+
+        <text class="svg-eyebrow" x="0" y="14">IDEATION NARROWS INTO PROTOTYPES, AND MAY OPEN AGAIN</text>
+
+        <text class="svg-sub" x="170" y="40" text-anchor="middle">wide range of possible solutions</text>
+        <text class="svg-sub" x="390" y="40" text-anchor="middle">narrowed to the most promising</text>
+
+        <polygon points="60,110 280,50 500,110 280,170" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.4" />
+        <line x1="280" y1="52" x2="280" y2="168" stroke="#A8722C" stroke-opacity="0.4" stroke-dasharray="4 4" />
+
+        <text class="svg-label" x="250" y="104" text-anchor="end">Divergence</text>
+        <text class="svg-sub" x="250" y="120" text-anchor="end">explore</text>
+        <text class="svg-label" x="310" y="104">Convergence</text>
+        <text class="svg-sub" x="310" y="120">select</text>
+
+        <line x1="504" y1="110" x2="532" y2="110" stroke="#8C867A" stroke-width="1.5" />
+        <polygon points="528,105 538,110 528,115" fill="#8C867A" />
+
+        <rect x="542" y="84" width="178" height="52" rx="10" fill="#6F4A17" />
+        <text class="svg-label" x="631" y="108" text-anchor="middle" fill="#FFFFFF">Prototypes</text>
+        <text class="svg-sub" x="631" y="124" text-anchor="middle" fill="#F7EFE2">made tangible, then tested</text>
+
+        <path d="M631 140 L631 186 L200 186 L200 162" stroke="#8C867A" stroke-width="1.5" stroke-dasharray="4 4"
+          fill="none" />
+        <polygon points="195,162 200,152 205,162" fill="#8C867A" />
+        <text class="svg-sub" x="415" y="202" text-anchor="middle">testing may reveal new possibilities</text>
+      </svg>
+    </div>
+    <figcaption>Selection is not the end of the shape. A prototype that teaches the team something new pushes the
+      process back out into exploration.</figcaption>
+  </figure>
+
+  <p>Selected ideas become prototypes that can be:</p>
+  <div class="formula">Made tangible → tested → refined → tested again</div>
+  <p>The process may then diverge again if testing reveals new possibilities.</p>
+
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>The purpose is not to perfectly execute an idea; it is to discover whether the team is <em><strong>doing the
+          right thing before doing the thing right</strong></em></p>
+  </div>
+
+  <h3>What makes an idea work?</h3>
+  <p>A successful idea must solve a <strong>real problem</strong>, not merely sound innovative. Teams should favour
+    ideas that are:</p>
+  <ul>
+    <li>Understandable to users</li>
+    <li>Useful in solving the identified need</li>
+    <li>Practical within project constraints</li>
+    <li>Capable of being tested and improved</li>
+    <li>Aligned with available budget and schedule</li>
+  </ul>
+
+  <h3>Avoid jargon</h3>
+  <p>Complex terminology can disguise weak thinning.</p>
+
+  <div class="callout callout--ask">
+    <span class="icon" aria-hidden="true">❓</span>
+    <p>Who has the problem, what are we chanigng, and why will it improve their experience?</p>
+  </div>
+</div>
+
+<div class="block" data-topic="Why we prototype">
+  <span class="block-num">15 / Planning</span>
+  <h2>Prototyping improves project planning</h2>
+  <p>Prototypes provide evidence can improve planning <strong>before major commitments are made</strong>. Testing may
+    expose:</p>
+  <ul>
+    <li>Misunderstood requirements</li>
+    <li>Unnecessary features</li>
+    <li>Technical challenges</li>
+    <li>User experience problems</li>
+    <li>Dependencies</li>
+    <li>Scope changes</li>
+  </ul>
+
+  <p>This gives project managers better information for developing:</p>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Planning area</th>
+          <th scope="col">What the evidence informs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Scope</th>
+          <td>What actually needs to be built</td>
+        </tr>
+        <tr>
+          <th scope="row">Schedule</th>
+          <td>How complex delivery is likely to be</td>
+        </tr>
+        <tr>
+          <th scope="row">Resources</th>
+          <td>Which capabilities are required</td>
+        </tr>
+        <tr>
+          <th scope="row">Risk assessments</th>
+          <td>Where uncertainty remains</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Prototyping is not simply a design activity; it can improve the quality of project estimates and decisions.</p>
+</div>
+
+<div class="block" data-topic="Why we prototype">
+  <span class="block-num">16 / Stakeholders</span>
+  <h2>Prototyping and stakeholder buy-in</h2>
+  <p>Abstract concepts are difficult for stakeholders to evaluate because different people may imagine different
+    solutions from the same description. A prototype creates a <strong>shared reference point</strong>.</p>
+
+  <p>The prototype communicates “Here is what we mean”, so stakeholders can then:</p>
+  <ul>
+    <li>See or experience the proposed solution</li>
+    <li>Identify misunderstandings</li>
+    <li>Provide specific feedback</li>
+    <li>Compare alternatives</li>
+    <li>Participate in refining the design</li>
+  </ul>
+
+  <h3>Why this improves engagement</h3>
+  <p>Early involvement creates <strong>co-ownership</strong> of the solution. Rather than stakeholders seeing a finished
+    product for the first time near delivery, they participate in shaping it throughout development. This can:</p>
+  <ul>
+    <li>Strengthen trust</li>
+    <li>Improve communication</li>
+    <li>Increase support for the project</li>
+    <li>Reduce disruptive late-stage changes</li>
+  </ul>
+</div>
+
+<div class="block" data-topic="Why we prototype">
+  <span class="block-num">17 / T-Design</span>
+  <h2>Breadth across the solution, depth where it matters</h2>
+  <p><strong>T-design</strong> balances <strong>breadth and depth</strong> when determining what should be prototypes.
+    Think of the prototype as the shape of a <strong>T</strong>.</p>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 720 266" role="img" aria-labelledby="wpfig4-title wpfig4-desc">
+        <title id="wpfig4-title">The T-design prototyping shape</title>
+        <desc id="wpfig4-desc">A wide horizontal bar spans the whole solution and is divided into feature slots, most
+          of which carry little depth. Beneath one of them a single deep vertical column drops down,
+          representing the small number of important features explored in much greater detail. A panel beside the
+          column lists the conditions that justify going deep: innovative, uncertain, complex, difficult for users to
+          imagine, central to the value proposition, or particularly important to validate.</desc>
+
+        <text class="svg-eyebrow" x="0" y="14">THE SHAPE OF A T</text>
+        <text class="svg-label" x="0" y="34">Horizontal — breadth across the whole solution</text>
+
+        <rect x="0" y="44" width="720" height="48" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+        <rect x="12" y="55" width="106" height="26" rx="6" fill="#FFFFFF" stroke="#A8722C" stroke-opacity="0.25" />
+        <text class="svg-sub" x="65" y="72" text-anchor="middle">little depth</text>
+        <rect x="130" y="55" width="106" height="26" rx="6" fill="#FFFFFF" stroke="#A8722C" stroke-opacity="0.25" />
+        <text class="svg-sub" x="183" y="72" text-anchor="middle">little depth</text>
+        <rect x="248" y="55" width="106" height="26" rx="6" fill="#A8722C" />
+        <text class="svg-sub" x="301" y="72" text-anchor="middle" fill="#FFFFFF">deep dive</text>
+        <rect x="366" y="55" width="106" height="26" rx="6" fill="#FFFFFF" stroke="#A8722C" stroke-opacity="0.25" />
+        <text class="svg-sub" x="419" y="72" text-anchor="middle">little depth</text>
+        <rect x="484" y="55" width="106" height="26" rx="6" fill="#FFFFFF" stroke="#A8722C" stroke-opacity="0.25" />
+        <text class="svg-sub" x="537" y="72" text-anchor="middle">little depth</text>
+        <rect x="602" y="55" width="106" height="26" rx="6" fill="#FFFFFF" stroke="#A8722C" stroke-opacity="0.25" />
+        <text class="svg-sub" x="655" y="72" text-anchor="middle">little depth</text>
+
+        <rect x="248" y="92" width="106" height="144" rx="10" fill="#6F4A17" />
+        <text class="svg-label" x="301" y="116" text-anchor="middle" fill="#FFFFFF">Depth</text>
+        <text class="svg-sub" x="301" y="138" text-anchor="middle" fill="#F7EFE2">a small number</text>
+        <text class="svg-sub" x="301" y="152" text-anchor="middle" fill="#F7EFE2">of important</text>
+        <text class="svg-sub" x="301" y="166" text-anchor="middle" fill="#F7EFE2">features,</text>
+        <text class="svg-sub" x="301" y="180" text-anchor="middle" fill="#F7EFE2">explored in</text>
+        <text class="svg-sub" x="301" y="194" text-anchor="middle" fill="#F7EFE2">much greater</text>
+        <text class="svg-sub" x="301" y="208" text-anchor="middle" fill="#F7EFE2">detail</text>
+
+        <rect x="380" y="104" width="340" height="132" rx="10" fill="#FFFFFF" stroke="#8C867A" stroke-opacity="0.3" />
+        <text class="svg-eyebrow" x="396" y="124">GO DEEPER WHERE SOMETHING IS</text>
+        <text class="svg-sub" x="396" y="146">Innovative</text>
+        <text class="svg-sub" x="396" y="162">Uncertain</text>
+        <text class="svg-sub" x="396" y="178">Complex</text>
+        <text class="svg-sub" x="396" y="194">Difficult for users to imagine</text>
+        <text class="svg-sub" x="396" y="210">Central to the value proposition</text>
+        <text class="svg-sub" x="396" y="226">Particularly important to validate</text>
+
+        <text class="svg-sub" x="0" y="258">Resources are concentrated on areas where learning is most valuable</text>
+      </svg>
+    </div>
+    <figcaption>Breadth covers the range of features or overall experience; depth concentrates resources where
+      learning is most valuable.</figcaption>
+  </figure>
+
+  <h3>Horizontal line — breadth</h3>
+  <p>The horizontal part represents the <strong>range of features or overall experience</strong>. Each feature is
+    represented only enough for users and stakeholders to understand what exists, how elements relate, and what the
+    overall solution might do. There is <strong>little depth</strong> because these components do not all require
+    detailed testing.</p>
+
+  <h3>Vertical line — depth</h3>
+  <p>The vertical part represents a <strong>small number of important features explored in much greater detail</strong>.
+    Go deeper where something is:</p>
+  <ul>
+    <li>Innovative</li>
+    <li>Uncertain</li>
+    <li>Complex</li>
+    <li>Difficult for users to imagine</li>
+    <li>Central to the value proposition</li>
+    <li>Particularly important to validate</li>
+  </ul>
+  <p>Resources are concentrated on areas where learning is most valuable.</p>
+
+  <h3>Why T-Design is efficient</h3>
+  <p>T-Design avoids two extremes:</p>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Approach</th>
+          <th scope="col">Problem</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Prototype everything deeply</th>
+          <td>Wastes time and resources</td>
+        </tr>
+        <tr>
+          <th scope="row">Prototype everything superficially</th>
+          <td>Fails to properly test critical assumptions</td>
+        </tr>
+        <tr>
+          <th scope="row"><strong>T-Design</strong></th>
+          <td><strong>Broad overall picture + deep testing where uncertainty matters</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>Prototype what needs to be learned, not everything that could eventually be built</p>
+  </div>
+
+  <p>There is little value spending significant effort prototyping familiar functionality that stakeholders can already
+    understand.</p>
+
+  <h3>When T-Design is useful</h3>
+  <p>T-design is particularly valuable for:</p>
+  <ul>
+    <li>Early-stage prototypes</li>
+    <li>Stakeholder presentations</li>
+    <li>Pitches</li>
+    <li>User testing</li>
+    <li>Testing unfamiliar or innovative functionality</li>
+    <li>Demonstrating overall feasibility without building the full system</li>
+  </ul>
+  <p>it aligns strongly with Agile because it encourages teams to <strong>show enough of the whole solution while
+      investing deeply only where evidence is needed</strong></p>
+</div>
+
+<div class="block" data-topic="Why we prototype">
+  <span class="block-num">18 / Risk and takeaways</span>
+  <h2>Prototyping as risk reduction</h2>
+  <p>Prototyping reduces uncertainty <strong>before uncertainty becomes expensive</strong>. The earlier a bad assumption
+    is identified, the cheaper it usually is to correct.</p>
+  <div class="formula">Prototype → Feedback → Learning → Adjustment → Reduced uncertainty</div>
+
+  <p>Frequent testing also prevents the project from drifting too far from:</p>
+  <ul>
+    <li>User expectations</li>
+    <li>Stakeholder requirements</li>
+    <li>Project objectives</li>
+  </ul>
+
+  <p>The greatest risk is not producing an imperfect prototype.</p>
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>It is <strong>perfectly building something nobody needed</strong></p>
+  </div>
+
+  <h3>Analytical takeaways</h3>
+  <ul class="takeaways">
+    <li>Prototype to learn by doing rather than guessing.</li>
+    <li>Early prototypes should be intentionally cheap and imperfect so teams remain willing to change or discard them.
+    </li>
+    <li>Prototyping applies <strong>Agile principles to design</strong> through short feedback and iteration cycles.
+    </li>
+    <li>Ideation moves from <strong>divergent exploration → convergence → tangible testing</strong>.</li>
+    <li>A working idea solves a real problem within relevant user and project constraints.</li>
+    <li>Prototypes improve <strong>scope, scheduling, risk identification and stakeholder communication</strong>.</li>
+    <li>Stakeholders give better feedback when reacting to something tangible rather than an abstract proposal.</li>
+    <li><strong>T-design = breadth across the solution + depth where uncertainty or innovation is greatest</strong>.
+    </li>
+    <li>The purpose of prototyping is ultimately to determine <strong>whether the team is building the right thing
+        before investing heavily in building it right</strong>.</li>
+  </ul>
+</div>
+
+      <div class="block" data-topic="Personas" data-topic-empty="true">
+        <span class="block-num">19 / Not yet written</span>
+        <h2>Personas</h2>
+        <p>This sub-page of my Week 3 pre-live note exists in Notion but has no content in it
+          yet. Nothing has been generated to stand in for it.</p>
+        <p>Personas <em>are</em> covered this week &mdash; see <strong>06 / Representing users</strong>, which comes
+          from the ideation notes. This separate sub-page is the one still to be written.</p>
+      </div>
+
+      <div class="block" data-topic="Long-term strategic value for $RUs" data-topic-empty="true">
+        <span class="block-num">20 / Not yet written</span>
+        <h2>Long-term strategic value for $RUs</h2>
+        <p>This sub-page of my Week 3 pre-live note exists in Notion but has no content in it
+          yet. Nothing has been generated to stand in for it.</p>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 02 · KEY CONCEPTS ══════════════════ -->
+    <section class="panel" id="panel-terms" role="tabpanel" aria-labelledby="tab-terms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">02 / Reference</span>
+        <h2>Key concepts &amp; terminology</h2>
+        <p>Every term from the week in one filterable reference, so a definition is two keystrokes away rather than a scroll.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="term-search">Filter terms</label>
+          <input class="search" id="term-search" type="search" placeholder="Filter terms — try “prototype” or “persona”"
+            autocomplete="off">
+          <span class="count" id="term-count" aria-live="polite">37 of 37</span>
+        </div>
+
+        <div class="glossary" id="glossary"></div>
+      </div>
+    </section>
+    <!-- ══════════════════ 03 · FLASHCARDS ══════════════════ -->
+    <section class="panel" id="panel-cards" role="tabpanel" aria-labelledby="tab-cards" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">03 / Active recall</span>
+        <h2>Flashcards</h2>
+        <p>A flippable deck for active recall. Answer out loud, then flip. Shuffle to break the order effect before an assessment.</p>
+
+        <div class="deck">
+          <div class="deck-meta">
+            <span class="deck-count"><strong id="card-index">1</strong> / <span id="card-total">50</span></span>
+            <span class="progress"><span class="progress-fill" id="progress-fill"></span></span>
+          </div>
+
+          <button class="flip" id="flip-card" aria-pressed="false" aria-label="Flashcard — press to reveal the answer">
+            <span class="flip-inner">
+              <span class="face face-front">
+                <span class="face-tag">Question</span>
+                <span class="face-text" id="card-q"></span>
+                <span class="face-hint">Click, tap, or press Space to reveal</span>
+              </span>
+              <span class="face face-back">
+                <span class="face-tag">Answer</span>
+                <span class="face-text" id="card-a"></span>
+                <span class="face-hint">Press → for the next card</span>
+              </span>
+            </span>
+          </button>
+
+          <div class="deck-controls">
+            <button class="btn" id="prev-btn" type="button">← Previous</button>
+            <button class="btn btn--ghost" id="shuffle-btn" type="button">Shuffle</button>
+            <button class="btn" id="next-btn" type="button">Next →</button>
+          </div>
+
+          <p class="kbd-hint"><kbd>←</kbd> <kbd>→</kbd> to move · <kbd>Space</kbd> to flip · <kbd>S</kbd> to shuffle
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 04 · ACRONYMS ══════════════════ -->
+    <section class="panel" id="panel-acronyms" role="tabpanel" aria-labelledby="tab-acronyms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">04 / Shorthand</span>
+        <h2>Acronyms &amp; abbreviations</h2>
+        <p>Only four abbreviations appear this week, and none of them is spelt out in my own notes &mdash; AI, CRM, FAQ and SaaS all carry the standard expansion so the tab stays usable, while the definition beneath each one is taken from what the notes actually say about it.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="acronyms-search">Filter acronyms</label>
+          <input class="search" id="acronyms-search" type="search" placeholder="Filter &mdash; try &ldquo;AI&rdquo; or &ldquo;SaaS&rdquo;"
+            autocomplete="off">
+          <span class="count" id="acronyms-count" aria-live="polite">4 of 4</span>
+        </div>
+
+        <div class="glossary" id="acronyms"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 05 · FORMULAS ══════════════════ -->
+    <section class="panel" id="panel-formulas" role="tabpanel" aria-labelledby="tab-formulas" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">05 / Quick reference</span>
+        <h2>Formulas</h2>
+        <p>Design and prototyping week, so these are sequences and identities rather than arithmetic &mdash; the chains the notes draw, plus the two takeaway lines that state a relationship outright. No estimation, velocity or cost formula appears in my notes, so none appears here.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="formulas-search">Filter formulas</label>
+          <input class="search" id="formulas-search" type="search" placeholder="Filter formulas &mdash; try &ldquo;prototype&rdquo; or &ldquo;research&rdquo;"
+            autocomplete="off">
+          <span class="count" id="formulas-count" aria-live="polite">11 of 11</span>
+        </div>
+
+        <div class="glossary" id="formulas"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-foot">
+    <div class="wrap">
+      <p>DMBA 6005 Agile Project Development · Week 3 · Pre-live session</p>
+      <p>Compiled from my own pre-live notes for this week. Synced from Notion on 15 August 2026.</p>
+    </div>
+  </footer>
+    </div><!-- /.win -->
+  </div><!-- /.stage -->
+
+  <nav class="dock" aria-label="Site">
+    <a class="dock-item" data-tint="lime" data-label="Home" href="index.html"><span aria-hidden="true">&#8962;</span><span class="sr-only">Home</span></a>
+    <a class="dock-item" data-label="Library" href="library.html"><span aria-hidden="true">&#9776;</span><span class="sr-only">Library</span></a>
+    <span class="dock-sep" aria-hidden="true"></span>
+    <a class="dock-item" data-tint="sky" data-label="DMBA 6008 &mdash; Finance" href="DMBA6008-weeks.html">6008</a>
+    <a class="dock-item" data-tint="sand" data-label="DMBA 6005 &mdash; Agile" href="DMBA6005-weeks.html">6005</a>
+    <span class="dock-sep" aria-hidden="true"></span>
+    <a class="dock-item" data-tint="mint" data-label="DMBA 6001 &mdash; Readings" href="library.html?subject=DMBA6001">6001</a>
+    <a class="dock-item" data-tint="blush" data-label="DMBA 6002 &mdash; Assessments" href="library.html?subject=DMBA6002">6002</a>
+    <a class="dock-item" data-tint="lilac" data-label="DMBA 6004 &mdash; Remote work" href="library.html?subject=DMBA6004">6004</a>
+  </nav>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ── Tabs ─────────────────────────────────────────────── */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+
+      function selectTab(tab) {
+        tabs.forEach(function (t) {
+          var isTarget = t === tab;
+          var panel = document.getElementById('panel-' + t.getAttribute('data-panel'));
+          t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+          t.tabIndex = isTarget ? 0 : -1;
+          if (!panel) return;
+          panel.classList.toggle('active', isTarget);
+          if (isTarget) {
+            panel.removeAttribute('hidden');
+          } else {
+            panel.setAttribute('hidden', '');
+          }
+        });
+      }
+
+      tabs.forEach(function (tab, i) {
+        tab.addEventListener('click', function () { selectTab(tab); });
+        tab.addEventListener('keydown', function (e) {
+          var next = null;
+          if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+          if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+          if (!next) return;
+          e.preventDefault();
+          selectTab(next);
+          next.focus();
+        });
+      });
+
+      /* ── Key concepts ─────────────────────────────────────── */
+      var TERMS = [
+        { term: 'Design thinking', src: 'Design thinking', def: 'A human-centred, iterative approach for understanding problems and developing solutions around genuine user needs rather than assumed requirements.', formula: 'Empathise → Define → Ideate → Prototype → Test → Iterate' },
+        { term: 'Ideation', src: 'Design thinking', def: 'The divergent process of generating many possible solutions before deciding which ones deserve further development. It prioritises possibility before perfection and narrows only after sufficient exploration.' },
+        { term: 'Divergent thinking', src: 'Divergent and convergent thinking', def: 'The mode that explores many problems, perspectives or solutions. Its key question is: what else could be happening / possible?' },
+        { term: 'Convergent thinking', src: 'Divergent and convergent thinking', def: 'The mode that evaluates and prioritises the strongest options. Its key question is: which problems or solution should we pursue?' },
+        { term: 'Problem space', src: 'Divergent and convergent thinking', def: 'The first of the two passes: explore possible underlying problems, then identify the problem worth solving.' },
+        { term: 'Solution space', src: 'Divergent and convergent thinking', def: 'The second pass: generate multiple responses, then select candidates for prototyping and testing.' },
+        { term: 'Solution hypothesis', src: 'Start with the user', def: 'A client’s requested feature, treated initially as a hypothesis about the solution rather than as the true problem.' },
+        { term: 'Research proportionality', src: 'Research should enable decisions', def: 'Research effort should be proportionate to the problem. Some situations only require a small number of participants, while others demand much larger evidence bases.', formula: 'Research → synthesis → insight → decision' },
+        { term: 'Edge users', src: 'Designing beyond the average user', def: 'Users outside the typical customer profile — people with accessibility requirements, financial hardship or vulnerability, limited digital access, or different levels of technological confidence.' },
+        { term: 'Weak persona', src: 'Personas', def: 'A persona built largely from assumption — “imagine what this type of customer probably wants”.' },
+        { term: 'Strong persona', src: 'Personas', def: 'A persona built from research identifying differences in needs, behaviours, motivations, circumstances and product or service usage. The purpose is not demographic storytelling but identifying meaningful behavioural differences that should change the design.' },
+        { term: 'Empathy', src: 'Sources of user understanding', def: 'The ability to understand and advocate for another person’s perspective.' },
+        { term: 'Lived experience', src: 'Sources of user understanding', def: 'Direct experience of the situation being designed for.' },
+        { term: 'Lived expertise', src: 'Sources of user understanding', def: 'Broader knowledge gained by representing or working extensively with affected communities.' },
+        { term: 'A–E framework', src: 'Multidisciplinary design', def: 'Five headings the notes list for integrating human-centred design with other business capabilities: A — Architecture & Technology, B — Business & Experience, C — Change & Capability, D — Data & AI, E — Execution. The notes record nothing under any of the five.' },
+        { term: 'Desirability', src: 'Evaluating ideas', def: 'Do users want or benefit from it? Typical considerations are trust, usefulness, accessibility and experience.' },
+        { term: 'Feasibility', src: 'Evaluating ideas', def: 'Can we realistically deliver it? Typical considerations are technology, skills, data, integration and resources.' },
+        { term: 'Viability', src: 'Evaluating ideas', def: 'Should the organisation sustain it? Typical considerations are cost, revenue or value, scale, risk and strategy.' },
+        { term: 'Digital human', src: '$RUs case', def: 'The proposed AI financial-services digital human for $RUs — to be treated initially as an idea to investigate rather than the already-defined solution, and as a business model and service design decision rather than merely a technology investment.' },
+        { term: 'Prototype', src: 'Purpose of Prototyping', def: 'An intentionally incomplete representation of an idea, used to make it tangible enough to test, discuss and improve before committing to full development.' },
+        { term: 'Purpose of prototyping', src: 'Purpose of Prototyping', def: 'The objective is not to make the first idea look impressive. it is to learn quickly and cheaply. Prototype to learn, not to prove that your first idea was right.' },
+        { term: 'Low-fidelity prototype', src: 'Why Prototypes Should Initially Be Imperfect', def: 'A deliberately quick, inexpensive and low-fidelity representation. Early prototypes should be built this way so the team stays willing to change or discard them.' },
+        { term: 'Premature investment', src: 'Why Prototypes Should Initially Be Imperfect', formula: 'Change → Discard → Rebuild → Compare', def: 'The more effort invested in an idea, the harder it becomes psychologically and organisationally to abandon it. A polished early prototype creates attachment, resistance to criticism, pressure to continue because of time already invested, and reduced willingness to explore alternatives.' },
+        { term: 'Prototype fidelity', src: 'Why Prototypes Should Initially Be Imperfect', def: 'Prototype fidelity should follow learning needs; early prototypes should deliberately be quick, inexpensive and low-fidelity. Early forms include sketches, paper interfaces, storyboards, wireframes, simple models, mock-ups and clickable demonstrations; more detailed prototypes should emerge only when the team needs to test more specific aspects of the solution.' },
+        { term: 'Agile design', src: 'Prototyping as Agile Design', formula: 'Build something small → Test → Learn → Adapt → Repeat', def: 'Prototyping treated as Agile applied to the design stage — it brings experimentation and adaptability into design rather than waiting until development is substantially complete.' },
+        { term: 'Build early and test often', src: 'Prototyping as Agile Design', def: 'The practice that reduces the cost of learning, by preventing teams from entering long development cycles before discovering that customers do not understand the solution, assumptions were incorrect, requirements were missed, the feature is technically problematic, or the solution does not address the underlying problem.' },
+        { term: 'Divergence', src: 'From Ideation to Prototype', def: 'The exploration phase. Teams generate a wide range of possible solutions without judging them too early, to expand the solution space and challenge obvious answers.' },
+        { term: 'Convergence', src: 'From Ideation to Prototype', formula: 'Made tangible → tested → refined → tested again', def: 'The selection phase. Teams evaluate ideas and narrow them to the most promising directions, which then become prototypes. The process may diverge again if testing reveals new possibilities.' },
+        { term: 'Doing the right thing before doing the thing right', src: 'From Ideation to Prototype', def: 'The purpose of prototyping is not to perfectly execute an idea; it is to discover whether the team is doing the right thing before doing the thing right.' },
+        { term: 'A working idea', src: 'What Makes an Idea Work?', def: 'An idea that solves a real problem rather than merely sounding innovative. Favour ideas that are understandable to users, useful in solving the identified need, practical within project constraints, capable of being tested and improved, and aligned with available budget and schedule.' },
+        { term: 'Jargon', src: 'What Makes an Idea Work?', def: 'Complex terminology that can disguise weak thinning. The test is: who has the problem, what are we chanigng, and why will it improve their experience?' },
+        { term: 'Shared reference point', src: 'Prototyping and Stakeholder Buy-In', def: 'What a prototype creates for stakeholders. Abstract concepts are hard to evaluate because different people may imagine different solutions from the same description; the prototype communicates “Here is what we mean”.' },
+        { term: 'Co-ownership', src: 'Prototyping and Stakeholder Buy-In', def: 'What early stakeholder involvement creates. Rather than seeing a finished product for the first time near delivery, stakeholders participate in shaping it throughout development — strengthening trust, improving communication, increasing support and reducing disruptive late-stage changes.' },
+        { term: 'T-Design', src: 'T-Design Prototyping Strategy', def: 'A prototyping strategy that balances breadth and depth when determining what should be prototypes. It avoids prototyping everything deeply, which wastes time and resources, and prototyping everything superficially, which fails to properly test critical assumptions.' },
+        { term: 'Breadth (the horizontal line)', src: 'T-Design Prototyping Strategy', def: 'The range of features or overall experience, each represented only enough for users and stakeholders to understand what exists, how elements relate and what the overall solution might do. There is little depth because these components do not all require detailed testing.' },
+        { term: 'Depth (the vertical line)', src: 'T-Design Prototyping Strategy', def: 'A small number of important features explored in much greater detail. Go deeper where something is innovative, uncertain, complex, difficult for users to imagine, central to the value proposition, or particularly important to validate.' },
+        { term: 'Prototyping as risk reduction', src: 'Prototyping as Risk Reduction', formula: 'Prototype → Feedback → Learning → Adjustment → Reduced uncertainty', def: 'Prototyping reduces uncertainty before uncertainty becomes expensive. The earlier a bad assumption is identified, the cheaper it usually is to correct. The greatest risk is not producing an imperfect prototype — it is perfectly building something nobody needed.' }
+      ];
+
+      var glossaryEl = document.getElementById('glossary');
+      var countEl = document.getElementById('term-count');
+      var searchEl = document.getElementById('term-search');
+
+      function escapeHtml(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      glossaryEl.innerHTML = TERMS.map(function (t) {
+        var tag = t.own
+          ? '<span class="term-src term-src--own">Key Definitions</span>'
+          : '<span class="term-src">' + escapeHtml(t.src) + '</span>';
+        return '<article class="term" data-search="' +
+          escapeHtml((t.term + ' ' + t.def + ' ' + (t.formula || '')).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' + escapeHtml(t.term) + '</h3>' + tag + '</div>' +
+          '<p class="term-def">' + escapeHtml(t.def) + '</p>' +
+          (t.formula ? '<div class="term-formula">' + escapeHtml(t.formula) + '</div>' : '') +
+          '</article>';
+      }).join('') + '<p class="no-results" id="no-results" hidden>No terms match that filter.</p>';
+
+      var termEls = Array.prototype.slice.call(glossaryEl.querySelectorAll('.term'));
+      var noResultsEl = document.getElementById('no-results');
+
+      searchEl.addEventListener('input', function () {
+        var q = searchEl.value.trim().toLowerCase();
+        var shown = 0;
+        termEls.forEach(function (el) {
+          var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+          if (match) { el.removeAttribute('hidden'); shown++; }
+          else { el.setAttribute('hidden', ''); }
+        });
+        countEl.textContent = shown + ' of ' + TERMS.length;
+        if (shown === 0) { noResultsEl.removeAttribute('hidden'); }
+        else { noResultsEl.setAttribute('hidden', ''); }
+      });
+
+      /* ── Acronyms & formulas ──────────────────────────────── */
+      /* Both reference tabs are a filtered list of .term cards, so they share
+         one renderer with the key-concepts glossary's markup and behaviour.
+         It no-ops when a week does not emit that tab. */
+      function buildRef(listId, items, toHtml, emptyMsg) {
+        var listEl = document.getElementById(listId);
+        var countEl = document.getElementById(listId + '-count');
+        var searchEl = document.getElementById(listId + '-search');
+        if (!listEl || !countEl || !searchEl) return;
+
+        listEl.innerHTML = items.map(toHtml).join('') +
+          '<p class="no-results" hidden>' + emptyMsg + '</p>';
+
+        var els = Array.prototype.slice.call(listEl.querySelectorAll('.term'));
+        var noneEl = listEl.querySelector('.no-results');
+        countEl.textContent = items.length + ' of ' + items.length;
+
+        searchEl.addEventListener('input', function () {
+          var q = searchEl.value.trim().toLowerCase();
+          var shown = 0;
+          els.forEach(function (el) {
+            var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+            if (match) { el.removeAttribute('hidden'); shown++; }
+            else { el.setAttribute('hidden', ''); }
+          });
+          countEl.textContent = shown + ' of ' + items.length;
+          if (shown === 0) { noneEl.removeAttribute('hidden'); }
+          else { noneEl.setAttribute('hidden', ''); }
+        });
+      }
+
+
+      var ACRONYMS = [
+        { abbr: 'AI', long: 'Artificial intelligence', def: 'AI can accelerate persona creation, but it cannot replace validation with real users. It also appears as one of the five A–E headings — D — Data & AI — and in the $RUs case the key issue is whether the digital human genuinely removes barriers to earlier financial engagement, not simply whether AI technology can be built.', src: 'Personas' },
+        { abbr: 'CRM', long: 'Customer relationship management', def: 'Named under existing-system integration as one of the systems the $RUs digital human should connect with, alongside appointment booking and customer information, where technically appropriate.', src: '$RUs case' },
+        { abbr: 'FAQ', long: 'Frequently asked questions', def: 'Listed among the lower-risk use cases a pilot should begin with — education, FAQs and appointment preparation — before expanding functionality.', src: '$RUs case' },
+        { abbr: 'SaaS', long: 'Software as a service', def: 'The technology example given for combining human insight with data: for a SaaS product, customer research may identify onboarding friction qualitatively, while product analytics reveal precisely where customers abandon the workflow.', src: 'Multidisciplinary design' }
+      ];
+
+      buildRef('acronyms', ACRONYMS, function (a) {
+        return '<article class="term" data-search="' +
+          escapeHtml((a.abbr + ' ' + a.long + ' ' + a.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' +
+          '<span class="term-abbr">' + escapeHtml(a.abbr) + '</span>' +
+          (a.long ? ' &middot; <span class="term-long">' + escapeHtml(a.long) + '</span>' : '') +
+          '</h3><span class="term-src">' + escapeHtml(a.src) + '</span></div>' +
+          (a.def ? '<p class="term-def">' + escapeHtml(a.def) + '</p>' : '') +
+          '</article>';
+      }, 'No acronyms match that filter.');
+
+
+      var FORMULAS = [
+        { name: 'The design thinking sequence', expr: 'Empathise → Define → Ideate → Prototype → Test → Iterate', def: 'The stages of design thinking, worked in that order. The arrow also runs backwards: what a team learns while researching, prototyping or testing can change what it believes the problem is.', src: 'Design thinking' },
+        { name: 'The problem space pass', expr: 'Problems:  explore possible underlying problems → identify the problem worth solving', def: 'Divergent then convergent thinking applied to the problem space. Only after this first pass does the team know which problem is worth solving — and a project can meet scope, cost and schedule yet still fail if it solves the wrong problem.', src: 'Divergent and convergent thinking' },
+        { name: 'The solution space pass', expr: 'Solutions: generate multiple responses → select candidates for prototyping/testing', def: 'The same pair of moves run a second time, on the solution space. A strong design process deliberately alternates between expansion and selection rather than beginning with a predetermined answer.', src: 'Divergent and convergent thinking' },
+        { name: 'Start with the user', expr: 'Observe users → understand needs/behaviours → define problem → generate solutions → test', def: 'The framing sequence that begins with the user rather than the requested solution. A client’s requested feature should initially be treated as a hypothesis about the solution, not necessarily as the true problem.', src: 'Start with the user' },
+        { name: 'Research to decision', expr: 'Research → synthesis → insight → decision', def: 'What research is for. More research is not automatically better — the mistake is following the methodology so rigidly that the team collects information without converting it into useful business insight.', src: 'Research should enable decisions' },
+        { name: 'Keeping the prototype cheap', expr: 'Change → Discard → Rebuild → Compare', def: 'What a deliberately quick, inexpensive and low-fidelity prototype keeps possible. The more effort invested in an idea, the harder it becomes psychologically and organisationally to abandon it, so keeping the prototype cheap protects the team from becoming committed before evidence shows the idea deserves commitment.', src: 'Why Prototypes Should Initially Be Imperfect' },
+        { name: 'The Agile design cycle', expr: 'Build something small → Test → Learn → Adapt → Repeat', def: 'The logic prototyping shares with Agile project management. Both reject the assumption that every requirement and solution can be correctly determined at the beginning of a project, which is why prototyping can be considered Agile design.', src: 'Prototyping as Agile Design' },
+        { name: 'From selected idea to prototype', expr: 'Made tangible → tested → refined → tested again', def: 'What selected ideas become once the team has narrowed to the most promising directions. The process may then diverge again if testing reveals new possibilities.', src: 'From Ideation to Prototype' },
+        { name: 'The risk-reduction chain', expr: 'Prototype → Feedback → Learning → Adjustment → Reduced uncertainty', def: 'Prototyping reduces uncertainty before uncertainty becomes expensive. The earlier a bad assumption is identified, the cheaper it usually is to correct — and the greatest risk is not producing an imperfect prototype, it is perfectly building something nobody needed.', src: 'Prototyping as Risk Reduction' },
+        { name: 'Ideation, end to end', expr: 'divergent exploration → convergence → tangible testing', def: 'The shape of the week stated as a takeaway: teams expand the solution space, narrow to the most promising directions, and then make the selection tangible enough to test.', src: 'Analytical Takeaways' },
+        { name: 'T-design', expr: 'T-design = breadth across the solution + depth where uncertainty or innovation is greatest', def: 'The identity that defines T-design. The horizontal part is the range of features or overall experience, carried with little depth because those components do not all require detailed testing; the vertical part is a small number of important features explored in much greater detail, where learning is most valuable.', src: 'Analytical Takeaways' }
+      ];
+
+      buildRef('formulas', FORMULAS, function (f) {
+        return '<article class="term" data-search="' +
+          escapeHtml((f.name + ' ' + f.expr + ' ' + f.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' + escapeHtml(f.name) + '</h3>' +
+          '<span class="term-src">' + escapeHtml(f.src) + '</span></div>' +
+          '<div class="term-formula">' + escapeHtml(f.expr) + '</div>' +
+          (f.def ? '<p class="term-def">' + escapeHtml(f.def) + '</p>' : '') +
+          '</article>';
+      }, 'No formulas match that filter.');
+
+
+      /* ── Flashcards ───────────────────────────────────────── */
+      var CARDS = [
+        { q: 'Define design thinking.', a: 'A human-centred, iterative approach for understanding problems and developing solutions around genuine user needs rather than assumed requirements.' },
+        { q: 'Name the design thinking stages in order.', a: 'Empathise → Define → Ideate → Prototype → Test → Iterate.' },
+        { q: 'Is the design thinking process worked once through in order?', a: 'No. Teams can go back: research, prototyping or testing can change their understanding of the problem and send them back to an earlier stage.' },
+        { q: 'What is ideation?', a: 'The divergent process of generating many possible solutions before deciding which ones deserve further development.' },
+        { q: 'Why separate idea generation from idea evaluation?', a: 'Judging ideas too early reduces the solution space.' },
+        { q: 'Contrast divergent and convergent thinking.', a: 'Divergent explores many problems, perspectives or solutions — “What else could be happening / possible?” Convergent evaluates and prioritises the strongest options — “Which problems or solution should we pursue?”' },
+        { q: 'Where does the diverge–converge pair apply twice?', a: 'Once in the problem space (explore possible underlying problems → identify the problem worth solving) and once in the solution space (generate multiple responses → select candidates for prototyping/testing).' },
+        { q: 'Why can a project meet scope, cost and schedule and still fail?', a: 'Because it can solve the wrong problem.' },
+        { q: 'How should a client’s requested feature be treated?', a: 'As a hypothesis about the solution, not necessarily as the true problem.' },
+        { q: 'What is the managerial implication of starting with the user?', a: 'Before investing heavily in delivery, test whether the proposed project solves something customers actually value.' },
+        { q: 'Is more research automatically better?', a: 'No. Research effort should be proportionate to the problem — some situations only require a small number of participants, while others demand much larger evidence bases.' },
+        { q: 'What is the mistake teams make when following the design methodology?', a: 'Following it so rigidly that the team collects information without converting it into useful business insight.' },
+        { q: 'Who are edge users?', a: 'People outside the typical customer profile — those with accessibility requirements, financial hardship or vulnerability, limited digital access, or different levels of technological confidence.' },
+        { q: 'Distinguish a weak persona from a strong persona.', a: 'A weak persona is built largely from assumption — “imagine what this type of customer probably wants”. A strong persona is built from research identifying differences in needs, behaviours, motivations, circumstances and product/service usage.' },
+        { q: 'Can AI replace user validation of personas?', a: 'No. AI can accelerate persona creation, but it cannot replace validation with real users.' },
+        { q: 'The three sources of user understanding are empathy, lived experience and lived expertise. Distinguish the last two.', a: 'Lived experience is direct experience of the situation being designed for. Lived expertise is broader knowledge gained by representing or working extensively with affected communities.' },
+        { q: 'What does the A–E framework list?', a: 'A — Architecture & Technology, B — Business & Experience, C — Change & Capability, D — Data & AI, E — Execution. The notes give the five headings and record nothing under them.' },
+        { q: 'How should business and experience relate in design decisions?', a: 'Business provides commercial and organisational constraints and design provides customer/user understanding — neither should dominate the decision independently.' },
+        { q: 'What does the SaaS onboarding example show about research and analytics?', a: 'Customer research may identify onboarding friction qualitatively while product analytics reveal precisely where customers abandon the workflow: human insight explains why, data helps establish where and how often.' },
+        { q: 'Name the three lenses for evaluating ideas and their core questions.', a: 'Desirability — do users want or benefit from it? Feasibility — can we realistically deliver it? Viability — should the organisation sustain it?' },
+        { q: 'Give the two failure modes the three lenses are meant to catch.', a: 'A technically impressive solution can fail because nobody wants it; a desirable solution can fail because it cannot be delivered economically or safely.' },
+        { q: 'How should the $RUs digital human be treated at the ideation stage?', a: 'As an idea to investigate, not as the already-defined solution — and as a business model and service design decision, not merely a technology investment.' },
+        { q: 'Give two desirability concepts for the $RUs digital human.', a: 'Any two of: financial starting-point conversation, financial concept translator, life-event navigator, advisor hand-off, and inclusive interaction modes.' },
+        { q: 'Give two feasibility considerations for the $RUs digital human.', a: 'Any two of: AI knowledge boundaries, human escalation, existing-system integration, pilot before full deployment, multiple interfaces, and data and privacy controls.' },
+        { q: 'Give two viability concepts for the $RUs digital human.', a: 'Any two of: lead-generation channel, lower-cost early engagement, relationship-building pathway, scalable service model, cross-service discovery, and measure commercial value.' },
+        { q: 'What is the key issue for $RUs?', a: 'Whether the digital human genuinely removes barriers to earlier financial engagement - not simply whether AI technology can be built.' },
+        { q: 'What is a prototype?', a: 'An intentionally incomplete representation of an idea, used to make it tangible enough to test, discuss and improve before committing to full development.' },
+        { q: 'What is the objective of prototyping?', a: 'Not to make the first idea look impressive — to learn quickly and cheaply. Prototype to learn, not to prove that your first idea was right.' },
+        { q: 'Why should early prototypes be quick, inexpensive and low-fidelity?', a: 'Because the more effort invested in an idea, the harder it becomes psychologically and organisationally to abandon it.' },
+        { q: 'What can a highly polished early prototype create?', a: 'Attachment to the solution, resistance to criticism, pressure to continue because of time already invested, and reduced willingness to explore alternatives.' },
+        { q: 'What does keeping the prototype cheap protect the team from?', a: 'Becoming committed to an idea before evidence shows that it deserves commitment.' },
+        { q: 'Give five forms an early prototype might take.', a: 'Sketches, paper interfaces, storyboards, wireframes, simple models, mock-ups and clickable demonstrations.' },
+        { q: 'When should more detailed prototypes emerge?', a: 'Only when the team needs to test more specific aspects of the proposed solution.' },
+        { q: 'State the logic that prototyping shares with Agile project management.', a: 'Build something small → Test → Learn → Adapt → Repeat.' },
+        { q: 'What assumption do both Agile and prototyping reject?', a: 'That every requirement and solution can be correctly determined at the beginning of a project.' },
+        { q: 'Match three Agile practices to their prototyping equivalents.', a: 'Small delivery increments ↔ small representations of the solution; frequent feedback ↔ frequent user testing; adapt backlog or requirements ↔ adapt design; respond to change ↔ revise assumptions; continuous improvement ↔ iterative refinement.' },
+        { q: 'Why can prototyping be considered Agile design?', a: 'It brings experimentation and adaptability into the design stage rather than waiting until development is substantially complete.' },
+        { q: 'What does early testing stop teams discovering too late?', a: 'That customers do not understand the solution, assumptions were incorrect, important requirements were missed, the proposed feature is technically problematic, or the solution does not address the underlying problem.' },
+        { q: 'What is the objective of divergence?', a: 'To expand the solution space and challenge obvious answers, by generating a wide range of possible solutions without judging them too early.' },
+        { q: 'What happens during convergence, and what comes next?', a: 'Teams evaluate ideas and narrow them to the most promising directions. Selected ideas become prototypes: made tangible → tested → refined → tested again. The process may diverge again if testing reveals new possibilities.' },
+        { q: 'What must a successful idea do, and which qualities should teams favour?', a: 'It must solve a real problem, not merely sound innovative. Favour ideas that are understandable to users, useful in solving the identified need, practical within project constraints, capable of being tested and improved, and aligned with available budget and schedule.' },
+        { q: 'Why should teams avoid jargon?', a: 'Complex terminology can disguise weak thinning. Ask instead: who has the problem, what are we chanigng, and why will it improve their experience?' },
+        { q: 'What can prototype testing expose before major commitments are made?', a: 'Misunderstood requirements, unnecessary features, technical challenges, user experience problems, dependencies and scope changes.' },
+        { q: 'Which four planning areas does prototype evidence inform?', a: 'Scope (what actually needs to be built), schedule (how complex delivery is likely to be), resources (which capabilities are required) and risk assessments (where uncertainty remains).' },
+        { q: 'Why are abstract concepts hard for stakeholders to evaluate?', a: 'Because different people may imagine different solutions from the same description. A prototype creates a shared reference point.' },
+        { q: 'What does early stakeholder involvement create, and what does it achieve?', a: 'Co-ownership of the solution — which strengthens trust, improves communication, increases support for the project and reduces disruptive late-stage changes.' },
+        { q: 'In T-design, what does the horizontal line represent?', a: 'The range of features or overall experience, each represented only enough to understand what exists, how elements relate and what the overall solution might do. There is little depth because these components do not all require detailed testing.' },
+        { q: 'In T-design, what does the vertical line represent, and where should you go deep?', a: 'A small number of important features explored in much greater detail — where something is innovative, uncertain, complex, difficult for users to imagine, central to the value proposition, or particularly important to validate.' },
+        { q: 'Which two extremes does T-Design avoid?', a: 'Prototyping everything deeply, which wastes time and resources, and prototyping everything superficially, which fails to properly test critical assumptions.' },
+        { q: 'State the risk-reduction chain, and the greatest risk of all.', a: 'Prototype → Feedback → Learning → Adjustment → Reduced uncertainty. The greatest risk is not producing an imperfect prototype — it is perfectly building something nobody needed.' }
+      ];
+
+      var order = CARDS.map(function (_, i) { return i; });
+      var pos = 0;
+
+      var flipBtn = document.getElementById('flip-card');
+      var qEl = document.getElementById('card-q');
+      var aEl = document.getElementById('card-a');
+      var idxEl = document.getElementById('card-index');
+      var totalEl = document.getElementById('card-total');
+      var fillEl = document.getElementById('progress-fill');
+      var prevBtn = document.getElementById('prev-btn');
+      var nextBtn = document.getElementById('next-btn');
+      var shuffleBtn = document.getElementById('shuffle-btn');
+
+      totalEl.textContent = CARDS.length;
+
+      function render() {
+        var card = CARDS[order[pos]];
+        flipBtn.setAttribute('aria-pressed', 'false');
+        // Swap the text only once the card is edge-on, so the answer is never
+        // readable through the flip.
+        window.setTimeout(function () {
+          qEl.textContent = card.q;
+          aEl.textContent = card.a;
+        }, flipBtn.getAttribute('data-flipped') === 'true' ? 180 : 0);
+        flipBtn.setAttribute('data-flipped', 'false');
+        idxEl.textContent = pos + 1;
+        fillEl.style.width = ((pos + 1) / CARDS.length * 100) + '%';
+        prevBtn.disabled = pos === 0;
+        nextBtn.disabled = pos === CARDS.length - 1;
+      }
+
+      function flip() {
+        var flipped = flipBtn.getAttribute('aria-pressed') === 'true';
+        flipBtn.setAttribute('aria-pressed', flipped ? 'false' : 'true');
+        flipBtn.setAttribute('data-flipped', flipped ? 'false' : 'true');
+      }
+
+      function go(delta) {
+        var next = pos + delta;
+        if (next < 0 || next >= CARDS.length) return;
+        pos = next;
+        render();
+      }
+
+      flipBtn.addEventListener('click', flip);
+      prevBtn.addEventListener('click', function () { go(-1); });
+      nextBtn.addEventListener('click', function () { go(1); });
+
+      shuffleBtn.addEventListener('click', function () {
+        for (var i = order.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = order[i];
+          order[i] = order[j];
+          order[j] = tmp;
+        }
+        pos = 0;
+        render();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        var panel = document.getElementById('panel-cards');
+        if (panel.hasAttribute('hidden')) return;
+        var tag = (e.target.tagName || '').toLowerCase();
+        if (tag === 'input' || tag === 'textarea') return;
+
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+        else if (e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); flip(); }
+        else if (e.key === 's' || e.key === 'S') { e.preventDefault(); shuffleBtn.click(); }
+      });
+
+      render();
+    })();
+
+
+
+    /* ── Summary index, collapse and search ─────────────────────────────
+       Progressive enhancement, built at runtime from the blocks that are
+       already on the page. Nothing in the authored markup changes, so the
+       prose-budget gate still measures the same blocks and a re-sync gets
+       this for free. With JS off the summary reads exactly as before.
+
+       A week whose summary is split into topic subpanels gets one index
+       per subpanel; otherwise the whole panel gets one. */
+    (function () {
+      'use strict';
+
+      var summaryPanel = document.getElementById('panel-summary');
+      if (!summaryPanel) return;
+
+      var subs = summaryPanel.querySelectorAll('.subpanel');
+      var containers = subs.length
+        ? Array.prototype.slice.call(subs)
+        : [summaryPanel];
+
+      containers.forEach(function (container, ci) {
+        var blocks = Array.prototype.slice.call(container.children).filter(function (el) {
+          return el.classList && el.classList.contains('block');
+        });
+        // Two or three sections navigate fine on their own.
+        if (blocks.length < 4) return;
+
+        var items = [];
+
+        blocks.forEach(function (block, i) {
+          var num = block.querySelector('.block-num');
+          var h2 = block.querySelector('h2');
+          if (!num || !h2) return;
+
+          block.id = block.id || 'sec-' + ci + '-' + (i + 1);
+
+          var details = document.createElement('details');
+          details.className = 'block-d';
+          details.open = true;
+          var head = document.createElement('summary');
+          head.className = 'block-head';
+          var body = document.createElement('div');
+          body.className = 'block-body';
+
+          // The eyebrow and the heading become the disclosure control;
+          // everything after the heading becomes the collapsible body.
+          var kids = Array.prototype.slice.call(block.childNodes);
+          var pastHeading = false;
+          kids.forEach(function (node) {
+            if (node === num || node === h2) {
+              head.appendChild(node);
+              if (node === h2) pastHeading = true;
+              return;
+            }
+            (pastHeading ? body : head).appendChild(node);
+          });
+
+          details.appendChild(head);
+          details.appendChild(body);
+          block.appendChild(details);
+
+          items.push({
+            block: block,
+            details: details,
+            num: num.textContent.trim(),
+            title: h2.textContent.trim(),
+            text: (block.textContent || '').toLowerCase()
+          });
+        });
+
+        if (items.length < 4) return;
+
+        var sid = 'week-search-' + ci;
+        var toc = document.createElement('nav');
+        toc.className = 'toc';
+        toc.setAttribute('aria-label', 'Contents');
+        toc.innerHTML =
+          '<div class="toc-top">' +
+            '<span class="toc-title">Contents</span>' +
+            '<div class="toc-actions">' +
+              '<button class="toc-btn" type="button" data-act="expand">Expand all</button>' +
+              '<button class="toc-btn" type="button" data-act="collapse">Collapse all</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="toolbar">' +
+            '<label class="visually-hidden" for="' + sid + '">Search this week</label>' +
+            '<input class="search" id="' + sid + '" type="search" autocomplete="off" ' +
+              'placeholder="Search these sections…">' +
+            '<span class="count" aria-live="polite"></span>' +
+          '</div>' +
+          '<ol class="toc-list"></ol>' +
+          '<p class="toc-empty" hidden>Nothing in this week matches that search.</p>';
+
+        var list = toc.querySelector('.toc-list');
+
+        // A long week opens as an outline: index first, then a list of
+        // headings you can pick from. A short one reads straight through,
+        // exactly as it did before. "Expand all" is one click either way.
+        var LONG = 12;
+        if (items.length > LONG) {
+          list.classList.add('is-long');
+          items.forEach(function (it) { it.details.open = false; });
+        }
+
+        items.forEach(function (it) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = '#' + it.block.id;
+          var n = document.createElement('span');
+          n.className = 'toc-n';
+          n.textContent = it.num.split('/')[0].trim();
+          var t = document.createElement('span');
+          t.textContent = it.title;
+          a.appendChild(n);
+          a.appendChild(t);
+          li.appendChild(a);
+          list.appendChild(li);
+          it.li = li;
+        });
+
+        container.insertBefore(toc, blocks[0]);
+
+        // A collapsed section must open when it is jumped to.
+        list.addEventListener('click', function (e) {
+          var a = e.target && e.target.closest ? e.target.closest('a') : null;
+          if (!a) return;
+          var target = document.getElementById(a.getAttribute('href').slice(1));
+          if (target) {
+            var d = target.querySelector('details.block-d');
+            if (d) d.open = true;
+          }
+        });
+
+        toc.querySelector('.toc-actions').addEventListener('click', function (e) {
+          var b = e.target && e.target.closest ? e.target.closest('button') : null;
+          if (!b) return;
+          var open = b.getAttribute('data-act') === 'expand';
+          items.forEach(function (it) {
+            if (!it.block.hasAttribute('hidden')) it.details.open = open;
+          });
+        });
+
+        var input = toc.querySelector('.search');
+        var count = toc.querySelector('.count');
+        var empty = toc.querySelector('.toc-empty');
+        var activeTopic = '';
+
+        // ── Topic chips ────────────────────────────────────────────────
+        // Built from the data-topic each block carries, so a week reads one
+        // topic at a time the way the sub-tabbed weeks already do. A block
+        // with no data-topic (a week-level takeaway, say) always shows.
+        var topics = [], emptyTopics = {};
+        items.forEach(function (it) {
+          var t = it.block.getAttribute('data-topic');
+          it.topic = t || '';
+          if (!t) return;
+          if (topics.indexOf(t) === -1) topics.push(t);
+          if (it.block.getAttribute('data-topic-empty') === 'true') emptyTopics[t] = true;
+        });
+
+        if (topics.length > 1) {
+          var chips = document.createElement('div');
+          chips.className = 'subtabs';
+          chips.setAttribute('aria-label', 'Topics');
+          ['All'].concat(topics).forEach(function (label, k) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'subtab' + (emptyTopics[label] ? ' subtab--empty' : '');
+            b.setAttribute('aria-pressed', k === 0 ? 'true' : 'false');
+            b.setAttribute('data-topic', k === 0 ? '' : label);
+            b.textContent = label;
+            chips.appendChild(b);
+          });
+          chips.addEventListener('click', function (e) {
+            var b = e.target && e.target.closest ? e.target.closest('button') : null;
+            if (!b) return;
+            activeTopic = b.getAttribute('data-topic') || '';
+            Array.prototype.forEach.call(chips.children, function (c) {
+              c.setAttribute('aria-pressed', c === b ? 'true' : 'false');
+            });
+            applyFilter();
+          });
+          container.insertBefore(chips, toc);
+        }
+
+        function applyFilter() {
+          var q = input.value.trim().toLowerCase();
+          var shown = 0;
+          items.forEach(function (it) {
+            var hit = (!q || it.text.indexOf(q) !== -1) &&
+                      (!activeTopic || !it.topic || it.topic === activeTopic);
+            if (hit) {
+              it.block.removeAttribute('hidden');
+              it.li.removeAttribute('hidden');
+              if (q) it.details.open = true;
+              shown++;
+            } else {
+              it.block.setAttribute('hidden', '');
+              it.li.setAttribute('hidden', '');
+            }
+          });
+          count.textContent = shown + ' of ' + items.length + ' sections';
+          if (shown === 0) empty.removeAttribute('hidden');
+          else empty.setAttribute('hidden', '');
+        }
+
+        input.addEventListener('input', applyFilter);
+        applyFilter();
+      });
+    })();
+
+  </script>
+</body>
+
+</html>

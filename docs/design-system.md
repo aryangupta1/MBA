@@ -260,13 +260,25 @@ filtering as Key concepts:
 Those two spans are the only CSS this added: `.term-abbr` is mono, bold, `--accent-deep`;
 `.term-long` is regular weight in `--ink2`. No new tokens.
 
-> **Six tabs do not fit one row on a phone.** `.tablist` is a flex row with
-> `overflow-x: auto` **and a hidden scrollbar**, so anything past the viewport is
-> unreachable with no affordance that it exists — at 390 px the row needs ~945 px for six
-> tabs against ~351 px available. `@media (max-width: 700px)` therefore sets
-> `.tablist { flex-wrap: wrap }`, trims `.tab` padding and font, and hides the decorative
-> `.tab-num`. Six tabs then wrap to three reachable rows. Added 2026-08-14 with the
-> reference tabs; the overflow itself pre-dated them (three tabs already needed ~508 px).
+> **The tab row wraps at every width, and the breakpoint is not what makes it safe.**
+> `.tablist` is a flex row with `overflow-x: auto` **and a hidden scrollbar**, so anything
+> past its width is unreachable with no affordance that it exists. `flex-wrap: wrap` sits on
+> `.tablist` itself, unconditionally — it engages only when the row genuinely does not fit,
+> so a wide viewport is unaffected.
+>
+> This was first fixed on 2026-08-14 as `@media (max-width: 700px)`, which was **too narrow
+> a fix** and was corrected on 2026-08-15 after measuring: a six-tab row needs **~857 px**
+> and a five-tab row **~727 px**, while the list is `min(880px, 100% − 2 × clamp(18px, 5vw,
+> 44px))` wide. So `DMBA6008-week2.html` clipped its `Formulas` tab on *every* viewport
+> below ~968 px and `DMBA6005-week3.html` below ~840 px — ordinary laptop widths, well above
+> the phone breakpoint the original fix assumed.
+>
+> The `@media (max-width: 700px)` block survives, but only for the cosmetic part: it trims
+> `.tab` padding and font, hides the decorative `.tab-num`, and swaps the pill radius for
+> `--radius-lg`. **Do not put the wrapping back inside it.**
+>
+> The general lesson: when a component clips, fix the clipping condition, not a guessed
+> viewport. Measure `scrollWidth > clientWidth` on a real page before choosing a number.
 
 > **A `.callout` with more than one paragraph must wrap them in a `<div>`.** `.callout` is a
 > flex row, so sibling `<p>` elements lay out *side by side* — three paragraphs render as

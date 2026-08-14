@@ -32,7 +32,8 @@
     "  identically even if the annotations are reworded. Empty and unpublished topics carry null."
   ],
   "DMBA6008": {
-    "lastSync": "2026-08-14",
+    "lastSync": "2026-08-15",
+    "lastSyncNote": "2026-08-15 re-checked: every Week 0/1/2 topic's observedAt is byte-identical to the values recorded here, and no notebook or note was added. Nothing was rebuilt. One tree-shape change WAS found and deliberately not published — the Week 2 `Live` note (3b97b336873c80f88fa0d476b75e6439) has gained a second child, `Diary` (3ba7b336873c80f4addce7004f01a76e). The Week 2 carve-out covers `Discussion Questions` and nothing else, so `Diary` was not fetched or harvested. Its existence is recorded here only so a later run does not re-discover it as a surprise.",
     "courseId": "3097b336873c80c0948dcc805089b071",
     "hubPage": "DMBA6008-weeks.html",
     "skippedNotebooks": [
@@ -288,10 +289,10 @@
     ]
   },
   "DMBA6005": {
-    "lastSync": "2026-08-14",
+    "lastSync": "2026-08-15",
     "courseId": "3a17b336873c80c284a7cd6be4a60c4d",
     "hubPage": "DMBA6005-weeks.html",
-    "note": "Launched 2026-08-06 with Week 0 and Week 1 together, once Week 1's `Learn` Pre-Live Session note appeared (created 2026-08-05T11:27Z, after the previous state record was written). index.html card un-muted and subjects.json `live` flipped to true in the same run, per Aryan's 2026-08-05 pre-approval. Type pairing: Sora + Karla, --course-e ochre. Re-checked 2026-08-14: all three weeks byte-identical in Notion, nothing rebuilt. Acronyms/Formulas reference tabs added to all three pages from their existing content.",
+    "note": "Launched 2026-08-06 with Week 0 and Week 1 together, once Week 1's `Learn` Pre-Live Session note appeared (created 2026-08-05T11:27Z, after the previous state record was written). index.html card un-muted and subjects.json `live` flipped to true in the same run, per Aryan's 2026-08-05 pre-approval. Type pairing: Sora + Karla, --course-e ochre. Re-checked 2026-08-14: all three weeks byte-identical in Notion, nothing rebuilt. Acronyms/Formulas reference tabs added to all three pages from their existing content. 2026-08-15: Week 3 added — Weeks 0–2 re-probed and unchanged, so only Week 3 was built.",
     "skippedNotebooks": [
       {
         "id": "3b37b336873c80db9388ee1a56192b33",
@@ -509,6 +510,80 @@
           "acronyms": 8,
           "formulas": 9
         }
+      },
+      "Week 3": {
+        "notebookId": "3bc7b336873c8073a251daf6ee7701de",
+        "notebookTopic": "Week 3: Ideation and Prototyping",
+        "page": "DMBA6005-week3.html",
+        "notes": [
+          {
+            "id": "3bc7b336873c804fa872d294c1b33940",
+            "name": "Learn",
+            "type": "Pre-Live Session",
+            "shape": "container",
+            "editedTime": "2026-08-14T14:38:26.971Z",
+            "observedAt": "2026-08-14T16:49:00.023Z",
+            "published": true,
+            "note": "Created 2026-08-14T14:36 and published 2026-08-15. The note row's Edited Time (14:38) is two minutes after creation and does NOT reflect when the sub-pages were written — the note envelope's observedAt (16:49) does. Same under-trigger shape as DMBA 6008 Week 0's fourth topic.",
+            "topics": [
+              {
+                "id": "3bc7b336873c80139f62cd3f991032fe",
+                "title": "Ideation and design thinking",
+                "childCount": 0,
+                "svgPrefix": "ide",
+                "contentHash": "sha256:4dbc5b30ee53",
+                "approxWords": 1407,
+                "published": true,
+                "note": "Contains an `A-E Framework` section whose five sub-headings (A — Architecture & Technology, B — Business & Experience, C — Change & Capability, D — Data & AI, E — Execution) are ALL EMPTY. The page renders them as bare labels and says so in words. Never write a gloss for any of the five. Also carries the $RUs digital human AI advisor case, in which the author spells it both `advisor` and `adviser` — both preserved."
+              },
+              {
+                "id": "3bc7b336873c80ff9b96ca094988c95d",
+                "title": "Why we prototype",
+                "childCount": 0,
+                "svgPrefix": "wp",
+                "contentHash": "sha256:d53aba651eeb",
+                "approxWords": 1333,
+                "published": true
+              },
+              {
+                "id": "3bc7b336873c80e6b45fe38ffc7c7214",
+                "title": "Personas",
+                "childCount": 0,
+                "svgPrefix": null,
+                "contentHash": null,
+                "published": false,
+                "state": "empty",
+                "note": "Returns <empty-block/>. Rendered in the page's '19 / Not yet written' block. THAT BLOCK IS THE THING TO REPLACE when the note is written. Never fill it with generated content. The block also carries a pointer saying personas ARE covered in block 06 from the ideation notes — without it, the dimmed `Personas` chip contradicts the page."
+              },
+              {
+                "id": "3bc7b336873c809eaeaedc6a0c093d5f",
+                "title": "Long-term strategic value for $RUs",
+                "childCount": 0,
+                "svgPrefix": null,
+                "contentHash": null,
+                "published": false,
+                "state": "empty",
+                "note": "Returns <empty-block/>. Rendered in the page's '20 / Not yet written' block."
+              },
+              {
+                "id": "3bc7b336873c806fafe0c777231bb9f4",
+                "title": "Shadow Boxing",
+                "published": false,
+                "state": "excluded",
+                "contentHash": null,
+                "note": "EXCLUDED by syncRules no-shadow-boxing-after-week-0. Not harvested, so its content is unknown and deliberately so."
+              }
+            ]
+          }
+        ],
+        "built": {
+          "figures": 8,
+          "terms": 37,
+          "cards": 50,
+          "blocks": 20,
+          "acronyms": 4,
+          "formulas": 11
+        }
       }
     },
     "syncRules": [
@@ -528,6 +603,12 @@
             "title": "Shadow Boxing",
             "week": "Week 2",
             "note": "Sub-page of the Week 2 Learn note. Excluded. No placeholder rendered, no topic chip on the hub."
+          },
+          {
+            "id": "3bc7b336873c806fafe0c777231bb9f4",
+            "title": "Shadow Boxing",
+            "week": "Week 3",
+            "note": "Sub-page of the Week 3 Learn note. Excluded in Phase 0, before shape detection — never fetched. No placeholder rendered, no topic chip on the hub. The rule has now held for three consecutive weeks; expect one of these in every future week."
           }
         ]
       }
