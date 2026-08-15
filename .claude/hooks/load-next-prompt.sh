@@ -11,9 +11,16 @@
 
 set -uo pipefail
 
-root="${CLAUDE_PROJECT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
+# Resolve from BASH_SOURCE first — it is always correct, whereas CLAUDE_PROJECT_DIR
+# is only set when the harness chooses to export it. Getting this backwards is why
+# the hook could resolve to "/.claude/hooks/..." and fail silently.
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)" || root="${CLAUDE_PROJECT_DIR:-$PWD}"
 file="$root/next-prompt.md"
 
+# Keep this hook to reading next-prompt.md and writing stdout — no logging, no writes.
+# It runs at session start behind a 10s timeout, so anything that can block (a file
+# write that needs approval, a network call, a prompt) risks holding up the session.
+# A firing log was tried here on 2026-08-15 and removed the same day for that reason.
 [ -r "$file" ] || exit 0
 
 body=$(cat "$file") || exit 0

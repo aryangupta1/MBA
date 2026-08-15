@@ -13,8 +13,8 @@ A `SessionStart` hook runs at the beginning of every session:
 .claude/hooks/load-next-prompt.sh   reads next-prompt.md, emits it as additionalContext
 ```
 
-The script reads `$CLAUDE_PROJECT_DIR/next-prompt.md`, wraps it in a short preamble, and
-returns:
+The script resolves the repo root from **`BASH_SOURCE`**, not from `CLAUDE_PROJECT_DIR`,
+reads `next-prompt.md`, wraps it in a short preamble, and returns:
 
 ```json
 { "hookSpecificOutput": {
@@ -25,9 +25,41 @@ returns:
 It exits 0 and emits nothing when the file is missing or blank, so a broken or absent
 handoff never blocks a session.
 
-If the note does **not** appear in context, the hook is not firing. Ask the user to open
-`/hooks` once (which reloads hook config) or restart the session; the settings watcher only
-picks up `.claude/` changes made while it is already watching.
+### When it silently stopped firing (2026-08-05 → 2026-08-15)
+
+The hook produced nothing for ten days while the script itself ran perfectly by hand. The
+cause was in the **registration, not the script**: `settings.json` invoked it as
+
+```
+bash "$CLAUDE_PROJECT_DIR/.claude/hooks/load-next-prompt.sh"
+```
+
+and `CLAUDE_PROJECT_DIR` is only set when the harness chooses to export it. Unset, that
+expands to `/.claude/hooks/load-next-prompt.sh`, and bash exits **127** before a single line
+of the script runs. Reproduce the old failure with:
+
+```sh
+env -u CLAUDE_PROJECT_DIR bash -c 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/load-next-prompt.sh"'
+```
+
+Both ends are now defensive: the command falls back to `${CLAUDE_PROJECT_DIR:-$PWD}`, and
+the script derives its own root from `BASH_SOURCE` regardless.
+
+**The general lesson: a hook that fails is indistinguishable from a hook that never ran** —
+the failure was in the registration, and testing the script by hand could never reveal it.
+Test the *command string* from `settings.json`, not just the script it names.
+
+A firing log was added here to close that gap and removed the same day. **Do not add one
+back.** This hook runs at session start behind a 10s timeout, so anything that can block —
+a file write needing approval, a network call, a prompt — risks holding up the session. The
+hook must do nothing but read `next-prompt.md` and write stdout. Whether it fired is already
+observable: the note either appears in context or it does not.
+
+If the note does not appear, the hook is still not being invoked. Ask the user to open
+`/hooks` once (which reloads hook config, and is where project-scope hooks are reviewed) or
+restart the session; the settings watcher only picks up `.claude/` changes made while it is
+already watching, and a project hook may be awaiting approval. **That is a user action — it
+cannot be done from inside a session.**
 
 ## The rules
 

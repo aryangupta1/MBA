@@ -215,5 +215,18 @@ its two guardrails are load-bearing: **no financial statistic about any real com
 - MCP tools are **deferred** — load via `ToolSearch` (`select:<exact_tool_name>`).
 - ⚠️ **macOS can block all access to `~/Documents`** via TCC. If the repo suddenly reads as
   missing, check System Settings → Privacy & Security → Full Disk Access.
-- ⚠️ **The `SessionStart` hook still has not fired since 2026-08-05.** It did not fire this
-  session either — this file had to be read manually. **Tell Aryan to open `/hooks` once.**
+- ✅ **The `SessionStart` hook was diagnosed and fixed on 2026-08-15.** It had been dead
+  since 08-05 because `settings.json` invoked the script through `$CLAUDE_PROJECT_DIR`,
+  which is not always exported — unset, the path became `/.claude/hooks/…` and bash exited
+  **127 before running a line**. The script was always fine, which is why testing it by hand
+  never reproduced the fault. Both ends are now defensive.
+
+  **If you are reading this file because it appeared in your context automatically, the fix
+  worked and nothing more is needed.** If you had to open it by hand, the hook is still not
+  being invoked — ask Aryan to open `/hooks` once, since a project-scope hook may be awaiting
+  his approval and that cannot be done from inside a session.
+
+  **The fix could not be verified end-to-end from inside the session that made it**: the
+  harness gates execution of scripts under `.claude/hooks/`, so running the hook by hand hung
+  every time. The reasoning and the reproduction are in
+  [docs/next-prompt-protocol.md](docs/next-prompt-protocol.md); this session is the test.
