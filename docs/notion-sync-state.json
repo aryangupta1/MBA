@@ -32,8 +32,8 @@
     "  identically even if the annotations are reworded. Empty and unpublished topics carry null."
   ],
   "DMBA6008": {
-    "lastSync": "2026-08-15",
-    "lastSyncNote": "2026-08-15 re-checked: every Week 0/1/2 topic's observedAt is byte-identical to the values recorded here, and no notebook or note was added. Nothing was rebuilt. One tree-shape change WAS found and deliberately not published — the Week 2 `Live` note (3b97b336873c80f88fa0d476b75e6439) has gained a second child, `Diary` (3ba7b336873c80f4addce7004f01a76e). The Week 2 carve-out covers `Discussion Questions` and nothing else, so `Diary` was not fetched or harvested. Its existence is recorded here only so a later run does not re-discover it as a surprise.",
+    "lastSync": "2026-08-17",
+    "lastSyncNote": "2026-08-17: Week 3 `Investment Evaluation Tools` is NEW and published. Weeks 0/1/2 were re-probed and every topic observedAt is byte-identical to the values recorded here — nothing else was rebuilt. The Week 2 `Live` note's `Discussion Questions` child is also unchanged (observedAt 2026-08-11T14:05:19.512Z), so its tab was left alone, and its `Diary` sibling (3ba7b336873c80f4addce7004f01a76e) was again NOT fetched — the carve-out covers `Discussion Questions` and nothing else. Week 3 has no Live note yet, so it has no Discussion tab.",
     "courseId": "3097b336873c80c0948dcc805089b071",
     "hubPage": "DMBA6008-weeks.html",
     "skippedNotebooks": [
@@ -270,6 +270,75 @@
             "Nokia"
           ]
         }
+      },
+      "Week 3": {
+        "notebookId": "3be7b336873c804cba5ac941455d8a42",
+        "notebookTopic": "Week 3: Investment Evaluation Tools",
+        "page": "DMBA6008-week3.html",
+        "notes": [
+          {
+            "id": "3be7b336873c80929182da136e57b0a0",
+            "name": "Learn",
+            "type": "Pre-Live Session",
+            "shape": "container",
+            "editedTime": "2026-08-16T12:07:11.128Z",
+            "observedAt": "2026-08-16T13:00:00.327Z",
+            "published": true,
+            "note": "Created 2026-08-16T12:06 and published 2026-08-17. TWO of its four sub-pages are still <empty-block/>, and both render as honest 'not yet written' blocks. There is NO Live Session note in this notebook yet, so the page has no Discussion tab — five tabs, not six.",
+            "topics": [
+              {
+                "id": "3be7b336873c8075bd3de80f64cb2ec1",
+                "title": "Concept of present value",
+                "childCount": 0,
+                "svgPrefix": "pv",
+                "contentHash": "sha256:3b3b8041dc0b",
+                "approxWords": 355,
+                "published": true,
+                "imagesSkipped": 2,
+                "note": "TWO images SKIPPED and they carried the algebra. The symbolic present-value formula and its worked example exist ONLY as images; the harvestable text never states them. The published topic therefore has no symbolic PV formula, and figcaption pvfig1 says so in words. The three formulas that ARE in the text are the only ones on the page. The author's number formatting is inconsistent BY SECTION — $112,000 / $101,818 / $110,000 / $100,000 with separators, $2000 / $1818 / $101818 / $100000 without — and is reproduced section by section. Do not normalise."
+              },
+              {
+                "id": "3be7b336873c802787aff2c28e78a173",
+                "title": "Investment Appraisal",
+                "childCount": 0,
+                "svgPrefix": "ia",
+                "contentHash": "sha256:a56d3c4843ac",
+                "approxWords": 894,
+                "published": true,
+                "imagesSkipped": 4,
+                "note": "FOUR images SKIPPED: the Average Return on Assets calculation, a straight-line depreciation illustration, and two on Excel's NPV() behaviour. None was reconstructed. Author quirks reproduced verbatim: `$16.m` (a mid-number truncation — his own arithmetic (33+0)/2 would give 16.5, and it must NEVER be completed), `mesaure`, `economically more value`, `a different decisions`, `Both product the same NPV`. WACC and CF0 are used but never expanded by him."
+              },
+              {
+                "id": "3be7b336873c80e09988cf387da97f61",
+                "title": "Internal rate of return",
+                "childCount": 0,
+                "svgPrefix": null,
+                "contentHash": null,
+                "published": false,
+                "state": "empty",
+                "note": "Returns <empty-block/>. Rendered in the page's '14 / Not yet written' block. THAT BLOCK IS THE THING TO REPLACE when the note is written. Never fill it with generated content. Note that IRR is not covered anywhere else on the page either, so this block needs no cross-reference pointer — unlike DMBA 6005 Week 3's Personas block."
+              },
+              {
+                "id": "3be7b336873c80b5b71ef844490c7d60",
+                "title": "Problems with common approaches",
+                "childCount": 0,
+                "svgPrefix": null,
+                "contentHash": null,
+                "published": false,
+                "state": "empty",
+                "note": "Returns <empty-block/>. Rendered in the page's '15 / Not yet written' block."
+              }
+            ]
+          }
+        ],
+        "built": {
+          "figures": 5,
+          "terms": 30,
+          "cards": 40,
+          "blocks": 15,
+          "acronyms": 5,
+          "formulas": 8
+        }
       }
     },
     "skippedNotes": [
@@ -289,16 +358,29 @@
     ]
   },
   "DMBA6005": {
-    "lastSync": "2026-08-15",
+    "lastSync": "2026-08-17",
     "courseId": "3a17b336873c80c284a7cd6be4a60c4d",
     "hubPage": "DMBA6005-weeks.html",
-    "note": "Launched 2026-08-06 with Week 0 and Week 1 together, once Week 1's `Learn` Pre-Live Session note appeared (created 2026-08-05T11:27Z, after the previous state record was written). index.html card un-muted and subjects.json `live` flipped to true in the same run, per Aryan's 2026-08-05 pre-approval. Type pairing: Sora + Karla, --course-e ochre. Re-checked 2026-08-14: all three weeks byte-identical in Notion, nothing rebuilt. Acronyms/Formulas reference tabs added to all three pages from their existing content. 2026-08-15: Week 3 added — Weeks 0–2 re-probed and unchanged, so only Week 3 was built.",
+    "note": "Launched 2026-08-06 with Week 0 and Week 1 together, once Week 1's `Learn` Pre-Live Session note appeared (created 2026-08-05T11:27Z, after the previous state record was written). index.html card un-muted and subjects.json `live` flipped to true in the same run, per Aryan's 2026-08-05 pre-approval. Type pairing: Sora + Karla, --course-e ochre. Re-checked 2026-08-14: all three weeks byte-identical in Notion, nothing rebuilt. Acronyms/Formulas reference tabs added to all three pages from their existing content. 2026-08-15: Week 3 added — Weeks 0–2 re-probed and unchanged, so only Week 3 was built. 2026-08-17: Weeks 0–2 re-probed again and byte-identical; Week 3 REBUILT because its two empty sub-pages, `Personas` and `Long-term strategic value for $RUs`, were written between 08-15 and 08-16. Its two honest placeholder blocks are gone, its hub topic chips are no longer dimmed, and both reference tabs were re-derived from the whole rebuilt page (acronyms 4→5, formulas 11→27). A NEW note `Live` (3bf7b336873c8061b545e1b5340877d7) appeared in the Week 3 notebook on 2026-08-17 typed `Pre-Live Session` despite its name; it is EMPTY, so nothing was published from it — see openQuestions.",
     "skippedNotebooks": [
       {
         "id": "3b37b336873c80db9388ee1a56192b33",
         "topic": "Week 2: Agile",
         "reason": "NO LONGER SKIPPED. This was the empty 'New Notebook' placeholder until 2026-08-08, when Aryan renamed it 'Week 2: Agile' and filled it. Published 2026-08-10 as DMBA6005-week2.html. Kept here as the record of why the old skip rule was removed: a notebook being empty is a fact about the day you looked, not a permanent property.",
         "status": "now published"
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "3bf7b336873c8061b545e1b5340877d7",
+        "name": "Live",
+        "notebook": "3bc7b336873c8073a251daf6ee7701de (Week 3)",
+        "type": "Pre-Live Session",
+        "createdTime": "2026-08-17T08:00:10.151Z",
+        "editedTime": "2026-08-17T08:00:30.566Z",
+        "state": "empty",
+        "published": false,
+        "question": "A note NAMED `Live` but TYPED `Pre-Live Session`. It is empty today, so nothing was published from it either way and the mismatch cost nothing. It matters the moment it has content: rule 1 keys off Type, not name, so a mistyped live-session diary would sail straight through the filter. ASK ARYAN whether the Type is correct before publishing anything from it. Do not assume either way."
       }
     ],
     "orphanNotes": [
@@ -522,9 +604,9 @@
             "type": "Pre-Live Session",
             "shape": "container",
             "editedTime": "2026-08-14T14:38:26.971Z",
-            "observedAt": "2026-08-14T16:49:00.023Z",
+            "observedAt": "2026-08-16T04:34:52.637Z",
             "published": true,
-            "note": "Created 2026-08-14T14:36 and published 2026-08-15. The note row's Edited Time (14:38) is two minutes after creation and does NOT reflect when the sub-pages were written — the note envelope's observedAt (16:49) does. Same under-trigger shape as DMBA 6008 Week 0's fourth topic.",
+            "note": "Created 2026-08-14T14:36 and first published 2026-08-15; REBUILT 2026-08-17 when its two empty sub-pages were written. The note row's Edited Time (14:38) is two minutes after creation and has NOT moved since, despite two rounds of sub-page writing — the note envelope's observedAt is the only signal that moved (16:49 on 08-14, then 04:34 on 08-16). Same under-trigger shape as DMBA 6008 Week 0's fourth topic. Probe topics, not the note row.",
             "topics": [
               {
                 "id": "3bc7b336873c80139f62cd3f991032fe",
@@ -549,21 +631,25 @@
                 "id": "3bc7b336873c80e6b45fe38ffc7c7214",
                 "title": "Personas",
                 "childCount": 0,
-                "svgPrefix": null,
-                "contentHash": null,
-                "published": false,
-                "state": "empty",
-                "note": "Returns <empty-block/>. Rendered in the page's '19 / Not yet written' block. THAT BLOCK IS THE THING TO REPLACE when the note is written. Never fill it with generated content. The block also carries a pointer saying personas ARE covered in block 06 from the ideation notes — without it, the dimmed `Personas` chip contradicts the page."
+                "svgPrefix": "per",
+                "contentHash": "sha256:6164d6aef504",
+                "approxWords": 1425,
+                "published": true,
+                "state": "complete",
+                "observedAt": "2026-08-15T13:38:49.056Z",
+                "note": "WAS EMPTY until 2026-08-15. Aryan wrote it; harvested and published 2026-08-17 as nine blocks (19-27), replacing the honest 'not yet written' block. The old block's pointer to '06 / Representing users' went with it, exactly as planned. Author quirks reproduced verbatim: the heading `Type of Personas` is SINGULAR and is also EMPTY — it has no body of its own, and the page says so rather than glossing it; `examining decisions such as: Think → Feel → Say → Do` uses `decisions` where he meant dimensions and MUST NOT be repaired (a first build repaired it in the figure title, eyebrow, figcaption and a flashcard, and that was caught by gate 1 and reverted); the good-example callout has an opening curly quote that is never closed; `Adviser` is spelt that way here while the same week spells it `advisor` elsewhere; `In scrum` is lowercase alongside the capitalised heading."
               },
               {
                 "id": "3bc7b336873c809eaeaedc6a0c093d5f",
                 "title": "Long-term strategic value for $RUs",
                 "childCount": 0,
-                "svgPrefix": null,
-                "contentHash": null,
-                "published": false,
-                "state": "empty",
-                "note": "Returns <empty-block/>. Rendered in the page's '20 / Not yet written' block."
+                "svgPrefix": "ltv",
+                "contentHash": "sha256:da3e88f3ae73",
+                "approxWords": 1476,
+                "published": true,
+                "state": "complete",
+                "observedAt": "2026-08-15T16:38:12.001Z",
+                "note": "WAS EMPTY until 2026-08-15. Harvested and published 2026-08-17 as nine blocks (28-36). Author quirks reproduced verbatim: `one-of transaction`, `Shorty-term success`, `The project. should therefore serve:`, `strengthen $RUs position as:`, `Google Ads or App Or Social Media`, and lowercase `Google ads` in the arrow chain against capitalised `Google Ads` elsewhere. He uses BOTH `customer lifecycle value` and `customer lifetime value` — never reconcile them. A strategy topic with no arithmetic: no formula was manufactured."
               },
               {
                 "id": "3bc7b336873c806fafe0c777231bb9f4",
@@ -577,12 +663,12 @@
           }
         ],
         "built": {
-          "figures": 8,
-          "terms": 37,
-          "cards": 50,
-          "blocks": 20,
-          "acronyms": 4,
-          "formulas": 11
+          "figures": 15,
+          "terms": 73,
+          "cards": 98,
+          "blocks": 36,
+          "acronyms": 5,
+          "formulas": 27
         }
       }
     },

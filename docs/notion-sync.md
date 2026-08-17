@@ -347,14 +347,32 @@ Generating new academic argument, inventing a citation, or "improving" a claim i
 
 ## 7. Current state
 
-**DMBA 6008 Finance, Strategy and Technology** — synced 2026-08-15 (re-checked; every topic
-`observedAt` identical to the state record, no notebook or note added, nothing rebuilt).
+**DMBA 6008 Finance, Strategy and Technology** — synced 2026-08-17. **Week 3 is new**;
+Weeks 0–2 were re-probed and every topic `observedAt` is identical to the state record, so
+nothing else was rebuilt.
 
 | Week | Notion notebook | Published |
 | --- | --- | --- |
 | Week 0 | `3a17b336873c805b9c4acdff38033d35` | `DMBA6008-week0.html` — balance sheet, P&amp;L, cash flow, and **assessing financial performance, written 2026-08-12/13 and published 2026-08-14**. All four topics are now live; the "not yet written" panel is gone. |
 | Week 1 | `3b27b336873c8070953fd96878f5f2dc` | `DMBA6008-week1.html` — key value principles, concepts, assessing performance, key definitions |
 | Week 2 | `3b77b336873c802182a3cf5b76484dd1` | `DMBA6008-week2.html` — the asset mix as a business-model signal, drivers of return, the DuPont decomposition, sustainable growth, plus the live-session discussion questions |
+| Week 3 | `3be7b336873c804cba5ac941455d8a42` | `DMBA6008-week3.html` — present value and discounting, and investment appraisal. **Two of its four sub-pages are empty** and render as honest "not yet written" blocks: `Internal rate of return` and `Problems with common approaches`. No Live note exists in this notebook yet, so the page has **five tabs, not six** — no Discussion panel. |
+
+> **Week 3 is where the skipped-images problem stops being cosmetic.** Six images were
+> skipped across its two written topics, and they carry algebra the prose never states: the
+> symbolic present-value formula and its worked example, the Average Return on Assets
+> calculation, a straight-line depreciation illustration, and two on Excel's `NPV()`
+> behaviour. A model building these pages already knows every one of those formulas, which
+> is exactly the danger — **supplying one from training data would be indistinguishable
+> from transcription and completely wrong.** Both builders were told not to, both figure
+> captions say in words that the formula sits in an image and is not reproduced, and the
+> fidelity gate was pointed at this specifically. It still caught an ROA definition
+> restated in prose. If Aryan wants the algebra, the images must be downloaded and
+> committed — ask him.
+
+> **`$16.m` is a mid-number truncation and must never be completed.** His own arithmetic on
+> the same line, `(33+0)/2`, would give 16.5. The page reproduces `$16.m` in the summary, in
+> a glossary term and in a flashcard. Completing it would be inventing a number.
 
 > **The Week 2 `Live` note grew a second child on 2026-08-15 and it was not published.**
 > `3b97b336873c80f88fa0d476b75e6439` now holds `Discussion Questions` **and `Diary`**
@@ -376,23 +394,40 @@ Generating new academic argument, inventing a citation, or "improving" a claim i
 > them** — each page reproduces the algebra of the notes it was built from, and a future
 > sync must not let one week's form leak into the other.
 
-**DMBA 6005 Agile Project Development** — synced 2026-08-15. Weeks 0–2 re-probed and
-byte-identical, so only **Week 3** was built. Launched with two weeks at once, and the
-`index.html` card un-muted in the same run.
+**DMBA 6005 Agile Project Development** — synced 2026-08-17. Weeks 0–2 re-probed and
+byte-identical again, so only **Week 3** was rebuilt — its two empty sub-pages were written
+between 08-15 and 08-16. Launched with two weeks at once, and the `index.html` card
+un-muted in the same run.
 
 | Week | Notion notebook | Published |
 | --- | --- | --- |
 | Week 0 | `3ae7b336873c806da6b6e5630c66e3bb` | `DMBA6005-week0.html` — the `$RUs` digital innovation case, plus the `Shadow Boxing` method note |
 | Week 1 | `3b17b336873c80ada0b3f4a02cb2dea8` | `DMBA6005-week1.html` — project management before execution, the StellarCX engagement, context analysis (partial) |
 | Week 2 | `3b37b336873c80db9388ee1a56192b33` | `DMBA6005-week2.html` — CX, Agile history and Scrum roles, bidding and winning projects. **This notebook was the empty `New Notebook` placeholder until 2026-08-08, when it was renamed `Week 2: Agile` and filled.** |
-| Week 3 | `3bc7b336873c8073a251daf6ee7701de` | `DMBA6005-week3.html` — design thinking and ideation, and why we prototype. **Two of its four in-scope sub-pages are empty** and render as honest "not yet written" blocks: `Personas` and `Long-term strategic value for $RUs`. |
+| Week 3 | `3bc7b336873c8073a251daf6ee7701de` | `DMBA6005-week3.html` — design thinking and ideation, why we prototype, **personas and user stories, and long-term strategic value for `$RUs`**. All four in-scope sub-pages are now written; both "not yet written" blocks are gone. |
 
-> **Week 3 has a topic chip that would contradict the page if left bare.** The empty
-> `Personas` sub-page sits alongside a *written* personas section inside the ideation
-> topic, so clicking the dimmed `Personas` chip would show only "not yet written" on a week
-> that plainly does cover personas. Its block therefore carries a pointer to block 06. When
-> an empty topic's subject is covered elsewhere on the same page, say so — it costs one
-> sentence and it is the difference between honest and broken-looking.
+> **Week 3's `Personas` pointer has been retired, exactly as planned.** While that sub-page
+> was empty its placeholder block carried a sentence pointing at `06 / Representing users`,
+> because a dimmed `Personas` chip on a week that plainly does cover personas reads as
+> broken. Aryan wrote the sub-page on 2026-08-15 and the pointer went with the block it
+> lived in. **The rule it demonstrated still stands:** when an empty topic's subject is
+> covered elsewhere on the same page, say so — it costs one sentence, and it disappears by
+> itself when the topic is written.
+
+> **A repaired typo survived every static check and was caught only by the fidelity gate.**
+> The author writes *"examining decisions such as: Think → Feel → Say → Do"*, where
+> `decisions` is plainly the wrong word. The first build preserved it in the prose and
+> silently corrected it to "dimensions" in the SVG title, the SVG eyebrow, the figcaption
+> **and a flashcard** — four places, all of which read as his framing. Diagram text is where
+> this kind of drift hides. The fix was to reword around the noun rather than assert either
+> version.
+
+> **A note named `Live` is typed `Pre-Live Session`.** `3bf7b336873c8061b545e1b5340877d7`
+> appeared in the Week 3 notebook on 2026-08-17. It is empty, so nothing was published and
+> the mismatch cost nothing this run. It matters the moment it has content, because **rule 1
+> keys off `Type`, not the name** — a mistyped live-session diary would pass straight
+> through the filter. **Ask Aryan whether the Type is right before publishing anything from
+> it.**
 
 > **Its `Ideation and design thinking` topic contains a framework that is all headings and
 > no body.** `A - Architecture & Technology`, `B - Business & Experience`, `C - Change &

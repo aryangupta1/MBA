@@ -1,0 +1,2461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 3 — Investment evaluation tools — DMBA 6008</title>
+  <meta name="description" content="Week 3 of DMBA 6008: present value and discounting, net present value as the measure of value created, and why accounting profit misleads an investment decision that cash flow gets right — summaries and visuals, key concepts, and flashcards.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ======================================================================
+       DESK — house design system, study-page profile.
+       A macOS window floating over the desktop wallpaper. The window holds the
+       whole week; the dock at the foot of the screen is the site navigation.
+       Tokens and components: docs/design-system.md
+       ====================================================================== */
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      /* surfaces */
+      --paper: #F4F1E9;
+      --paper2: #EFEBE1;
+      --surface: #FFFFFF;
+      --surface2: #FBFAF7;
+      --rule: rgba(28, 26, 22, 0.07);
+
+      /* ink */
+      --ink: #141317;
+      --ink2: #57534B;
+      --ink3: #8C867A;
+      --line: #E4E0D5;
+      --line2: #EFEBE2;
+
+      /* accents shared across the house */
+      --lime: #D6F24E;
+      --butter: #EDE884;
+      --blush: #F9DCDC;
+      --sky: #D7E4F8;
+      --mint: #D1EEDA;
+      --lilac: #E6DDF3;
+      --sand: #F2EEBD;
+      --pin: #E8453C;
+      --ink-blue: #3B6FE0;
+
+      /* mac window chrome */
+      --tl-red: #FD5D5C;
+      --tl-amber: #FAC900;
+      --tl-green: #28C840;
+
+      /* Subject identity. --accent* is the modern name; the --petrol* aliases
+         are kept so the hand-authored hex literals inside the SVG figures stay
+         in tune with the chrome. */
+      --accent: #2F5470;
+      --accent-deep: #1F3B51;
+      --accent-soft: #E9EFF4;
+      --accent-glow: rgba(47, 84, 112, 0.13);
+      --petrol: var(--accent);
+      --petrol-deep: var(--accent-deep);
+      --petrol-soft: var(--accent-soft);
+      --petrol-glow: var(--accent-glow);
+
+      /* Verdict colours: value created / break-even / value destroyed */
+      --pos: #1F6A4A;
+      --pos-soft: #E6F1EB;
+      --neu: #8A6D1F;
+      --neu-soft: #F6F0DF;
+      --neg: #B3402A;
+      --neg-soft: #F8E9E5;
+
+      /* geometry */
+      --radius: 14px;
+      --radius-lg: 20px;
+      --r-win: 24px;
+      --r-pill: 999px;
+      --bar: 46px;
+
+      /* elevation */
+      --sh-win: 0 4px 29px rgba(0, 0, 0, 0.16);
+      --sh-card: 0 22px 48px -26px rgba(20, 19, 23, 0.55);
+      --sh-float: 0 40px 90px -32px rgba(10, 18, 30, 0.7);
+
+      /* type */
+      --font-display: 'Mona Sans', 'Helvetica Neue', Arial, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.62;
+      color: var(--ink);
+      background: #3F6EA4;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      padding-bottom: 104px;      /* clearance for the fixed dock */
+    }
+
+    /* ── The desktop behind the window ─────────────────────────────────── */
+    .desk {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      background: linear-gradient(180deg, #33587F 0%, #4C7BA8 30%, #7CA0BE 56%, #9FB4AF 74%, #A7B677 100%);
+    }
+    .desk::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(52% 26% at 50% 16%, rgba(255, 255, 255, 0.55), transparent 66%),
+        radial-gradient(26% 14% at 74% 22%, rgba(255, 255, 255, 0.34), transparent 70%);
+      filter: blur(10px);
+    }
+    .desk::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 20, 34, 0.34), rgba(10, 20, 34, 0.5));
+    }
+    .desk-hills {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      width: 100%;
+      height: 52%;
+      display: block;
+      filter: blur(1.5px);
+    }
+
+    /* ── Stage + back link ─────────────────────────────────────────────── */
+    .stage {
+      width: min(1080px, calc(100% - 2 * clamp(12px, 3vw, 32px)));
+      margin-inline: auto;
+      padding: clamp(16px, 3vw, 34px) 0 clamp(40px, 6vw, 70px);
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: clamp(14px, 2vw, 20px);
+      padding: 9px 18px;
+      border-radius: var(--r-pill);
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .back:hover { background: rgba(255, 255, 255, 0.28); transform: translateX(-3px); }
+
+    /* ── The window ────────────────────────────────────────────────────── */
+    /* No overflow:hidden — descendants need position:sticky to reach the
+       viewport, so the corners are rounded on the first and last children. */
+    .win {
+      position: relative;
+      background: var(--surface);
+      border-radius: var(--r-win);
+      box-shadow: var(--sh-win), var(--sh-float);
+    }
+
+    .win-bar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: var(--bar);
+      padding: 0 14px;
+      border-radius: var(--r-win) var(--r-win) 0 0;
+      background: rgba(241, 239, 234, 0.92);
+      backdrop-filter: blur(14px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
+      border-bottom: 1px solid rgba(20, 19, 23, 0.09);
+    }
+    .win-lights { display: flex; gap: 7px; flex: 0 0 auto; }
+    .win-lights i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+    .win-lights i:nth-child(1) { background: var(--tl-red); }
+    .win-lights i:nth-child(2) { background: var(--tl-amber); }
+    .win-lights i:nth-child(3) { background: var(--tl-green); }
+    .win-addr {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding: 5px 16px;
+      border-radius: var(--r-pill);
+      background: rgba(20, 19, 23, 0.06);
+      font-size: 0.75rem;
+      color: var(--ink2);
+      text-align: center;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .win-tool {
+      flex: 0 0 auto;
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.58rem;
+      letter-spacing: -0.02em;
+    }
+    @media (max-width: 560px) { .win-addr { font-size: 0.68rem; padding: 4px 10px; } }
+
+    .wrap {
+      width: min(880px, calc(100% - 2 * clamp(18px, 5vw, 44px)));
+      margin-inline: auto;
+    }
+
+    /* ── Hero ──────────────────────────────────────────────────────────── */
+    header.hero {
+      position: relative;
+      padding: clamp(38px, 6vw, 72px) 0 clamp(28px, 4vw, 44px);
+      background:
+        radial-gradient(ellipse 80% 70% at 12% 0%, var(--accent-glow), transparent 58%),
+        linear-gradient(180deg, var(--paper2), var(--surface) 78%);
+      overflow: hidden;
+    }
+    header.hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--rule) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+      background-size: 74px 74px;
+      mask-image: radial-gradient(ellipse 78% 70% at 50% 30%, #000, transparent 76%);
+      -webkit-mask-image: radial-gradient(ellipse 78% 70% at 50% 30%, #000, transparent 76%);
+    }
+    header.hero > .wrap { position: relative; z-index: 2; }
+
+    .eyebrow {
+      display: inline-block;
+      margin: 0 0 18px;
+      padding: 7px 16px 7px 30px;
+      position: relative;
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transform: rotate(-2deg);
+      box-shadow: 0 6px 16px -9px rgba(20, 19, 23, 0.6);
+    }
+    .eyebrow::before {
+      content: "";
+      position: absolute;
+      left: 11px;
+      top: -8px;
+      width: 10px;
+      height: 24px;
+      border: 2px solid rgba(20, 19, 23, 0.35);
+      border-radius: 6px;
+      border-bottom-color: transparent;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2.1rem, 6vw, 3.6rem);
+      line-height: 0.94;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+
+    .standfirst {
+      margin: 0;
+      max-width: 60ch;
+      font-size: clamp(1rem, 1.7vw, 1.14rem);
+      line-height: 1.58;
+      color: var(--ink2);
+    }
+
+    .meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(22px, 3vw, 32px); }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 15px;
+      border-radius: var(--r-pill);
+      background: #fff;
+      border: 1px solid var(--line);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--ink2);
+      box-shadow: 0 4px 10px -6px rgba(20, 19, 23, 0.4);
+    }
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--pos);
+      animation: ping 2.6s ease-out infinite;
+    }
+    @keyframes ping {
+      0%   { box-shadow: 0 0 0 0 rgba(31, 106, 74, 0.55); }
+      70%  { box-shadow: 0 0 0 7px rgba(31, 106, 74, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(31, 106, 74, 0); }
+    }
+
+    /* ── Mode tabs — a macOS segmented control ─────────────────────────── */
+    .tabs {
+      position: sticky;
+      top: var(--bar);
+      z-index: 20;
+      padding: 12px 0;
+      background: rgba(251, 250, 247, 0.9);
+      backdrop-filter: blur(12px) saturate(160%);
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+      border-block: 1px solid var(--line2);
+    }
+    .tablist {
+      width: min(880px, calc(100% - 2 * clamp(18px, 5vw, 44px)));
+      margin-inline: auto;
+      display: flex;
+      /* Wraps at ANY width, not only on a phone: .tablist hides its scrollbar, so a row
+         that overflows leaves the last tab unreachable with no affordance. Six tabs need
+         ~857px and five need ~727px, so a 700px breakpoint left every laptop width
+         between clipping. Wrapping only engages when the row genuinely does not fit. */
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 4px;
+      border-radius: var(--r-pill);
+      background: rgba(20, 19, 23, 0.05);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tablist::-webkit-scrollbar { display: none; }
+    .tab {
+      flex: 1 1 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+      padding: 10px 18px;
+      border: 0;
+      border-radius: var(--r-pill);
+      background: transparent;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .tab:hover { color: var(--ink); background: rgba(255, 255, 255, 0.7); }
+    .tab-num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.66rem;
+      letter-spacing: 0.02em;
+      opacity: 0.55;
+    }
+
+    /* On a phone the row also drops its decorative numbers and tightens up, and the
+       pill radius gives way to a rounded rectangle. Wrapping itself is unconditional
+       and lives on .tablist above. */
+    @media (max-width: 700px) {
+      .tablist { border-radius: var(--radius-lg); }
+      .tab { padding: 9px 14px; font-size: 0.82rem; }
+      .tab-num { display: none; }
+    }
+    .tab[aria-selected="true"] {
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: 0 2px 8px -2px rgba(20, 19, 23, 0.28);
+    }
+    .tab[aria-selected="true"] .tab-num { color: var(--accent); opacity: 1; }
+
+    .panel { display: none; }
+    .panel.active { display: block; animation: fade-up 0.45s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+    @keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    main.wrap { padding-top: clamp(30px, 5vw, 52px); }
+
+    /* ── Topic sub-tabs (used where a week splits into topics) ─────────── */
+    .subtabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: clamp(26px, 4vw, 40px);
+    }
+    .subtab {
+      padding: 9px 17px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .subtab:hover { border-color: var(--accent); color: var(--ink); }
+    .subtab[aria-selected="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+    .subtab--empty { color: var(--ink3); border-style: dashed; }
+    .subtab--empty[aria-selected="true"] { background: var(--ink3); border-color: var(--ink3); color: #ffffff; }
+    .subpanel { display: none; }
+    .subpanel.active { display: block; animation: fade-up 0.4s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+
+    .unwritten {
+      padding: clamp(24px, 4vw, 38px);
+      border: 1.5px dashed var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--surface2);
+    }
+    .unwritten h2 { margin-top: 0.5rem; }
+    .unwritten ul { color: var(--ink2); }
+
+    /* ── Content blocks ────────────────────────────────────────────────── */
+    .block {
+      margin-bottom: clamp(40px, 6vw, 68px);
+      scroll-margin-top: calc(var(--bar) + 90px);
+    }
+    .block:last-child { margin-bottom: 0; }
+    .block-num {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 5px 13px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0 0 0.7rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+    h3 {
+      margin: 2rem 0 0.6rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.12rem, 2.2vw, 1.32rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+    h4 {
+      margin: 1.6rem 0 0.5rem;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: -0.01em;
+    }
+    h5 {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+    }
+    p { margin: 0 0 1rem; }
+    .block > p, .unwritten > p { color: var(--ink2); }
+    strong { font-weight: 700; color: var(--ink); }
+    em { font-style: italic; }
+    a { color: var(--accent); text-underline-offset: 3px; }
+
+    ul, ol { margin: 0 0 1.1rem; padding-left: 1.3rem; color: var(--ink2); }
+    li { margin-bottom: 0.5rem; }
+    li::marker { color: var(--accent); }
+
+    .takeaways {
+      list-style: none;
+      margin: 1.4rem 0;
+      padding: clamp(18px, 3vw, 26px) clamp(18px, 3vw, 28px);
+      background: var(--surface2);
+      border: 1px solid var(--line2);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--sh-card);
+    }
+    .takeaways li {
+      position: relative;
+      margin: 0 0 0.75rem;
+      padding-left: 1.9rem;
+      color: var(--ink2);
+    }
+    .takeaways li:last-child { margin-bottom: 0; }
+    .takeaways li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      background: var(--lime);
+      box-shadow: 0 0 0 3px rgba(214, 242, 78, 0.3);
+    }
+
+    .steps { counter-reset: step; list-style: none; padding-left: 0; margin: 1.4rem 0; }
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      margin-bottom: 1rem;
+      padding-left: 2.6rem;
+      color: var(--ink2);
+    }
+    .steps li::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 0.05em;
+      width: 1.9rem;
+      height: 1.9rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    .steps li strong { display: block; color: var(--ink); }
+
+    /* ── Callouts ──────────────────────────────────────────────────────── */
+    .callout {
+      display: flex;
+      gap: 14px;
+      margin: 1.6rem 0;
+      padding: clamp(18px, 3vw, 24px);
+      border-radius: var(--radius-lg);
+      background: var(--sand);
+      box-shadow: 6px 6px 0 rgba(20, 19, 23, 0.06);
+    }
+    .callout p { margin: 0; font-size: 1.02rem; font-weight: 600; line-height: 1.5; color: var(--ink); }
+    .callout p + p { margin-top: 0.7rem; font-weight: 400; color: var(--ink2); }
+    .icon { flex: 0 0 auto; font-size: 1.15rem; line-height: 1.35; }
+    /* A callout with more than one paragraph wraps them in a div, or the flex
+       row would lay the paragraphs out side by side. */
+    .callout > div { flex: 1 1 auto; min-width: 0; }
+    .callout--key { background: var(--sand); }
+    .callout--ask { background: var(--sky); }
+
+    /* ── Tables ────────────────────────────────────────────────────────── */
+    .table-scroll {
+      margin: 1.5rem 0;
+      overflow-x: auto;
+      border: 1px solid var(--line2);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      box-shadow: var(--sh-card);
+      -webkit-overflow-scrolling: touch;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 460px; }
+    thead th {
+      position: sticky;
+      top: 0;
+      background: var(--paper2);
+      text-align: left;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    tbody th { text-align: left; font-weight: 700; color: var(--ink); }
+    td, tbody th { padding: 12px 16px; border-bottom: 1px solid var(--line2); vertical-align: top; color: var(--ink2); }
+    tbody tr:last-child td, tbody tr:last-child th { border-bottom: 0; }
+    tbody tr:hover { background: var(--surface2); }
+
+    .verdict {
+      display: inline-block;
+      padding: 3px 11px;
+      border-radius: var(--r-pill);
+      font-size: 0.72rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .verdict--pos { background: var(--pos-soft); color: var(--pos); }
+    .verdict--neu { background: var(--neu-soft); color: var(--neu); }
+    .verdict--neg { background: var(--neg-soft); color: var(--neg); }
+
+    /* ── Formulas ──────────────────────────────────────────────────────── */
+    .formula {
+      margin: 1.3rem 0;
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: #F2F0EA;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      box-shadow: var(--sh-card);
+    }
+    .formula-stack { display: flex; flex-direction: column; gap: 6px; }
+    .formula-stack span { display: block; white-space: nowrap; }
+
+    /* ── Worked examples ───────────────────────────────────────────────── */
+    .example-grid { display: grid; gap: 16px; margin: 1.5rem 0; }
+    @media (min-width: 620px) { .example-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); } }
+    .example {
+      padding: 20px 22px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .example--pos { border-color: rgba(31, 106, 74, 0.35); background: linear-gradient(180deg, var(--pos-soft), #fff 46%); }
+    .example--neg { border-color: rgba(179, 64, 42, 0.35); background: linear-gradient(180deg, var(--neg-soft), #fff 46%); }
+    .example dl { margin: 0; font-size: 0.86rem; }
+    .example dt { font-weight: 600; color: var(--ink2); }
+    .example dd { margin: 0 0 0.5rem; font-family: var(--font-mono); color: var(--ink); }
+    .result {
+      margin: 0.9rem 0 0;
+      padding-top: 0.8rem;
+      border-top: 1px dashed var(--line);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--accent-deep);
+    }
+    .note { font-size: 0.84rem; color: var(--ink3); }
+
+    /* ── Principle cards ───────────────────────────────────────────────── */
+    .principles { display: grid; gap: 14px; counter-reset: principle; margin: 1.6rem 0; }
+    @media (min-width: 640px) { .principles { grid-template-columns: 1fr 1fr; } }
+    .principle {
+      position: relative;
+      counter-increment: principle;
+      padding: 22px 22px 22px 62px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+      transition: transform 0.24s ease, box-shadow 0.24s ease;
+    }
+    .principle:hover { transform: translateY(-3px); box-shadow: 0 30px 56px -30px rgba(20, 19, 23, 0.6); }
+    .principle::before {
+      content: counter(principle, decimal-leading-zero);
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      opacity: 0.4;
+    }
+    .p-name { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .p-q { font-size: 0.88rem; font-style: italic; color: var(--accent-deep); margin-bottom: 8px; }
+    .p-def { margin: 0; font-size: 0.88rem; color: var(--ink2); }
+
+    /* ── Figures ───────────────────────────────────────────────────────── */
+    figure { margin: 1.8rem 0; }
+    .fig-frame {
+      overflow-x: auto;
+      padding: clamp(16px, 3vw, 26px);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+      -webkit-overflow-scrolling: touch;
+    }
+    .fig-frame svg { width: 100%; height: auto; min-width: 420px; display: block; }
+    figcaption {
+      margin-top: 0.75rem;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: var(--ink3);
+    }
+    .svg-label { font-family: var(--font-sans); font-size: 12px; font-weight: 600; fill: var(--ink); }
+    .svg-sub { font-family: var(--font-sans); font-size: 10px; font-weight: 500; fill: var(--ink3); }
+    .svg-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      fill: var(--ink3);
+    }
+    .svg-mono { font-family: var(--font-mono); font-size: 11px; font-weight: 600; fill: var(--accent-deep); }
+
+    /* ── Key concepts ──────────────────────────────────────────────────── */
+    .toolbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 1.1rem; }
+    .search {
+      flex: 1 1 240px;
+      min-width: 0;
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--ink);
+      box-shadow: 0 4px 12px -8px rgba(20, 19, 23, 0.5);
+    }
+    .search:focus { outline: 3px solid var(--accent-glow); outline-offset: 0; border-color: var(--accent); }
+    .count {
+      flex: 0 0 auto;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.3rem; }
+    .chip {
+      padding: 7px 15px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .chip:hover { border-color: var(--accent); color: var(--ink); }
+    .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+
+    .glossary { display: grid; gap: 12px; }
+    .term {
+      position: relative;
+      padding: 18px 20px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .term:hover { transform: translateY(-2px); box-shadow: var(--sh-card); }
+    .term[hidden] { display: none; }
+    .term-topic {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 3px 10px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .term-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .term-name {
+      margin: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: -0.02em;
+    }
+    .term-src {
+      flex: 0 0 auto;
+      max-width: 45%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--ink3);
+    }
+    .term-src--own {
+      padding: 2px 9px;
+      border-radius: var(--r-pill);
+      background: var(--lime);
+      color: var(--ink);
+    }
+    .term-def { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--ink2); }
+    .term-formula {
+      margin-top: 0.7rem;
+      padding: 9px 13px;
+      border-radius: 10px;
+      background: var(--paper2);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-deep);
+      overflow-x: auto;
+    }
+    /* ── Acronym headings (Acronyms tab; everything else reuses .term) ─── */
+    .term-abbr { font-family: var(--font-mono); font-weight: 700; color: var(--accent-deep); }
+    .term-long { font-weight: 500; color: var(--ink2); }
+
+    .no-results { padding: 26px; text-align: center; color: var(--ink3); }
+
+    /* ── Flashcards ────────────────────────────────────────────────────── */
+    .deck { margin-top: 1.4rem; }
+    .deck-meta { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .deck-count { font-size: 0.8rem; font-weight: 600; color: var(--ink3); font-variant-numeric: tabular-nums; }
+    .deck-count strong { color: var(--ink); }
+    .progress { flex: 1 1 auto; height: 6px; border-radius: var(--r-pill); background: rgba(20, 19, 23, 0.08); overflow: hidden; }
+    .progress-fill {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: var(--r-pill);
+      background: linear-gradient(90deg, var(--accent), var(--lime));
+      transition: width 0.3s ease;
+    }
+
+    .flip {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: none;
+      perspective: 1400px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .flip-inner {
+      position: relative;
+      display: block;
+      min-height: 320px;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.3, 1);
+    }
+    .flip[aria-pressed="true"] .flip-inner { transform: rotateY(180deg); }
+    .face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      padding: clamp(24px, 4vw, 40px);
+      border-radius: var(--radius-lg);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      text-align: left;
+    }
+    .face-front {
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .face-back {
+      background: linear-gradient(150deg, var(--accent-deep), var(--accent));
+      color: #F2F0EA;
+      transform: rotateY(180deg);
+      box-shadow: var(--sh-card);
+    }
+    .face-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+    .face-back .face-tag { color: rgba(242, 240, 234, 0.65); }
+    .face-topic { font-weight: 600; letter-spacing: 0.04em; text-transform: none; opacity: 0.8; }
+    .face-back .face-topic { color: rgba(242, 240, 234, 0.75); }
+    .face-text {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.1rem, 3.2vw, 1.42rem);
+      line-height: 1.28;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .face-back .face-text { color: #FBFAF7; font-weight: 600; font-size: clamp(0.98rem, 2.8vw, 1.18rem); line-height: 1.5; }
+    .face-hint { font-size: 0.74rem; color: var(--ink3); }
+    .face-back .face-hint { color: rgba(242, 240, 234, 0.6); }
+
+    .deck-controls { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+    .btn {
+      flex: 1 1 auto;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: var(--r-pill);
+      background: var(--ink);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+      box-shadow: 0 12px 22px -16px rgba(20, 19, 23, 0.9);
+    }
+    .btn:hover:not(:disabled) { transform: translateY(-2px); }
+    .btn:disabled { opacity: 0.34; cursor: not-allowed; }
+    .btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+    .btn--ghost:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
+
+    .kbd-hint { margin: 14px 0 0; font-size: 0.76rem; color: var(--ink3); text-align: center; }
+    kbd {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-bottom-width: 2px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink2);
+    }
+
+    /* ── Footer ────────────────────────────────────────────────────────── */
+    footer.page-foot {
+      margin-top: clamp(50px, 8vw, 88px);
+      padding: clamp(30px, 5vw, 46px) 0;
+      border-radius: 0 0 var(--r-win) var(--r-win);
+      background: var(--butter);
+    }
+    footer.page-foot p {
+      margin: 0 0 0.4rem;
+      font-size: 0.84rem;
+      color: rgba(20, 19, 23, 0.78);
+    }
+    footer.page-foot p:first-child { font-weight: 700; color: var(--ink); }
+    footer.page-foot p:last-child { margin-bottom: 0; }
+
+    /* ── Dock ──────────────────────────────────────────────────────────── */
+    .dock {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 18px 40px -18px rgba(20, 19, 23, 0.6);
+      max-width: calc(100vw - 24px);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .dock::-webkit-scrollbar { display: none; }
+    .dock-item {
+      position: relative;
+      flex: 0 0 auto;
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      background: linear-gradient(160deg, #fff, #EDEAE2);
+      box-shadow: 0 2px 6px rgba(20, 19, 23, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.3), box-shadow 0.22s ease;
+    }
+    .dock-item:hover, .dock-item:focus-visible {
+      transform: translateY(-12px) scale(1.14);
+      box-shadow: 0 14px 26px -10px rgba(20, 19, 23, 0.5);
+    }
+    .dock-item[data-tint="lime"]  { background: linear-gradient(160deg, #E9FB88, var(--lime)); }
+    .dock-item[data-tint="sky"]   { background: linear-gradient(160deg, #EDF3FD, var(--sky)); }
+    .dock-item[data-tint="blush"] { background: linear-gradient(160deg, #FDF0F0, var(--blush)); }
+    .dock-item[data-tint="mint"]  { background: linear-gradient(160deg, #EAF8EE, var(--mint)); }
+    .dock-item[data-tint="lilac"] { background: linear-gradient(160deg, #F4EFFB, var(--lilac)); }
+    .dock-item[data-tint="sand"]  { background: linear-gradient(160deg, #FAF8DE, var(--sand)); }
+    .dock-item::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      padding: 5px 11px;
+      border-radius: 9px;
+      background: rgba(20, 19, 23, 0.92);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.72rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    .dock-item:hover::after, .dock-item:focus-visible::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .dock-item[aria-current="page"] {
+      box-shadow: 0 2px 6px rgba(20, 19, 23, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 0 0 2px var(--ink);
+    }
+    .dock-sep { flex: 0 0 auto; width: 1px; height: 34px; background: rgba(20, 19, 23, 0.14); margin: 0 2px; }
+    @media (max-width: 600px) {
+      body { padding-bottom: 84px; }
+      .dock { gap: 6px; padding: 7px 9px; bottom: 12px; }
+      .dock-item { width: 44px; height: 44px; font-size: 0.68rem; }
+      .dock-item::after { display: none; }
+      .dock-sep { height: 28px; }
+    }
+
+    /* ── Summary index, collapse and search ───────────────────────────────
+       The index is BUILT AT RUNTIME from the blocks themselves (see the
+       script), so it can never drift from the content and a re-sync needs
+       no extra work. With JavaScript off the summary reads exactly as it
+       did before — every block is open and there is simply no index. */
+    .toc {
+      margin-bottom: clamp(28px, 4vw, 44px);
+      padding: clamp(18px, 3vw, 24px);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .toc-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .toc-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .toc-actions { display: flex; gap: 8px; }
+    .toc-btn {
+      padding: 6px 13px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .toc-btn:hover { border-color: var(--accent); color: var(--ink); }
+    .toc .toolbar { margin-bottom: 0.9rem; }
+    .toc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 2px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 640px) { .toc-list { grid-template-columns: 1fr 1fr; column-gap: 14px; } }
+    .toc-list.is-long { max-height: 19rem; overflow-y: auto; }
+    .toc-list li[hidden] { display: none; }
+    .toc-list a {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      padding: 7px 10px;
+      border-radius: 10px;
+      color: var(--ink2);
+      text-decoration: none;
+      font-size: 0.86rem;
+      line-height: 1.4;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+    .toc-list a:hover { background: var(--accent-soft); color: var(--ink); }
+    .toc-n {
+      flex: 0 0 auto;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+    .toc-empty { margin: 0; padding: 14px 10px 4px; color: var(--ink3); font-size: 0.86rem; }
+
+    /* A block becomes a disclosure. `.block` itself is untouched so the
+       prose-budget gate still measures the same thing. */
+    .block[hidden] { display: none; }
+    .block-d > summary {
+      list-style: none;
+      cursor: pointer;
+      position: relative;
+      padding-right: 34px;
+    }
+    .block-d > summary::-webkit-details-marker { display: none; }
+    .block-d > summary::after {
+      content: "";
+      position: absolute;
+      right: 8px;
+      top: 0.75em;
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid var(--ink3);
+      border-bottom: 2px solid var(--ink3);
+      transform: rotate(45deg);
+      transition: transform 0.22s ease, border-color 0.22s ease;
+    }
+    .block-d[open] > summary::after { transform: rotate(-135deg); }
+    .block-d > summary:hover h2 { color: var(--accent); }
+    .block-d > summary:hover::after { border-color: var(--accent); }
+    .block-d > summary h2 { transition: color 0.2s ease; }
+    .block-d > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 4px; border-radius: 10px; }
+    .block-d:not([open]) > summary h2 { margin-bottom: 0; }
+    /* Topic chips built at runtime use aria-pressed; the sub-tabbed weeks
+       use aria-selected. Same look for both. */
+    .subtab[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    /* ── Accessibility ─────────────────────────────────────────────────── */
+    :focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 3px; border-radius: 8px; }
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      z-index: 200;
+      padding: 12px 20px;
+      background: var(--ink);
+      color: #fff;
+      border-radius: 0 0 10px 0;
+      text-decoration: none;
+    }
+    .skip:focus { left: 0; }
+    .visually-hidden, .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#panel-summary">Skip to content</a>
+
+  <div class="desk" aria-hidden="true">
+    <svg class="desk-hills" viewBox="0 0 1440 600" preserveAspectRatio="none" focusable="false">
+      <defs>
+        <linearGradient id="dh1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#A9BE8C"/><stop offset="1" stop-color="#8FA96E"/>
+        </linearGradient>
+        <linearGradient id="dh2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#C6D25E"/><stop offset="1" stop-color="#9DB248"/>
+        </linearGradient>
+        <linearGradient id="dh3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#7FA045"/><stop offset="1" stop-color="#4F7431"/>
+        </linearGradient>
+        <linearGradient id="dh4" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#5C8235"/><stop offset="1" stop-color="#33501F"/>
+        </linearGradient>
+      </defs>
+      <path fill="url(#dh1)" d="M0 214C176 132 352 108 566 168c214 60 366 122 552 96 122-17 232-70 322-124V600H0Z"/>
+      <path fill="url(#dh2)" d="M0 322C154 240 330 226 520 276c190 50 336 118 522 96 132-16 268-84 398-152V600H0Z"/>
+      <path fill="url(#dh3)" d="M0 430C132 356 302 330 486 372c184 42 326 110 512 92 130-13 288-72 442-140V600H0Z"/>
+      <path fill="url(#dh4)" d="M0 536C160 470 356 452 556 486c200 34 346 78 512 62 138-14 254-52 372-98V600H0Z"/>
+    </svg>
+  </div>
+
+  <div class="stage">
+    <a class="back" href="DMBA6008-weeks.html"><span aria-hidden="true">←</span> All weeks</a>
+
+    <div class="win">
+      <div class="win-bar">
+        <span class="win-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="win-addr">DMBA 6008 &nbsp;/&nbsp; Week 3 &mdash; Investment evaluation tools</span>
+        <span class="win-tool" aria-hidden="true">MBA</span>
+      </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">DMBA 6008 · Finance, Strategy and Technology · Week 3</p>
+      <h1>Investment <em>evaluation</em> tools</h1>
+      <p class="standfirst">A dollar promised later is worth less than a dollar held now, and that single idea decides which investment wins. Week 3 discounts future cash flows back to today, then sets net present value against average return on assets and watches the two disagree.</p>
+      <div class="meta-row">
+        <span class="pill"><span class="dot" aria-hidden="true"></span> Pre-live session</span>
+        <span class="pill">30 key terms</span>
+        <span class="pill">40 flashcards</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Week 3 study modes">
+    <div class="tablist" role="tablist">
+      <button class="tab" id="tab-summary" role="tab" aria-selected="true" aria-controls="panel-summary"
+        data-panel="summary"><span class="tab-num" aria-hidden="true">01</span>Summary &amp; visuals</button>
+      <button class="tab" id="tab-terms" role="tab" aria-selected="false" aria-controls="panel-terms"
+        data-panel="terms" tabindex="-1"><span class="tab-num" aria-hidden="true">02</span>Key concepts</button>
+      <button class="tab" id="tab-cards" role="tab" aria-selected="false" aria-controls="panel-cards"
+        data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
+
+
+
+      <button class="tab" id="tab-acronyms" role="tab" aria-selected="false" aria-controls="panel-acronyms"
+        data-panel="acronyms" tabindex="-1"><span class="tab-num" aria-hidden="true">04</span>Acronyms</button>
+      <button class="tab" id="tab-formulas" role="tab" aria-selected="false" aria-controls="panel-formulas"
+        data-panel="formulas" tabindex="-1"><span class="tab-num" aria-hidden="true">05</span>Formulas</button>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- ══════════════════ 01 · SUMMARY & VISUALS ══════════════════ -->
+    <section class="panel active" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" tabindex="0">
+      <div class="block" data-topic="Concept of present value">
+        <span class="block-num">01 / The core idea</span>
+        <h2>What present value converts</h2>
+        <p>Present value (PV) converts a future cash flow into its equivalent value <strong>today</strong>. A future
+          dollar is worth less than a dollar today because capital has a required return, or <strong>cost of
+            capital</strong>. The appropriate discount rate represents the return required for committing capital to
+          the investment.</p>
+
+        <div class="callout callout--ask">
+          <span class="icon" aria-hidden="true">❓</span>
+          <p>Are the expected future cash flows worth more today than the capital required to obtain them?</p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Concept of present value">
+        <span class="block-num">02 / Discounting</span>
+        <h2>One year’s cash flow, restated in today’s terms</h2>
+        <p>For a cash flow received in one year, the notes define <strong>PV</strong> as the value of the future cash
+          flow today and <strong>r</strong> as the appropriate discount rate, or cost of capital. At a cost of capital
+          of 10%, the future $112,000 is economically equivalent to <strong>$101,818</strong> today.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 220" role="img" aria-labelledby="pvfig1-title pvfig1-desc">
+              <title id="pvfig1-title">Discounting a future cash flow back to today</title>
+              <desc id="pvfig1-desc">A cash flow of 112,000 dollars received in one year is discounted at a cost of
+                capital of 10 per cent, giving a value today of 101,818 dollars. Below, a band showing present value
+                falling as the discount rate rises: the higher the discount rate, the lower the present value.</desc>
+
+              <text class="svg-eyebrow" x="0" y="14">ONE YEAR’S CASH FLOW, BROUGHT BACK TO TODAY</text>
+
+              <g>
+                <rect x="470" y="28" width="210" height="64" rx="10" fill="#E9EFF4" stroke="#2F5470"
+                  stroke-opacity="0.25" />
+                <text class="svg-label" x="575" y="55" text-anchor="middle">$112,000</text>
+                <text class="svg-sub" x="575" y="74" text-anchor="middle">received in one year</text>
+              </g>
+
+              <path d="M462 60 L272 60" stroke="#8798a6" stroke-width="1.5" stroke-dasharray="4 4" />
+              <path d="M272 55 L262 60 L272 65 Z" fill="#8798a6" />
+              <text class="svg-sub" x="366" y="48" text-anchor="middle">discount at 10%</text>
+              <text class="svg-sub" x="366" y="80" text-anchor="middle">the cost of capital</text>
+
+              <g>
+                <rect x="40" y="28" width="210" height="64" rx="10" fill="#2F5470" />
+                <text class="svg-label" x="145" y="55" text-anchor="middle" fill="#ffffff">$101,818</text>
+                <text class="svg-sub" x="145" y="74" text-anchor="middle" fill="#c3d4e0">value today</text>
+              </g>
+
+              <text class="svg-eyebrow" x="0" y="128">HIGHER DISCOUNT RATE → LOWER PRESENT VALUE</text>
+
+              <path d="M60 146 L680 186 L680 196 L60 196 Z" fill="#2F5470" fill-opacity="0.18" />
+              <path d="M60 146 L680 186" stroke="#2F5470" stroke-width="1.5" />
+              <line x1="60" y1="196" x2="680" y2="196" stroke="#8798a6" stroke-width="1.5" />
+              <text class="svg-label" x="80" y="178">present value</text>
+              <text class="svg-sub" x="60" y="212">lower discount rate</text>
+              <text class="svg-sub" x="680" y="212" text-anchor="end">higher discount rate</text>
+            </svg>
+          </div>
+          <figcaption>The symbolic formula and the worked example sit in images in the source notes and are not
+            reproduced here; only the figures the notes state in text appear above.</figcaption>
+        </figure>
+
+        <p><strong>Higher discount rate → lower present value</strong>, because investors require greater
+          compensation for supplying capital.</p>
+      </div>
+
+      <div class="block" data-topic="Concept of present value">
+        <span class="block-num">03 / The benchmark</span>
+        <h2>Required return, not the raw cash inflow</h2>
+        <p>An investment creates value only when its return exceeds the return required by its providers of capital.
+          If $100,000 of capital costs 10%, it must grow to <strong>$110,000 after one year</strong> simply to satisfy
+          the required return. If the investment instead generates $112,000, the $2000 excess represents value created
+          in <strong>future-dollar terms</strong>.</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">The one-year comparison</th>
+                <th scope="col">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Capital supplied today</th>
+                <td>$100,000</td>
+              </tr>
+              <tr>
+                <th scope="row">Required after one year at 10%</th>
+                <td>$110,000</td>
+              </tr>
+              <tr>
+                <th scope="row">Cash the investment generates</th>
+                <td>$112,000</td>
+              </tr>
+              <tr>
+                <th scope="row">Excess, in future-dollar terms</th>
+                <td><span class="verdict verdict--pos">$2000</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Concept of present value">
+        <span class="block-num">04 / Today’s dollars</span>
+        <h2>The future surplus is not the value created</h2>
+        <p>The $2000 future surplus must itself be discounted.</p>
+        <div class="formula">$2000/1.10 = $1818</div>
+        <p>The investment therefore creates <strong>$1818 of value today</strong>. The distinction matters because the
+          future surplus and today’s value creation are <strong>not the same amount</strong>.</p>
+      </div>
+
+      <div class="block" data-topic="Concept of present value">
+        <span class="block-num">05 / Net present value</span>
+        <h2>NPV as the measure of value created</h2>
+        <div class="formula formula-stack">
+          <span>NPV = Present Value of Future Cash Flows - Initial Outlay</span>
+          <span>NPV = $101818 - $100000 = $1818</span>
+        </div>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 230" role="img" aria-labelledby="pvfig2-title pvfig2-desc">
+              <title id="pvfig2-title">The same investment measured in future dollars and in today’s dollars</title>
+              <desc id="pvfig2-desc">On the left, in future dollars: cash generated of 112,000 dollars against
+                110,000 dollars required by the capital providers, leaving an excess of 2000 dollars. That excess is
+                divided by 1.10 to give 1818 dollars. On the right, in today’s dollars: a present value of 101818
+                dollars less an initial outlay of 100000 dollars gives a net present value of 1818 dollars. A positive
+                net present value means value is created after allowing for the cost of capital.</desc>
+
+              <text class="svg-eyebrow" x="0" y="14">THE SAME INVESTMENT, MEASURED TWICE</text>
+
+              <g>
+                <rect x="0" y="28" width="300" height="150" rx="12" fill="#E9EFF4" stroke="#2F5470"
+                  stroke-opacity="0.25" />
+                <text class="svg-label" x="150" y="52" text-anchor="middle" fill="#1F3B51">In future dollars</text>
+                <text class="svg-sub" x="16" y="82">Cash the investment generates</text>
+                <text class="svg-mono" x="284" y="82" text-anchor="end">$112,000</text>
+                <text class="svg-sub" x="16" y="104">Required by capital providers</text>
+                <text class="svg-mono" x="284" y="104" text-anchor="end">$110,000</text>
+                <line x1="16" y1="116" x2="284" y2="116" stroke="#2F5470" stroke-opacity="0.25" />
+                <text class="svg-label" x="16" y="139">Excess</text>
+                <text class="svg-mono" x="284" y="139" text-anchor="end" fill="#1f6a4a">$2000</text>
+                <text class="svg-sub" x="150" y="162" text-anchor="middle">value created in future-dollar terms</text>
+              </g>
+
+              <path d="M306 134 L406 134" stroke="#8798a6" stroke-width="1.5" stroke-dasharray="4 4" />
+              <path d="M406 129 L416 134 L406 139 Z" fill="#8798a6" />
+              <text class="svg-mono" x="360" y="124" text-anchor="middle">$2000/1.10</text>
+              <text class="svg-mono" x="360" y="152" text-anchor="middle" fill="#1f6a4a">= $1818</text>
+
+              <g>
+                <rect x="420" y="28" width="300" height="150" rx="12" fill="#ffffff" stroke="#2F5470"
+                  stroke-opacity="0.35" />
+                <text class="svg-label" x="570" y="52" text-anchor="middle" fill="#1F3B51">In today’s dollars</text>
+                <text class="svg-sub" x="436" y="82">Present value of future cash flow</text>
+                <text class="svg-mono" x="704" y="82" text-anchor="end">$101818</text>
+                <text class="svg-sub" x="436" y="104">Initial outlay</text>
+                <text class="svg-mono" x="704" y="104" text-anchor="end">$100000</text>
+                <line x1="436" y1="116" x2="704" y2="116" stroke="#2F5470" stroke-opacity="0.25" />
+                <text class="svg-label" x="436" y="139">NPV</text>
+                <text class="svg-mono" x="704" y="139" text-anchor="end" fill="#1f6a4a">$1818</text>
+                <text class="svg-sub" x="570" y="162" text-anchor="middle">value created today</text>
+              </g>
+
+              <rect x="0" y="192" width="720" height="30" rx="8" fill="#e6f1eb" />
+              <text class="svg-label" x="360" y="211" text-anchor="middle" fill="#1f6a4a">Positive NPV → value is
+                created after allowing for the cost of capital</text>
+            </svg>
+          </div>
+          <figcaption>The two columns describe one investment. The distinction matters because the future surplus and
+            today’s value creation are not the same amount.</figcaption>
+        </figure>
+
+        <p>The initial investment is therefore not compared directly with the nominal future cash flow; the future
+          cash flow must first be expressed in <strong>today’s terms</strong>. NPV provides a dollar measure of the
+          economic value generated by an investment, forming a fundamental basis for valuation and investment
+          decision-making.</p>
+
+        <h3>Analytical takeaways</h3>
+        <ul class="takeaways">
+          <li>Investment performance should be assessed against the cost of capital, not simply whether the future
+            cash inflow exceeds the initial expenditure.</li>
+          <li>A positive accounting or cash gain does not by itself establish value creation; the <strong>time value
+              of money must be incorporated</strong>.</li>
+        </ul>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>NPV translates the answer into today’s dollars, allowing managers to judge whether an investment
+            genuinely increases economic value.</p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Investment Appraisal">
+        <span class="block-num">06 / Decision context</span>
+        <h2>Comparing mutually exclusive investments</h2>
+        <p>Mutually exclusive projects compete for the same decision: selecting one means rejecting the other. Where
+          the alternatives deliver the same strategic or service outcome, appraisal is not asked which project looks
+          best on its own, but which of them creates the <strong>greatest economic value</strong> — and that is not
+          necessarily the one reporting the highest accounting profit.</p>
+        <p>This requires separating three possible performance measures:</p>
+        <ul>
+          <li>Total accounting profit</li>
+          <li>Average return on assets</li>
+          <li><strong>Net Present Value (NPV)</strong></li>
+        </ul>
+      </div>
+
+      <div class="block" data-topic="Investment Appraisal">
+        <span class="block-num">07 / Profit versus cash flow</span>
+        <h2>Depreciation creates an important difference</h2>
+        <p>Depreciation is an accounting expense, but it is not a current cash outflow. Profit is therefore reported
+          after a charge that no money left the business to pay, and adding that charge back recovers the cash the
+          project actually generated:</p>
+        <div class="formula">Cash Flow = Profit + Depreciation</div>
+        <p><em>Where depreciation is the relevant non-cash expense and taxes are excluded.</em></p>
+        <p>A project can therefore report an <strong>accounting loss while still generating positive cash
+            flow</strong>. For investment valuation the relevant measure is the cash generated, because value
+          ultimately depends on the cash available to investors rather than on accounting earnings.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 230" role="img" aria-labelledby="iafig1-title iafig1-desc">
+              <title id="iafig1-title">From accounting profit to cash flow</title>
+              <desc id="iafig1-desc">Accounting profit plus depreciation, an accounting expense that is not a cash
+                outflow, equals cash flow. Below, the three drivers of value that accounting profit does not directly
+                incorporate: cash flow, the timing of cash flow, and risk. Because of this, a ranking by profit can
+                differ from a ranking by economic value.</desc>
+
+              <text class="svg-eyebrow" x="0" y="14">A NON-CASH EXPENSE, ADDED BACK</text>
+
+              <rect x="0" y="32" width="210" height="58" rx="10" fill="#E9EFF4" stroke="#2F5470"
+                stroke-opacity="0.25" />
+              <text class="svg-label" x="105" y="56" text-anchor="middle">Accounting profit</text>
+              <text class="svg-sub" x="105" y="74" text-anchor="middle">may still be a loss</text>
+
+              <text class="svg-label" x="232" y="66" text-anchor="middle" fill="#8798a6">+</text>
+
+              <rect x="255" y="32" width="210" height="58" rx="10" fill="#E9EFF4" stroke="#2F5470"
+                stroke-opacity="0.25" />
+              <text class="svg-label" x="360" y="54" text-anchor="middle">Depreciation</text>
+              <text class="svg-sub" x="360" y="70" text-anchor="middle">an accounting expense,</text>
+              <text class="svg-sub" x="360" y="82" text-anchor="middle">not a cash outflow</text>
+
+              <text class="svg-label" x="487" y="66" text-anchor="middle" fill="#8798a6">=</text>
+
+              <rect x="510" y="32" width="210" height="58" rx="10" fill="#2F5470" />
+              <text class="svg-label" x="615" y="56" text-anchor="middle" fill="#ffffff">Cash flow</text>
+              <text class="svg-sub" x="615" y="74" text-anchor="middle" fill="#C3D4E0">the cash generated</text>
+
+              <line x1="0" y1="112" x2="720" y2="112" stroke="#e2ded5" stroke-width="1.5" />
+              <text class="svg-eyebrow" x="0" y="134">WHAT PROFIT DOES NOT DIRECTLY INCORPORATE</text>
+
+              <rect x="0" y="146" width="210" height="44" rx="10" fill="#ffffff" stroke="#e2ded5" />
+              <text class="svg-label" x="105" y="173" text-anchor="middle">Cash flow</text>
+              <rect x="255" y="146" width="210" height="44" rx="10" fill="#ffffff" stroke="#e2ded5" />
+              <text class="svg-label" x="360" y="173" text-anchor="middle">Timing of cash flow</text>
+              <rect x="510" y="146" width="210" height="44" rx="10" fill="#ffffff" stroke="#e2ded5" />
+              <text class="svg-label" x="615" y="173" text-anchor="middle">Risk</text>
+
+              <rect x="0" y="202" width="720" height="26" rx="8" fill="rgba(47, 84, 112, 0.13)" />
+              <text class="svg-label" x="360" y="219" text-anchor="middle">Profit ranking can differ from
+                economic-value ranking</text>
+            </svg>
+          </div>
+          <figcaption>Adding depreciation back to profit recovers cash flow. Everything below the line is what
+            accounting profit does not directly incorporate.</figcaption>
+        </figure>
+
+        <h3>Why profit can mislead investment decisions</h3>
+        <p>Accounting profit does not directly incorporate the three drivers of value:</p>
+        <div class="formula">Cash flow + timing of cash flow + risk</div>
+        <p>Therefore, ranking investments purely by total profit can produce <em>a different decisions</em> from
+          ranking them by economic value.</p>
+      </div>
+
+      <div class="block" data-topic="Investment Appraisal">
+        <span class="block-num">08 / Average return on assets</span>
+        <h2>Average ROA as an appraisal measure</h2>
+        <p>The second of the three measures. Its calculation, and the illustration for a fully depreciated asset
+          under straight-line depreciation, are held as images in the source notes and are not reproduced on this
+          page.</p>
+        <p>If an asset falls from $33m to zero:</p>
+        <div class="formula">(33+0)/2 = $16.m</div>
+
+        <h3>Limitation</h3>
+        <ul>
+          <li>Average ROA remains an <strong>accounting-based return mesaure</strong></li>
+          <li>It can favour a project with higher accounting profits even where another project generates cash
+            <strong>earlier,</strong> which may make that alternative economically more value</li>
+          <li>It therefore does not fully incorporate <strong>cash flow timing or risk</strong></li>
+        </ul>
+      </div>
+
+      <div class="block" data-topic="Investment Appraisal">
+        <span class="block-num">09 / The preferred measure</span>
+        <h2>Why NPV gives a different decision</h2>
+        <p>Building on from the Concept of Present Value, NPV evaluates projects using their actual cash-flow pattern
+          rather than accounting profit.</p>
+        <p>For mutually exclusive projects:</p>
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p><em>Prefer the project with the highest positive NPV, assuming the projects are comparable and the correct
+              hurdle rate has been used</em></p>
+        </div>
+        <p>Set side by side, the three measures differ in what they take into account:</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Measure</th>
+                <th scope="col">Basis</th>
+                <th scope="col">What the notes say about it</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Total accounting profit</th>
+                <td>Accounting earnings</td>
+                <td>Does not directly incorporate cash flow, timing of cash flow or risk</td>
+              </tr>
+              <tr>
+                <th scope="row">Average return on assets</th>
+                <td>An accounting-based return mesaure</td>
+                <td>Does not fully incorporate cash flow timing or risk</td>
+              </tr>
+              <tr>
+                <th scope="row">Net Present Value</th>
+                <td>The project's actual cash-flow pattern</td>
+                <td>Depends on the required rate of return applied to those cash flows</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Investment Appraisal">
+        <span class="block-num">10 / Hurdle rate and ranking</span>
+        <h2>Risk determines the required return</h2>
+        <p>The <strong>Hurdle Rate / WACC / cost of capital</strong> represents the minimum return given the project's
+          risk:</p>
+        <ul>
+          <li>Higher perceived risk → higher hurdle rate</li>
+          <li>Lower perceived risk → lower hurdle rate</li>
+        </ul>
+        <p>The choice of hurdle rate can therefore change which mutually exclusive project is preferred.</p>
+
+        <h3>Why cash-flow timing matters more at higher rates</h3>
+        <p>Project B receives a greater proportion of its cash earlier. As the hurdle rate increases:</p>
+        <ul>
+          <li>Distant cash flows are discounted more heavily</li>
+          <li>Early cash flows retain more of their present value</li>
+          <li>Projects that generate cash sooner become relatively more attractive</li>
+        </ul>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 220" role="img" aria-labelledby="iafig2-title iafig2-desc">
+              <title id="iafig2-title">What a higher hurdle rate does to distant cash</title>
+              <desc id="iafig2-desc">The value today of a cash flow falls as it moves further into the future, and
+                falls further under a higher hurdle rate than under a lower one. Read at an early point in time the
+                two curves are close together, so early cash flows retain more of their present value. Read at a
+                distant point they are far apart, so distant cash flows are discounted more heavily. No magnitudes
+                are shown, because the notes state the direction of the effect and not its size.</desc>
+
+              <text class="svg-eyebrow" x="0" y="14">AS THE HURDLE RATE INCREASES</text>
+
+              <text class="svg-sub" x="60" y="42">value today</text>
+              <line x1="60" y1="50" x2="60" y2="164" stroke="#e2ded5" stroke-width="1.5" />
+              <line x1="60" y1="164" x2="700" y2="164" stroke="#e2ded5" stroke-width="2" />
+
+              <path d="M60 60 C 240 76, 460 92, 700 104" fill="none" stroke="#2F5470" stroke-opacity="0.45"
+                stroke-width="2" />
+              <path d="M60 60 C 220 106, 460 142, 700 156" fill="none" stroke="#2F5470" stroke-width="2" />
+
+              <line x1="200" y1="60" x2="200" y2="164" stroke="#8798a6" stroke-width="1"
+                stroke-dasharray="3 3" />
+              <line x1="560" y1="60" x2="560" y2="164" stroke="#8798a6" stroke-width="1"
+                stroke-dasharray="3 3" />
+
+              <text class="svg-sub" x="200" y="180" text-anchor="middle">earlier cash flows</text>
+              <text class="svg-sub" x="200" y="192" text-anchor="middle">retain more value</text>
+              <text class="svg-sub" x="560" y="180" text-anchor="middle">distant cash flows</text>
+              <text class="svg-sub" x="560" y="192" text-anchor="middle">discounted more heavily</text>
+
+              <text class="svg-sub" x="700" y="98" text-anchor="end">lower hurdle rate</text>
+              <text class="svg-sub" x="700" y="150" text-anchor="end">higher hurdle rate</text>
+              <text class="svg-sub" x="640" y="180">time →</text>
+
+              <rect x="0" y="200" width="720" height="20" rx="6" fill="rgba(47, 84, 112, 0.13)" />
+              <text class="svg-sub" x="360" y="214" text-anchor="middle">Project B receives a greater proportion of its cash earlier</text>
+            </svg>
+          </div>
+          <figcaption>The notes give the direction of this effect but no cash-flow figures for either project, so the
+            curves carry no magnitudes.</figcaption>
+        </figure>
+
+        <h3>Example</h3>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Hurdle Rate</th>
+                <th scope="col">Preferred Project</th>
+                <th scope="col">Interpretation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">7%</th>
+                <td>Project A</td>
+                <td>Lower discounting increases the relative value of its later cash flows</td>
+              </tr>
+              <tr>
+                <th scope="row">10%</th>
+                <td>Indifferent</td>
+                <td>Both product the same NPV</td>
+              </tr>
+              <tr>
+                <th scope="row">14%</th>
+                <td>Project B</td>
+                <td>Earlier cash flows become relatively more valuable</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>At 14%, project A has a <strong>negative NPV,</strong> meaning it fails to earn the required return and
+          destroys value, while project B remains positive.</p>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p><em>Different cash-flow patterns can have the same economic value at one discount rate</em></p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Investment Appraisal">
+        <span class="block-num">11 / NPV sensitivity</span>
+        <h2>Project choice is not independent of the discount rate</h2>
+        <p>The ranking an appraisal produces is a joint property of the cash flows and the rate applied to them, which
+          is why the rate cannot be treated as a background assumption:</p>
+        <ul>
+          <li>NPV is not simply a property of the project's cash flows; it also depends on the <strong>required rate of
+              return applied to those cash flows</strong></li>
+          <li>Two projects can switch rankings when the hurdle rate changes because their cash-flow timing differs</li>
+          <li>Determining the appropriate hurdle rate is therefore a <strong>critical part of investment
+              appraisal,</strong> not merely a mechanical input</li>
+        </ul>
+
+        <h3>Managerial implication</h3>
+        <p>A project should not automatically be labelled superior because it has:</p>
+        <ul>
+          <li>Higher total profits</li>
+          <li>Higher accounting returns</li>
+          <li>A higher NPV calculated using an inadequately justified discount rate</li>
+        </ul>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>Management must assess whether the hurdle rate properly reflects the <strong>risk of investment</strong>
+          </p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Investment Appraisal">
+        <span class="block-num">12 / Excel NPV</span>
+        <h2>An important calculation detail</h2>
+        <p>Excel's <em>NPV()</em> function discounts <strong>future cash flows only</strong>. The two worked
+          illustrations of this behaviour are held as images in the source notes and are not reproduced on this page.
+          The initial investment occurs at time 0 and must therefore be added separately, where CF0 is normally
+          negative.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 210" role="img" aria-labelledby="iafig3-title iafig3-desc">
+              <title id="iafig3-title">Where the time-0 investment sits</title>
+              <desc id="iafig3-desc">A timeline of cash flows. Excel's NPV function covers only the future cash flows
+                in periods one onwards. The initial investment at time 0, normally negative, sits outside that range
+                and is added separately.</desc>
+
+              <text class="svg-eyebrow" x="0" y="14">TIME 0 SITS OUTSIDE THE FUNCTION</text>
+
+              <rect x="0" y="40" width="150" height="26" rx="8" fill="#E9EFF4" />
+              <text class="svg-label" x="75" y="57" text-anchor="middle">added separately</text>
+              <path d="M75 66 L75 100" stroke="#8798a6" stroke-width="1.5" />
+              <path d="M70 98 L75 106 L80 98 Z" fill="#8798a6" />
+
+              <path d="M170 66 L170 58 L700 58 L700 66" fill="none" stroke="#2F5470" stroke-opacity="0.5"
+                stroke-width="1.5" />
+              <text class="svg-label" x="435" y="48" text-anchor="middle">Excel’s NPV() discounts these only</text>
+
+              <line x1="30" y1="120" x2="710" y2="120" stroke="#e2ded5" stroke-width="2" />
+
+              <rect x="195" y="80" width="30" height="40" rx="3" fill="#2F5470" fill-opacity="0.55" />
+              <rect x="335" y="74" width="30" height="46" rx="3" fill="#2F5470" fill-opacity="0.65" />
+              <rect x="475" y="86" width="30" height="34" rx="3" fill="#2F5470" fill-opacity="0.75" />
+              <rect x="615" y="92" width="30" height="28" rx="3" fill="#2F5470" fill-opacity="0.85" />
+
+              <text class="svg-sub" x="210" y="138" text-anchor="middle">1</text>
+              <text class="svg-sub" x="350" y="138" text-anchor="middle">2</text>
+              <text class="svg-sub" x="490" y="138" text-anchor="middle">3</text>
+              <text class="svg-sub" x="630" y="138" text-anchor="middle">…</text>
+
+              <rect x="55" y="120" width="30" height="44" rx="3" fill="#1F3B51" />
+              <text class="svg-mono" x="70" y="147" text-anchor="middle" fill="#ffffff">CF0</text>
+              <text class="svg-sub" x="70" y="181" text-anchor="middle">time 0</text>
+              <text class="svg-sub" x="70" y="194" text-anchor="middle">normally negative</text>
+            </svg>
+          </div>
+          <figcaption>The bracket is the whole point: it starts at period one. Anything already occurring today has to
+            be brought in outside it.</figcaption>
+        </figure>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">🚨</span>
+          <p><strong>Common Error:</strong> <em>Including the time-0 investment inside Excel's NPV() function would
+              incorrectly discount a cash flow that already occurs today</em></p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Investment Appraisal">
+        <span class="block-num">13 / Analytical takeaways</span>
+        <h2>What to carry out of investment appraisal</h2>
+        <ul class="takeaways">
+          <li>For mutually exclusive investments, the central question is <strong>which project creates the greatest
+              value after considering cash flow, timing and risk,</strong> not which reports the highest profit</li>
+          <li>Accounting measures such as profit and average ROA can conflict with NPV because they do not adequately
+            capture the timing of cash flows</li>
+          <li>Projects with <strong>earlier cash flows become relatively more attractive as the hurdle rate
+              rises</strong></li>
+          <li>A positive NPV is only as credible as the <strong>risk assessment underlying the hurdle rate</strong>
+          </li>
+        </ul>
+        <p>Managers should therefore challenge both sides of an appraisal:</p>
+
+        <div class="callout callout--ask">
+          <span class="icon" aria-hidden="true">❓</span>
+          <p><em>Are the cash-flow forecasts credible, and is the discount rate appropriate for their risk?</em></p>
+        </div>
+      </div>
+
+
+      <div class="block" data-topic="Internal rate of return" data-topic-empty="true">
+        <span class="block-num">14 / Not yet written</span>
+        <h2>Internal rate of return</h2>
+        <p>This sub-page of my Week 3 pre-live note exists in Notion but has no content in it
+          yet. Nothing has been generated to stand in for it.</p>
+      </div>
+
+
+
+      <div class="block" data-topic="Problems with common approaches" data-topic-empty="true">
+        <span class="block-num">15 / Not yet written</span>
+        <h2>Problems with common approaches</h2>
+        <p>This sub-page of my Week 3 pre-live note exists in Notion but has no content in it
+          yet. Nothing has been generated to stand in for it.</p>
+      </div>
+
+    </section>
+
+    <!-- ══════════════════ 02 · KEY CONCEPTS ══════════════════ -->
+    <section class="panel" id="panel-terms" role="tabpanel" aria-labelledby="tab-terms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">02 / Reference</span>
+        <h2>Key concepts &amp; terminology</h2>
+        <p>Every term and formula from the week in one filterable reference, so a definition is two keystrokes away rather than a scroll.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="term-search">Filter terms</label>
+          <input class="search" id="term-search" type="search" placeholder="Filter terms — try “present value” or “hurdle rate”"
+            autocomplete="off">
+          <span class="count" id="term-count" aria-live="polite">30 of 30</span>
+        </div>
+
+        <div class="glossary" id="glossary"></div>
+      </div>
+    </section>
+    <!-- ══════════════════ 03 · FLASHCARDS ══════════════════ -->
+    <section class="panel" id="panel-cards" role="tabpanel" aria-labelledby="tab-cards" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">03 / Active recall</span>
+        <h2>Flashcards</h2>
+        <p>A flippable deck for active recall. Answer out loud, then flip. Shuffle to break the order effect before an assessment.</p>
+
+        <div class="deck">
+          <div class="deck-meta">
+            <span class="deck-count"><strong id="card-index">1</strong> / <span id="card-total">40</span></span>
+            <span class="progress"><span class="progress-fill" id="progress-fill"></span></span>
+          </div>
+
+          <button class="flip" id="flip-card" aria-pressed="false" aria-label="Flashcard — press to reveal the answer">
+            <span class="flip-inner">
+              <span class="face face-front">
+                <span class="face-tag">Question</span>
+                <span class="face-text" id="card-q"></span>
+                <span class="face-hint">Click, tap, or press Space to reveal</span>
+              </span>
+              <span class="face face-back">
+                <span class="face-tag">Answer</span>
+                <span class="face-text" id="card-a"></span>
+                <span class="face-hint">Press → for the next card</span>
+              </span>
+            </span>
+          </button>
+
+          <div class="deck-controls">
+            <button class="btn" id="prev-btn" type="button">← Previous</button>
+            <button class="btn btn--ghost" id="shuffle-btn" type="button">Shuffle</button>
+            <button class="btn" id="next-btn" type="button">Next →</button>
+          </div>
+
+          <p class="kbd-hint"><kbd>←</kbd> <kbd>→</kbd> to move · <kbd>Space</kbd> to flip · <kbd>S</kbd> to shuffle
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- ══════════════════ 04 · ACRONYMS ══════════════════ -->
+    <section class="panel" id="panel-acronyms" role="tabpanel" aria-labelledby="tab-acronyms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">04 / Shorthand</span>
+        <h2>Acronyms &amp; abbreviations</h2>
+        <p>Five abbreviations run through this week, and my notes spell out only two of them &mdash; present value (PV) and Net Present Value (NPV). CF0, ROA and WACC are used without ever being expanded, so those three carry the standard expansion to keep the tab usable, while the definition beneath every entry is taken only from what this page actually says about it.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="acronyms-search">Filter acronyms</label>
+          <input class="search" id="acronyms-search" type="search" placeholder="Filter &mdash; try &ldquo;NPV&rdquo; or &ldquo;WACC&rdquo;"
+            autocomplete="off">
+          <span class="count" id="acronyms-count" aria-live="polite">5 of 5</span>
+        </div>
+
+        <div class="glossary" id="acronyms"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 05 · FORMULAS ══════════════════ -->
+    <section class="panel" id="panel-formulas" role="tabpanel" aria-labelledby="tab-formulas" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">05 / Quick reference</span>
+        <h2>Formulas</h2>
+        <p>Every relationship the week states, in the order the page introduces it and copied exactly as my notes write it &mdash; including the truncated average-return line. Several formulas are missing because they were missing from the notes: the symbolic present-value formula, its worked example, the average return on assets calculation and two illustrations of Excel&rsquo;s NPV() behaviour all sat in images that were not published, and none of them has been reconstructed here.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="formulas-search">Filter formulas</label>
+          <input class="search" id="formulas-search" type="search" placeholder="Filter formulas &mdash; try &ldquo;NPV&rdquo; or &ldquo;depreciation&rdquo;"
+            autocomplete="off">
+          <span class="count" id="formulas-count" aria-live="polite">8 of 8</span>
+        </div>
+
+        <div class="glossary" id="formulas"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-foot">
+    <div class="wrap">
+      <p>DMBA 6008 Finance, Strategy and Technology · Week 3 · Pre-live session</p>
+      <p>Compiled from my own pre-live notes for this week. Synced from Notion on 17 August 2026.</p>
+    </div>
+  </footer>
+    </div><!-- /.win -->
+  </div><!-- /.stage -->
+
+  <nav class="dock" aria-label="Site">
+    <a class="dock-item" data-tint="lime" data-label="Home" href="index.html"><span aria-hidden="true">&#8962;</span><span class="sr-only">Home</span></a>
+    <a class="dock-item" data-label="Library" href="library.html"><span aria-hidden="true">&#9776;</span><span class="sr-only">Library</span></a>
+    <span class="dock-sep" aria-hidden="true"></span>
+    <a class="dock-item" data-tint="sky" data-label="DMBA 6008 &mdash; Finance" href="DMBA6008-weeks.html">6008</a>
+    <a class="dock-item" data-tint="sand" data-label="DMBA 6005 &mdash; Agile" href="DMBA6005-weeks.html">6005</a>
+    <span class="dock-sep" aria-hidden="true"></span>
+    <a class="dock-item" data-tint="mint" data-label="DMBA 6001 &mdash; Readings" href="library.html?subject=DMBA6001">6001</a>
+    <a class="dock-item" data-tint="blush" data-label="DMBA 6002 &mdash; Assessments" href="library.html?subject=DMBA6002">6002</a>
+    <a class="dock-item" data-tint="lilac" data-label="DMBA 6004 &mdash; Remote work" href="library.html?subject=DMBA6004">6004</a>
+  </nav>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ── Tabs ─────────────────────────────────────────────── */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+
+      function selectTab(tab) {
+        tabs.forEach(function (t) {
+          var isTarget = t === tab;
+          var panel = document.getElementById('panel-' + t.getAttribute('data-panel'));
+          t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+          t.tabIndex = isTarget ? 0 : -1;
+          if (!panel) return;
+          panel.classList.toggle('active', isTarget);
+          if (isTarget) {
+            panel.removeAttribute('hidden');
+          } else {
+            panel.setAttribute('hidden', '');
+          }
+        });
+      }
+
+      tabs.forEach(function (tab, i) {
+        tab.addEventListener('click', function () { selectTab(tab); });
+        tab.addEventListener('keydown', function (e) {
+          var next = null;
+          if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+          if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+          if (!next) return;
+          e.preventDefault();
+          selectTab(next);
+          next.focus();
+        });
+      });
+
+      /* ── Key concepts ─────────────────────────────────────── */
+      var TERMS = /*TERMS*/[
+                { term: 'Present Value (PV)', src: 'Concept of present value', def: 'Converts a future cash flow into its equivalent value today. In the worked example, PV is the value of the future cash flow today.' },
+                { term: 'Cost of Capital', src: 'Concept of present value', def: 'The required return capital carries, and the reason a future dollar is worth less than a dollar today. Written as r in the notes.' },
+                { term: 'Discount Rate', src: 'Concept of present value', def: 'The appropriate rate applied to a future cash flow. It represents the return required for committing capital to the investment.' },
+                { term: 'Discounting', src: 'Concept of present value', def: 'Restating a cash flow received in the future in today’s terms using the appropriate discount rate. At a cost of capital of 10%, a future $112,000 becomes $101,818 today.' },
+                { term: 'Economically equivalent', src: 'Concept of present value', def: 'A future amount and its present value are economically equivalent: $112,000 in one year is equivalent to $101,818 today when the cost of capital is 10%.' },
+                { term: 'Required Return', src: 'Concept of present value', def: 'The return demanded by the providers of capital. An investment creates value only when its return exceeds it — $100,000 costing 10% must grow to $110,000 after one year simply to satisfy it.' },
+                { term: 'Future-Dollar Terms', src: 'Concept of present value', def: 'Value expressed at the future date rather than today. The $2000 excess over the required $110,000 is value created in future-dollar terms, not the value created today.' },
+                { term: 'Value Creation', src: 'Concept of present value', def: 'An investment creates value only when its return exceeds the return required by its providers of capital. Measured in today’s dollars, the example creates $1818.' },
+                { term: 'Net Present Value (NPV)', src: 'Concept of present value', formula: 'NPV = Present Value of Future Cash Flows - Initial Outlay', def: 'A dollar measure of the economic value generated by an investment, forming a fundamental basis for valuation and investment decision-making.' },
+                { term: 'Initial Outlay', src: 'Concept of present value', def: 'The initial investment, subtracted from the present value of future cash flows to give NPV. It is therefore not compared directly with the nominal future cash flow; the future cash flow must first be expressed in today’s terms.' },
+                { term: 'Positive NPV', src: 'Concept of present value', def: 'Value is created after allowing for the cost of capital. In the example, NPV = $101818 - $100000 = $1818.' },
+                { term: 'Time Value of Money', src: 'Concept of present value', def: 'A positive accounting or cash gain does not by itself establish value creation; the time value of money must be incorporated before an investment can be judged.' },
+                { term: 'Mutually exclusive projects', src: 'Decision Context', def: 'Projects that compete for the same decision: selecting one means rejecting the other.' },
+                { term: 'Greatest economic value', src: 'Decision Context', def: 'Where projects deliver the same strategic or service outcome, appraisal should identify which alternative creates the greatest economic value, not simply the highest accounting profit.' },
+                { term: 'Depreciation', src: 'Profit vs Cash Flow', def: 'An accounting expense but not a current cash outflow, which is why reported profit and cash generated diverge.' },
+                { term: 'Cash flow', src: 'Profit vs Cash Flow', formula: 'Cash Flow = Profit + Depreciation', def: 'Profit with the relevant non-cash expense added back, taxes excluded. For investment valuation this is the relevant measure, because value ultimately depends on cash available to investors rather than accounting earnings.' },
+                { term: 'Accounting loss with positive cash flow', src: 'Profit vs Cash Flow', def: 'A project can report an accounting loss while still generating positive cash flow, because depreciation is charged against profit without any cash leaving the business.' },
+                { term: 'Total accounting profit', src: 'Profit vs Cash Flow', def: 'The first of the three candidate appraisal measures. Ranking investments purely by total profit can produce ‘a different decisions’ from ranking them by economic value.' },
+                { term: 'The three drivers of value', src: 'Profit vs Cash Flow', formula: 'Cash flow + timing of cash flow + risk', def: 'The drivers that accounting profit does not directly incorporate, which is why profit can mislead an investment decision.' },
+                { term: 'Average return on assets', src: 'Average ROA', formula: '(33+0)/2 = $16.m', def: 'The second candidate appraisal measure. The source notes work it for a fully depreciated asset under straight-line depreciation; the formula itself is held in an image and is not reproduced. The worked line shown is for an asset that falls from $33m to zero.' },
+                { term: 'Limitation of average ROA', src: 'Average ROA', def: 'It remains an accounting-based return mesaure. It can favour a project with higher accounting profits even where another project generates cash earlier, which may make that alternative economically more value, and it therefore does not fully incorporate cash flow timing or risk.' },
+                { term: 'Net Present Value (NPV)', src: 'NPV', def: 'Building on from the Concept of Present Value, NPV evaluates projects using their actual cash-flow pattern rather than accounting profit.' },
+                { term: 'NPV decision rule', src: 'NPV', def: 'For mutually exclusive projects, prefer the project with the highest positive NPV, assuming the projects are comparable and the correct hurdle rate has been used.' },
+                { term: 'Equal value at one rate', src: 'NPV', def: 'Different cash-flow patterns can have the same economic value at one discount rate.' },
+                { term: 'Hurdle Rate / WACC / cost of capital', src: 'Hurdle Rate', def: 'The minimum return given the project’s risk. Higher perceived risk means a higher hurdle rate, lower perceived risk a lower one, so the choice of rate can change which mutually exclusive project is preferred.' },
+                { term: 'Cash-flow timing', src: 'Hurdle Rate', def: 'As the hurdle rate increases, distant cash flows are discounted more heavily while early cash flows retain more of their present value, so projects that generate cash sooner become relatively more attractive.' },
+                { term: 'Indifference between projects', src: 'Hurdle Rate', def: 'At a 10% hurdle rate in the worked example, neither project is preferred — ‘Both product the same NPV’.' },
+                { term: 'Negative NPV', src: 'Hurdle Rate', def: 'At 14%, project A has a negative NPV, meaning it fails to earn the required return and destroys value, while project B remains positive.' },
+                { term: 'Ranking reversal', src: 'NPV Sensitivity', def: 'Two projects can switch rankings when the hurdle rate changes, because their cash-flow timing differs. NPV is not simply a property of the project’s cash flows; it also depends on the required rate of return applied to them.' },
+                { term: 'CF0', src: 'Excel NPV', def: 'The initial investment, which occurs at time 0 and must be added separately to the result of Excel’s NPV() function. CF0 is normally negative.' }
+      ]/*END_TERMS*/;
+
+      var glossaryEl = document.getElementById('glossary');
+      var countEl = document.getElementById('term-count');
+      var searchEl = document.getElementById('term-search');
+
+      function escapeHtml(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      glossaryEl.innerHTML = TERMS.map(function (t) {
+        var tag = t.own
+          ? '<span class="term-src term-src--own">Key Definitions</span>'
+          : '<span class="term-src">' + escapeHtml(t.src) + '</span>';
+        return '<article class="term" data-search="' +
+          escapeHtml((t.term + ' ' + t.def + ' ' + (t.formula || '')).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' + escapeHtml(t.term) + '</h3>' + tag + '</div>' +
+          '<p class="term-def">' + escapeHtml(t.def) + '</p>' +
+          (t.formula ? '<div class="term-formula">' + escapeHtml(t.formula) + '</div>' : '') +
+          '</article>';
+      }).join('') + '<p class="no-results" id="no-results" hidden>No terms match that filter.</p>';
+
+      var termEls = Array.prototype.slice.call(glossaryEl.querySelectorAll('.term'));
+      var noResultsEl = document.getElementById('no-results');
+
+      searchEl.addEventListener('input', function () {
+        var q = searchEl.value.trim().toLowerCase();
+        var shown = 0;
+        termEls.forEach(function (el) {
+          var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+          if (match) { el.removeAttribute('hidden'); shown++; }
+          else { el.setAttribute('hidden', ''); }
+        });
+        countEl.textContent = shown + ' of ' + TERMS.length;
+        if (shown === 0) { noResultsEl.removeAttribute('hidden'); }
+        else { noResultsEl.setAttribute('hidden', ''); }
+      });
+
+      /* ── Acronyms & formulas ──────────────────────────────── */
+      /* Both reference tabs are a filtered list of .term cards, so they share
+         one renderer with the key-concepts glossary's markup and behaviour.
+         It no-ops when a week does not emit that tab. */
+      function buildRef(listId, items, toHtml, emptyMsg) {
+        var listEl = document.getElementById(listId);
+        var countEl = document.getElementById(listId + '-count');
+        var searchEl = document.getElementById(listId + '-search');
+        if (!listEl || !countEl || !searchEl) return;
+
+        listEl.innerHTML = items.map(toHtml).join('') +
+          '<p class="no-results" hidden>' + emptyMsg + '</p>';
+
+        var els = Array.prototype.slice.call(listEl.querySelectorAll('.term'));
+        var noneEl = listEl.querySelector('.no-results');
+        countEl.textContent = items.length + ' of ' + items.length;
+
+        searchEl.addEventListener('input', function () {
+          var q = searchEl.value.trim().toLowerCase();
+          var shown = 0;
+          els.forEach(function (el) {
+            var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+            if (match) { el.removeAttribute('hidden'); shown++; }
+            else { el.setAttribute('hidden', ''); }
+          });
+          countEl.textContent = shown + ' of ' + items.length;
+          if (shown === 0) { noneEl.removeAttribute('hidden'); }
+          else { noneEl.setAttribute('hidden', ''); }
+        });
+      }
+
+
+
+
+      var ACRONYMS = [
+        { abbr: 'CF0', long: 'Cash flow at time 0', def: 'The initial investment. It occurs at time 0 and must therefore be added separately to the result of Excel’s NPV() function, where CF0 is normally negative. Including the time-0 investment inside the function would incorrectly discount a cash flow that already occurs today.', src: 'Excel NPV' },
+        { abbr: 'NPV', long: 'Net Present Value', def: 'A dollar measure of the economic value generated by an investment, forming a fundamental basis for valuation and investment decision-making. It evaluates projects using their actual cash-flow pattern rather than accounting profit, and for mutually exclusive projects the rule is to prefer the project with the highest positive NPV, assuming the projects are comparable and the correct hurdle rate has been used.', src: 'Concept of present value' },
+        { abbr: 'PV', long: 'Present value', def: 'Converts a future cash flow into its equivalent value today. For a cash flow received in one year the notes define PV as the value of the future cash flow today and r as the appropriate discount rate, or cost of capital. The symbolic formula and its worked example sit in images in the source notes and are not reproduced on this page.', src: 'Concept of present value' },
+        { abbr: 'ROA', long: 'Return on assets', def: 'Appears on this page only as average ROA, the second of the three candidate appraisal measures — the project’s accounting return against the assets it ties up, averaged over the asset’s life. It remains an accounting-based return mesaure: it can favour a project with higher accounting profits even where another project generates cash earlier, and it therefore does not fully incorporate cash flow timing or risk.', src: 'Average ROA' },
+        { abbr: 'WACC', long: 'Weighted average cost of capital', def: 'Written in the notes as Hurdle Rate / WACC / cost of capital, it represents the minimum return given the project’s risk. Higher perceived risk means a higher hurdle rate and lower perceived risk a lower one, so the choice of hurdle rate can change which mutually exclusive project is preferred.', src: 'Hurdle Rate' }
+      ];
+
+      buildRef('acronyms', ACRONYMS, function (a) {
+        return '<article class="term" data-search="' +
+          escapeHtml((a.abbr + ' ' + a.long + ' ' + a.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' +
+          '<span class="term-abbr">' + escapeHtml(a.abbr) + '</span>' +
+          (a.long ? ' &middot; <span class="term-long">' + escapeHtml(a.long) + '</span>' : '') +
+          '</h3><span class="term-src">' + escapeHtml(a.src) + '</span></div>' +
+          (a.def ? '<p class="term-def">' + escapeHtml(a.def) + '</p>' : '') +
+          '</article>';
+      }, 'No acronyms match that filter.');
+
+      var FORMULAS = [
+        { name: 'Discount rate and present value', expr: 'Higher discount rate → lower present value', def: 'The rule the notes state for one year’s cash flow restated in today’s terms: investors require greater compensation for supplying capital, so a higher discount rate gives a lower present value. At a cost of capital of 10%, a future $112,000 is economically equivalent to $101,818 today.', src: 'Concept of present value' },
+        { name: 'The future surplus, discounted', expr: '$2000/1.10 = $1818', def: 'The $2000 future surplus must itself be discounted. The investment therefore creates $1818 of value today, and the distinction matters because the future surplus and today’s value creation are not the same amount.', src: 'Concept of present value' },
+        { name: 'Net present value', expr: 'NPV = Present Value of Future Cash Flows - Initial Outlay', def: 'NPV provides a dollar measure of the economic value generated by an investment, forming a fundamental basis for valuation and investment decision-making. The initial investment is not compared directly with the nominal future cash flow; that cash flow must first be expressed in today’s terms.', src: 'Concept of present value' },
+        { name: 'Net present value, worked', expr: 'NPV = $101818 - $100000 = $1818', def: 'The same investment measured in today’s dollars rather than future dollars. A positive NPV means value is created after allowing for the cost of capital.', src: 'Concept of present value' },
+        { name: 'Profit to cash flow', expr: 'Cash Flow = Profit + Depreciation', def: 'Depreciation is an accounting expense but not a current cash outflow, so adding that charge back recovers the cash the project actually generated. Where depreciation is the relevant non-cash expense and taxes are excluded.', src: 'Profit vs Cash Flow' },
+        { name: 'The three drivers of value', expr: 'Cash flow + timing of cash flow + risk', def: 'What accounting profit does not directly incorporate. Ranking investments purely by total profit can therefore produce ‘a different decisions’ from ranking them by economic value.', src: 'Profit vs Cash Flow' },
+        { name: 'Average return on assets, worked', expr: '(33+0)/2 = $16.m', def: 'The line the notes give for an asset that falls from $33m to zero, reproduced exactly as written. The calculation itself, and the illustration for a fully depreciated asset under straight-line depreciation, are held as images in the source notes and are not reproduced on this page.', src: 'Average ROA' },
+        { name: 'Risk and the hurdle rate', expr: 'Higher perceived risk → higher hurdle rate', def: 'The Hurdle Rate / WACC / cost of capital represents the minimum return given the project’s risk, and the notes give the converse in the same breath — ‘Lower perceived risk → lower hurdle rate’. The choice of hurdle rate can therefore change which mutually exclusive project is preferred.', src: 'Hurdle Rate' }
+      ];
+
+      buildRef('formulas', FORMULAS, function (f) {
+        return '<article class="term" data-search="' +
+          escapeHtml((f.name + ' ' + f.expr + ' ' + f.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' + escapeHtml(f.name) + '</h3>' +
+          '<span class="term-src">' + escapeHtml(f.src) + '</span></div>' +
+          '<div class="term-formula">' + escapeHtml(f.expr) + '</div>' +
+          (f.def ? '<p class="term-def">' + escapeHtml(f.def) + '</p>' : '') +
+          '</article>';
+      }, 'No formulas match that filter.');
+
+      /* ── Flashcards ───────────────────────────────────────── */
+      var CARDS = /*CARDS*/[
+                { q: 'What does present value convert?', a: 'A future cash flow into its equivalent value today.' },
+                { q: 'Why is a future dollar worth less than a dollar today?', a: 'Because capital has a required return — a cost of capital.' },
+                { q: 'What does the appropriate discount rate represent?', a: 'The return required for committing capital to the investment.' },
+                { q: 'At a cost of capital of 10%, what is a future $112,000 worth today?', a: 'It is economically equivalent to $101,818 today.' },
+                { q: 'What happens to present value as the discount rate rises, and why?', a: 'Higher discount rate → lower present value, because investors require greater compensation for supplying capital.' },
+                { q: 'When does an investment create value?', a: 'Only when its return exceeds the return required by its providers of capital.' },
+                { q: 'If $100,000 of capital costs 10%, what must it grow to after one year, and why?', a: '$110,000 after one year — simply to satisfy the required return.' },
+                { q: 'The investment generates $112,000 instead. What is the excess and in what terms is it expressed?', a: 'A $2000 excess, representing value created in future-dollar terms.' },
+                { q: 'Convert the $2000 future surplus into today’s dollars.', a: '$2000/1.10 = $1818 — the investment creates $1818 of value today.' },
+                { q: 'Why does the distinction between the future surplus and today’s value creation matter?', a: 'Because they are not the same amount — $2000 in future dollars is $1818 of value today.' },
+                { q: 'State the NPV formula as the notes give it.', a: 'NPV = Present Value of Future Cash Flows - Initial Outlay.' },
+                { q: 'Compute the NPV of the worked example.', a: 'NPV = $101818 - $100000 = $1818.' },
+                { q: 'What does a positive NPV mean?', a: 'Value is created after allowing for the cost of capital.' },
+                { q: 'Why is the initial investment not compared directly with the nominal future cash flow?', a: 'The future cash flow must first be expressed in today’s terms.' },
+                { q: 'Against what should investment performance be assessed?', a: 'Against the cost of capital — not simply whether the future cash inflow exceeds the initial expenditure.' },
+                { q: 'What does NPV provide, and why does it matter to managers?', a: 'A dollar measure of the economic value generated by an investment, translated into today’s dollars, so managers can judge whether an investment genuinely increases economic value.' },
+                { q: 'What are mutually exclusive projects?', a: 'Projects that compete for the same decision — selecting one means rejecting the other.' },
+                { q: 'Which three possible performance measures does the appraisal separate?', a: 'Total accounting profit, average return on assets, and Net Present Value (NPV).' },
+                { q: 'Why does depreciation make profit and cash flow differ?', a: 'It is an accounting expense but not a current cash outflow.' },
+                { q: 'State the cash flow relationship used in the notes.', a: 'Cash Flow = Profit + Depreciation — where depreciation is the relevant non-cash expense and taxes are excluded.' },
+                { q: 'Can a project report an accounting loss and still generate positive cash flow?', a: 'Yes. Depreciation is charged against profit without cash leaving the business, so cash flow can still be positive.' },
+                { q: 'Which three drivers of value does accounting profit fail to incorporate directly?', a: 'Cash flow + timing of cash flow + risk.' },
+                { q: 'What can happen if investments are ranked purely by total profit?', a: 'It can produce ‘a different decisions’ from ranking them by economic value.' },
+                { q: 'An asset falls from $33m to zero. What average does the worked line give?', a: '(33+0)/2 = $16.m — reproduced as written in the notes.' },
+                { q: 'What kind of measure does average ROA remain?', a: 'An accounting-based return mesaure.' },
+                { q: 'What can average ROA wrongly favour?', a: 'A project with higher accounting profits, even where another project generates cash earlier — which may make that alternative economically more value.' },
+                { q: 'What does NPV evaluate projects on?', a: 'Their actual cash-flow pattern, rather than accounting profit.' },
+                { q: 'State the NPV rule for mutually exclusive projects.', a: 'Prefer the project with the highest positive NPV, assuming the projects are comparable and the correct hurdle rate has been used.' },
+                { q: 'Can two different cash-flow patterns be worth the same?', a: 'Yes — different cash-flow patterns can have the same economic value at one discount rate.' },
+                { q: 'What does the Hurdle Rate / WACC / cost of capital represent?', a: 'The minimum return given the project’s risk: higher perceived risk means a higher hurdle rate, lower perceived risk a lower one.' },
+                { q: 'What happens to distant and early cash flows as the hurdle rate increases?', a: 'Distant cash flows are discounted more heavily; early cash flows retain more of their present value, so projects that generate cash sooner become relatively more attractive.' },
+                { q: 'At a 7% hurdle rate, which project is preferred and why?', a: 'Project A — lower discounting increases the relative value of its later cash flows.' },
+                { q: 'At a 10% hurdle rate, which project is preferred?', a: 'Neither — the notes record ‘Indifferent’, because ‘Both product the same NPV’.' },
+                { q: 'At a 14% hurdle rate, which project is preferred, and what happens to the other?', a: 'Project B, because earlier cash flows become relatively more valuable. Project A has a negative NPV, so it fails to earn the required return and destroys value.' },
+                { q: 'Is NPV simply a property of a project’s cash flows?', a: 'No. It also depends on the required rate of return applied to those cash flows, so two projects can switch rankings when the hurdle rate changes.' },
+                { q: 'Which cash flows does Excel’s NPV() function discount?', a: 'Future cash flows only.' },
+                { q: 'How is the initial investment handled with Excel’s NPV()?', a: 'It occurs at time 0, so it must be added separately — and CF0 is normally negative.' },
+                { q: 'What is the common error when using Excel’s NPV()?', a: 'Including the time-0 investment inside the function, which would incorrectly discount a cash flow that already occurs today.' },
+                { q: 'A positive NPV is only as credible as what?', a: 'The risk assessment underlying the hurdle rate.' },
+                { q: 'What two things should managers challenge in an appraisal?', a: 'Whether the cash-flow forecasts are credible, and whether the discount rate is appropriate for their risk.' }
+      ]/*END_CARDS*/;
+
+      var order = CARDS.map(function (_, i) { return i; });
+      var pos = 0;
+
+      var flipBtn = document.getElementById('flip-card');
+      var qEl = document.getElementById('card-q');
+      var aEl = document.getElementById('card-a');
+      var idxEl = document.getElementById('card-index');
+      var totalEl = document.getElementById('card-total');
+      var fillEl = document.getElementById('progress-fill');
+      var prevBtn = document.getElementById('prev-btn');
+      var nextBtn = document.getElementById('next-btn');
+      var shuffleBtn = document.getElementById('shuffle-btn');
+
+      totalEl.textContent = CARDS.length;
+
+      function render() {
+        var card = CARDS[order[pos]];
+        flipBtn.setAttribute('aria-pressed', 'false');
+        // Swap the text only once the card is edge-on, so the answer is never
+        // readable through the flip.
+        window.setTimeout(function () {
+          qEl.textContent = card.q;
+          aEl.textContent = card.a;
+        }, flipBtn.getAttribute('data-flipped') === 'true' ? 180 : 0);
+        flipBtn.setAttribute('data-flipped', 'false');
+        idxEl.textContent = pos + 1;
+        fillEl.style.width = ((pos + 1) / CARDS.length * 100) + '%';
+        prevBtn.disabled = pos === 0;
+        nextBtn.disabled = pos === CARDS.length - 1;
+      }
+
+      function flip() {
+        var flipped = flipBtn.getAttribute('aria-pressed') === 'true';
+        flipBtn.setAttribute('aria-pressed', flipped ? 'false' : 'true');
+        flipBtn.setAttribute('data-flipped', flipped ? 'false' : 'true');
+      }
+
+      function go(delta) {
+        var next = pos + delta;
+        if (next < 0 || next >= CARDS.length) return;
+        pos = next;
+        render();
+      }
+
+      flipBtn.addEventListener('click', flip);
+      prevBtn.addEventListener('click', function () { go(-1); });
+      nextBtn.addEventListener('click', function () { go(1); });
+
+      shuffleBtn.addEventListener('click', function () {
+        for (var i = order.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = order[i];
+          order[i] = order[j];
+          order[j] = tmp;
+        }
+        pos = 0;
+        render();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        var panel = document.getElementById('panel-cards');
+        if (panel.hasAttribute('hidden')) return;
+        var tag = (e.target.tagName || '').toLowerCase();
+        if (tag === 'input' || tag === 'textarea') return;
+
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+        else if (e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); flip(); }
+        else if (e.key === 's' || e.key === 'S') { e.preventDefault(); shuffleBtn.click(); }
+      });
+
+      render();
+    })();
+
+
+
+    /* ── Summary index, collapse and search ─────────────────────────────
+       Progressive enhancement, built at runtime from the blocks that are
+       already on the page. Nothing in the authored markup changes, so the
+       prose-budget gate still measures the same blocks and a re-sync gets
+       this for free. With JS off the summary reads exactly as before.
+
+       A week whose summary is split into topic subpanels gets one index
+       per subpanel; otherwise the whole panel gets one. */
+    (function () {
+      'use strict';
+
+      var summaryPanel = document.getElementById('panel-summary');
+      if (!summaryPanel) return;
+
+      var subs = summaryPanel.querySelectorAll('.subpanel');
+      var containers = subs.length
+        ? Array.prototype.slice.call(subs)
+        : [summaryPanel];
+
+      containers.forEach(function (container, ci) {
+        var blocks = Array.prototype.slice.call(container.children).filter(function (el) {
+          return el.classList && el.classList.contains('block');
+        });
+        // Two or three sections navigate fine on their own.
+        if (blocks.length < 4) return;
+
+        var items = [];
+
+        blocks.forEach(function (block, i) {
+          var num = block.querySelector('.block-num');
+          var h2 = block.querySelector('h2');
+          if (!num || !h2) return;
+
+          block.id = block.id || 'sec-' + ci + '-' + (i + 1);
+
+          var details = document.createElement('details');
+          details.className = 'block-d';
+          details.open = true;
+          var head = document.createElement('summary');
+          head.className = 'block-head';
+          var body = document.createElement('div');
+          body.className = 'block-body';
+
+          // The eyebrow and the heading become the disclosure control;
+          // everything after the heading becomes the collapsible body.
+          var kids = Array.prototype.slice.call(block.childNodes);
+          var pastHeading = false;
+          kids.forEach(function (node) {
+            if (node === num || node === h2) {
+              head.appendChild(node);
+              if (node === h2) pastHeading = true;
+              return;
+            }
+            (pastHeading ? body : head).appendChild(node);
+          });
+
+          details.appendChild(head);
+          details.appendChild(body);
+          block.appendChild(details);
+
+          items.push({
+            block: block,
+            details: details,
+            num: num.textContent.trim(),
+            title: h2.textContent.trim(),
+            text: (block.textContent || '').toLowerCase()
+          });
+        });
+
+        if (items.length < 4) return;
+
+        var sid = 'week-search-' + ci;
+        var toc = document.createElement('nav');
+        toc.className = 'toc';
+        toc.setAttribute('aria-label', 'Contents');
+        toc.innerHTML =
+          '<div class="toc-top">' +
+            '<span class="toc-title">Contents</span>' +
+            '<div class="toc-actions">' +
+              '<button class="toc-btn" type="button" data-act="expand">Expand all</button>' +
+              '<button class="toc-btn" type="button" data-act="collapse">Collapse all</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="toolbar">' +
+            '<label class="visually-hidden" for="' + sid + '">Search this week</label>' +
+            '<input class="search" id="' + sid + '" type="search" autocomplete="off" ' +
+              'placeholder="Search these sections…">' +
+            '<span class="count" aria-live="polite"></span>' +
+          '</div>' +
+          '<ol class="toc-list"></ol>' +
+          '<p class="toc-empty" hidden>Nothing in this week matches that search.</p>';
+
+        var list = toc.querySelector('.toc-list');
+
+        // A long week opens as an outline: index first, then a list of
+        // headings you can pick from. A short one reads straight through,
+        // exactly as it did before. "Expand all" is one click either way.
+        var LONG = 12;
+        if (items.length > LONG) {
+          list.classList.add('is-long');
+          items.forEach(function (it) { it.details.open = false; });
+        }
+
+        items.forEach(function (it) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = '#' + it.block.id;
+          var n = document.createElement('span');
+          n.className = 'toc-n';
+          n.textContent = it.num.split('/')[0].trim();
+          var t = document.createElement('span');
+          t.textContent = it.title;
+          a.appendChild(n);
+          a.appendChild(t);
+          li.appendChild(a);
+          list.appendChild(li);
+          it.li = li;
+        });
+
+        container.insertBefore(toc, blocks[0]);
+
+        // A collapsed section must open when it is jumped to.
+        list.addEventListener('click', function (e) {
+          var a = e.target && e.target.closest ? e.target.closest('a') : null;
+          if (!a) return;
+          var target = document.getElementById(a.getAttribute('href').slice(1));
+          if (target) {
+            var d = target.querySelector('details.block-d');
+            if (d) d.open = true;
+          }
+        });
+
+        toc.querySelector('.toc-actions').addEventListener('click', function (e) {
+          var b = e.target && e.target.closest ? e.target.closest('button') : null;
+          if (!b) return;
+          var open = b.getAttribute('data-act') === 'expand';
+          items.forEach(function (it) {
+            if (!it.block.hasAttribute('hidden')) it.details.open = open;
+          });
+        });
+
+        var input = toc.querySelector('.search');
+        var count = toc.querySelector('.count');
+        var empty = toc.querySelector('.toc-empty');
+        var activeTopic = '';
+
+        // ── Topic chips ────────────────────────────────────────────────
+        // Built from the data-topic each block carries, so a week reads one
+        // topic at a time the way the sub-tabbed weeks already do. A block
+        // with no data-topic (a week-level takeaway, say) always shows.
+        var topics = [], emptyTopics = {};
+        items.forEach(function (it) {
+          var t = it.block.getAttribute('data-topic');
+          it.topic = t || '';
+          if (!t) return;
+          if (topics.indexOf(t) === -1) topics.push(t);
+          if (it.block.getAttribute('data-topic-empty') === 'true') emptyTopics[t] = true;
+        });
+
+        if (topics.length > 1) {
+          var chips = document.createElement('div');
+          chips.className = 'subtabs';
+          chips.setAttribute('aria-label', 'Topics');
+          ['All'].concat(topics).forEach(function (label, k) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'subtab' + (emptyTopics[label] ? ' subtab--empty' : '');
+            b.setAttribute('aria-pressed', k === 0 ? 'true' : 'false');
+            b.setAttribute('data-topic', k === 0 ? '' : label);
+            b.textContent = label;
+            chips.appendChild(b);
+          });
+          chips.addEventListener('click', function (e) {
+            var b = e.target && e.target.closest ? e.target.closest('button') : null;
+            if (!b) return;
+            activeTopic = b.getAttribute('data-topic') || '';
+            Array.prototype.forEach.call(chips.children, function (c) {
+              c.setAttribute('aria-pressed', c === b ? 'true' : 'false');
+            });
+            applyFilter();
+          });
+          container.insertBefore(chips, toc);
+        }
+
+        function applyFilter() {
+          var q = input.value.trim().toLowerCase();
+          var shown = 0;
+          items.forEach(function (it) {
+            var hit = (!q || it.text.indexOf(q) !== -1) &&
+                      (!activeTopic || !it.topic || it.topic === activeTopic);
+            if (hit) {
+              it.block.removeAttribute('hidden');
+              it.li.removeAttribute('hidden');
+              if (q) it.details.open = true;
+              shown++;
+            } else {
+              it.block.setAttribute('hidden', '');
+              it.li.setAttribute('hidden', '');
+            }
+          });
+          count.textContent = shown + ' of ' + items.length + ' sections';
+          if (shown === 0) empty.removeAttribute('hidden');
+          else empty.setAttribute('hidden', '');
+        }
+
+        input.addEventListener('input', applyFilter);
+        applyFilter();
+      });
+    })();
+
+  </script>
+</body>
+
+</html>
