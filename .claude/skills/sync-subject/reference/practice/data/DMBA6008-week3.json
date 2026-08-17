@@ -1,0 +1,560 @@
+{
+  "page": "DMBA6008-week3.html",
+  "studyPath": {
+    "intro": "A route through Week 3 for someone meeting discounting for the first time. Two of the four sub-pages in my Notion note — Internal rate of return and Problems with common approaches — have nothing in them yet, so this is a shorter week than the title suggests, and a full pass runs to about two hours.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Read sections 01 to 05 first",
+        "detail": "Concept of present value carries the whole week — every later topic assumes you can restate a future cash flow in today’s terms. Slow right down at sections 03 and 04: the $2000 excess is value in future-dollar terms and the $1818 is value created today, and the week only works if those stay two different numbers in your head. Then read 06 to 13 straight through; the two blocks marked not yet written can be skipped entirely.",
+        "time": "~30 min"
+      },
+      {
+        "goto": "formulas",
+        "label": "Audit what the notes actually state",
+        "detail": "Do this early so you know where the gaps are before you try to revise from them. Eight relationships are here, but the symbolic present-value formula, its worked example, the average return on assets calculation and the two Excel NPV() illustrations all sat in images that were never published, so they are absent by design and nothing has been reconstructed in their place. The average-return line is reproduced exactly as I typed it, truncation and all — do not read it as a finished figure.",
+        "time": "~10 min"
+      },
+      {
+        "goto": "terms",
+        "label": "Fix the vocabulary that overlaps",
+        "detail": "Thirty terms, and the ones worth filtering for are the near-synonyms: cost of capital, discount rate, required return and hurdle rate all name the same quantity from different angles, and the notes write it as Hurdle Rate / WACC / cost of capital in one breath. While you are here, the Acronyms tab is a two-minute detour — CF0, ROA and WACC are used throughout the week without ever being expanded, so that tab supplies the standard expansions and says so.",
+        "time": "~20 min"
+      },
+      {
+        "goto": "cards",
+        "label": "Drill the forty cards until automatic",
+        "detail": "Shuffle before the second pass, because the deck follows the page order and you will otherwise be recalling position rather than content. The cards that matter most are the ones on the 7% / 10% / 14% example — you should be able to say which project wins at each rate and why before you flip.",
+        "time": "~20 min"
+      },
+      {
+        "goto": "quiz",
+        "label": "Test the two confusions that bite",
+        "detail": "Fifteen questions weighted toward present value and profit versus cash flow, because those are where a wrong instinct survives a read-through. Read the feedback on the options you did not pick as well as the one you did — the distractors are built from the specific mix-ups this week invites, particularly future surplus against value created today, and reported loss against cash generated. Nothing here touches internal rate of return, since the page does not cover it.",
+        "time": "~20 min"
+      },
+      {
+        "goto": "apply",
+        "label": "Reason through the four scenarios",
+        "detail": "These are where the week stops being arithmetic and becomes a judgement about someone else’s paper. Take the hints one at a time rather than opening all three, and try the hurdle-rate and three-measures scenarios last, since both assume you already accept that ranking is a joint property of the cash flows and the rate applied to them.",
+        "time": "~30 min"
+      },
+      {
+        "goto": null,
+        "label": "Explain it away from the page",
+        "detail": "Close the laptop and talk through the one-year example out loud, from the $100,000 of capital to the $1818 of value created, without looking. Then answer the week’s own two questions unaided: are the cash-flow forecasts credible, and is the discount rate appropriate for their risk?",
+        "time": "~10 min"
+      }
+    ],
+    "close": "The week has landed when I can explain, without notes, why a project reporting an accounting loss may still be the one creating value, and why the same two projects can swap places when nothing changes but the hurdle rate."
+  },
+  "quizIntro": "Fifteen questions on the week’s investment tools: discounting, net present value, profit against cash flow, average return on assets and the hurdle rate. Pick an option and the feedback opens straight away, on every option rather than only the right one, so a wrong pick tells me which confusion I fell into. The hint is there before I answer.",
+  "applyIntro": "These are situations to reason through with this week’s tools rather than questions with a single line answer. Each one gives three hints that unfold one at a time, so I can take only as much help as I need, and the walkthrough that follows uses nothing beyond what this page states — including where the notes leave a calculation unpublished.",
+  "quiz": [
+    {
+      "topic": "Concept of present value",
+      "q": "What does present value (PV) convert a future cash flow into?",
+      "hint": "The week’s opening move is about which point in time the number is expressed at.",
+      "options": [
+        {
+          "t": "The nominal amount of capital originally committed to obtain it.",
+          "ok": false,
+          "note": "That is the initial outlay, which NPV subtracts. Present value is what the future cash flow itself is worth today."
+        },
+        {
+          "t": "Its value at the end of the investment’s life, once the required return has accrued.",
+          "ok": false,
+          "note": "That runs the arithmetic the other way — the $100,000 growing to $110,000 is a future-dollar figure. Present value moves a future amount back to today."
+        },
+        {
+          "t": "Its equivalent value today.",
+          "ok": true,
+          "note": "The page’s first line: present value converts a future cash flow into its equivalent value today."
+        },
+        {
+          "t": "The accounting profit the investment will report in the year the cash arrives.",
+          "ok": false,
+          "note": "This is the profit-versus-cash-flow confusion the week spends a whole section on. Present value is about timing, not about how earnings are reported."
+        }
+      ]
+    },
+    {
+      "topic": "Concept of present value",
+      "q": "According to the week, why is a dollar promised in a year worth less than a dollar held now?",
+      "hint": "The page names one mechanism, and it is the same thing it calls r.",
+      "options": [
+        {
+          "t": "Because capital carries a required return — a cost of capital.",
+          "ok": true,
+          "note": "Exactly the reason the page gives: a future dollar is worth less because capital has a required return, and the discount rate represents the return required for committing capital to the investment."
+        },
+        {
+          "t": "Because prices rise over the year, so the same dollar buys less.",
+          "ok": false,
+          "note": "Inflation is not the mechanism this page names. It attributes the whole discount to the return capital requires."
+        },
+        {
+          "t": "Because depreciation reduces the asset’s book value over the year.",
+          "ok": false,
+          "note": "Depreciation belongs to the profit-versus-cash-flow section and is an accounting charge, not the reason future cash is discounted."
+        },
+        {
+          "t": "Because the cash flow may not arrive at all, so it is written down for that chance.",
+          "ok": false,
+          "note": "Risk appears on this page as what sets the hurdle rate, not as a separate write-down. The discount rate is the required return, and risk raises or lowers that rate."
+        }
+      ]
+    },
+    {
+      "topic": "Concept of present value",
+      "q": "What happens to a present value when a higher discount rate is applied, and why?",
+      "hint": "The page states the direction as a rule and then gives the reason in the same sentence.",
+      "options": [
+        {
+          "t": "It rises, because a larger rate compounds the cash flow further before it is received.",
+          "ok": false,
+          "note": "Compounding pushes value forward; discounting pulls it back. The page states the opposite direction — a higher rate gives a lower present value."
+        },
+        {
+          "t": "It is unchanged, because the rate affects only how projects are ranked against each other.",
+          "ok": false,
+          "note": "The rate changes the number itself, not just the ranking. The week later adds that rankings can move too, but that is a separate point."
+        },
+        {
+          "t": "It is unchanged for a one-year cash flow and falls only for cash flows further out.",
+          "ok": false,
+          "note": "The page applies the rule to the one-year case it works through. Distance changes how heavily a flow is discounted, not whether it is discounted."
+        },
+        {
+          "t": "It falls, because investors require greater compensation for supplying capital.",
+          "ok": true,
+          "note": "The page states it as a rule: higher discount rate → lower present value, because investors require greater compensation for supplying capital."
+        }
+      ]
+    },
+    {
+      "topic": "Concept of present value",
+      "q": "$100,000 of capital costs 10%, so it must grow to $110,000 after one year; the investment instead generates $112,000. How does the week describe the $2000 difference?",
+      "hint": "The week is emphatic that this figure and the value the investment creates are not the same amount.",
+      "options": [
+        {
+          "t": "As the value the investment creates today.",
+          "ok": false,
+          "note": "This is the confusion the section exists to prevent. The value created today is the discounted figure, $1818, not the $2000."
+        },
+        {
+          "t": "As value created in future-dollar terms, which must itself be discounted.",
+          "ok": true,
+          "note": "The page calls the $2000 excess value created in future-dollar terms, then discounts it — $2000/1.10 = $1818 — because the future surplus and today’s value creation are not the same amount."
+        },
+        {
+          "t": "As the accounting profit the investment reports for the year.",
+          "ok": false,
+          "note": "The comparison here is cash against the return capital requires, not an earnings figure. Profit enters the week later, in the depreciation section."
+        },
+        {
+          "t": "As the present value of the future cash flow.",
+          "ok": false,
+          "note": "The present value of the future cash flow in this example is $101,818. The $2000 is only the amount by which the cash generated exceeds what the capital had to earn."
+        }
+      ]
+    },
+    {
+      "topic": "Concept of present value",
+      "q": "The worked example gives NPV = $101818 - $100000 = $1818. What is the $101818?",
+      "hint": "Two of the three figures in that line already appear earlier in the week under different names.",
+      "options": [
+        {
+          "t": "The cash the investment generates in one year.",
+          "ok": false,
+          "note": "That is the $112,000, stated in future dollars. It has to be expressed in today’s terms before it can sit alongside the outlay."
+        },
+        {
+          "t": "The capital required today to obtain the investment.",
+          "ok": false,
+          "note": "That is the $100000 being subtracted — the initial outlay, not the present value."
+        },
+        {
+          "t": "The present value of the future cash flow, expressed in today’s terms.",
+          "ok": true,
+          "note": "It is the future $112,000 discounted at a 10% cost of capital. The page is explicit that the outlay is not compared directly with the nominal future cash flow."
+        },
+        {
+          "t": "The amount the capital must grow to over the year to satisfy its required return.",
+          "ok": false,
+          "note": "That benchmark is $110,000. It is what the investment must beat, not the present value of what it delivers."
+        }
+      ]
+    },
+    {
+      "topic": "Decision Context",
+      "q": "Two mutually exclusive projects deliver the same strategic or service outcome. What does the week say appraisal is actually being asked?",
+      "hint": "Note what the page says appraisal is not asked, immediately before it says what it is asked.",
+      "options": [
+        {
+          "t": "Which project looks best when it is examined on its own.",
+          "ok": false,
+          "note": "The page rules this out in so many words: appraisal is not asked which project looks best on its own."
+        },
+        {
+          "t": "Which project reports the highest accounting profit over its life.",
+          "ok": false,
+          "note": "The page warns that the greatest-value project is not necessarily the one reporting the highest accounting profit — that is the trap, not the test."
+        },
+        {
+          "t": "Whether both projects can be accommodated within the same capital budget.",
+          "ok": false,
+          "note": "Mutually exclusive means selecting one is rejecting the other, so accommodating both is not on the table."
+        },
+        {
+          "t": "Which of them creates the greatest economic value.",
+          "ok": true,
+          "note": "That is the question the page sets, and it is why it then separates three candidate measures: total accounting profit, average return on assets, and NPV."
+        }
+      ]
+    },
+    {
+      "topic": "Profit vs Cash Flow",
+      "q": "Why does the week add depreciation back to profit to arrive at cash flow?",
+      "hint": "Ask what money actually left the business when the charge was recorded.",
+      "options": [
+        {
+          "t": "Because depreciation is an accounting expense but not a current cash outflow, so adding it back recovers the cash the project actually generated.",
+          "ok": true,
+          "note": "The page’s reasoning exactly: profit is reported after a charge that no money left the business to pay, hence Cash Flow = Profit + Depreciation."
+        },
+        {
+          "t": "Because depreciation is a cash cost that the profit figure leaves out entirely.",
+          "ok": false,
+          "note": "It is the reverse on both counts — depreciation is already deducted in arriving at profit, and it is not a cash cost."
+        },
+        {
+          "t": "Because depreciation must be discounted before the outlay can be subtracted from it.",
+          "ok": false,
+          "note": "This mixes two separate steps. Adding depreciation back is about getting to cash; discounting is what happens to the cash afterwards."
+        },
+        {
+          "t": "Because tax relief on depreciation increases the cash the project generates.",
+          "ok": false,
+          "note": "The page states the relationship with taxes excluded, so tax effects are outside what it claims here."
+        }
+      ]
+    },
+    {
+      "topic": "Profit vs Cash Flow",
+      "q": "A project reports an accounting loss for the year. On this week’s reasoning, what can still be true of it?",
+      "hint": "The relationship between profit and cash flow works in both directions, not only upward.",
+      "options": [
+        {
+          "t": "Nothing useful — a reported loss means the project consumed cash over the year.",
+          "ok": false,
+          "note": "The whole point of the section is that the two can diverge. A loss is a statement about earnings, not about cash."
+        },
+        {
+          "t": "It can still be generating positive cash flow, because depreciation is charged against profit without money leaving the business.",
+          "ok": true,
+          "note": "The page says this directly, and adds that for investment valuation the relevant measure is the cash generated, because value depends on the cash available to investors."
+        },
+        {
+          "t": "Its NPV must also be negative, because NPV is built from reported earnings.",
+          "ok": false,
+          "note": "NPV evaluates projects using their actual cash-flow pattern rather than accounting profit, so a reported loss does not settle it."
+        },
+        {
+          "t": "Its average return on assets must be positive to offset the loss.",
+          "ok": false,
+          "note": "Average ROA is one of the three candidate measures, not a counterweight that has to balance a reported loss."
+        }
+      ]
+    },
+    {
+      "topic": "Profit vs Cash Flow",
+      "q": "Which three drivers of value does the week say accounting profit does not directly incorporate?",
+      "hint": "The page sets them out as a single line, and it is the reason profit can mislead a ranking.",
+      "options": [
+        {
+          "t": "Revenue, cost and depreciation.",
+          "ok": false,
+          "note": "These are inputs to the profit figure itself, so profit could hardly fail to incorporate them. The drivers the page names sit outside the earnings calculation."
+        },
+        {
+          "t": "Profit, depreciation and tax.",
+          "ok": false,
+          "note": "Depreciation and tax appear in the week only in the step from profit to cash flow, and the page explicitly excludes taxes from that relationship."
+        },
+        {
+          "t": "Capital, required return and initial outlay.",
+          "ok": false,
+          "note": "These belong to the present-value section. They are how value is measured, not the drivers profit misses."
+        },
+        {
+          "t": "Cash flow, timing of cash flow and risk.",
+          "ok": true,
+          "note": "The page states them as a line and draws the consequence: ranking investments purely by total profit can produce ‘a different decisions’ from ranking them by economic value."
+        }
+      ]
+    },
+    {
+      "topic": "Average ROA",
+      "q": "What limitation does the week attach to average return on assets as an appraisal measure?",
+      "hint": "Look at what family of measure the page says it belongs to, and work forward from there.",
+      "options": [
+        {
+          "t": "It cannot be applied to an asset that is fully depreciated over its life.",
+          "ok": false,
+          "note": "The fully depreciated case is precisely the illustration the notes work through, so this is not the limitation being raised."
+        },
+        {
+          "t": "It needs a hurdle rate, and the week says justifying that rate is difficult.",
+          "ok": false,
+          "note": "The hurdle-rate problem attaches to NPV, which depends on the required rate of return applied to the cash flows. Average ROA is an accounting measure and does not use one."
+        },
+        {
+          "t": "It remains an accounting-based measure, so it does not fully incorporate cash-flow timing or risk.",
+          "ok": true,
+          "note": "The page calls it an accounting-based return measure — spelt ‘mesaure’ in the notes — and says it does not fully incorporate cash flow timing or risk."
+        },
+        {
+          "t": "It always favours whichever project delivers its cash earlier.",
+          "ok": false,
+          "note": "The page says the opposite risk: it can favour a project with higher accounting profits even where another project generates cash earlier."
+        }
+      ]
+    },
+    {
+      "topic": "NPV",
+      "q": "What rule does the week give for choosing between mutually exclusive projects?",
+      "hint": "The rule comes with two conditions attached, and the conditions are the interesting part.",
+      "options": [
+        {
+          "t": "Prefer the project with the highest positive NPV, assuming the projects are comparable and the correct hurdle rate has been used.",
+          "ok": true,
+          "note": "The page states the rule with both conditions, which is why it goes on to argue that determining the hurdle rate is a critical part of appraisal rather than a mechanical input."
+        },
+        {
+          "t": "Prefer the project with the highest total accounting profit over its life.",
+          "ok": false,
+          "note": "Total accounting profit is one of the three candidate measures the week separates, and the one it says does not directly incorporate cash flow, timing or risk."
+        },
+        {
+          "t": "Prefer the project with the highest average return on assets.",
+          "ok": false,
+          "note": "Average ROA is the second candidate measure. The page keeps it in the comparison to show where it conflicts with NPV, not as the rule."
+        },
+        {
+          "t": "Prefer whichever project recovers its initial outlay soonest.",
+          "ok": false,
+          "note": "The week names three measures only, and the rule it states is about NPV. Earlier cash matters here through discounting, not as a recovery test in its own right."
+        }
+      ]
+    },
+    {
+      "topic": "Hurdle Rate",
+      "q": "In the week’s hurdle-rate example, what does the row for 10% record?",
+      "hint": "Two of the three rows name a winning project. The middle one does something else.",
+      "options": [
+        {
+          "t": "Project A, because lower discounting increases the relative value of its later cash flows.",
+          "ok": false,
+          "note": "That is the 7% row. At 10% the notes record no preference at all."
+        },
+        {
+          "t": "Indifferent — the notes record ‘Both product the same NPV’.",
+          "ok": true,
+          "note": "Quoted as the notes write it. The page draws the general point from it: different cash-flow patterns can have the same economic value at one discount rate."
+        },
+        {
+          "t": "Project B, because earlier cash flows become relatively more valuable.",
+          "ok": false,
+          "note": "That is the 14% row, where the higher rate has tipped the comparison toward the earlier cash flows."
+        },
+        {
+          "t": "Neither project, because both have a negative NPV at that rate.",
+          "ok": false,
+          "note": "A negative NPV appears only at 14%, and only for project A. At 10% the two are simply equal."
+        }
+      ]
+    },
+    {
+      "topic": "Hurdle Rate",
+      "q": "As the hurdle rate rises, what happens to a project that receives a greater proportion of its cash earlier?",
+      "hint": "Think about which cash flows lose the most present value when the rate goes up.",
+      "options": [
+        {
+          "t": "It becomes relatively less attractive, because its cash has less time to grow at the higher rate.",
+          "ok": false,
+          "note": "That reasoning compounds forward. The appraisal discounts backward, and a higher rate punishes the flows that are furthest away."
+        },
+        {
+          "t": "Its NPV is unaffected, because only distant cash flows are exposed to the rate.",
+          "ok": false,
+          "note": "Every future flow is discounted; the difference is how heavily. Early flows retain more of their present value, they do not escape the rate."
+        },
+        {
+          "t": "It is preferred only if it also reports the higher accounting profit.",
+          "ok": false,
+          "note": "This reintroduces the measure the week is arguing against. NPV evaluates the actual cash-flow pattern rather than accounting profit."
+        },
+        {
+          "t": "It becomes relatively more attractive, because distant cash flows are discounted more heavily while early ones retain more of their present value.",
+          "ok": true,
+          "note": "The page gives exactly this chain, and the example follows it: project B, with more of its cash earlier, is preferred once the rate reaches 14%."
+        }
+      ]
+    },
+    {
+      "topic": "NPV Sensitivity",
+      "q": "The week warns against automatically labelling a project superior. Which of these does it list as an inadequate basis for that label?",
+      "hint": "One of the three items in that list is about NPV itself, which is what makes it worth remembering.",
+      "options": [
+        {
+          "t": "A higher NPV calculated using an inadequately justified discount rate.",
+          "ok": true,
+          "note": "The page lists it alongside higher total profits and higher accounting returns, and closes by saying a positive NPV is only as credible as the risk assessment underlying the hurdle rate."
+        },
+        {
+          "t": "A higher NPV calculated at a hurdle rate that reflects the project’s risk.",
+          "ok": false,
+          "note": "This is the case the week endorses rather than warns about — the rule is to prefer the highest positive NPV where the correct hurdle rate has been used."
+        },
+        {
+          "t": "An earlier cash-flow pattern, which the week says settles the ranking whatever the rate.",
+          "ok": false,
+          "note": "The week says the ranking is a joint property of the cash flows and the rate applied to them, so timing alone settles nothing."
+        },
+        {
+          "t": "A positive NPV supported by a documented assessment of the project’s risk.",
+          "ok": false,
+          "note": "That is what the page asks management to establish, not something it treats as an unsafe basis for a decision."
+        }
+      ]
+    },
+    {
+      "topic": "Excel NPV",
+      "q": "Which cash flows does Excel’s NPV() function discount, and what follows for the initial investment?",
+      "hint": "The question is what has already happened by the time the function starts counting periods.",
+      "options": [
+        {
+          "t": "All the cash flows in the range including time 0, so the outlay simply goes in first.",
+          "ok": false,
+          "note": "This is the common error the page flags: including the time-0 investment inside the function would incorrectly discount a cash flow that already occurs today."
+        },
+        {
+          "t": "Future cash flows only, so the outlay should be discounted separately and then added.",
+          "ok": false,
+          "note": "Half right. The outlay occurs today, so there is nothing to discount — it is added at face value, outside the function."
+        },
+        {
+          "t": "Future cash flows only, so the time-0 investment must be added separately, where CF0 is normally negative.",
+          "ok": true,
+          "note": "Exactly what the page says. The function starts at period one, so anything already occurring today has to be brought in outside it."
+        },
+        {
+          "t": "Future cash flows only, so the outlay can be left out because it is already spent.",
+          "ok": false,
+          "note": "Leaving it out removes the initial outlay from NPV altogether, and NPV is the present value of the future cash flows less that outlay."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "Concept of present value",
+      "title": "The offer that pays next year",
+      "setup": "A supplier offers your team an arrangement that requires capital now and returns a single cash amount in twelve months. A colleague looks at the two numbers, sees that the amount coming back is larger than the amount going out, and calls it a clear win. Your finance lead is unconvinced and asks for the case in today’s dollars.",
+      "task": "Explain why the future amount cannot be set against today’s outlay as it stands, and show — using the week’s own worked example — how much value the investment actually creates.",
+      "hints": [
+        "The comparison your colleague is making has two numbers standing at two different points in time.",
+        "Before anything counts as value created, the capital has to earn what its providers require.",
+        "The week is deliberate that the surplus in future dollars and the value created today are two different figures."
+      ],
+      "walkthrough": [
+        "Start with the benchmark rather than the outlay. If $100,000 of capital costs 10%, it must grow to $110,000 after one year simply to satisfy the required return, so $110,000 — not $100,000 — is what the investment has to beat.",
+        "Compare the cash generated with that benchmark. The investment produces $112,000, so the excess is $2000, and the week is careful to label this as value created in future-dollar terms.",
+        "Discount the surplus. $2000/1.10 = $1818, so the investment creates $1818 of value today. The future surplus and today’s value creation are not the same amount.",
+        "Reach the same answer through NPV. Restating the future cash flow in today’s terms gives NPV = $101818 - $100000 = $1818 — the outlay is never compared directly with the nominal future cash flow.",
+        "Answer the week’s framing question: are the expected future cash flows worth more today than the capital required to obtain them? Here they are, by $1818, and that dollar figure is the measure of the economic value generated."
+      ],
+      "checklist": [
+        "Names the required return, not the initial outlay, as the benchmark the cash has to clear.",
+        "Keeps the future-dollar surplus and today’s value creation distinct, and says why the distinction matters.",
+        "Expresses the future cash flow in today’s terms before subtracting the outlay.",
+        "States the conclusion as a dollar amount of value created, not just as a positive or negative verdict."
+      ]
+    },
+    {
+      "topic": "Profit vs Cash Flow",
+      "title": "The platform that reports a loss",
+      "setup": "A capital-intensive platform your organisation built two years ago carries a heavy depreciation charge and has reported an accounting loss in every year since launch. At the quarterly review a board member points at the loss line and proposes shutting it down. Nobody in the room has yet mentioned the cash the platform generates.",
+      "task": "Decide what you would need to establish before you could accept that the reported loss shows the platform is destroying value.",
+      "hints": [
+        "Ask what actually left the bank account when that depreciation charge was recorded.",
+        "The week gives a one-line relationship that turns a reported profit figure into the cash the project generated.",
+        "Even once you have the cash figure, the week says profit misses three things — and cash alone is only the first of them."
+      ],
+      "walkthrough": [
+        "Separate the charge from the cash. Depreciation is an accounting expense but not a current cash outflow, so the loss is reported after a charge that no money left the business to pay.",
+        "Recover the cash figure. Cash Flow = Profit + Depreciation, where depreciation is the relevant non-cash expense and taxes are excluded. A project can report an accounting loss while still generating positive cash flow.",
+        "Say why that is the figure that matters here. For investment valuation the relevant measure is the cash generated, because value ultimately depends on the cash available to investors rather than on accounting earnings.",
+        "Do not stop at cash. Accounting profit does not directly incorporate cash flow + timing of cash flow + risk, so the appraisal still needs the timing of those cash flows and a hurdle rate that reflects the platform’s risk.",
+        "Frame the recommendation as the week does: ranking on profit alone can produce a different answer from ranking on economic value, so the loss line is a prompt to run the appraisal, not a decision in itself."
+      ],
+      "checklist": [
+        "Identifies depreciation as the reason profit and cash diverge, and states that no cash left the business for it.",
+        "Uses the week’s relationship to move from the reported profit to cash flow, noting that taxes are excluded.",
+        "Explains why cash generated is the relevant measure for valuation.",
+        "Refuses to settle the decision on cash alone, and names timing and risk as still outstanding."
+      ]
+    },
+    {
+      "topic": "Hurdle Rate",
+      "title": "Two bids, one discount rate",
+      "setup": "Two vendors have bid for the same replacement system and the bids are mutually exclusive — choosing one rejects the other. Both deliver the same service outcome, but one returns a greater proportion of its benefits in the early years while the other builds more slowly toward larger later savings. The appraisal was signed off at one hurdle rate, and the risk committee now argues that rate was set too low for a project of this kind.",
+      "task": "Work out how raising the hurdle rate could change which bid is preferred, and what that means for the recommendation already on the table.",
+      "hints": [
+        "The ranking is not a property of the bids alone.",
+        "A higher rate does not treat the two bids’ cash flows evenly — think about which flows lose the most.",
+        "The week works an example in which the preferred project changes twice as the rate moves, and one of the rates produces no preference at all."
+      ],
+      "walkthrough": [
+        "State what the hurdle rate is. The Hurdle Rate / WACC / cost of capital represents the minimum return given the project’s risk: higher perceived risk → higher hurdle rate, lower perceived risk → lower hurdle rate.",
+        "Trace the effect on the two profiles. As the rate rises, distant cash flows are discounted more heavily while early cash flows retain more of their present value, so the bid that generates cash sooner becomes relatively more attractive.",
+        "Read the week’s example as the pattern. At 7% project A is preferred because lower discounting increases the relative value of its later cash flows; at 10% the notes record indifference — ‘Both product the same NPV’; at 14% project B is preferred, and project A has a negative NPV, meaning it fails to earn the required return and destroys value.",
+        "Apply the general lesson. NPV is not simply a property of the project’s cash flows; it also depends on the required rate of return applied to them, so two projects can switch rankings when the hurdle rate changes because their cash-flow timing differs.",
+        "Conclude on the recommendation. The signed-off ranking cannot be defended until the rate behind it is defended, since determining the appropriate hurdle rate is a critical part of investment appraisal, not merely a mechanical input."
+      ],
+      "checklist": [
+        "Links the hurdle rate to the project’s risk in both directions.",
+        "Explains the mechanism — heavier discounting of distant flows — rather than only asserting that the ranking moves.",
+        "Recognises that a rate exists at which the two are equal, and that a bid can turn value-destroying at a higher rate.",
+        "Treats the choice of rate as part of the appraisal to be justified, not an assumption inherited from the paper."
+      ]
+    },
+    {
+      "topic": "Investment Appraisal",
+      "title": "Three measures, one recommendation",
+      "setup": "A paper comes to you recommending one of two mutually exclusive proposals. It ranks them on total accounting profit and on average return on assets, and the same proposal wins on both. There is an NPV in an appendix, calculated in a spreadsheet, and the discount rate used is stated once with no supporting reasoning.",
+      "task": "Assess how much confidence the paper’s recommendation deserves, and set out what you would ask for before signing it.",
+      "hints": [
+        "The paper leads with two of the three measures the week separates. Ask what those two leave out.",
+        "Two measures agreeing does not make them independent evidence if they share the same blind spot.",
+        "The week has a specific warning about a spreadsheet NPV, and a second about a rate nobody has justified."
+      ],
+      "walkthrough": [
+        "Sort the measures. The week separates three: total accounting profit, average return on assets, and NPV. The paper leads with the first two.",
+        "Name the shared weakness. Total accounting profit does not directly incorporate cash flow, timing of cash flow or risk, and average ROA remains an accounting-based measure that does not fully incorporate cash-flow timing or risk — so the two agreeing tells you little, and average ROA can favour higher accounting profits even where the other proposal generates cash earlier.",
+        "Move the comparison onto cash. NPV evaluates projects using their actual cash-flow pattern rather than accounting profit, and for mutually exclusive projects the rule is to prefer the highest positive NPV, assuming the projects are comparable and the correct hurdle rate has been used.",
+        "Audit the spreadsheet before trusting the appendix figure. Excel’s NPV() function discounts future cash flows only, so the time-0 investment must be added separately, where CF0 is normally negative; including it inside the function would incorrectly discount a cash flow that already occurs today.",
+        "Test the rate. A project should not be labelled superior on higher total profits, on higher accounting returns, or on a higher NPV calculated using an inadequately justified discount rate — a positive NPV is only as credible as the risk assessment underlying the hurdle rate.",
+        "Return the paper with the week’s two questions attached: are the cash-flow forecasts credible, and is the discount rate appropriate for their risk?"
+      ],
+      "checklist": [
+        "Distinguishes the three measures and says what each one does and does not take into account.",
+        "Explains why agreement between profit and average ROA is weak evidence rather than confirmation.",
+        "Checks the mechanics of the spreadsheet NPV, including how the time-0 outlay is handled.",
+        "Challenges the discount rate as part of the appraisal, and ties the NPV’s credibility to the risk assessment behind it.",
+        "Ends with a decision framed around greatest value after cash flow, timing and risk — not highest reported profit."
+      ]
+    }
+  ]
+}

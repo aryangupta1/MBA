@@ -230,6 +230,12 @@ generically and its arrow-key handler walks whatever `.tab` elements exist.
 | **Discussion** | `discussion` | the week has live-session discussion questions (DMBA 6008, Week 2 onwards) |
 | **Acronyms** | `acronyms` | the week's content uses at least one abbreviation |
 | **Formulas** | `formulas` | the week's content states at least one formula, identity or chain |
+| **Quiz** | `quiz` | always — every week gets one |
+| **Apply it** | `apply` | always — every week gets one |
+
+Quiz and Apply it are always last, in that order, and their `.tab-num` follows whatever the
+week already has: a week with a Discussion tab numbers them 07 and 08, a week without
+Formulas numbers them 05 and 06.
 
 `week-shell.html` carries a slot pair for each — `<!--INSERT:DISCUSSION_TAB-->` /
 `<!--INSERT:DISCUSSION_PANEL-->`, and the same for `ACRONYMS` and `FORMULAS`, plus
@@ -332,6 +338,35 @@ from. Rules:
 
 `data-topic` is the one piece of this that is authored rather than derived, because only the
 sync knows which topic a block came from. **A new week must set it** (see `SKILL.md`).
+
+### The practice components — study path, Quiz, Apply it
+
+Added 2026-08-17. Three components, **no new token**: right and wrong reuse the `--pos*` /
+`--neg*` verdict tokens every week page already defines, and everything else is `--accent*`,
+`--line*` and the house radii.
+
+| Class | What it is |
+| --- | --- |
+| `.path` / `.path-step` | the study path — an `<ol>` of numbered steps with a spine, each `.path-head` carrying a `.path-label` and a `.path-time`, and an optional `.path-go` button |
+| `.path-close` | the lime "The test" panel that closes the route |
+| `.quizbar` / `.quiz-score` | the score row; it reuses the deck's `.progress` / `.progress-fill` and a `.btn--ghost` |
+| `.quiz-q` / `.quiz-head` / `.quiz-n` / `.quiz-stem` | one question; `.quiz-head` reuses `.term-src` for the topic tag |
+| `.opt` / `.opt-key` / `.opt-t` | an answer button. Feedback is a `data-state` attribute — `right`, `wrong`, `off` — never a class |
+| `.fb` / `.fb--right` / `.fb--wrong` / `.fb-tag` | the explanation revealed after answering |
+| `.reveal` / `.reveal-body` / `.reveal--work` | a `<details>` disclosure, used for every hint and for the walkthrough |
+| `.scen` / `.scen-title` / `.scen-setup` / `.scen-task` | one scenario |
+| `.check` | the self-mark checklist — decorative checkboxes, no inputs |
+
+Contract notes that matter to a restyle:
+
+- **The study path is static markup**; only its jump buttons are enhanced. The summary panel
+  still reads with JS off, which is why it is authored rather than rendered.
+- **The quiz and the scenarios are rendered at runtime** from two authored arrays, the same
+  way the glossary and the deck are.
+- **`data-state` on `.opt` is the source of truth for feedback**, the way `aria-pressed` is
+  for the flip. Do not convert it to a class.
+- The study path block carries **no `data-topic`**, so the topic chips leave it visible under
+  every filter — which is the intent.
 
 ### Study-page components
 

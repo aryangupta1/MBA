@@ -1,0 +1,468 @@
+{
+  "page": "DMBA6008-week0.html",
+  "quizIntro": "Twenty-four questions across the four topics of this week — the balance sheet, the profit and loss statement, cash flow, and assessing financial performance. Pick an option and the feedback explains why it is right or wrong, using only what this page states. A hint sits above each question if you want a nudge before committing to an answer.",
+  "applyIntro": "Six situations to reason through with this week’s tools rather than recall. Each one gives a task, then three hints that unfold one at a time — take the first before the second. The walkthrough that follows uses only the statements, ratios and worked examples this page sets out, and the checklist is there to mark your own answer against.",
+  "studyPath": {
+    "intro": "The route I would take through this week if I were meeting it cold. It is by far the biggest page on the site — four topics, 107 key terms, 146 flashcards and 82 formulas — so budget about four hours and split it over two sittings rather than trying to take it in one.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Read the first two sub-tabs in order",
+        "detail": "Take the summary sub-tabs in the order they sit, starting with The Balance Sheet. The accounting equation and the asset-or-expense judgement are what every later topic assumes, so do not move on until the five boxes and that one judgement are solid. Then The Profit and Loss Statement, where accrual accounting and the two assumptions blocks are the slow part — skim the warning-sign tables on this pass and come back to them.",
+        "time": "~50 min"
+      },
+      {
+        "goto": "summary",
+        "label": "Then cash flow and performance",
+        "detail": "Cash Flow next, and do not skip Practice 1 and Practice 2 — they are where profit, working capital and borrowing are finally connected, and the Apply tab comes straight back to them. Then Assessing Financial Performance, the longest topic on the page: it deliberately re-frames depreciation, working capital, return on equity and both kinds of risk a second time, so read it as a second pass over familiar ideas rather than as new material.",
+        "time": "~50 min"
+      },
+      {
+        "goto": "formulas",
+        "label": "Learn the chains, not the list",
+        "detail": "Eighty-two entries, so do not try to hold them all. Learn the ones that chain: ROA = Asset Utilisation x Profit Margin, the profit-to-cash reconciliation, free cash flow as CFOA plus CFIA, and the days-to-funding-gap sequence. The same relationship sometimes appears twice in different notation, so match on the relationship rather than on the characters, and keep the Acronyms tab beside it — CFOA, CFIA, CFFA, EBITDA, EBIT, OCC and SGR carry most of the week.",
+        "time": "~20 min"
+      },
+      {
+        "goto": "terms",
+        "label": "Read the repeated terms as pairs",
+        "detail": "107 cards, and the tag on each one names the section it was written in. That matters more here than anywhere else, because depreciation, impairment, capital expenditure, working capital, return on equity and both kinds of risk each appear more than once with a different framing. Filter to one statement at a time and read the repeated terms as pairs, so you know which framing you are being asked for.",
+        "time": "~30 min"
+      },
+      {
+        "goto": "cards",
+        "label": "Drill one statement at a time",
+        "detail": "146 cards is too many in one sitting. Filter to a single statement, answer out loud before you flip, and only take the full deck shuffled once all four topics are going in separately. The Cash Flow deck is the hardest of the four, because several cards ask you to reproduce Practice 1 and Practice 2 figure by figure rather than just state a definition.",
+        "time": "~35 min"
+      },
+      {
+        "goto": "quiz",
+        "label": "Test the confusions, not the recall",
+        "detail": "Twenty-four questions in the page's own reading order. The wrong options are built from the confusions this week creates — profit against cash, revenue against customer receipts, EBITDA against operating cash, a stable ROE against a stable business — so read the note on the options you rejected, not only on the one you picked. Anything you get wrong sends you back to a named topic rather than to the whole page.",
+        "time": "~25 min"
+      },
+      {
+        "goto": "apply",
+        "label": "Reason through the six situations",
+        "detail": "Six situations that ask for judgement rather than recall. If you only have time for a couple, take the profitable-and-short-of-cash one first, because it runs the Practice 2 reconciliation end to end, and then the funding-gap one, which puts a price on working capital. Open the hints one at a time and write your answer before the walkthrough, then mark it against the checklist.",
+        "time": "~40 min"
+      }
+    ],
+    "close": "It has landed when you can take a company reporting record profit and a rising bank balance and say, without notes, where the cash actually came from — and because this is Week 0, everything later in the subject assumes you can."
+  },
+  "quiz": [
+    {
+      "topic": "Why Start with the Balance Sheet?",
+      "q": "This week begins its financial analysis with the balance sheet rather than the profit and loss statement. What reason does it give?",
+      "hint": "Think about the order in which things have to happen in a business before a single sale is possible.",
+      "options": [
+        { "t": "The balance sheet is the only statement that management estimates play no part in.", "ok": false, "note": "The opposite is true here: the week spends whole sections on asset quality, revaluation, useful-life estimates and provisions, all of which rest on judgement." },
+        { "t": "A business must first invest in assets before it can earn revenue, so revenue is generated because assets exist.", "ok": true, "note": "That is the week’s stated reason, and it is why nearly every business activity ends up affecting the balance sheet." },
+        { "t": "The balance sheet reports performance over a period, which the other statements do not.", "ok": false, "note": "That describes the profit and loss statement. The balance sheet shows position at a date; the P&L measures performance over time." },
+        { "t": "The balance sheet already shows how much cash the operations generated during the year.", "ok": false, "note": "It shows the cash balance at a date. Explaining how cash moved in and out over the period is the job of the cash flow statement." }
+      ]
+    },
+    {
+      "topic": "Current Assets",
+      "q": "A manager wants to cut current assets to the lowest level the business can survive on. How does the week frame the objective?",
+      "hint": "Both ends of the spectrum carry a cost. Ask what each end costs.",
+      "options": [
+        { "t": "Minimise current assets, since capital sitting in cash, stock and receivables earns nothing.", "ok": false, "note": "Too little is expensive too — the week puts lost sales and disruption at that end of the spectrum, and liquidity risk against too little cash." },
+        { "t": "Maximise current assets, so that liquidity risk is removed.", "ok": false, "note": "Excess cash signals inefficient capital allocation because it earns a low return compared with investment in growth, and excess inventory brings obsolescence and write-downs." },
+        { "t": "Hold the optimal level that supports operations, protects liquidity, avoids unnecessary financing costs and generates an acceptable return on capital.", "ok": true, "note": "That is the week’s objective, and it frames the core management balance as operational safety against capital efficiency." },
+        { "t": "Hold current assets exactly equal to current liabilities.", "ok": false, "note": "The week defines working capital as current assets less current liabilities, but never sets equality as a target; the right level depends on the operating model." }
+      ]
+    },
+    {
+      "topic": "Non-Current Assets & Depreciation",
+      "q": "On the week’s figures, a $100 Million asset has its estimated useful life extended from 5 years to 10 years. What follows?",
+      "hint": "Work out the annual charge under each estimate first, then ask what the difference does to the profit line.",
+      "options": [
+        { "t": "Annual depreciation falls from $20 Million to $10 Million, which increases reported profit even though the asset has not become more productive.", "ok": true, "note": "Exactly the week’s example: extending 5 → 10 years cuts depreciation by $10 Million, and it warns that an unusually long estimate may create an illusion of stronger profitability and financial position." },
+        { "t": "Annual depreciation falls from $20 Million to $10 Million and the original cost of the asset is restated to $50 Million.", "ok": false, "note": "The first half is right, the second is not. A change of estimate or method changes the timing of the expense, not the original cost." },
+        { "t": "Annual depreciation is unchanged, because depreciation is fixed by the original cost.", "ok": false, "note": "Cost is only one input. The week treats useful life as an estimate management chooses, and the slope of the charge follows it." },
+        { "t": "Annual depreciation rises to $20 Million, because the asset is now used for longer.", "ok": false, "note": "Spreading the same cost over more years lowers the annual charge. A higher charge follows a shorter useful life, not a longer one." }
+      ]
+    },
+    {
+      "topic": "Intangible Assets",
+      "q": "A technology company is exploring a new artificial intelligence product. Which treatment does the week describe?",
+      "hint": "The dividing line is how certain the commercial outcome is at the point the money is spent.",
+      "options": [
+        { "t": "All of the spending is capitalised from the start, because the company intends to sell the product.", "ok": false, "note": "Intention is not the test. Research is expensed while the commercial outcome is uncertain." },
+        { "t": "Early exploration is expensed, and qualifying development expenditure may be capitalised once the software is technically feasible and expected to generate future sales.", "ok": true, "note": "That is the week’s example, and it is the research-versus-development line: development may be capitalised once it is sufficiently connected to probable future benefits." },
+        { "t": "All of it is expensed, because internally generated assets can never be recognised.", "ok": false, "note": "Internal development is one of the three ways the week says intangibles arise. Recognition depends on whether the expenditure is expected to generate identifiable future economic benefits." },
+        { "t": "It is recognised as goodwill, since the benefit cannot be separately identified.", "ok": false, "note": "Goodwill arises only when one business acquires another, and is recorded on the buyer’s balance sheet. Internal development does not create it." }
+      ]
+    },
+    {
+      "topic": "Liabilities",
+      "q": "The week says the measurement risk with liabilities runs the opposite way to the risk with assets. What does it mean by that?",
+      "hint": "Ask what happens to reported profit, equity and apparent risk if an obligation is left off the balance sheet.",
+      "options": [
+        { "t": "Liabilities are always measured precisely, so no judgement is involved.", "ok": false, "note": "Some are known precisely, but provisions rest on management’s best estimate of the expected future cost, drawing on claim history, legal outcomes, failure rates and restructuring plans." },
+        { "t": "Liabilities tend to be overstated, because management prefers to look conservative.", "ok": false, "note": "The week points the other way: understated provisions increase profit, lower liabilities increase equity, and reported risk looks lower." },
+        { "t": "Where management may prefer to overstate assets, liabilities may instead be omitted or understated — which increases profit, increases equity and makes risk look lower.", "ok": true, "note": "That is the week’s contrast, and it is why it says auditors assess whether all material obligations have been recorded." },
+        { "t": "Liabilities do not affect profit, so their measurement only matters for the balance sheet.", "ok": false, "note": "Recognising a provision records an expected future cost. The week’s warranty example books a $3 million liability from a 3% claim rate on $100 million of sales." }
+      ]
+    },
+    {
+      "topic": "Overview",
+      "q": "A retailer buys a laptop for $1000 cash, holds it as inventory, then sells it on invoice for $1300. What does the week say is recorded?",
+      "hint": "Two statements move at once. Track the inventory, the amount owed by the customer, and the profit.",
+      "options": [
+        { "t": "Nothing is recorded until the customer pays, because no cash has changed hands on the sale.", "ok": false, "note": "That is cash accounting. Revenue is recognised when earned, and a sale made on invoice creates accounts receivable." },
+        { "t": "Revenue of $1300 and profit of $1300, with the $1000 recognised only when the inventory is replaced.", "ok": false, "note": "Cost of goods sold of $1000 is matched against the $1300 of revenue in the same period, leaving $300." },
+        { "t": "Inventory falls $1000, receivables rise $1300, and the $300 profit lifts equity through retained earnings.", "ok": true, "note": "That is the week’s worked example, and it shows the P&L and the balance sheet working as one system." },
+        { "t": "Cash rises $1300 and inventory falls $1000, giving $300 of profit.", "ok": false, "note": "Cash would rise on a cash sale. Here the sale is on invoice, so accounts receivable increases instead." }
+      ]
+    },
+    {
+      "topic": "Accrual Accounting",
+      "q": "What does the week say the matching principle prevents?",
+      "hint": "It is aimed at a specific trick — one that makes a business look better without anything real changing.",
+      "options": [
+        { "t": "It stops a business looking more profitable simply for paying its bills late.", "ok": true, "note": "Expenses belong in the same period as the revenue they helped generate, which stops costs being shifted between periods." },
+        { "t": "It stops revenue being recognised before cash is collected.", "ok": false, "note": "Accrual accounting positively allows that — revenue is recognised when earned, which is why a profitable organisation may still have cash flow difficulties." },
+        { "t": "It stops management estimating how much of a cost belongs to a period.", "ok": false, "note": "The week does the opposite: period expense = Estimated total cost × Proportion allocated to the period, so allocation is exactly what management must estimate." },
+        { "t": "It stops non-cash expenses such as depreciation appearing in the profit and loss statement.", "ok": false, "note": "Depreciation is an expense even though no cash moves when it is recorded, and the week treats it as a normal part of accrual profit." }
+      ]
+    },
+    {
+      "topic": "Assumptions on Revenue",
+      "q": "A retailer sells a device for $5000 with a full money-back guarantee, and history shows about 10% of similar sales are refunded. On the week’s figures, what is recorded and where is the risk?",
+      "hint": "Only the part the business expects to keep has been earned. The rest is still owed back.",
+      "options": [
+        { "t": "Revenue of $5000 now, with any refunds recognised as an expense later if they occur.", "ok": false, "note": "The week recognises $4500 of revenue and a $500 estimated refund liability up front rather than booking the full amount." },
+        { "t": "Revenue of $4500 and an estimated refund liability of $500 — and an underestimated refund rate overstates both revenue and profit.", "ok": true, "note": "That is the week’s treatment. If the return period expires with no refund, the remaining liability becomes revenue." },
+        { "t": "Revenue of $4500 and a $500 prepayment recorded as an asset.", "ok": false, "note": "A prepayment is something the business has paid for in advance. Here the $500 is an obligation to the customer, so it sits as a liability." },
+        { "t": "No revenue at all until the return period expires, because the sale is not yet certain.", "ok": false, "note": "Revenue is recognised when earned. The week handles the uncertainty by estimating the refund, not by deferring the whole sale." }
+      ]
+    },
+    {
+      "topic": "Gross profit & Gross Margin",
+      "q": "A company’s gross margin improves sharply while its total profit is unchanged. Which explanation does the week specifically ask analysts to rule out?",
+      "hint": "Ask whether anything actually changed about the product, or only about where a cost was filed.",
+      "options": [
+        { "t": "The company raised its selling prices.", "ok": false, "note": "Higher prices are one of the genuine causes of a rising margin the week lists, alongside lower supplier or production costs and economies of scale." },
+        { "t": "The company shifted towards higher-margin products.", "ok": false, "note": "A favourable product mix is also on the week’s list of real causes, because it changes the economics of what is being sold." },
+        { "t": "Costs were reclassified out of cost of goods sold into operating expenses.", "ok": true, "note": "Reclassifying direct customer-service costs as administration cuts COGS and raises gross margin while total profit is unchanged — product economics look better without any real improvement." },
+        { "t": "The company achieved economies of scale.", "ok": false, "note": "Another genuine efficiency gain. The week asks analysts to confirm the increase is not caused by expense reclassification before accepting explanations of this kind." }
+      ]
+    },
+    {
+      "topic": "Different Levels of Profit",
+      "q": "How does the week treat EBITDA?",
+      "hint": "It is popular for one reason and dangerous for another. Ask which items it leaves out.",
+      "options": [
+        { "t": "As a reliable measure of operating cash, since depreciation and amortisation are non-cash.", "ok": false, "note": "It is sometimes read that way for exactly that reason, but the week is explicit that EBITDA is not cash flow." },
+        { "t": "As the bottom line, after all recognised expenses.", "ok": false, "note": "That is net profit after tax. EBITDA sits before interest, tax, depreciation and amortisation." },
+        { "t": "As the measure that counts the cost of consuming operating assets.", "ok": false, "note": "That is EBIT, which includes depreciation and amortisation and so counts the cost of consuming operating assets." },
+        { "t": "As useful for comparing operating performance between firms, but not cash flow — it ignores receivables, payables, capital expenditure, interest and tax, so strong EBITDA can coexist with cash pressure.", "ok": true, "note": "That is the week’s position, and it appears again in the takeaways as something not to be mistaken for actual cash flow." }
+      ]
+    },
+    {
+      "topic": "Analysing a Profit and Loss Statement",
+      "q": "Over several periods a company’s EBIT falls faster than its EBITDA. On the week’s interpretation table, what does that pattern most likely indicate?",
+      "hint": "Only a couple of items sit between those two measures. The difference can only come from there.",
+      "options": [
+        { "t": "Interest or tax costs are increasing.", "ok": false, "note": "Those sit below EBIT. The week attaches them to NPAT falling despite stable EBIT." },
+        { "t": "Depreciation or amortisation is increasing.", "ok": true, "note": "EBIT includes depreciation and amortisation while EBITDA does not, so a widening gap between the two points there." },
+        { "t": "Input costs are rising faster than selling prices.", "ok": false, "note": "The week reads that from an increasing COGS percentage, which shows in gross margin rather than between EBITDA and EBIT." },
+        { "t": "Overheads are growing faster than the business.", "ok": false, "note": "That is the week’s reading of an increasing OPEX percentage, which would pull EBITDA down as well as EBIT." }
+      ]
+    },
+    {
+      "topic": "Insights gained from cash flow statements",
+      "q": "A business opens and closes the year on the same cash balance. What does the week conclude from that?",
+      "hint": "One number at each end of the year hides three separate flows.",
+      "options": [
+        { "t": "Nothing significant happened during the period.", "ok": false, "note": "The week uses a SaaS company that collects subscriptions, invests in cloud infrastructure, then repays debt or pays dividends, and says an unchanged balance does not mean nothing happened." },
+        { "t": "Operating cash flow must have been zero.", "ok": false, "note": "Only the three categories together must net to zero. Operating cash flow can be strongly positive and be offset by investing and financing outflows." },
+        { "t": "The three categories netted out — net change in cash = CFOA + CFIA + CFFA — so the real question is where the cash came from and how management used it.", "ok": true, "note": "That is the week’s central issue: not simply how much cash the business holds, but its source and its use." },
+        { "t": "The business must have avoided both investment and distributions.", "ok": false, "note": "The Woolworths figures in the week show an unchanged balance alongside $1.4bn of investing outflows and $1.7bn of financing outflows." }
+      ]
+    },
+    {
+      "topic": "Operating Cash Flow",
+      "q": "Cash receipts from customers exceed reported revenue. What explanations does the week give?",
+      "hint": "Money can arrive before the business has earned it — and not everything that arrives belongs to the business.",
+      "options": [
+        { "t": "Customers are paying in advance, as with a SaaS annual subscription recognised gradually, and receipts may also include GST, which is not revenue.", "ok": true, "note": "Both explanations are the week’s. The unearned amount sits as a liability because the business still owes the customer future service." },
+        { "t": "Customers have extended payment terms.", "ok": false, "note": "That produces the opposite pattern — revenue above receipts, which the week links to weak credit policy, slow payment, rising receivables and more reliance on debt." },
+        { "t": "Depreciation has been added back to revenue.", "ok": false, "note": "Depreciation is a non-cash expense added back when reconciling profit to operating cash flow. It does not touch revenue or customer receipts." },
+        { "t": "The business has sold non-current assets.", "ok": false, "note": "Proceeds from selling non-current assets are an investing inflow, not a receipt from customers." }
+      ]
+    },
+    {
+      "topic": "Cash related to investments",
+      "q": "A firm’s capital expenditure has run consistently below its depreciation expense for four years. How does the week read that?",
+      "hint": "The comparison has a name, a benchmark near 1.0, and a reason it is judged over years rather than one period.",
+      "options": [
+        { "t": "As expansion, since spending less than depreciation frees cash for growth.", "ok": false, "note": "Possible expansion or major asset renewal is what the week reads from a ratio consistently above 1.0, not below it." },
+        { "t": "As neutral, because capital expenditure and depreciation are unrelated measures.", "ok": false, "note": "The week deliberately compares them as the asset replacement ratio = Capital expenditure / Depreciation Expense." },
+        { "t": "As a warning of possible underinvestment or ageing assets, with the ratio judged over about three to four years because investment varies between periods.", "ok": true, "note": "Consistently below 1.0 is the week’s warning reading, and it says to assess the ratio over approximately three to four years." },
+        { "t": "As proof that the assets have been impaired.", "ok": false, "note": "An impairment records a fall in accounting value and does not follow from low capital expenditure — and it means no asset was sold and no cash received." }
+      ]
+    },
+    {
+      "topic": "Cash related to financing",
+      "q": "A business reports operating cash flow of +$200m, investing cash flow of $0m, financing cash flow of −$230m and dividends paid of $350m. On the week’s reading, how was the dividend funded?",
+      "hint": "Start from the dividend, then work out what the financing line must contain besides it.",
+      "options": [
+        { "t": "Entirely from operating cash flow, since operating cash flow was positive.", "ok": false, "note": "Operating cash flow covered $200m of the $350m. The remainder had to come from somewhere else." },
+        { "t": "$200m from operating cash flow, $120m from new debt or equity, and $30m from existing cash reserves.", "ok": true, "note": "That is the week’s breakdown, from $120m inflow − $350m dividends = −$230m — and its reason for saying a high dividend is not automatically evidence of strong performance." },
+        { "t": "Entirely from asset sales, given investing cash flow of $0m.", "ok": false, "note": "Investing cash flow was nil, so there are no net proceeds from asset sales in this example." },
+        { "t": "By cutting capital expenditure, which is why investing cash flow is $0m.", "ok": false, "note": "The week does not read the nil investing line as a funding source. The financing line itself shows $120m of new funding raised." }
+      ]
+    },
+    {
+      "topic": "What is free cash flow?",
+      "q": "Which statement about free cash flow matches the week?",
+      "hint": "It is a calculated figure, and the week has a picture of what has to fit inside it.",
+      "options": [
+        { "t": "It is a line item in the cash flow statement, sitting below financing activities.", "ok": false, "note": "The week is explicit that it is not a statement line item, so it must be calculated." },
+        { "t": "It equals operating cash flow, because investment decisions are discretionary.", "ok": false, "note": "Operating cash cannot all be distributed — some must replace depreciating assets and fund growth, which is why investing cash flow is part of the calculation." },
+        { "t": "Negative free cash flow always signals distress.", "ok": false, "note": "The week says negative FCF is not automatically a problem where it reflects investment for growth, though persistent negative FCF needs investigation." },
+        { "t": "It is CFOA plus CFIA — the cash available to financiers — and dividends should sit inside it, as with $1.7bn of FCF against a $0.5bn dividend and $0.6bn against $0.3bn.", "ok": true, "note": "Those are the week’s Woolworths and Qantas figures: both dividends are covered by internally generated cash while investment continues." }
+      ]
+    },
+    {
+      "topic": "Operating Cash Cycle",
+      "q": "In the week’s worked case, days inventory rose by 12, days receivables by 17, and days payables fell from 35 days to 11 days. What happens to the funding gap?",
+      "hint": "The gap is the cycle less what suppliers finance. Both halves are moving the wrong way at once.",
+      "options": [
+        { "t": "It is unchanged, because the payables movement offsets the movement in the cycle.", "ok": false, "note": "They compound rather than offset — the cycle lengthened while supplier credit shortened, so the gap widens twice over." },
+        { "t": "It falls, because shorter payables mean suppliers are being paid promptly.", "ok": false, "note": "Paying suppliers faster removes financing from the front of the cycle, which increases what the business must fund itself." },
+        { "t": "It rises from 50 days to 102 days — about 52 additional days of financing.", "ok": true, "note": "The week’s figures exactly: inventory sat longer, customers paid later and suppliers gave less credit." },
+        { "t": "It rises by 29 days, matching the increase in the operating cash cycle.", "ok": false, "note": "The 29-day increase is the cycle alone. The fall in days payables from 35 to 11 adds to it." }
+      ]
+    },
+    {
+      "topic": "Returns",
+      "q": "Why does the week decompose return on assets rather than reading it on its own?",
+      "hint": "One figure is the outcome. Two others say how it came about.",
+      "options": [
+        { "t": "Because ROA cannot be calculated without the decomposition.", "ok": false, "note": "ROA = Profit / Assets stands on its own. The decomposition explains the result rather than producing it." },
+        { "t": "Because ROA = Asset Utilisation x Profit Margin, so a change can be traced to asset productivity or to the profitability of sales.", "ok": true, "note": "ROA tells us the outcome; asset utilisation and margin help explain why that outcome occurred." },
+        { "t": "Because asset utilisation and profit margin always move together, so either can stand in for ROA.", "ok": false, "note": "The week’s point is that the two drivers move independently, which is what makes reading them together a diagnosis." },
+        { "t": "Because a larger asset base always produces a higher ROA.", "ok": false, "note": "In the week’s software example profit grows while ROA weakens, because a large acquisition raised the asset base without enough incremental revenue and profit." }
+      ]
+    },
+    {
+      "topic": "Risks",
+      "q": "A company reports a relatively weak ROA alongside a relatively strong ROE. What does the week say this should trigger?",
+      "hint": "The two ratios have different denominators. Ask what could shrink one of them.",
+      "options": [
+        { "t": "Confidence that operating performance is strong, since owners are being well served.", "ok": false, "note": "The week treats this pattern as a warning sign rather than as evidence of superior performance." },
+        { "t": "A conclusion that the profit margin must have improved.", "ok": false, "note": "Margin sits inside ROA, which is the weaker of the two here. The gap between the ratios points at the financing side instead." },
+        { "t": "An investigation of leverage and financial risk, because debt financing may be raising the return attributable to a smaller equity base.", "ok": true, "note": "That is the week’s reading, and why it says higher ROE must be interpreted alongside financial leverage." },
+        { "t": "A conclusion that business risk has fallen.", "ok": false, "note": "Business risk comes from operations and industry, not from the financing structure, so the ratio pair says nothing about the predictability of earnings." }
+      ]
+    },
+    {
+      "topic": "Cash",
+      "q": "A business reports a CFOA margin of 6% this year against 10% last year. On the week’s reading, what does that mean?",
+      "hint": "The ratio is stated per dollar of revenue. Convert both years into cents before interpreting them.",
+      "options": [
+        { "t": "Revenue fell by four per cent.", "ok": false, "note": "The ratio compares operating cash with revenue. On its own it says nothing about whether revenue rose or fell." },
+        { "t": "Profit fell from 10% to 6% of revenue.", "ok": false, "note": "That would be a profit margin. CFOA reflects actual cash movement, which is exactly why the week compares it against accounting profit." },
+        { "t": "Operating cash per dollar of revenue fell from $0.10 to $0.06, which may indicate that revenue growth is not translating efficiently into cash.", "ok": true, "note": "The week gives both readings directly, and treats a lower ratio as a prompt to find where cash is being absorbed." },
+        { "t": "The business is now loss-making.", "ok": false, "note": "A positive CFOA margin is still positive operating cash. The week’s point is that a profitable business can be short of cash, not that a falling ratio means a loss." }
+      ]
+    },
+    {
+      "topic": "The right question",
+      "q": "Shareholders require a 20% return for the risk they are taking and the business generates 19%. How does the week read that?",
+      "hint": "A return is not judged by its own size. There is something it has to be measured against.",
+      "options": [
+        { "t": "As a strong result, since 19% is a high return by any standard.", "ok": false, "note": "The week says a return like this may look high in isolation but may still be insufficient relative to risk." },
+        { "t": "As insufficient relative to risk — actual return should be assessed against required return.", "ok": true, "note": "Returns cannot be assessed independently of risk, and the required return reflects business risk, financial risk and the uncertainty of future cash flows." },
+        { "t": "As irrelevant, because required return is a qualitative judgement with no place in ratio analysis.", "ok": false, "note": "The week introduces required return as the benchmark for the actual return, while separately noting that business risk is partly qualitative." },
+        { "t": "As a reason to increase leverage in order to close the one-point gap.", "ok": false, "note": "The week treats leverage as something that raises financial risk, which raises the return shareholders require rather than satisfying it." }
+      ]
+    },
+    {
+      "topic": "CEO Bonus",
+      "q": "A CEO asks for a bonus because ROE has held steady, while asset utilisation, profit margin and ROA have all declined and leverage has increased. What does the week conclude?",
+      "hint": "Write the relationship that connects ROE to ROA, then see what must have risen to hold the left side flat.",
+      "options": [
+        { "t": "That the stable ROE proves management protected shareholder returns through a difficult period, so the bonus is justified.", "ok": false, "note": "The week’s objection is that increasing debt does not repair weak operating performance — it masks deterioration while adding interest obligations, repayment commitments and exposure to downturns." },
+        { "t": "That the decline in ROA is a measurement problem, since ROA and ROE should move together.", "ok": false, "note": "They can diverge precisely because of leverage. The divergence is the finding, not an error to be explained away." },
+        { "t": "That business risk has increased, which is what the leverage figure measures.", "ok": false, "note": "Leverage is a financing choice, so it drives financial risk. Business risk comes from the operating model, industry and competitive environment." },
+        { "t": "That the maintained ROE reflects financial engineering through leverage rather than improved operating performance.", "ok": true, "note": "With ROE = ROA x Financial Leverage, a rising leverage multiplier offsets a falling ROA — and the week’s rule is never to reward the outcome before understanding the mechanism that produced it." }
+      ]
+    },
+    {
+      "topic": "Sustainable Growth Part",
+      "q": "This week states the sustainable growth rate as SGR = ROE x Retention Rate. With an ROE of 50% and a retention rate of 50%, what does the worked example give and mean?",
+      "hint": "Both components are policy settings. Multiply them, then read the answer as a rate of revenue growth.",
+      "options": [
+        { "t": "SGR = 50%x50% = 25%, meaning revenue can grow by approximately 25% financed through retained earnings and proportionate debt, without issuing new equity or increasing the debt-to-equity ratio.", "ok": true, "note": "That is the week’s worked example, and it assumes ROE, payout and retention policy, debt-to-equity and the operating structure all stay broadly unchanged." },
+        { "t": "SGR = 100%, since both components sit at their halfway point.", "ok": false, "note": "The two rates multiply rather than add. The week’s arithmetic gives 25%." },
+        { "t": "SGR = 25%, and growth above that rate is evidence of mismanagement.", "ok": false, "note": "The rate is right but the reading is not. Growth above SGR is not automatically bad — it is a signal to investigate how the extra growth was financed or enabled." },
+        { "t": "SGR = 25%, which is the maximum revenue growth the business can achieve.", "ok": false, "note": "The week is explicit that SGR is a benchmark for assessing growth against the firm’s current settings, not a maximum growth limit." }
+      ]
+    },
+    {
+      "topic": "Risk Assessment",
+      "q": "Which set of rules of thumb does this week give for the financial risk ratios?",
+      "hint": "Three ratios, three thresholds — two of them ceilings and one a floor.",
+      "options": [
+        { "t": "Debt ÷ Assets preferably below 50%; Debt ÷ Equity preferably below 100%; EBIT ÷ Interest Expense preferably at least 3×.", "ok": true, "note": "The week gives these as guidelines rather than universal limits, because appropriate leverage depends on the stability and predictability of the business." },
+        { "t": "Debt ÷ Assets preferably below 100%; Debt ÷ Equity preferably below 50%; EBIT ÷ Interest Expense preferably at least 3×.", "ok": false, "note": "The two debt thresholds are the other way round in the week’s table — below 50% against assets, below 100% against equity." },
+        { "t": "Debt ÷ Assets preferably below 50%; Debt ÷ Equity preferably below 100%; EBIT ÷ Interest Expense preferably below 3×.", "ok": false, "note": "Interest cover is a floor, not a ceiling. A higher ratio provides a greater margin of safety if earnings decline." },
+        { "t": "No thresholds are given, because leverage is entirely a matter of judgement.", "ok": false, "note": "All three are given. The week qualifies them as guidelines and notes the same ratio can imply different risk depending on the business model." }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "Considerations with assets",
+      "title": "Capitalise it or expense it",
+      "setup": "Your division has spent the year on a capability programme: a block of staff training, a research phase exploring a new product idea, a software build that has passed technical feasibility and is expected to generate sales, and the usual routine servicing of the equipment it all runs on. The finance director would like as much of it as possible recorded as an asset, because the profit line is under pressure this year.",
+      "task": "Decide which parts of the programme can be recorded as assets and which must be expensed, and state the test you applied.",
+      "hints": [
+        "The week calls this the most consequential judgement on the balance sheet. Start from what separates an asset from an expense in principle.",
+        "There is a table in the week that runs exactly these four kinds of expenditure and gives a reason for each treatment.",
+        "For the software build, ask what changes once technical feasibility is established and future sales are expected."
+      ],
+      "walkthrough": [
+        "Set the test first. An asset spans more than one period and has its cost recognised over time; an expense is consumed now and reduces profit immediately. The qualifying question is whether future benefits can be identified and measured reliably.",
+        "Staff training is expensed. The week’s reason is that its future benefits are uncertain and difficult to measure, even though the capability itself is real.",
+        "Research is expensed while commercial success is not yet sufficiently certain. Qualifying software development is the one item that may sit on the asset side, because its future economic benefits may be identifiable and measurable.",
+        "Routine maintenance is expensed, because it maintains rather than improves future benefits.",
+        "Name the pressure explicitly. The week notes management may prefer the asset treatment, since expenses cut profit now while assets keep it higher — and it lists rapid growth in capitalised costs as a sign that expenses are being shifted onto the balance sheet."
+      ],
+      "checklist": [
+        "States the test as identifiable and reliably measurable future benefits, not management’s belief that something is valuable.",
+        "Reaches the right treatment for all four items and gives the week’s reason for each.",
+        "Names conservatism in financial reporting as the principle behind expensing the uncertain items.",
+        "Acknowledges the incentive to capitalise, and the warning sign that follows from it."
+      ]
+    },
+    {
+      "topic": "Assumptions on Expenses",
+      "title": "The assumptions behind a strong year",
+      "setup": "A board is shown a profit figure comfortably ahead of last year. Nothing about the products, prices or volumes has obviously changed. The notes reveal that the useful life assumed for the company’s servers has been revisited, that no repairs were paid for in the second half, and that a large advertising campaign ran late in the year.",
+      "task": "Work out which questions you would put to management before accepting that profit as a measure of the year’s performance.",
+      "hints": [
+        "Some expenses come from clear external transactions. Others do not. Sort the three items in front of you into those two groups first.",
+        "Take depreciation, repairs and advertising in turn, and for each ask which period should carry the cost.",
+        "The week has a worked pair of numbers for servers under two different useful lives. Use it as the shape of the argument, not as this company’s figures."
+      ],
+      "walkthrough": [
+        "Separate the expenses that arise from clear external transactions, such as a wage payment, from those where management must estimate how much was consumed, which period benefited, and how a total cost should be spread.",
+        "Depreciation is the estimate with the most leverage. In the week’s example, servers bought for $120,000 give annual depreciation of $30,000 over a four-year life and $40,000 over a three-year life — the assumption changes reported profit even though the original cash payment is unchanged. So ask whether the useful life was revised, and on what evidence.",
+        "Repairs occur irregularly while the asset supports revenue continuously, so a period with no repair payment still consumed maintenance-related resources. A quiet half-year on repairs is a timing question, not a saving.",
+        "Advertising may be bought in one period but earn revenue across several, and management may not know whether it produced a sale, how long the benefit lasts, or which period should carry the cost. Ask which period is bearing the campaign.",
+        "Close on the standard the week sets: assumptions should be reasonable, consistently applied, evidence-backed and revisited when circumstances change. The question for the board is whether different reasonable assumptions would materially change reported profit."
+      ],
+      "checklist": [
+        "Distinguishes estimated expenses from transaction-based ones before analysing any of them.",
+        "Uses the useful-life comparison to show how an assumption moves profit without moving cash.",
+        "Treats the absence of a repair payment as a timing question rather than an efficiency gain.",
+        "Asks whether costs are being postponed to make current profit appear stronger.",
+        "Frames the conclusion as the objective of measuring resources used during the period, not payments made."
+      ]
+    },
+    {
+      "topic": "Comprehensive Income",
+      "title": "A revaluation and a bonus claim",
+      "setup": "A property-heavy technology firm reports its strongest comprehensive income in years. Sales, costs and trading profit are all flat. The movement comes from a data centre carried at $40 million that an independent valuer has now assessed at $50 million. The executive team is presenting the result as evidence of a strong year.",
+      "task": "Decide whether comprehensive income supports that claim, and say what you would judge the year on instead.",
+      "hints": [
+        "Comprehensive income is not the same thing as trading profit. Start by writing down what it adds to the P&L.",
+        "Ask what actually happened to the data centre this year — was anything sold, and did any cash arrive?",
+        "The week ranks these measures for what they say about financial strength. Work out which ones it puts ahead."
+      ],
+      "walkthrough": [
+        "State the relationship: Comprehensive income = NPAT + Other comprehensive income. The extension covers gains or losses that change equity without being trading profit, generally arising from movements in asset values or exchange rates rather than completed transactions.",
+        "Trace the revaluation. The data centre carried at $40 million and revalued at $50 million adds $10 million to the asset and $10 million to the asset revaluation reserve. Normal profits increase retained earnings; other comprehensive income generally affects a relevant reserve instead.",
+        "Test the gain. It is unrealised — the property has not been sold, no cash arrived, and the value could fall again. The week also shows what happens on the way down: the reserve absorbs the fall first, and anything beyond it becomes an expense that reduces profit and retained earnings.",
+        "Conclude. Comprehensive income can be high while sales, costs and trading profit are unchanged, and other comprehensive income may be estimated, volatile, reversible and unrelated to cash generation — so it is less telling about financial strength than NPAT and operating cash flow."
+      ],
+      "checklist": [
+        "Separates trading profit from other comprehensive income and says where each one lands in equity.",
+        "Identifies the gain as unrealised, and explains what that means for cash.",
+        "Notes the reversibility of the movement and how a later fall would be treated.",
+        "Redirects the assessment of the year to NPAT and operating cash flow."
+      ]
+    },
+    {
+      "topic": "Operating Cash Flow",
+      "title": "Profitable and short of cash",
+      "setup": "A company you advise reports profit after tax of $14.8m and has just paid a $10.0m dividend. Its bank balance rose $2.0m over the year, which the chief executive is presenting as proof the business generates cash. The cash flow statement shows operating cash flow of −$1.2m, depreciation of $10.0m added back, and $23.2m of new long-term debt.",
+      "task": "Reconstruct how profit of $14.8m became operating cash flow of −$1.2m, and judge whether the dividend was supported.",
+      "hints": [
+        "Profit and cash differ for two kinds of reason in this week. One kind is added back; the other is subtracted.",
+        "Add the depreciation back first, and see what the business earned in cash before anything moved in working capital.",
+        "Three working-capital movements are running against the company at once. Identify each, then set the total against the cash earnings figure."
+      ],
+      "walkthrough": [
+        "Use the reconciliation: profit after tax + non-cash expenses ± working capital movements = operating cash flow.",
+        "Add back the non-cash charge. $14.8m of profit after tax plus $10.0m of depreciation gives $24.8m of cash earnings before working-capital movements.",
+        "Subtract what working capital absorbed: a $10.0m increase in receivables, a $6.0m increase in inventory and a $10.0m decrease in payables — $26m in total, which turns $24.8m into −$1.2m of operating cash flow.",
+        "Carry it through. −$1.2m operating cash flow − $10.0m investment = −$11.2m of free cash flow; $11.2m + $10.0m of dividends = a $21.2m total funding requirement; and $23.2m of new long-term debt − $21.2m of shortfall = the $2.0m that reached the bank balance.",
+        "Answer the chief executive. The rise in cash was not performance — the company borrowed more than it immediately spent, and long-term debt is funding working capital, capital expenditure and dividends."
+      ],
+      "checklist": [
+        "Adds back depreciation before touching working capital, and reaches the $24.8m intermediate figure.",
+        "Names all three working-capital movements and their combined effect.",
+        "Follows the funding requirement through to the new borrowing rather than stopping at operating cash flow.",
+        "States plainly that the increase in the bank balance came from borrowing, not from operations.",
+        "Names what would make the position fail — receivables staying uncollected, inventory not selling, or operating cash flow staying negative."
+      ]
+    },
+    {
+      "topic": "Working Capital Assessment",
+      "title": "Pricing the funding gap",
+      "setup": "A manufacturer’s funding gap has settled at 103 days, and the business borrows at a 10% cost of funds. The managing director’s instinct is that working capital is an accounting matter for the finance team rather than an operating problem, because the company is profitable and revenue is growing.",
+      "task": "Translate the funding gap into a financing requirement and an annual cost, then decide what to do about it.",
+      "hints": [
+        "A gap measured in days can be restated as a share of a year. Start there.",
+        "Once you have the share of revenue, the cost of carrying it follows from the cost of funds.",
+        "The gap has named components. Work out which of them you would examine first, and what each one would imply."
+      ],
+      "walkthrough": [
+        "Convert the days. Funding Gap / 365 gives 103 / 365 = ~28%, so roughly 28% of annual revenue may need to be funded — approximately $28 of funding for every $100 of revenue.",
+        "Price it. On $28 million of funding at a 10% cost of funds, $28m x 10% = $2.8m of annual interest cost.",
+        "Attribute the gap. It is the operating cash cycle less days payables, so ask which component moved: an increase in inventory days points at excess, obsolete or slow-moving stock; an increase in receivable days at a weaker credit policy or slower customer payments; a decrease in payable days at less supplier credit or faster payment.",
+        "Answer the managing director. A longer gap increases borrowing requirements and interest expense, weakens operating cash flow, reduces funds available for investment, and places greater pressure on liquidity as the business grows — so growth makes it worse, not safer.",
+        "Set the action. Reducing unnecessary days in the operating cycle releases cash, lowers financing costs and improves financial health even without increasing profit."
+      ],
+      "checklist": [
+        "Converts days into a share of annual revenue using the week’s method.",
+        "Puts an annual interest cost on the requirement rather than leaving it in days.",
+        "Diagnoses the gap by component instead of treating it as one number.",
+        "Rejects the framing that a profitable, growing business need not worry about the gap.",
+        "Ends with an action that releases cash without requiring revenue growth."
+      ]
+    },
+    {
+      "topic": "Risk Assessment",
+      "title": "Debt for a concentrated business",
+      "setup": "A board is considering funding an expansion with additional borrowing. The company earns most of its revenue from two customers and one large project, its debt sits a little under half of assets, and interest cover is close to the floor this week gives. A competitor in a more diversified and more predictable market carries a similar debt ratio comfortably.",
+      "task": "Advise the board on whether the additional debt is appropriate for this business.",
+      "hints": [
+        "There are two kinds of risk in this week, and only one of them is what the debt ratios measure.",
+        "The thresholds are guidelines. Ask what the week says makes a given level of leverage appropriate or excessive.",
+        "Look past the ratios at the concentration in the revenue base, and at whether the assets could be turned into cash if the business needed them to be."
+      ],
+      "walkthrough": [
+        "Take the measurable side first. Financial risk arises from the use of debt and the firm’s ability to meet its obligations: Debt ÷ Assets preferably below 50%, Debt ÷ Equity preferably below 100%, and Interest Cover = EBIT / Interest Expense preferably at least 3×. On these guidelines the company sits at the edge rather than clear of it.",
+        "Add the cash test. Debt ratios alone do not show whether the firm has enough cash to meet obligations, so compare cash flow from operations against current liabilities. If operating cash flow is insufficient, the business may need additional debt, cash reserves or asset sales — which increases vulnerability during periods of financial stress.",
+        "Assess business risk, which no single ratio captures: key customer dependence, key supplier dependence, reliance on a major project, low revenue diversification, limited access to funding, poor asset replacement and low asset saleability.",
+        "Set the two sides against each other. A business with stable cash flows and low business risk is better positioned to carry debt, because it has greater certainty about servicing it; a business with highly uncertain earnings has less capacity to take on substantial leverage. That is why the same ratio can be reasonable for the competitor and excessive here.",
+        "Give the advice in the week’s terms: financial health depends not only on the return being generated, but on how much risk the business must carry to generate and sustain that return."
+      ],
+      "checklist": [
+        "Applies all three financial-risk guidelines and treats them as guidelines rather than limits.",
+        "Tests cash against short-term obligations, not only debt against assets.",
+        "Names specific business-risk exposures in this company rather than describing risk in general.",
+        "Explains why the competitor’s comparable ratio does not settle the question.",
+        "Reaches a recommendation instead of listing considerations."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,449 @@
+{
+  "page": "DMBA6008-week2.html",
+  "quizIntro": "Twenty-two questions across the week’s four topics — what the asset mix says about the business model, the drivers behind a return, the DuPont decomposition, and sustainable growth. Take the hint first if you want a nudge rather than the answer. Once you choose, every option opens: why the right one is right, and what confusion each of the other three comes from.",
+  "applyIntro": "These are situations to reason through with the week’s own tools rather than questions to recall an answer to. Each gives you three hints that unfold one at a time, from the widest nudge to the narrowest, so you can stop as soon as you have enough. The walkthrough that follows uses only what this page states.",
+  "quiz": [
+    {
+      "topic": "Assets reflect the business model",
+      "q": "Common-size asset analysis expresses each asset category as a percentage of total assets. What does that make possible?",
+      "hint": "Ask what stops being a difference between the two balance sheets once every category is stated as a share.",
+      "options": [
+        { "t": "It puts companies of very different sizes on one scale, so the differences that survive have to be explained by business model and industry.", "ok": true, "note": "This is the week’s reason for using it: stating every category on the same scale allows comparison between companies of very different sizes and helps identify differences driven by their business models and industries." },
+        { "t": "It establishes a universal benchmark mix that every company can be measured against.", "ok": false, "note": "The week says the opposite. A company’s asset mix should be assessed against its business model, industry and strategy, not against a universal benchmark." },
+        { "t": "It ranks the asset categories by how much profit each one generates.", "ok": false, "note": "Common-size analysis restates categories as a share of total assets and says nothing about the profit attached to any of them. Profit enters this week through the return measures instead." },
+        { "t": "It converts the balance sheet into a forecast of the revenue those assets will produce.", "ok": false, "note": "Nothing in common-size analysis is forward-looking. It is a way of restating what is already on the balance sheet so that size stops being the difference." }
+      ]
+    },
+    {
+      "topic": "Assets reflect the business model",
+      "q": "A balance sheet shows an unusually high proportion of receivables. What does the week’s category reading suggest?",
+      "hint": "Each category points at the activity sitting behind it. Ask what has to be true about the customer for this balance to build up.",
+      "options": [
+        { "t": "Growth has relied heavily on acquisitions.", "ok": false, "note": "That is the week’s reading for a high proportion of goodwill, which reflects historical acquisition activity and acquisition premiums." },
+        { "t": "Operations require substantial physical infrastructure.", "ok": false, "note": "That is the reading for a high proportion of PPE — capital-intensive operations requiring physical infrastructure." },
+        { "t": "Customers receive credit, or payment occurs after service delivery.", "ok": true, "note": "This is the week’s reading for receivables, and as a strategy signal it says customer credit is an important part of the commercial model." },
+        { "t": "Value creation depends on software, intellectual property or product development.", "ok": false, "note": "That is the reading for other intangibles, not receivables." }
+      ]
+    },
+    {
+      "topic": "Assets reflect the business model",
+      "q": "Which asset profile does the week attach to a digital platform business?",
+      "hint": "Four patterns are described. Work out which categories this one is said to lean on, and which it is said to hold little of.",
+      "options": [
+        { "t": "A high proportion of PPE, with the balance sheet weighted toward non-current assets.", "ok": false, "note": "That is the capital-intensive pattern — aircraft, buildings, factories or other major infrastructure, with capital committed before revenue can be generated." },
+        { "t": "Relatively little inventory and physical infrastructure, with more weight in software and other intangibles, and goodwill where growth came through acquisitions.", "ok": true, "note": "This is the week’s digital platform pattern, and it is why a SaaS platform would normally be expected to hold much less inventory and PPE than a hardware manufacturer." },
+        { "t": "Substantial inventory held available for sale, together with receivables from customers offered credit.", "ok": false, "note": "That is the retail pattern, whose asset structure reflects both stock management and customer payment arrangements." },
+        { "t": "Both inventory and PPE, because production requires facilities and equipment.", "ok": false, "note": "That is the manufacturing pattern: inventory as products move through production and distribution, and PPE because production needs facilities." }
+      ]
+    },
+    {
+      "topic": "Assets reflect the business model",
+      "q": "An analyst sees one asset category sitting far above what she expected and concludes the company is badly run. What does the week say about that move?",
+      "hint": "The week is explicit both about how many numbers you read at once and about what you compare the mix to.",
+      "options": [
+        { "t": "The judgement holds as long as it is drawn from common-size percentages rather than dollar amounts.", "ok": false, "note": "Common-size analysis fixes the size problem, not the problem of judging a category on its own." },
+        { "t": "Any category above the industry average should be sold, redeployed or restructured.", "ok": false, "note": "Selling, redeploying or restructuring is the week’s response to surplus assets that are not producing enough income — a drivers-of-returns point, not a rule for any large category." },
+        { "t": "An unusually large category is always a working capital problem.", "ok": false, "note": "Working capital risk is the specific question the week raises about unusually high inventory or receivables. It is not the reading for every large category." },
+        { "t": "The categories are meant to be interpreted together, and the mix assessed against the company’s business model, industry and strategy rather than any single number.", "ok": true, "note": "Both halves are stated on the page: the value comes from reading the categories together, and the mix is judged against the model, industry and strategy rather than a universal benchmark." }
+      ]
+    },
+    {
+      "topic": "Assets reflect the business model",
+      "q": "Over three years a company’s asset mix shifts steadily away from PPE and toward goodwill and other intangibles. How does the week treat that shift?",
+      "hint": "The week says something about composition changing over time that it does not say about composition at a single date.",
+      "options": [
+        { "t": "As a signal that the business model or growth strategy may be changing, and therefore something to investigate.", "ok": true, "note": "The week states directly that changes in asset composition over time can indicate that the business model or growth strategy is changing." },
+        { "t": "As evidence that the company has become more capital intensive.", "ok": false, "note": "Capital intensity shows up as a high proportion of PPE. The shift described moves weight away from PPE, not toward it." },
+        { "t": "As proof that the company now earns more profit from each dollar of assets.", "ok": false, "note": "Composition says nothing about the profit earned on the base. That is what a return measure adds." },
+        { "t": "As something to set aside, since a mix is only meaningful at a single point in time.", "ok": false, "note": "The week treats the change itself as a signal, on top of whatever the mix says at any one date." }
+      ]
+    },
+    {
+      "topic": "Drivers of returns",
+      "q": "Why does the week describe ROA and ROE as combining two things at once?",
+      "hint": "Think about which financial statement each half of the measure comes from.",
+      "options": [
+        { "t": "Because both are struck after interest and tax.", "ok": false, "note": "The week’s point is about which statements the two halves come from, not about where in the income statement the profit figure is taken." },
+        { "t": "Because each averages the opening and closing balance sheet.", "ok": false, "note": "The page does not describe how the base is measured. Its point is that a return measure has an income statement half and a balance sheet half." },
+        { "t": "Because each sets an income statement outcome — profitability — against a balance sheet base: the assets or equity used to generate that profit.", "ok": true, "note": "This is exactly how the week introduces the return measures, and it is why the management task has two halves too." },
+        { "t": "Because each combines a historical result with a forecast of future returns.", "ok": false, "note": "Both halves are reported outcomes. Nothing in the measure is a forecast." }
+      ]
+    },
+    {
+      "topic": "Drivers of returns",
+      "q": "A managing director argues that the only route to a better return is a bigger profit. What does the week add to that?",
+      "hint": "The measure has two halves, and only one of them is profit.",
+      "options": [
+        { "t": "Profit stops mattering once the funding mix has been settled.", "ok": false, "note": "The week adds the capital side without displacing the profit side. Profitability is still the income statement half of the measure." },
+        { "t": "Returns also require managing how much capital is tied up in the business.", "ok": true, "note": "The week states that improving returns is not only about increasing profit; it also requires managing the capital standing behind that profit." },
+        { "t": "Only revenue growth, rather than profit, moves a return measure.", "ok": false, "note": "Profitability is the income statement outcome in the measure, and the week treats revenue growth as one input to it rather than a substitute for it." },
+        { "t": "Returns can be lifted only by raising prices.", "ok": false, "note": "Pricing sits under margin, one driver among several. Asset utilisation, working capital and the funding mix all bear on the return as well." }
+      ]
+    },
+    {
+      "topic": "Drivers of returns",
+      "q": "In the core driver chain, working capital is driven by inventory, receivables and payables. What management focus does the week attach to it?",
+      "hint": "Each outcome in the chain has its own focus. This one is about what growth does to cash.",
+      "options": [
+        { "t": "Financing the assets appropriately.", "ok": false, "note": "That is the focus the week attaches to capital structure, whose driver is the debt and equity funding mix." },
+        { "t": "Capacity and the productive use of assets.", "ok": false, "note": "That is the focus for asset efficiency, whose driver is asset utilisation." },
+        { "t": "Protecting returns from competitive erosion.", "ok": false, "note": "That is the focus for sustained returns, whose driver is the competitive advantage period." },
+        { "t": "Preventing growth from absorbing excessive cash.", "ok": true, "note": "This is the focus the week attaches to working capital, and it is why poor working capital management can leave a growing, profitable business short of cash." }
+      ]
+    },
+    {
+      "topic": "Drivers of returns",
+      "q": "The week notes that products can be high volume with a low margin, or low volume with a high margin. What does it say management should therefore do?",
+      "hint": "The two combinations are not a ranking. Ask what decision having two viable shapes forces on you.",
+      "options": [
+        { "t": "Decide which products, customers and markets deserve investment, rather than simply maximising sales.", "ok": true, "note": "This is the week’s conclusion from profitability depending on both volume and margin, and its technology example has a business balancing the two." },
+        { "t": "Maximise sales volume, on the basis that profitability follows from scale.", "ok": false, "note": "The week explicitly contrasts this with the decision it wants. Volume is only one of the two things profitability depends on." },
+        { "t": "Withdraw from low-margin products, since volume cannot make up for a thin margin.", "ok": false, "note": "High volume with a low margin is one of the two combinations the week treats as viable, not a category to exit." },
+        { "t": "Standardise the margin across the product range.", "ok": false, "note": "Nothing in the week asks for a uniform margin. It asks for a judgement about where investment goes." }
+      ]
+    },
+    {
+      "topic": "Drivers of returns",
+      "q": "A division has been operating well below capacity for two years. What response does the week name for assets that are not producing enough income?",
+      "hint": "The week asks one question of any asset base, and names three things that can follow if the answer is no.",
+      "options": [
+        { "t": "Revalue them, so that the return measure improves.", "ok": false, "note": "The week’s response to under-used assets is operational. Changing a measurement does not change how hard the assets are working." },
+        { "t": "Fund them with more debt, so that leverage lifts the return.", "ok": false, "note": "That confuses the return to shareholders with the productivity of the assets. The issue the week raises here is that the assets are not producing enough income." },
+        { "t": "They may need to be sold, redeployed or restructured.", "ok": true, "note": "These are the three responses the week names for surplus assets, because spare or under-utilised capacity reduces returns." },
+        { "t": "Leave them in place, since spare capacity costs nothing until it is used.", "ok": false, "note": "The week states plainly that spare or under-utilised capacity reduces returns, so it is something to act on rather than to sit with." }
+      ]
+    },
+    {
+      "topic": "Drivers of returns",
+      "q": "What does the competitive advantage period measure?",
+      "hint": "It is measured against a benchmark and it ends because of someone else’s behaviour.",
+      "options": [
+        { "t": "The number of years an asset keeps generating revenue before it has to be replaced.", "ok": false, "note": "That is a question about asset life. The competitive advantage period is about competitors, not about wear." },
+        { "t": "The period for which a company can maintain returns above its cost of capital before competitors catch up.", "ok": true, "note": "This is the week’s definition, and it is why a strong current return is not enough on its own." },
+        { "t": "The period over which a company can grow without needing new financing.", "ok": false, "note": "That is much closer to the sustainable growth rate, which is a financing constraint rather than a statement about competitors." },
+        { "t": "The time a new product takes to reach its target margin.", "ok": false, "note": "The period concerns how long a superior return lasts, not how quickly one is reached." }
+      ]
+    },
+    {
+      "topic": "DuPont model example",
+      "q": "What does decomposing a return with the DuPont model let an analyst do?",
+      "hint": "The week contrasts two things an analyst can say about a ratio that has moved.",
+      "options": [
+        { "t": "Forecast the return the company will earn next year.", "ok": false, "note": "The model explains a movement that has already happened. Nothing on the page turns it into a projection." },
+        { "t": "Convert a return ratio into a cash figure.", "ok": false, "note": "The decomposition stays in ratio terms. It splits a return into drivers rather than translating it into cash." },
+        { "t": "Compare the return directly with the cost of capital.", "ok": false, "note": "That comparison belongs to the competitive advantage period. DuPont breaks the return into the drivers that produced it." },
+        { "t": "Explain why ROA or ROE changed, rather than simply observing that they changed.", "ok": true, "note": "This is the stated purpose, and it is why the week says an improving ratio is only meaningful once the driver of the improvement is understood." }
+      ]
+    },
+    {
+      "topic": "DuPont model example",
+      "q": "The first DuPont relationship splits return on assets into which two drivers?",
+      "hint": "Both of them are operating drivers. One is about revenue from the asset base, the other about profit from revenue.",
+      "options": [
+        { "t": "Asset utilisation and profit margin.", "ok": true, "note": "The week states it as ROA = Asset Utilisation x Profit Margin: revenue generated per dollar of assets, and profit generated per dollar of revenue." },
+        { "t": "Profit margin and financial leverage.", "ok": false, "note": "Leverage is the third term, added only when the model moves from return on assets to return on equity." },
+        { "t": "Asset utilisation and financial leverage.", "ok": false, "note": "Leverage is not part of return on assets. Both ROA drivers are operating drivers." },
+        { "t": "Retention and leverage.", "ok": false, "note": "Those belong to the drivers of sustainable growth, not to the DuPont decomposition of a return on assets." }
+      ]
+    },
+    {
+      "topic": "DuPont model example",
+      "q": "A company’s assets-to-equity ratio has risen. What does the week say a higher ratio generally indicates?",
+      "hint": "The ratio counts how much asset base sits behind each dollar of shareholder equity. Ask what is funding the rest.",
+      "options": [
+        { "t": "Assets are generating more revenue for each dollar invested in them.", "ok": false, "note": "That is asset utilisation, one of the two operating drivers, not the leverage term." },
+        { "t": "Revenue is being converted into more profit.", "ok": false, "note": "That is profit margin — pricing power and control of expenses — not the assets-to-equity ratio." },
+        { "t": "More of the asset base is being financed through debt relative to equity.", "ok": true, "note": "This is the week’s reading of the ratio, which shows how much of the asset base exists for each dollar of shareholder equity." },
+        { "t": "Shareholders have put additional equity into the business.", "ok": false, "note": "The week reads a higher ratio as more debt relative to equity, which is the opposite side of the same comparison." }
+      ]
+    },
+    {
+      "topic": "DuPont model example",
+      "q": "ROE has risen while ROA is unchanged. What does the week conclude about that pattern?",
+      "hint": "Only one of the three terms in the expanded relationship is free to move if the first two have not.",
+      "options": [
+        { "t": "Asset utilisation must have improved.", "ok": false, "note": "Asset utilisation is one of the two drivers of return on assets, so a real improvement in it would have shown up in ROA as well." },
+        { "t": "The improvement comes from using more debt: shareholders appear to earn a higher return while the underlying operating return has not improved.", "ok": true, "note": "This is the week’s case of unchanged ROA plus higher leverage producing a higher ROE, which may reflect greater risk rather than better management performance." },
+        { "t": "Profit margin must have improved.", "ok": false, "note": "Margin is the other driver of return on assets, so a margin improvement would also move ROA." },
+        { "t": "The company must have cut its dividend payout.", "ok": false, "note": "Retention decides how much profit stays in the business to fund growth. It is not one of the three causes of a higher ROE the week lists." }
+      ]
+    },
+    {
+      "topic": "DuPont model example",
+      "q": "A transaction raises asset utilisation, while the additional revenue it brings carries proportionately higher expenses. What outcome does the week describe?",
+      "hint": "Two drivers move in opposite directions. Ask what that does to the ratio they sit under.",
+      "options": [
+        { "t": "ROA rises, because asset utilisation is the dominant driver.", "ok": false, "note": "The week does not rank the two drivers. It uses this case precisely to show them working against each other." },
+        { "t": "ROE falls, because the leverage term has been diluted.", "ok": false, "note": "Nothing in the case changes the funding mix. Both moving drivers are operating drivers." },
+        { "t": "The revenue growth on its own is enough to confirm the transaction improved the return.", "ok": false, "note": "This is exactly what the case is meant to disprove: analysing only revenue growth, profit growth or a single ratio can give an incomplete picture." },
+        { "t": "The two effects can offset each other, leaving ROA unchanged.", "ok": true, "note": "This is the week’s offsetting-driver case, and its point is that a flat ratio can sit on top of two real movements." }
+      ]
+    },
+    {
+      "topic": "DuPont model example",
+      "q": "Profit is higher after an acquisition and management has asked to be rewarded for it. What does the week say an analyst should establish first?",
+      "hint": "List what an acquisition increases mechanically, then ask what is left over as evidence.",
+      "options": [
+        { "t": "Whether a better return has been generated from the additional capital invested, by separating changes in asset productivity, profitability and financial leverage.", "ok": true, "note": "This is the question the week puts to management, and the three effects are exactly how it says DuPont analysis splits an acquisition." },
+        { "t": "Whether total assets increased, since a larger base signals a successful deal.", "ok": false, "note": "An acquisition normally increases assets, revenue, expenses and potentially profit, so growth in any of them is weak evidence on its own." },
+        { "t": "Whether headline ROE increased, which settles the question.", "ok": false, "note": "The week says ROE should never be interpreted without examining what caused it to change, since leverage alone can lift it." },
+        { "t": "Whether revenue grew faster than the acquired business’s revenue.", "ok": false, "note": "Revenue is one of the things an acquisition delivers mechanically. It does not show the return earned on the capital committed." }
+      ]
+    },
+    {
+      "topic": "Sustainable Growth",
+      "q": "How does the week define the sustainable growth rate?",
+      "hint": "Something is being held still while the business grows. Ask what.",
+      "options": [
+        { "t": "The growth rate the market is expected to deliver over the coming year.", "ok": false, "note": "The week is explicit that the measure is not a forecast of demand." },
+        { "t": "The rate at which revenue can grow without absorbing any additional working capital.", "ok": false, "note": "Working capital is one of the resources growth absorbs. The rate is about financial policy staying unchanged, not about absorption falling to nothing." },
+        { "t": "The maximum rate at which a business can grow while keeping its financial policies broadly unchanged, particularly its capital structure.", "ok": true, "note": "This is the week’s definition, and it is why the underlying question is how fast the firm can grow without an unsustainable increase in debt or new equity." },
+        { "t": "The growth rate at which return on assets is maximised.", "ok": false, "note": "Return on assets is one of the drivers of the rate, not the quantity the rate optimises." }
+      ]
+    },
+    {
+      "topic": "Sustainable Growth",
+      "q": "What relationship does the week state between the retention ratio and dividend policy?",
+      "hint": "The two are two shares of the same profit.",
+      "options": [
+        { "t": "The retention ratio rises as the dividend payout ratio rises.", "ok": false, "note": "The week states Retention Ratio = 1 - Dividend Payout Ratio, so the two move in opposite directions." },
+        { "t": "Retention Ratio = 1 - Dividend Payout Ratio, so higher payouts leave less internally generated funding available for growth.", "ok": true, "note": "Both halves are stated on the page — the identity, and the consequence for how much growth the firm can fund itself." },
+        { "t": "Retention determines the return earned on the asset base.", "ok": false, "note": "That is return on assets, a separate driver of the rate. Retention decides how much profit remains in the business." },
+        { "t": "Dividend policy is independent of how fast the business can fund its own growth.", "ok": false, "note": "Dividend policy is one of the relationships the SGR holds constant, and it sets the retention ratio directly." }
+      ]
+    },
+    {
+      "topic": "Sustainable Growth",
+      "q": "Management targets growth above the SGR while the operational and financial drivers stay unchanged. What does the week say follows?",
+      "hint": "If the assets have to be there and retained earnings will not cover them, something else has to fill the gap.",
+      "options": [
+        { "t": "The profit margin falls until the growth becomes affordable.", "ok": false, "note": "The drivers are assumed unchanged in this case. The week has debt, not the margin, doing the balancing." },
+        { "t": "The growth must be commercially unachievable.", "ok": false, "note": "The week’s warning is the reverse: growth may be commercially achievable and still financially unsustainable at the existing risk level." },
+        { "t": "Asset utilisation improves automatically to absorb the extra revenue.", "ok": false, "note": "Better utilisation is a lever management can pull, and only where spare capacity exists. It is not something that happens by itself." },
+        { "t": "Required assets increase faster than retained equity, additional debt becomes the balancing source of finance, and the debt-to-equity ratio rises.", "ok": true, "note": "This is the week’s chain, summarised as Growth > SGR → Higher Leverage." }
+      ]
+    },
+    {
+      "topic": "Sustainable Growth",
+      "q": "Why does the week insist the SGR is a constraint rather than a forecast?",
+      "hint": "Look at the list of things the measure assumes stay put, and at what it is therefore a statement about.",
+      "options": [
+        { "t": "Because it holds relationships such as expense margins, working-capital requirements, asset utilisation, dividend policy and target capital structure broadly unchanged, so it states a financing constraint on growth rather than predicting demand.", "ok": true, "note": "The week lists those assumptions and then draws exactly this conclusion: the rate that keeps the debt-to-equity relationship unchanged, not a view on demand." },
+        { "t": "Because it is calculated from last year’s figures and is already out of date.", "ok": false, "note": "The week raises no timing objection. Its point is what kind of measure this is." },
+        { "t": "Because demand is the only thing that determines feasible growth.", "ok": false, "note": "The week says the opposite: demand alone does not determine feasible growth, which is why the financing side has to be tested separately." },
+        { "t": "Because it leaves the retention ratio out of the calculation.", "ok": false, "note": "Retention is one of the three drivers the week names for the rate." }
+      ]
+    },
+    {
+      "topic": "Sustainable Growth",
+      "q": "A board wants to grow faster and has ruled out any increase in leverage. Which set of responses does the week name?",
+      "hint": "With the financing side fixed, the rate has to be raised from the drivers that are still free to move.",
+      "options": [
+        { "t": "Raise the dividend payout to attract new investors, and lengthen supplier payment terms.", "ok": false, "note": "A higher payout leaves less internally generated funding for growth, which pushes the sustainable rate the wrong way." },
+        { "t": "Accept the plan and let the debt-to-equity ratio rise.", "ok": false, "note": "That is what happens when growth runs above the rate. It is the outcome the board is trying to avoid, not a lever." },
+        { "t": "Increase profitability, improve asset utilisation, reduce working-capital requirements, retain more earnings, or raise new equity.", "ok": true, "note": "These are the five responses the week lists for growing faster without increasing leverage, each of which moves an underlying driver." },
+        { "t": "Borrow at a lower rate and extend the maturity of the existing debt.", "ok": false, "note": "The week’s levers change the drivers behind the rate. Refinancing terms are not among them." }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "Assets reflect the business model",
+      "title": "Two balance sheets, one scale",
+      "setup": "You are handed the balance sheets of two companies in the same broad market. One is many times the size of the other, so the totals are not comparable line for line, and the pack does not say what either company actually does. Your manager wants to know whether the smaller company is built on the same model as the larger one.",
+      "task": "Work out how to make the two balance sheets comparable, and what the asset mix would then let you say about each business model.",
+      "hints": [
+        "Size is the first thing standing in the way, and the week has a standard move for taking it out.",
+        "Once every category is stated on the same scale, whatever is still different has to be explained by something other than size.",
+        "The week gives a reading for each category and four patterns built from those readings. Work category by category, then read them together."
+      ],
+      "walkthrough": [
+        "Restate each asset category as a percentage of total assets. Common-size analysis puts companies of very different sizes on one scale, so size stops being the difference between the two balance sheets.",
+        "Read the categories one at a time against the week’s table. High inventory suggests manufacturing, distribution or retail; high receivables suggests customers receive credit or pay after delivery; high PPE suggests capital-intensive operations; high goodwill suggests significant historical acquisition activity; high other intangibles suggests reliance on software, intellectual property, licenses or product development.",
+        "Then ask where the weight sits overall. A tilt toward non-current assets carried by PPE is the capital-intensive pattern; a tilt toward current assets carried by inventory and receivables is the retail pattern; little inventory or physical infrastructure with weight in software, other intangibles and goodwill is the digital platform pattern.",
+        "Interpret the categories together rather than judging any single number, and assess each mix against that company’s business model, industry and strategy rather than a universal benchmark.",
+        "Finish with what is still unexplained. An asset balance you did not expect is the thing to investigate next, not the thing to argue away."
+      ],
+      "checklist": [
+        "Every category restated as a percentage of total assets before any comparison is made.",
+        "A named reading for each category that carries real weight in the mix.",
+        "An explicit judgement about whether the weight sits in current or non-current assets.",
+        "The mix assessed against the business model and industry, not against a universal benchmark.",
+        "At least one unexpected balance flagged for further investigation."
+      ]
+    },
+    {
+      "topic": "Drivers of returns",
+      "title": "How long the return lasts",
+      "setup": "A business unit has earned a return comfortably above its cost of capital for three years running, and the board has started treating that level as the base case for its planning. The unit’s position rests on a well-regarded brand and on being first with each new feature in its main category. A competitor has just launched something close.",
+      "task": "Advise the board what it needs to test before planning on the current level of return continuing.",
+      "hints": [
+        "The board is treating a level as though it were a duration. The week separates the two.",
+        "The week names what the period is measured against, and what happens to returns without continued investment and innovation.",
+        "Three sources of advantage are listed, and the week attaches one condition to all of them."
+      ],
+      "walkthrough": [
+        "Reframe the question first. A strong current return is not enough; what matters is the competitive advantage period — how long returns can be held above the cost of capital before competitors catch up.",
+        "Name what is holding the period open. The week lists a superior brand, core-category innovation and strategic partnerships, and the first two are exactly what this unit relies on.",
+        "Apply the condition the week attaches: these advantages require continuous maintenance and reinvestment rather than being treated as permanent.",
+        "Trace the alternative path. Without continued investment and innovation, competitive advantage gives way to imitation and competition, then margin erosion, then lower returns.",
+        "Set the management focus accordingly — protecting returns from competitive erosion — and read the unit’s ratios alongside its market and strategic position rather than on their own."
+      ],
+      "checklist": [
+        "The question shifted from the level of the return to the length of the period.",
+        "The competitive advantage period defined against the cost of capital, not against a target.",
+        "The specific sources of advantage this unit depends on identified.",
+        "Reinvestment named as a condition of the period staying open, not as optional.",
+        "The competitor’s launch treated as market-position evidence that belongs beside the ratio."
+      ]
+    },
+    {
+      "topic": "DuPont model example",
+      "title": "Three routes to a better ROE",
+      "setup": "Three subsidiaries have each reported a higher return on equity this year, and each general manager has put in a bonus case. In the first, the assets are generating more revenue. In the second, revenue is being converted into more profit. In the third, nothing operational has changed and the business has taken on more debt relative to equity.",
+      "task": "Decide what each rise actually tells you about performance, and how you would rank the three cases.",
+      "hints": [
+        "The week lists exactly three causes of a higher ROE, and each of these is one of them.",
+        "Two of the three belong to one category and the third does not.",
+        "The expanded relationship has two operating terms and one financing term. Ask which term each case could have moved."
+      ],
+      "walkthrough": [
+        "Start from the relationship the week states: ROE = Asset Utilisation x Profit Margin x Financial Leverage.",
+        "Place each case against the week’s three causes. Higher asset utilisation means assets are generating more revenue; higher profit margin means revenue is being converted into more profit; higher leverage means more debt is being used relative to equity.",
+        "Separate them by kind. The first two are improvements in operating performance. The third can increase shareholder returns mathematically but introduces greater financial risk.",
+        "Test the third case directly: unchanged ROA with higher leverage produces a higher ROE, so shareholders appear to earn more while the underlying operating return has not improved.",
+        "Conclude on the week’s rule. Management performance is judged on the quality and source of returns rather than the headline return, so the third case has to be argued on risk, not on the ratio."
+      ],
+      "checklist": [
+        "Each rise mapped onto one of the three causes the week names.",
+        "Operating improvements distinguished from a financing choice.",
+        "The leverage case described in terms of risk as well as return.",
+        "The bonus question answered on the source of the return rather than its size."
+      ]
+    },
+    {
+      "topic": "DuPont model example",
+      "title": "The ratio that did not move",
+      "setup": "A company wins a large, keenly priced supply contract. Revenue rises sharply, the assets already in place carry most of the extra volume, and the additional revenue brings proportionately higher expenses with it. At year end the return on assets is almost exactly where it started. One director says the contract was worthless; another says the revenue growth speaks for itself.",
+      "task": "Explain what happened to the drivers underneath, and say what the flat ratio does and does not settle.",
+      "hints": [
+        "A ratio that has not moved is not the same as nothing having happened underneath it.",
+        "Two drivers sit behind return on assets. Ask what the contract did to each of them separately.",
+        "The week has a name for the case where one component improves while another weakens."
+      ],
+      "walkthrough": [
+        "Decompose before judging: ROA = Asset Utilisation x Profit Margin.",
+        "Take the drivers one at a time. Asset utilisation rose, because the existing assets generated more revenue. Profit margin fell, because the additional revenue carried proportionately higher expenses.",
+        "Recognise the pattern the week describes: these effects can offset each other, leaving ROA unchanged. The flat ratio is the sum of two real movements, not the absence of movement.",
+        "Answer both directors. The second is wrong because analysing revenue growth alone gives an incomplete picture; the first is wrong because a flat ratio does not show that nothing improved, since one driver did.",
+        "Say what is still open. The decomposition identifies which driver moved; whether a lower-margin volume contract was the right choice is a question to be read alongside the company’s market and strategic position."
+      ],
+      "checklist": [
+        "Both drivers named, with the direction of each stated.",
+        "The offsetting case identified as the reason the ratio is flat.",
+        "The limits of a single ratio, or of revenue growth alone, made explicit.",
+        "A clear statement of what the decomposition does not decide."
+      ]
+    },
+    {
+      "topic": "Sustainable Growth",
+      "title": "Testing a growth plan",
+      "setup": "Sales are confident of 20% revenue growth next year and the market clearly supports it. Existing production and service capacity is already close to fully used. The board has proposed no change to the dividend policy, and it has told the CFO that the current level of financial risk is not to move.",
+      "task": "Work out whether the plan can be financed and operationally supported without changing the risk level, and what to report if it cannot.",
+      "hints": [
+        "Demand is already settled here, and the week says demand alone does not settle the question.",
+        "Follow what the growth needs before you ask where the money comes from — start on the asset side.",
+        "If retained earnings will not cover the requirement and policy is unchanged, the week names what does the balancing and what happens to a ratio as a result."
+      ],
+      "walkthrough": [
+        "Start with the requirement. Revenue growth often needs more working capital, additional inventory and receivables, more non-current assets, and additional funding to finance those assets: Revenue Growth → More Assets → More Financing Required.",
+        "Test the capacity assumption. Growth is only free where there is unused capacity in the existing assets. With capacity already close to fully used, more revenue means more assets are needed.",
+        "Turn to the funding. With the operational and financial drivers unchanged, required assets increase faster than retained equity, retained earnings become insufficient, and additional debt becomes the balancing source of finance.",
+        "State the consequence in the week’s terms: Growth > SGR → Higher Leverage. The debt-to-equity ratio rises, which is exactly what the board said must not move.",
+        "Report it as the week frames it — a warning sign rather than a demand problem. Growth may be commercially achievable and still financially unsustainable at the existing risk level.",
+        "Close with the question the board now has to answer: what operational or financing change would make that growth possible?"
+      ],
+      "checklist": [
+        "The asset and working-capital requirement worked out before the funding question.",
+        "The capacity assumption tested rather than assumed.",
+        "Debt identified as the balancing source once retained earnings fall short.",
+        "The consequence stated as a rise in the debt-to-equity ratio, against a fixed risk mandate.",
+        "The conclusion framed as a financing constraint, not as doubt about demand."
+      ]
+    },
+    {
+      "topic": "Sustainable Growth",
+      "title": "Raising the ceiling, not the debt",
+      "setup": "The same board comes back. It still wants faster growth, it will not increase leverage, and new equity is on the table but unpopular with existing shareholders. One plant does have genuine spare capacity, and the operations director has offered to run everything else harder to make up the difference.",
+      "task": "Identify which drivers could be moved to raise the sustainable growth rate, and where the operations director’s offer should be limited.",
+      "hints": [
+        "If the financing side is fixed, the rate has to be raised from the drivers that are still free.",
+        "The week lists five responses for growing faster without increasing leverage; some are operating changes and one is a dividend decision.",
+        "The offer to run assets harder has a stated limit in the week, and it is about operational consequences rather than accounting."
+      ],
+      "walkthrough": [
+        "Go back to the drivers. The sustainable growth rate is driven by return on assets, leverage and retention, and the board has fixed one of the three.",
+        "Work the levers as the week lists them: increase profitability to generate more internal funds; improve asset utilisation to generate more revenue without proportional asset growth; reduce working-capital requirements to release cash; retain more earnings by reducing the dividend payout; or raise new equity to increase the equity funding base.",
+        "Use the spare capacity where it genuinely exists. Where there is spare capacity, more revenue means better asset utilisation, which can let the business grow further before it needs substantial new financing.",
+        "Limit the rest of the offer. Management should not overuse existing assets where doing so would reduce service quality, increase failures or maintenance, or create operational bottlenecks.",
+        "Take the retention decision explicitly. Retention Ratio = 1 - Dividend Payout Ratio, so any dividend the board protects is internal funding it is choosing not to have.",
+        "Present the result as an alignment rather than a target: a credible growth strategy has to bring together market opportunity, operational capacity and financing capacity."
+      ],
+      "checklist": [
+        "Leverage treated as fixed, with the remaining drivers worked in its place.",
+        "The five levers used as the option set rather than an invented list.",
+        "Spare capacity distinguished from simply running every asset harder.",
+        "The stated limits on overusing assets applied to the operations director’s offer.",
+        "The dividend trade-off named directly rather than left implicit."
+      ]
+    }
+  ],
+  "studyPath": {
+    "intro": "A route through Week 2 that follows the way the material actually builds — the balance sheet first, then what drives a return, then what a return is made of, then how fast the whole thing can grow. Give it about three and a half hours, ideally across two sittings.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Read one topic at a time",
+        "detail": "Start with Assets reflect the business model. It is the only topic here that reads a balance sheet on its own terms, and its category readings — inventory, receivables, PPE, goodwill, other intangibles — are the vocabulary the rest of the week assumes. Then take Drivers of returns before DuPont model example, because everything after it rests on one idea from the start of that topic: a return measure sets an income statement outcome over a balance sheet base. Use the topic chips and work through one topic at a time; the summary runs to thirty-one sections and opens as an outline, so expanding the lot at once is the quickest way to lose the thread.",
+        "time": "~35 min"
+      },
+      {
+        "goto": "formulas",
+        "label": "Line up the sixteen relationships",
+        "detail": "Reading them together is faster than meeting them one at a time in the prose. Two things to notice. The DuPont line is stated twice in different vocabularies — ROE = Asset Utilisation x Profit Margin x Financial Leverage and ROE = Asset Efficiency x Profitability x Leverage — and the tab keeps both deliberately, so treat them as the same decomposition rather than hunting for a difference. The two ROA forms tagged Discussion belong to the fourth tab, so leave those until step six. The seven acronyms take two minutes on the way past.",
+        "time": "~10 min"
+      },
+      {
+        "goto": "terms",
+        "label": "Work the glossary by topic",
+        "detail": "Seventy-three terms, and the filter beats scrolling. The pairs worth being able to separate cold are asset utilisation against profit margin, ROA against ROE, and the retention ratio against the dividend payout ratio — those three confusions are what most of the wrong answers in the quiz are built from. Do not skim the sustainable growth entries: they carry the assumptions the rate depends on, which the summary states as a single list and the flashcards then test one at a time.",
+        "time": "~20 min"
+      },
+      {
+        "goto": "cards",
+        "label": "Run the deck, then shuffle it",
+        "detail": "A hundred and eight cards is the biggest deck of the week, so split it across two sittings rather than grinding it in one. Take it in order first — the deck follows the summary, so the DuPont run lands only after the drivers are in place — then shuffle, because by the second pass the order is doing some of the remembering for you. The cards that should still feel uncomfortable are the ones asking what a higher ROE actually proves.",
+        "time": "~40 min"
+      },
+      {
+        "goto": "quiz",
+        "label": "Test the readings, not the recall",
+        "detail": "Twenty-two questions, and a right answer is not the end of it — read the note on all four options, because most of the wrong ones are a reading borrowed from a different asset category, or a driver taken from the wrong side of the decomposition, and naming that confusion is the point. If the assets-to-equity question or the offsetting-drivers question goes wrong, go back to the return on equity and offsetting drivers sections before moving on.",
+        "time": "~25 min"
+      },
+      {
+        "goto": "discussion",
+        "label": "Push the tools past the summary",
+        "detail": "This is the only tab of its kind on the site and it is worth the time. Eight questions take the week's tools further than the summary asks — whether a high ROA means the assets are efficient or simply absent, when a falling ROA is defensible, why maximising the ratio is not the same as serving the owners. Read the panel's own note at the top first: this tab is rewritten and extended rather than transcribed, and the company examples illustrate a mechanism with no financial figures attached, so treat them as arguments to test rather than facts to quote.",
+        "time": "~30 min"
+      },
+      {
+        "goto": "apply",
+        "label": "Reason through the six situations",
+        "detail": "Six scenarios and no new arithmetic. Save the two Sustainable Growth ones for last and do them back to back, since the second picks up the same board the first leaves. Write your own walkthrough before opening the one provided — the value is in whether you reach for the growth financing chain and the capacity assumption without being told to. If a scenario stalls, the hints unfold one at a time; take one, not all three.",
+        "time": "~40 min"
+      }
+    ],
+    "close": "The week has landed when you can take a company whose ROE has risen, say which of the three causes did it, and explain what that says about the risk shareholders are now carrying — without opening the page."
+  }
+}

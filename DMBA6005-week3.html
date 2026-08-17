@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Week 3 — Ideation and prototyping — DMBA 6005</title>
-  <meta name="description" content="Week 3 of DMBA 6005: design thinking and how ideas are generated and narrowed, why prototypes are built early, cheaply and deliberately imperfect, personas and user stories, and long-term strategic value for $RUs — summaries and visuals, key concepts, and flashcards.">
+  <meta name="description" content="Week 3 of DMBA 6005: design thinking and how ideas are generated and narrowed, why prototypes are built early, cheaply and deliberately imperfect, personas and user stories, and long-term strategic value for $RUs — summaries and visuals, key concepts, flashcards, a quiz and applied scenarios.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -1191,6 +1191,349 @@
         scroll-behavior: auto !important;
       }
     }
+    /* ── Quiz & Apply it ───────────────────────────────────────────────
+       Two practice modes layered on top of the synced material. Both are
+       rendered at runtime from authored arrays, the way the glossary and
+       the deck already are, so a re-sync replaces data and never markup.
+       Right/wrong reuse the --pos/--neg verdict tokens the page already
+       defines; no new token is introduced. */
+    .quizbar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 1.5rem 0 0.4rem;
+      padding: 13px 18px;
+      border-radius: var(--radius-lg);
+      background: var(--surface2);
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .quizbar .progress { min-width: 120px; }
+    .quizbar .btn { flex: 0 0 auto; }
+    .quiz-score {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+    .quiz-score strong { color: var(--ink); }
+    .quiz-verdict {
+      margin: 0.6rem 0 0;
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      background: var(--pos-soft);
+      color: var(--pos);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .quiz-verdict[hidden] { display: none; }
+
+    .quiz-list, .scen-list { display: grid; gap: 16px; margin-top: 1.4rem; }
+    .quiz-q, .scen {
+      padding: clamp(18px, 3vw, 26px);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+    }
+    .quiz-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .quiz-n {
+      flex: 0 0 auto;
+      padding: 3px 11px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .quiz-stem {
+      margin: 0 0 0.2rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.04rem;
+      line-height: 1.36;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: pretty;
+    }
+
+    .opts { display: grid; gap: 9px; margin-top: 1rem; }
+    .opt {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--ink2);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    }
+    .opt:hover:not(:disabled) { border-color: var(--accent); color: var(--ink); transform: translateY(-1px); }
+    .opt:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; }
+    .opt:disabled { cursor: default; }
+    .opt-key {
+      flex: 0 0 auto;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--paper2);
+      color: var(--ink2);
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      font-weight: 800;
+    }
+    .opt-t { flex: 1 1 auto; min-width: 0; }
+    .opt[data-state="right"] { border-color: var(--pos); background: var(--pos-soft); color: var(--ink); }
+    .opt[data-state="right"] .opt-key { background: var(--pos); color: #fff; }
+    .opt[data-state="wrong"] { border-color: var(--neg); background: var(--neg-soft); color: var(--ink); }
+    .opt[data-state="wrong"] .opt-key { background: var(--neg); color: #fff; }
+    .opt[data-state="off"] { opacity: 0.5; }
+
+    .fb {
+      margin-top: 12px;
+      padding: 13px 17px;
+      border-radius: var(--radius);
+      background: var(--surface2);
+      border-left: 3px solid var(--ink3);
+    }
+    .fb + .fb { margin-top: 9px; }
+    .fb p { margin: 0.35rem 0 0; font-size: 0.87rem; color: var(--ink2); }
+    .fb-tag {
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+    .fb--right { border-left-color: var(--pos); background: var(--pos-soft); }
+    .fb--right .fb-tag { color: var(--pos); }
+    .fb--wrong { border-left-color: var(--neg); background: var(--neg-soft); }
+    .fb--wrong .fb-tag { color: var(--neg); }
+
+    /* ── Progressive reveals — hints and walkthroughs ──────────────────── */
+    .reveal {
+      margin-top: 10px;
+      border: 1.5px dashed var(--line);
+      border-radius: var(--radius);
+      background: var(--surface2);
+    }
+    .reveal > summary {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 16px;
+      list-style: none;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+    }
+    .reveal > summary::-webkit-details-marker { display: none; }
+    .reveal > summary::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+      transform: rotate(-45deg);
+      transition: transform 0.22s ease;
+    }
+    .reveal[open] > summary::before { transform: rotate(45deg); }
+    .reveal > summary:hover { color: var(--accent); }
+    .reveal > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; border-radius: var(--radius); }
+    .reveal-body { padding: 0 16px 14px; }
+    .reveal-body p { margin: 0; font-size: 0.88rem; color: var(--ink2); }
+    .reveal-body .steps { margin: 0.2rem 0 0; }
+    .reveal-body .steps li { font-size: 0.88rem; }
+    .reveal--work { border-style: solid; border-color: var(--line2); background: #fff; }
+
+    /* ── Apply it ──────────────────────────────────────────────────────── */
+    .scen-title {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.12rem, 2.2vw, 1.3rem);
+      line-height: 1.16;
+      letter-spacing: -0.025em;
+    }
+    .scen-setup { margin: 0 0 0.9rem; font-size: 0.94rem; color: var(--ink2); }
+    .scen-task {
+      margin: 0 0 1.1rem;
+      padding: 13px 17px;
+      border-radius: var(--radius);
+      background: var(--sky);
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+    .scen-task strong {
+      display: block;
+      margin-bottom: 3px;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .check { list-style: none; margin: 0.4rem 0 0; padding-left: 0; }
+    .check li {
+      position: relative;
+      margin-bottom: 0.55rem;
+      padding-left: 1.7rem;
+      font-size: 0.88rem;
+      color: var(--ink2);
+    }
+    .check li:last-child { margin-bottom: 0; }
+    .check li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.28em;
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid var(--ink3);
+      border-radius: 4px;
+      background: #fff;
+    }
+    .reveal-body h5 { margin-top: 1.2rem; }
+
+    /* ── The study path ────────────────────────────────────────────────
+       "How to master this week" — the first block of the summary panel.
+       A numbered route through the modes the week actually has, with each
+       step able to jump straight to its tab. Authored as static markup so
+       the panel still reads with JS off; only the jump is enhanced. */
+    .path {
+      counter-reset: pathstep;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin: 1.5rem 0 1.3rem;
+      padding-left: 0;
+    }
+    .path-step {
+      counter-increment: pathstep;
+      position: relative;
+      margin: 0;
+      padding: 19px 22px 19px 66px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+    }
+    .path-step::before {
+      content: counter(pathstep, decimal-leading-zero);
+      position: absolute;
+      left: 20px;
+      top: 19px;
+      z-index: 1;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    /* The spine that makes it read as a route rather than a list. */
+    .path-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 34px;
+      top: 49px;
+      bottom: -13px;
+      width: 2px;
+      background: var(--line);
+    }
+    .path-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .path-label {
+      margin: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.02rem;
+      line-height: 1.24;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .path-time {
+      flex: 0 0 auto;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+    .path-step > p { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--ink2); }
+    .path-go {
+      margin-top: 13px;
+      padding: 7px 15px;
+      border: 1px solid var(--accent-soft);
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    }
+    .path-go:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .path-go:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; }
+    .path-close {
+      margin: 0;
+      padding: 17px 21px;
+      border-radius: var(--radius-lg);
+      background: var(--lime);
+      font-size: 0.94rem;
+      line-height: 1.5;
+      color: var(--ink);
+      box-shadow: 6px 6px 0 rgba(20, 19, 23, 0.06);
+    }
+    .path-close strong {
+      display: block;
+      margin-bottom: 3px;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 520px) {
+      .path-head { flex-direction: column; gap: 2px; }
+    }
+
   </style>
 </head>
 
@@ -1239,6 +1582,7 @@
         <span class="pill"><span class="dot" aria-hidden="true"></span> Pre-live session</span>
         <span class="pill">73 key terms</span>
         <span class="pill">98 flashcards</span>
+        <span class="pill">22 quiz questions</span>
       </div>
     </div>
   </header>
@@ -1255,6 +1599,10 @@
         data-panel="acronyms" tabindex="-1"><span class="tab-num" aria-hidden="true">04</span>Acronyms</button>
       <button class="tab" id="tab-formulas" role="tab" aria-selected="false" aria-controls="panel-formulas"
         data-panel="formulas" tabindex="-1"><span class="tab-num" aria-hidden="true">05</span>Formulas</button>
+      <button class="tab" id="tab-quiz" role="tab" aria-selected="false" aria-controls="panel-quiz"
+        data-panel="quiz" tabindex="-1"><span class="tab-num" aria-hidden="true">06</span>Quiz</button>
+      <button class="tab" id="tab-apply" role="tab" aria-selected="false" aria-controls="panel-apply"
+        data-panel="apply" tabindex="-1"><span class="tab-num" aria-hidden="true">07</span>Apply it</button>
     </div>
   </nav>
 
@@ -1262,6 +1610,72 @@
 
     <!-- ══════════════════ 01 · SUMMARY & VISUALS ══════════════════ -->
     <section class="panel active" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" tabindex="0">
+      <div class="block">
+        <span class="block-num">00 / Start here</span>
+        <h2>How to master this week</h2>
+        <p>This is the densest week of the subject — 36 blocks, 73 terms, 98 cards — and its four topics do not reward the same kind of reading. Worked straight through, the route below takes about four hours, and it is worth splitting across two sittings rather than one.</p>
+
+        <ol class="path">
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Read all four topics in order</h3>
+              <span class="path-time">~1 hr</span>
+            </div>
+            <p>Start at Ideation and design thinking and do not skip ahead — divergent and convergent thinking is the pair everything else on this page sits on top of, including the shape of prototyping and the reason a persona exists at all. Skim the three $RUs concept tables in block 09 the first time; they are worth more once you can name the desirability, feasibility and viability questions without looking. Read the last topic, Long-term strategic value for $RUs, differently from the other three: it is my own argument about what the project is for rather than taught method, so read it for whether the reasoning holds rather than for terms to memorise.</p>
+            <button class="path-go" type="button" data-goto="summary">Open Summary &amp; visuals <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Learn the chains, not equations</h3>
+              <span class="path-time">~20 min</span>
+            </div>
+            <p>Nothing here is arithmetic — all 27 entries are sequences and identities, and this week they carry most of the argument. Get the four that recur cold: Empathise → Define → Ideate → Prototype → Test → Iterate, Build something small → Test → Learn → Adapt → Repeat, Persona/User Need → User Story → Product Backlog → Prioritisation → Sprint, and Awareness → Familiarity → Credibility → Trust → Relationship → Lifetime Value. Two entries look like duplicates of each other and are not — both are listed exactly as my notes write them, so do not try to merge them. The Acronyms tab is only five entries and will take two minutes on the way past.</p>
+            <button class="path-go" type="button" data-goto="formulas">Open Formulas <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Filter the terms by topic</h3>
+              <span class="path-time">~30 min</span>
+            </div>
+            <p>Seventy-three terms is too many to read top to bottom, so use the filter and work one topic at a time using the source tag on each card. The pairs are what get confused under pressure: divergent against convergent, lived experience against lived expertise, breadth against depth in T-Design, data-driven against extreme personas, and short-term win against strategic value. Two entries are deliberately empty of detail — the A–E framework is five headings my notes record nothing under, and Type of Personas is a heading whose content all sits in its sub-headings — so there is nothing to learn there beyond that fact.</p>
+            <button class="path-go" type="button" data-goto="terms">Open Key concepts <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Run the deck, then shuffle</h3>
+              <span class="path-time">~40 min</span>
+            </div>
+            <p>Ninety-eight cards is a long deck, so do it in two sittings rather than one and shuffle before the second. The cards that matter most are the ones that ask you to distinguish rather than define — weak against strong persona, the two extremes T-Design avoids, and what turns Murray's idea from a growth tactic into a long-term strategic initiative. If a card on the $RUs case stalls you, the answer is usually in a table in the summary rather than in a definition.</p>
+            <button class="path-go" type="button" data-goto="cards">Open Flashcards <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Test the distinctions under pressure</h3>
+              <span class="path-time">~25 min</span>
+            </div>
+            <p>Twenty-two questions across the four topics, and the distractors are built out of the confusions this week actually produces — a feasibility consideration read as a viability one, polish read as rigour, an activity count read as evidence of value. Read the feedback on the options you did not choose, because that is where the near-misses are explained. Anything you get wrong on the $RUs concepts is a signal to go back to block 09 rather than to the glossary.</p>
+            <button class="path-go" type="button" data-goto="quiz">Open Quiz <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Reason through the six situations</h3>
+              <span class="path-time">~45 min</span>
+            </div>
+            <p>None of these is a calculation — this week is judgement, so the work is choosing which tool applies and defending the choice. Do the two prototyping scenarios back to back, since T-Design and the fidelity argument pull in opposite directions and the tension between them is the point. Write your answer before opening the hints; if you need all three, the gap is in the summary, not in recall.</p>
+            <button class="path-go" type="button" data-goto="apply">Open Apply it <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Write the $RUs argument from memory</h3>
+              <span class="path-time">~20 min</span>
+            </div>
+            <p>Close the page and set out, in your own words, why a paid search programme, an app and a social presence are described as tools rather than strategies, and what the joined-up alternative asks each of them to do. Then answer the question the topic ends on: will this initiative make $RUs more trusted, relevant and valuable to future customers over time? This is the part of the week that is an argument rather than a method, and it only holds together if you can reconstruct it without the table in front of you.</p>
+          </li>
+        </ol>
+
+        <p class="path-close"><strong>The test</strong>The week has landed when you can take an unfamiliar feature request, say which problem it assumes, decide how much of it you would prototype and how deeply, and name the measure you would judge it by twelve months later.</p>
+      </div>
+
 <div class="block" data-topic="Ideation and design thinking">
         <span class="block-num">01 / The core idea</span>
         <h2>Design thinking as a problem-solving approach</h2>
@@ -3572,6 +3986,39 @@
         <div class="glossary" id="formulas"></div>
       </div>
     </section>
+
+    <!-- ══════════════════ 06 · QUIZ ══════════════════ -->
+    <section class="panel" id="panel-quiz" role="tabpanel" aria-labelledby="tab-quiz" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">06 / Test yourself</span>
+        <h2>Quiz</h2>
+        <p>Twenty-two questions on what I wrote down this week: how design thinking opens a problem up and narrows it back down, why a prototype is kept cheap and rough, what makes a persona worth keeping, and how $RUs should judge strategic value. Every option carries feedback, not just the right one, so a wrong pick tells you which idea you were reaching for instead.</p>
+
+        <div class="quizbar">
+          <div class="quiz-score">
+            <span><strong id="quiz-done">0</strong> of <span id="quiz-total">0</span> answered</span>
+            <span><strong id="quiz-right">0</strong> correct</span>
+          </div>
+          <span class="progress"><span class="progress-fill" id="quiz-fill"></span></span>
+          <button class="btn btn--ghost" id="quiz-reset" type="button">Start over</button>
+        </div>
+        <p class="quiz-verdict" id="quiz-verdict" role="status" aria-live="polite" hidden></p>
+
+        <div class="quiz-list" id="quiz-list"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 07 · APPLY IT ══════════════════ -->
+    <section class="panel" id="panel-apply" role="tabpanel" aria-labelledby="tab-apply" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">07 / Put it to work</span>
+        <h2>Apply it</h2>
+        <p>Six situations to reason through with the week’s tools rather than recall. Each gives you a setup and one decision to make. The hints unfold one at a time, widest first, so stop as soon as you have enough to commit. The walkthrough that follows uses only what this page states, and the checklist is what a strong answer covers.</p>
+
+        <div class="scen-list" id="scen-list"></div>
+      </div>
+    </section>
+
   </main>
 
   <footer class="page-foot">
@@ -4226,6 +4673,236 @@
     })();
 
   </script>
+
+  <script>
+    /* ── Quiz & Apply it ────────────────────────────────────────────────
+       Two practice modes. QUIZ and SCENARIOS are the only authored parts;
+       the renderer below is identical on every week page, so a re-sync
+       swaps the arrays and leaves the behaviour alone. Progressive
+       enhancement: with JS off both panels sit empty and the five synced
+       modes are unaffected. */
+    (function () {
+      'use strict';
+
+      var quizListEl = document.getElementById('quiz-list');
+      var scenListEl = document.getElementById('scen-list');
+      if (!quizListEl && !scenListEl) return;
+
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      var KEYS = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+      var QUIZ = /*QUIZ*/[
+        {"topic": "Ideation and design thinking", "q": "This week defines design thinking as an approach for developing solutions around what?", "hint": "The definition is built as a contrast — one thing rather than another.", "options": [{"t": "The requirements the client has already specified", "ok": false, "note": "The week treats a client’s requested feature as a hypothesis about the solution, not as the true problem. Specified requirements are exactly the ‘assumed requirements’ the definition sets itself against."}, {"t": "Genuine user needs rather than assumed requirements", "ok": true, "note": "That is the definition on the page — a human-centred, iterative approach for understanding problems and developing solutions around genuine user needs."}, {"t": "The delivery capabilities the team already has", "ok": false, "note": "That is closer to feasibility, one of the three tests an idea faces later. It is a constraint on what can be built, not the thing design thinking is built around."}, {"t": "The profile of the average customer", "ok": false, "note": "The week explicitly warns against designing for an imaginary average customer, and says the purpose of a persona is not demographic storytelling."}]},
+        {"topic": "Ideation and design thinking", "q": "Why does the week insist on separating idea generation from idea evaluation?", "hint": "Think about what is lost, and when — not about who is doing the judging.", "options": [{"t": "Because evaluation belongs to the Product Owner rather than the team", "ok": false, "note": "The Product Owner prioritises backlog items much later in the chain. The reason given here is about what early judgement does to the range of ideas available."}, {"t": "Because evaluation cannot begin until a prototype exists", "ok": false, "note": "Ideas are narrowed after sufficient exploration and before prototyping — selected ideas are what become prototypes. Evaluation is not deferred that far."}, {"t": "Because judging ideas too early reduces the solution space", "ok": true, "note": "That is the callout on the page. Ideation prioritises possibility before perfection and suspends judgement during initial generation, narrowing only after sufficient exploration."}, {"t": "Because unconventional ideas are usually the ones that get built", "ok": false, "note": "The week encourages unconventional ideas because they can reveal new directions, not because they tend to win. Every idea still has to survive desirability, feasibility and viability."}]},
+        {"topic": "Ideation and design thinking", "q": "A project comes in on scope, on cost and on schedule, and the week still counts it as a possible failure. On what grounds?", "hint": "Those three constraints all measure the delivery. Something upstream of delivery is not being measured at all.", "options": [{"t": "It may have solved the wrong problem", "ok": true, "note": "That is the callout under divergent and convergent thinking. Meeting the three constraints says nothing about whether the problem chosen was the one worth solving."}, {"t": "Its prototypes were built at too low a fidelity", "ok": false, "note": "Low fidelity early is deliberate on this page — it keeps the team willing to change or discard. The failure named here is upstream of any prototype."}, {"t": "It skipped convergent thinking entirely", "ok": false, "note": "Convergent thinking is how a team selects, and a team can converge perfectly well on the wrong problem. The warning is about which problem was selected, not whether selection happened."}, {"t": "Stakeholders were never given a shared reference point", "ok": false, "note": "That is the buy-in argument for prototyping, and it improves the quality of feedback. It is not what this callout claims."}]},
+        {"topic": "Ideation and design thinking", "q": "A client arrives asking for a specific feature. How does the week say that request should initially be treated?", "hint": "The request is evidence of something, but not of the thing it appears to state.", "options": [{"t": "As the defined scope, to be broken into user stories", "ok": false, "note": "Turning it straight into stories skips the question of whether it addresses the real problem. Stories come after the team knows what problem is worth solving."}, {"t": "As a constraint the design must work within", "ok": false, "note": "Commercial and organisational constraints do come from the business side, but a requested feature is a proposed answer, not a boundary condition."}, {"t": "As out of scope until users have been observed", "ok": false, "note": "The week does not park the request; it reframes it. Observation runs alongside it — observe users, understand needs and behaviours, define the problem, generate solutions, test."}, {"t": "As a hypothesis about the solution, not necessarily the true problem", "ok": true, "note": "That is the framing on the page. Before investing heavily in delivery, test whether the proposed project solves something customers actually value."}]},
+        {"topic": "Ideation and design thinking", "q": "The week says more research is not automatically better. What is the mistake it names?", "hint": "The failure is not in how much is collected. It is in what happens to it afterwards.", "options": [{"t": "Recruiting participants who are not representative of the customer base", "ok": false, "note": "Sample composition is a real concern elsewhere — the week pushes teams toward edge users — but the mistake named here is about what the research is converted into."}, {"t": "Following the methodology so rigidly that information is never converted into business insight", "ok": true, "note": "That is the wording of the point. The chain on the page runs research → synthesis → insight → decision, and the design process is a tool for reaching better outcomes rather than a checklist."}, {"t": "Collecting qualitative evidence when analytics would be cheaper", "ok": false, "note": "The week wants both: human insight explains why, and data helps establish where and how often. Neither is presented as a cheaper substitute for the other."}, {"t": "Running research before the problem has been defined", "ok": false, "note": "Research is what informs the definition — the sequence starts with observing users. The stated mistake is downstream of collection, not upstream."}]},
+        {"topic": "Ideation and design thinking", "q": "The week gives three sources of user understanding: empathy, lived experience and lived expertise. What separates the third from the second?", "hint": "One of them is first-hand and personal. The other is accumulated across many people.", "options": [{"t": "Lived expertise is professional training in design research", "ok": false, "note": "It is not a research qualification. It is knowledge built by representing or working extensively with the affected communities themselves."}, {"t": "Lived expertise means having been through the situation more than once", "ok": false, "note": "Repetition of a personal situation would still be lived experience. The distinction the page draws is between direct experience and broader community knowledge."}, {"t": "Lived expertise is broader knowledge gained by representing or working extensively with affected communities", "ok": true, "note": "That is the table entry. Lived experience is direct experience of the situation being designed for; lived expertise is the wider knowledge built around it."}, {"t": "Lived expertise is the ability to advocate for another person’s perspective", "ok": false, "note": "That is the page’s definition of empathy — the first of the three, and the one the page calls necessary but insufficient on its own."}]},
+        {"topic": "Ideation and design thinking", "q": "Among the $RUs digital human concepts, which one is put forward under viability rather than desirability or feasibility?", "hint": "Sort by the question each lens asks: do users want it, can we build it, or should the organisation sustain it.", "options": [{"t": "Life-event navigator", "ok": false, "note": "That sits under desirability — adapting conversations around marriage, children, inheritance, overseas investments or career changes. Desirability asks whether users want or benefit from it."}, {"t": "AI knowledge boundaries", "ok": false, "note": "That sits under feasibility — restricting the digital human to approved $RUs information. Feasibility asks whether the organisation can realistically deliver it."}, {"t": "Lower-cost early engagement", "ok": true, "note": "It is listed under viability: handle basic education and initial enquiries digitally while reserving adviser time for higher-value conversations. Viability asks whether the organisation should sustain it, weighing cost, value, scale, risk and strategy."}, {"t": "Human escalation", "ok": false, "note": "That is a feasibility consideration — automatically transferring complex, sensitive or regulated questions to a qualified adviser."}]},
+        {"topic": "Why we prototype", "q": "How does the week define the objective of a prototype?", "hint": "The definition is stated against a rival purpose that the page rejects outright.", "options": [{"t": "To demonstrate that the chosen idea works", "ok": false, "note": "That is the purpose the page rejects — prototype to learn, not to prove that your first idea was right. Building to prove tends to produce polish rather than evidence."}, {"t": "To make an idea tangible enough to test, discuss and improve before committing to full development", "ok": true, "note": "That is the definition. A prototype is an intentionally incomplete representation, and the objective is to learn quickly and cheaply."}, {"t": "To give the delivery team a technical specification to build from", "ok": false, "note": "Specification is what a user story is explicitly said not to be, and a prototype is deliberately incomplete. Prototypes inform scope and estimates rather than replacing design decisions."}, {"t": "To show stakeholders what the finished product will look like", "ok": false, "note": "A prototype does create a shared reference point for stakeholders, but that is a consequence. Presenting it as the finished look invites exactly the attachment the week warns about."}]},
+        {"topic": "Why we prototype", "q": "Why should early prototypes be deliberately quick, inexpensive and low-fidelity?", "hint": "The reason is about the team, not about the artefact.", "options": [{"t": "Because low-fidelity prototypes generate more honest user feedback than polished ones", "ok": false, "note": "The page’s argument is about the team’s own willingness to abandon the idea, not about how users respond to polish."}, {"t": "Because budget should be preserved for the build phase", "ok": false, "note": "Cost is part of it, but the reason given is psychological and organisational: invested effort makes an idea harder to give up."}, {"t": "Because high-fidelity prototypes cannot be tested with real users", "ok": false, "note": "More detailed prototypes have their place — they should emerge when the team needs to test more specific aspects of the solution. Fidelity follows learning needs."}, {"t": "Because the more effort invested in an idea, the harder it becomes to abandon it", "ok": true, "note": "That is the stated reason. Polish creates attachment, resistance to criticism, pressure to continue because of time already invested, and reduced willingness to explore alternatives."}]},
+        {"topic": "Why we prototype", "q": "The week says prototyping and Agile project management share the same underlying logic. What assumption do both reject?", "hint": "It is an assumption about timing — about what can be settled, and when.", "options": [{"t": "That every requirement and solution can be correctly determined at the beginning of a project", "ok": true, "note": "That is the shared rejection. It is why the parallel holds line by line: small increments against small representations, frequent feedback against frequent user testing, and so on."}, {"t": "That users are able to describe what they need", "ok": false, "note": "The week does prefer observed behaviour to stated preference, but that is a research point. The parallel drawn here is about front-loaded certainty."}, {"t": "That documentation adds value to a project", "ok": false, "note": "Nothing on this page argues against documentation. What both approaches reject is the idea that the answer is knowable up front."}, {"t": "That a project can be planned before its scope is known", "ok": false, "note": "Prototyping is presented as improving planning — it gives better information for scope, schedule, resources and risk. Planning is not the target of the rejection."}]},
+        {"topic": "Why we prototype", "q": "In T-Design, which of these justifies spending the vertical, deep effort on a feature?", "hint": "The vertical stroke goes where the team still does not know something.", "options": [{"t": "It is the feature the client asked for first", "ok": false, "note": "Order of request is not one of the criteria. The week already treats a requested feature as a hypothesis rather than a settled priority."}, {"t": "Users will find it difficult to imagine without seeing it", "ok": true, "note": "That is on the list. Go deeper where something is innovative, uncertain, complex, difficult for users to imagine, central to the value proposition, or particularly important to validate."}, {"t": "It is familiar functionality stakeholders already understand", "ok": false, "note": "The page says the opposite — there is little value spending significant effort prototyping familiar functionality stakeholders can already understand."}, {"t": "It has the largest number of screens in the overall experience", "ok": false, "note": "Volume of interface is a breadth question. The horizontal stroke covers the range of features with little depth, because they do not all require detailed testing."}]},
+        {"topic": "Why we prototype", "q": "The week names the greatest risk in this area. What is it?", "hint": "It is not the risk most teams are worried about when they hesitate to show rough work.", "options": [{"t": "Producing an imperfect prototype that damages stakeholder confidence", "ok": false, "note": "The page names this only to dismiss it — the greatest risk is not producing an imperfect prototype."}, {"t": "Perfectly building something nobody needed", "ok": true, "note": "That is the callout. Prototyping reduces uncertainty before uncertainty becomes expensive, and the earlier a bad assumption is caught, the cheaper it usually is to correct."}, {"t": "Testing so often that the project drifts from its objectives", "ok": false, "note": "Frequent testing is what prevents drift from user expectations, stakeholder requirements and project objectives — it does not cause it."}, {"t": "Discarding a good idea because an early prototype tested badly", "ok": false, "note": "The cheap prototype exists precisely so that changing, discarding, rebuilding and comparing stay affordable. That is treated as a benefit, not a hazard."}]},
+        {"topic": "Personas", "q": "The week gives “Age: 20-40, professional, wants to save money” as what to avoid. What is the objection to it?", "hint": "Ask what the room would do differently tomorrow after reading it.", "options": [{"t": "It is statistical rather than specific, so it does not help the team reason about actual behaviours and decisions", "ok": true, "note": "That is the argument. A range can be agreed to by everyone in the room without changing anything anyone does next; the preferred alternative is concrete, first-person and situated."}, {"t": "The age band is too wide and should be narrowed", "ok": false, "note": "Narrowing the band still leaves a demographic segment with a name attached. The fix is a credible individual with motivations, constraints and context, not a tighter range."}, {"t": "It omits the user’s technical proficiency", "ok": false, "note": "Adding another attribute does not solve it. The filter the page gives is whether the information could change a product, service or project decision."}, {"t": "It describes a customer rather than a user of the product", "ok": false, "note": "The page does not draw that distinction. Its objection is to demographic generality, not to which label the person is given."}]},
+        {"topic": "Personas", "q": "The week sets out the empathy map as Think → Feel → Say → Do. What does it say empathy mapping investigates, as distinct from what a persona description does?", "hint": "Compare the two verbs the page uses — one describes, the other investigates.", "options": [{"t": "Who the user is, in more detail than a persona can carry", "ok": false, "note": "The page draws the contrast the other way: rather than merely describing who someone is, the map goes after the experience."}, {"t": "Which features the user would be willing to pay for", "ok": false, "note": "That is closer to a viability question. What the map surfaces is emotional frustrations, hidden concerns, motivations, behavioural contradictions, unmet needs and contextual barriers."}, {"t": "How the user experiences the problem", "ok": true, "note": "That is the stated purpose. It is also why a customer who says they intend to invest but never acts becomes visible — the feeling behind the behaviour can matter more to the design than age or income."}, {"t": "How often users abandon a given workflow", "ok": false, "note": "That is what product analytics establish in the SaaS example. Human insight explains why; data helps establish where and how often."}]},
+        {"topic": "Personas", "q": "A team already has a set of personas built from interviews, surveys and customer analytics. On this week’s argument, what does adding an extreme persona buy them?", "hint": "The two types are described as complementary, so ask what the first type cannot do.", "options": [{"t": "A test of whether the design remains robust at the edges", "ok": true, "note": "That is the pairing on the page: data-driven personas establish what is happening, and extreme personas test robustness at the edges by stretching the team’s thinking."}, {"t": "A more accurate picture of the average customer", "ok": false, "note": "An extreme persona is not there to represent the average customer. Data-driven personas are the ones that keep design grounded in reality."}, {"t": "A replacement for personas that have gone out of date", "ok": false, "note": "Neither type replaces the other. Personas are refreshed by new research and feedback, not by swapping in an edge case."}, {"t": "A shortcut past validation, since the case is hypothetical anyway", "ok": false, "note": "Nothing on the page exempts a persona from validation — AI can accelerate persona creation but cannot replace validation with real users."}]},
+        {"topic": "Personas", "q": "A backlog item reads: “Implement AI-Powered scalable API integration with CRM”. Why does the week say this is not a user story?", "hint": "Run it against the three questions a strong story is meant to answer.", "options": [{"t": "It is too small to be a backlog item on its own", "ok": false, "note": "Size is not the objection. User stories are how larger requirements get broken into manageable pieces in the first place."}, {"t": "It names a system rather than a sprint", "ok": false, "note": "Which sprint an item enters is decided later, after the Product Owner prioritises. The problem is with the content of the item itself."}, {"t": "It is technical implementation language pretending to be user-focused", "ok": true, "note": "That is one of the things the page says a user story is not. A story should stay a short expression of user need and value, leaving the technical solution to the team."}, {"t": "It has not been validated with a data-driven persona", "ok": false, "note": "Validation matters, but the defect here is visible on the face of the sentence — there is no user, no need and no value in it."}]},
+        {"topic": "Personas", "q": "What does the week say to do when a user story’s “so that” component has no meaningful answer?", "hint": "The clause is a test, and the page says what failing it implies.", "options": [{"t": "Reconsider the proposed functionality", "ok": true, "note": "That is the page’s conclusion — if the “so that” has no meaningful answer, the functionality may deserve reconsideration. The three questions a strong story answers are who, what and why it creates value."}, {"t": "Replace it with a technical specification for the team", "ok": false, "note": "That is the opposite move. Stories define what should be delivered without prematurely prescribing how the team must build it."}, {"t": "Add acceptance criteria until the value becomes clear", "ok": false, "note": "Detail is not the missing ingredient. A story that grows into a long requirements document is one of the things the page says a user story is not."}, {"t": "Send it back to the Product Owner for re-prioritisation", "ok": false, "note": "Re-prioritising a story that creates no identifiable value just moves it. The page questions whether the functionality should exist at all."}]},
+        {"topic": "Long-term strategic value for $RUs", "q": "On the week’s comparison, what most reliably separates a short-term win from long-term strategic value?", "hint": "Look at the last row of the comparison — what each one does once the money stops.", "options": [{"t": "One is real and the other is not", "ok": false, "note": "The page is explicit that both columns describe real results. The difference is in what survives afterwards, not in whether the result happened."}, {"t": "A short-term win can disappear when spending stops, while strategic value can compound over time", "ok": true, "note": "That is the distinction the table ends on, and the reason a project should be assessed not only by what it achieves now but by whether it strengthens the organisation’s future position."}, {"t": "A short-term win is harder to measure", "ok": false, "note": "It is the other way round on the page: short-term wins are easy to measure, and strategic value is often slower and harder to measure."}, {"t": "Only strategic value can be attributed to a specific campaign", "ok": false, "note": "Campaign metrics are exactly what a short-term win improves. Attribution is not the axis the page uses to separate them."}]},
+        {"topic": "Long-term strategic value for $RUs", "q": "In the coupon example, redemption is extremely high. Why does the week treat that as a warning rather than a result?", "hint": "Ask what the coupon changed, not what it recorded.", "options": [{"t": "Because the sample of redeeming customers is too small to generalise from", "ok": false, "note": "Volume is not the issue — redemption is high. The issue is what that number is evidence of."}, {"t": "Because redemption is a leading rather than a lagging indicator", "ok": false, "note": "The page does not classify it that way. Its objection is causal: reading redemption as evidence that the coupon caused something."}, {"t": "Because the coupons went to customers who already intended to purchase, so no new behaviour was created and revenue may actually fall", "ok": true, "note": "That is the example on the page. The error is not the coupon itself; it is reading redemption as evidence that the coupon caused something. Measure incremental value, not just visible activity."}, {"t": "Because discounting damages brand equity in financial services", "ok": false, "note": "Brand equity is argued elsewhere on the page, and the coupon example is not offered as a brand argument. It is about incremental value."}]},
+        {"topic": "Long-term strategic value for $RUs", "q": "Why does the week put lifetime value at the far end of a sequence rather than treating it as something $RUs can pursue directly?", "hint": "Think about what a financial services customer has to be willing to do before any of it is worth anything.", "options": [{"t": "Because financial services depend heavily on trust and reputation, and customers are reluctant to engage with an organisation they do not recognise or trust", "ok": true, "note": "That is the strategic challenge as the page states it, which is why $RUs must build awareness, familiarity, credibility, trust and relationship before lifetime value is available at all."}, {"t": "Because lifetime value cannot be measured until a customer leaves", "ok": false, "note": "Customer lifetime value appears on the page as a longer-term measure of project success, alongside retention and referrals — not as something only measurable in retrospect."}, {"t": "Because regulation prevents $RUs from marketing advice directly to younger customers", "ok": false, "note": "The page raises regulated questions only in the context of escalating them to a qualified adviser. It makes no claim about a marketing restriction."}, {"t": "Because acquisition costs are too high in the younger segment", "ok": false, "note": "The page argues that brand equity increases future acquisition efficiency, but its reason for the sequence is the trust dependency, not the current cost of acquisition."}]},
+        {"topic": "Long-term strategic value for $RUs", "q": "A project team proposes to hold itself to customer numbers, downloads, traffic and immediate revenue. What does the week say is at risk?", "hint": "The risk is not that those four numbers are meaningless. It is what happens when they are the only ones.", "options": [{"t": "The team will under-invest in acquisition channels", "ok": false, "note": "Those targets push toward acquisition, if anything. The risk the page names lies in what gets traded away to hit them."}, {"t": "The four numbers will be too slow to report usefully", "ok": false, "note": "They are the fast, easily collected ones — that is precisely why they are tempting. The strategic outcomes are the slower half."}, {"t": "Service quality, customer experience, trust and brand positioning may be compromised — the very assets the strategy depends on", "ok": true, "note": "That is the argument. None of the four numbers is worthless; the risk is that they become the only ones the project is held to, which is why growth is better treated as a consequence of delivering genuine customer value."}, {"t": "Growth will be attributed to the wrong channel", "ok": false, "note": "Attribution is not the concern here. The concern is the incentive those targets create inside the team."}]},
+        {"topic": "Long-term strategic value for $RUs", "q": "On the week’s reasoning, what makes the strongest answer to the channel question stronger than picking one channel?", "hint": "Each channel is given a strength and a limitation. Consider where a customer is when each one is useful.", "options": [{"t": "It spreads the budget so no single channel’s metrics can be gamed", "ok": false, "note": "Budget spreading is not the argument. The page is interested in what role each channel plays in moving a customer along, not in hedging measurement risk."}, {"t": "A digital presence across several channels is itself a strategy", "ok": false, "note": "The page rejects that move directly — an app is not a strategy simply because it is digital, and the same holds for the channel mix."}, {"t": "Combining channels makes engagement metrics easier to justify to the board", "ok": false, "note": "The page warns that engagement metrics can become vanity metrics if they are not tied to meaningful outcomes. Reportability is the trap, not the goal."}, {"t": "Each channel plays a different role in moving customers from awareness toward trust and an ongoing relationship", "ok": true, "note": "That is the callout. Social media builds awareness and familiarity, ads capture customers when needs emerge, and a digital service or app deepens the relationship once engagement begins — the channels are tools, not strategies."}]}
+      ]/*END_QUIZ*/;
+      var SCENARIOS = /*SCENARIOS*/[
+        {"topic": "Ideation and design thinking", "title": "The feature that arrives fully formed", "setup": "A client sponsor opens the kick-off by saying the scope is already settled: they want a chatbot on the homepage, and they would like it live this quarter. The team has no research of its own yet. Two developers start sizing the integration work in the same meeting.", "task": "Decide what the team should do before it commits to building the requested feature, and justify it using this week’s framing.", "hints": ["The request is information. The question is what kind of information it is.", "The week runs the diverge–converge pair twice, and the first pass is not about solutions at all.", "There is a specific test the page says to apply before investing heavily in delivery."], "walkthrough": ["Reframe the request. A client’s requested feature should initially be treated as a hypothesis about the solution, not necessarily as the true problem. Sizing the integration accepts the hypothesis as settled before anyone has tested it.", "Run the problem-space pass first: explore possible underlying problems, then identify the problem worth solving. Only after that pass does the team know which problem the chatbot was meant to address, and whether it is the one worth addressing.", "Gather evidence proportionate to the problem — observe users, understand needs and behaviours, define the problem, generate solutions, test. Use techniques the week names: bring customers into the room, use customer stories or recorded experiences, observe behaviour rather than relying only on stated preferences, co-design with users and staff.", "Then run the solution-space pass: generate multiple responses and select candidates for prototyping and testing. The chatbot stays in that set as one candidate rather than entering as the answer.", "Conclude with the test the page gives: before investing heavily in delivery, test whether the proposed project solves something customers actually value. A project that hits scope, cost and schedule can still fail if it solved the wrong problem."], "checklist": ["Treats the requested feature as a solution hypothesis rather than the defined problem", "Separates the problem space from the solution space and works the first before the second", "Names research the team would do, and keeps the effort proportionate to the problem", "Keeps the chatbot alive as one candidate rather than dismissing it", "Finishes on whether the project solves something customers actually value"]},
+        {"topic": "Ideation and design thinking", "title": "Designing past the average customer", "setup": "A $RUs design team has built its concepts around a customer profile drawn from its most common segment: comfortable online, happy to share information, confident enough to book an adviser without help. The digital human concept is being shaped entirely around that profile.", "task": "Argue what the team is at risk of missing, and what it should do differently while the concepts are still cheap to change.", "hints": ["The week is sceptical of one particular imaginary person.", "There is a list of the groups the page says teams should deliberately consider.", "The page also claims a benefit that flows the other way — back toward the mainstream customer."], "walkthrough": ["Name the risk. Designing only for the typical customer can unintentionally exclude important groups, and the week’s instruction is to design for variation in human needs rather than an imaginary average customer.", "Widen the set of users deliberately: people with accessibility requirements, financial hardship or vulnerability, limited digital access, and different levels of technological confidence.", "Consider an extreme persona as a stretch device — for a digital financial service, someone with extremely low digital confidence, who refuses to disclose personal information online, and who requires significant accessibility support. Its purpose is not to represent the average customer but to expose accessibility issues, unusual constraints, hidden assumptions and weaknesses in the service.", "Read the concept back against that. The $RUs concepts already include inclusive interaction modes — digital human plus text, accessibility controls, and alternatives for customers who dislike avatar-based interaction — which is what this kind of thinking produces.", "Close on the payoff the page claims: designing with these users can expose weaknesses invisible when studying typical customers, reduce downstream accessibility and service risks, and sometimes improve the experience for the broader customer base."], "checklist": ["States what designing only for the typical customer costs", "Names edge users concretely rather than as a general appeal to inclusion", "Uses the extreme persona for its stated purpose — stretching thinking, not representing the average", "Connects the argument to a concrete change in the $RUs concept", "Notes that the benefit can extend to mainstream customers"]},
+        {"topic": "Why we prototype", "title": "Where the prototype budget goes", "setup": "A team has eight features in a proposed digital service. Six are conventional — account details, contact forms, a document library. Two are not: a conversational financial explainer, and a hand-off that carries context from an anonymous exploration into a booked adviser conversation. The team has two weeks of prototyping time and wants to split it evenly across all eight.", "task": "Decide how the two weeks should actually be allocated, and say what each part of the prototype has to achieve.", "hints": ["The week has a shape for exactly this decision, and it is a letter.", "Two failure modes sit either side of the right answer — one wastes effort, one tests nothing.", "There is a list of properties that earn a feature the deep treatment. Check the two unusual features against it."], "walkthrough": ["Reject the even split. Prototyping everything deeply wastes time and resources; prototyping everything superficially fails to properly test critical assumptions. T-Design is the middle path: broad overall picture plus deep testing where uncertainty matters.", "Build the horizontal stroke across all eight. Each feature is represented only enough for users and stakeholders to understand what exists, how elements relate, and what the overall solution might do. There is little depth here because these components do not all require detailed testing.", "Test the two unusual features against the depth criteria: innovative, uncertain, complex, difficult for users to imagine, central to the value proposition, or particularly important to validate. Both the explainer and the context-preserving hand-off qualify on several counts; the six conventional features qualify on none.", "Put the vertical stroke there and concentrate resources on it, because that is where learning is most valuable. There is little value spending significant effort prototyping familiar functionality that stakeholders can already understand.", "State what this buys. T-Design suits early-stage prototypes, stakeholder presentations, pitches, user testing, and demonstrating overall feasibility without building the full system — showing enough of the whole solution while investing deeply only where evidence is needed."], "checklist": ["Rejects the even split and names both extremes it sits between", "Describes what the breadth pass must convey, and how little depth it needs", "Applies the depth criteria to specific features rather than asserting importance", "Explains why the conventional six do not earn depth", "Ties the allocation back to where learning is most valuable"]},
+        {"topic": "Why we prototype", "title": "The demo that looks finished", "setup": "Three weeks before a steering-group session, a designer offers to turn the team’s paper sketches into a fully styled, animated, near-production walkthrough. The argument is that stakeholders will take it more seriously and the project will look credible. Nothing has been tested with a user yet.", "task": "Decide whether to accept the offer, and set out what the team should take into the session instead.", "hints": ["Two things move in opposite directions as effort goes in. Name the second one.", "The week lists what a polished early prototype creates inside the team.", "A prototype is still meant to do something for stakeholders — work out what, and what level of finish that actually requires."], "walkthrough": ["Decline the polish at this stage. The more effort invested in an idea, the harder it becomes psychologically and organisationally to abandon it, and nothing has been tested yet.", "Name what a highly polished early prototype creates: attachment to the solution, resistance to criticism, pressure to continue because of time already invested, and reduced willingness to explore alternatives. A steering group that sees a near-production walkthrough is being invited to approve, not to critique.", "Keep it cheap so the team retains the moves that matter — change, discard, rebuild, compare. That protects the team from becoming committed to an idea before evidence shows it deserves commitment.", "Take a shared reference point instead. Abstract concepts are hard for stakeholders to evaluate because different people may imagine different solutions from the same description; the prototype communicates “Here is what we mean” so stakeholders can identify misunderstandings, give specific feedback, compare alternatives and help refine the design. Sketches, storyboards, wireframes or a clickable demonstration do that.", "Frame the session as co-ownership rather than sign-off. Early involvement strengthens trust, improves communication, increases support for the project and reduces disruptive late-stage changes — and higher-fidelity work can follow when the team needs to test more specific aspects of the solution."], "checklist": ["Refuses the polish and gives the reason in terms of the team’s freedom to walk away", "Names the specific effects a polished early prototype has", "Says what the stakeholders actually need from the artefact", "Proposes a concrete lower-fidelity alternative from the week’s list", "Leaves a condition under which higher fidelity becomes appropriate"]},
+        {"topic": "Personas", "title": "From a segment to a sprint item", "setup": "A backlog grooming session has one persona pinned to the wall: “Financial Services Seeker, aged 35-55”. The stories written from it are generic, and the room cannot agree on which to prioritise. Someone suggests dropping personas altogether and prioritising on development effort instead.", "task": "Rescue the persona and show how it should reach the backlog, ending with one story you would defend.", "hints": ["The week says why this particular persona is weak, in one line.", "There is a chain from research through to a persona, and another from a persona through to a sprint.", "A strong story answers three questions. If one of them has no answer, the page says what follows."], "walkthrough": ["Diagnose the persona. The week’s own bad example is “Financial Services Seeker, aged 35-55”, and its fault is that it gives very limited information about what should actually be designed. That is why the room cannot prioritise: nothing in it can settle an argument.", "Rebuild it against the three habits — be specific rather than statistical, use first-person language, and include meaningful context such as life stage, occupation and circumstances, goals, frustrations, behaviours, attitudes, motivations, relevant constraints and an illustrative quote. Only include information that could change a product, service or project decision.", "Deepen it with an empathy map if the research supports one: research → empathy map → patterns and insights → persona. That is what stops the persona collapsing back into a demographic profile, and it is where a behavioural contradiction shows up — a customer who says they intend to invest but consistently avoids acting because they feel uncertain or intimidated.", "Translate it into a story in the week’s form: as a [type of user], I want [goal], so that [value/outcome]. The page’s worked example runs — as a cautious investor approaching retirement, I want financial terminology explained simply so that I can make decisions without feeling overwhelmed.", "Test it and route it. The story must answer who needs something, what they need and why it creates value; if the “so that” has no meaningful answer, the functionality deserves reconsideration. Then persona or user need → user story → product backlog → prioritisation → sprint, with the Product Owner weighing user need, business value, feedback, dependencies and project priorities — not development effort alone.", "Reject the proposal to drop personas. Agile provides flexibility and iteration; personas are what keep that flexibility directed toward customer value, and the backlog stays dynamic as the team learns more about users."], "checklist": ["Says precisely what is wrong with the pinned persona", "Rebuilds it using specificity, first-person voice and decision-relevant context", "Shows the route from research or empathy map into the persona", "Produces a story in the week’s form that survives the “so that” test", "Places the story in the backlog chain and answers the proposal to abandon personas"]},
+        {"topic": "Long-term strategic value for $RUs", "title": "Three channels and one budget", "setup": "Chris has to recommend where next year’s digital budget goes. One option is a paid search programme, one is a $RUs app, one is a sustained social media presence. The board paper currently proposes picking whichever option produces the highest reportable numbers in the first six months.", "task": "Make the recommendation, and say how the project should be judged once it is running.", "hints": ["The week is clear about what these three things are, and what they are not.", "Each option is given a strength and a limitation. Ask where in a customer’s journey each one is useful.", "The measurement question has its own answer on the page, and it is not a single number."], "walkthrough": ["Reject the framing of the board paper first. None of these channels automatically creates long-term strategic value — they are tools, not strategies — and a metric can look successful while the underlying strategy creates little or no additional value. Website visits, app downloads, social impressions and ad clicks are not valuable by themselves.", "Take each option on its stated strength and limitation. Paid search captures people already searching for financial help but is often transactional, and awareness may disappear when spending stops. An app can support ongoing interaction and service relationships but has low value if customers have no strong reason to use it repeatedly — an app is not a strategy simply because it is digital. Social media can build familiarity, education and brand personality over time, but its engagement metrics become vanity metrics if they are not tied to meaningful outcomes.", "Note the case for social media against the specific problem in front of $RUs — building relationships with younger prospective customers, through ongoing financial education, brand familiarity, repeated exposure, accessible explanations of complex topics, and development of trust before customers need formal advice.", "Then give the joined-up recommendation, which the week says is stronger than any option in isolation: social media builds awareness and familiarity, search captures customers when needs emerge, and a digital service or app deepens the relationship once engagement begins. Strategic value comes from how the channels work together to move customers from awareness toward trust and an ongoing relationship.", "Set the measures. Project success should include both short-term performance indicators and longer-term strategic outcomes — brand awareness, trust and reputation, quality of customer engagement, repeat interaction, adviser enquiries, customer conversion over time, retention, referrals and customer lifetime value. Measure outcomes that reflect strategic intent, not merely metrics that are easy to collect.", "Close on the test the week gives Chris: will this initiative make $RUs more trusted, relevant and valuable to future customers over time?"], "checklist": ["Refuses to judge the options on first-six-months reportable numbers, and says why", "Handles all three options on their stated strengths and limitations", "Recommends a joined-up sequence rather than a single channel, with a role for each", "Proposes longer-term strategic outcomes alongside short-term indicators", "Ends on whether $RUs becomes more trusted, relevant and valuable over time"]}
+      ]/*END_SCENARIOS*/;
+
+      /* ── Quiz ─────────────────────────────────────────────── */
+      if (quizListEl && QUIZ.length) {
+        var doneEl = document.getElementById('quiz-done');
+        var rightEl = document.getElementById('quiz-right');
+        var totalEl = document.getElementById('quiz-total');
+        var fillEl = document.getElementById('quiz-fill');
+        var verdictEl = document.getElementById('quiz-verdict');
+        var resetBtn = document.getElementById('quiz-reset');
+
+        var answered = 0;
+        var correct = 0;
+
+        totalEl.textContent = QUIZ.length;
+
+        quizListEl.innerHTML = QUIZ.map(function (q, i) {
+          return '<article class="quiz-q">' +
+            '<div class="quiz-head">' +
+              '<span class="quiz-n">Question ' + (i + 1) + '</span>' +
+              (q.topic ? '<span class="term-src">' + esc(q.topic) + '</span>' : '') +
+            '</div>' +
+            '<p class="quiz-stem">' + esc(q.q) + '</p>' +
+            (q.hint
+              ? '<details class="reveal"><summary>Hint</summary>' +
+                '<div class="reveal-body"><p>' + esc(q.hint) + '</p></div></details>'
+              : '') +
+            '<div class="opts" role="group" aria-label="Answer options for question ' + (i + 1) + '">' +
+              q.options.map(function (o, j) {
+                return '<button class="opt" type="button" data-q="' + i + '" data-o="' + j + '">' +
+                  '<span class="opt-key" aria-hidden="true">' + KEYS[j] + '</span>' +
+                  '<span class="opt-t">' + esc(o.t) + '</span></button>';
+              }).join('') +
+            '</div>' +
+            '<div class="fb-slot" id="fb-' + i + '" role="status" aria-live="polite"></div>' +
+            '</article>';
+        }).join('');
+
+        var qEls = Array.prototype.slice.call(quizListEl.querySelectorAll('.quiz-q'));
+
+        function paintScore() {
+          doneEl.textContent = answered;
+          rightEl.textContent = correct;
+          fillEl.style.width = (answered / QUIZ.length * 100) + '%';
+          if (answered === QUIZ.length) {
+            verdictEl.textContent = 'All done — ' + correct + ' of ' + QUIZ.length +
+              ' correct. Reread the ones you missed in Summary & visuals, then start over.';
+            verdictEl.removeAttribute('hidden');
+          } else {
+            verdictEl.setAttribute('hidden', '');
+          }
+        }
+
+        function answer(i, chosen) {
+          var q = QUIZ[i];
+          var wrap = qEls[i];
+          if (wrap.getAttribute('data-answered') === 'true') return;
+          wrap.setAttribute('data-answered', 'true');
+
+          var opts = Array.prototype.slice.call(wrap.querySelectorAll('.opt'));
+          var rightIdx = -1;
+          q.options.forEach(function (o, j) { if (o.ok) rightIdx = j; });
+
+          opts.forEach(function (el, j) {
+            el.disabled = true;
+            if (j === rightIdx) el.setAttribute('data-state', 'right');
+            else if (j === chosen) el.setAttribute('data-state', 'wrong');
+            else el.setAttribute('data-state', 'off');
+          });
+
+          var isRight = chosen === rightIdx;
+          answered++;
+          if (isRight) correct++;
+
+          var html = '<div class="fb ' + (isRight ? 'fb--right' : 'fb--wrong') + '">' +
+            '<span class="fb-tag">' + (isRight ? 'Correct' : 'Not this one') + '</span>' +
+            '<p>' + esc(q.options[chosen].note) + '</p></div>';
+          if (!isRight) {
+            html += '<div class="fb fb--right">' +
+              '<span class="fb-tag">' + KEYS[rightIdx] + ' is the answer</span>' +
+              '<p>' + esc(q.options[rightIdx].note) + '</p></div>';
+          }
+          document.getElementById('fb-' + i).innerHTML = html;
+          paintScore();
+        }
+
+        quizListEl.addEventListener('click', function (e) {
+          var node = e.target;
+          while (node && node !== quizListEl && !(node.classList && node.classList.contains('opt'))) {
+            node = node.parentNode;
+          }
+          if (!node || node === quizListEl || node.disabled) return;
+          answer(parseInt(node.getAttribute('data-q'), 10), parseInt(node.getAttribute('data-o'), 10));
+        });
+
+        resetBtn.addEventListener('click', function () {
+          answered = 0;
+          correct = 0;
+          qEls.forEach(function (wrap, i) {
+            wrap.removeAttribute('data-answered');
+            Array.prototype.slice.call(wrap.querySelectorAll('.opt')).forEach(function (el) {
+              el.disabled = false;
+              el.removeAttribute('data-state');
+            });
+            Array.prototype.slice.call(wrap.querySelectorAll('.reveal')).forEach(function (d) { d.open = false; });
+            document.getElementById('fb-' + i).innerHTML = '';
+          });
+          paintScore();
+          quizListEl.scrollIntoView({ block: 'start' });
+        });
+
+        paintScore();
+      }
+
+      /* ── Apply it ─────────────────────────────────────────── */
+      if (scenListEl && SCENARIOS.length) {
+        scenListEl.innerHTML = SCENARIOS.map(function (s, i) {
+          var hints = (s.hints || []).map(function (h, k) {
+            return '<details class="reveal"><summary>Hint ' + (k + 1) + '</summary>' +
+              '<div class="reveal-body"><p>' + esc(h) + '</p></div></details>';
+          }).join('');
+
+          var steps = (s.walkthrough || []).map(function (w) {
+            return '<li>' + esc(w) + '</li>';
+          }).join('');
+
+          var checks = (s.checklist || []).map(function (c) {
+            return '<li>' + esc(c) + '</li>';
+          }).join('');
+
+          return '<article class="scen">' +
+            '<div class="quiz-head">' +
+              '<span class="quiz-n">Scenario ' + (i + 1) + '</span>' +
+              (s.topic ? '<span class="term-src">' + esc(s.topic) + '</span>' : '') +
+            '</div>' +
+            '<h3 class="scen-title">' + esc(s.title) + '</h3>' +
+            '<p class="scen-setup">' + esc(s.setup) + '</p>' +
+            '<p class="scen-task"><strong>Your task</strong>' + esc(s.task) + '</p>' +
+            hints +
+            '<details class="reveal reveal--work"><summary>Work it through</summary>' +
+              '<div class="reveal-body">' +
+                (steps ? '<ol class="steps">' + steps + '</ol>' : '') +
+                (checks ? '<h5>A strong answer covers</h5><ul class="check">' + checks + '</ul>' : '') +
+              '</div>' +
+            '</details>' +
+            '</article>';
+        }).join('');
+      }
+    })();
+  </script>
+
+
+  <script>
+    /* ── Study path ─────────────────────────────────────────────────────
+       The only behaviour the block needs: a step's button selects its mode
+       tab. Everything else about the block is static markup. */
+    (function () {
+      'use strict';
+      var path = document.querySelector('.path');
+      if (!path) return;
+
+      path.addEventListener('click', function (e) {
+        var node = e.target;
+        while (node && node !== path && !(node.classList && node.classList.contains('path-go'))) {
+          node = node.parentNode;
+        }
+        if (!node || node === path) return;
+        var tab = document.getElementById('tab-' + node.getAttribute('data-goto'));
+        if (!tab) return;
+        tab.click();
+        tab.scrollIntoView({ block: 'center' });
+        tab.focus();
+      });
+    })();
+  </script>
+
 </body>
 
 </html>

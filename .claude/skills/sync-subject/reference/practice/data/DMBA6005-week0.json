@@ -1,0 +1,283 @@
+{
+  "page": "DMBA6005-week0.html",
+  "quizIntro": "This quiz drills the one move Week 0 is built on: diagnosing which part of the customer journey is failing before I pick a digital initiative. Each question has four options and one right answer. Pick one and every option opens up — the right one explains why it holds, the wrong ones name the confusion they come from.",
+  "applyIntro": "These are situations rather than questions — a manager’s position to reason through with Week 0’s own tools: the four diagnoses, what each initiative buys and risks, and the test-with-minimal-risk rule. The hints unfold one at a time, widest first, so stop as soon as one is enough. The walkthrough uses only what this page states.",
+  "studyPath": {
+    "intro": "Week 0 is one case and one teaching method, so the whole pass fits inside about an hour and a quarter. The route below gets the diagnose-before-you-choose move into my hands rather than just into my notes.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Read sections 01 to 05 in order",
+        "detail": "The five case sections build a single argument, so reading them out of order breaks it: the firm’s strength, why it meets clients too late, the four candidate problems, what each option buys and risks, then the decision rule. Slow right down on section 03 — the four diagnoses are the hinge the rest of the page turns on. Leave section 06 on Shadow Boxing until the end; it is how the course teaches, not part of the case.",
+        "time": "~15 min"
+      },
+      {
+        "goto": "terms",
+        "label": "Fix the four diagnoses in place",
+        "detail": "Twelve of the fourteen terms belong to the $RUs case, and the four problem types are the ones worth memorising word for word. Engagement and conversion are the pair that trip people up — one is a prospect who knows the firm but does not find it relevant, the other is a prospect who is interested but never signs. The Acronyms tab holds a single entry and takes seconds, so clear it while you are here.",
+        "time": "~10 min"
+      },
+      {
+        "goto": "cards",
+        "label": "Drill symptom to option, not definition",
+        "detail": "Most of the twenty-eight cards give a symptom and ask which initiative the guidance points to, which is the shape the exam-style question takes. Push hardest on the three cards that describe a live complaint — enquiries that never convert, prospects who see the firm as for retirees, existing clients frustrated by access — and say the diagnosis out loud before you name the option.",
+        "time": "~10 min"
+      },
+      {
+        "goto": "quiz",
+        "label": "Test the diagnosis under pressure",
+        "detail": "Twelve questions, ten on the case and two on Shadow Boxing. The distractors are built from the confusions this week actually produces — pairing an option with the wrong risk, or answering awareness with a mobile app — so read every note, including on the options you did not pick. If you miss one, the fault is almost always the diagnosis rather than the option.",
+        "time": "~12 min"
+      },
+      {
+        "goto": "apply",
+        "label": "Argue four judgement calls through",
+        "detail": "Nothing here is calculated; each scenario is a decision you have to defend in prose. The two that matter most are the app proposal with no diagnosis behind it and the pair of conflicting reports from the advisers and the marketing lead, because both force you to say which problem you are backing and what would prove you wrong. Use the hints one at a time and stop as soon as one is enough.",
+        "time": "~20 min"
+      },
+      {
+        "goto": null,
+        "label": "Run the diagnosis from memory",
+        "detail": "Close the page and write out the four candidate problems, then the initiative each one points to and the risk that comes with it. Finish by stating the closing rule in your own words — a clear customer problem, testable with minimal risk — and the sequence Shadow Boxing runs in, since committing before you see the expert is the whole point of the method.",
+        "time": "~10 min"
+      }
+    ],
+    "close": "The week has landed when someone can hand me a single symptom from $RUs — a prospect who has never heard of the firm, or one who enquires and goes quiet — and I can name the diagnosis, the initiative it points to and the risk I am taking on, without opening the page."
+  },
+  "quiz": [
+    {
+      "topic": "$RUs Digital Innovation Case",
+      "q": "On what does $RUs’ current business model mostly rest?",
+      "hint": "The notes set the services the firm sells beside the things the model depends on. It is the second column you want.",
+      "options": [
+        { "t": "Low-cost, standardised advice sold at volume", "ok": false, "note": "The opposite of what the notes describe. $RUs is known for complex, long-term advice delivered through a personalised, boutique-style service." },
+        { "t": "A mobile application that already serves its existing clients", "ok": false, "note": "A mobile app is one of three directions still on the table, not something the firm already runs. Nothing digital underpins the current model." },
+        { "t": "Older and retired clients, referrals from existing members, personalised boutique-style service, and relationships formed later in a client’s financial life", "ok": true, "note": "These are the four things the notes list as what the current model rests on, and together they explain both its service quality and its narrow reach." },
+        { "t": "A large client base acquired through digital channels", "ok": false, "note": "The firm has no clear digital strategy yet — the CEO’s worry is precisely that it may be falling behind digitally." }
+      ]
+    },
+    {
+      "topic": "$RUs Digital Innovation Case",
+      "q": "Why is a model that produces strong service quality still treated as a strategic problem?",
+      "hint": "Ask what the model does to the size and timing of the client base, not to the quality of the advice.",
+      "options": [
+        { "t": "Because it may restrict the company’s future growth, even though the quality itself is real", "ok": true, "note": "The notes accept the quality and still flag the limit: the model reaches a narrow set of clients, and it reaches them late." },
+        { "t": "Because the advice given to retirees is not good enough", "ok": false, "note": "This confuses quality with reach. The notes never question the standard of advice — they question who receives it and when." },
+        { "t": "Because referrals cannot be measured, so the firm cannot report on performance", "ok": false, "note": "Measurement is raised only as a benefit of online advertising. The notes make no claim that referrals are a reporting problem." },
+        { "t": "Because the firm’s fees are too high for younger clients", "ok": false, "note": "Price is never mentioned in the case. The barrier the notes identify is when the relationship begins, not what it costs." }
+      ]
+    },
+    {
+      "topic": "$RUs Digital Innovation Case",
+      "q": "Which group is $RUs missing, and why does missing them matter?",
+      "hint": "Work backwards from the list of decisions the firm advises on and ask at what stage of life those decisions are actually made.",
+      "options": [
+        { "t": "People already retired, because they have the most assets to manage", "ok": false, "note": "Retired clients are the firm’s existing base, not the gap. The problem is that clients arrive only once retirement is close." },
+        { "t": "People in their 50s and 60s, because they are about to consolidate their superannuation", "ok": false, "note": "This is close to the group $RUs already reaches. The notes place the gap earlier than that." },
+        { "t": "Students and people under 20, because habits form early", "ok": false, "note": "The case never discusses this group. It is anchored to the age at which the firm’s own services become relevant." },
+        { "t": "People in their 30s and 40s, because that is when the decisions the firm advises on are often being made", "ok": true, "note": "The notes list investment strategies, trusts, intergenerational wealth transfer, tax structuring and market investment as decisions made at that stage — all services $RUs already sells." }
+      ]
+    },
+    {
+      "topic": "$RUs Digital Innovation Case",
+      "q": "What exactly did the CEO recognise about the firm’s digital position?",
+      "hint": "There are two halves to the recognition, and the second half is what makes it a gap rather than a plan.",
+      "options": [
+        { "t": "That the existing digital strategy needs a larger budget", "ok": false, "note": "There is no existing strategy to fund. The notes are explicit that the company does not yet have a clear digital one." },
+        { "t": "That $RUs may be falling behind digitally, while the company does not yet have a clear digital strategy", "ok": true, "note": "Both halves together are the digital capability gap, and three possible directions — online advertising, social media engagement, a mobile application — follow from it." },
+        { "t": "That a mobile application is the obvious next step", "ok": false, "note": "This jumps from the gap to a tool. The whole of Week 0 argues that the option cannot be chosen until the problem is diagnosed." },
+        { "t": "That the firm should move away from serving retirees", "ok": false, "note": "Nothing in the case proposes abandoning the existing base. The aim is to meet clients earlier as well, not instead." }
+      ]
+    },
+    {
+      "topic": "$RUs Digital Innovation Case",
+      "q": "What does Week 0 say has to happen before $RUs can choose between the three initiatives?",
+      "hint": "The three options do not compete on the same ground — each one lands on a different part of the customer journey.",
+      "options": [
+        { "t": "Diagnose which part of the customer journey is actually failing — awareness, engagement, conversion or service experience", "ok": true, "note": "This is the argument the whole week is built on: the options address different parts of the journey, so the diagnosis decides which is the right investment." },
+        { "t": "Rank the three options by build cost and start with the cheapest", "ok": false, "note": "Cost appears only as a risk against the mobile app. A cheap option aimed at the wrong problem is still the wrong investment." },
+        { "t": "Choose whichever option produces measurable results fastest", "ok": false, "note": "Speed and measurability are benefits claimed for online advertising, not a decision rule. They favour one option before the problem is even known." },
+        { "t": "Ask younger prospects which technology they would prefer to use", "ok": false, "note": "This substitutes a preference for a diagnosis. The question the notes pose is which problem the firm has, not which tool people like." }
+      ]
+    },
+    {
+      "topic": "$RUs Digital Innovation Case",
+      "q": "Younger prospects have heard of $RUs but see it as a firm for people near retirement. Which diagnosis is that?",
+      "hint": "Sort the four diagnoses by what the prospect knows and what they feel. Here, knowledge is not the missing piece.",
+      "options": [
+        { "t": "Awareness", "ok": false, "note": "Awareness is the diagnosis that younger clients do not know the firm exists. Here they plainly do." },
+        { "t": "Conversion", "ok": false, "note": "Conversion is where prospects show interest but do not become clients. In this case the interest itself has not formed." },
+        { "t": "Service experience", "ok": false, "note": "Service experience is about existing clients wanting better digital access, so it is the wrong side of the journey entirely." },
+        { "t": "Engagement", "ok": true, "note": "Engagement is exactly the case where younger clients know of the firm but do not find it relevant — which is why the guidance points at building trust and relevance." }
+      ]
+    },
+    {
+      "topic": "$RUs Digital Innovation Case",
+      "q": "Which option does the notes’ table credit with fast visibility, targeted campaigns and measurable enquiries — and what risk sits beside it?",
+      "hint": "Read the benefit and the risk as one pair. The risk is usually the flip side of the benefit that sells the option.",
+      "options": [
+        { "t": "Social media, risking a client base that never grows", "ok": false, "note": "Social media is credited with credibility and long-term engagement; its stated risk is the need for consistent content and slow results." },
+        { "t": "A mobile application, risking clients who never adopt it", "ok": false, "note": "The app’s stated risks are its expense and the chance it does not attract new clients. Visibility is not what it buys." },
+        { "t": "Online advertising, risking clicks without trust or suitable clients", "ok": true, "note": "That benefit-and-risk pair is exactly how the notes set out online advertising — it buys traffic, not necessarily the right traffic." },
+        { "t": "Online advertising, risking a loss of the firm’s boutique reputation", "ok": false, "note": "The right option, the wrong risk. The notes tie the danger to the quality of the clicks, not to reputational damage." }
+      ]
+    },
+    {
+      "topic": "$RUs Digital Innovation Case",
+      "q": "What does the case name as the risk of committing to social media engagement?",
+      "hint": "Every option in the table carries a cost of some kind. For this one the cost is measured in effort and patience.",
+      "options": [
+        { "t": "It generates enquiries from people who are not suitable clients", "ok": false, "note": "That is the risk recorded against online advertising — clicks without trust or suitable clients." },
+        { "t": "It requires consistent content and may take time to produce results", "ok": true, "note": "This is the trade-off the notes attach to social media: the credibility and relevance it builds are real, but neither arrives quickly." },
+        { "t": "It is expensive to build and may not attract new clients", "ok": false, "note": "That risk belongs to the mobile application, whose purpose is service delivery to existing clients." },
+        { "t": "It only reaches clients who are already close to retirement", "ok": false, "note": "The notes point social media at the opposite group — it is credited with educating younger clients." }
+      ]
+    },
+    {
+      "topic": "$RUs Digital Innovation Case",
+      "q": "What is a mobile application’s main purpose in this case, and what does that imply about who it serves?",
+      "hint": "Match the option to the diagnosis it answers, then ask whose problem that diagnosis describes.",
+      "options": [
+        { "t": "To increase awareness among younger prospects who have never heard of the firm", "ok": false, "note": "Awareness is the problem online advertising is set against. An app is not how the notes propose to be noticed." },
+        { "t": "To build trust and relevance with a younger audience over time", "ok": false, "note": "That is social media’s stated purpose. The app is aimed at delivery, not at persuasion." },
+        { "t": "To replace the firm’s personalised advice with self-service tools", "ok": false, "note": "Nothing in the case proposes removing the adviser. The app improves how service is delivered, not what the service is." },
+        { "t": "To improve digital service delivery, which mainly benefits existing clients", "ok": true, "note": "The notes give the app convenience and better digital service for existing clients, and warn it may not attract new ones — so it answers a service-experience diagnosis." }
+      ]
+    },
+    {
+      "topic": "$RUs Digital Innovation Case",
+      "q": "Which statement best captures the decision rule Week 0 closes on?",
+      "hint": "The closing callout rules one motive out and puts two conditions on whatever is chosen.",
+      "options": [
+        { "t": "Adopt whichever initiative competitors have already adopted", "ok": false, "note": "This is the reasoning the notes reject — the firm should not adopt technology simply to appear modern." },
+        { "t": "Adopt all three initiatives so that no part of the journey is left uncovered", "ok": false, "note": "The point of diagnosing is that the three options answer different questions. Running everything abandons the diagnosis rather than acting on it." },
+        { "t": "Choose the option that solves a clear customer problem and can be tested with minimal risk", "ok": true, "note": "Both conditions come straight from the closing callout, and together they rule out adopting technology just to look modern." },
+        { "t": "Choose the option with the lowest build cost, since the firm has no digital strategy yet", "ok": false, "note": "Cost is only one input. A cheap initiative aimed at the wrong diagnosis still fails the test the notes set." }
+      ]
+    },
+    {
+      "topic": "Shadow Boxing",
+      "q": "What most distinguishes Shadow Boxing from a traditional lecture?",
+      "hint": "Think about the order of events — when you find out what an expert would have done.",
+      "options": [
+        { "t": "It replaces case studies with theory delivered by industry experts", "ok": false, "note": "Backwards. The method puts you inside a realistic project scenario; the expert’s view arrives afterwards, as a comparison." },
+        { "t": "You commit to a decision and see its consequences before comparing your thinking with an expert’s", "ok": true, "note": "The sequence is the point: students participate in the decision rather than simply being told the correct answer, then review against an expert and discuss with peers." },
+        { "t": "It grades each decision so students can see how their judgement is improving", "ok": false, "note": "Shadow Boxing is a learning activity, not an assessment — the choices change the learning path, not a mark." },
+        { "t": "It guarantees there is one correct answer to find in each scenario", "ok": false, "note": "One of its stated aims is the opposite: understanding that multiple valid solutions may exist." }
+      ]
+    },
+    {
+      "topic": "Shadow Boxing",
+      "q": "You are worried that picking the wrong option in a Shadow Boxing scenario will cost you marks. What do the notes say?",
+      "hint": "Consider what the choice actually changes if it does not change a grade.",
+      "options": [
+        { "t": "Choices do not affect marks — they only change the learning path you experience", "ok": true, "note": "The notes state this directly: Shadow Boxing is a learning activity, not an assessment." },
+        { "t": "Only the final decision in each scenario is marked", "ok": false, "note": "No part of the activity is marked. Treating any step as assessed undercuts the willingness to commit that the method depends on." },
+        { "t": "Marks are awarded for matching the industry expert’s reasoning", "ok": false, "note": "The expert review is there to compare against, not to score against — and the notes allow for more than one valid solution." },
+        { "t": "You are marked on the discussion with peers rather than the decision", "ok": false, "note": "Peer discussion is one of the ways the method teaches, not a graded component." }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "$RUs Digital Innovation Case",
+      "title": "The app that everyone else has",
+      "setup": "A senior partner at $RUs opens the meeting by saying every competitor now has a client app, and that the firm looks dated without one. He wants sign-off to start building. No one in the room has yet said which younger clients the app would win, or what those clients are currently failing to do.",
+      "task": "Decide whether the proposal should be approved as it stands, and say what you would establish first.",
+      "hints": [
+        "Week 0 argues the choice between the three options cannot be made yet. Ask what is missing from this proposal.",
+        "Set the app’s stated purpose beside the goal the partner is claiming for it. They are not the same thing.",
+        "The closing callout rules out one motive for adopting technology and sets two conditions on any option that is chosen."
+      ],
+      "walkthrough": [
+        "Name the reasoning being used. The argument on the table is that competitors have an app, which is adopting technology to appear modern — the motive the notes explicitly reject.",
+        "Check the fit between purpose and goal. The app’s main purpose is to improve digital service delivery, and its benefits fall to existing clients; the notes also warn it may not attract new ones. The partner’s goal is younger prospects, so the tool and the goal are mismatched unless the diagnosis is service experience.",
+        "Return to the diagnosis. Before any option is chosen the firm has to determine which part of the journey is failing — awareness, engagement, conversion or service experience. Nothing said in the meeting establishes that.",
+        "Apply the two conditions. A defensible choice solves a clear customer problem and can be tested with minimal risk; an expensive build committed to before the problem is known meets neither.",
+        "Conclude. Do not approve it yet. Establish which diagnosis holds; if it turns out existing clients want better digital access, the app becomes the right answer for the right reason."
+      ],
+      "checklist": [
+        "Identifies the proposal as technology-first rather than problem-first",
+        "States the app’s actual purpose and who its benefits fall to",
+        "Names the four candidate diagnoses as the missing step",
+        "Applies both closing conditions — a clear customer problem, and testable with minimal risk",
+        "Leaves the app open as the right choice under a service-experience diagnosis rather than rejecting it outright"
+      ]
+    },
+    {
+      "topic": "$RUs Digital Innovation Case",
+      "title": "Two teams, two symptoms",
+      "setup": "Two reports land the same week. The advisers say that younger people who do make contact ask good questions, then go quiet and never open an account. The marketing lead says that when she speaks to people in their 30s and 40s outside the firm’s referral network, most have simply never heard of $RUs.",
+      "task": "Work out which diagnoses each report supports, and how you would decide between them before committing to an initiative.",
+      "hints": [
+        "Each report describes a different point in the customer journey. Place each one against the four candidate diagnoses.",
+        "Two of the four diagnoses turn on whether the prospect knows the firm at all; the other two turn on what happens after they do.",
+        "The two reports may both be true of different groups. Ask what a low-risk test would reveal about which one is the binding problem."
+      ],
+      "walkthrough": [
+        "Map the advisers’ report. Prospects show interest but do not become clients — that is the conversion diagnosis, sitting late in the journey.",
+        "Map the marketing report. People in the target age group do not know the firm exists — that is the awareness diagnosis, sitting at the very start.",
+        "Note the tension. Awareness and conversion describe different populations: one group has not arrived, the other arrived and stalled. Solving the wrong one leaves the firm investing in technology that does not touch its real constraint.",
+        "Weigh what each initiative would do. Online advertising is aimed at low visibility and buys traffic, with the stated risk of clicks without trust or suitable clients — which would make a conversion problem worse, not better. Social media is chosen when the priority is educating and engaging younger clients, and builds the credibility a stalled prospect is missing.",
+        "Decide how to decide. Rather than pick on the strength of the louder report, run the option that can be tested with minimal risk against the diagnosis you think is binding, and treat the result as the evidence. State plainly which diagnosis you are betting on and what would prove you wrong."
+      ],
+      "checklist": [
+        "Correctly labels the adviser report as conversion and the marketing report as awareness",
+        "Recognises the two reports describe different groups rather than one contradiction",
+        "Uses each option’s stated benefit and risk to test the fit, not its general appeal",
+        "Chooses an approach that can be tested with minimal risk",
+        "Says explicitly which diagnosis is being backed and what evidence would overturn it"
+      ]
+    },
+    {
+      "topic": "$RUs Digital Innovation Case",
+      "title": "Visibility now, or trust later",
+      "setup": "The board accepts that younger prospects in their 30s and 40s barely register $RUs, and wants movement quickly. Online advertising promises fast visibility and enquiries the board can see; social media promises credibility with the same audience but asks for sustained content before anything shows. The firm’s reputation rests on complex, long-term advice.",
+      "task": "Recommend which of the two options $RUs should back, and justify the trade-off you are accepting.",
+      "hints": [
+        "Both options are defensible here. The question is which risk the firm can live with, given what it sells.",
+        "Write out each option’s stated benefit and its stated risk as a pair, then ask which risk bites hardest for a firm selling complex, long-term advice.",
+        "Neither option has to be an all-or-nothing commitment. Recall the second condition the closing rule places on any choice."
+      ],
+      "walkthrough": [
+        "Fix the diagnosis. The board’s own description — barely registering with the target age group — is an awareness problem, which is the condition online advertising is written for.",
+        "Set out the pairs. Online advertising buys fast visibility, targeted campaigns and measurable enquiries, and risks clicks without trust or suitable clients. Social media builds credibility, educates younger clients and supports long-term engagement, and risks needing consistent content with slow results.",
+        "Weigh the risk against the product. The firm sells complex, long-term advice built on personalised relationships, so enquiries without trust convert poorly — the advertising risk is the more expensive one for this particular business, even though the diagnosis points that way.",
+        "Apply the minimal-risk test. A limited advertising run is cheap to try and produces measurable evidence quickly, so it can serve as the test of whether visibility alone moves anything, while social media is the option that addresses the relevance the audience will need if visibility turns out not to be enough.",
+        "Recommend and state the trade-off. Back the option whose risk the firm can absorb, say which benefit you are giving up, and name what result would make you switch."
+      ],
+      "checklist": [
+        "Names the diagnosis the board’s description implies before comparing options",
+        "Quotes both the benefit and the risk for each of the two options",
+        "Connects the advertising risk specifically to what $RUs sells and how it wins clients",
+        "Uses the test-with-minimal-risk condition rather than treating the choice as permanent",
+        "States the trade-off accepted and what evidence would reverse the recommendation"
+      ]
+    },
+    {
+      "topic": "Shadow Boxing",
+      "title": "Working a scenario honestly",
+      "setup": "You open a Shadow Boxing scenario and find yourself hesitating: the situation is ambiguous, you can see arguments for two options, and you suspect there is a model answer waiting further down the page. The temptation is to skim ahead to the expert’s view and then record the decision it points to.",
+      "task": "Decide how to work the round so the method actually teaches you something, and explain why the shortcut costs you.",
+      "hints": [
+        "Look at the order of the stages. Something has to happen before the expert review for the expert review to mean anything.",
+        "One of the method’s stated aims concerns how many valid solutions a realistic scenario can have.",
+        "There is a reason the stakes are low. Ask what your choice does affect, if not your mark."
+      ],
+      "walkthrough": [
+        "Recall the sequence. The workflow runs preparation, decision, consequences, expert review, live session — the expert review is the fourth stage, and it works by comparison with a decision you have already committed to.",
+        "See what the shortcut destroys. If you read the expert first there is no independent reasoning left to compare, so the stage that carries the learning has nothing to act on.",
+        "Address the hesitation. Ambiguity is deliberate: the method exists to let you experience the uncertainty found in real projects, and one of its aims is understanding that multiple valid solutions may exist. Being torn between two options is the exercise working, not you failing it.",
+        "Reprice the risk. Your choices do not affect your marks — they only change the learning path you experience — so the cost of committing to the option you think is weaker is close to zero, and the cost of not committing is the whole exercise.",
+        "Work the round. Commit to one option and write down why, sit with the consequences it produces, then read the expert’s reasoning and mark the specific point where your thinking diverged, and take that divergence into the peer discussion."
+      ],
+      "checklist": [
+        "Places the expert review after the decision and its consequences in the workflow",
+        "Explains why a decision made before the expert’s view is what makes the comparison useful",
+        "Treats ambiguity and multiple valid solutions as intended features of the scenario",
+        "Notes that the activity is not assessed and what the choice does change",
+        "Ends with a concrete way of working the round, including the peer discussion"
+      ]
+    }
+  ]
+}

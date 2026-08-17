@@ -102,12 +102,17 @@ Three page kinds, all at repo root, all self-contained (see
 | `DMBA<code>-week<N>.html` | **Week study page.** Three tabbed modes. One per week. |
 | `library.html` | Registry — every new page must be added to `articlesBySubject` |
 
-The week page has exactly three modes, driven off that week's **pre-live** content:
+The week page has three **synced** modes, driven off that week's **pre-live** content:
 
 1. **Summary &amp; visuals** — the whole week condensed, with hand-authored inline SVG figures,
    formulas, worked examples and tables.
 2. **Key concepts** — a filterable glossary of terms and formulas.
 3. **Flashcards** — a flippable deck for active recall.
+
+Everything else on the page is **derived from the built page, never from Notion**: the
+**Acronyms** and **Formulas** reference tabs (§3b), and the **study path**, **Quiz** and
+**Apply it** practice components (§3c). Deriving them from the assembled page means they
+can only ever contain material that already passed gate 1.
 
 `DMBA6008-week1.html` is the **reference implementation**. Clone its `<style>` block and its
 `<script>` wholesale for a new week; only the three data structures and the summary markup
@@ -203,6 +208,28 @@ formulas, and gets no Formulas tab. Do not pad one to fill the template.
 The slots are `<!--INSERT:ACRONYMS_TAB-->` / `<!--INSERT:ACRONYMS_PANEL-->` /
 `<!--INSERT:ACRONYMS_DATA-->` and the same three for `FORMULAS`. The shared `buildRef()`
 renderer already sits in the shell and no-ops when a tab is absent.
+
+### Step 3c — Derive the study path, the Quiz and the Apply-it tabs
+
+Three practice components, added 2026-08-17. Like 3b they are derived from the assembled
+page, and like 3b they are **extraction, not addition**.
+
+| Component | Where | What |
+| --- | --- | --- |
+| **Study path** | first block of the summary panel, `00 / Start here` | "How to master this week" — a 5–7 step route through the modes this week has, each step jumping to its tab |
+| **Quiz** | its own tab | four options, one right, a hint per question, a note on every option, a running score and a reset |
+| **Apply it** | its own tab | 4–6 scenarios, three staged hints each, a walkthrough and a self-mark checklist |
+
+The authored content is **one JSON file per page** under
+`.claude/skills/sync-subject/reference/practice/data/`; the stylesheet, the panel markup and
+the renderer are shared, and `practice/build.py` splices them in after asserting the shape.
+The schema and the authoring rules live in that folder's
+[`README.md`](../.claude/skills/sync-subject/reference/practice/README.md) — **read it before
+touching any of this.**
+
+**A re-sync that changes a week must re-derive that week's practice content.** New material
+needs new questions; a filled placeholder must stop being described as unwritten; and the
+counts quoted in the hero pill, the hub card and the hub's mode list all need sweeping.
 
 ### Step 4 — Assemble, register, verify
 

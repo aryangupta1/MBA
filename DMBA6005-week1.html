@@ -1191,6 +1191,349 @@
         scroll-behavior: auto !important;
       }
     }
+    /* ── Quiz & Apply it ───────────────────────────────────────────────
+       Two practice modes layered on top of the synced material. Both are
+       rendered at runtime from authored arrays, the way the glossary and
+       the deck already are, so a re-sync replaces data and never markup.
+       Right/wrong reuse the --pos/--neg verdict tokens the page already
+       defines; no new token is introduced. */
+    .quizbar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 1.5rem 0 0.4rem;
+      padding: 13px 18px;
+      border-radius: var(--radius-lg);
+      background: var(--surface2);
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .quizbar .progress { min-width: 120px; }
+    .quizbar .btn { flex: 0 0 auto; }
+    .quiz-score {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+    .quiz-score strong { color: var(--ink); }
+    .quiz-verdict {
+      margin: 0.6rem 0 0;
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      background: var(--pos-soft);
+      color: var(--pos);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .quiz-verdict[hidden] { display: none; }
+
+    .quiz-list, .scen-list { display: grid; gap: 16px; margin-top: 1.4rem; }
+    .quiz-q, .scen {
+      padding: clamp(18px, 3vw, 26px);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+    }
+    .quiz-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .quiz-n {
+      flex: 0 0 auto;
+      padding: 3px 11px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .quiz-stem {
+      margin: 0 0 0.2rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.04rem;
+      line-height: 1.36;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: pretty;
+    }
+
+    .opts { display: grid; gap: 9px; margin-top: 1rem; }
+    .opt {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--ink2);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    }
+    .opt:hover:not(:disabled) { border-color: var(--accent); color: var(--ink); transform: translateY(-1px); }
+    .opt:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; }
+    .opt:disabled { cursor: default; }
+    .opt-key {
+      flex: 0 0 auto;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--paper2);
+      color: var(--ink2);
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      font-weight: 800;
+    }
+    .opt-t { flex: 1 1 auto; min-width: 0; }
+    .opt[data-state="right"] { border-color: var(--pos); background: var(--pos-soft); color: var(--ink); }
+    .opt[data-state="right"] .opt-key { background: var(--pos); color: #fff; }
+    .opt[data-state="wrong"] { border-color: var(--neg); background: var(--neg-soft); color: var(--ink); }
+    .opt[data-state="wrong"] .opt-key { background: var(--neg); color: #fff; }
+    .opt[data-state="off"] { opacity: 0.5; }
+
+    .fb {
+      margin-top: 12px;
+      padding: 13px 17px;
+      border-radius: var(--radius);
+      background: var(--surface2);
+      border-left: 3px solid var(--ink3);
+    }
+    .fb + .fb { margin-top: 9px; }
+    .fb p { margin: 0.35rem 0 0; font-size: 0.87rem; color: var(--ink2); }
+    .fb-tag {
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+    .fb--right { border-left-color: var(--pos); background: var(--pos-soft); }
+    .fb--right .fb-tag { color: var(--pos); }
+    .fb--wrong { border-left-color: var(--neg); background: var(--neg-soft); }
+    .fb--wrong .fb-tag { color: var(--neg); }
+
+    /* ── Progressive reveals — hints and walkthroughs ──────────────────── */
+    .reveal {
+      margin-top: 10px;
+      border: 1.5px dashed var(--line);
+      border-radius: var(--radius);
+      background: var(--surface2);
+    }
+    .reveal > summary {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 16px;
+      list-style: none;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+    }
+    .reveal > summary::-webkit-details-marker { display: none; }
+    .reveal > summary::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+      transform: rotate(-45deg);
+      transition: transform 0.22s ease;
+    }
+    .reveal[open] > summary::before { transform: rotate(45deg); }
+    .reveal > summary:hover { color: var(--accent); }
+    .reveal > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; border-radius: var(--radius); }
+    .reveal-body { padding: 0 16px 14px; }
+    .reveal-body p { margin: 0; font-size: 0.88rem; color: var(--ink2); }
+    .reveal-body .steps { margin: 0.2rem 0 0; }
+    .reveal-body .steps li { font-size: 0.88rem; }
+    .reveal--work { border-style: solid; border-color: var(--line2); background: #fff; }
+
+    /* ── Apply it ──────────────────────────────────────────────────────── */
+    .scen-title {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.12rem, 2.2vw, 1.3rem);
+      line-height: 1.16;
+      letter-spacing: -0.025em;
+    }
+    .scen-setup { margin: 0 0 0.9rem; font-size: 0.94rem; color: var(--ink2); }
+    .scen-task {
+      margin: 0 0 1.1rem;
+      padding: 13px 17px;
+      border-radius: var(--radius);
+      background: var(--sky);
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+    .scen-task strong {
+      display: block;
+      margin-bottom: 3px;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .check { list-style: none; margin: 0.4rem 0 0; padding-left: 0; }
+    .check li {
+      position: relative;
+      margin-bottom: 0.55rem;
+      padding-left: 1.7rem;
+      font-size: 0.88rem;
+      color: var(--ink2);
+    }
+    .check li:last-child { margin-bottom: 0; }
+    .check li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.28em;
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid var(--ink3);
+      border-radius: 4px;
+      background: #fff;
+    }
+    .reveal-body h5 { margin-top: 1.2rem; }
+
+    /* ── The study path ────────────────────────────────────────────────
+       "How to master this week" — the first block of the summary panel.
+       A numbered route through the modes the week actually has, with each
+       step able to jump straight to its tab. Authored as static markup so
+       the panel still reads with JS off; only the jump is enhanced. */
+    .path {
+      counter-reset: pathstep;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin: 1.5rem 0 1.3rem;
+      padding-left: 0;
+    }
+    .path-step {
+      counter-increment: pathstep;
+      position: relative;
+      margin: 0;
+      padding: 19px 22px 19px 66px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+    }
+    .path-step::before {
+      content: counter(pathstep, decimal-leading-zero);
+      position: absolute;
+      left: 20px;
+      top: 19px;
+      z-index: 1;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    /* The spine that makes it read as a route rather than a list. */
+    .path-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 34px;
+      top: 49px;
+      bottom: -13px;
+      width: 2px;
+      background: var(--line);
+    }
+    .path-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .path-label {
+      margin: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.02rem;
+      line-height: 1.24;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .path-time {
+      flex: 0 0 auto;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+    .path-step > p { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--ink2); }
+    .path-go {
+      margin-top: 13px;
+      padding: 7px 15px;
+      border: 1px solid var(--accent-soft);
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    }
+    .path-go:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .path-go:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; }
+    .path-close {
+      margin: 0;
+      padding: 17px 21px;
+      border-radius: var(--radius-lg);
+      background: var(--lime);
+      font-size: 0.94rem;
+      line-height: 1.5;
+      color: var(--ink);
+      box-shadow: 6px 6px 0 rgba(20, 19, 23, 0.06);
+    }
+    .path-close strong {
+      display: block;
+      margin-bottom: 3px;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 520px) {
+      .path-head { flex-direction: column; gap: 2px; }
+    }
+
   </style>
 </head>
 
@@ -1239,6 +1582,7 @@
         <span class="pill"><span class="dot" aria-hidden="true"></span> Pre-live session</span>
         <span class="pill">51 key terms</span>
         <span class="pill">76 flashcards</span>
+        <span class="pill">18 quiz questions</span>
       </div>
     </div>
   </header>
@@ -1253,6 +1597,10 @@
         data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
       <button class="tab" id="tab-acronyms" role="tab" aria-selected="false" aria-controls="panel-acronyms"
         data-panel="acronyms" tabindex="-1"><span class="tab-num" aria-hidden="true">04</span>Acronyms</button>
+      <button class="tab" id="tab-quiz" role="tab" aria-selected="false" aria-controls="panel-quiz"
+        data-panel="quiz" tabindex="-1"><span class="tab-num" aria-hidden="true">05</span>Quiz</button>
+      <button class="tab" id="tab-apply" role="tab" aria-selected="false" aria-controls="panel-apply"
+        data-panel="apply" tabindex="-1"><span class="tab-num" aria-hidden="true">06</span>Apply it</button>
     </div>
   </nav>
 
@@ -1260,6 +1608,72 @@
 
     <!-- ══════════════════ 01 · SUMMARY & VISUALS ══════════════════ -->
     <section class="panel active" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" tabindex="0">
+      <div class="block">
+        <span class="block-num">00 / Start here</span>
+        <h2>How to master this week</h2>
+        <p>A first pass at Week 1 in the order the page was built — the frameworks first, then the $RUs engagement they get applied to, then recall and judgement. Allow about three hours end to end, or closer to two if design thinking is already familiar ground.</p>
+
+        <ol class="path">
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Read blocks 01 to 09 first</h3>
+              <span class="path-time">~35 min</span>
+            </div>
+            <p>Everything else on this page rests on one distinction made in block 01 — doing the right thing versus doing it the right way — so do not move past it quickly. Slow right down on the Double Diamond table and fix which of Discover, Define, Design / Develop and Deliver diverges and which converges; the Triple Diamond in block 06 is unreadable until that mapping is solid. Skim the AI customer support example in block 08 on this pass and come back to it once the frameworks hold.</p>
+            <button class="path-go" type="button" data-goto="summary">Open Summary &amp; visuals <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Then read blocks 10 to 22</h3>
+              <span class="path-time">~30 min</span>
+            </div>
+            <p>Read the StellarCX engagement and the context analysis as the frameworks being applied, not as fresh theory — the whole point of the $RUs brief is that it arrives as a broad worry rather than a defined problem. The two tables to know cold are the six project risks in block 11 and the AI opportunity-and-risk pairings in block 18. Block 23 is honest that Creating your reflective journal is empty: the page does not cover that sub-page at all, so there is nothing there to study.</p>
+            <button class="path-go" type="button" data-goto="summary">Open Summary &amp; visuals <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Sort the 51 terms by tag</h3>
+              <span class="path-time">~20 min</span>
+            </div>
+            <p>Filter on the Intro to PM tag first and use it as a check that the four Double Diamond stages and the three Triple Diamond phases are genuinely distinct in my head, because they are the pair most often blurred together. Then the Context Analysis tag, where the terms are mostly market facts rather than concepts and can be read faster. While in reference mode, the Acronyms tab takes two minutes — five entries, and HECS and SaaS carry the expansion only, since my notes never spell them out.</p>
+            <button class="path-go" type="button" data-goto="terms">Open Key concepts <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Shuffle the 76 flashcards</h3>
+              <span class="path-time">~25 min</span>
+            </div>
+            <p>The recall cards — name the stages, name the phases, name the four steps inside Discovery — should be fast, and if they are not, go back to the tables rather than grinding the deck. The cards worth sitting with are the judgement ones that hand over a symptom, such as a technically productive team whose members are disconnected, and ask which named risk that is. Shuffle so the Intro to PM cards stop arriving in framework order.</p>
+            <button class="path-go" type="button" data-goto="cards">Open Flashcards <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Take the eighteen quiz questions</h3>
+              <span class="path-time">~20 min</span>
+            </div>
+            <p>Three confusions do most of the damage this week, and the quiz goes after all three: technology bias versus personal agendas, development versus validation in the Triple Diamond, and which AI risk the page pairs with which AI opportunity. Read the feedback on the options I did not pick as well, because the distractors are drawn from real entries elsewhere on the page rather than invented.</p>
+            <button class="path-go" type="button" data-goto="quiz">Open Quiz <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Work the five scenarios</h3>
+              <span class="path-time">~40 min</span>
+            </div>
+            <p>Nothing here is a calculation — Week 1 is entirely judgement, so the marks come from naming the right framework stage and the right risk, not from an answer. Do the chatbot scenario first because the page walks that example itself, then the Gold Team session, which is the closest thing on this page to the sort of decision the simulation will keep asking for. Use the hints one at a time and stop as soon as the route is clear.</p>
+            <button class="path-go" type="button" data-goto="apply">Open Apply it <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Write the recommendation from memory</h3>
+              <span class="path-time">~15 min</span>
+            </div>
+            <p>Close the tabs and write, in half a page, what I would tell Chris Gold to do next on the $RUs engagement and why. It has to name the risks in play, state the central project question, and set the condition under which AI could still be part of the answer — all without looking. Whatever comes out vague is the part of the page to reread.</p>
+          </li>
+        </ol>
+
+        <p class="path-close"><strong>The test</strong>The week has landed when I can take any proposed solution — the chatbot, an AI adviser, a discounted digital service — and say inside two minutes which diamond stage it actually belongs to, what evidence is still missing, and which of the six tabled risks is pushing it forward.</p>
+      </div>
+
 
       <div class="block" data-topic="Introduction to project management">
         <span class="block-num">01 / The premise</span>
@@ -2426,6 +2840,39 @@
         <div class="glossary" id="acronyms"></div>
       </div>
     </section>
+
+    <!-- ══════════════════ 05 · QUIZ ══════════════════ -->
+    <section class="panel" id="panel-quiz" role="tabpanel" aria-labelledby="tab-quiz" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">05 / Test yourself</span>
+        <h2>Quiz</h2>
+        <p>Eighteen questions across the three written Week 1 topics — the project management introduction, the StellarCX engagement, and the context analysis for $RUs. Pick an option and the feedback opens straight away, on the wrong answers as well as the right one, so a miss tells me which idea I have confused rather than just marking me down.</p>
+
+        <div class="quizbar">
+          <div class="quiz-score">
+            <span><strong id="quiz-done">0</strong> of <span id="quiz-total">0</span> answered</span>
+            <span><strong id="quiz-right">0</strong> correct</span>
+          </div>
+          <span class="progress"><span class="progress-fill" id="quiz-fill"></span></span>
+          <button class="btn btn--ghost" id="quiz-reset" type="button">Start over</button>
+        </div>
+        <p class="quiz-verdict" id="quiz-verdict" role="status" aria-live="polite" hidden></p>
+
+        <div class="quiz-list" id="quiz-list"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 06 · APPLY IT ══════════════════ -->
+    <section class="panel" id="panel-apply" role="tabpanel" aria-labelledby="tab-apply" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">06 / Put it to work</span>
+        <h2>Apply it</h2>
+        <p>Five situations from this week to reason through rather than calculate — Week 1 is a judgement week, not an arithmetic one. Each one gives a task, then three hints that unfold one at a time, widest first. The walkthrough and the checklist only use what this page already states, so nothing arrives from outside my notes.</p>
+
+        <div class="scen-list" id="scen-list"></div>
+      </div>
+    </section>
+
   </main>
 
   <footer class="page-foot">
@@ -2992,6 +3439,231 @@
     })();
 
   </script>
+
+  <script>
+    /* ── Quiz & Apply it ────────────────────────────────────────────────
+       Two practice modes. QUIZ and SCENARIOS are the only authored parts;
+       the renderer below is identical on every week page, so a re-sync
+       swaps the arrays and leaves the behaviour alone. Progressive
+       enhancement: with JS off both panels sit empty and the five synced
+       modes are unaffected. */
+    (function () {
+      'use strict';
+
+      var quizListEl = document.getElementById('quiz-list');
+      var scenListEl = document.getElementById('scen-list');
+      if (!quizListEl && !scenListEl) return;
+
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      var KEYS = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+      var QUIZ = /*QUIZ*/[
+        {"topic": "Introduction to project management", "q": "A project team delivers on schedule and within budget, but the organisation gets very little out of the result. On this week’s framing, which of the two project questions was answered badly?", "hint": "The page splits project work into two questions and sets them side by side in a table. Ask which column the words “on time” and “within budget” belong to.", "options": [{"t": "“Are we doing it the right way?” — execution quality was the weak point.", "ok": false, "note": "Delivery on time and within budget is exactly what that question covers, and the team met it. The failure sits on the other side of the table."}, {"t": "Neither — a project delivered on time and on budget has succeeded by definition.", "ok": false, "note": "The page separates delivery from value: a team can deliver efficiently and still create little value if the original problem was poorly defined."}, {"t": "“Are we doing the right thing?” — problem relevance, user needs and strategic value were never established.", "ok": true, "note": "That question covers problem relevance, user needs and strategic value, and the page’s point is that a poorly defined problem produces little value however well the work is delivered."}, {"t": "The problem was defined correctly, but the wrong delivery method was chosen.", "ok": false, "note": "That is still an execution answer. The page attributes the missing value to a poorly defined original problem, not to how the work was run."}]},
+        {"topic": "Introduction to project management", "q": "A leadership team responds to a drop in customer satisfaction by approving a major system replacement at its first meeting on the issue. What is that an example of?", "hint": "Look at the failure mode the page describes immediately after the premise — and at the list of familiar solutions it says teams reach for.", "options": [{"t": "Solution fixation — committing to an implementation before understanding the underlying need.", "ok": true, "note": "That is the page’s definition, and a major system replacement is one of the familiar solutions it names teams jumping to."}, {"t": "Convergent thinking — the team evaluated the evidence and reached a decision.", "ok": false, "note": "Convergence works on evidence that divergence has already gathered. Here nothing was explored before the decision was made."}, {"t": "Iteration — the team can revise the choice later if testing contradicts it.", "ok": false, "note": "Iteration is moving between stages as learning arrives. It does not licence committing before the need is understood, and the page warns that late changes create greater cost and disruption."}, {"t": "Operational agility — the organisation adapted quickly to a change in conditions.", "ok": false, "note": "Agility is the ability to adapt when evidence, requirements or conditions change. Speed of commitment is not the same as responsiveness to evidence."}]},
+        {"topic": "Introduction to project management", "q": "The page lists five characteristics of design thinking. Which one describes teams delaying judgement while they explore possibilities?", "hint": "All five labels are on the page. Sort them by what each is really about — who is involved, how learning happens, how often ideas are revisited, and when a verdict is reached.", "options": [{"t": "Experiential", "ok": false, "note": "Experiential means learning through observation, testing and interaction. When judgement is applied is a separate characteristic."}, {"t": "Interdisciplinary", "ok": false, "note": "That one is about combining different professional perspectives, not about the timing of a verdict."}, {"t": "Iterative", "ok": false, "note": "Iterative means ideas are repeatedly refined rather than developed once. Close, but the page gives holding off judgement its own label."}, {"t": "Open-ended", "ok": true, "note": "The page defines open-ended as teams delaying judgement while exploring possibilities."}]},
+        {"topic": "Introduction to project management", "q": "After three weeks of workshops a team holds a long list of possible problems but no agreed direction. Which move does the week prescribe?", "hint": "The two thinking modes have different outputs. Ask what this team already has plenty of, and what it still lacks.", "options": [{"t": "More divergence, because the list may still be missing an option.", "ok": false, "note": "Divergence is what produced the list. The page warns that without convergence the team falls into endless analysis."}, {"t": "Convergent thinking — evaluate the evidence, prioritise and decide, so the team leaves with a defined problem.", "ok": true, "note": "The page gives convergence exactly that purpose and output, and says it is what prevents endless analysis."}, {"t": "Move to Deliver, since there is enough material to start implementing.", "ok": false, "note": "Deliver is the converging half of the second diamond and comes after alternatives have been generated and tested. Nothing has even been defined yet."}, {"t": "Start execution planning, since a schedule will force the team to choose.", "ok": false, "note": "The week argues the reverse — problem selection and definition come before scheduling, and a schedule does not substitute for a defined problem."}]},
+        {"topic": "Introduction to project management", "q": "According to the page, what should the first diamond of the Double Diamond produce?", "hint": "The Double Diamond splits development into two questions. Ask which of them the first diamond exists to answer.", "options": [{"t": "A prototype that can be tested with users.", "ok": false, "note": "Prototyping belongs to the second diamond, where alternative solutions are generated, compared and tested."}, {"t": "A shortlist of technologies the team can begin building.", "ok": false, "note": "That is a solution choice. The page is explicit that the first diamond’s output should not be a predetermined solution."}, {"t": "A clear, evidence-based problem definition.", "ok": true, "note": "The page says the first diamond stops the team accepting the initial problem statement without investigation, and that its output should be an evidence-based problem definition."}, {"t": "An agreed delivery schedule with resources and milestones.", "ok": false, "note": "Resources, time and cost sit under execution. The first diamond is about which problem is worth solving."}]},
+        {"topic": "Introduction to project management", "q": "In the Triple Diamond, what does the Validation phase decide?", "hint": "The page says a promising prototype must still become a reliable, integrated and adoptable system. Which phase does that checking?", "options": [{"t": "Which of the generated concepts should be developed.", "ok": false, "note": "That decision sits earlier, in the concept validation step inside Discovery, before development is approved."}, {"t": "Whether the team has the resources and schedule to build the solution.", "ok": false, "note": "That is an execution planning question. Validation is about how the built solution behaves in use."}, {"t": "Whether the problem was defined correctly in the first place.", "ok": false, "note": "Iteration can certainly send a team back to the problem definition, but the page gives Validation a specific job — checking the solution in conditions closer to real use."}, {"t": "Whether the solution performs outside the controlled development environment.", "ok": true, "note": "That is the page’s own definition of the phase, tested through pilot programs, limited releases and feedback from representative users."}]},
+        {"topic": "Introduction to project management", "q": "Why does the page say Agile execution cannot compensate for poor problem selection?", "hint": "Think about what short iterations actually speed up — and what they leave completely untouched.", "options": [{"t": "Because a team can efficiently build the wrong product in short iterations.", "ok": true, "note": "That is the page’s own line. Incremental delivery makes the building efficient; it does not make the chosen problem the right one."}, {"t": "Because Agile has no mechanism for incorporating feedback.", "ok": false, "note": "Feedback and continuous prioritisation are part of Agile project management as the page defines it. The limit is about which problem is being worked on."}, {"t": "Because Agile applies only to the Deliver stage of the Double Diamond.", "ok": false, "note": "The page has Agile supporting the Triple Diamond through repeated development and validation cycles, not confined to a single stage."}, {"t": "Because operational agility and Agile project management pull in opposite directions.", "ok": false, "note": "The page presents them as two related meanings of the same word, not as a conflict."}]},
+        {"topic": "Your project with StellarCX", "q": "The page describes Andrew as interested in career progression and in securing a visible, successful AI project. Which of the tabled project risks does that motivation illustrate most directly?", "hint": "Six risks are tabled. Separate the ones that originate in the technology, the ones that originate with the client, and the ones that originate with the people in the room.", "options": [{"t": "Technology bias — AI is being chosen because it appears innovative.", "ok": false, "note": "Technology bias is about the appeal of the technology itself. The driver the page names here is what the project would do for the person recommending it."}, {"t": "Personal agendas — career goals may influence recommendations and resource decisions.", "ok": true, "note": "That is the page’s wording for the risk, and Andrew’s described interest in a visible, successful AI project is the example that supports it."}, {"t": "Premature execution — pressure to show progress before the problem is defined.", "ok": false, "note": "Premature execution comes from pressure to demonstrate progress. Career motivation is a separate entry on the page’s list."}, {"t": "Client assumption bias — accepting $RUs’s view of the problem without validating it.", "ok": false, "note": "That risk sits between the team and the client. This one sits inside the team."}]},
+        {"topic": "Your project with StellarCX", "q": "What does the page give as the student’s objective in the Shadow Boxing simulation?", "hint": "Look at what the simulation deliberately withholds from the team, and ask what that makes the exercise a test of.", "options": [{"t": "To deliver the finished solution to $RUs on behalf of the Gold Team.", "ok": false, "note": "The student advises the StellarCX team rather than delivering the work, and the page sets an objective broader than a delivered solution."}, {"t": "To settle as early as possible whether AI is the right technology.", "ok": false, "note": "Whether AI is appropriate is one of the listed decisions, but the page treats AI as a possible enabler rather than something to fix up front."}, {"t": "Not only to deliver a solution, but to make defensible project decisions under uncertainty.", "ok": true, "note": "That is the page’s stated objective, and it matches the conditions the simulation supplies — incomplete information, competing priorities and changing project directions."}, {"t": "To remove the ambiguity from the brief before the team starts work.", "ok": false, "note": "The simulation deliberately supplies incomplete information and shifting direction. The role is to decide well inside that ambiguity, not to eliminate it."}]},
+        {"topic": "Your project with StellarCX", "q": "On the page’s account, under what condition should AI become part of the $RUs project?", "hint": "The page gives a one-line verdict on AI and repeats it in the takeaways. It is about sequence, not about capability.", "options": [{"t": "When the client asks for it, since $RUs is paying for the engagement.", "ok": false, "note": "The page has the adviser deciding when to accept or challenge the client’s direction, and warns against adopting the client’s framing unvalidated."}, {"t": "When the Gold Team has the specialist capability to build it.", "ok": false, "note": "Having the capability says nothing about whether it solves the client’s problem — that is close to the technology-bias risk the page names."}, {"t": "At the start, so the rest of the project can be designed around it.", "ok": false, "note": "The page’s takeaway is that AI is a possible enabler but not the starting point, and that StellarCX must avoid treating AI as the project objective."}, {"t": "Only if discovery and validation show it improves the customer experience or the business model.", "ok": true, "note": "That is the page’s condition. AI is a possible enabler, not automatically the correct solution."}]},
+        {"topic": "Context Analysis for $RUs", "q": "Why does the page put context analysis before solution design?", "hint": "The callout at the foot of that block names three ways a solution can fail even when it is built well.", "options": [{"t": "Because it is what tells the team whether an innovative solution would actually be relevant, compliant and commercially viable.", "ok": true, "note": "That is the warning the page’s callout makes about skipping the analysis, and it is why the analysis covers the real customer problem, market opportunities and threats, regulatory constraints and competitor capabilities."}, {"t": "Because the client expects a market report as the first deliverable.", "ok": false, "note": "Nothing on the page frames it as a client deliverable. It exists to inform the team’s own problem definition."}, {"t": "Because it produces the solution concept the team will then build.", "ok": false, "note": "It identifies the environment and the real customer problem. Generating concepts belongs later, once the problem is defined."}, {"t": "Because regulation is the only external factor that can stop the project.", "ok": false, "note": "Regulatory constraints are one item on the page’s list, alongside market opportunities and threats, changing customer expectations, competitor capabilities and fit with $RUs’ strengths."}]},
+        {"topic": "Context Analysis for $RUs", "q": "How does the page describe what younger clients need, compared with the traditional financial planning market?", "hint": "Compare the two lists the page sets out — what advisers have historically sold, and what the emerging segment is actually dealing with.", "options": [{"t": "The same services, delivered through a mobile app.", "ok": false, "note": "Digital convenience is one expectation among several. The page says these clients are not simply younger versions of the existing customers."}, {"t": "Advice across earlier stages of wealth creation — budgeting and debt management, HECS repayment, first-home purchasing, insurance and more.", "ok": true, "note": "The traditional focus was retirement, portfolios, superannuation, tax structuring and wealth preservation for people who already hold significant assets. The emerging market needs support well before that point."}, {"t": "Mainly retirement and superannuation advice, delivered earlier in life.", "ok": false, "note": "Superannuation still matters to this segment, but the page lists a much broader set of immediate needs and says services must address current pressures, not only retirement."}, {"t": "A lower-cost version of the existing portfolio management service.", "ok": false, "note": "Cost is part of the barrier the page describes, but the difference it identifies is in the kind of advice needed, not only its price."}]},
+        {"topic": "Context Analysis for $RUs", "q": "What does the page identify as the core customer tension in the younger segment?", "hint": "The figure in that block puts two things at either end and a set of obstacles in between.", "options": [{"t": "They want advice but distrust digital channels.", "ok": false, "note": "The page has digital convenience as an expectation rather than a barrier. The distrust it names is of financial institutions."}, {"t": "They have money to invest but little interest in long-term planning.", "ok": false, "note": "The page’s picture is close to the opposite — limited disposable income alongside real long-term needs such as superannuation and future family assets."}, {"t": "They cannot be reached through the channels $RUs already uses.", "ok": false, "note": "Which channels they trust is one of the questions discovery still has to answer, not the tension the page states."}, {"t": "They may recognise the value of advice, but barriers sit between recognising it and being able to buy it.", "ok": true, "note": "The page names limited disposable income, high housing costs, education debt, market uncertainty, distrust of financial institutions and uncertainty about affordability, and concludes that $RUs must demonstrate value before expecting a traditional long-term commitment."}]},
+        {"topic": "Context Analysis for $RUs", "q": "Having compared large institutions with independent boutique firms, what strategic position does the page reach for $RUs?", "hint": "Both sides of the comparison carry advantages and limits. Ask which $RUs strength a bank cannot easily copy, and which $RUs weakness would have to be fixed.", "options": [{"t": "Match the institutions on digital platforms and marketing spend.", "ok": false, "note": "Those are precisely the institutions’ advantages and the boutique’s limits. The page says $RUs should not try to compete purely through scale."}, {"t": "Concentrate on the traditional wealthy client base, where its relationships already hold.", "ok": false, "note": "That leaves the growth problem unsolved. The engagement exists because $RUs faces uncertainty about its future growth."}, {"t": "Combine personalised independent advice with a modern, convenient and scalable customer experience.", "ok": true, "note": "That is the combination the page’s callout states, which is why the conclusion it draws is not about scale."}, {"t": "Partner with a large institution to gain access to its customer data.", "ok": false, "note": "Nothing on the page proposes that, and it treats visible independence as one of the ways $RUs must demonstrate trust."}]},
+        {"topic": "Context Analysis for $RUs", "q": "Why does the page treat trust as a central issue in financial planning rather than a communications problem?", "hint": "Ask what a client has to hand over to an adviser, and how long they have to live with the result.", "options": [{"t": "Because clients must disclose sensitive information and rely on advice with long-term consequences.", "ok": true, "note": "That is the page’s reason, and it is why past scandals over conflicts of interest and commission-driven behaviour still shape the market."}, {"t": "Because regulation requires advisory firms to publish a trust statement.", "ok": false, "note": "The page lists obligations such as disclosure, privacy and customer-data protection, record-keeping and accountability. A trust statement is not among them."}, {"t": "Because younger clients are less financially literate than older ones.", "ok": false, "note": "The page asks for simple communication because financial language is complex, not because the segment is less capable."}, {"t": "Because $RUs’s competitors have stronger brands.", "ok": false, "note": "Brand recognition is an institutional advantage the page names, but its trust argument rests on what an advice relationship demands of the client."}]},
+        {"topic": "Context Analysis for $RUs", "q": "The page pairs each AI opportunity with an associated risk. Which risk does it attach to automated customer support?", "hint": "The table has five rows. Match each risk to the specific thing being automated rather than to AI in general.", "options": [{"t": "Staff may over-rely on automated outputs.", "ok": false, "note": "That risk is paired with adviser productivity, where the concern is what automation does to the people using it."}, {"t": "Customers may mistake general information for personal advice.", "ok": true, "note": "That is the pairing the page’s table gives, and it matters in a setting where personal advice carries its own regulatory obligations."}, {"t": "Data use may appear intrusive or unfair.", "ok": false, "note": "That risk is paired with client segmentation, where the issue is how customer data is used."}, {"t": "Reduced human interaction may weaken trust.", "ok": false, "note": "That risk is paired with scalable engagement. Related, but the page keeps it distinct from the confusion between general information and personal advice."}]},
+        {"topic": "Context Analysis for $RUs", "q": "What does the page identify as the intergenerational opportunity for $RUs?", "hint": "The theme of that block is timing. Ask when the relationship should begin, relative to the transfer of wealth.", "options": [{"t": "Selling estate planning services to its existing older clients.", "ok": false, "note": "The page’s move is outward to the wider family, not deeper into the relationship $RUs already has."}, {"t": "Taking over the management of inherited portfolios once wealth has transferred.", "ok": false, "note": "That means waiting until the transfer has happened, which is the pattern the page argues against."}, {"t": "Using existing clients as a referral channel for advertising.", "ok": false, "note": "Whether existing clients can introduce younger family members is a discovery question, but the opportunity the page describes is an advisory relationship across generations, not a marketing channel."}, {"t": "Engaging the wider family before wealth is transferred, rather than advising only the existing older client.", "ok": true, "note": "That is the page’s wording, and it connects to its broader point about building relationships before clients become wealthy."}]},
+        {"topic": "Context Analysis for $RUs", "q": "The page proposes that $RUs could move from retirement adviser to long-term financial partner across life stages. What status does it give that proposition?", "hint": "Read the closing line of that block, and the band at the foot of its figure. Both say the same thing about how settled this is.", "options": [{"t": "A conclusion the context analysis has established.", "ok": false, "note": "The analysis makes it promising, but the page stops deliberately short of treating it as settled."}, {"t": "A recommendation ready to be put to the client.", "ok": false, "note": "Adopting it now would repeat the assumption problem the page warns about — a position taken before the customers concerned have been asked."}, {"t": "A hypothesis that StellarCX must test through customer research.", "ok": true, "note": "The page says exactly that, and the figure’s caption notes that nothing there has been validated with customers yet."}, {"t": "An option ruled out because $RUs lacks the digital capability.", "ok": false, "note": "Limited digital capability is a real constraint the page names, but it frames the position as untested rather than unavailable."}]}
+      ]/*END_QUIZ*/;
+      var SCENARIOS = /*SCENARIOS*/[
+        {"topic": "Introduction to project management", "title": "The chatbot that was not the problem", "setup": "A software company’s leadership has proposed an AI chatbot for customer support, largely because competitors have introduced one. A budget has been approved and a delivery date is being discussed. You are asked to advise before anything is built.", "task": "Decide what the team should do before the chatbot is built, and say what would have to be true for a chatbot to remain the right answer.", "hints": ["The week’s first question is not how to build this well. It is whether this is the right thing to build.", "The page walks this exact example through the Double and Triple Diamond. Ask what the first diamond is supposed to output.", "In the page’s version, research changes what the core problem is taken to be, and the chatbot ends up as one candidate among several rather than the decision."], "walkthrough": ["Name the failure mode first. Committing to an implementation before understanding the underlying need is solution fixation, and an AI feature is one of the familiar solutions the page says teams jump to.", "Run Discover. In the page’s version of this example, research finds the real frustration is that customers cannot see where their unresolved support cases stand.", "Run Define. The core problem becomes lack of timely status information, not the absence of a chatbot — an evidence-based problem definition, which is what the first diamond should output.", "Run Design. Alternatives include proactive notifications, a case-tracking portal, improved triage or an AI assistant, and users test lightweight prototypes before major investment.", "Extend through the Triple Diamond: build the selected approach in short Agile iterations, pilot it against resolution time, customer satisfaction and support workload, then release progressively with monitoring and user support.", "The chatbot survives only if concept validation shows it is the alternative that best addresses the defined problem. Either way, the project shifts from “build an AI chatbot” to improving the support experience with whichever solution is most appropriate."], "checklist": ["Names solution fixation, and says why an approved budget does not make the problem defined.", "Separates Discover from Define, and states an evidence-based problem definition rather than a solution.", "Puts the chatbot back into a set of alternatives that includes non-AI options.", "Says what would be validated before major investment, and against which measures.", "Notes that short Agile iterations make the building efficient, not the problem correct."]},
+        {"topic": "Introduction to project management", "title": "A prototype that demonstrates well", "setup": "A team has a working prototype that performs convincingly in internal demonstrations, and the sponsor wants to schedule the full rollout. Integration with the existing systems has not been attempted, and nobody outside the project team has used it.", "task": "Advise whether this project is ready for rollout, and if it is not, say what has to happen first.", "hints": ["Ask which of the week’s two frameworks is the one the page says better represents technology projects, and why.", "The page separates converting a validated concept into a functional solution from checking how that solution behaves in real conditions.", "The page has a specific line about what a rollout should be, and what it should not be reduced to."], "walkthrough": ["Place the project on the Triple Diamond, which extends beyond concept selection into development, real-world validation and scaled implementation — the reason the page says it better represents technology projects.", "An internal demonstration is not validation. Validation puts the solution in conditions closer to real use: pilot programs, limited releases, usability testing, performance testing, operational testing, and feedback from representative users.", "The page’s specific worry is that a promising prototype must still become a reliable, integrated and adoptable system. Untested integration and no external users leave all three unproven.", "So advise validating before scheduling: run a limited release with representative users, and treat what it exposes as legitimate grounds to iterate rather than as evidence the project has failed.", "Rollout then follows as a measured expansion — infrastructure scaling, user onboarding, training and support, change management and ongoing performance monitoring — rather than a launch date."], "checklist": ["Distinguishes development from validation and says what each phase is for.", "Names at least three of the validation mechanisms the page lists.", "Explains why an internal demonstration does not answer the question validation asks.", "Frames rollout as measured expansion with monitoring, not as a date.", "Treats findings that send the team backwards as normal iteration."]},
+        {"topic": "Your project with StellarCX", "title": "The first Gold Team session", "setup": "At the Gold Team’s first working session on the $RUs engagement, Andrew presents an outline AI architecture, Dirk says the discovery workshops are time he could spend building, and the client has asked to see something visible early in the engagement. Chris Gold has to set the team’s next step.", "task": "Advise Chris Gold on what the team should do next, and name the risks that the obvious next step would walk straight into.", "hints": ["The page tables six project risks. Start by working out which of them are live in this room.", "Two of the pressures here come from inside the team and one comes from the client. They call for different responses.", "The adviser’s listed decisions include what information is still missing. That is the opening."], "walkthrough": ["Identify the tabled risks that are active: technology bias, since an AI architecture is on the table before the problem is defined; personal agendas, given Andrew’s interest in a visible, successful AI project; premature execution, since pressure to show progress pulls the team into building; and poor collaboration, given Dirk’s preference for practical work over meetings.", "Note the risk the client brings too. Accepting $RUs’s view of the problem without validating younger customers’ needs is client assumption bias, and what $RUs has supplied is still a broad concern rather than a defined problem.", "Set the next step accordingly. The work is discovery against the central question — how might $RUs build scalable and valuable relationships with younger clients — not architecture.", "Handle the people as well as the plan. The page treats the team’s mix of disciplines and working styles as something that can improve the project as much as create tension, and warns that a technically productive team still performs poorly if members are disconnected or unheard, so Dirk’s practical strength and Annie’s design perspective both need a real role in discovery.", "Give the client something visible that is also honest. Evidence and a defined problem count as progress, and the page’s position is that AI enters only if discovery and validation show it improves the customer experience or the business model."], "checklist": ["Names at least three of the tabled risks and ties each to something specific in the situation.", "Separates pressure originating inside the team from pressure originating with the client.", "Proposes a next step that produces evidence rather than architecture.", "Addresses engagement and working styles, not only the sequence of work.", "States the condition under which AI could still turn out to be the answer."]},
+        {"topic": "Context Analysis for $RUs", "title": "Advice for people who cannot pay yet", "setup": "$RUs’s partners are enthusiastic about a digital service for clients under 40, and want to price it as a scaled-down version of the existing advisory fee. The context analysis has already described what this segment’s finances look like.", "task": "Advise whether that pricing logic is sound, and say what the context analysis implies the offer would actually have to do.", "hints": ["The segment’s problem is not only that the existing service costs too much.", "The page describes a gap between recognising that advice is valuable and being able to buy it.", "The page says $RUs must demonstrate value before expecting a traditional long-term advisory commitment."], "walkthrough": ["Start with the barriers the page names: limited disposable income, high housing costs, education debt, market uncertainty, distrust of financial institutions, and uncertainty about whether professional advice is affordable.", "A cheaper version of the same service addresses one of those. It leaves the trust barriers and the relevance barrier untouched.", "Check relevance directly. The traditional offer is retirement planning, portfolio management, superannuation, tax structuring and wealth preservation, aimed at people who already hold significant assets; this segment is dealing with budgeting and debt, HECS repayment, first-home purchasing, career and education decisions, insurance and similar.", "Check the tabled expectations — digital convenience, personalisation, transparency, ethical alignment, immediate relevance, ongoing engagement and simple communication — and note that transparency about fees is itself part of what would make any price acceptable.", "Conclude that pricing sits downstream of a service design question, and that how much this segment is willing to pay is on the page’s own discovery list as something to research rather than assume."], "checklist": ["Names the barriers rather than treating affordability as the only one.", "Shows why relevance, not only price, makes the traditional offer a poor fit.", "Connects transparency to trust rather than treating it as a marketing choice.", "Says that willingness to pay is something to research, not to assume.", "Avoids presenting a discount as a strategy."]},
+        {"topic": "Context Analysis for $RUs", "title": "An unsupervised AI adviser", "setup": "A proposal reaches Chris Gold for an AI tool that would answer younger clients’ financial questions directly, at any hour, with no adviser involved. It would be inexpensive to run and would scale without adding staff — which is exactly the constraint a boutique firm faces.", "task": "Assess the proposal against what the context analysis says about regulation, trust and the role AI should play.", "hints": ["Scalability is a genuine advantage here. Ask what the page says it must not cost.", "The page pairs each AI opportunity with a specific risk, and more than one of those pairings applies to this proposal.", "The page reaches a one-line conclusion about the relationship between AI and qualified advisers."], "walkthrough": ["Credit what the proposal genuinely solves. The page names difficulty scaling relationship-based services as a boutique disadvantage, and scalability as one of the elements the broader transformation must integrate.", "Apply the regulatory list. Financial advice operates in a highly regulated environment overseen by bodies including the Australian Securities and Investments Commission, and any new service or technology must consider financial advice obligations, privacy and customer-data protection, conflicts of interest, record-keeping, cybersecurity and accountability for recommendations.", "Apply the paired risks. Automated customer support carries the risk that customers mistake general information for personal advice; personalised financial education carries the risk that advice is inaccurate or unsuitable. A tool answering questions directly with no adviser involved runs into both at once.", "Apply the trust argument. Scalable engagement carries the risk that reduced human interaction weakens trust, and the page says trust must be demonstrated through transparent pricing, clear explanations, visible independence, ethical data use, consistent communication and evidence that recommendations reflect the client’s interests.", "Reach the page’s position: AI should support qualified advisers rather than operate as an uncontrolled substitute for professional judgement. So the idea is worth reshaping around adviser oversight rather than adopting as put — and even reshaped it is a candidate to be tested against customer desirability, technical feasibility, commercial viability, regulatory acceptability and strategic fit with $RUs."], "checklist": ["Acknowledges the scalability problem the proposal genuinely addresses.", "Names specific regulatory considerations rather than compliance in general.", "Uses at least two of the page’s opportunity-and-risk pairings.", "States the page’s position on AI relative to qualified advisers.", "Puts the reshaped idea through the five solution evaluation criteria."]}
+      ]/*END_SCENARIOS*/;
+
+      /* ── Quiz ─────────────────────────────────────────────── */
+      if (quizListEl && QUIZ.length) {
+        var doneEl = document.getElementById('quiz-done');
+        var rightEl = document.getElementById('quiz-right');
+        var totalEl = document.getElementById('quiz-total');
+        var fillEl = document.getElementById('quiz-fill');
+        var verdictEl = document.getElementById('quiz-verdict');
+        var resetBtn = document.getElementById('quiz-reset');
+
+        var answered = 0;
+        var correct = 0;
+
+        totalEl.textContent = QUIZ.length;
+
+        quizListEl.innerHTML = QUIZ.map(function (q, i) {
+          return '<article class="quiz-q">' +
+            '<div class="quiz-head">' +
+              '<span class="quiz-n">Question ' + (i + 1) + '</span>' +
+              (q.topic ? '<span class="term-src">' + esc(q.topic) + '</span>' : '') +
+            '</div>' +
+            '<p class="quiz-stem">' + esc(q.q) + '</p>' +
+            (q.hint
+              ? '<details class="reveal"><summary>Hint</summary>' +
+                '<div class="reveal-body"><p>' + esc(q.hint) + '</p></div></details>'
+              : '') +
+            '<div class="opts" role="group" aria-label="Answer options for question ' + (i + 1) + '">' +
+              q.options.map(function (o, j) {
+                return '<button class="opt" type="button" data-q="' + i + '" data-o="' + j + '">' +
+                  '<span class="opt-key" aria-hidden="true">' + KEYS[j] + '</span>' +
+                  '<span class="opt-t">' + esc(o.t) + '</span></button>';
+              }).join('') +
+            '</div>' +
+            '<div class="fb-slot" id="fb-' + i + '" role="status" aria-live="polite"></div>' +
+            '</article>';
+        }).join('');
+
+        var qEls = Array.prototype.slice.call(quizListEl.querySelectorAll('.quiz-q'));
+
+        function paintScore() {
+          doneEl.textContent = answered;
+          rightEl.textContent = correct;
+          fillEl.style.width = (answered / QUIZ.length * 100) + '%';
+          if (answered === QUIZ.length) {
+            verdictEl.textContent = 'All done — ' + correct + ' of ' + QUIZ.length +
+              ' correct. Reread the ones you missed in Summary & visuals, then start over.';
+            verdictEl.removeAttribute('hidden');
+          } else {
+            verdictEl.setAttribute('hidden', '');
+          }
+        }
+
+        function answer(i, chosen) {
+          var q = QUIZ[i];
+          var wrap = qEls[i];
+          if (wrap.getAttribute('data-answered') === 'true') return;
+          wrap.setAttribute('data-answered', 'true');
+
+          var opts = Array.prototype.slice.call(wrap.querySelectorAll('.opt'));
+          var rightIdx = -1;
+          q.options.forEach(function (o, j) { if (o.ok) rightIdx = j; });
+
+          opts.forEach(function (el, j) {
+            el.disabled = true;
+            if (j === rightIdx) el.setAttribute('data-state', 'right');
+            else if (j === chosen) el.setAttribute('data-state', 'wrong');
+            else el.setAttribute('data-state', 'off');
+          });
+
+          var isRight = chosen === rightIdx;
+          answered++;
+          if (isRight) correct++;
+
+          var html = '<div class="fb ' + (isRight ? 'fb--right' : 'fb--wrong') + '">' +
+            '<span class="fb-tag">' + (isRight ? 'Correct' : 'Not this one') + '</span>' +
+            '<p>' + esc(q.options[chosen].note) + '</p></div>';
+          if (!isRight) {
+            html += '<div class="fb fb--right">' +
+              '<span class="fb-tag">' + KEYS[rightIdx] + ' is the answer</span>' +
+              '<p>' + esc(q.options[rightIdx].note) + '</p></div>';
+          }
+          document.getElementById('fb-' + i).innerHTML = html;
+          paintScore();
+        }
+
+        quizListEl.addEventListener('click', function (e) {
+          var node = e.target;
+          while (node && node !== quizListEl && !(node.classList && node.classList.contains('opt'))) {
+            node = node.parentNode;
+          }
+          if (!node || node === quizListEl || node.disabled) return;
+          answer(parseInt(node.getAttribute('data-q'), 10), parseInt(node.getAttribute('data-o'), 10));
+        });
+
+        resetBtn.addEventListener('click', function () {
+          answered = 0;
+          correct = 0;
+          qEls.forEach(function (wrap, i) {
+            wrap.removeAttribute('data-answered');
+            Array.prototype.slice.call(wrap.querySelectorAll('.opt')).forEach(function (el) {
+              el.disabled = false;
+              el.removeAttribute('data-state');
+            });
+            Array.prototype.slice.call(wrap.querySelectorAll('.reveal')).forEach(function (d) { d.open = false; });
+            document.getElementById('fb-' + i).innerHTML = '';
+          });
+          paintScore();
+          quizListEl.scrollIntoView({ block: 'start' });
+        });
+
+        paintScore();
+      }
+
+      /* ── Apply it ─────────────────────────────────────────── */
+      if (scenListEl && SCENARIOS.length) {
+        scenListEl.innerHTML = SCENARIOS.map(function (s, i) {
+          var hints = (s.hints || []).map(function (h, k) {
+            return '<details class="reveal"><summary>Hint ' + (k + 1) + '</summary>' +
+              '<div class="reveal-body"><p>' + esc(h) + '</p></div></details>';
+          }).join('');
+
+          var steps = (s.walkthrough || []).map(function (w) {
+            return '<li>' + esc(w) + '</li>';
+          }).join('');
+
+          var checks = (s.checklist || []).map(function (c) {
+            return '<li>' + esc(c) + '</li>';
+          }).join('');
+
+          return '<article class="scen">' +
+            '<div class="quiz-head">' +
+              '<span class="quiz-n">Scenario ' + (i + 1) + '</span>' +
+              (s.topic ? '<span class="term-src">' + esc(s.topic) + '</span>' : '') +
+            '</div>' +
+            '<h3 class="scen-title">' + esc(s.title) + '</h3>' +
+            '<p class="scen-setup">' + esc(s.setup) + '</p>' +
+            '<p class="scen-task"><strong>Your task</strong>' + esc(s.task) + '</p>' +
+            hints +
+            '<details class="reveal reveal--work"><summary>Work it through</summary>' +
+              '<div class="reveal-body">' +
+                (steps ? '<ol class="steps">' + steps + '</ol>' : '') +
+                (checks ? '<h5>A strong answer covers</h5><ul class="check">' + checks + '</ul>' : '') +
+              '</div>' +
+            '</details>' +
+            '</article>';
+        }).join('');
+      }
+    })();
+  </script>
+
+
+  <script>
+    /* ── Study path ─────────────────────────────────────────────────────
+       The only behaviour the block needs: a step's button selects its mode
+       tab. Everything else about the block is static markup. */
+    (function () {
+      'use strict';
+      var path = document.querySelector('.path');
+      if (!path) return;
+
+      path.addEventListener('click', function (e) {
+        var node = e.target;
+        while (node && node !== path && !(node.classList && node.classList.contains('path-go'))) {
+          node = node.parentNode;
+        }
+        if (!node || node === path) return;
+        var tab = document.getElementById('tab-' + node.getAttribute('data-goto'));
+        if (!tab) return;
+        tab.click();
+        tab.scrollIntoView({ block: 'center' });
+        tab.focus();
+      });
+    })();
+  </script>
+
 </body>
 
 </html>

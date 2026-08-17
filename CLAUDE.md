@@ -35,8 +35,14 @@ Subjects are grouped by semester on `index.html`.
 
 | Code | Subject | Content |
 | --- | --- | --- |
-| DMBA 6008 | Finance, Strategy and Technology | Weeks 0–3. Week hub + per-week study pages, synced from Notion. Three core modes — summary & visuals, key concepts, flashcards — plus **acronyms** and **formulas** where the week has them, and **discussion questions** where a Live note supplies them (Week 2 only so far) |
+| DMBA 6008 | Finance, Strategy and Technology | Weeks 0–3. Week hub + per-week study pages, synced from Notion. Three core modes — summary & visuals, key concepts, flashcards — plus **acronyms** and **formulas** where the week has them, and **discussion questions** where a Live note supplies them (Week 2 only so far). Every week also carries a **quiz**, an **Apply it** tab and a **study path**, all derived from the built page |
 | DMBA 6005 | Agile Project Development | Weeks 0–3. Week hub + per-week study pages, same modes, synced from Notion. Live since 2026-08-06 |
+
+The **quiz, Apply-it and study-path components are not synced from Notion** — they are
+derived from the assembled page and live in
+[`.claude/skills/sync-subject/reference/practice/`](.claude/skills/sync-subject/reference/practice/README.md).
+**A re-sync that changes a week must re-derive that week's practice content**; that folder's
+`README.md` is binding.
 
 Semester 2 pages are generated from the author's Notion notebooks by the **`sync-subject`
 skill** (`.claude/skills/sync-subject/`) — Aryan says *"update finance"* and it harvests,

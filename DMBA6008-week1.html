@@ -1192,6 +1192,349 @@
         scroll-behavior: auto !important;
       }
     }
+    /* ── Quiz & Apply it ───────────────────────────────────────────────
+       Two practice modes layered on top of the synced material. Both are
+       rendered at runtime from authored arrays, the way the glossary and
+       the deck already are, so a re-sync replaces data and never markup.
+       Right/wrong reuse the --pos/--neg verdict tokens the page already
+       defines; no new token is introduced. */
+    .quizbar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 1.5rem 0 0.4rem;
+      padding: 13px 18px;
+      border-radius: var(--radius-lg);
+      background: var(--surface2);
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .quizbar .progress { min-width: 120px; }
+    .quizbar .btn { flex: 0 0 auto; }
+    .quiz-score {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+    .quiz-score strong { color: var(--ink); }
+    .quiz-verdict {
+      margin: 0.6rem 0 0;
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      background: var(--pos-soft);
+      color: var(--pos);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .quiz-verdict[hidden] { display: none; }
+
+    .quiz-list, .scen-list { display: grid; gap: 16px; margin-top: 1.4rem; }
+    .quiz-q, .scen {
+      padding: clamp(18px, 3vw, 26px);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+    }
+    .quiz-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .quiz-n {
+      flex: 0 0 auto;
+      padding: 3px 11px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .quiz-stem {
+      margin: 0 0 0.2rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.04rem;
+      line-height: 1.36;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: pretty;
+    }
+
+    .opts { display: grid; gap: 9px; margin-top: 1rem; }
+    .opt {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--ink2);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    }
+    .opt:hover:not(:disabled) { border-color: var(--accent); color: var(--ink); transform: translateY(-1px); }
+    .opt:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; }
+    .opt:disabled { cursor: default; }
+    .opt-key {
+      flex: 0 0 auto;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--paper2);
+      color: var(--ink2);
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      font-weight: 800;
+    }
+    .opt-t { flex: 1 1 auto; min-width: 0; }
+    .opt[data-state="right"] { border-color: var(--pos); background: var(--pos-soft); color: var(--ink); }
+    .opt[data-state="right"] .opt-key { background: var(--pos); color: #fff; }
+    .opt[data-state="wrong"] { border-color: var(--neg); background: var(--neg-soft); color: var(--ink); }
+    .opt[data-state="wrong"] .opt-key { background: var(--neg); color: #fff; }
+    .opt[data-state="off"] { opacity: 0.5; }
+
+    .fb {
+      margin-top: 12px;
+      padding: 13px 17px;
+      border-radius: var(--radius);
+      background: var(--surface2);
+      border-left: 3px solid var(--ink3);
+    }
+    .fb + .fb { margin-top: 9px; }
+    .fb p { margin: 0.35rem 0 0; font-size: 0.87rem; color: var(--ink2); }
+    .fb-tag {
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+    .fb--right { border-left-color: var(--pos); background: var(--pos-soft); }
+    .fb--right .fb-tag { color: var(--pos); }
+    .fb--wrong { border-left-color: var(--neg); background: var(--neg-soft); }
+    .fb--wrong .fb-tag { color: var(--neg); }
+
+    /* ── Progressive reveals — hints and walkthroughs ──────────────────── */
+    .reveal {
+      margin-top: 10px;
+      border: 1.5px dashed var(--line);
+      border-radius: var(--radius);
+      background: var(--surface2);
+    }
+    .reveal > summary {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 16px;
+      list-style: none;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+    }
+    .reveal > summary::-webkit-details-marker { display: none; }
+    .reveal > summary::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+      transform: rotate(-45deg);
+      transition: transform 0.22s ease;
+    }
+    .reveal[open] > summary::before { transform: rotate(45deg); }
+    .reveal > summary:hover { color: var(--accent); }
+    .reveal > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; border-radius: var(--radius); }
+    .reveal-body { padding: 0 16px 14px; }
+    .reveal-body p { margin: 0; font-size: 0.88rem; color: var(--ink2); }
+    .reveal-body .steps { margin: 0.2rem 0 0; }
+    .reveal-body .steps li { font-size: 0.88rem; }
+    .reveal--work { border-style: solid; border-color: var(--line2); background: #fff; }
+
+    /* ── Apply it ──────────────────────────────────────────────────────── */
+    .scen-title {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.12rem, 2.2vw, 1.3rem);
+      line-height: 1.16;
+      letter-spacing: -0.025em;
+    }
+    .scen-setup { margin: 0 0 0.9rem; font-size: 0.94rem; color: var(--ink2); }
+    .scen-task {
+      margin: 0 0 1.1rem;
+      padding: 13px 17px;
+      border-radius: var(--radius);
+      background: var(--sky);
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+    .scen-task strong {
+      display: block;
+      margin-bottom: 3px;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .check { list-style: none; margin: 0.4rem 0 0; padding-left: 0; }
+    .check li {
+      position: relative;
+      margin-bottom: 0.55rem;
+      padding-left: 1.7rem;
+      font-size: 0.88rem;
+      color: var(--ink2);
+    }
+    .check li:last-child { margin-bottom: 0; }
+    .check li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.28em;
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid var(--ink3);
+      border-radius: 4px;
+      background: #fff;
+    }
+    .reveal-body h5 { margin-top: 1.2rem; }
+
+    /* ── The study path ────────────────────────────────────────────────
+       "How to master this week" — the first block of the summary panel.
+       A numbered route through the modes the week actually has, with each
+       step able to jump straight to its tab. Authored as static markup so
+       the panel still reads with JS off; only the jump is enhanced. */
+    .path {
+      counter-reset: pathstep;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin: 1.5rem 0 1.3rem;
+      padding-left: 0;
+    }
+    .path-step {
+      counter-increment: pathstep;
+      position: relative;
+      margin: 0;
+      padding: 19px 22px 19px 66px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+    }
+    .path-step::before {
+      content: counter(pathstep, decimal-leading-zero);
+      position: absolute;
+      left: 20px;
+      top: 19px;
+      z-index: 1;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    /* The spine that makes it read as a route rather than a list. */
+    .path-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 34px;
+      top: 49px;
+      bottom: -13px;
+      width: 2px;
+      background: var(--line);
+    }
+    .path-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .path-label {
+      margin: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.02rem;
+      line-height: 1.24;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .path-time {
+      flex: 0 0 auto;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+    .path-step > p { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--ink2); }
+    .path-go {
+      margin-top: 13px;
+      padding: 7px 15px;
+      border: 1px solid var(--accent-soft);
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    }
+    .path-go:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .path-go:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; }
+    .path-close {
+      margin: 0;
+      padding: 17px 21px;
+      border-radius: var(--radius-lg);
+      background: var(--lime);
+      font-size: 0.94rem;
+      line-height: 1.5;
+      color: var(--ink);
+      box-shadow: 6px 6px 0 rgba(20, 19, 23, 0.06);
+    }
+    .path-close strong {
+      display: block;
+      margin-bottom: 3px;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 520px) {
+      .path-head { flex-direction: column; gap: 2px; }
+    }
+
   </style>
 </head>
 
@@ -1241,6 +1584,7 @@
         <span class="pill"><span class="dot" aria-hidden="true"></span> Pre-live session</span>
         <span class="pill">20 key terms</span>
         <span class="pill">25 flashcards</span>
+        <span class="pill">12 quiz questions</span>
       </div>
     </div>
   </header>
@@ -1257,6 +1601,10 @@
         data-panel="acronyms" tabindex="-1"><span class="tab-num" aria-hidden="true">04</span>Acronyms</button>
       <button class="tab" id="tab-formulas" role="tab" aria-selected="false" aria-controls="panel-formulas"
         data-panel="formulas" tabindex="-1"><span class="tab-num" aria-hidden="true">05</span>Formulas</button>
+      <button class="tab" id="tab-quiz" role="tab" aria-selected="false" aria-controls="panel-quiz"
+        data-panel="quiz" tabindex="-1"><span class="tab-num" aria-hidden="true">06</span>Quiz</button>
+      <button class="tab" id="tab-apply" role="tab" aria-selected="false" aria-controls="panel-apply"
+        data-panel="apply" tabindex="-1"><span class="tab-num" aria-hidden="true">07</span>Apply it</button>
     </div>
   </nav>
 
@@ -1264,6 +1612,73 @@
 
     <!-- ══════════════════ 01 · SUMMARY & VISUALS ══════════════════ -->
     <section class="panel active" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" tabindex="0">
+      <div class="block">
+        <span class="block-num">00 / Start here</span>
+        <h2>How to master this week</h2>
+        <p>A short week with one argument in it, so the route through it is short too — about two hours end to end. Everything on this page is a way of testing a single sentence, so the order below builds that sentence first and only then widens it out.</p>
+
+        <ol class="path">
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Read the chain and the test first</h3>
+              <span class="path-time">~20 min</span>
+            </div>
+            <p>Take sections 01 to 05 straight through: the chain, ROA, the capital structure that sets WACC, the decision rule, then NPV. Do not move on until ROA above WACC reads as obvious, because everything later on the page is elaboration on that one comparison. The chain opens on assets, revenue and profit and takes them as given from Week 0, so if those feel shaky that is where to go first.</p>
+            <button class="path-go" type="button" data-goto="summary">Open Summary &amp; visuals <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Pin down the four that matter</h3>
+              <span class="path-time">~10 min</span>
+            </div>
+            <p>Only four pieces of algebra carry this week — ROA, WACC, the value spread and NPV — and the tab sets them beside the worked arithmetic, including ROA = 7.5 / 50 = 15% and NPV = $120 − $100 = $20. Learn which question each one answers rather than reciting them: efficiency of assets, cost of financing, annual signal, lifetime value. They are copied as written, so read the versions stated in words alongside the ones in symbols.</p>
+            <button class="path-go" type="button" data-goto="formulas">Open Formulas <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Then the principles and the ratios</h3>
+              <span class="path-time">~20 min</span>
+            </div>
+            <p>Come back for sections 06 and 07, the two longest stretches. Treat the eight principles as a cascade of filters rather than a list to memorise — the whole point is that a profitable project can still fail on capital, risk or strategy. In section 07 the part to slow down on is the decomposition into asset utilisation and profit margin, since it is the only place the week explains where a weak return comes from rather than that one exists.</p>
+            <button class="path-go" type="button" data-goto="summary">Open Summary &amp; visuals <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Filter for the non-formula terms</h3>
+              <span class="path-time">~10 min</span>
+            </div>
+            <p>Work the glossary for the entries that carry no algebra — opportunity cost, financial flexibility, cost versus value, strategic misalignment risk, accounting versus economic performance. Each is a judgement the ratios cannot make for you, which is exactly why they are easy to skim and hard to reproduce. The Key Definitions tag marks the four reproduced word for word; the rest come from the body of the pre-live notes.</p>
+            <button class="path-go" type="button" data-goto="terms">Open Key concepts <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Recall the worked numbers aloud</h3>
+              <span class="path-time">~15 min</span>
+            </div>
+            <p>Roughly half of the twenty-five cards are this week's worked figures — 12% against 10%, 8% against 10%, the SaaS 15%. Say the interpretation out loud rather than only the arithmetic: a spread is worth nothing until you can name whether value was created or destroyed and why. Go through in order once, then shuffle. If an abbreviation stops you, all six sit on the Acronyms tab.</p>
+            <button class="path-go" type="button" data-goto="cards">Open Flashcards <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Test the confusions, not the recall</h3>
+              <span class="path-time">~15 min</span>
+            </div>
+            <p>Twelve questions across the chain, the eight principles and the performance ratios. The traps are the ones that swap one ratio for another — profit margin for ROA, asset utilisation for either — and the ones where a perfectly positive return still fails the test. Read the note on every option, including the three you did not choose, because that is where the distinction is drawn.</p>
+            <button class="path-go" type="button" data-goto="quiz">Open Quiz <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Reason four situations through</h3>
+              <span class="path-time">~25 min</span>
+            </div>
+            <p>Four cases: reading two divisions' spreads, ranking competing uses of limited capital, appraising a build whose first year looks poor, and diagnosing a return that has slipped. Take a hint only when you are stuck — they narrow deliberately, so the first one is usually enough. Write your answer out before opening the walkthrough, then mark yourself against the checklist rather than against how close your wording came.</p>
+            <button class="path-go" type="button" data-goto="apply">Open Apply it <span aria-hidden="true">&rarr;</span></button>
+          </li>
+        </ol>
+
+        <p class="path-close"><strong>The test</strong>The week has landed when you can take any business, state its return, its cost of capital and the spread between them, and explain in one breath why an 8% return can be a failure and why a profitable project can still be the wrong one to fund.</p>
+      </div>
+
 
       <div class="block" data-topic="Overview">
         <span class="block-num">01 / The core idea</span>
@@ -2066,6 +2481,39 @@
         <div class="glossary" id="formulas"></div>
       </div>
     </section>
+
+    <!-- ══════════════════ 06 · QUIZ ══════════════════ -->
+    <section class="panel" id="panel-quiz" role="tabpanel" aria-labelledby="tab-quiz" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">06 / Test yourself</span>
+        <h2>Quiz</h2>
+        <p>Twelve questions on the one argument this week makes: assets earn a return, capital costs a rate, and only the gap between them is value. Pick an option and the feedback opens straight away — every option explains itself, right or wrong, so a wrong pick is worth as much as a correct one. A hint sits there before you commit.</p>
+
+        <div class="quizbar">
+          <div class="quiz-score">
+            <span><strong id="quiz-done">0</strong> of <span id="quiz-total">0</span> answered</span>
+            <span><strong id="quiz-right">0</strong> correct</span>
+          </div>
+          <span class="progress"><span class="progress-fill" id="quiz-fill"></span></span>
+          <button class="btn btn--ghost" id="quiz-reset" type="button">Start over</button>
+        </div>
+        <p class="quiz-verdict" id="quiz-verdict" role="status" aria-live="polite" hidden></p>
+
+        <div class="quiz-list" id="quiz-list"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 07 · APPLY IT ══════════════════ -->
+    <section class="panel" id="panel-apply" role="tabpanel" aria-labelledby="tab-apply" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">07 / Put it to work</span>
+        <h2>Apply it</h2>
+        <p>Four situations to reason through with this week’s tools rather than recall from them. Each sets a task, then offers three hints that unfold one at a time, widest first, so you take only as much help as you need. The walkthrough and the checklist use nothing beyond what this page states.</p>
+
+        <div class="scen-list" id="scen-list"></div>
+      </div>
+    </section>
+
   </main>
 
   <footer class="page-foot">
@@ -2587,6 +3035,224 @@
     })();
 
   </script>
+
+  <script>
+    /* ── Quiz & Apply it ────────────────────────────────────────────────
+       Two practice modes. QUIZ and SCENARIOS are the only authored parts;
+       the renderer below is identical on every week page, so a re-sync
+       swaps the arrays and leaves the behaviour alone. Progressive
+       enhancement: with JS off both panels sit empty and the five synced
+       modes are unaffected. */
+    (function () {
+      'use strict';
+
+      var quizListEl = document.getElementById('quiz-list');
+      var scenListEl = document.getElementById('scen-list');
+      if (!quizListEl && !scenListEl) return;
+
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      var KEYS = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+      var QUIZ = /*QUIZ*/[
+        {"topic": "Overview", "q": "The week describes value creation as a chain — assets, then revenue, then profit, then return on assets. What single comparison does the whole chain reduce to?", "hint": "Look at what sits immediately after the end of the chain, and at the question the opening callout asks.", "options": [{"t": "Revenue this year against revenue last year.", "ok": false, "note": "Revenue growth sits upstream of the test. The takeaways make the point directly: revenue growth is not the same thing as value creation."}, {"t": "Profit against revenue.", "ok": false, "note": "That ratio is profit margin, one operating driver of the return. It says nothing about what the capital financing the assets cost."}, {"t": "The return earned on the assets against the cost of the capital financing them.", "ok": true, "note": "This is the week’s core sentence. Everything upstream matters only insofar as it moves the gap between what assets earn and what capital costs."}, {"t": "The book value of the assets against the debt used to buy them.", "ok": false, "note": "Capital structure feeds into WACC, but the test compares a return earned with a return required, not one balance-sheet figure with another."}]},
+        {"topic": "Overview", "q": "The notes give WACC a managerial name — the hurdle rate. What does calling it that add?", "hint": "Think about what a manager does with the number, rather than about how the number is calculated.", "options": [{"t": "It is the minimum return an investment must clear: below it investors are not compensated enough, above it excess value is created.", "ok": true, "note": "That is exactly how the notes frame it — WACC as the threshold a decision is taken against, not merely a cost."}, {"t": "It is the interest rate charged by the firm’s lenders.", "ok": false, "note": "Interest is the return debt requires. WACC blends that with the return equity requires, weighted by the capital structure."}, {"t": "It is the return the firm actually earned on its assets last year.", "ok": false, "note": "That is ROA, the earned side of the comparison. The hurdle is the required side."}, {"t": "It is a ceiling on how much the firm may spend on any one investment.", "ok": false, "note": "WACC is a rate the investment’s return must clear, not a limit on outlay. What constrains the amount is capital availability."}]},
+        {"topic": "Concepts", "q": "Return on assets is defined as profit divided by assets. What does that ratio measure?", "hint": "Ask what work the denominator is doing.", "options": [{"t": "How much revenue each dollar of assets generates.", "ok": false, "note": "That is asset utilisation, revenue over assets — one of the two drivers ROA later decomposes into, not ROA itself."}, {"t": "How efficiently assets are used — how much profit is generated per unit of investment.", "ok": true, "note": "That is the definition given: ROA measures the efficiency of asset usage, and a higher ROA means better asset productivity."}, {"t": "How much of each revenue dollar survives as profit.", "ok": false, "note": "That is profit margin, the other driver. ROA judges profit against the asset base, not against revenue."}, {"t": "What the firm’s financing costs across debt and equity.", "ok": false, "note": "That is WACC. ROA is the earned return, measured before any comparison with what capital costs."}]},
+        {"topic": "Concepts", "q": "The SaaS example has $50M of total assets and $7.5M of annual profit. On the notes’ reading, when are those assets highly productive?", "hint": "Work the return out first, then remember that a return only becomes a verdict once it is measured against something.", "options": [{"t": "Whenever the profit figure grows year on year.", "ok": false, "note": "Growth in profit is not the test. The return has to be judged against the asset base and then against the cost of capital."}, {"t": "Whenever the assets are intangible rather than physical.", "ok": false, "note": "The example does list cloud servers, engineers and acquisition systems, but the verdict turns on the return, not on the type of asset."}, {"t": "Whenever the profit margin is above 15%.", "ok": false, "note": "The 15% here is a return on assets, not a margin. Margin measures profit against revenue, which the example does not give."}, {"t": "When WACC is below 15%, since ROA = 7.5 / 50 = 15%.", "ok": true, "note": "The example says exactly that: the assets are highly productive if WACC is under the 15% return they earn."}]},
+        {"topic": "Concepts", "q": "Why do the notes expect a risky startup to carry a high WACC and a stable utility a low one?", "hint": "Start from what each capital provider is being paid for.", "options": [{"t": "Each capital provider demands compensation for the risk it takes, so higher risk means a higher required return.", "ok": true, "note": "That is the mechanism the notes give, and the same one that makes equity dearer than debt."}, {"t": "Startups borrow more heavily, and debt raises WACC more than equity does.", "ok": false, "note": "Debt is the lower-risk, lower-return source in the notes’ table. It is the risk of the business, not the mix on its own, driving this difference."}, {"t": "Utilities hold more assets, so the required return is spread across a larger base.", "ok": false, "note": "Asset size affects the return earned, not the return required. WACC is set by what capital providers demand."}, {"t": "A startup’s profits are smaller, so its cost of capital rises to compensate.", "ok": false, "note": "WACC is a required return set by risk. Reported profit does not adjust it."}]},
+        {"topic": "Concepts", "q": "A business earns a return on assets of 8% against a WACC of 10%. How do the notes read that result?", "hint": "Take the difference between the two, then decide what its sign means.", "options": [{"t": "Break-even, because the business is still making an accounting profit.", "ok": false, "note": "Break-even is the case where ROA equals WACC. Accounting profit does not settle the question on its own."}, {"t": "Value creation, because 8% is a positive return.", "ok": false, "note": "The spread, not the level, is the signal. An 8% return is not weak in the abstract — it is weak against a 10% hurdle."}, {"t": "A value spread of −2%: value is being destroyed, because accounting profit is not enough to justify the capital cost.", "ok": true, "note": "ROA below WACC is the destruction case in the week’s three-case table, and this is the worked figure the notes use for it."}, {"t": "Nothing can be said until the investment’s NPV is known.", "ok": false, "note": "NPV answers the multi-year question. The annual spread is already readable on its own as the year’s value signal."}]},
+        {"topic": "Concepts", "q": "The notes call ROA a snapshot metric and then introduce net present value. What does NPV add?", "hint": "Look at the three features of investments the notes list immediately before the formula.", "options": [{"t": "It removes the need to estimate a cost of capital.", "ok": false, "note": "It does not. NPV works on discounted cash flows, and the required return stays central throughout the week."}, {"t": "It evaluates total value across the investment’s whole life, converting all future cash flows into today’s dollars and netting off the initial investment.", "ok": true, "note": "That is what a snapshot ratio cannot do, given that investments last multiple years, generate uneven cash flows and involve upfront costs."}, {"t": "It replaces profit with revenue as the measure of performance.", "ok": false, "note": "NPV works on cash flows, not revenue, and it does not displace the profit-based ratios — each tool keeps a distinct job."}, {"t": "It measures return per dollar of assets more accurately than ROA does.", "ok": false, "note": "NPV is a dollar amount of value over a whole life, not a sharper version of the same annual ratio."}]},
+        {"topic": "Concepts", "q": "A SaaS company identifies a profitable opening in semiconductor manufacturing. Which of the eight principles does the notes’ example exist to test?", "hint": "The objection in that example is about what the organisation would have to become, not about whether the numbers work.", "options": [{"t": "Capital efficiency.", "ok": false, "note": "Capital efficiency asks how much capital a given profit requires. The example’s objection stands even if that ratio is acceptable."}, {"t": "Value measurement.", "ok": false, "note": "Value measurement asks whether the asset is worth more than its acquisition or development cost. The example’s problem survives a positive answer there."}, {"t": "Risk assessment.", "ok": false, "note": "Risk assessment is about building asset-specific risk into the required return. Here the issue is fit, not the hurdle rate."}, {"t": "Strategic alignment.", "ok": true, "note": "Financial viability alone does not ensure sustainable organisational value: the venture needs different capabilities, supply chains, regulatory knowledge and capital intensity."}]},
+        {"topic": "Assessing Financial Performance", "q": "Why do the notes insist on relative measures rather than absolute assets, revenue and profit when comparing businesses?", "hint": "Ask what a larger business would report even if it were run no better than a smaller one.", "options": [{"t": "Because absolute figures ignore the effect of inflation over time.", "ok": false, "note": "The difficulty the notes raise is difference in size between businesses, not movement in prices over time."}, {"t": "Because profit is an accounting number and revenue is not.", "ok": false, "note": "Both are accounting figures in this framework. The problem is scale, not which line item is chosen."}, {"t": "Because a bigger business earns more simply by having more capital invested, so size masks how well it is run.", "ok": true, "note": "That is the notes’ reason for moving to ratios: how efficiently assets generate revenue, and how efficiently revenue becomes profit."}, {"t": "Because ratios remove the need to consider risk.", "ok": false, "note": "They do not. Risk and the cost of capital arrive as later stages of the assessment framework, on top of the ratios."}]},
+        {"topic": "Assessing Financial Performance", "q": "Return on assets decomposes into two operating drivers. What are they, and what does the decomposition let management see?", "hint": "Both drivers are ratios the week states, and the point of splitting the return is diagnostic.", "options": [{"t": "Asset utilisation × profit margin — showing whether a weak return comes from underused assets or from poor margins.", "ok": true, "note": "Written out, Profit / Assets = Revenue / Assets × Profit / Revenue. It tells management where weak performance comes from, not only that it exists."}, {"t": "Revenue growth and cost reduction — showing which lever moved the return.", "ok": false, "note": "Those are management actions, not the two ratios stated. The improvement routes follow from the decomposition rather than constituting it."}, {"t": "ROA and WACC — showing whether the spread is positive.", "ok": false, "note": "That is the value test, applied once the return is known. It is not a decomposition of the return itself."}, {"t": "Profit margin and the value spread — showing whether margins clear the hurdle.", "ok": false, "note": "The spread compares a return with the cost of capital. It is not one of the two operating drivers of ROA."}]},
+        {"topic": "Assessing Financial Performance", "q": "The notes separate accounting performance from economic performance. What question does economic performance ask that accounting performance does not?", "hint": "One asks about a quantity; the other asks about a sufficiency.", "options": [{"t": "Whether profit has grown compared with last year.", "ok": false, "note": "That is still a question about how much profit is being generated, which is the accounting side of the split."}, {"t": "Whether revenue converts into profit efficiently.", "ok": false, "note": "That is profit margin — an accounting ratio, and one a business can look strong on while still failing the economic test."}, {"t": "Whether the assets are recorded at their proper value.", "ok": false, "note": "The distinction is about the sufficiency of the return, not about how assets are carried in the accounts."}, {"t": "Whether the return is sufficient for the capital employed and the risk taken.", "ok": true, "note": "Exactly the split the notes draw: a business can look strong on revenue, profit and return ratios and still miss investors’ required return."}]},
+        {"topic": "Assessing Financial Performance", "q": "Two businesses are compared and one reports a clearly higher ROA. Why do the notes refuse to call it the better performer on that basis alone?", "hint": "Ask what a reported return leaves out about the business that produced it.", "options": [{"t": "Because ROA is only reliable when the two businesses are the same size.", "ok": false, "note": "ROA is already a relative measure — that is why the week prefers it to absolute profit. The gap it leaves is risk and financing."}, {"t": "Because a higher return is only superior once measured against the return that specific business requires, and a lower-return business carrying far less risk and needing less financing can outperform economically.", "ok": true, "note": "ROA alone ignores business risk, funding structure, cash-flow reliability, investor expectations and cost of capital."}, {"t": "Because ROA uses profit rather than cash flow.", "ok": false, "note": "The objection the notes actually raise here is the missing risk-adjusted comparison, not the choice between profit and cash flow."}, {"t": "Because ROA cannot be broken down into its drivers.", "ok": false, "note": "It can, into asset utilisation and profit margin. That decomposition still does not tell you what return the business requires."}]}
+      ]/*END_QUIZ*/;
+      var SCENARIOS = /*SCENARIOS*/[
+        {"topic": "Overview", "title": "Reading the value spread", "setup": "Two divisions of the same group come to a capital review. One earns a return on assets of 12% against a WACC of 10%; the other earns 8% against the same 10% hurdle. Both report an accounting profit for the year, and the pack in front of the board says so on the first page.", "task": "Decide what each division’s result says about value, and what the board should take from the fact that both are profitable.", "hints": ["Profit is where the chain gets interesting, not where it ends. Something still has to happen to the return once you have it.", "Both divisions are being judged against the same required return, so what separates them is a difference rather than a level.", "Work out ROA − WACC for each and read the sign off the week’s three-case table."], "walkthrough": ["Take the first division. Value Spread = ROA − WACC gives 12% − 10%, a spread of +2%. ROA above WACC is the value-created case: the division is economically profitable, not just accounting profitable.", "Take the second. 8% − 10% gives a spread of −2%. ROA below WACC is the value-destroyed case, and the notes read it as accounting profit that is not enough to justify the capital cost.", "Note what the levels alone would have told you: nothing. An 8% return is not weak in the abstract — it is weak against a 10% hurdle, which is why the week treats the spread rather than the level as the signal.", "Place both divisions in the cascade. Each clears profitability, the first of the eight principles, but only one clears value creation. Profitability is the first test, not the last.", "Report a spread and a verdict for each division, and say plainly that a pack leading on profit for both would have hidden the difference."], "checklist": ["Both spreads computed as ROA − WACC and stated with their sign.", "Each verdict tied to the week’s three cases: created, break-even, destroyed.", "The argument that the spread, not the level of return, is the signal.", "Recognition that accounting profit and economic value are not the same verdict."]},
+        {"topic": "Concepts", "title": "Ranking competing uses of capital", "setup": "Your organisation is profitable and has a fixed pool of funds for the coming year. Four proposals arrive — a new product, an infrastructure upgrade, an acquisition, and paying down debt — and each sponsor argues that theirs earns more than it costs to finance. The board’s instinct is to fund everything that clears the hurdle rate.", "task": "Explain why clearing the hurdle rate is not enough to justify funding a proposal, and set out how you would rank the four.", "hints": ["Two of the eight principles sit between ‘this project is attractive’ and ‘this project gets the money’.", "The week is explicit about what an investment’s real benchmark is, and it is not the status quo.", "Think about what the organisation gives up by saying yes, and about how whatever you fund would then be financed."], "walkthrough": ["Start from where the proposals already are. Each claims a return above its financing cost, so each passes the value creation principle, which asks only whether the investment return exceeds that cost.", "Apply capital availability. Capital is limited even in profitable organisations, so attractive projects compete with one another through capital allocation. The question becomes whether this is the best use of limited funds, not whether it is a good one.", "Set the benchmark accordingly. Choosing one proposal forgoes another, so each is judged against the next best alternative rather than against doing nothing.", "Use capital efficiency to separate close calls. Two proposals may promise similar profit on very different investment, and the one needing less capital leaves more for the next proposal in the queue.", "Check capital structure for whatever you would fund: what mix of debt and equity finances it, and does that mix leave the organisation able to absorb a shock or fund a later opportunity? Financial flexibility has value even when profit does not show it.", "Rank on relative return and opportunity cost, and state which proposals are being declined and what they are being declined in favour of."], "checklist": ["The distinction between a good use of funds and the best use of limited funds.", "The next best alternative named as the benchmark, rather than doing nothing.", "Capital efficiency used to weigh profit against the investment each proposal requires.", "Financing consequences considered, including preserved flexibility.", "An explicit ranking, with the forgone options named."]},
+        {"topic": "Concepts", "title": "A one-year view of a long build", "setup": "A platform rebuild is proposed. It needs a large upfront outlay, returns almost nothing in its first year, and then produces uneven cash flows for several years afterwards. The finance report shows the project’s first-year return on assets, which is poor, and recommends rejection on that basis.", "task": "Decide whether first-year ROA is the right instrument here, and say what you would put in its place.", "hints": ["The week names three features of investments that a single-year ratio cannot see.", "Ask what the later years are worth today, not what they are worth in their own year.", "The week’s own worked example turns a present value and an outlay into one decision number."], "walkthrough": ["Name the limitation. ROA is a snapshot metric, and this proposal has precisely the three features the week says a snapshot misses: it lasts multiple years, generates uneven cash flows, and involves upfront costs.", "Switch instrument. NPV evaluates total value over time by converting all future cash flows into today’s dollars: NPV = sum of discounted cash flows − initial investment.", "Read the result against the week’s cases — NPV above zero is value creation, zero is break-even, below zero is value destruction. The worked example runs NPV = $120 − $100 = $20, and a positive NPV means invest.", "Keep the tools in their places rather than choosing a favourite. ROA is the efficiency of assets, the value spread is the annual signal, and NPV is the total lifetime value. A weak first year is not by itself a verdict.", "Recommend re-appraisal on NPV, and note that if the appraisal still comes out negative the rejection holds — but for a reason that survives scrutiny."], "checklist": ["First-year ROA identified as a snapshot, with the reasons it cannot see this project.", "NPV stated as the week states it, and used to judge lifetime rather than annual value.", "The decision read off the NPV cases rather than asserted.", "ROA, the value spread and NPV each kept to their distinct job."]},
+        {"topic": "Assessing Financial Performance", "title": "Diagnosing a weak return", "setup": "A business unit’s return on assets has slipped, and the executive summary says only that performance is down. Revenue is up on last year, the unit is considerably larger than the comparison unit used in the pack, and nobody has yet said where the slippage comes from. You are asked for a diagnosis before any capital decision is taken.", "task": "Work out what you would measure, and in what order, to say where the weak return comes from and whether it matters economically.", "hints": ["The pack compares absolute figures across units of different sizes. Start by asking what that comparison can and cannot show.", "The week splits the return into two ratios, and each one points at a different management action.", "A diagnosis is not finished at the return itself — the assessment framework has stages after it."], "walkthrough": ["Discount the size comparison first. Absolute assets, revenue and profit mislead when businesses differ in size, since a bigger business earns more simply by having more capital invested. Move to relative measures.", "Decompose the return: Return on Assets = Asset Utilisation × Profit Margin, or in components, Profit / Assets = Revenue / Assets × Profit / Revenue. This tells you where weak performance comes from — underused assets or poor margins — rather than only that it exists.", "Read the two drivers together. A high asset utilisation can sit on weak margins, and a strong margin still fails if the revenue demands an excessive asset base. Rising revenue alongside a slipping return points at one of these rather than at the top line.", "Match the finding to a model. A high-volume model runs higher utilisation and lower margin, a premium-margin model the reverse, and a strong overall performer balances both. Improvement comes from more revenue on existing assets, more profit per revenue dollar, or both at once.", "Finish on the economic question. Performance Spread = Return on Assets − WACC: positive means the return exceeds the risk-adjusted requirement, zero means investors receive exactly their required return, negative means the return is insufficient for the risk and capital employed.", "Only then make the capital recommendation, remembering that growth increases value destruction when the underlying return stays below the required return."], "checklist": ["The absolute comparison set aside in favour of ratios, with the size reason given.", "The return decomposed into asset utilisation and profit margin, and both read together.", "The weakness located in one driver rather than described in general terms.", "The risk-adjusted spread computed and interpreted before any capital decision.", "A recommendation that does not reward revenue growth on its own."]}
+      ]/*END_SCENARIOS*/;
+
+      /* ── Quiz ─────────────────────────────────────────────── */
+      if (quizListEl && QUIZ.length) {
+        var doneEl = document.getElementById('quiz-done');
+        var rightEl = document.getElementById('quiz-right');
+        var totalEl = document.getElementById('quiz-total');
+        var fillEl = document.getElementById('quiz-fill');
+        var verdictEl = document.getElementById('quiz-verdict');
+        var resetBtn = document.getElementById('quiz-reset');
+
+        var answered = 0;
+        var correct = 0;
+
+        totalEl.textContent = QUIZ.length;
+
+        quizListEl.innerHTML = QUIZ.map(function (q, i) {
+          return '<article class="quiz-q">' +
+            '<div class="quiz-head">' +
+              '<span class="quiz-n">Question ' + (i + 1) + '</span>' +
+              (q.topic ? '<span class="term-src">' + esc(q.topic) + '</span>' : '') +
+            '</div>' +
+            '<p class="quiz-stem">' + esc(q.q) + '</p>' +
+            (q.hint
+              ? '<details class="reveal"><summary>Hint</summary>' +
+                '<div class="reveal-body"><p>' + esc(q.hint) + '</p></div></details>'
+              : '') +
+            '<div class="opts" role="group" aria-label="Answer options for question ' + (i + 1) + '">' +
+              q.options.map(function (o, j) {
+                return '<button class="opt" type="button" data-q="' + i + '" data-o="' + j + '">' +
+                  '<span class="opt-key" aria-hidden="true">' + KEYS[j] + '</span>' +
+                  '<span class="opt-t">' + esc(o.t) + '</span></button>';
+              }).join('') +
+            '</div>' +
+            '<div class="fb-slot" id="fb-' + i + '" role="status" aria-live="polite"></div>' +
+            '</article>';
+        }).join('');
+
+        var qEls = Array.prototype.slice.call(quizListEl.querySelectorAll('.quiz-q'));
+
+        function paintScore() {
+          doneEl.textContent = answered;
+          rightEl.textContent = correct;
+          fillEl.style.width = (answered / QUIZ.length * 100) + '%';
+          if (answered === QUIZ.length) {
+            verdictEl.textContent = 'All done — ' + correct + ' of ' + QUIZ.length +
+              ' correct. Reread the ones you missed in Summary & visuals, then start over.';
+            verdictEl.removeAttribute('hidden');
+          } else {
+            verdictEl.setAttribute('hidden', '');
+          }
+        }
+
+        function answer(i, chosen) {
+          var q = QUIZ[i];
+          var wrap = qEls[i];
+          if (wrap.getAttribute('data-answered') === 'true') return;
+          wrap.setAttribute('data-answered', 'true');
+
+          var opts = Array.prototype.slice.call(wrap.querySelectorAll('.opt'));
+          var rightIdx = -1;
+          q.options.forEach(function (o, j) { if (o.ok) rightIdx = j; });
+
+          opts.forEach(function (el, j) {
+            el.disabled = true;
+            if (j === rightIdx) el.setAttribute('data-state', 'right');
+            else if (j === chosen) el.setAttribute('data-state', 'wrong');
+            else el.setAttribute('data-state', 'off');
+          });
+
+          var isRight = chosen === rightIdx;
+          answered++;
+          if (isRight) correct++;
+
+          var html = '<div class="fb ' + (isRight ? 'fb--right' : 'fb--wrong') + '">' +
+            '<span class="fb-tag">' + (isRight ? 'Correct' : 'Not this one') + '</span>' +
+            '<p>' + esc(q.options[chosen].note) + '</p></div>';
+          if (!isRight) {
+            html += '<div class="fb fb--right">' +
+              '<span class="fb-tag">' + KEYS[rightIdx] + ' is the answer</span>' +
+              '<p>' + esc(q.options[rightIdx].note) + '</p></div>';
+          }
+          document.getElementById('fb-' + i).innerHTML = html;
+          paintScore();
+        }
+
+        quizListEl.addEventListener('click', function (e) {
+          var node = e.target;
+          while (node && node !== quizListEl && !(node.classList && node.classList.contains('opt'))) {
+            node = node.parentNode;
+          }
+          if (!node || node === quizListEl || node.disabled) return;
+          answer(parseInt(node.getAttribute('data-q'), 10), parseInt(node.getAttribute('data-o'), 10));
+        });
+
+        resetBtn.addEventListener('click', function () {
+          answered = 0;
+          correct = 0;
+          qEls.forEach(function (wrap, i) {
+            wrap.removeAttribute('data-answered');
+            Array.prototype.slice.call(wrap.querySelectorAll('.opt')).forEach(function (el) {
+              el.disabled = false;
+              el.removeAttribute('data-state');
+            });
+            Array.prototype.slice.call(wrap.querySelectorAll('.reveal')).forEach(function (d) { d.open = false; });
+            document.getElementById('fb-' + i).innerHTML = '';
+          });
+          paintScore();
+          quizListEl.scrollIntoView({ block: 'start' });
+        });
+
+        paintScore();
+      }
+
+      /* ── Apply it ─────────────────────────────────────────── */
+      if (scenListEl && SCENARIOS.length) {
+        scenListEl.innerHTML = SCENARIOS.map(function (s, i) {
+          var hints = (s.hints || []).map(function (h, k) {
+            return '<details class="reveal"><summary>Hint ' + (k + 1) + '</summary>' +
+              '<div class="reveal-body"><p>' + esc(h) + '</p></div></details>';
+          }).join('');
+
+          var steps = (s.walkthrough || []).map(function (w) {
+            return '<li>' + esc(w) + '</li>';
+          }).join('');
+
+          var checks = (s.checklist || []).map(function (c) {
+            return '<li>' + esc(c) + '</li>';
+          }).join('');
+
+          return '<article class="scen">' +
+            '<div class="quiz-head">' +
+              '<span class="quiz-n">Scenario ' + (i + 1) + '</span>' +
+              (s.topic ? '<span class="term-src">' + esc(s.topic) + '</span>' : '') +
+            '</div>' +
+            '<h3 class="scen-title">' + esc(s.title) + '</h3>' +
+            '<p class="scen-setup">' + esc(s.setup) + '</p>' +
+            '<p class="scen-task"><strong>Your task</strong>' + esc(s.task) + '</p>' +
+            hints +
+            '<details class="reveal reveal--work"><summary>Work it through</summary>' +
+              '<div class="reveal-body">' +
+                (steps ? '<ol class="steps">' + steps + '</ol>' : '') +
+                (checks ? '<h5>A strong answer covers</h5><ul class="check">' + checks + '</ul>' : '') +
+              '</div>' +
+            '</details>' +
+            '</article>';
+        }).join('');
+      }
+    })();
+  </script>
+
+
+  <script>
+    /* ── Study path ─────────────────────────────────────────────────────
+       The only behaviour the block needs: a step's button selects its mode
+       tab. Everything else about the block is static markup. */
+    (function () {
+      'use strict';
+      var path = document.querySelector('.path');
+      if (!path) return;
+
+      path.addEventListener('click', function (e) {
+        var node = e.target;
+        while (node && node !== path && !(node.classList && node.classList.contains('path-go'))) {
+          node = node.parentNode;
+        }
+        if (!node || node === path) return;
+        var tab = document.getElementById('tab-' + node.getAttribute('data-goto'));
+        if (!tab) return;
+        tab.click();
+        tab.scrollIntoView({ block: 'center' });
+        tab.focus();
+      });
+    })();
+  </script>
+
 </body>
 
 </html>

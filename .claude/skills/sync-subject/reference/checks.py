@@ -291,7 +291,10 @@ def prose_words(html):
     """Words of flowing prose — artefacts removed."""
     t = re.sub(r'<figure\b.*?</figure>', '', html, flags=re.S)
     t = re.sub(r'<table\b.*?</table>', '', t, flags=re.S)
-    t = re.sub(r'<(ol|ul)\b[^>]*class="[^"]*\b(steps|takeaways)\b[^"]*".*?</\1>', '', t, flags=re.S)
+    # `path` is the "How to master this week" route: a structured list of
+    # navigation advice, not synced prose, so it is measured the same way the
+    # steps and takeaways lists already are — as an artefact, not as words.
+    t = re.sub(r'<(ol|ul)\b[^>]*class="[^"]*\b(steps|takeaways|path)\b[^"]*".*?</\1>', '', t, flags=re.S)
     for cls in ARTEFACT_DIVS:
         t = _strip_balanced(t, cls)
     t = re.sub(r'<svg\b.*?</svg>', '', t, flags=re.S)

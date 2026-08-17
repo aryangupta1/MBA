@@ -72,6 +72,7 @@ discussion questions leaves both empty and shows three tabs, not four.
 | `reference/week-shell.html` | the week page with `{{PLACEHOLDER}}` and `<!--INSERT:-->` slots. Built on the **DESK** design system — read [`docs/design-system.md`](../../../docs/design-system.md) before touching its `<style>` block or page chrome |
 | `reference/fragment-spec.md` | hand this to every fragment-building agent, verbatim |
 | `reference/checks.py` | QA gates 2, 3, 5 and 6 — structure, SVG overflow, inline-layout, prose length |
+| `reference/practice/` | the study path, Quiz and Apply-it components — `build.py`, the shared `tpl/`, the authored `data/<PAGE>.json`, and a `README.md` that is binding on every re-sync |
 | `../../../docs/notion-sync-state.json` | the manifest: what was published and when |
 
 `reference/checks.py` is a verification tool. It never writes to a page and nothing in the
@@ -260,6 +261,36 @@ Hand the agent `docs/notion-sync.md` §3b. The rules that actually bite:
 Slots: `<!--INSERT:ACRONYMS_TAB-->` / `_PANEL` / `_DATA`, and the same three for `FORMULAS`.
 The shared `buildRef()` renderer is already in the shell and no-ops when a tab is absent, so
 there is no JS to write. Everything renders as `.term` cards — **no new component**.
+
+---
+
+## Phase 3c — Derive the study path, the Quiz and the Apply-it tabs
+
+Three practice components, all **derived from the assembled page** the same way 3b is —
+so run this after Phase 4, one agent per page:
+
+| Component | Where | What |
+| --- | --- | --- |
+| **Study path** | first block of the summary panel, `00 / Start here` | a numbered route through the modes this week has, each step jumping to its tab |
+| **Quiz** | its own tab | four options, one right, a hint per question, a note on every option |
+| **Apply it** | its own tab | scenarios with three staged hints, a walkthrough and a self-mark checklist |
+
+**Read `reference/practice/README.md` before writing anything.** It carries the data
+schema, the authoring rules and the build command. The agent writes **one JSON file** into
+`reference/practice/data/<PAGE>.json` and edits no HTML;
+`reference/practice/build.py <PAGE>.html` splices all three in and asserts the shape first.
+
+**This is not optional on a re-sync.** A week that gains a topic, loses a placeholder or has
+its prose reviewed has changed the material these are drawn from:
+
+- **Re-derive that page's JSON** — new questions for the new material, and any question the
+  change invalidated rewritten or dropped.
+- **Re-check the study path** — a filled placeholder must stop being described as unwritten.
+- **Sweep the counts** — the hero pill `N quiz questions`, the hub card, the hub mode list.
+
+Same standard as everywhere else: **extraction, not addition**. No formula that sat in an
+unpublished image, no repaired typo, no completed truncation, no reconciled inconsistency,
+nothing from a Live Session note, and nothing from a topic the page marks unwritten.
 
 ---
 

@@ -1,0 +1,382 @@
+{
+  "page": "DMBA6005-week2.html",
+  "quizIntro": "Eighteen questions across the three strands of this week — what makes a customer experience valuable, why Agile emerged and what each Scrum role is for, and what wins a project before the bid. Pick an option and every choice explains itself, right or wrong, so a mistake tells me which distinction I have not yet drawn. Hints are there if I want one first.",
+  "applyIntro": "Five situations to reason through with this week’s tools rather than to calculate — the material here is judgement, not arithmetic. Each one unfolds its hints one at a time, so I can try the reasoning before narrowing it. The walkthrough and the checklist use only what this page states, nothing from outside it.",
+  "studyPath": {
+    "intro": "A first pass through this week, and the thing to know before starting is that it is three fairly separate strands rather than one argument. Around three hours end to end, or one strand per sitting if I would rather not run them together.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Read one strand at a time",
+        "detail": "Twenty-eight sections sit under three topic chips, so filter with the chips rather than scrolling the lot. Start with Delivering a valuable customer experience — it finishes on why agile supports better CX, which is the hinge into the next strand, so the Agile material then arrives as an answer rather than as a new subject. Keep Bidding and winning projects for its own sitting; it shares almost no vocabulary with the other two.",
+        "time": "~35 min"
+      },
+      {
+        "goto": "formulas",
+        "label": "Fix the sequences before anything else",
+        "detail": "Nine entries and not one of them is arithmetic — they are the chains the rest of the week keeps pointing back to. Learn Design → UI → UX → CX and the waterfall sequence here, because the summary assumes both are already in place. The three Agile lines are the load-bearing ones: Agile is not Scrum, Agile is the philosophy and principles, Scrum is one framework for implementing them.",
+        "time": "~10 min"
+      },
+      {
+        "goto": "terms",
+        "label": "Drill the pairs that get confused",
+        "detail": "Sixty terms, each tagged with the section it came from, so filter by strand rather than reading top to bottom. Slow down on the near-pairs the week sets up deliberately — UX against CX, product backlog against sprint backlog, reducible uncertainty against external uncertainty, and the three Scrum roles against each other. If an abbreviation stalls me, the acronyms tab expands all eight.",
+        "time": "~25 min"
+      },
+      {
+        "goto": "cards",
+        "label": "Shuffle the deck twice through",
+        "detail": "Eighty-four cards, and shuffling matters more than usual because the deck runs strand by strand — in order I can answer a Scrum card from momentum rather than from knowledge. Flag anything on the role accountabilities and on the CX waves; both are easy to recognise on the page and hard to reproduce cold.",
+        "time": "~30 min"
+      },
+      {
+        "goto": "quiz",
+        "label": "Sit the eighteen questions",
+        "detail": "Read every note, including on the options I did not pick — the distractors are built out of the confusions this week exists to prevent, so they carry as much of the material as the right answers do. A miss in the bidding questions usually means the four elements have not landed, so go back to that chip rather than re-reading the question.",
+        "time": "~25 min"
+      },
+      {
+        "goto": "apply",
+        "label": "Reason through the five scenarios",
+        "detail": "Judgement calls, not calculations, so there is nothing to compute — draft the answer before opening a single hint. The mid-sprint request and the bid with no groundwork are the two worth doing properly, because both go wrong in practice by misplacing a role or a sequence rather than by missing a definition.",
+        "time": "~40 min"
+      },
+      {
+        "goto": null,
+        "label": "Write the three strands from memory",
+        "detail": "Close the page and write a paragraph on each strand: what makes an experience valuable beyond the product, why Agile emerged and what stops the three Scrum roles collapsing back into a single manager, and why winning a project starts before the bid. Whichever paragraph I cannot begin is the chip to reopen.",
+        "time": "~15 min"
+      }
+    ],
+    "close": "The week has landed when I can say, with the page shut, why CX is broader than UX, what a sprint protects and what it deliberately does not, and why stakeholder engagement belongs before approval rather than after it."
+  },
+  "quiz": [
+    {
+      "topic": "Customer Experience",
+      "q": "A subscription business is deciding how to judge whether a customer is valuable. Which framing does this week describe as the experience focus rather than the product focus?",
+      "hint": "The week sets the two out side by side in a table. One column asks about the thing handed over; the other asks about the person receiving it.",
+      "options": [
+        { "t": "What is delivered, and whether the product functions as specified.", "ok": false, "note": "That is the product focus in the week’s table — it asks what is delivered and concerns product functionality, not how the customer is treated." },
+        { "t": "How the customer is treated throughout, judged across the ongoing relationship.", "ok": true, "note": "The table pairs the experience focus with how the customer is treated, the ongoing relationship, total value across touch points and long-term customer value." },
+        { "t": "Whether the individual transaction was profitable at the point of sale.", "ok": false, "note": "Individual transaction and immediate sale sit on the product side, and the week argues against evaluating customers solely through the profitability of a single transaction." },
+        { "t": "How quickly new functionality can be added to the digital interface.", "ok": false, "note": "The week treats added functionality as no substitute for value — a sophisticated digital interface has little value if it does not solve an important customer problem." }
+      ]
+    },
+    {
+      "topic": "Touchpoints",
+      "q": "A SaaS provider has an outstanding core product, but customers repeatedly complain about billing and support. What does this week say about that situation?",
+      "hint": "Check the week’s definition of a touchpoint before deciding whether billing and support are even in scope.",
+      "options": [
+        { "t": "A strong product cannot fully compensate for consistently poor experiences elsewhere in the journey.", "ok": true, "note": "This is the management implication the week draws from the touchpoint view, and it is why the journey rather than the product is the unit of improvement." },
+        { "t": "Billing and support fall outside customer experience, because CX concerns the product interaction.", "ok": false, "note": "A touchpoint is any point where the customer interacts with the organisation, its people, systems or product — billing and support both appear in the digital journey the week lists." },
+        { "t": "The provider should perfect its strongest touchpoint further so that it outweighs the weak ones.", "ok": false, "note": "The week’s takeaway is to optimise touchpoints collectively rather than perfecting one interaction in isolation." },
+        { "t": "The complaints are a UI problem and should be resolved at the interface level.", "ok": false, "note": "UI concerns how the user directly interacts with the digital product; billing and support belong to the broader relationship the week places at the CX level." }
+      ]
+    },
+    {
+      "topic": "Evolution of CX",
+      "q": "Which wave of customer experience does this week describe as focused on measuring customer perceptions and recommendations?",
+      "hint": "Three waves, each with its own main focus and its own limitation. The one you want is the wave whose limitation is about measurement going wrong.",
+      "options": [
+        { "t": "Customer Relationship Management.", "ok": false, "note": "CRM is the first wave; its focus was recording customers and managing relationships, and its limitation was primarily organisation-centred customer data." },
+        { "t": "Digital CX.", "ok": false, "note": "Digital CX is the third wave, focused on creating richer interactions using mobile, cloud, AI and digital technologies." },
+        { "t": "Customer Advocacy.", "ok": true, "note": "The second wave. Net Promoter Score is the example the week gives, and the wave’s limitation is that metrics can become targets rather than genuine measures of experience." },
+        { "t": "Touchpoint integration.", "ok": false, "note": "Integration across many touchpoints is the development requirement the week attaches to Digital CX, not a wave in its own right." }
+      ]
+    },
+    {
+      "topic": "CX Metrics",
+      "q": "How does this week say managers should treat a CX metric such as NPS?",
+      "hint": "The week does not reject the measure. It says something about what kind of thing the number is, and what it should trigger.",
+      "options": [
+        { "t": "As the objective the team is working towards.", "ok": false, "note": "Making the score the objective is precisely the failure the week warns about — improving the score is not necessarily the same as improving the customer experience." },
+        { "t": "As evidence for investigation rather than the objective itself.", "ok": true, "note": "The week calls such measures useful signals and asks managers to treat them as a prompt to enquire, not as the goal." },
+        { "t": "As unreliable, and therefore best discarded.", "ok": false, "note": "The week describes NPS as a useful signal. Its caution is about how the measure is used, not about whether it should exist." },
+        { "t": "As a measure of how easily users complete tasks in the interface.", "ok": false, "note": "That is closer to the UX level, which concerns how effectively and easily the user experiences an interaction. NPS measures customer perceptions and recommendations." }
+      ]
+    },
+    {
+      "topic": "UI to CX",
+      "q": "In the sequence this week gives for digital experiences, what distinguishes CX from UX?",
+      "hint": "Four levels, in order. The distinction is one of scope, and the week states which of the two is the wider one.",
+      "options": [
+        { "t": "CX concerns the visual design of the interface, while UX concerns the underlying problem.", "ok": false, "note": "Design is the level concerned with the problem and proposed solution, and UI is how the user directly interacts with the digital product. Neither describes CX." },
+        { "t": "UX covers the whole organisation, while CX covers a single product.", "ok": false, "note": "This reverses the week’s point. CX is the broader relationship across all organisational touchpoints, so CX is broader than UX." },
+        { "t": "They are the same level, named differently by design and marketing teams.", "ok": false, "note": "The week lists four distinct levels in sequence — Design → UI → UX → CX — each with its own focus." },
+        { "t": "UX concerns how effectively and easily the user experiences an interaction; CX is the broader relationship across all organisational touchpoints.", "ok": true, "note": "That is the week’s table exactly, and it is the basis for the statement that CX is broader than UX." }
+      ]
+    },
+    {
+      "topic": "Digital Technology",
+      "q": "This week names mobile, cloud computing, AI and digital channels as enabling more sophisticated customer experiences. What qualification does it attach?",
+      "hint": "The week is willing to say what these technologies do to interactions. It is careful about what they are for.",
+      "options": [
+        { "t": "That they must be deployed across every touchpoint simultaneously.", "ok": false, "note": "Integration across many touchpoints is described as a development requirement of the Digital CX wave, not as a precondition for using the technologies." },
+        { "t": "That they remove the need for customer feedback during development.", "ok": false, "note": "The week argues the opposite — frequent feedback reduces the risk of investing significant time and resources into a solution customers ultimately do not value." },
+        { "t": "That technology is an enabler of CX rather than the objective itself.", "ok": true, "note": "A sophisticated digital interface has little value if it does not solve an important customer problem, so the technology earns its place through the outcome." },
+        { "t": "That they make interactions faster but less personalised.", "ok": false, "note": "The week lists the effects as more personalised, more accessible, more responsive and more integrated across touchpoints." }
+      ]
+    },
+    {
+      "topic": "Why Agile Emerged",
+      "q": "What assumption did traditional waterfall development rest on, according to this week?",
+      "hint": "Waterfall runs a fixed order of stages. Ask what has to be true at the very start for that order to hold.",
+      "options": [
+        { "t": "That the team would be cross functional and self organising.", "ok": false, "note": "Those are characteristics the week gives the Scrum Development Team, not assumptions built into waterfall." },
+        { "t": "That requirements could be sufficiently understood before development began.", "ok": true, "note": "This is the assumption the week names, and everything it lists about complex digital environments is the reason it often does not hold." },
+        { "t": "That change during delivery should be welcomed and reprioritised each cycle.", "ok": false, "note": "That is the agile position. Waterfall ran a fixed order of stages on the basis that the requirements were already settled." },
+        { "t": "That customers would specify requirements only after seeing a prototype.", "ok": false, "note": "The week gives this as a reason waterfall struggled — requirements become clearer once users interact with prototypes — not as something waterfall assumed." }
+      ]
+    },
+    {
+      "topic": "Agile Manifesto",
+      "q": "The manifesto values are written as pairs, such as working software over comprehensive documentation. How does this week read that structure?",
+      "hint": "Look at how the week labels the two table columns. Neither column is called the wrong answer.",
+      "options": [
+        { "t": "As a choice, in which the right hand element is dropped from the project.", "ok": false, "note": "The week is explicit that the right hand elements still have value; the argument is about weighting, not removal." },
+        { "t": "As a sequence, in which the left hand element comes first and the right hand element follows.", "ok": false, "note": "The pairs are about emphasis rather than ordering. The week does not present them as stages of a project." },
+        { "t": "As a matter of emphasis between two things that both exist in a project.", "ok": true, "note": "That is how the week frames each value — greater emphasis on the left hand element, without denying the value of the right." },
+        { "t": "As a description of Scrum’s meeting structure.", "ok": false, "note": "Agile is a set of principles rather than a particular meeting structure or project-management tool; Scrum is one framework for implementing those principles." }
+      ]
+    },
+    {
+      "topic": "Scrum",
+      "q": "An executive says the organisation has gone Agile because every team now runs Scrum ceremonies. What does this week’s framing say?",
+      "hint": "The week writes the relationship out as three short lines. The first of them is a negation.",
+      "options": [
+        { "t": "Agile and Scrum are equivalent, so the claim holds.", "ok": false, "note": "The week states directly that Agile is not Scrum, so adopting the ceremonies does not by itself establish the principles." },
+        { "t": "Scrum replaces Agile once teams are experienced enough.", "ok": false, "note": "The week describes no progression from one to the other. Scrum sits inside Agile as one way of putting the principles into practice." },
+        { "t": "Agile is the framework and Scrum is the philosophy.", "ok": false, "note": "This reverses the week’s three lines: Agile is the philosophy and principles, Scrum is one framework for implementing them." },
+        { "t": "Agile is a philosophy and set of principles; Scrum is one framework for implementing them.", "ok": true, "note": "That is the week’s central philosophy point, and it is why running the ceremonies is not the same as holding the principles." }
+      ]
+    },
+    {
+      "topic": "Scrum Roles",
+      "q": "Which accountability does this week give to the Product Owner?",
+      "hint": "Three roles, three different core accountabilities. This one faces outward as much as inward.",
+      "options": [
+        { "t": "Removing impediments and protecting the team’s ability to work.", "ok": false, "note": "That is the Scrum Master’s contribution — enabling scrum and clearing obstacles rather than setting priorities." },
+        { "t": "Determining how backlog items are completed.", "ok": false, "note": "That belongs to the Development Team, which decides how work is delivered." },
+        { "t": "Product vision, value and priorities.", "ok": true, "note": "The week’s role table gives exactly this, and its significance is connecting external stakeholders and customer needs with internal delivery." },
+        { "t": "Approving the project budget and reporting to the project control group.", "ok": false, "note": "Budget approval and control groups belong to the governance of large projects in the bidding topic, not to any Scrum role." }
+      ]
+    },
+    {
+      "topic": "Scrum Roles",
+      "q": "A programme director proposes that the Scrum Master should also line-manage the delivery team and assign their tasks. Why does this cut against the week’s account of the role?",
+      "hint": "The week is careful to say what kind of authority the Scrum Master carries, and what kind it does not.",
+      "options": [
+        { "t": "The Scrum Master provides process governance without becoming the team’s hierarchical manager.", "ok": true, "note": "The week describes the role as facilitator and coach rather than traditional project manager, which is what stops the three roles collapsing into one." },
+        { "t": "Because the Scrum Master’s accountability is the product vision and priorities.", "ok": false, "note": "Vision, value and priorities are the Product Owner’s accountability. The Scrum Master enables scrum and removes impediments." },
+        { "t": "Because Scrum teams operate without any governance at all.", "ok": false, "note": "The week says self management still requires governance. The objection is to the hierarchical form, not to governance itself." },
+        { "t": "Because assigning tasks is properly the Product Owner’s job.", "ok": false, "note": "The Development Team determines how backlog items are completed; the Product Owner helps determine what enters upcoming sprints, not how the work is done." }
+      ]
+    },
+    {
+      "topic": "Sprints",
+      "q": "What is the relationship between the product backlog and the sprint backlog?",
+      "hint": "One is drawn from the other, and the week is specific that it is not a copy.",
+      "options": [
+        { "t": "They are the same list, held by two different roles.", "ok": false, "note": "They differ in scope, not in ownership. The week defines them as a broader set and a selection from it." },
+        { "t": "The sprint backlog is the subset selected for the current sprint.", "ok": true, "note": "The product backlog is the broader prioritised set of potential work, and the sprint backlog is the subset chosen from it for this cycle." },
+        { "t": "The product backlog is assembled from the sprint backlog at the end of each cycle.", "ok": false, "note": "This runs the relationship backwards. The sprint backlog is drawn from the product backlog, not the other way round." },
+        { "t": "The sprint backlog holds everything the team has decided not to do now.", "ok": false, "note": "What is not carried across stays in the product backlog. The sprint backlog is what was selected, and the remainder is what forced prioritisation set aside." }
+      ]
+    },
+    {
+      "topic": "Before the bid",
+      "q": "This week says a strong proposal develops four elements together. Which four?",
+      "hint": "The week writes them as a single line, and the argument is that they cannot be answered one at a time.",
+      "options": [
+        { "t": "Idea, budget, timeline and stakeholders.", "ok": true, "note": "Developing them simultaneously is what exposes feasibility gaps, unrealistic assumptions, missing stakeholders, funding shortfalls and delivery risks." },
+        { "t": "Idea, budget, governance and risk.", "ok": false, "note": "Governance and risk both appear later in the topic, but the four elements the week names for a proposal are idea, budget, timeline and stakeholders." },
+        { "t": "Vision, backlog, sprint and review.", "ok": false, "note": "Those belong to the Scrum topic. The bidding topic is about what a proposal must hold together before submission." },
+        { "t": "Budget, timeline, procurement and approval.", "ok": false, "note": "Approval is what the four elements are developed to win, not one of them, and the week does not list procurement among them." }
+      ]
+    },
+    {
+      "topic": "Integrated planning",
+      "q": "Which key question does this week attach to the timeline element?",
+      "hint": "Each of the four elements gets one question. This one is about order as much as about duration.",
+      "options": [
+        { "t": "What are we trying to achieve?", "ok": false, "note": "That is the question the week attaches to the idea element." },
+        { "t": "What resources will delivery require?", "ok": false, "note": "That is the budget element’s question." },
+        { "t": "Who must support, influence or help deliver it?", "ok": false, "note": "That is the stakeholder element’s question." },
+        { "t": "When and in what sequence can it realistically happen?", "ok": true, "note": "The week pairs the timeline element with both timing and sequencing, which is part of why it cannot be settled independently of the others." }
+      ]
+    },
+    {
+      "topic": "Stakeholder engagement",
+      "q": "Why does this week argue stakeholder engagement should begin before funding or formal approval is secured?",
+      "hint": "The week gives several reasons, and one of them is about something that cannot be manufactured on demand.",
+      "options": [
+        { "t": "Because governance bodies require a consultation report at the approval stage.", "ok": false, "note": "The week frames early engagement as part of project design rather than as a reporting obligation to satisfy." },
+        { "t": "Because trust cannot be created instantly, and consultation can uncover risks before commitments are made.", "ok": true, "note": "Those are two of the week’s stated reasons, alongside stakeholders reshaping the solution and genuine involvement creating stronger project legitimacy." },
+        { "t": "Because it lets the team present a finished solution with more confidence.", "ok": false, "note": "The week expects stakeholders to reshape the proposed solution, so engagement is not a way to defend one that is already fixed." },
+        { "t": "Because engagement is the communication that follows approval.", "ok": false, "note": "The week’s takeaway is the reverse: stakeholder engagement is part of project design, not merely communication after approval." }
+      ]
+    },
+    {
+      "topic": "Cultural protocol",
+      "q": "When a project involves First Nations or other culturally significant communities, what does this week say engagement should prioritise?",
+      "hint": "The week names what such engagement values above the destination, and says what shape the conversation should take over time.",
+      "options": [
+        { "t": "Reaching the predetermined outcome as efficiently as possible.", "ok": false, "note": "The week asks for shared understanding and process rather than forcing predetermined outcomes." },
+        { "t": "A single thorough consultation held at the start of the project.", "ok": false, "note": "The week asks for ongoing dialogue rather than one off consultation, with relationships established early." },
+        { "t": "Shared understanding and process, with relationships established early.", "ok": true, "note": "The week sets these alongside respecting appropriate cultural protocols and bringing cultural expertise into decision-making." },
+        { "t": "Delegating the engagement to the project’s governance body.", "ok": false, "note": "The week asks for cultural expertise to be brought into decision-making, which is the opposite of handing the relationship elsewhere." }
+      ]
+    },
+    {
+      "topic": "Transparency",
+      "q": "This week distinguishes two kinds of uncertainty in a large bid. What does that distinction decide?",
+      "hint": "The objective is not to remove uncertainty. Sorting it is useful because each kind calls for a different response.",
+      "options": [
+        { "t": "Whether the bid should be submitted at all.", "ok": false, "note": "The week does not treat uncertainty as disqualifying — bids are calculated risks, and the point of the split is how to respond." },
+        { "t": "Which stakeholders are invited to consult on the proposal.", "ok": false, "note": "Who to engage is settled by the stakeholder element of the plan, not by the uncertainty split." },
+        { "t": "Whether more planning and engagement will help, or whether the risk must be handled through risk governance.", "ok": true, "note": "That is the week’s split: uncertainty reducible through planning and engagement on one side, external uncertainty such as a major cost shock on the other." },
+        { "t": "How much contingency to add to the budget.", "ok": false, "note": "The week gives no costing rule. It separates reducible uncertainty from external uncertainty and matches a response to each." }
+      ]
+    },
+    {
+      "topic": "Soft power",
+      "q": "What should soft power have achieved by the time a bid reaches the approval stage?",
+      "hint": "The week says approval is partly formal and partly relational, and names what the relational half is meant to produce.",
+      "options": [
+        { "t": "A submission so complete that it needs no further explanation.", "ok": false, "note": "The week asks for specificity but also asks a bid to identify what still requires consultation, so completeness is not the test." },
+        { "t": "Key stakeholders who already understand, influence and ideally support the project.", "ok": true, "note": "This is what the week means by creating shared ownership before the formal decision occurs." },
+        { "t": "A governance structure strong enough to make a sponsor unnecessary.", "ok": false, "note": "The week treats governance and relationships as doing different jobs — governance provides accountability, while relationships create commitment." },
+        { "t": "Agreement on the exact budget figure ahead of any consultation.", "ok": false, "note": "The week’s sequence puts stakeholder feedback before resource planning, so figures follow engagement rather than preceding it." }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "UI to CX",
+      "title": "Great interface, poor experience",
+      "setup": "A hotel booking platform your organisation runs scores well in usability testing — users find and complete a booking easily. Complaints and cancellations are nonetheless rising. Refunds are difficult to obtain, support is slow to respond and the billing statement is unclear. The product team’s proposed response is another round of interface improvements.",
+      "task": "Decide whether more interface work is the right response, and say at which level of experience the problem actually sits.",
+      "hints": [
+        "This week lays out four levels at which digital experiences operate. Work out which of them the usability testing is measuring.",
+        "Refunds, support and billing are not interface screens. Ask what the week calls any point where a customer interacts with the organisation, its people, systems or product.",
+        "The week states a relationship of scope between the two levels involved here. Use it to say where the fix has to happen."
+      ],
+      "walkthrough": [
+        "Place the evidence on the week’s sequence — Design → UI → UX → CX. Usability testing measures how effectively and easily a user experiences an interaction, which is the UX level.",
+        "Classify the complaints. Refunds, support and billing are touchpoints, and they sit in the broader relationship across all organisational touchpoints that the week places at the CX level.",
+        "Apply the week’s own example: a hotel booking platform may have excellent UX while the overall CX is still poor if refunds are difficult, customer support is slow or billing is unclear. CX is broader than UX.",
+        "Another round of interface work therefore polishes a touchpoint that is already strong. The week’s takeaway is to optimise touchpoints collectively rather than perfecting one interaction in isolation.",
+        "Recommend treating the journey — discovery, sign-up, onboarding, product use, support, billing and renewal — as the unit of improvement, because a strong product cannot fully compensate for consistently poor experiences elsewhere."
+      ],
+      "checklist": [
+        "Names the level the usability evidence covers and the level the complaints come from.",
+        "Uses the week’s definition of a touchpoint to classify refunds, support and billing.",
+        "States that CX is broader than UX rather than treating the two as interchangeable.",
+        "Rejects further interface work as a sufficient response, with the compensation limit as the reason.",
+        "Frames the improvement across the journey rather than at a single interaction."
+      ]
+    },
+    {
+      "topic": "CX Metrics",
+      "title": "A score that keeps improving",
+      "setup": "A service organisation has made its customer-experience metric a headline target. Team bonuses are tied to it, and staff have begun asking customers directly for top scores at the end of each interaction. The score has climbed steadily. Complaint volumes and cancellations have not moved.",
+      "task": "Advise the executive whether the rising score is evidence that the customer experience has improved.",
+      "hints": [
+        "The week attaches a specific limitation to the wave of CX that introduced this kind of measure. Start there.",
+        "Ask what the week says happens to a measure once an organisation applies pressure to achieve a particular score.",
+        "The week gives a one-line caution separating the score from the thing it represents. Apply it, then say what the score is still good for."
+      ],
+      "walkthrough": [
+        "Identify what the metric is. Measures of customer perceptions and recommendations belong to the Customer Advocacy wave, whose stated limitation is that metrics can become targets rather than genuine measures of experience.",
+        "The conditions described are exactly that. Once organisations pressure customers or employees to achieve particular scores, the week says the measure can lose meaning.",
+        "Apply the caution: improving the score is not necessarily the same as improving the customer experience. A rise produced under that pressure is not evidence of improvement.",
+        "The unchanged complaints and cancellations are the more informative signal, because the week ties a valuable experience to repeat purchases, retention, recommendations and deeper relationships rather than to a reported number.",
+        "Recommend treating the metric as evidence for investigation rather than as the objective, and using it to ask which touchpoints in the journey are producing the complaints."
+      ],
+      "checklist": [
+        "Places the metric in the wave the week assigns it to and names that wave’s limitation.",
+        "Identifies the pressure on customers or employees as the mechanism that drains the measure of meaning.",
+        "Separates the score from the experience explicitly rather than implying the two move together.",
+        "Proposes treating the metric as evidence for investigation instead of as the target.",
+        "Points at evidence beyond the score itself."
+      ]
+    },
+    {
+      "topic": "Why Agile Emerged",
+      "title": "Choosing how to run the build",
+      "setup": "A digital team has been asked to build a new customer portal. The sponsor wants the full specification signed off before development starts, so that scope and cost can be fixed early. The team has never built anything quite like this portal, the customers cannot describe in detail what they want, and the platform it must integrate with is itself being changed.",
+      "task": "Recommend an approach and justify it in the terms this week uses rather than by preference.",
+      "hints": [
+        "The week states what a sequential, plan-driven approach assumes. Test that assumption against the three facts in the setup.",
+        "It also lists the conditions under which such approaches struggled in digital projects. Count how many of them apply here.",
+        "The week names the core problem in a single word, and says what agile converts that problem into. That pair is the argument."
+      ],
+      "walkthrough": [
+        "State what the sponsor’s proposal assumes. Waterfall runs a fixed order of stages on the assumption that requirements could be sufficiently understood before development began.",
+        "Test the assumption. Customers here cannot fully specify what they need upfront, the team will discover mistakes and new information during delivery, and the technology is changing while the project is underway — three of the conditions the week gives for why this struggled in digital projects.",
+        "Name the core problem: uncertainty. Extensive upfront design becomes expensive if the assumptions it rests on later prove wrong, which is the cost the sponsor’s proposal is quietly carrying.",
+        "Offer the alternative in the week’s terms — prototype, feedback, learn, adjust, repeat — so that requirements become clearer once users interact with prototypes rather than being guessed at once.",
+        "Close on the week’s takeaway. Agile converts uncertainty into short learning cycles rather than treating change as project failure, and that is what the sponsor gains, not a loss of discipline."
+      ],
+      "checklist": [
+        "Names the assumption behind the sponsor’s proposal rather than dismissing the proposal outright.",
+        "Maps the setup’s facts onto the week’s reasons that sequential approaches struggled.",
+        "Identifies uncertainty as the core problem.",
+        "Describes the alternative as a feedback cycle, not as an absence of planning.",
+        "Frames change during delivery as learning rather than as failure."
+      ]
+    },
+    {
+      "topic": "Sprints",
+      "title": "A request arrives mid-sprint",
+      "setup": "A sprint is underway. A senior stakeholder contacts the delivery team directly to add a feature a large client has asked for, arguing that agile means welcoming change. The Product Owner has not seen the request. The Scrum Master is asked to make room for it.",
+      "task": "Decide how the request should be handled, and say which role does what.",
+      "hints": [
+        "The week says adaptation is not banned in Scrum — it is moved. Work out where it is moved to.",
+        "Two backlogs exist and they are not the same thing. Ask which one an unassessed new request belongs to first.",
+        "Consider what the Scrum Master is for, what limiting disruptive external interference means, and who actually helps determine what enters upcoming sprints."
+      ],
+      "walkthrough": [
+        "Accept the stakeholder’s premise only halfway. Agile does place greater emphasis on responding to change than on following a plan, but the week’s caution is to welcome change without allowing continuous change to create chaos.",
+        "Use the sprint boundary. A sprint creates a temporary period of focus and stability: between sprints the team adapts and reprioritises, and during the sprint it protects focus and executes.",
+        "Route the request to the product backlog — the broader prioritised set of potential work — rather than straight into the sprint backlog, which is the subset already selected for this cycle.",
+        "Give the prioritisation decision to the Product Owner, who maintains the product vision, weighs competing requirements, refines the backlog and helps determine what enters upcoming sprints. The question to answer is what should be built next to maximise value.",
+        "Place the Scrum Master’s part correctly: process governance rather than scope control — limiting disruptive external interference and protecting the team’s ability to work while the sprint runs.",
+        "Name the trade-off. Forced prioritisation means not everything valuable can or should be done simultaneously, so accepting the feature is also a decision about what it displaces."
+      ],
+      "checklist": [
+        "Distinguishes welcoming change from allowing continuous change.",
+        "Uses the sprint boundary to say when the request can properly be considered.",
+        "Puts the request in the correct backlog and explains the difference between the two.",
+        "Assigns prioritisation to the Product Owner and process protection to the Scrum Master.",
+        "Names the displacement the request creates rather than treating capacity as elastic."
+      ]
+    },
+    {
+      "topic": "Before the bid",
+      "title": "A bid with no groundwork",
+      "setup": "Your organisation is preparing a large bid. The team has a strong idea and has drafted both a budget and a delivery timeline, and intends to brief the funding body and the affected communities once the proposal is complete. One significant cost driver sits genuinely outside the organisation’s control. No internal sponsor has been approached.",
+      "task": "Assess how ready this bid is and set out what should change before it is submitted.",
+      "hints": [
+        "The week names four elements a strong proposal develops together. Check which of them this bid has actually developed.",
+        "One element is being handled last rather than alongside the others. Ask what the week says about when that element belongs.",
+        "Uncertainty here is not one thing. Sort it into the two kinds the week distinguishes, then ask what each kind calls for."
+      ],
+      "walkthrough": [
+        "Audit the bid against the four elements — idea, budget, timeline and stakeholders. Three are drafted and the fourth is deferred, so the proposal has not been developed the way the week describes.",
+        "Say what the deferral costs. Considering the four simultaneously is what exposes feasibility gaps, unrealistic assumptions, missing stakeholders, funding shortfalls and delivery risks, so a budget and timeline built without stakeholder input remain untested.",
+        "Bring engagement forward. It should begin before funding or formal approval is secured, because trust cannot be created instantly, stakeholders may reshape the proposed solution and consultation can uncover risks before commitments are made. The week’s sequence puts feedback ahead of resource planning.",
+        "Where culturally significant communities are involved, go beyond ordinary consultation — relationships established early, appropriate cultural protocols respected, cultural expertise brought into decision-making, and ongoing dialogue rather than one off consultation.",
+        "Split the uncertainty. What can be reduced through planning and engagement should be reduced; the external cost driver cannot be planned away and belongs with risk governance. The bid should still explain how the project will be developed and identify what remains to be consulted on.",
+        "Close the sponsor gap. Sponsor buy-in is built before the formal decision, and a strong sponsor can champion the project internally, influence resource allocation, resolve organisational barriers and maintain momentum through uncertainty — the soft power that creates shared ownership before approval."
+      ],
+      "checklist": [
+        "Audits the bid against all four elements rather than judging the idea alone.",
+        "Argues for engagement ahead of approval and gives the week’s reasons for it.",
+        "Treats culturally significant engagement as more than ordinary consultation where it applies.",
+        "Separates reducible uncertainty from external uncertainty and gives each a different response.",
+        "Identifies the missing sponsor and says what a sponsor contributes."
+      ]
+    }
+  ]
+}
