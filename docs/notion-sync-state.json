@@ -32,8 +32,8 @@
     "  identically even if the annotations are reworded. Empty and unpublished topics carry null."
   ],
   "DMBA6008": {
-    "lastSync": "2026-08-17",
-    "lastSyncNote": "2026-08-17: Week 3 `Investment Evaluation Tools` is NEW and published. Weeks 0/1/2 were re-probed and every topic observedAt is byte-identical to the values recorded here — nothing else was rebuilt. The Week 2 `Live` note's `Discussion Questions` child is also unchanged (observedAt 2026-08-11T14:05:19.512Z), so its tab was left alone, and its `Diary` sibling (3ba7b336873c80f4addce7004f01a76e) was again NOT fetched — the carve-out covers `Discussion Questions` and nothing else. Week 3 has no Live note yet, so it has no Discussion tab.",
+    "lastSync": "2026-08-18",
+    "lastSyncNote": "2026-08-18: Week 3's TWO remaining placeholders — `Internal rate of return` and `Problems with common approaches` — are now written and published, taking the page from 15 blocks / 30 terms / 40 cards to 25 / 66 / 96. Replacing a placeholder is a SPLICE: the two already-reviewed topics were not re-harvested or regenerated, only the two placeholder blocks were swapped and the eyebrows renumbered. Acronyms (5→7), Formulas (8→13) and the whole practice tab set were re-derived from the rebuilt page. Weeks 0, 1 and 2 were re-probed topic by topic and every observedAt is byte-identical to the values recorded here — nothing else was rebuilt. Week 3 has ALSO gained a `Live` note (3bf7b336873c80cdaafbfc4954a7a028, Type `Live Session`) whose only child is `Pre-Class Prep`, NOT `Discussion Questions` — the carve-out does not reach it, so it was not fetched and Week 3 still has no Discussion tab. Aryan needs to say whether the carve-out extends to it.",
     "courseId": "3097b336873c80c0948dcc805089b071",
     "hubPage": "DMBA6008-weeks.html",
     "skippedNotebooks": [
@@ -282,7 +282,7 @@
             "type": "Pre-Live Session",
             "shape": "container",
             "editedTime": "2026-08-16T12:07:11.128Z",
-            "observedAt": "2026-08-16T13:00:00.327Z",
+            "observedAt": "2026-08-17T12:41:01.914Z",
             "published": true,
             "note": "Created 2026-08-16T12:06 and published 2026-08-17. TWO of its four sub-pages are still <empty-block/>, and both render as honest 'not yet written' blocks. There is NO Live Session note in this notebook yet, so the page has no Discussion tab — five tabs, not six.",
             "topics": [
@@ -295,7 +295,8 @@
                 "approxWords": 355,
                 "published": true,
                 "imagesSkipped": 2,
-                "note": "TWO images SKIPPED and they carried the algebra. The symbolic present-value formula and its worked example exist ONLY as images; the harvestable text never states them. The published topic therefore has no symbolic PV formula, and figcaption pvfig1 says so in words. The three formulas that ARE in the text are the only ones on the page. The author's number formatting is inconsistent BY SECTION — $112,000 / $101,818 / $110,000 / $100,000 with separators, $2000 / $1818 / $101818 / $100000 without — and is reproduced section by section. Do not normalise."
+                "note": "TWO images SKIPPED and they carried the algebra. The symbolic present-value formula and its worked example exist ONLY as images; the harvestable text never states them. The published topic therefore has no symbolic PV formula, and figcaption pvfig1 says so in words. The three formulas that ARE in the text are the only ones on the page. The author's number formatting is inconsistent BY SECTION — $112,000 / $101,818 / $110,000 / $100,000 with separators, $2000 / $1818 / $101818 / $100000 without — and is reproduced section by section. Do not normalise.",
+                "observedAt": "2026-08-16T12:25:01.039Z"
               },
               {
                 "id": "3be7b336873c802787aff2c28e78a173",
@@ -306,38 +307,48 @@
                 "approxWords": 894,
                 "published": true,
                 "imagesSkipped": 4,
-                "note": "FOUR images SKIPPED: the Average Return on Assets calculation, a straight-line depreciation illustration, and two on Excel's NPV() behaviour. None was reconstructed. Author quirks reproduced verbatim: `$16.m` (a mid-number truncation — his own arithmetic (33+0)/2 would give 16.5, and it must NEVER be completed), `mesaure`, `economically more value`, `a different decisions`, `Both product the same NPV`. WACC and CF0 are used but never expanded by him."
+                "note": "FOUR images SKIPPED: the Average Return on Assets calculation, a straight-line depreciation illustration, and two on Excel's NPV() behaviour. None was reconstructed. Author quirks reproduced verbatim: `$16.m` (a mid-number truncation — his own arithmetic (33+0)/2 would give 16.5, and it must NEVER be completed), `mesaure`, `economically more value`, `a different decisions`, `Both product the same NPV`. WACC and CF0 are used but never expanded by him.",
+                "observedAt": "2026-08-16T13:00:33.510Z"
               },
               {
                 "id": "3be7b336873c80e09988cf387da97f61",
                 "title": "Internal rate of return",
                 "childCount": 0,
-                "svgPrefix": null,
-                "contentHash": null,
-                "published": false,
-                "state": "empty",
-                "note": "Returns <empty-block/>. Rendered in the page's '14 / Not yet written' block. THAT BLOCK IS THE THING TO REPLACE when the note is written. Never fill it with generated content. Note that IRR is not covered anywhere else on the page either, so this block needs no cross-reference pointer — unlike DMBA 6005 Week 3's Personas block."
+                "svgPrefix": "irr",
+                "contentHash": "sha256:b260f9cd07a8",
+                "published": true,
+                "state": "complete",
+                "note": "WAS EMPTY until 2026-08-17. Written by Aryan and published 2026-08-18, replacing the honest 'not yet written' block. The note row's Edited Time did NOT move (still 2026-08-16T12:07:11.128Z) — only the topic observedAt did, which is the third time on this subject that probing topics rather than notes was what caught the change. 0 images. Author quirk that MUST survive: the Excel formula is written '=IFR(CF0:CFn)' — IFR, not IRR. It is reproduced in the prose, an SVG desc, an SVG text label, a flashcard, a term and a formula entry; the corrected '=IRR(' appears nowhere on the page. This topic never states Project B's cash flows or any NPV figure — only the two IRRs (13.8%, 14.6%) and that their NPVs are equal at 10%.",
+                "observedAt": "2026-08-17T12:09:20.365Z",
+                "approxWords": 549,
+                "imagesSkipped": 0
               },
               {
                 "id": "3be7b336873c80b5b71ef844490c7d60",
                 "title": "Problems with common approaches",
                 "childCount": 0,
-                "svgPrefix": null,
-                "contentHash": null,
-                "published": false,
-                "state": "empty",
-                "note": "Returns <empty-block/>. Rendered in the page's '15 / Not yet written' block."
+                "svgPrefix": "pca",
+                "contentHash": "sha256:64cfec57bf72",
+                "published": true,
+                "state": "complete",
+                "note": "WAS EMPTY until 2026-08-17. Written by Aryan and published 2026-08-18. ONE IMAGE SKIPPED, and it carries the whole quantitative content of the average accounting ROA section — its definition and calculation. The prose criticises average ROA on three grounds and never defines it, so the published block says in words that the calculation sits in an image and is not reproduced. NEVER supply that formula. Author quirks preserved: '2-year-payback'; 'Both recover their nominal investment but still destroy economic value' with no full stop; the garbled closing callout 'Where common appraisals measure conflict, rely on NPV'; bare unit-less numbers (100, 50, 86.8, -13.2) against '20m'/'40m'/'16.4m' in the scale table; and row 1 of the 'Main Problems' table recording a strength rather than a problem.",
+                "observedAt": "2026-08-17T12:41:12.229Z",
+                "approxWords": 676,
+                "imagesSkipped": 1
               }
             ]
           }
         ],
         "built": {
-          "figures": 5,
-          "terms": 30,
-          "cards": 40,
-          "blocks": 15,
-          "acronyms": 5,
-          "formulas": 8
+          "figures": 11,
+          "terms": 66,
+          "cards": 96,
+          "blocks": 25,
+          "acronyms": 7,
+          "formulas": 13,
+          "quizQuestions": 26,
+          "scenarios": 7,
+          "studyPathSteps": 7
         }
       }
     },
@@ -358,7 +369,7 @@
     ]
   },
   "DMBA6005": {
-    "lastSync": "2026-08-17",
+    "lastSync": "2026-08-18",
     "courseId": "3a17b336873c80c284a7cd6be4a60c4d",
     "hubPage": "DMBA6005-weeks.html",
     "note": "Launched 2026-08-06 with Week 0 and Week 1 together, once Week 1's `Learn` Pre-Live Session note appeared (created 2026-08-05T11:27Z, after the previous state record was written). index.html card un-muted and subjects.json `live` flipped to true in the same run, per Aryan's 2026-08-05 pre-approval. Type pairing: Sora + Karla, --course-e ochre. Re-checked 2026-08-14: all three weeks byte-identical in Notion, nothing rebuilt. Acronyms/Formulas reference tabs added to all three pages from their existing content. 2026-08-15: Week 3 added — Weeks 0–2 re-probed and unchanged, so only Week 3 was built. 2026-08-17: Weeks 0–2 re-probed again and byte-identical; Week 3 REBUILT because its two empty sub-pages, `Personas` and `Long-term strategic value for $RUs`, were written between 08-15 and 08-16. Its two honest placeholder blocks are gone, its hub topic chips are no longer dimmed, and both reference tabs were re-derived from the whole rebuilt page (acronyms 4→5, formulas 11→27). A NEW note `Live` (3bf7b336873c8061b545e1b5340877d7) appeared in the Week 3 notebook on 2026-08-17 typed `Pre-Live Session` despite its name; it is EMPTY, so nothing was published from it — see openQuestions.",
@@ -377,10 +388,12 @@
         "notebook": "3bc7b336873c8073a251daf6ee7701de (Week 3)",
         "type": "Pre-Live Session",
         "createdTime": "2026-08-17T08:00:10.151Z",
-        "editedTime": "2026-08-17T08:00:30.566Z",
-        "state": "empty",
+        "editedTime": "2026-08-17T09:50:05.293Z",
+        "state": "HAS CONTENT as of 2026-08-17 — roughly 120 words of bullet notes plus 1 image, no child pages",
         "published": false,
-        "question": "A note NAMED `Live` but TYPED `Pre-Live Session`. It is empty today, so nothing was published from it either way and the mismatch cost nothing. It matters the moment it has content: rule 1 keys off Type, not name, so a mistyped live-session diary would sail straight through the filter. ASK ARYAN whether the Type is correct before publishing anything from it. Do not assume either way."
+        "question": "A note NAMED `Live` but TYPED `Pre-Live Session`. IT IS NO LONGER EMPTY. Probed 2026-08-18: the Type is still `Pre-Live Session`, and the body reads unmistakably as a live-session classroom diary — an in-class pre-mortem exercise on a named external project, and an instruction-to-self about a persona test. Nothing below it was fetched and nothing has been published. This is exactly the failure this entry predicted: rule 1 keys off Type, so a mistyped live-session diary would sail straight through the filter that exists to catch it. ASK ARYAN whether the Type is wrong. If he corrects it to `Live Session` the note drops out permanently; if he insists the Type is right, it STILL needs a human read against rule 1 before a single line ships. Do not assume either way, and do not harvest it in the meantime.",
+        "observedAt": "2026-08-17T09:50:14.336Z",
+        "escalated": "2026-08-18"
       }
     ],
     "orphanNotes": [
@@ -698,6 +711,7 @@
           }
         ]
       }
-    ]
+    ],
+    "lastSyncNoteReprobe": "2026-08-18: re-probed topic by topic across all four weeks. NOTHING CHANGED — every publishable topic's observedAt is identical to, or predates, what is recorded here, and no notebook, note, child id or title moved. No page was rebuilt. `Creating your reflective journal` was re-checked and is STILL EMPTY (returns <empty-block/>, observedAt unmoved at 2026-08-05T11:32:03.447Z); it remains the subject's only placeholder. Shadow Boxing was excluded in Weeks 1, 2 and 3 by syncRules, all three caught in the per-notebook walk. Zero images across all thirteen publishable topics. The one real movement in the subject is the `Live` note below, which is now blocked pending Aryan."
   }
 }

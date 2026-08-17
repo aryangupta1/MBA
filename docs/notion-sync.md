@@ -374,22 +374,25 @@ Generating new academic argument, inventing a citation, or "improving" a claim i
 
 ## 7. Current state
 
-**DMBA 6008 Finance, Strategy and Technology** — synced 2026-08-17. **Week 3 is new**;
-Weeks 0–2 were re-probed and every topic `observedAt` is identical to the state record, so
-nothing else was rebuilt.
+**DMBA 6008 Finance, Strategy and Technology** — synced 2026-08-18. **Week 3's last two
+placeholders are now written and published**, taking that page from 15 blocks to 25; Weeks
+0–2 were re-probed topic by topic and every `observedAt` is identical to the state record,
+so nothing else was rebuilt.
 
 | Week | Notion notebook | Published |
 | --- | --- | --- |
 | Week 0 | `3a17b336873c805b9c4acdff38033d35` | `DMBA6008-week0.html` — balance sheet, P&amp;L, cash flow, and **assessing financial performance, written 2026-08-12/13 and published 2026-08-14**. All four topics are now live; the "not yet written" panel is gone. |
 | Week 1 | `3b27b336873c8070953fd96878f5f2dc` | `DMBA6008-week1.html` — key value principles, concepts, assessing performance, key definitions |
 | Week 2 | `3b77b336873c802182a3cf5b76484dd1` | `DMBA6008-week2.html` — the asset mix as a business-model signal, drivers of return, the DuPont decomposition, sustainable growth, plus the live-session discussion questions |
-| Week 3 | `3be7b336873c804cba5ac941455d8a42` | `DMBA6008-week3.html` — present value and discounting, and investment appraisal. **Two of its four sub-pages are empty** and render as honest "not yet written" blocks: `Internal rate of return` and `Problems with common approaches`. No Live note exists in this notebook yet, so the page has **five tabs, not six** — no Discussion panel. |
+| Week 3 | `3be7b336873c804cba5ac941455d8a42` | `DMBA6008-week3.html` — present value and discounting, investment appraisal, **the internal rate of return, and the problems with payback, average accounting ROA and IRR (both written 2026-08-17, published 2026-08-18)**. All four sub-pages are now live and the two "not yet written" blocks are gone. The notebook has since gained a `Live` note, but its only child is `Pre-Class Prep`, which the §6 carve-out does not cover — so the page still has **no Discussion panel**. |
 
-> **Week 3 is where the skipped-images problem stops being cosmetic.** Six images were
-> skipped across its two written topics, and they carry algebra the prose never states: the
+> **Week 3 is where the skipped-images problem stops being cosmetic.** Seven images have now
+> been skipped across its four topics, and they carry algebra the prose never states: the
 > symbolic present-value formula and its worked example, the Average Return on Assets
 > calculation, a straight-line depreciation illustration, and two on Excel's `NPV()`
-> behaviour. A model building these pages already knows every one of those formulas, which
+> behaviour — and, from `Problems with common approaches`, **the definition and calculation
+> of average accounting ROA**, whose entire section is a critique of a measure the page never
+> defines. A model building these pages already knows every one of those formulas, which
 > is exactly the danger — **supplying one from training data would be indistinguishable
 > from transcription and completely wrong.** Both builders were told not to, both figure
 > captions say in words that the formula sits in an image and is not reproduced, and the

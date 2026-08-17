@@ -6,232 +6,225 @@
 >
 > Every session must leave this file updated before it ends.
 
-**Last updated:** 2026-08-17
-**Left by:** A feature session, not a sync. Aryan asked for **a quiz tab on every semester-2
-week**, plus **a second learning tab of my choosing** (he picked **Apply it**), and then
-mid-session for **a "how to master this week" panel on every page**. All three now ship on
-all eight week pages. Nothing was re-synced; no Notion call was made. **Committed and
+**Last updated:** 2026-08-18
+**Left by:** A sync. Aryan said *"resync"* without naming a subject, so both were diffed.
+**DMBA 6008 Week 3's last two placeholders are written and published** — the page roughly
+doubled. **DMBA 6005 was byte-stable and nothing was rebuilt.** A **publication blocker was
+found and removed**, and the `Live`-typed note question has become urgent. **Committed and
 pushed**, as asked.
 
 ---
 
 ## Read this first — the hook did not fire
 
-**`next-prompt.md` was NOT injected into this session's context.** It had to be opened by
-hand, for the third session running. `settings.json` is correct and the script exists and is
-executable, so the remaining explanation is a **project-scope hook awaiting Aryan's
-approval, which cannot be granted from inside a session.**
+**`next-prompt.md` was NOT injected into this session's context**, for the fourth session
+running. `settings.json` is correct and the script exists and is executable, so the
+remaining explanation is a **project-scope hook awaiting Aryan's approval, which cannot be
+granted from inside a session.**
 
-**Ask him to open `/hooks` once and approve it.** Until then, every session must open this
-file by hand.
-
-## Current focus
-
-**Nothing in flight.** Both subjects still match Notion as of 2026-08-17 — this session did
-not touch the synced material.
-
-## What is new — three practice components on all eight week pages
-
-| Component | Where it sits | What it does |
-| --- | --- | --- |
-| **Study path** | first block of the Summary panel, `00 / Start here` | "How to master this week" — a 5–7 step route, each step with a time estimate and a button that jumps to its tab |
-| **Quiz** | its own tab | four options, one right, a hint per question, a note on **every** option, running score, Start over |
-| **Apply it** | its own tab | scenarios with three staged hints, a walkthrough and a self-mark checklist |
-
-Counts per page:
-
-| Page | Questions | Scenarios | Path steps | Tabs now |
-| --- | --- | --- | --- | --- |
-| DMBA6008-week0 | 24 | 6 | 7 | 7 |
-| DMBA6008-week1 | 12 | 4 | 7 | 7 |
-| DMBA6008-week2 | 22 | 6 | 7 | **8** (it has Discussion) |
-| DMBA6008-week3 | 15 | 4 | 7 | 7 |
-| DMBA6005-week0 | 12 | 4 | 6 | **6** (no Formulas tab) |
-| DMBA6005-week1 | 18 | 5 | 7 | **6** (no Formulas tab) |
-| DMBA6005-week2 | 18 | 5 | 7 | 7 |
-| DMBA6005-week3 | 22 | 6 | 7 | 7 |
-
-### The important structural fact
-
-**None of it is synced from Notion. All of it is derived from the built page**, exactly like
-the Acronyms and Formulas tabs — which means it can only ever contain material that already
-passed gate 1.
-
-It lives in **`.claude/skills/sync-subject/reference/practice/`**:
-
-```
-practice/
-  README.md        the data schema, the authoring rules, the rebuild procedure — BINDING
-  build.py         splices all three into a page, asserting the shape first; safe to re-run
-  tpl/quiz.css     stylesheet for the quiz and apply-it panels
-  tpl/quiz.js      the shared renderer for both
-  tpl/path.css     stylesheet for the study path
-  data/<PAGE>.json the authored content, one file per week page — all eight committed
-```
+**Ask him to open `/hooks` once and approve it.**
 
 ## Do first
 
-1. **Aryan has seen none of this.** Built and pushed on his instruction, without review.
-2. **Point him at one page and one tab.** `DMBA6008-week3.html` → Quiz is the sharpest test
-   of whether the questions are actually useful to him, because that week is the thinnest
-   and the most constrained by unpublished images.
-3. **The 12 skipped images are still the biggest real gap on the site** and still need a
-   yes/no. See below — unchanged from the last session.
+1. **A real person's name was published on the site and has now been removed.**
+   `DMBA6008-weeks.html` carried `<span class="pill">Guy Ford</span>` — the lecturer, from
+   Notion's `Courses.Professor` column — in its hero. `git log -S` puts it in
+   **`7a63ab5 Add DMBA 6008 week pages synced from Notion`**, so it has been live on GitHub
+   Pages since the very first sync. It is gone now and no other occurrence exists anywhere in
+   the repo. **Tell Aryan**, because it was public for weeks and that is his call to make,
+   not something to quietly close. The sibling hub never had it, which is why nobody noticed.
+2. **The DMBA 6005 `Live` note now has content, and it reads as a classroom diary.** See
+   below. This blocks nothing today but it is one keystroke from publishing live-session
+   material. **It needs an answer from him.**
+3. **DMBA 6008 Week 3 has a Live note too, and its child is not `Discussion Questions`.**
+   See below — a scope question for the carve-out.
+4. Aryan has seen none of this week's content. Built and published on his instruction,
+   without review.
 
-## The rule Aryan added this session — read before any sync
+## What changed — DMBA 6008 Week 3 only
 
-> *"Future syncing and re-syncs need to update quiz and apply it accordingly based on new
-> information."*
+Both remaining placeholders were written in Notion on 2026-08-17 and are now published.
 
-This is now written into **`SKILL.md` Phase 3c**, **`docs/notion-sync.md` §3c**, **CLAUDE.md**
-and the `practice/README.md`. In practice, when a week changes:
+| | before | now |
+| --- | --- | --- |
+| summary blocks | 15 | **25** |
+| figures | 5 | **11** |
+| key terms | 30 | **66** |
+| flashcards | 40 | **96** |
+| acronyms / formulas | 5 / 8 | **7 / 13** |
+| quiz / scenarios | 15 / 4 | **26 / 7** |
 
-1. **Re-derive that page's JSON** from the rebuilt page — new questions for the new
-   material, and any question the change invalidated rewritten or dropped.
-2. **Re-check the study path.** A week that gains a topic needs its route updated; a filled
-   placeholder must stop being described as unwritten.
-3. **Sweep the counts** — the hero pill `N quiz questions`, the hub card's `whats-inside`
-   chips (quiz questions **and** scenarios), and the hub's mode list.
+- **`Internal rate of return`** — 549 words, 5 blocks, **0 images**. IRR as the rate where
+  NPV = 0, IRR against accounting return, the ranking conflict with NPV, and Excel.
+- **`Problems with common approaches`** — 676 words, 7 blocks, **1 image skipped**. The three
+  evaluation criteria, payback and its problems, average accounting ROA, IRR's reinvestment
+  and scale problems, why NPV is preferred.
 
-**`build.py` skips a component the page already has.** To rebuild, regenerate the page and
-then run it — splicing over the top will not replace what is there.
+**Everything else in both subjects is untouched.** Weeks 0–2 of 6008 and all four weeks of
+6005 were re-probed topic by topic and every `observedAt` is byte-identical to the record.
 
-## How this was built, if it needs doing again
+## The two Live notes — both need Aryan
 
-Eight agents, one per page, each given only a **digest** of its page (the real file with
-`<style>` and every inline `<svg>` stripped — 6008 Week 0 went 380 KB → 283 KB). Each wrote
-a JSON file and edited no HTML; one Python script did every splice, so all eight pages are
-mechanically identical. The same eight agents were then resumed with a follow-up for the
-study path, which cost a fraction of a fresh spawn because they still had the page in
-context. **That resume-rather-than-respawn move is worth repeating.**
+### DMBA 6008 Week 3 — `3bf7b336873c80cdaafbfc4954a7a028`, Type `Live Session`
 
-## Two decisions worth knowing about
+New on 2026-08-17. Its **only child is `Pre-Class Prep`**, not `Discussion Questions`. The
+2026-08-10 carve-out covers *that one child page and nothing else*, so **it was not fetched,
+not harvested and not read**, and Week 3 still has no Discussion tab.
 
-- **`checks.py` was changed.** `<ol class="path">` now counts as an artefact rather than
-  flowing prose, alongside `.steps` and `.takeaways`. Without it the study path pushed
-  **6008 Week 1** over its prose budget by 325 words — the path is navigation advice, not
-  week prose, and a short week would otherwise fail a gate for gaining a UI panel.
-- **No new design token.** Right and wrong reuse the `--pos*` / `--neg*` verdict tokens every
-  week page already defines. The components are documented in
-  [docs/design-system.md §5](docs/design-system.md#the-practice-components--study-path-quiz-apply-it).
+**Ask whether the carve-out extends to `Pre-Class Prep`.** Do not assume it does — the name
+suggests pre-live material, but the note's `Type` says Live Session and the carve-out is
+written narrowly on purpose.
 
-## Two small things left deliberately
+### DMBA 6005 Week 3 — `3bf7b336873c8061b545e1b5340877d7`, named `Live`, typed `Pre-Live Session`
 
-- **Voice drifts between pages.** 6008 Week 3's study path is first person ("when I can
-  explain…"); 6005 Week 3's is second person ("when you can take…"). Each page is internally
-  consistent. Worth normalising to first person one day, since the rest of the site is his
-  own notes — **ask before doing it**, it is a voice decision, not a bug.
-- **The hub footers still read "Read it. Look it up. Drill it."** Left alone as a slogan
-  rather than an enumeration. The hub *lede* and the mode grid were updated and now name
-  five modes.
+**This is the one that matters.** Flagged as an empty curiosity last session; it now has
+**~120 words plus 1 image**, and the body reads unmistakably as a **live-session classroom
+diary** — an in-class pre-mortem on a named external project, and an instruction-to-self
+about a persona test. Nothing beneath it was fetched and nothing was published.
 
-## Still empty, still honest placeholders — do not fill
+This is exactly the failure the open question predicted: **rule 1 keys off `Type`, not the
+name**, so a mistyped diary sails straight through the filter that exists to catch it.
 
-- **6005 W1 → `Creating your reflective journal`** — the study path on that page says plainly
-  the material is not there. No question, scenario or hint touches it.
-- **6008 W3 → `Internal rate of return`**
-- **6008 W3 → `Problems with common approaches`**
+**Ask whether the `Type` is wrong.** If he corrects it to `Live Session` the note drops out
+permanently. If he insists the `Type` is right, it **still** needs a human read against
+rule 1 before a single line ships. Recorded in `docs/notion-sync-state.json` →
+`DMBA6005.openQuestions`.
 
-Neither 6008 pair is covered anywhere else on the page, so **IRR is not tested and must not
-be** until he writes it.
+## The images question — now seven on this page alone
 
-## The images question — unchanged and still the biggest gap
+**13 images have been skipped site-wide.** The new one is the worst kind: the
+`Problems with common approaches` section headed *"Why it is Weak for Investment Appraisal"*
+is a three-part critique of average accounting ROA, and **the page never defines average
+ROA**, because its definition and calculation are in that image. Running total: **7 in 6008
+Week 3, 4 in Week 0's fourth topic, 2 in Week 2's `DuPont model example`.**
 
-**12 images have been skipped and several carry the algebra**: the symbolic present-value
-formula and its worked example, the Average ROA calculation, a straight-line depreciation
-illustration and two on Excel's `NPV()` (6008 W3, 6 images); 4 in Week 0's fourth topic;
-2 in Week 2's `DuPont model example`.
+The fidelity gate was aimed at exactly this and **confirmed it did not recur** — no
+numerator, denominator, formula or worked percentage for average ROA appears anywhere on the
+page. Publishing any image means downloading and committing the file, which needs Aryan's
+say-so. **Ask** — per image or as a policy.
 
-**The quiz made this worse, not better** — every one of those was a question I could not
-write. The 6008 Week 3 agent was told explicitly not to supply them and did not; its single
-Average ROA question tests the *limitation* the prose states instead, and the string `16.m`
-appears nowhere in its data, so there was no opening to complete the truncation.
+## Author quirks new this run — do not "fix" these
 
-Publishing any image means downloading and committing the file, which needs Aryan's say-so.
-**Ask** — per image or as a policy.
+- **`=IFR(CF0:CFn)`** — his own misspelling of IRR in the Excel section. It appears **8 times**
+  on the page (prose, a formula div, an SVG `<desc>`, an SVG `<text>`, a term, a flashcard, an
+  acronym def, a formula entry) and the corrected `=IRR(` appears **nowhere**. A first draft
+  of the quiz called it "the typo" in his first-person voice; that was cut. **Never annotate
+  it, never correct it.**
+- **`2-year-payback`** — his hyphenation. Preserved in prose, an SVG eyebrow, a term and both
+  formula entries.
+- **`Both recover their nominal investment but still destroy economic value`** — no full stop.
+  The body prose reproduces it without one.
+- **`Where common appraisals measure conflict, rely on NPV`** — his closing callout, garbled
+  as written. Reproduced word for word with no note attached.
+- **Bare unit-less numbers** in the payback example (`100`, `50`, `86.8`, `-13.2`) against
+  `20m` / `40m` / `16.4m` in the scale table. **Never normalise.**
+- **The "Main Problems" table's first row records a strength** (`Recognises cash flow` /
+  `Useful starting point`) under a heading of problems. Reproduced in place, with a neutral
+  line above it saying so rather than relabelling the row.
 
-## A note named `Live` is typed `Pre-Live Session`
+Still standing from earlier syncs: **`$16.m` — never complete it** (his own `(33+0)/2` would
+give 16.5); `mesaure`; `economically more value`; `a different decisions`;
+`Both product the same NPV`; the section-by-section number formatting; the lowercase `x`;
+6008 Week 0's `SGR = ROE x Retention Rate` against Week 2's ROA/Leverage/Retention statement
+(**never reconciled**); and, in 6005, `customer lifecycle value` vs `customer lifetime value`,
+`Adviser`/`advisor`, both spacings of `User→Need→Value`, `one-of transaction`,
+`Shorty-term success`, `…beyond the mechanics of Scru,`, and **no dates anywhere**.
 
-`3bf7b336873c8061b545e1b5340877d7`, in the **DMBA 6005 Week 3** notebook. Still **empty**, so
-it has cost nothing. It matters the moment it has content: **rule 1 keys off `Type`, not the
-name.** Ask Aryan whether the Type is right before publishing anything from it. Recorded in
-`docs/notion-sync-state.json` → `DMBA6005.openQuestions`.
+## Still empty, still an honest placeholder — do not fill
 
-## Author quirks reproduced verbatim — do not "fix" these
+**6005 W1 → `Creating your reflective journal`** is now the **only** placeholder left on the
+site. Re-checked 2026-08-18: still returns `<empty-block/>`, `observedAt` unmoved.
+6008 Week 3's pair are gone — he wrote them.
 
-Everything from the last three syncs still stands, and the practice content was written
-against all of it. In **6008**: `$16.m` (**never complete it**), `mesaure`,
-`economically more value`, `a different decisions`, `Both product the same NPV`, the
-section-by-section number formatting (`$112,000`/`$101,818` in one passage, `$2000`/`$1818`/
-`$101818`/`$100000` in another — **never normalise**), the lowercase `x` as his
-multiplication sign, and the two irreconcilable statements of sustainable growth
-(`SGR = ROE x Retention Rate` in W0, "driven by ROA, Leverage and Retention" in W2).
-In **6005**: `Type of Personas` (singular and empty), the A–E headings with no bodies,
-`customer lifecycle value` alongside `customer lifetime value`, `Adviser`/`advisor`,
-both spacings of `User→Need→Value`, `one-of transaction`, `Shorty-term success`,
-`The project. should therefore serve:`, `…beyond the mechanics of Scru,`, `strictly liner`,
-`weak thinning`, and **no dates anywhere in the Agile material**.
+**Do not trust that.** Two of three placeholders standing on 2026-08-15 were written within
+24 hours, and these two were written within a day of being reported empty. **Re-check every
+one, every run.**
 
-**The `decisions` → `dimensions` trap is now handled in three places on 6005 W3** — the
-prose, the figures, and now the quiz. The quiz question asks what empathy mapping
-*investigates* and quotes `Think → Feel → Say → Do` as he writes it, so the noun is never
-restated, corrected or replaced. **Keep it that way.**
+## What the gates caught — worth reading before the next build
+
+**Gate 1 on `Internal rate of return` returned three BLOCKING findings, all fixed:**
+
+1. The **IRR acronym entry imported a risk claim from another topic** — "IRR incorporates
+   cash flow and timing but not project risk… must be compared against an independently
+   estimated hurdle rate" — and tagged it `src: 'Internal rate of return'`. The word *risk*
+   appears nowhere in that harvest. Rewritten to what the topic actually says.
+2. **The author's misspelling was labelled a typo** in a quiz explanation written in his
+   first-person voice. Cut.
+3. **"One fixed ranking, the same at every hurdle rate"** — a builder inference asserted in
+   **five places at once** (an SVG `<text>`, an SVG `<desc>`, a figcaption, a quiz note and a
+   scenario walkthrough). His notes say only *"Using IRR alone would therefore rank Project B
+   above Project A"* and never claim invariance. All five reworded.
+
+**Gate 1 on `Problems with common approaches` returned no BLOCKING findings** — the
+average-ROA invention did not recur.
+
+**Gate 4 caught the lecturer's name**, a hub reading `3 weeks published` over four cards, and
+**a study path naming a "capital-rationing" scenario that does not exist**. All fixed.
+
+**The lesson, for the third sync running: diagram text and derived-tab `src` attribution are
+where drift hides.** Neither is prose, so neither reads as a claim — and both sailed past
+every static check.
 
 ## Verification actually performed
 
-- `checks.py` on **all eight** week pages, both hubs, `index.html` and `library.html` —
-  **0 findings**.
-- **Browser, served at `127.0.0.1:8787`**, every page loaded in an iframe harness and driven:
-  every tab clicked, **every question on every page answered** (24/12/22/15/12/18/18/22 — the
-  score counters all agreed with the answer counts), every scenario and every study path
-  rendered, **0 duplicate ids, 0 broken `aria-labelledby`/`aria-controls`, 0 horizontal
-  overflow, 0 console errors** across all eight.
-- Path buttons confirmed switching tabs; topic chips confirmed leaving the study-path block
-  visible under every filter (it carries no `data-topic`, by design); the tab row confirmed
-  wrapping cleanly at 500 px with seven tabs.
-- **One real defect found and fixed in flight**: the study-path buttons rendered
-  `Open Summary &amp; visuals` because the label is lifted off the page's own tab button and
-  was being escaped twice. Fixed in the 8 pages and in `build.py`.
+- `checks.py` on the rebuilt page, both hubs, `index.html` and `library.html` — **0 findings**.
+- **Gate 1 (fidelity)**, adversarial and context-starved, one agent per new topic. Four
+  BLOCKING across the two, all fixed; ~15 NOTEs, the substantive ones fixed.
+- **Gate 4 (privacy)**, full-file sweep of the page and the hub. Three findings, all fixed.
+  No live-session material, no telemetry, no statistic about any real company, no
+  `only-accessible-by-url` link. Excel is the only product named and only as behaviour.
+- **Browser at `127.0.0.1:8788`**: all 7 tabs, **all 26 quiz questions answered** with the
+  counters agreeing, 7 scenarios with 28 reveals, the study path's tab-jump working, all four
+  topic chips filtering to the right block counts (5 + 8 + 5 + 7 + the study path = 26),
+  **0 duplicate ids, 0 broken aria targets, 0 SVG text outside its viewBox, 0 horizontal
+  overflow, 0 console errors**. Every relative link on the hub returns 200.
+- `strip.py` + `build.py` verified as an **exact byte round-trip on all eight week pages**
+  before the rebuild was allowed to start.
 
 ## Open threads
 
-- [ ] **The 12 skipped images.** Needs a yes/no from Aryan, per image or as a policy.
-- [ ] **Is that `Live` note's `Type` correct?**
-- [ ] **Normalise the study-path voice to first person?** Ask first.
-- [ ] **`checks.py` still does not measure the new panels' prose.** It reports the `summary`
-      topic only, so Discussion, Acronyms, Formulas, Quiz and Apply it are outside the prose
-      gate. Unchanged for four sessions.
+- [ ] **The lecturer's name was public since the first sync.** Tell Aryan. Removed.
+- [ ] **Is the 6005 `Live` note's `Type` correct?** Now urgent — it has content.
+- [ ] **Does the carve-out extend to 6008 Week 3's `Pre-Class Prep`?**
+- [ ] **The 13 skipped images.** Needs a yes/no, per image or as a policy.
+- [ ] **`checks.py` still does not measure the new panels' prose** — it reports the `summary`
+      topic only, so Discussion, Acronyms, Formulas, Quiz and Apply it sit outside the gate.
+      Unchanged for five sessions.
 - [ ] **A `desc` on 6008 Week 2's Discussion tab states sustainable growth in the textbook
       `ROE × retention` form**, in `dqb5-desc`. Left alone deliberately.
-- [ ] **The inline SVG figures still hard-code their fills.** See
-      [docs/design-system.md §3](docs/design-system.md#3-tokens).
+- [ ] **The inline SVG figures still hard-code their fills.** The one real cleanup left.
+- [ ] **Study-path voice drifts between pages** — 6008 W3 is first person, 6005 W3 second
+      person. Each page is internally consistent. **Ask before normalising.**
 - [ ] Semester 1 content pages still have no "back to library" link.
 - [ ] DMBA 6004's full subject title is unresolved. **Ask before reconciling.** Same for 6002.
 
 ## Do not
 
-- **Do not treat the practice content as free-form.** It is **extraction, not addition** —
-  the same standard as Acronyms and Formulas. No formula that sat in an unpublished image,
-  no repaired typo, no completed truncation, no reconciled inconsistency, nothing from a
-  Live Session note, and nothing from a topic the page marks unwritten.
 - **Do not publish anything from a `Live Session` note except DMBA 6008's
-  `Discussion Questions` child page, Week 2 onwards.** The `Diary` sibling is not covered.
-- **Do not trust a note's name over its `Type`, or its `Type` over its name, without asking**
-  when the two disagree.
+  `Discussion Questions` child page, Week 2 onwards.** Neither `Diary` nor `Pre-Class Prep`
+  is covered.
+- **Do not trust a note's name over its `Type`, or its `Type` over its name, without asking.**
+- **Do not supply a formula that exists only in a skipped image**, however certain you are.
+  This remains the pipeline's likeliest failure mode.
+- **Do not complete `$16.m`**, or any truncation.
 - **Do not repair a typo inside a figure, a figcaption, an SVG `<desc>`, a flashcard, a quiz
-  option or a scenario while preserving it in the prose.** Either it is his line everywhere
-  or it is your wording everywhere.
-- **Do not touch the week pages' ids, `data-panel`, `aria-selected`, `aria-pressed`, the
-  `.tab`/`.panel`/`.term`/`.flip`/`.face-*` class names — or `data-state` on `.opt`**, which
-  is the quiz's source of truth for feedback the way `aria-pressed` is for the flip.
-- **Do not convert the study path to a runtime render.** It is static markup on purpose, so
-  the summary panel still reads with JS off.
-- **Do not move the tab row's wrapping back inside a media query.**
-- **Do not restyle a DESK page ad hoc**; **do not add `overflow: hidden` to `.win`**.
-- **Do not sync any DMBA 6005 `Shadow Boxing` content for Week 1 or later.** (Week 0's is
-  published and legitimate; the Week 0 quiz draws on it.)
-- **Do not trust a "this is empty" note without re-checking it.**
+  option or a scenario while preserving it in the prose** — and **do not annotate one as a
+  typo either.** Either it is his string everywhere or it is your wording everywhere.
+- **Do not let a derived tab's `src` attribute claim a topic the material did not come from.**
+  That is how a risk claim from one topic ended up published as another's.
+- **Do not treat the practice content as free-form.** Extraction, not addition — the same
+  standard as Acronyms and Formulas.
+- **Do not relax "do not add" outside the Discussion tab.**
+- **Do not reconcile** 6008 W0's and W2's statements of sustainable growth, or 6005 W3's
+  `lifecycle`/`lifetime`, or its two spacings of `User→Need→Value`.
+- **Do not sync any DMBA 6005 `Shadow Boxing` content for Week 1 or later.** It was excluded
+  in Weeks 1, 2 and 3 again this run. Week 0's stays published.
 - **Do not fill an empty Notion topic**, and **do not finish a truncated sentence or word.**
+- **Do not restyle a DESK page ad hoc**; **do not add `overflow: hidden` to `.win`**; **do not
+  touch the week pages' ids, `data-panel`, `aria-selected`, `aria-pressed`, `data-state` on
+  `.opt`, or the `.tab`/`.panel`/`.term`/`.flip`/`.face-*` class names.**
+- **Do not convert the study path to a runtime render.** It is static markup so the summary
+  panel still reads with JS off.
 - Do not publish `Confidence`, `Last Reviewed`, `Favorite` or `Days Since`.
 - Do not commit a Notion image without asking.
 - Do not write to Notion. One-way: Notion authoritative, repo publish-only.
@@ -240,28 +233,37 @@ restated, corrected or replaced. **Keep it that way.**
 
 ## Notes for the next session
 
+- **Replacing a placeholder is a splice, not a rebuild — and the practice components make it
+  a four-step splice now.** The order that works:
+  1. `practice/strip.py PAGE.html` — removes the study path, Quiz and Apply-it components.
+     **Verified as an exact byte round-trip with `build.py` on all eight pages**, so this is
+     safe. `build.py` refuses a page that still has them, which is why strip comes first.
+  2. Swap each `data-topic-empty="true"` block for its fragment, **renumber every `block-num`
+     across the whole summary panel in document order**, and extend `TERMS`/`CARDS`.
+  3. Re-derive Acronyms and Formulas **from the rebuilt page**, and re-derive the practice
+     JSON, then `practice/build.py`.
+  4. Sweep the chrome: `<meta description>`, standfirst, hero pills, `#term-count`,
+     `#card-total`, `#acronyms-count`, `#formulas-count`, the footer sync date, the hub card's
+     description, its topic chips and its five `whats-inside` counts, and the hub's
+     `N weeks published` pill.
+- **Builders number their own blocks from 01.** Renumber at assembly or the page ships four
+  block 01s.
+- **Probe topics, not notes.** For the **third** consecutive run a note row's `Edited Time`
+  stayed frozen while sub-pages were rewritten underneath it — 6008 Week 3's still reads
+  2026-08-16 after 1,225 words landed on 2026-08-17.
 - **Hand an agent a digest, not the page.** Stripping `<style>` and every inline `<svg>` cut
-  6008 Week 0 from 380 KB to 283 KB and the small pages by half, and lost nothing an author
-  of questions needs. The one-liner is in this session's scratchpad but is three lines of
-  `re.sub` and is faster to rewrite than to find.
-- **Resume an agent rather than spawning a new one** when the follow-up is about the same
-  page. The study-path round cost roughly a tenth of the first round.
-- **Give each agent the page-specific traps in its prompt.** The 6005 Week 3 agent was told
-  about `decisions`/`dimensions` up front and handled it correctly first time; the equivalent
-  defect in the last session took an adversarial gate to catch.
-- **`build.py` asserts before it writes** — four options, exactly one correct, a note on
-  every option, three hints, 3–6 walkthrough steps, 3–5 checklist items, 5–7 path steps, and
-  every `goto` an actual tab on that page. A malformed file fails loudly rather than
-  shipping. Keep it that way.
-- **The tab numbers are computed, not hard-coded.** `build.py` counts the tabs the page
-  already has, so a week that later gains a Discussion or Formulas tab renumbers correctly.
+  the rebuilt Week 3 from 240 KB to 100 KB and lost nothing an author of questions needs.
+- **Give each agent its page's traps in the prompt.** Both harvesters and both builders were
+  told about `=IFR` and the average-ROA image up front, and both held — the defects the gates
+  did find were ones nobody had thought to warn about.
+- **Cost of this run:** 2 probes, 2 harvesters, 2 builders, 1 reference-tab agent, 1 practice
+  agent, 3 gate agents. That was about right for one rebuilt week.
 - **Serve the site to look at it** — Chrome tools refuse `file://`.
-  `python3 -m http.server 8787 --bind 127.0.0.1`. An **iframe harness** on the index page
-  drives all eight pages in one `javascript_tool` call and is far quicker than eight
-  navigations. **Chrome caches aggressively across a CSS edit** — append `?v=N` or reload.
-  Note the Chrome `javascript_tool` **blocks scripts that build `key=value` strings**; return
-  arrays or objects instead.
-- `notion-query-data-sources` is **metered**; `notion-fetch` is not.
+  `python3 -m http.server 8788 --bind 127.0.0.1`. An **iframe harness** drives every page in
+  one `javascript_tool` call. Set `document.documentElement.style.scrollBehavior='auto'`
+  before scrolling or screenshots catch the smooth-scroll mid-flight. The Chrome
+  `javascript_tool` **blocks scripts that build `key=value` strings**; return objects instead.
+- `notion-query-data-sources` is **metered**; `notion-fetch` is not. This sync used fetches only.
 - MCP tools are **deferred** — load via `ToolSearch` (`select:<exact_tool_name>`).
 - ⚠️ **macOS can block all access to `~/Documents`** via TCC. If the repo suddenly reads as
   missing, check System Settings → Privacy & Security → Full Disk Access.

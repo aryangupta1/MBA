@@ -1,55 +1,55 @@
 {
   "page": "DMBA6008-week3.html",
   "studyPath": {
-    "intro": "A route through Week 3 for someone meeting discounting for the first time. Two of the four sub-pages in my Notion note — Internal rate of return and Problems with common approaches — have nothing in them yet, so this is a shorter week than the title suggests, and a full pass runs to about two hours.",
+    "intro": "A route through Week 3 for someone meeting discounting for the first time. All four topics in my Notion note are written now, so this is a long week — twenty-five sections that build from one year’s cash flow to a verdict on four competing appraisal measures — and a full pass runs to a bit over three hours.",
     "steps": [
       {
         "goto": "summary",
-        "label": "Read sections 01 to 05 first",
-        "detail": "Concept of present value carries the whole week — every later topic assumes you can restate a future cash flow in today’s terms. Slow right down at sections 03 and 04: the $2000 excess is value in future-dollar terms and the $1818 is value created today, and the week only works if those stay two different numbers in your head. Then read 06 to 13 straight through; the two blocks marked not yet written can be skipped entirely.",
-        "time": "~30 min"
+        "label": "Read sections 01 to 13 first",
+        "detail": "Concept of present value carries the whole week — every later topic assumes you can restate a future cash flow in today’s terms. Slow right down at sections 03 and 04: the $2000 excess is value in future-dollar terms and the $1818 is value created today, and the week only works if those stay two different numbers in your head. Then read Investment Appraisal, 06 to 13, straight through, and finish at the 7% / 10% / 14% table where the preferred project changes twice.",
+        "time": "~35 min"
       },
       {
-        "goto": "formulas",
-        "label": "Audit what the notes actually state",
-        "detail": "Do this early so you know where the gaps are before you try to revise from them. Eight relationships are here, but the symbolic present-value formula, its worked example, the average return on assets calculation and the two Excel NPV() illustrations all sat in images that were never published, so they are absent by design and nothing has been reconstructed in their place. The average-return line is reproduced exactly as I typed it, truncation and all — do not read it as a finished figure.",
-        "time": "~10 min"
+        "goto": "summary",
+        "label": "Then 14 to 25, the two topics that follow",
+        "detail": "Stay on the same tab and use the topic chips above the contents list — Internal rate of return, then Problems with common approaches — so you read one argument at a time rather than twenty-five sections at once. The week is long enough that every section starts collapsed, so open them as you go, or hit Expand all. Read 14 to 18 for what IRR is and where it disagrees with NPV, then 19 to 25, which is the same three-criteria test applied to payback, average accounting ROA and IRR in turn. Section 23 is the heaviest: reinvestment assumption and scale problem in one block.",
+        "time": "~35 min"
       },
       {
         "goto": "terms",
         "label": "Fix the vocabulary that overlaps",
-        "detail": "Thirty terms, and the ones worth filtering for are the near-synonyms: cost of capital, discount rate, required return and hurdle rate all name the same quantity from different angles, and the notes write it as Hurdle Rate / WACC / cost of capital in one breath. While you are here, the Acronyms tab is a two-minute detour — CF0, ROA and WACC are used throughout the week without ever being expanded, so that tab supplies the standard expansions and says so.",
+        "detail": "Sixty-six terms, and the ones worth filtering for are the near-synonyms: cost of capital, discount rate, required return and hurdle rate all name the same quantity from different angles, and the notes write it as Hurdle Rate / WACC / cost of capital in one breath. Several terms appear more than once with different source tags — Net Present Value under three topics, Internal Rate of Return under two — and the duplicates are not redundant, because each one records what that topic says about it. While you are here, the Acronyms tab is a short detour: CF0, CFn and WACC are used in the notes without ever being written out, so that tab supplies the standard expansions and says which ones it had to.",
         "time": "~20 min"
+      },
+      {
+        "goto": "formulas",
+        "label": "Audit what the notes actually state",
+        "detail": "Do this before you try to revise from them, so you know where the gaps are. Several relationships this week discusses are absent by design: the symbolic present-value formula, its worked example, the average return on assets calculation and the two Excel NPV() illustrations all sat in images that were never published, and nothing has been reconstructed in their place. The average-return line is reproduced exactly as I typed it, truncation and all — do not read it as a finished figure, and do not go looking for the ROA calculation anywhere on this page, because the Problems topic states in words that it is not here.",
+        "time": "~10 min"
       },
       {
         "goto": "cards",
-        "label": "Drill the forty cards until automatic",
-        "detail": "Shuffle before the second pass, because the deck follows the page order and you will otherwise be recalling position rather than content. The cards that matter most are the ones on the 7% / 10% / 14% example — you should be able to say which project wins at each rate and why before you flip.",
-        "time": "~20 min"
-      },
-      {
-        "goto": "quiz",
-        "label": "Test the two confusions that bite",
-        "detail": "Fifteen questions weighted toward present value and profit versus cash flow, because those are where a wrong instinct survives a read-through. Read the feedback on the options you did not pick as well as the one you did — the distractors are built from the specific mix-ups this week invites, particularly future surplus against value created today, and reported loss against cash generated. Nothing here touches internal rate of return, since the page does not cover it.",
-        "time": "~20 min"
-      },
-      {
-        "goto": "apply",
-        "label": "Reason through the four scenarios",
-        "detail": "These are where the week stops being arithmetic and becomes a judgement about someone else’s paper. Take the hints one at a time rather than opening all three, and try the hurdle-rate and three-measures scenarios last, since both assume you already accept that ranking is a joint property of the cash flows and the rate applied to them.",
+        "label": "Drill the ninety-six cards until automatic",
+        "detail": "Too many for one sitting — split them, and shuffle before the second pass, because the deck follows page order and you will otherwise be recalling position rather than content. Two runs of cards carry most of the week’s discriminating power: the 7% / 10% / 14% cards, where you should be able to say which project wins at each rate and why before you flip, and the three standalone-IRR cards, where above, equal to and below the hurdle rate give three different verdicts.",
         "time": "~30 min"
       },
       {
-        "goto": null,
-        "label": "Explain it away from the page",
-        "detail": "Close the laptop and talk through the one-year example out loud, from the $100,000 of capital to the $1818 of value created, without looking. Then answer the week’s own two questions unaided: are the cash-flow forecasts credible, and is the discount rate appropriate for their risk?",
-        "time": "~10 min"
+        "goto": "quiz",
+        "label": "Test the confusions that bite",
+        "detail": "Twenty-six questions, weighted toward present value early in the week and toward the appraisal measures at the end. Read the feedback on the options you did not pick as well as the one you did — the distractors are built from the specific mix-ups this week invites: future surplus against value created today, reported loss against cash generated, percentage return against dollar value created, and the highest IRR against the highest NPV.",
+        "time": "~25 min"
+      },
+      {
+        "goto": "apply",
+        "label": "Reason through the seven scenarios",
+        "detail": "These are where the week stops being arithmetic and becomes a judgement about someone else’s paper. Take the hints one at a time rather than opening all three, and leave the three-measures, higher-IRR and bigger-percentage scenarios until last, since each assumes you already accept that a ranking is a joint property of the cash flows and the rate applied to them. Then close the laptop and talk the one-year example through out loud, from the $100,000 of capital to the $1818 of value created, without looking.",
+        "time": "~40 min"
       }
     ],
-    "close": "The week has landed when I can explain, without notes, why a project reporting an accounting loss may still be the one creating value, and why the same two projects can swap places when nothing changes but the hurdle rate."
+    "close": "The week has landed when I can explain, without notes, why a project reporting an accounting loss may still be the one creating value, why two projects that repay at the same speed are not the same investment, and why the higher percentage return is not automatically the better project."
   },
-  "quizIntro": "Fifteen questions on the week’s investment tools: discounting, net present value, profit against cash flow, average return on assets and the hurdle rate. Pick an option and the feedback opens straight away, on every option rather than only the right one, so a wrong pick tells me which confusion I fell into. The hint is there before I answer.",
-  "applyIntro": "These are situations to reason through with this week’s tools rather than questions with a single line answer. Each one gives three hints that unfold one at a time, so I can take only as much help as I need, and the walkthrough that follows uses nothing beyond what this page states — including where the notes leave a calculation unpublished.",
+  "quizIntro": "Twenty-six questions across the week’s four topics: discounting and net present value, profit against cash flow and the hurdle rate, the internal rate of return and where it disagrees with NPV, and what payback, average accounting ROA and a percentage return each leave out. The feedback opens straight away on every option rather than only the right one, so a wrong pick tells me which confusion I fell into.",
+  "applyIntro": "Seven situations to reason through with this week’s tools rather than questions with a single line answer. Each gives three hints that unfold one at a time, so I can take only as much help as I need, and the walkthrough that follows uses nothing beyond what this page states — including where the notes leave a definition or a calculation unpublished, and where the figure I typed is truncated.",
   "quiz": [
     {
       "topic": "Concept of present value",
@@ -290,7 +290,7 @@
         {
           "t": "Cash flow, timing of cash flow and risk.",
           "ok": true,
-          "note": "The page states them as a line and draws the consequence: ranking investments purely by total profit can produce ‘a different decisions’ from ranking them by economic value."
+          "note": "The page states them as a line and draws the consequence: ranking investments purely by total profit can produce ‘a different decisions’ from ranking them by economic value. The same three return later as the criteria every appraisal method is tested against."
         }
       ]
     },
@@ -312,7 +312,7 @@
         {
           "t": "It remains an accounting-based measure, so it does not fully incorporate cash-flow timing or risk.",
           "ok": true,
-          "note": "The page calls it an accounting-based return measure — spelt ‘mesaure’ in the notes — and says it does not fully incorporate cash flow timing or risk."
+          "note": "The page calls it an accounting-based return measure — spelt ‘mesaure’ in the notes — and says it does not fully incorporate cash flow timing or risk. The Problems with common approaches topic later takes the same measure apart on three separate grounds."
         },
         {
           "t": "It always favours whichever project delivers its cash earlier.",
@@ -344,7 +344,7 @@
         {
           "t": "Prefer whichever project recovers its initial outlay soonest.",
           "ok": false,
-          "note": "The week names three measures only, and the rule it states is about NPV. Earlier cash matters here through discounting, not as a recovery test in its own right."
+          "note": "That is the payback test, and the week rejects it as a decision rule: payback does not measure value creation, and a project can repay its investment yet still have a negative NPV."
         }
       ]
     },
@@ -455,6 +455,303 @@
           "note": "Leaving it out removes the initial outlay from NPV altogether, and NPV is the present value of the future cash flows less that outlay."
         }
       ]
+    },
+    {
+      "topic": "Internal rate of return",
+      "q": "How does the week define the internal rate of return?",
+      "hint": "The definition is a statement about one particular value that another measure takes.",
+      "options": [
+        {
+          "t": "The rate of return the providers of capital require, given the project’s risk.",
+          "ok": false,
+          "note": "That is the hurdle rate, and it is set outside the project. IRR is produced by the project’s own cash flows, and the two are then compared."
+        },
+        {
+          "t": "The discount rate that makes an investment’s NPV equal to zero.",
+          "ok": true,
+          "note": "The page states it as NPV = 0 at r = IRR, and calls it the investment’s implied annual return, set by the cash flows generated and the timing of those cash flows."
+        },
+        {
+          "t": "The average accounting return the investment earns on the assets it ties up.",
+          "ok": false,
+          "note": "That describes average ROA, which the week separates from IRR on exactly this point: ROA is built from profit and asset values, IRR from cash flows."
+        },
+        {
+          "t": "The rate at which the dollar value created by the investment grows each year.",
+          "ok": false,
+          "note": "The week reads it forward as the rate at which the investment itself is effectively growing as its cash flows occur and compound. Dollar value created is what NPV reports, and IRR does not measure it directly."
+        }
+      ]
+    },
+    {
+      "topic": "Internal rate of return",
+      "q": "The week sets IRR against accounting ROA and NPV. On its own table, which measure reports the amount of economic value created?",
+      "hint": "Two of the three measures recognise when the cash arrives. Only one of them is denominated in dollars.",
+      "options": [
+        {
+          "t": "Accounting ROA, because it is measured against the asset base the investment uses.",
+          "ok": false,
+          "note": "The table puts accounting ROA on profit and asset values, records that it does not recognise timing, and interprets it as accounting profitability rather than value created."
+        },
+        {
+          "t": "IRR, because it is built from the project’s cash flows rather than its profit.",
+          "ok": false,
+          "note": "Being cash-based and timing-aware is how IRR improves on accounting return, but the page is explicit that it does not directly measure the amount of economic value created."
+        },
+        {
+          "t": "All three, since the week treats them as three routes to the same answer.",
+          "ok": false,
+          "note": "The whole point of the table is that they differ in what they are built from and in whether they recognise when the money arrives, which is why they can rank projects differently."
+        },
+        {
+          "t": "NPV, because it discounts the cash flows at the required return and reports dollar value created.",
+          "ok": true,
+          "note": "That is the table’s third row exactly, and it is why the week says IRR answers ‘what percentage return does this investment generate?’ while NPV answers ‘how much value does it create?’"
+        }
+      ]
+    },
+    {
+      "topic": "Internal rate of return",
+      "q": "Project A has an IRR of 13.8% and Project B an IRR of 14.6%, and the two are mutually exclusive. What does the week conclude from this pair?",
+      "hint": "Ask whether the NPV comparison of the same two projects gives one answer or several.",
+      "options": [
+        {
+          "t": "The project with the highest IRR does not necessarily have the highest NPV.",
+          "ok": true,
+          "note": "IRR alone ranks B above A on the two percentages, while NPV prefers A at some hurdle rates and B at others, with the two equal at 10%. The comparison of percentages and the comparison of present values do not have to agree."
+        },
+        {
+          "t": "Project B should be selected, because a higher IRR means a higher NPV at every hurdle rate.",
+          "ok": false,
+          "note": "This is the inference the section exists to block. At 10% the two projects have equal NPVs, and at other rates the preference moves either way."
+        },
+        {
+          "t": "Neither project should proceed, because both IRRs sit below the hurdle rate.",
+          "ok": false,
+          "note": "The week does not set either IRR against a fixed hurdle rate here. Its point is about the order the two measures put the projects in, not about whether they clear a threshold."
+        },
+        {
+          "t": "The IRRs are too close together to separate the projects, so accounting profit should decide.",
+          "ok": false,
+          "note": "The week never falls back on accounting profit — it argues throughout that profit does not directly incorporate cash flow, timing or risk. Where IRR and NPV conflict, it says prefer NPV."
+        }
+      ]
+    },
+    {
+      "topic": "Internal rate of return",
+      "q": "Excel calculates IRR from a project’s cash flows. Which cash flows does the week say go into it?",
+      "hint": "Compare it with what the same week says about handing cash flows to the NPV() function.",
+      "options": [
+        {
+          "t": "The future cash flows only, with the time-0 outlay added separately afterwards.",
+          "ok": false,
+          "note": "That is the handling the week prescribes for Excel’s NPV() function, where the initial investment occurs at time 0 and must be added separately, with CF0 normally negative. The IRR calculation is described differently."
+        },
+        {
+          "t": "Only the cash flows that arrive after the initial outlay has been recovered.",
+          "ok": false,
+          "note": "Recovering the outlay is what payback measures, and the week treats payback as a separate measure with its own problems. It plays no part in how IRR is calculated."
+        },
+        {
+          "t": "All project cash flows, including the initial time-0 outlay.",
+          "ok": true,
+          "note": "The page states it plainly and writes the entry as ‘=IFR(CF0:CFn)’, exactly as my notes write it. The series goes in whole, time-0 outlay included, and the rate comes back out."
+        },
+        {
+          "t": "The cash flows after each has been discounted at the hurdle rate.",
+          "ok": false,
+          "note": "That would presuppose the rate the calculation is meant to find. IRR is the rate at which NPV equals zero, so it is solved for rather than supplied."
+        }
+      ]
+    },
+    {
+      "topic": "Internal rate of return",
+      "q": "What role does the week say IRR should play in a choice between mutually exclusive investments?",
+      "hint": "The week is happy with IRR somewhere else entirely, and the contrast is the answer.",
+      "options": [
+        {
+          "t": "The primary criterion, because a percentage return is easy to communicate and compare with a hurdle rate.",
+          "ok": false,
+          "note": "The week grants that this is why IRR is popular, then says its interaction and underlying mathematics can create problems when comparing alternative projects."
+        },
+        {
+          "t": "A tie-breaker, used only when two projects report the same NPV.",
+          "ok": false,
+          "note": "The page assigns it no such job. It gives IRR a standing role as a support to the decision, and reserves the ranking itself for NPV."
+        },
+        {
+          "t": "No role at all, since a cash-flow-based measure is redundant once NPV is available.",
+          "ok": false,
+          "note": "The week keeps IRR in the toolkit — it is most useful for standalone investment assessment, where management wants an intuitive percentage return."
+        },
+        {
+          "t": "A supporting appraisal measure rather than the primary value creation criterion.",
+          "ok": true,
+          "note": "The page says exactly this, adds that a higher IRR does not automatically make a mutually exclusive investment economically superior, and tells managers to ask whether an attractive IRR also corresponds to the highest value creation at the relevant hurdle rate."
+        }
+      ]
+    },
+    {
+      "topic": "Problems with common approaches",
+      "q": "The week tests every appraisal method against three criteria — cash flow, timing of cash flow and risk. Why does it say NPV satisfies all three?",
+      "hint": "Two of the criteria are in what NPV takes as its input; the third is in the rate it applies to them.",
+      "options": [
+        {
+          "t": "Because it is calculated from audited accounting figures rather than forecasts.",
+          "ok": false,
+          "note": "NPV is built from the project’s actual cash-flow pattern rather than accounting profit, so it is forecast cash flows it works from, not audited accounting figures."
+        },
+        {
+          "t": "Because it discounts future cash flows at a hurdle rate reflecting risk.",
+          "ok": true,
+          "note": "The page states it in one line. Cash flows supply the first criterion, discounting them by when they arrive supplies the second, and the hurdle rate carries the risk."
+        },
+        {
+          "t": "Because it averages the return over the whole life of the investment.",
+          "ok": false,
+          "note": "Averaging is the weakness the week attaches to average accounting ROA — it removes information about when returns occur, and the notes add that averaging is particularly problematic in finance because timing matters."
+        },
+        {
+          "t": "Because it expresses the answer as a percentage that can be compared with the required return.",
+          "ok": false,
+          "note": "That is IRR’s appeal, not NPV’s. NPV measures value creation in dollar terms, and the week warns that percentage returns should not be confused with dollar value creation."
+        }
+      ]
+    },
+    {
+      "topic": "Problems with common approaches",
+      "q": "The week reproduces its payback table as written, noting that the first row records a strength rather than a problem. Which row is it?",
+      "hint": "Three of the four rows say what payback leaves out. One says what it manages to pick up.",
+      "options": [
+        {
+          "t": "Recognises cash flow — a useful starting point.",
+          "ok": true,
+          "note": "That is the row, and the page flags it in advance: the table is headed as payback’s problems, but the first entry is a strength and is reproduced here as written."
+        },
+        {
+          "t": "Ignores timing within the payback period.",
+          "ok": false,
+          "note": "A genuine problem, and the one the two-project example is built to demonstrate: payback treats early and late cash flows as equivalent."
+        },
+        {
+          "t": "Ignores risk.",
+          "ok": false,
+          "note": "Also a problem — because it ignores risk, payback cannot distinguish investments with different uncertainty."
+        },
+        {
+          "t": "Does not measure value creation.",
+          "ok": false,
+          "note": "The most serious of the problems: a project can repay its investment yet still have a negative NPV."
+        }
+      ]
+    },
+    {
+      "topic": "Problems with common approaches",
+      "q": "Project A invests 100 and receives 50, then 50; Project B invests 100 and receives 90, then 10. What does the week draw from the pair?",
+      "hint": "Start by working out what payback says about each, then look at what the discounted figures say.",
+      "options": [
+        {
+          "t": "A is preferred, because spreading the recovery evenly reduces the risk of the investment.",
+          "ok": false,
+          "note": "The page ranks them the other way and on value, not on an even profile. It also says payback ignores risk altogether, so it cannot support a risk argument."
+        },
+        {
+          "t": "The two are equivalent investments, since both recover the outlay over the same span.",
+          "ok": false,
+          "note": "This is the inference the example is built to break. Its stated implication is that equal payback periods do not imply equal investments."
+        },
+        {
+          "t": "Both have a 2-year-payback, yet B is more valuable because more cash arrives earlier.",
+          "ok": true,
+          "note": "The page’s own wording. At 10% A’s PV is 86.8, giving NPV = -13.2, and B’s is 90.1, giving NPV = -9.9 — so both recover their nominal investment but still destroy economic value."
+        },
+        {
+          "t": "B is the better project because its positive NPV clears the hurdle rate while A’s does not.",
+          "ok": false,
+          "note": "Neither NPV is positive here — the values quoted are -9.9 and -13.2. B is the less bad of two value-destroying projects, which is precisely why payback is unsafe as a decision rule."
+        }
+      ]
+    },
+    {
+      "topic": "Problems with common approaches",
+      "q": "Beyond resting on accounting profit, what does the week say the act of averaging itself does to a return measure?",
+      "hint": "Ask what a single average figure can no longer tell you about a sequence of returns.",
+      "options": [
+        {
+          "t": "It overstates the return, because early years carry the same weight as later ones.",
+          "ok": false,
+          "note": "The page makes no claim about the direction of the error. Its objection is to the information the average discards, not to a bias in the number."
+        },
+        {
+          "t": "It makes the measure sensitive to the hurdle rate chosen.",
+          "ok": false,
+          "note": "The reverse: average ROA does not explicitly incorporate risk, and the week’s complaint is that no hurdle rate enters it at all."
+        },
+        {
+          "t": "It converts a percentage return into a dollar figure that cannot be compared across projects.",
+          "ok": false,
+          "note": "Average ROA stays an accounting return. Confusing percentage returns with dollar value creation is the warning the week attaches to IRR."
+        },
+        {
+          "t": "It removes information about when returns occur, and averaging is particularly problematic in finance because timing matters.",
+          "ok": true,
+          "note": "The second of the three grounds the week gives, alongside using accounting profit rather than cash flow and not explicitly incorporating risk. Average ROA may describe accounting performance, but it should not determine which investment creates the most value."
+        }
+      ]
+    },
+    {
+      "topic": "Problems with common approaches",
+      "q": "What reinvestment assumption does the week say is commonly attributed to IRR, and when does it become hardest to accept?",
+      "hint": "The assumption is about what happens to the cash that comes back before the project ends.",
+      "options": [
+        {
+          "t": "That interim cash flows are reinvested at the hurdle rate, which is unrealistic when the hurdle rate is low.",
+          "ok": false,
+          "note": "The rate in the assumption is the project’s own IRR, not the hurdle rate — which is exactly why a very high IRR makes it hard to believe."
+        },
+        {
+          "t": "That interim cash flows are reinvested at the project’s IRR, which may be unrealistic where the calculated IRR is very high.",
+          "ok": true,
+          "note": "The page’s wording, given as an interpretation commonly placed on IRR rather than as a mechanical property. The higher the IRR, the stronger the claim about what can be done with the money coming back."
+        },
+        {
+          "t": "That interim cash flows are held as cash until the project ends, which understates the return.",
+          "ok": false,
+          "note": "The week describes the opposite assumption — that the money is put back to work, and at an ambitious rate."
+        },
+        {
+          "t": "That interim cash flows are reinvested in the same project, which is impossible for a mutually exclusive investment.",
+          "ok": false,
+          "note": "The assumption concerns the rate the cash earns, not where it goes. Mutual exclusivity is a separate problem, and the week raises it under ranking conflict and scale."
+        }
+      ]
+    },
+    {
+      "topic": "Problems with common approaches",
+      "q": "Investment X has an outlay of 20m and a year 1 cash flow of 40m, an IRR of 100% and an NPV at 10% of 16.4m. Investment Y has an outlay of 40m and a year 1 cash flow of 70m, an IRR of 75% and an NPV at 10% of 23.6m. What does this pair illustrate?",
+      "hint": "Look at which measure puts X first and which puts Y first, then at what separates the two investments.",
+      "options": [
+        {
+          "t": "The reinvestment assumption, because X’s very high IRR could not realistically be earned on the cash it returns.",
+          "ok": false,
+          "note": "The reinvestment assumption is a separate problem the week raises just before this table. Here the two measures are being applied to the same two projects and disagree on the order."
+        },
+        {
+          "t": "The timing problem, because Y’s cash arrives later than X’s.",
+          "ok": false,
+          "note": "Both cash flows land in year 1, so timing is not what separates them. IRR does incorporate the timing of cash flow — it is one of the two criteria the week credits it with."
+        },
+        {
+          "t": "The scale problem — IRR ranks X first because 100% > 75%, while NPV ranks Y first because it creates more economic value.",
+          "ok": true,
+          "note": "The week’s own reading of the table. IRR measures a percentage return, so it can favour a smaller project with a high growth rate even when a larger project creates more dollar value, and it ignores the size of the investment base when comparing projects."
+        },
+        {
+          "t": "That a project can repay its outlay and still destroy value, since both recover their investment within the year.",
+          "ok": false,
+          "note": "That is the payback lesson, drawn from the two projects with equal payback and negative NPVs. Both X and Y have positive NPVs at 10%; the question is only which of them creates more value."
+        }
+      ]
     }
   ],
   "scenarios": [
@@ -554,6 +851,83 @@
         "Checks the mechanics of the spreadsheet NPV, including how the time-0 outlay is handled.",
         "Challenges the discount rate as part of the appraisal, and ties the NPV’s credibility to the risk assessment behind it.",
         "Ends with a decision framed around greatest value after cash flow, timing and risk — not highest reported profit."
+      ]
+    },
+    {
+      "topic": "Internal rate of return",
+      "title": "The bid with the higher IRR",
+      "setup": "Two mutually exclusive proposals for the same digital platform reach the investment committee. The sponsor’s slide leads with a single line for each: one returns 13.8%, the other 14.6%. The committee is comfortable with percentages, has approved projects on that basis before, and is ready to take the higher of the two. An NPV analysis exists but is not on the slide.",
+      "task": "Decide whether the percentage on the slide is enough to settle the choice, and say what you would put in front of the committee instead.",
+      "hints": [
+        "Ask what question the number on the slide is answering, and whether it is the question the committee is being asked.",
+        "The two proposals rule each other out, and the week treats that case differently from a single investment assessed on its own.",
+        "A ranking by IRR gives one fixed answer. Check whether the other measure of the same two projects behaves the same way."
+      ],
+      "walkthrough": [
+        "Say what the number is. IRR is the discount rate that makes an investment’s NPV equal to zero — NPV = 0 at r = IRR — so it reports the investment’s implied annual return, set by the cash flows generated and their timing.",
+        "Give it its due. IRR improves on accounting return by incorporating cash and timing, and a percentage is easy to communicate and to compare with a hurdle rate. That is why the committee likes it.",
+        "Name the limit. IRR does not directly measure the amount of economic value created — that is what NPV reports — and the week’s own pair of projects, at 13.8% and 14.6%, shows that the project with the highest IRR does not necessarily have the highest NPV.",
+        "Show how the two measures behave differently here. Ranking by IRR gives one fixed answer, while NPV prefers one project at some hurdle rates and the other at different rates, with the two equal at 10%. Different cash-flow patterns can cause IRR and NPV to produce conflicting rankings.",
+        "Put the resolution rule on the slide. When IRR and NPV conflict, prefer NPV; IRR belongs here as a supporting appraisal measure rather than the primary value creation criterion, and is at its most useful for a standalone investment assessed against the hurdle rate.",
+        "Close with the question the week gives managers: does the attractive IRR also correspond to the highest value creation at the relevant hurdle rate?"
+      ],
+      "checklist": [
+        "Defines IRR as the rate at which NPV is zero, rather than as a return on capital employed.",
+        "Credits IRR with cash and timing before criticising it, so the argument is not that the measure is worthless.",
+        "Distinguishes standalone assessment, where the week endorses IRR, from a mutually exclusive choice, where it does not.",
+        "States the conflict rule explicitly and asks for the dollar value created at the relevant hurdle rate."
+      ]
+    },
+    {
+      "topic": "Problems with common approaches",
+      "title": "The two-year payback rule",
+      "setup": "A division applies a standing rule that any technology investment must repay its initial cost within two years. Two proposals arrive that both clear it exactly: each recovers its outlay over two years, so on the rule they are interchangeable, and the division head proposes picking on delivery convenience. Neither proposal has been discounted.",
+      "task": "Decide whether the payback rule has actually told the division anything about which proposal to take, and what it has failed to tell them.",
+      "hints": [
+        "Payback is not worthless — start with the one thing the week’s table credits it with.",
+        "Two projects can reach the same recovery point along very different paths.",
+        "Clearing the rule and creating value are separate questions, and the week has an example where a project does the first without the second."
+      ],
+      "walkthrough": [
+        "Say what payback measures: how long it takes to recover the initial investment from future cash inflows. It is popular because it is quick and easy to calculate, and the first row of the week’s table records a genuine strength — it recognises cash flow, which makes it a useful starting point.",
+        "Then take the table’s remaining rows in turn. Payback ignores timing within the payback period, so it treats early and late cash flows as equivalent; it ignores risk, so it cannot distinguish investments with different uncertainty; and it does not measure value creation, so a project can repay its investment yet still have negative NPV.",
+        "Work the week’s example. Project A invests 100 and receives 50, then 50; Project B invests 100 and receives 90, then 10. Both have a 2-year-payback, yet B is more valuable because more cash arrives earlier.",
+        "Discount them. At 10%, A’s present value is 86.8 giving NPV = -13.2, and B’s is 90.1 giving NPV = -9.9. Both recover their nominal investment but still destroy economic value — so the rule has cleared two projects that a value test rejects.",
+        "State the implication as the week does: equal payback periods do not imply equal investments. The rule has ranked nothing and has certified nothing.",
+        "Recommend the test the week prefers. NPV uses actual cash flows, recognises when those cash flows occur, incorporates risk through the hurdle rate and measures value creation in dollar terms, so run both proposals through it at an appropriately estimated hurdle rate before choosing."
+      ],
+      "checklist": [
+        "Credits payback with recognising cash flow before setting out what it leaves out.",
+        "Separates ignoring timing, ignoring risk and not measuring value creation as three distinct failures.",
+        "Uses the week’s figures to show two projects with identical payback and different values, and notes that both NPVs are negative.",
+        "Concludes that clearing a payback threshold is not evidence of value creation.",
+        "Recommends NPV at a justified hurdle rate as the replacement test."
+      ]
+    },
+    {
+      "topic": "Problems with common approaches",
+      "title": "The small project with the big percentage",
+      "setup": "Two investments compete for the same approval. Investment X has an outlay of 20m and a year 1 cash flow of 40m, an IRR of 100% and an NPV at 10% of 16.4m. Investment Y has an outlay of 40m and a year 1 cash flow of 70m, an IRR of 75% and an NPV at 10% of 23.6m. The papers have been ranked on IRR and X is at the top of the list.",
+      "task": "Work out which investment the week would have the committee approve, and explain why the ranking on the papers came out the other way.",
+      "hints": [
+        "Both cash flows arrive in year 1, so whatever is separating these two, it is not timing.",
+        "Look at what changes between the two investments other than the return each earns.",
+        "One measure is denominated in a percentage and one in dollars, and the week is insistent that they are not the same claim."
+      ],
+      "walkthrough": [
+        "Establish what IRR does capture, so the criticism is targeted. It incorporates cash flow and the timing of cash flow, but it does not incorporate project risk on its own, which is why the IRR must be compared against an independently estimated hurdle rate.",
+        "Read the two rankings off the figures. IRR ranks X first because 100% > 75%; NPV ranks Y first because it creates more economic value — 23.6m against 16.4m at a 10% rate.",
+        "Name the cause. This is the scale problem: IRR measures a percentage return, so it can favour a smaller project with a high growth rate even when a larger project creates more dollar value. IRR ignores the size of the investment base when comparing projects.",
+        "Rule out the other explanations. Both flows land in year 1, so timing is not doing the work, and the reinvestment assumption — that interim cash flows are reinvested at the project’s IRR — is a separate objection the week raises alongside this one.",
+        "Apply the decision rule. For mutually exclusive projects, choose the investment with the highest positive NPV, using an appropriately estimated hurdle rate — so Y, on these figures at 10%.",
+        "Generalise it the way the week closes: a quick or intuitive appraisal measure is not necessarily a good decision rule, percentage returns should not be confused with dollar value creation, and where common appraisals measure conflict, rely on NPV."
+      ],
+      "checklist": [
+        "States what IRR incorporates before setting out what it misses, and notes that risk has to come from a separately estimated hurdle rate.",
+        "Reads both rankings off the figures rather than asserting the conflict.",
+        "Identifies scale — the size of the investment base — as what separates the two, and rules timing out.",
+        "Selects on the highest positive NPV at an appropriately estimated hurdle rate.",
+        "Ends on the distinction between a percentage return and dollar value creation."
       ]
     }
   ]
