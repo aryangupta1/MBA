@@ -7,11 +7,11 @@
 > Every session must leave this file updated before it ends.
 
 **Last updated:** 2026-08-18
-**Left by:** A sync. Aryan said *"resync"* without naming a subject, so both were diffed.
-**DMBA 6008 Week 3's last two placeholders are written and published** — the page roughly
-doubled. **DMBA 6005 was byte-stable and nothing was rebuilt.** A **publication blocker was
-found and removed**, and the `Live`-typed note question has become urgent. **Committed and
-pushed**, as asked.
+**Left by:** A sync, then two rulings from Aryan. **DMBA 6008 Week 3's last two placeholders
+are written and published** — the page roughly doubled. **DMBA 6005 was byte-stable and
+nothing was rebuilt.** Aryan then ruled on the two questions the sync raised: **the
+lecturer's details never appear on a page**, and **`Pre-Class Prep` is excluded outright**.
+Both are now enforceable rules, not notes. **Committed and pushed**, as asked.
 
 ---
 
@@ -26,19 +26,18 @@ granted from inside a session.**
 
 ## Do first
 
-1. **A real person's name was published on the site and has now been removed.**
-   `DMBA6008-weeks.html` carried `<span class="pill">Guy Ford</span>` — the lecturer, from
-   Notion's `Courses.Professor` column — in its hero. `git log -S` puts it in
-   **`7a63ab5 Add DMBA 6008 week pages synced from Notion`**, so it has been live on GitHub
-   Pages since the very first sync. It is gone now and no other occurrence exists anywhere in
-   the repo. **Tell Aryan**, because it was public for weeks and that is his call to make,
-   not something to quietly close. The sibling hub never had it, which is why nobody noticed.
-2. **The DMBA 6005 `Live` note now has content, and it reads as a classroom diary.** See
-   below. This blocks nothing today but it is one keystroke from publishing live-session
-   material. **It needs an answer from him.**
-3. **DMBA 6008 Week 3 has a Live note too, and its child is not `Discussion Questions`.**
-   See below — a scope question for the carve-out.
-4. Aryan has seen none of this week's content. Built and published on his instruction,
+1. **The one thing still outstanding: the DMBA 6005 `Live` note.** It is named `Live`,
+   typed `Pre-Live Session`, and it now has content that reads as a classroom diary. See
+   below. Nothing was fetched beneath it and nothing was published, but **rule 1 keys off
+   `Type`**, so it would sail through the filter that exists to catch it. **It still needs an
+   answer from him.**
+2. **The lecturer's name is off the site, and the residue is in git history only.** It was a
+   hero pill on `DMBA6008-weeks.html`, from Notion's `Courses.Professor` column, live since
+   commit `7a63ab5` — the very first sync. Removed from the working tree on 2026-08-18, and
+   the field is now on the never-publish list, so it cannot come back. **It is still in git
+   history**, in `7a63ab5` and every commit up to its removal. Scrubbing that would mean
+   rewriting history and force-pushing; **not done, and he has not asked.** Raise it once.
+3. Aryan has seen none of this week's content. Built and published on his instruction,
    without review.
 
 ## What changed — DMBA 6008 Week 3 only
@@ -63,17 +62,20 @@ Both remaining placeholders were written in Notion on 2026-08-17 and are now pub
 **Everything else in both subjects is untouched.** Weeks 0–2 of 6008 and all four weeks of
 6005 were re-probed topic by topic and every `observedAt` is byte-identical to the record.
 
-## The two Live notes — both need Aryan
+## The two Live notes — one settled, one still open
 
-### DMBA 6008 Week 3 — `3bf7b336873c80cdaafbfc4954a7a028`, Type `Live Session`
+### DMBA 6008 Week 3 — `3bf7b336873c80cdaafbfc4954a7a028`, Type `Live Session` — SETTLED
 
-New on 2026-08-17. Its **only child is `Pre-Class Prep`**, not `Discussion Questions`. The
-2026-08-10 carve-out covers *that one child page and nothing else*, so **it was not fetched,
-not harvested and not read**, and Week 3 still has no Discussion tab.
+New on 2026-08-17. Its **only child is `Pre-Class Prep`**, not `Discussion Questions`.
 
-**Ask whether the carve-out extends to `Pre-Class Prep`.** Do not assume it does — the name
-suggests pre-live material, but the note's `Type` says Live Session and the carve-out is
-written narrowly on purpose.
+**Aryan ruled on 2026-08-18 that the carve-out does not reach it.** `Pre-Class Prep` is now
+excluded outright by `subjects.json` → `DMBA6008.syncRules` → **`no-pre-class-prep`**: it is
+dropped in Phase 0, **its content is never fetched at all**, and it gets no placeholder, no
+topic chip and no contribution to terms, cards, quiz or scenarios. Handle it exactly the way
+DMBA 6005 handles `Shadow Boxing` after Week 0.
+
+**Do not re-open this.** The name invites the argument that "pre-class" means pre-live; that
+argument is closed. Week 3 has no Discussion tab and must not gain one from this note.
 
 ### DMBA 6005 Week 3 — `3bf7b336873c8061b545e1b5340877d7`, named `Live`, typed `Pre-Live Session`
 
@@ -183,9 +185,14 @@ every static check.
 
 ## Open threads
 
-- [ ] **The lecturer's name was public since the first sync.** Tell Aryan. Removed.
+- [x] ~~Does the carve-out extend to `Pre-Class Prep`?~~ **No** — Aryan, 2026-08-18.
+      Excluded outright by `no-pre-class-prep`; never fetched.
+- [x] ~~The lecturer's name was public since the first sync.~~ **Removed 2026-08-18**, and
+      `Professor`/`Email`/`Location`/`Time` added to `_globals.neverPublishFields` so it
+      cannot return. Gate 4 now checks for it by name.
 - [ ] **Is the 6005 `Live` note's `Type` correct?** Now urgent — it has content.
-- [ ] **Does the carve-out extend to 6008 Week 3's `Pre-Class Prep`?**
+- [ ] **Scrub the lecturer's name from git history?** Needs a force-push and rewrites every
+      commit since `7a63ab5`. **Aryan's call — ask once, do not do it unprompted.**
 - [ ] **The 13 skipped images.** Needs a yes/no, per image or as a policy.
 - [ ] **`checks.py` still does not measure the new panels' prose** — it reports the `summary`
       topic only, so Discussion, Acronyms, Formulas, Quiz and Apply it sit outside the gate.
@@ -202,7 +209,10 @@ every static check.
 
 - **Do not publish anything from a `Live Session` note except DMBA 6008's
   `Discussion Questions` child page, Week 2 onwards.** Neither `Diary` nor `Pre-Class Prep`
-  is covered.
+  is covered, and **`Pre-Class Prep` must not even be fetched** — `no-pre-class-prep`.
+- **Do not put a real person on a page.** `Professor`, `Email`, `Location` and `Time` from
+  the Courses row are never published. A hub's meta-row is the status pill and the week count
+  and nothing else.
 - **Do not trust a note's name over its `Type`, or its `Type` over its name, without asking.**
 - **Do not supply a formula that exists only in a skipped image**, however certain you are.
   This remains the pipeline's likeliest failure mode.

@@ -32,12 +32,35 @@ Also excluded by default, as personal study telemetry: `Confidence`, `Last Revie
 `Days Since`, `Favorite`, and the unticked todo lists on notebook pages.
 (Confirmed by Aryan 2026-08-05: confidence stays off the public site.)
 
-### The one carve-out from rule 1 — DMBA 6008 discussion questions
+**And never publish a real person's contact details.** The Courses row carries `Professor`,
+`Email`, `Location` and `Time`. **None of them may appear on a page.** A hub's meta-row is
+the status pill and the week count and nothing else. Set by Aryan on **2026-08-18**, after
+`DMBA6008-weeks.html` was found to have been publishing the lecturer's name as a hero pill
+since the first sync — it survived every run because nothing was looking for it. The full
+list lives in `subjects.json` → `_globals.neverPublishFields`.
+
+### `Pre-Class Prep` is excluded outright — it is not a second carve-out
+
+Any page titled `Pre-Class Prep`, in any note, in any week, is **dropped in Phase 0 and
+never fetched**. Not to check it, not to summarise it, not to decide whether it looks
+publishable. `subjects.json` → `DMBA6008.syncRules` → `no-pre-class-prep`, set by Aryan on
+**2026-08-18**.
+
+It first appeared as the only child of DMBA 6008 Week 3's `Live` note. The name invites the
+argument that "pre-class" means pre-live; **that argument is closed.** Treat it exactly the
+way DMBA 6005 treats `Shadow Boxing` after Week 0 — a hard exclusion reported as
+`SKIPPED  no-pre-class-prep`, with no placeholder, no topic chip, and no contribution to
+terms, flashcards, quiz questions or scenarios.
+
+### The only carve-out from rule 1 — DMBA 6008 discussion questions
 
 Aryan directed on **2026-08-10** that DMBA 6008's live-session **`Discussion Questions`
 sub-page** be published, from **Week 2 onwards**, as a fourth tab.
 
-This is a **narrow carve-out, not a repeal.** Take the `Discussion Questions` child page and
+This is a **narrow carve-out, not a repeal, and it has not been widened.** It covers a
+child page named `Discussion Questions` and no other. Its two known siblings — `Diary` and
+`Pre-Class Prep` — are both outside it, and `Pre-Class Prep` is separately excluded by
+`no-pre-class-prep` above. Take the `Discussion Questions` child page and
 **nothing else** from a `Live Session` note. Everything else in those notes — remarks about
 the lecturer, about classmates' use of AI, about what will be examined, notes-to-self — stays
 unpublished, and rule 1 still governs it. If a future Live note mixes diary material *into*
@@ -115,9 +138,14 @@ not. One query to list a course's notebooks is fine; a query per note is waste �
      in §3a. Enforcing a rule in only one flow lets the note in through the other. Drop
      excluded notes here, before shape detection and before any harvest agent is spawned,
      and list them in the Phase 0 table as `SKIPPED  <rule id>`.
-   - Live rule today: **DMBA 6005 `no-shadow-boxing-after-week-0`** — no `Shadow Boxing`
-     note or sub-page is published for Week 1 or later. Week 0's is already published and
-     stays. Set by Aryan, 2026-08-10.
+   - Live rules today, one per subject:
+     - **DMBA 6005 `no-shadow-boxing-after-week-0`** — no `Shadow Boxing` note or sub-page is
+       published for Week 1 or later. Week 0's is already published and stays.
+       Set by Aryan, 2026-08-10.
+     - **DMBA 6008 `no-pre-class-prep`** — no `Pre-Class Prep` page is published from any
+       note in any week, and **its content is never fetched at all**. Set by Aryan,
+       2026-08-18. It is not covered by the discussion-questions carve-out and must not be
+       argued into it.
 
 3a. **Also fetch the Course's own `Notes` relation** and reconcile it with what the
    notebooks gave you. A pre-live note can carry a `Course` relation and **no `Notebook`
@@ -352,7 +380,7 @@ python3 .claude/skills/sync-subject/reference/checks.py <page>.html [...]
 | 1 | **Fidelity** | Every claim, number, formula, company name and worked example on the page traces to the harvest Markdown | agent |
 | 2 | **Structure** | Tag balance, duplicate ids, `aria-*` targets resolving, relative paths resolving, no `only-accessible-by-url` link | `checks.py` |
 | 3 | **SVG** | Every `<text>` fits its parent `<rect>` and sits inside the viewBox | `checks.py` |
-| 4 | **Privacy** | Nothing sourced from a `Live Session` or `Assessment` note; no lecturer or classmate names; no `Confidence` / `Last Reviewed` telemetry | agent |
+| 4 | **Privacy** | Nothing sourced from a `Live Session` or `Assessment` note; **no `Professor`, `Email`, `Location` or `Time` from the Courses row**; no lecturer or classmate names anywhere, including a hub's meta-row; no `Confidence` / `Last Reviewed` telemetry; no `Pre-Class Prep` material | agent |
 | 5 | **Layout** | A `<span>` given `width`/`height`/`min-height` must be blockified or have a flex/grid ancestor, or the box is silently dropped | `checks.py` |
 | 6 | **Length** | Flowing prose ≤ 160 words per `.block` — the fragment spec's budget, measured | `checks.py` |
 

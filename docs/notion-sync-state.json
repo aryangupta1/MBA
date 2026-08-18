@@ -33,7 +33,7 @@
   ],
   "DMBA6008": {
     "lastSync": "2026-08-18",
-    "lastSyncNote": "2026-08-18: Week 3's TWO remaining placeholders — `Internal rate of return` and `Problems with common approaches` — are now written and published, taking the page from 15 blocks / 30 terms / 40 cards to 25 / 66 / 96. Replacing a placeholder is a SPLICE: the two already-reviewed topics were not re-harvested or regenerated, only the two placeholder blocks were swapped and the eyebrows renumbered. Acronyms (5→7), Formulas (8→13) and the whole practice tab set were re-derived from the rebuilt page. Weeks 0, 1 and 2 were re-probed topic by topic and every observedAt is byte-identical to the values recorded here — nothing else was rebuilt. Week 3 has ALSO gained a `Live` note (3bf7b336873c80cdaafbfc4954a7a028, Type `Live Session`) whose only child is `Pre-Class Prep`, NOT `Discussion Questions` — the carve-out does not reach it, so it was not fetched and Week 3 still has no Discussion tab. Aryan needs to say whether the carve-out extends to it.",
+    "lastSyncNote": "2026-08-18: Week 3's TWO remaining placeholders — `Internal rate of return` and `Problems with common approaches` — are now written and published, taking the page from 15 blocks / 30 terms / 40 cards to 25 / 66 / 96. Replacing a placeholder is a SPLICE: the two already-reviewed topics were not re-harvested or regenerated, only the two placeholder blocks were swapped and the eyebrows renumbered. Acronyms (5→7), Formulas (8→13) and the whole practice tab set were re-derived from the rebuilt page. Weeks 0, 1 and 2 were re-probed topic by topic and every observedAt is byte-identical to the values recorded here — nothing else was rebuilt. Week 3 has ALSO gained a `Live` note (3bf7b336873c80cdaafbfc4954a7a028, Type `Live Session`) whose only child is `Pre-Class Prep`, NOT `Discussion Questions` — the carve-out does not reach it, so it was not fetched and Week 3 still has no Discussion tab. Aryan ruled on 2026-08-18 that the carve-out does NOT extend to it; it is now permanently excluded by syncRules `no-pre-class-prep` and its content is never to be fetched.",
     "courseId": "3097b336873c80c0948dcc805089b071",
     "hubPage": "DMBA6008-weeks.html",
     "skippedNotebooks": [
@@ -349,7 +349,16 @@
           "quizQuestions": 26,
           "scenarios": 7,
           "studyPathSteps": 7
-        }
+        },
+        "excludedNotes": [
+          {
+            "id": "3bf7b336873c80cdaafbfc4954a7a028",
+            "name": "Live",
+            "type": "Live Session",
+            "child": "Pre-Class Prep (3bf7b336873c8027a76bd598773fd9f6)",
+            "action": "SKIPPED — syncRules no-pre-class-prep. Never fetched. Week 3 therefore has no Discussion tab and must not gain one from this note."
+          }
+        ]
       }
     },
     "skippedNotes": [
@@ -713,5 +722,23 @@
       }
     ],
     "lastSyncNoteReprobe": "2026-08-18: re-probed topic by topic across all four weeks. NOTHING CHANGED — every publishable topic's observedAt is identical to, or predates, what is recorded here, and no notebook, note, child id or title moved. No page was rebuilt. `Creating your reflective journal` was re-checked and is STILL EMPTY (returns <empty-block/>, observedAt unmoved at 2026-08-05T11:32:03.447Z); it remains the subject's only placeholder. Shadow Boxing was excluded in Weeks 1, 2 and 3 by syncRules, all three caught in the per-notebook walk. Zero images across all thirteen publishable topics. The one real movement in the subject is the `Live` note below, which is now blocked pending Aryan."
-  }
+  },
+  "_decisions": [
+    {
+      "date": "2026-08-18",
+      "by": "Aryan",
+      "id": "no-lecturer-details",
+      "decision": "The Courses row's Professor, Email, Location and Time fields must never appear on a page. A hub's meta-row is the status pill and the week count and nothing else.",
+      "trigger": "DMBA6008-weeks.html had been publishing the lecturer's name as a hero pill since commit 7a63ab5, the very first sync. Found by gate 4 on 2026-08-18 and removed the same day.",
+      "residual": "The name remains in git history in 7a63ab5 and in the intervening commits. Removing it from history would mean a force-push and rewriting every commit since; NOT done, and Aryan has not asked for it. Raise it if he wants the history scrubbed."
+    },
+    {
+      "date": "2026-08-18",
+      "by": "Aryan",
+      "id": "no-pre-class-prep",
+      "decision": "No `Pre-Class Prep` page is published from any note in any week, and its content is never fetched at all. It is NOT covered by the discussion-questions carve-out and the carve-out is not widened.",
+      "trigger": "DMBA 6008 Week 3's `Live` note (3bf7b336873c80cdaafbfc4954a7a028) appeared on 2026-08-17 with `Pre-Class Prep` as its only child. Aryan was asked whether the carve-out reached it and said it does not.",
+      "enforcement": "subjects.json → DMBA6008.syncRules → no-pre-class-prep, binding on both discovery flows."
+    }
+  ]
 }

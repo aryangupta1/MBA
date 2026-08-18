@@ -325,7 +325,32 @@ Also excluded by default, as personal study telemetry rather than coursework:
 
 Publishing any of these is a per-subject decision for the author, not a default.
 
-### The one carve-out — DMBA 6008 discussion questions
+### Never publish a real person's contact details
+
+The Courses row carries `Professor`, `Email`, `Location` and `Time`. **None of them may
+appear on a page.** A hub's meta-row is the status pill and the week count and nothing else.
+
+Set by Aryan on **2026-08-18**, after `DMBA6008-weeks.html` was found to be publishing the
+lecturer's name as a hero pill. `git log -S` traces it to the very first sync commit, so it
+had been live on GitHub Pages for weeks — and it survived every subsequent run because
+nothing was looking for it. The sibling hub never had it, which is why it never looked wrong.
+The enforceable list is `subjects.json` → `_globals.neverPublishFields`, and gate 4 now
+checks for it by name.
+
+### `Pre-Class Prep` is excluded outright
+
+Any page titled `Pre-Class Prep`, in any note, in any week, is **dropped in Phase 0 and never
+fetched** — not to check it, not to summarise it, not to decide whether it looks publishable.
+`subjects.json` → `DMBA6008.syncRules` → `no-pre-class-prep`, set by Aryan on 2026-08-18.
+
+It appeared on 2026-08-17 as the only child of DMBA 6008 Week 3's `Live` note. The name
+invites the argument that "pre-class" means pre-live and that the carve-out below should
+stretch to cover it. **That argument is closed.** Handle it exactly as DMBA 6005 handles
+`Shadow Boxing` after Week 0: a hard exclusion reported as `SKIPPED  no-pre-class-prep`, with
+no placeholder, no topic chip, and no contribution to terms, flashcards, quiz questions or
+scenarios.
+
+### The only carve-out — DMBA 6008 discussion questions
 
 Aryan directed on 2026-08-10 that DMBA 6008's live-session **`Discussion Questions`**
 sub-page be published from **Week 2 onwards**, as a fourth tab on the week page.
@@ -334,6 +359,13 @@ Take that child page and **nothing else** from a `Live Session` note. The rest o
 stays unpublished and rule 1 still governs it. First run, 2026-08-12: the Week 2 `Live` note
 (`3b97b336873c80f88fa0d476b75e6439`) contained *only* the Discussion Questions child, so
 nothing had to be cut — do not assume that holds next time.
+
+**It has not held.** That note has since grown a `Diary` sibling
+(`3ba7b336873c80f4addce7004f01a76e`), and DMBA 6008 Week 3's `Live` note
+(`3bf7b336873c80cdaafbfc4954a7a028`) has exactly one child, `Pre-Class Prep`. Both are
+outside the carve-out, neither has ever been fetched, and `Pre-Class Prep` is separately and
+permanently excluded by the rule above. **The carve-out covers a child page named
+`Discussion Questions` and no other. It has not been widened and must not be.**
 
 The tab is also the only place on the site where the **"do not add" rule is suspended**: the
 supplied answers are marked *"Supplied AI-generated responses"* in Notion, and Aryan asked for

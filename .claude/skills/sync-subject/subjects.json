@@ -1,8 +1,12 @@
 {
   "_comment": "Subject registry for the sync-subject skill. Notion ids come from docs/notion-sync.md §1. contentShape is a HINT ONLY — always detect it at runtime per note (docs/notion-sync.md §1, 'Two content shapes').",
-
   "DMBA6008": {
-    "aliases": ["finance", "6008", "fst", "finance strategy and technology"],
+    "aliases": [
+      "finance",
+      "6008",
+      "fst",
+      "finance strategy and technology"
+    ],
     "name": "Finance, Strategy and Technology",
     "semester": "SEM 2 2026",
     "notionCourseId": "3097b336873c80c0948dcc805089b071",
@@ -10,16 +14,37 @@
     "hubPage": "DMBA6008-weeks.html",
     "cardClass": "card--6008",
     "stripe": "--course-d",
-    "palette": { "accent": "#2F5470", "deep": "#1F3B51", "soft": "#E9EFF4", "glow": "rgba(47, 84, 112, 0.13)" },
+    "palette": {
+      "accent": "#2F5470",
+      "deep": "#1F3B51",
+      "soft": "#E9EFF4",
+      "glow": "rgba(47, 84, 112, 0.13)"
+    },
     "fonts": "Mona Sans + Plus Jakarta Sans (house — see docs/design-system.md)",
     "fontHref": "https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
     "contentShapeHint": "container",
     "referencePage": "DMBA6008-week1.html",
-    "live": true
+    "live": true,
+    "syncRules": [
+      {
+        "id": "no-pre-class-prep",
+        "rule": "Never sync or publish any `Pre-Class Prep` page, from any note, in any week.",
+        "setBy": "Aryan, 2026-08-18",
+        "allowed": "Nothing. There is no week and no note for which this is publishable.",
+        "match": "Any note OR child page whose title starts with 'Pre-Class Prep' (case-insensitive), reached from any notebook or from the Course-level Notes relation.",
+        "appliesToBothFlows": "MUST be enforced in BOTH discovery flows: (1) the per-notebook Notes relation walk, and (2) the Course-level Notes relation walk. Enforcing it in only one lets the page in through the other.",
+        "action": "Drop it in Phase 0, before shape detection and before any harvest agent is spawned. DO NOT FETCH ITS CONTENT — not to check it, not to summarise it, not to decide whether it looks publishable. Report it as SKIPPED with this rule id. Do NOT render a 'not yet written' placeholder for it, do NOT give it a topic chip on the hub, and do NOT let it contribute terms, flashcards, quiz questions or scenarios.",
+        "whyItMatters": "It first appeared on 2026-08-17 as the ONLY child of DMBA 6008 Week 3's `Live` note (3bf7b336873c80cdaafbfc4954a7a028, Type `Live Session`). The Week 2 carve-out covers a `Discussion Questions` child and nothing else, so it was already outside it — but the name invites a future run to argue that 'pre-class' means pre-live and let it through. Aryan closed that argument on 2026-08-18: it is excluded outright, the same way Shadow Boxing is for DMBA 6005. The carve-out is NOT extended."
+      }
+    ]
   },
-
   "DMBA6005": {
-    "aliases": ["agile", "6005", "apd", "agile project development"],
+    "aliases": [
+      "agile",
+      "6005",
+      "apd",
+      "agile project development"
+    ],
     "name": "Agile Project Development",
     "semester": "SEM 2 2026",
     "notionCourseId": "3a17b336873c80c284a7cd6be4a60c4d",
@@ -27,7 +52,12 @@
     "hubPage": "DMBA6005-weeks.html",
     "cardClass": "card--6005",
     "stripe": "--course-e",
-    "palette": { "accent": "#A8722C", "deep": "#6F4A17", "soft": "#F7EFE2", "glow": "rgba(168, 114, 44, 0.13)" },
+    "palette": {
+      "accent": "#A8722C",
+      "deep": "#6F4A17",
+      "soft": "#F7EFE2",
+      "glow": "rgba(168, 114, 44, 0.13)"
+    },
     "fonts": "Mona Sans + Plus Jakarta Sans (house — see docs/design-system.md)",
     "fontHref": "https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
     "_fontsComment": "Per-subject fonts were retired on 2026-08-09 when the DESK design system landed. Every semester-2 page now uses the house pair; a subject's identity is carried by `palette` alone. The pre-DESK choice here was Sora + Karla.",
@@ -48,7 +78,6 @@
         "whyItMatters": "The Week 1 note (3b37b336873c80698a11eb104e178cb1) is empty, and the ones after it will be too. Every run would otherwise re-detect them as CHANGED and re-add a placeholder Aryan does not want."
       }
     ],
-
     "blockers": [
       "Notebook 3b37b336873c80db9388ee1a56192b33 WAS an empty placeholder called 'New Notebook'. On 2026-08-08 it was RENAMED to 'Week 2: Agile' and filled. It is now a real week and MUST be synced. The old skip rule was removed on 2026-08-10 — it would have silently dropped the entire week. Lesson: a notebook's emptiness is a fact about today, never a permanent property. Re-check every skipped notebook each run rather than trusting this list.",
       "Note 3b17b336873c800e9208ca98bc0a8ada ('Class Diary', Week 1) is a Live Session note. NEVER publish it.",
@@ -56,21 +85,23 @@
       "Note 3b37b336873c80698a11eb104e178cb1 ('Shadow Boxing Week 1') and every later Shadow Boxing note are EXCLUDED by syncRules 'no-shadow-boxing-after-week-0'. Skip silently; do not report them as gaps."
     ]
   },
-
   "_completedSem1": {
     "_comment": "SEM 1 2026, all Completed. Their repo pages predate this pipeline and are hand-written; they are NOT synced from Notion. Listed only so a course id lookup does not come up empty.",
     "DMBA6001": "3097b336873c80968073e1efcf72711d",
     "DMBA6002": "3097b336873c80e0801fc3d2462d1cf9",
     "DMBA6004": "3097b336873c80d3800df8c3f77b2a8b"
   },
-
   "_designSystem": {
     "_comment": "All semester-2 pages are built on DESK. Read docs/design-system.md before changing any page chrome. The week shell carries the whole stylesheet inline; the only per-subject knobs are the four {{ACCENT*}} placeholders, fed from `palette` above.",
     "doc": "docs/design-system.md",
     "shell": ".claude/skills/sync-subject/reference/week-shell.html",
-    "accentPlaceholders": ["{{ACCENT}}", "{{ACCENT_DEEP}}", "{{ACCENT_SOFT}}", "{{ACCENT_GLOW}}"]
+    "accentPlaceholders": [
+      "{{ACCENT}}",
+      "{{ACCENT_DEEP}}",
+      "{{ACCENT_SOFT}}",
+      "{{ACCENT_GLOW}}"
+    ]
   },
-
   "_globals": {
     "notionRootPage": "3097b336-873c-8025-b728-d96b85cbfec0",
     "coursesDataSource": "collection://3097b336-873c-81b6-aa7c-000b6577c6c6",
@@ -79,9 +110,22 @@
     "staleNoteId": "83e72ed6-425f-4c30-9f45-c2f9c45e08fd",
     "_staleNoteComment": "Present in the Notes relation of every 6008 and 6005 notebook and returns object_not_found. Skip it silently; it is not a failure.",
     "publishableNoteType": "Pre-Live Session",
-    "neverPublishNoteTypes": ["Live Session", "Assessment"],
-    "neverPublishFields": ["Confidence", "Last Reviewed", "Days Since", "Favorite"],
+    "neverPublishNoteTypes": [
+      "Live Session",
+      "Assessment"
+    ],
+    "neverPublishFields": [
+      "Confidence",
+      "Last Reviewed",
+      "Days Since",
+      "Favorite",
+      "Professor",
+      "Email",
+      "Location",
+      "Time"
+    ],
     "images": "skip",
-    "_imagesComment": "Decided 2026-08-05 by Aryan. Notion image URLs are 5-minute presigned S3 links, so they cannot be referenced. Publishing one means downloading and committing it. The sync SKIPS all images and REPORTS the count per week so Aryan can ask for a specific one."
+    "_imagesComment": "Decided 2026-08-05 by Aryan. Notion image URLs are 5-minute presigned S3 links, so they cannot be referenced. Publishing one means downloading and committing it. The sync SKIPS all images and REPORTS the count per week so Aryan can ask for a specific one.",
+    "_neverPublishFieldsComment": "The first four are personal study telemetry on a Notes row. The last four are Courses-row fields carrying a real person's contact details: Professor, Email, Location and Time. NEVER render any of them on a page. Set 2026-08-18 by Aryan after the DMBA 6008 hub was found to have been publishing the lecturer's name as a hero pill since the first sync (commit 7a63ab5). A hub's meta-row carries the status and the week count and nothing else."
   }
 }
