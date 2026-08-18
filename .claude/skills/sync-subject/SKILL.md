@@ -1,15 +1,22 @@
 ---
 name: sync-subject
-description: Sync a semester-2 subject's Notion notebooks into this repo's week study pages. Use when Aryan says "update finance", "sync 6008", "update agile", "sync my notes", or names a subject alongside Notion. Harvests Pre-Live Session notes only, builds the summary / key concepts / flashcards page, registers it, and runs six QA gates before reporting.
+description: Sync a semester-2 subject from Aryan's Obsidian vault (~/MBA) into this repo's week study pages. Use when Aryan says "update finance", "sync 6008", "update agile", "sync my notes", or names a subject alongside his notes. Publishes only notes flagged publish:true, builds the summary / key concepts / flashcards page, registers it, and runs six QA gates before reporting.
 ---
 
 # sync-subject
 
-Turns Notion coursework notes into week study pages in this repo.
+Turns Aryan's Obsidian coursework notes into week study pages in this repo.
 
-**Read first, every run:** [docs/notion-sync.md](../../../docs/notion-sync.md) — the Notion
-schema, the two content shapes, the gotchas, and the publish rules. This file is the
+**The source is the vault at `~/MBA`, not Notion.** He migrated every note out of Notion on
+2026-08-18 and now keeps Notion only for assignment tracking. Nothing in this skill reads
+the Notion Notes database any more — if you find yourself reaching for `notion-fetch` to get
+coursework prose, stop: you are reading a dead source.
+
+**Read first, every run:** [docs/vault-sync.md](../../../docs/vault-sync.md) — the vault
+layout, the publish flag, and the rules about what may never ship. This file is the
 procedure; that file is the ground truth about the data.
+[docs/notion-sync.md](../../../docs/notion-sync.md) describes the retired Notion pipeline and
+is kept for history only.
 
 ---
 
@@ -91,12 +98,14 @@ discussion questions leaves both empty and shows three tabs, not four.
 
 | Path | What it is |
 | --- | --- |
-| `subjects.json` | code ↔ aliases ↔ Notion id ↔ palette ↔ fonts, plus the global Notion ids and the stale-note id |
+| `subjects.json` | code ↔ aliases ↔ palette ↔ fonts ↔ `syncRules` ↔ `needsReview`. The Notion ids in it are now only provenance |
 | `reference/week-shell.html` | the week page with `{{PLACEHOLDER}}` and `<!--INSERT:-->` slots. Built on the **DESK** design system — read [`docs/design-system.md`](../../../docs/design-system.md) before touching its `<style>` block or page chrome |
 | `reference/fragment-spec.md` | hand this to every fragment-building agent, verbatim |
 | `reference/checks.py` | QA gates 2, 3, 5 and 6 — structure, SVG overflow, inline-layout, prose length |
 | `reference/practice/` | the study path, Quiz and Apply-it components — `build.py`, the shared `tpl/`, the authored `data/<PAGE>.json`, and a `README.md` that is binding on every re-sync |
-| `../../../docs/notion-sync-state.json` | the manifest: what was published and when |
+| `../../../docs/vault-sync-state.json` | the manifest: what was published, and each topic's content hash |
+| `reference/vault_discover.py` | Phase 0 — discovery and diff against the vault |
+| `reference/publish_images.py` | Phase 2 — copies a week's images into `assets/notes/` |
 
 `reference/checks.py` is a verification tool. It never writes to a page and nothing in the
 deploy path calls it, so it is not a build step.
@@ -105,17 +114,18 @@ deploy path calls it, so it is not a build step.
 
 ## Setup check
 
-Notion MCP tools are **deferred** — load schemas before use:
+No MCP, no network, no authentication. The source is local markdown.
+
+Confirm the vault is present and readable before starting:
 
 ```
-ToolSearch("select:mcp__notion__notion-fetch,mcp__notion__notion-query-data-sources")
+ls ~/MBA/"Semester 2 2026"
 ```
 
-If `claude mcp list` shows Notion as `Needs authentication`, stop and ask Aryan to run
-`/mcp`. Nothing downstream works without it.
+If it is missing, stop and ask Aryan — do NOT fall back to Notion. The Notion Notes
+database is stale by design and publishing from it would silently regress his pages.
 
-`notion-query-data-sources` is **metered** on this plan. `notion-fetch` on a relation URL is
-not. One query to list a course's notebooks is fine; a query per note is waste — fetch.
+Override the vault location with `MBA_VAULT` if it ever moves.
 
 ---
 
@@ -123,73 +133,55 @@ not. One query to list a course's notebooks is fine; a query per note is waste �
 
 1. Resolve Aryan's word to a subject via `subjects.json` `aliases`. "finance" → `DMBA6008`.
    If it matches nothing, ask — do not guess.
-2. Fetch the course page, then each notebook in its `Notebooks` relation.
-   - **Skip any `<page>` carrying a `deleted` attribute** — archived notebooks stay in the
-     relation.
-   - **Skip empty placeholder notebooks** (`New Notebook` and anything like it) — but
-     **re-check them every run**. An empty placeholder is one rename away from being a real
-     week; DMBA 6005's `New Notebook` became `Week 2: Agile` on 2026-08-08. Judge on what the
-     notebook contains today, never on a name recorded in `subjects.json`.
-3. Fetch each note in each notebook's `Notes` relation, for `Type` and `Edited Time`.
-   - **Skip the stale note id in `subjects.json` `_globals.staleNoteId`.** It 404s from
-     every notebook and is not a failure.
-   - **Apply the subject's `syncRules`.** These are per-subject exclusions and they bind
-     **both discovery flows** — this per-notebook walk *and* the Course-level `Notes` walk
-     in §3a. Enforcing a rule in only one flow lets the note in through the other. Drop
-     excluded notes here, before shape detection and before any harvest agent is spawned,
-     and list them in the Phase 0 table as `SKIPPED  <rule id>`.
-   - Live rules today, one per subject:
-     - **DMBA 6005 `no-shadow-boxing-after-week-0`** — no `Shadow Boxing` note or sub-page is
-       published for Week 1 or later. Week 0's is already published and stays.
-       Set by Aryan, 2026-08-10.
-     - **DMBA 6008 `no-pre-class-prep`** — no `Pre-Class Prep` page is published from any
-       note in any week, and **its content is never fetched at all**. Set by Aryan,
-       2026-08-18. It is not covered by the discussion-questions carve-out and must not be
-       argued into it.
-
-3a. **Also fetch the Course's own `Notes` relation** and reconcile it with what the
-   notebooks gave you. A pre-live note can carry a `Course` relation and **no `Notebook`
-   relation**, in which case walking notebooks alone silently misses it — DMBA 6005's Week 0
-   `Shadow Boxing` note is the live example. Same `Type` filter, same `staleNoteId` skip,
-   and **the same `syncRules`**.
-4. **Detect the content shape per note, at runtime.** If the note's `<content>` is nothing
-   but `<page url=…>` links, it is a container (Shape A) — recurse to the leaves. Otherwise
-   the body is the content (Shape B). Never trust `contentShapeHint`; a subject can change
-   shape between weeks.
-5. Record the change signals. **A child page has no `Edited Time`** — only a Notes database
-   row does; fetching a child returns `{"title": …}` and nothing else. The signals that do
-   exist, in descending order of trust:
-
-   | Signal | Where | Trust |
-   | --- | --- | --- |
-   | `contentHash` of the harvested Markdown | computed by this skill | **exact** |
-   | note `Edited Time` | Notes row property | exact, but only for the note row |
-   | tree shape — child ids and titles | the fetch | exact for added/removed/renamed pages |
-   | `observedAt` — the `as of <ISO>` stamp in the fetch envelope | every page | strong hint |
-
-   `observedAt` was verified on 2026-08-05 to be a *content* timestamp, not a fetch
-   timestamp: the same page fetched twice minutes apart returned an identical value, and
-   siblings returned different ones. It is undocumented, so treat it as a hint.
-
-   **The rule:** a week is CHANGED if the note's `Edited Time`, any `observedAt`, or the
-   tree shape moved. That can over-trigger, which costs one harvest — cheap. The
-   `contentHash` then decides whether to actually rebuild, so a false alarm never churns
-   reviewed prose.
-
-   **Deep pass.** The residual risk is under-triggering: a grandchild edited with no
-   recorded timestamp moving. If Aryan says he edited a sub-page, or a week looks wrong,
-   re-harvest every topic and compare hashes rather than trusting the cheap pass.
-
-6. Compare against `docs/notion-sync-state.json` and print the table:
+2. Run the discovery script. It does the whole of discovery and diffing:
 
 ```
-NEW        Week 2 "Cost of capital" — 1 pre-live note, 4 sub-pages, ~3,100 words
-CHANGED    Week 0 → "Assessing Financial Performance" — was empty, now 6 of 10 written
-UNCHANGED  Week 1
-SKIPPED    Live-session note in Week 2 — not publishable (docs/notion-sync.md §6)
-SKIPPED    Shadow Boxing Week 1 — syncRules: no-shadow-boxing-after-week-0
-SKIPPED    3 images in Week 2 — see "Images" below
+python3 "${CLAUDE_PROJECT_DIR:-$PWD}/.claude/skills/sync-subject/reference/vault_discover.py" DMBA6008
 ```
+
+   Use the absolute form — the working directory is routinely changed to the vault during a
+   sync, and a relative path breaks the moment it is.
+   Add `--json` when you need the machine-readable form (Phase 2 and the image step use it).
+
+3. **Read its output as the plan.** It prints one line per week and per topic:
+
+```
+UNCHANGED  Week 2 Drivers of Returns  — 4 topic(s), 2,546 words, 4 image(s)
+NEW        Week 4 Project Evaluation  — 4 topic(s), 363 words, 2 image(s)
+             NEW       Recap of NPV  (363w, 2img)
+             NEW       Strategy and Finance  (0w, 0img)
+SKIPPED    Week 2 — Live — publish=false (Live Session)
+SKIPPED    Week 3 — Learn / Shadow Boxing — syncRules: no-shadow-boxing-after-week-0
+NEEDS REVIEW  Week 3 — "Live" — HELD BACK, not published
+```
+
+### What the script decides, so you do not have to
+
+- **A "topic" is the fan-out unit** Phases 2 and 3 expect: the first level beneath a week's
+  note. A note with a same-named folder beside it is a container and its children are the
+  topics; a note without one is itself a single topic. A topic's content is its own file
+  **plus every descendant beneath it**, so grandchildren are never dropped.
+- **The publish filter is `publish: true` in frontmatter.** That flag was set at migration
+  from the Notion `Type`, so `Live Session` diaries and `Assessment` drafts are already
+  `false`. It is a property of the note, not a judgement you make per run.
+- **`syncRules` still bind**, and they read from `subjects.json` exactly as before.
+  `allowedNotionIds` is a precise carve-out for a note that is approved despite matching a
+  rule — DMBA 6005's Week 0 `Shadow Boxing` lives in `_Unfiled` with no week number, and
+  without the carve-out a week-based rule silently strips it from a published page.
+- **`needsReview` entries are HELD BACK and never published.** They are notes whose
+  frontmatter says publishable but whose body says otherwise. Report them to Aryan and wait
+  for a ruling; do not argue one into the build.
+
+### Change detection
+
+A topic is **CHANGED** when the sha256 of its markdown (its own file plus all descendants)
+differs from `docs/vault-sync-state.json`. This is exact — there is no equivalent of the
+Notion era's `observedAt` guesswork, no metering, and no under-triggering on a deep edit.
+A week with no recorded hash is **NEW**.
+
+`docs/vault-sync-state.json` was **seeded on 2026-08-18** for weeks that already had a page.
+The seed asserts those pages match the vault; it was not verified line by line. If a page
+looks out of step with the vault, re-harvest that week rather than trusting the hash.
 
 **Stop condition: if nothing changed, say so and stop.** Do not rebuild pages to prove the
 tool ran.
@@ -213,34 +205,51 @@ Do not re-ask per week.
 
 ---
 
-## Phase 2 — Harvest *(fan out: one agent per topic)*
+## Phase 2 — Assemble source *(inline, no agents)*
 
-**The fan-out unit is the topic within a week, not the week.** A four-topic week gets four
-agents. A one-topic week gets one. Never manufacture topic divisions to fill a template.
+**There is nothing to harvest any more.** The notes are already local markdown, already
+converted, already verbatim. Phase 2 is now a file assembly, and it needs no agents, no MCP
+and no network.
 
-Each agent:
-- recursively fetches its own subtree,
-- writes `scratchpad/notion/wk<N>-<topic>.md` **verbatim** — preserving typos, Australian
-  spelling, awkward phrasing, truncated sentences and empty headings,
-- returns **a manifest only** (titles, word counts, anomalies). Never the content. The
-  orchestrator's context stays clean and the prose never round-trips through it.
+For each topic Phase 0 marked NEW or CHANGED, concatenate its `files` (from
+`vault_discover.py --json`, already in order: the topic's own note then its descendants)
+into `scratchpad/vault/wk<N>-<topic>.md`, stripping each file's YAML frontmatter.
 
-Conversions the harvester performs:
+That path is the **same contract Phase 3 already consumes** — one markdown file per topic —
+so every downstream phase is unchanged.
 
-| Notion output | Becomes |
-| --- | --- |
-| `<table>` + `<colgroup>` | GitHub-flavoured Markdown table |
-| `<callout icon="X">text</callout>` | `> [!X] text` |
-| `<empty-block/>`, `<table_of_contents/>` | dropped |
-| `\$`, `\>`, `\<` | `$`, `>`, `<` |
-| `` $`Profit = Revenue - Expenses`$ `` | plain text — a Notion equation-block artefact |
-| image | recorded in the manifest as `IMAGE: <caption>`, **not** downloaded, **not** linked |
+Do not rewrite the prose while assembling. It is already verbatim: the author's typos,
+Australian spelling, truncated sentences and empty headings are all intentional and were
+preserved through the migration. Some pages genuinely end mid-thought in the source.
 
-**Images are skipped** (decided by Aryan 2026-08-05). Notion serves 5-minute presigned S3
-URLs, so a committed page cannot reference one; publishing an image means downloading and
-committing the file. Report the count per week so Aryan can ask for a specific one.
+**Gate:** a topic whose assembled file is empty stays empty on the page. Several are
+legitimately empty — DMBA 6008 Week 4's `Strategy and Finance`,
+`Golden rules of project evaluation` and `Application and solution` are blank in the source.
+Render the honest "not yet written" block; never generate filler.
 
-**Gate:** a topic the harvester reports as empty stays empty on the page.
+### Images — now published
+
+Images used to be skipped because Notion served 5-minute presigned URLs that a committed
+page could not reference. **That constraint is gone**: the vault holds the real files in
+`~/MBA/_attachments/`, and Aryan approved publishing them on 2026-08-18.
+
+```
+python3 "${CLAUDE_PROJECT_DIR:-$PWD}/.claude/skills/sync-subject/reference/publish_images.py" DMBA6008 3
+```
+
+It copies that week's images to `assets/notes/<code>/wk<N>/`, downscales anything wider than
+1600px, and prints the `<img>` tag for each. Three things it will not do for you:
+
+- **It does not write alt text.** It emits `alt="TODO"`. The page builder must replace that
+  with a real description of what the figure shows. A filename is not alt text.
+- **It refuses to publish on a filename collision** rather than letting one image overwrite
+  another. Notion ids in this workspace share long prefixes, so output names use the *full*
+  id — truncating it collided twice during development.
+- **It will not inflate a file.** Small images are copied untouched; `sips` is only invoked
+  when an image is genuinely oversized.
+
+This is the fix for the gap where prose depended on a figure the page never showed — DMBA
+6008 Week 3 critiques average accounting ROA while its definition sat in a skipped image.
 
 ---
 
@@ -275,7 +284,7 @@ from the assembled page, not from the harvest** — run this after Phase 4 has b
 one agent per page, reading the summary blocks, `TERMS` and `CARDS`. Deriving from the built
 page means these tabs can only ever contain material that already passed gate 1.
 
-Hand the agent `docs/notion-sync.md` §3b. The rules that actually bite:
+Hand the agent `docs/vault-sync.md` §3b. The rules that actually bite:
 
 - **A formula is copied character for character** — his lowercase `x`, his `÷`, his spacing.
   **Never substitute a textbook form.** 6008 states the sustainable growth rate one way in
@@ -341,10 +350,10 @@ reason to route them through context.
    The summary **index, collapse and search** needs nothing from you — the shell's script
    builds it at load from whatever `.block` elements the summary ends up with. Do not
    hand-author a contents list; it would drift.
-   **You must, however, set `data-topic` on every `.block`**, naming the Notion topic the
+   **You must, however, set `data-topic` on every `.block`**, naming the vault topic the
    block was built from: `<div class="block" data-topic="Drivers of returns">`. That is what
    draws the topic chips, and only the sync knows the mapping. Leave it **off** a week-level
-   block (a closing takeaway) so it shows under every topic. If a topic is empty in Notion,
+   block (a closing takeaway) so it shows under every topic. If a topic is empty in the vault,
    put `data-topic-empty="true"` on its "not yet written" block and it renders as a dimmed
    chip, the way DMBA 6005 Week 1 shows *Creating your reflective journal*. (DMBA 6008
    Week 0 showed *Assessing Financial Performance* that way until it was written and
@@ -436,8 +445,9 @@ confirm.
 1. Report what was built, what each gate flagged, and **what was deliberately left out** —
    empty topics, live-session notes, skipped images. The omissions are the part Aryan
    cannot see for himself.
-2. Update `docs/notion-sync-state.json` — leaf `Edited Time` for container notes.
-3. Update `docs/notion-sync.md` §7 (current state) and `CLAUDE.md`'s subject table if a
+2. Update `docs/vault-sync-state.json` — write each rebuilt topic's `contentHash` from
+   `vault_discover.py --json`. A week you did not rebuild keeps its recorded hash.
+3. Update `docs/vault-sync.md` §7 (current state) and `CLAUDE.md`'s subject table if a
    subject changed status.
 4. Update `next-prompt.md` per [docs/next-prompt-protocol.md](../../../docs/next-prompt-protocol.md).
 5. **Do not commit.**
@@ -521,5 +531,9 @@ Collaboration, Work and Organisation"). **Do not reconcile the titles without as
 
 ## Direction of flow
 
-Notion is authoritative; the repo is publish-only. **There is no reverse sync.** A page
-edited here does not flow back, and this skill must never write to Notion.
+The **Obsidian vault is authoritative**; the repo is publish-only. **There is no reverse
+sync.** A page edited here does not flow back to the vault, and this skill must never write
+to the vault or to Notion.
+
+Notion now holds only the Assignments/Exams database, handled by the separate
+`sync-assignments` skill. Coursework prose never comes from Notion again.

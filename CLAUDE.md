@@ -50,6 +50,38 @@ builds, registers, and runs six QA gates. Read
 [docs/notion-sync.md](docs/notion-sync.md) before touching those pages — in particular,
 only **Pre-Live Session** notes may be published.
 
+## Where the notes actually live — changed 2026-08-18
+
+**Aryan's coursework notes are no longer in Notion. They are in an Obsidian vault at
+`~/MBA`**, migrated on 2026-08-18. Both semesters, all five subjects.
+
+**Notion is now used for one thing only: creating and tracking assignments.** The
+`Assignments/Exams` database is still live there and still his; he will keep adding to it.
+Nothing else in Notion is maintained any more.
+
+| Thing | Lives in | Kept in sync by |
+| --- | --- | --- |
+| Coursework notes, all subjects | Obsidian vault `~/MBA` | nothing — he edits it directly |
+| Assignments, deadlines, quizzes | **Notion**, mirrored into the vault | **`sync-assignments`** skill |
+| Published week pages | this repo | `sync-subject` skill — **see the warning below** |
+
+The vault mirrors Notion's structure: `Semester N 2026/DMBA<code> <name>/<Week>/<Note>.md`,
+container notes get a folder of sub-pages beside them, images live in `_attachments/`.
+Every note carries frontmatter with `course`, `week`, `type` and a **`publish`** flag —
+`true` only for `Pre-Live Session` notes, `false` for Live Session diaries and assessment
+work. Migration tooling and the record of what was harvested sit in `~/MBA/.mba-sync/`.
+
+**`sync-subject` now reads the vault, not Notion** (rebuilt 2026-08-18). Phase 0 discovers
+and diffs via `reference/vault_discover.py`; Phase 2 assembles local markdown — no MCP, no
+network, no metering. Every downstream phase and all six QA gates are unchanged. Change
+detection is an exact sha256 per topic, recorded in `docs/vault-sync-state.json`.
+
+> If you ever find yourself reaching for `notion-fetch` to get coursework prose, stop. That
+> database is stale by design and publishing from it would silently regress his pages.
+
+The vault is **not** part of this repo and is **not** published. Do not add it to git here,
+and do not copy `publish: false` content into any page under this repo.
+
 ## Hard constraints
 
 - **No build step, no package manager, no framework, no dependencies.** Every page is
@@ -57,8 +89,12 @@ only **Pre-Live Session** notes may be published.
   Tailwind, React, or a static-site generator.
 - **No external JS libraries.** The only external requests are Google Fonts stylesheets.
 - **Standalone pages are self-contained** — one file, one inline `<style>` block, inline
-  `<script>` if needed. The `blogs/` sub-site is the single exception and shares
-  `blogs/assets/`.
+  `<script>` if needed. **Two documented exceptions:** the `blogs/` sub-site shares
+  `blogs/assets/`, and semester-2 week pages reference figures in `assets/notes/<code>/wk<N>/`.
+  The second was added 2026-08-18 when Aryan approved publishing note images — 52 files,
+  ~20 MB at source, far too large to inline as data URIs. Images are copied and downscaled by
+  `sync-subject`'s `publish_images.py`; **every one needs real alt text**, and a filename is
+  not alt text. Do not add a third exception without asking.
 - **`library.html` is the site registry.** A new page that is not added to the
   `articlesBySubject` object in `library.html` is unreachable. Always register it.
 - **`index.html` and every Semester 2 page follow the DESK design system.** Read
@@ -95,8 +131,10 @@ before writing or editing any prose.
 | [docs/style-guide.md](docs/style-guide.md) | The older language — still governs `library.html`, Semester 1 pages and `blogs/` |
 | [docs/content-guide.md](docs/content-guide.md) | Voice, referencing, AI acknowledgement, privacy |
 | [docs/workflows.md](docs/workflows.md) | Step-by-step recipes for common tasks |
-| [docs/notion-sync.md](docs/notion-sync.md) | Notion schema, the sync pipeline, and the publish rules |
+| [docs/vault-sync.md](docs/vault-sync.md) | **The live source of truth** — vault layout, the `publish` flag, topics, images, and what must never ship |
+| [docs/notion-sync.md](docs/notion-sync.md) | The retired Notion pipeline. History only |
 | [.claude/skills/sync-subject/SKILL.md](.claude/skills/sync-subject/SKILL.md) | The sync procedure that actually runs — phases, gates, stop conditions |
+| [.claude/skills/sync-assignments/SKILL.md](.claude/skills/sync-assignments/SKILL.md) | Pulling the Notion **Assignments/Exams** database into the Obsidian vault. The only Notion sync still current |
 | [docs/notion-sync-automation.md](docs/notion-sync-automation.md) | Why the sync is shaped that way; the settled design decisions |
 | [docs/next-prompt-protocol.md](docs/next-prompt-protocol.md) | How the handoff file works |
 

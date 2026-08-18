@@ -1,0 +1,101 @@
+{
+ "_README": [
+  "Records what sync-subject has published FROM THE OBSIDIAN VAULT, and the content hash",
+  "of each topic at that point. Replaces the Notion-era docs/notion-sync-state.json, which",
+  "is kept only as history.",
+  "",
+  "SEEDED 2026-08-18. The seed asserts that each already-published week page reflects the",
+  "vault content hashed here. That holds because the vault and those pages were both built",
+  "from the same Notion source on the same day -- it was NOT verified line by line. If a",
+  "page looks out of step with the vault, re-harvest that week rather than trusting a hash.",
+  "",
+  "A week with no published HTML page is deliberately left out, so it reports as NEW."
+ ],
+ "DMBA6008": {
+  "source": "obsidian-vault",
+  "seeded": "2026-08-18",
+  "weeks": {
+   "Week 0": {
+    "weekNumber": 0,
+    "page": "DMBA6008-week0.html",
+    "topics": {
+     "Assessing Financial Performance": "3975b634337c",
+     "Cash Flow": "f319a5ad32b9",
+     "The Balance sheet": "fb5f06e57c48",
+     "The Profit and Loss Statement": "415efe3c911e"
+    }
+   },
+   "Week 1 Key value principles": {
+    "weekNumber": 1,
+    "page": "DMBA6008-week1.html",
+    "topics": {
+     "Key Definitions": "613cdeb20e30",
+     "Key Value Principle": "e9d49024c8aa"
+    }
+   },
+   "Week 2 Drivers of Returns": {
+    "weekNumber": 2,
+    "page": "DMBA6008-week2.html",
+    "topics": {
+     "Assets reflect the business model": "b10091a87a89",
+     "Drivers of returns": "41a6e17f4d1f",
+     "DuPont model example": "7bf44e660865",
+     "Sustainable Growth": "83a75ba347e0"
+    }
+   },
+   "Week 3 Investment Evaluation Tools": {
+    "weekNumber": 3,
+    "page": "DMBA6008-week3.html",
+    "topics": {
+     "Concept of present value": "fcf5ff037414",
+     "Internal rate of return": "e6bb0d15e73e",
+     "Investment Appraisal": "b0a24ece5b79",
+     "Problems with common approaches": "74940be5754f"
+    }
+   }
+  }
+ },
+ "DMBA6005": {
+  "source": "obsidian-vault",
+  "seeded": "2026-08-18",
+  "weeks": {
+   "Week 0": {
+    "weekNumber": 0,
+    "page": "DMBA6005-week0.html",
+    "topics": {
+     "$RUs": "78900d7a365b",
+     "Shadow Boxing": "40399f3690c5"
+    }
+   },
+   "Week 2 Agile": {
+    "weekNumber": 2,
+    "page": "DMBA6005-week2.html",
+    "topics": {
+     "Agile History and Scrum Roles": "c64f8a82b3c0",
+     "Bidding and winning projects": "a406dce248e0",
+     "Delivering a valuable customer experience": "9703b796873f"
+    }
+   },
+   "Week 3 Ideation and Prototyping": {
+    "weekNumber": 3,
+    "page": "DMBA6005-week3.html",
+    "topics": {
+     "Ideation and design thinking": "505d83b640dd",
+     "Long-term strategic value for $RUs": "2a3094744d21",
+     "Personas": "d19737c01ef2",
+     "Why we prototype": "543088df91c9"
+    }
+   },
+   "Week1 Project Management": {
+    "weekNumber": 1,
+    "page": "DMBA6005-week1.html",
+    "topics": {
+     "Context Analysis for $RUs": "fd08bc14daeb",
+     "Creating your reflective journal": "75a11da44c80",
+     "Introduction to project management": "9d3a1a9ae01b",
+     "Your project with StellarCX": "d706cde79dcf"
+    }
+   }
+  }
+ }
+}

@@ -1,5 +1,13 @@
 # Notion → site sync
 
+> [!warning] **RETIRED — history only.**
+> This describes the Notion → site pipeline, which was replaced on **2026-08-18** when Aryan
+> moved his coursework notes into an Obsidian vault at `~/MBA`. The live document is
+> [vault-sync.md](vault-sync.md). Notion now holds only the Assignments/Exams database,
+> handled by the `sync-assignments` skill. **Do not publish coursework prose from Notion** —
+> that database is no longer maintained and building from it would silently regress pages.
+
+
 How coursework notes in Notion become week study pages in this repo. Written 2026-08-05,
 after the first run of the pipeline against **DMBA 6008 Finance, Strategy and Technology**.
 
