@@ -1,11 +1,18 @@
 # Notion → site sync
 
 > [!warning] **RETIRED — history only.**
-> This describes the Notion → site pipeline, which was replaced on **2026-08-18** when Aryan
-> moved his coursework notes into an Obsidian vault at `~/MBA`. The live document is
-> [vault-sync.md](vault-sync.md). Notion now holds only the Assignments/Exams database,
-> handled by the `sync-assignments` skill. **Do not publish coursework prose from Notion** —
-> that database is no longer maintained and building from it would silently regress pages.
+> This describes the Notion → **site** pipeline, replaced on **2026-08-18** when Aryan moved
+> his coursework notes into an Obsidian vault at `~/MBA`. The live document is
+> [vault-sync.md](vault-sync.md).
+>
+> **Notion itself is not retired.** Aryan still writes notes there, and still tracks
+> assignments there. What is retired is publishing *straight from Notion to a page*. Notion
+> now flows into the **vault** first — via the `sync-notes` skill — and pages are built from
+> the vault, which is where his Notion and Obsidian edits get reconciled. **Never build a
+> page from Notion directly**: it could ship over work he did in Obsidian.
+>
+> Some of the mechanics below — the data-source ids, the enhanced-markdown quirks, the
+> harvest-agent pattern — are still accurate and are reused by `sync-notes`.
 
 
 How coursework notes in Notion become week study pages in this repo. Written 2026-08-05,

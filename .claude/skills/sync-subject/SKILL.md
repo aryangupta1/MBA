@@ -122,8 +122,10 @@ Confirm the vault is present and readable before starting:
 ls ~/MBA/"Semester 2 2026"
 ```
 
-If it is missing, stop and ask Aryan — do NOT fall back to Notion. The Notion Notes
-database is stale by design and publishing from it would silently regress his pages.
+If it is missing, stop and ask Aryan — do NOT fall back to Notion. Notion is a note-taking
+surface, not a publishing source: it has no record of what has been reconciled against his
+Obsidian edits, so publishing from it directly could ship over work he did in the vault.
+Pull it down with `sync-notes` first, then publish from the vault.
 
 Override the vault location with `MBA_VAULT` if it ever moves.
 
@@ -248,8 +250,38 @@ It copies that week's images to `assets/notes/<code>/wk<N>/`, downscales anythin
 - **It will not inflate a file.** Small images are copied untouched; `sips` is only invoked
   when an image is genuinely oversized.
 
-This is the fix for the gap where prose depended on a figure the page never showed — DMBA
-6008 Week 3 critiques average accounting ROA while its definition sat in a skipped image.
+#### Look at every image before you publish it — most are formulas
+
+**Running `publish_images.py` does not mean the images belong on the page.** When the backfill
+ran on 2026-08-19, **16 of DMBA 6008's 17 publishable images were formulas** — LaTeX renders of
+equations, black text on white — and exactly one was a genuine diagram.
+
+**Read each image first.** Then:
+
+| What it is | What to do |
+| --- | --- |
+| A formula or equation | **Transcribe it as text.** Put it in a `.formula` div in the prose and add an entry to the page's `FORMULAS` array. Do **not** publish the PNG. |
+| A genuine diagram, chart or slide | Publish it, with real alt text describing what it shows. |
+
+Formulas are transcribed rather than published because the Formulas tab has a **search
+filter** an image cannot participate in, `.formula` is a **dark box with light text** that a
+black-on-white PNG looks broken inside, and text stays sharp and reaches a screen reader.
+
+**Transcribe exactly what the image shows.** Never derive, complete or improve a formula —
+that is writing Aryan's academic content. Where a source image is missing or duplicated, say
+so in words rather than reconstructing the equation. Week 3 repeats one `NPV()` image where
+the prose implies a second, different one; the page states that in words and stops there.
+
+**Delete what you do not use.** Unreferenced files under `assets/` are orphans — remove the
+PNG and its `.<name>.src` stamp.
+
+After transcribing, update the page's formula **count** (`id="formulas-count"`) and any
+narrative that claims things are missing. Search the page for *"not reproduced"*, *"held as
+images"* and *"were not published"* — those sentences become false the moment you fix the gap.
+
+This closed the gap where prose depended on a figure the page never showed — DMBA 6008 Week 3
+critiqued average accounting ROA while its definition sat in a skipped image. It now carries
+the definition.
 
 ---
 
@@ -535,5 +567,15 @@ The **Obsidian vault is authoritative**; the repo is publish-only. **There is no
 sync.** A page edited here does not flow back to the vault, and this skill must never write
 to the vault or to Notion.
 
-Notion now holds only the Assignments/Exams database, handled by the separate
-`sync-assignments` skill. Coursework prose never comes from Notion again.
+Aryan still takes notes in Notion as well as Obsidian, and will for some time. Notion feeds
+the vault **upstream of this skill**, through `sync-notes`:
+
+```
+Notion --sync-notes--> vault --sync-subject--> week pages
+                        ^^^^^  this skill starts here
+```
+
+That changes nothing here. **This skill still reads only the vault**, because the vault is
+where the two note-taking surfaces are reconciled and where the conflict guard lives. If a
+week looks stale, the fix is to run `sync-notes` first — never to read Notion from this
+skill.

@@ -1,12 +1,24 @@
 # Obsidian vault → site sync
 
 How Aryan's coursework notes become week study pages in this repo. Written 2026-08-18, when
-the source moved from Notion to an Obsidian vault.
+the source moved from Notion to an Obsidian vault; updated 2026-08-19, when Notion came back
+as a second note-taking surface feeding that vault.
+
+```
+Notion  --sync-notes-->  Obsidian vault (~/MBA)  --sync-subject-->  week pages
+                              SOURCE OF TRUTH
+```
+
+**The vault is the only thing pages are ever built from.** Aryan still writes in Notion and
+likes its editor, but Notion is an *input to the vault*, never a publishing source — it has
+no record of what has been reconciled against his Obsidian edits, so building a page from it
+directly could ship over work he did in the vault.
 
 This supersedes [notion-sync.md](notion-sync.md), which is kept as history of the retired
-pipeline. The procedure that actually runs is
-[.claude/skills/sync-subject/SKILL.md](../.claude/skills/sync-subject/SKILL.md); this file is
-the ground truth about the data.
+Notion→website pipeline. The procedures that actually run are
+[sync-notes](../.claude/skills/sync-notes/SKILL.md) (Notion → vault) and
+[sync-subject](../.claude/skills/sync-subject/SKILL.md) (vault → pages); this file is the
+ground truth about the data.
 
 ---
 
@@ -76,6 +88,33 @@ passed gate 1.
 - Skip markup: class names, `aria-*` values, SVG ids, course codes and site chrome are not
   acronyms.
 
+## 3c. Two note-taking surfaces, one vault
+
+Aryan writes in **both** Notion and Obsidian. `sync-notes` reconciles them on the way in,
+and it never destroys Obsidian-only work. Every page is classified against two independent
+hashes held in `~/MBA/.mba-sync/notes-state.json`:
+
+- `raw_sha` — the Notion dump as of the last sync. Different now ⇒ **Notion changed**.
+- `file_sha` — the vault file *as the sync itself last wrote it*. Different from what is on
+  disk now ⇒ **Aryan edited it in Obsidian**.
+
+| Notion changed | Obsidian edited | Action |
+| --- | --- | --- |
+| no | no | `UNCHANGED` |
+| yes | no | `UPDATED` — safe overwrite |
+| no | yes | `KEPT-LOCAL` — his edit stands |
+| **yes** | **yes** | **`CONFLICT`** — vault file untouched; Notion's version parked as `<name>.notion-incoming.md` |
+
+**Never merge a conflict yourself.** The content is his academic prose; show him both sides
+and let him decide. `--force` exists for him to authorise, not for Claude to choose.
+
+One caveat worth knowing: **Notion does not bump a parent note's last-edited time when a
+sub-page's body is edited**, and his lecture notes live in sub-pages. So timestamp-based
+triage (`--changed-only`) under-reports. The default re-fetches the scope and diffs on real
+content.
+
+---
+
 ## 4. Change detection
 
 sha256 of each topic's markdown, recorded in [vault-sync-state.json](vault-sync-state.json).
@@ -102,8 +141,31 @@ downscaling anything wider than 1600px. Three guarantees:
 - **It does not write alt text.** It emits `alt="TODO"`; the page builder must describe what
   the figure shows. A filename is not alt text.
 
-This closes the gap where prose depended on a figure the page never showed — DMBA 6008 Week 3
-critiques average accounting ROA while its definition sat in a skipped image.
+### Formula images are transcribed, not published — settled 2026-08-19
+
+The backfill that closed this gap found that **16 of DMBA 6008's 17 publishable images were
+formulas**, not diagrams: LaTeX renders of equations, black text on white. Publishing them as
+PNGs would have been the wrong fix on every axis.
+
+- The Formulas tab has a **search filter**. An image cannot be filtered, so a formula shipped
+  as a PNG is invisible to the one feature built to find it.
+- `.formula` is a **dark box with light text**. A black-on-white PNG dropped into it reads as
+  broken.
+- Text stays sharp at any zoom and is readable to a screen reader. A 5 KB PNG of an equation
+  is none of those things.
+
+So the rule is: **look at the image before publishing it.** If it is a formula, transcribe it
+into `.formula` in the prose and add an entry to the `FORMULAS` array. If it is a genuine
+diagram, publish it with real alt text. One image met that bar — the Week 0 slide showing the
+three statements as one system, which nothing on the page reproduced.
+
+Transcribe **exactly** what the image shows. Never derive, complete or improve a formula: in
+Week 3 the notes repeat one NPV() image where the text implies a second, different equation,
+and that gap is stated in words rather than filled in.
+
+This closed the gap where prose depended on a figure the page never showed — DMBA 6008 Week 3
+critiqued average accounting ROA while its definition sat in a skipped image. It now carries
+the definition.
 
 `assets/` is the **second documented exception** to the self-contained-page rule, alongside
 `blogs/assets/`. See `CLAUDE.md`.
@@ -142,6 +204,9 @@ the status pill and the week count and nothing else. Set by Aryan 2026-08-18 aft
 sync commit.
 
 ## 7. Current state
+
+Notion→vault sync state is seeded for all **296** pages as of 2026-08-19
+(`~/MBA/.mba-sync/notes-state.json`), so the conflict guard has a baseline for every note.
 
 | | DMBA 6008 | DMBA 6005 |
 | --- | --- | --- |

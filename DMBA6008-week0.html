@@ -705,6 +705,8 @@
       -webkit-overflow-scrolling: touch;
     }
     .fig-frame svg { width: 100%; height: auto; min-width: 420px; display: block; }
+    .fig-frame img { width: 100%; max-width: 100%; height: auto; display: block; border-radius: 10px; }
+    .fig-frame--slide { min-width: 0; }
     figcaption {
       margin-top: 0.75rem;
       font-size: 0.82rem;
@@ -1642,7 +1644,7 @@
               <h3 class="path-label">Learn the chains, not the list</h3>
               <span class="path-time">~20 min</span>
             </div>
-            <p>Eighty-two entries, so do not try to hold them all. Learn the ones that chain: ROA = Asset Utilisation x Profit Margin, the profit-to-cash reconciliation, free cash flow as CFOA plus CFIA, and the days-to-funding-gap sequence. The same relationship sometimes appears twice in different notation, so match on the relationship rather than on the characters, and keep the Acronyms tab beside it — CFOA, CFIA, CFFA, EBITDA, EBIT, OCC and SGR carry most of the week.</p>
+            <p>Eighty-six entries, so do not try to hold them all. Learn the ones that chain: ROA = Asset Utilisation x Profit Margin, the profit-to-cash reconciliation, free cash flow as CFOA plus CFIA, and the days-to-funding-gap sequence. The same relationship sometimes appears twice in different notation, so match on the relationship rather than on the characters, and keep the Acronyms tab beside it — CFOA, CFIA, CFFA, EBITDA, EBIT, OCC and SGR carry most of the week.</p>
             <button class="path-go" type="button" data-goto="formulas">Open Formulas <span aria-hidden="true">&rarr;</span></button>
           </li>
           <li class="path-step">
@@ -1764,6 +1766,28 @@
     </div>
     <figcaption>Everything else in this topic is a question about one of these five boxes: what is in it, how it was
       valued, and whether the value can be believed.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="fig-frame fig-frame--slide">
+      <img src="assets/notes/dmba6008/wk0/3a47b336873c80fa9469d809bc08a288-01-image.png"
+        alt="The three financial statements side by side. On the left, the Statement of Cash Flow lists cash flow from
+          operating, investment and financing activities, then change in cash, opening cash balance and closing cash
+          balance; an arrow carries that closing balance into the balance sheet. In the centre, the Balance Sheet has
+          an Assets column (cash at bank, receivables, inventories and other making up current assets; property plant
+          and equipment, intangibles, goodwill and other making up non-current assets; then total assets) and a
+          Liabilities column (payables, provisions, borrowings, revenue in advance and other as current liabilities;
+          borrowings, provisions, revenue in advance and other as non-current liabilities; then total), with an Equity
+          block beneath holding issued capital, reserves, retained earnings and other. On the right, the Profit and
+          Loss Statement splits into Revenues (revenue, other revenue) and Expenses (cost of goods sold covering CAPEX
+          and OPEX, depreciation and amortisation, net interest, tax expense), resolving to net profit after tax; an
+          arrow carries that figure back into Equity."
+        loading="lazy" width="1600" height="1084">
+    </div>
+    <figcaption>The lecture slide my notes open this topic with, showing the three statements as one system rather
+      than three documents. The two arrows are the point: the closing cash balance from the cash flow statement lands
+      in the balance sheet as cash at bank, and net profit after tax from the P&amp;L lands in equity as retained
+      earnings. The balance sheet is the position the other two statements move.</figcaption>
   </figure>
 </div>
 
@@ -4589,7 +4613,12 @@
     </table>
   </div>
 
-  <div class="formula">ROA = Asset Utilisation x Profit Margin</div>
+  <div class="formula formula-stack">
+    <span>ROA = Asset Utilisation x Profit Margin</span>
+    <span>(Revenue / Assets) × (Profit / Revenue) = Profit / Assets</span>
+  </div>
+
+  <p class="note">The second line is why the decomposition holds: revenue cancels, leaving profit over assets.</p>
 
   <div class="callout callout--key">
     <span class="icon" aria-hidden="true">💡</span>
@@ -4697,11 +4726,18 @@
 <div class="block">
   <span class="block-num">03 / Return on equity</span>
   <h2>The owners’ return, and what financing does to it</h2>
-  <p>Return on Equity (ROE) measures the return generated on the owners’ investment in the business. Profits generated
-    for shareholders can either be distributed as dividends or retained and reinvested in the business.</p>
+  <p>Return on Equity (ROE) measures the return generated on the owners’ investment in the business.</p>
+
+  <div class="formula">ROE = Profit / Equity</div>
+
+  <p>Profits generated for shareholders can either be distributed as dividends or retained and reinvested in the
+    business.</p>
   <p>ROE should not be interpreted without considering how the business is financed. A business can increase ROE by
-    financing more of its assets with debt rather than equity, leaving less equity supporting the same business. A
-    higher ROE therefore does not automatically mean better underlying business performance — the higher return may
+    financing more of its assets with debt rather than equity, leaving less equity supporting the same business:</p>
+
+  <div class="formula">Profit / ↓Equity → ↑ROE</div>
+
+  <p>A higher ROE therefore does not automatically mean better underlying business performance — the higher return may
     partly result from financial leverage rather than superior profitability or asset efficiency.</p>
 
   <figure>
@@ -4881,7 +4917,7 @@
   <h3>Cash flow from operations</h3>
   <p>Cash flow from operating activities (CFOA) shows the cash generated by the core operations of the business. Unlike
     accounting profit, CFOA reflects actual cash movement. A useful performance ratio is:</p>
-  <div class="formula">CFOA / revenue</div>
+  <div class="formula">CFOA Margin = CFOA / Revenue</div>
   <p>This shows how much operating cash is generated from each dollar of revenue. A lower ratio may indicate that
     revenue growth is not translating efficiently into cash.</p>
 
@@ -5177,7 +5213,10 @@
         <p>The combination of failing asset utilisation and falling margins meaning <strong>underlying operational
             performance is deteriorating</strong>.</p>
 
-        <div class="formula">ROE = ROA x Financial Leverage</div>
+        <div class="formula formula-stack">
+          <span>ROE = ROA x Financial Leverage</span>
+          <span>↓ROA + ↑Leverage → ROE may remain unchanged</span>
+        </div>
 
         <p>The business increases debt relative to equity. As equity becomes a smaller proportion of total financing,
           the remaining shareholder funds are more highly leveraged, so the headline ROE can look healthy even while
@@ -5999,7 +6038,7 @@
           <label class="visually-hidden" for="formulas-search">Filter formulas</label>
           <input class="search" id="formulas-search" type="search" placeholder="Filter formulas &mdash; try &ldquo;margin&rdquo; or &ldquo;cash&rdquo;"
             autocomplete="off">
-          <span class="count" id="formulas-count" aria-live="polite">82 of 82</span>
+          <span class="count" id="formulas-count" aria-live="polite">86 of 86</span>
         </div>
 
         <div class="glossary" id="formulas"></div>
@@ -6220,7 +6259,7 @@
   { term: 'ROA versus ROE', src: 'Risks', def: 'ROA assesses returns generated from the assets of the business; ROE assesses returns generated for equity owners. A weaker ROA alongside a stronger ROE is a warning sign to investigate leverage and financial risk rather than to assume superior performance.' },
   { term: 'Working Capital', src: 'Cash', formula: 'Working Capital = Short-term Assets - Short-term Liabilities', def: 'Funds committed to the day-to-day operations of the business. It is necessary to operate, but excessive amounts tie up cash that could be invested elsewhere, so it carries an opportunity cost.' },
   { term: 'Cash Flow from Operating Activities (CFOA)', src: 'Cash', def: 'The cash generated by the core operations of the business. Unlike accounting profit, CFOA reflects actual cash movement.' },
-  { term: 'CFOA Margin', src: 'Cash', formula: 'CFOA / revenue', def: 'Shows how much operating cash is generated from each dollar of revenue — a 10% margin is $0.10 per $1 of revenue, a 6% margin is $0.06. A lower ratio may indicate that revenue growth is not translating efficiently into cash.' },
+  { term: 'CFOA Margin', src: 'Cash', formula: 'CFOA Margin = CFOA / Revenue', def: 'Shows how much operating cash is generated from each dollar of revenue — a 10% margin is $0.10 per $1 of revenue, a 6% margin is $0.06. A lower ratio may indicate that revenue growth is not translating efficiently into cash.' },
   { term: 'Cash Conversion', src: 'Cash', def: 'How well reported profit turns into operating cash. Where CFOA is far below profit, investigate increasing inventory, customers taking longer to pay, greater credit extended to customers, and other working-capital requirements. The difference identifies an area requiring investigation, not automatically poor performance.' },
   { term: 'Ratios as Diagnostic Tools', src: 'The right question', def: 'Ratios are most useful for identifying where performance looks strong or weak and then asking what may be causing it. A favourable ratio may hide a future weakness, while an unfavourable ratio may have a reasonable explanation.' },
   { term: 'Sustainability of Performance', src: 'The right question', def: 'Whether current financial performance is being achieved in a way that can be sustained. High asset utilisation may reflect underinvestment in replacement assets; high margins may come from postponing strategically important spending; high ROE may be driven by debt; strong cash flow may depend on stretching supplier payments.' },
@@ -6431,9 +6470,13 @@
         { name: 'Asset utilisation', expr: 'Asset utilisation = Revenue / Assets', def: 'How effectively assets generate revenue. Improving it means making the assets work harder — generating more revenue from the existing asset base.', src: 'Returns' },
         { name: 'Profit margin', expr: 'Profit margin = Profit / Revenue', def: 'How effectively revenue is converted into profit. It improves through better pricing, product mix or cost efficiency.', src: 'Returns' },
         { name: 'Return on assets', expr: 'ROA = Profit / Assets', def: 'The overall effectiveness of assets in generating profit, integrating profitability and asset efficiency into one measure.', src: 'Returns' },
+        { name: 'ROA identity, expanded', expr: '(Revenue / Assets) × (Profit / Revenue) = Profit / Assets', def: 'Why the decomposition holds — revenue cancels, leaving profit over assets. The notes state the identity in full alongside the named form.', src: 'Returns' },
+        { name: 'Return on equity', expr: 'ROE = Profit / Equity', def: 'The return generated on the owners’ investment in the business. Stated plainly under Risks, before financing is brought into it.', src: 'Risks' },
+        { name: 'Leverage and ROE', expr: 'Profit / ↓Equity → ↑ROE', def: 'With less equity supporting the same business, ROE rises. A higher ROE therefore does not automatically mean better underlying business performance.', src: 'Risks' },
+        { name: 'Leverage masking a weakening business', expr: '↓ROA + ↑Leverage → ROE may remain unchanged', def: 'The CEO bonus case. Asset utilisation and margin are both falling, so ROA declines, but rising leverage can hold the headline ROE flat while the business becomes less efficient and more risky.', src: 'CEO Bonus' },
         { name: 'ROA decomposition', expr: 'ROA = Asset Utilisation x Profit Margin', def: 'ROA tells us the outcome; asset utilisation and margin help explain why that outcome occurred. A high-margin, asset intensive business may produce the same ROA as a lower-margin business with very efficient utilisation.', src: 'Returns' },
         { name: 'Working capital, short-term form', expr: 'Working Capital = Short-term Assets - Short-term Liabilities', def: 'Funds committed to the day-to-day operations of the business. Necessary to operate, but excessive amounts tie up cash that could be invested elsewhere.', src: 'Cash' },
-        { name: 'CFOA margin', expr: 'CFOA / revenue', def: 'How much operating cash is generated from each dollar of revenue — a 10% margin is $0.10 per $1, a 6% margin is $0.06. A lower ratio may indicate revenue growth is not translating efficiently into cash.', src: 'Cash' },
+        { name: 'CFOA margin', expr: 'CFOA Margin = CFOA / Revenue', def: 'How much operating cash is generated from each dollar of revenue — a 10% margin is $0.10 per $1, a 6% margin is $0.06. A lower ratio may indicate revenue growth is not translating efficiently into cash.', src: 'Cash' },
         { name: 'Profit against cash', expr: 'Accounting Profit vs CFOA', def: 'A profitable business can still experience cash pressure, so profit and CFOA must be compared. If CFOA << Profit, investigate where cash is being absorbed.', src: 'Cash' },
         { name: 'The ratio question chain', expr: 'What is the ratio ? → Why is it at that level ? → Is it sustainable? → What risks sit behind it?', def: 'Ratios are diagnostic tools, not final answers. A favourable ratio may hide a future weakness, while an unfavourable ratio may have a reasonable explanation.', src: 'The right question' },
         { name: 'Return against requirement', expr: 'Actual Return should be assessed against Required Return', def: 'If shareholders require a 20% return for the risk they are taking but the business generates only 19%, the return may look high in isolation but still be insufficient relative to risk.', src: 'The right question' },

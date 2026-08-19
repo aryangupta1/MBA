@@ -1752,9 +1752,12 @@
             <div class="block" data-topic="Assets reflect the business model">
               <span class="block-num">02 / Putting firms on one scale</span>
               <h2>Common-size asset analysis</h2>
-              <p>Common-size analysis expresses each asset category as a percentage of total assets. Stating every category
-                on the same scale allows comparison between companies of very different sizes, and helps identify
-                differences driven by their business models and industries.</p>
+              <p>Common-size analysis expresses each asset category as a percentage of total assets.</p>
+
+              <div class="formula">Asset Category % = (Asset Category / Total Assets) × 100</div>
+
+              <p>Stating every category on the same scale allows comparison between companies of very different sizes,
+                and helps identify differences driven by their business models and industries.</p>
 
               <figure>
                 <div class="fig-frame">
@@ -2203,6 +2206,9 @@
               <h2>Assets, working capital and funding</h2>
 
               <h3>Asset utilisation</h3>
+
+              <div class="formula">Asset Utilisation = Income / Assets</div>
+
               <p>The issue is whether assets are being used hard enough to generate revenue.</p>
               <ul>
                 <li>Spare or under-utilised capacity reduces returns</li>
@@ -2386,8 +2392,13 @@
               <h2>The two drivers behind ROA</h2>
               <p>The first DuPont relationship splits the return on assets into the two drivers that produce it.</p>
 
-              <div class="formula">ROA = Asset Utilisation x Profit Margin</div>
+              <div class="formula formula-stack">
+                <span>ROA = Asset Utilisation x Profit Margin</span>
+                <span>ROA = (Revenue / Assets) × (Profit / Revenue)</span>
+              </div>
 
+              <p>The second line is the same identity written out, and it shows why the decomposition holds: revenue
+                cancels, leaving profit over assets.</p>
               <p>Each driver carries its own management interpretation.</p>
 
               <div class="table-scroll">
@@ -2426,7 +2437,10 @@
               <p>The model then introduces <strong>financial leverage</strong>. Fully expanded, the return to shareholders
                 carries a third term.</p>
 
-              <div class="formula">ROE = Asset Utilisation x Profit Margin x Financial Leverage</div>
+              <div class="formula formula-stack">
+                <span>ROE = Asset Utilisation x Profit Margin x Financial Leverage</span>
+                <span>ROE = ROA × (Assets / Equity)</span>
+              </div>
 
               <p>The <strong>assets-to-equity ratio</strong> shows how much of the asset base exists for each dollar of
                 shareholder equity. A higher ratio generally indicates that <strong>more assets are being financed through
@@ -3922,13 +3936,13 @@
       <div class="block">
         <span class="block-num">06 / Quick reference</span>
         <h2>Formulas</h2>
-        <p>Every formula, identity and chain stated in this week&rsquo;s notes, in the order the notes introduce them. Copied as written &mdash; where the same relationship is stated twice in different vocabularies, both forms are kept, because that difference is mine.</p>
+        <p>Every formula, identity and chain stated in this week&rsquo;s notes, in the order the notes introduce them. Copied as written &mdash; where the same relationship is stated twice in different vocabularies, both forms are kept, because that difference is mine. Four of these were written as equations in my notes rather than as prose &mdash; the common-size percentage, asset utilisation, and the algebraic forms of ROA and ROE &mdash; and have been transcribed from them exactly.</p>
 
         <div class="toolbar">
           <label class="visually-hidden" for="formulas-search">Filter formulas</label>
           <input class="search" id="formulas-search" type="search" placeholder="Filter formulas &mdash; try &ldquo;leverage&rdquo; or &ldquo;growth&rdquo;"
             autocomplete="off">
-          <span class="count" id="formulas-count" aria-live="polite">16 of 16</span>
+          <span class="count" id="formulas-count" aria-live="polite">18 of 18</span>
         </div>
 
         <div class="glossary" id="formulas"></div>
@@ -4192,11 +4206,13 @@
       }, 'No acronyms match that filter.');
 
       var FORMULAS = [
+        { name: 'Common-size asset analysis', expr: 'Asset Category % = (Asset Category / Total Assets) × 100', def: 'Expresses each asset category as a percentage of total assets, so companies of very different sizes can be compared and differences driven by business model and industry become visible.', src: 'Assets reflect the business model' },
+        { name: 'Asset utilisation', expr: 'Asset Utilisation = Income / Assets', def: 'The balance-sheet driver behind returns: whether assets are being used hard enough to generate revenue. Spare or under-utilised capacity reduces returns, and surplus assets may need to be sold, redeployed or restructured.', src: 'Drivers of returns' },
         { name: 'The return chain', expr: 'Market position → Volume & Margin → Profitability → Asset/Capital Efficiency → Return', def: 'Returns understood as a chain running from market position through to return. Each link is the base the next one works from, and each financial outcome has its own main drivers and management focus.', src: 'Drivers of returns' },
         { name: 'Profitability', expr: 'Profitability: Volume × Margin', def: 'Profitability fundamentally depends on volume — how much the business sells — and margin, the profit generated from each sale. The management focus is product mix, pricing and demand.', src: 'Drivers of returns' },
         { name: 'How margins erode', expr: 'Competitive advantage → Imitation/Competition → Margin erosion → Lower returns', def: 'What follows without continued investment and innovation, as imitation and competition catch up with the advantage and the competitive advantage period closes.', src: 'Drivers of returns' },
-        { name: 'Return on assets, decomposed', expr: 'ROA = Asset Utilisation x Profit Margin', def: 'The first DuPont relationship. Asset utilisation is revenue generated per dollar of assets; profit margin is profit generated per dollar of revenue. Leverage is not part of return on assets.', src: 'DuPont model example' },
-        { name: 'Return on equity, fully expanded', expr: 'ROE = Asset Utilisation x Profit Margin x Financial Leverage', def: 'The model adds financial leverage — assets to equity — to the two operating drivers. A higher assets-to-equity ratio generally indicates more assets financed through debt relative to equity.', src: 'DuPont model example' },
+        { name: 'Return on assets, decomposed', expr: 'ROA = (Revenue / Assets) × (Profit / Revenue)', def: 'The first DuPont relationship. Asset utilisation is revenue generated per dollar of assets; profit margin is profit generated per dollar of revenue. Leverage is not part of return on assets.', src: 'DuPont model example' },
+        { name: 'Return on equity, fully expanded', expr: 'ROE = ROA × (Assets / Equity)', def: 'The model adds financial leverage — assets to equity — to the two operating drivers. A higher assets-to-equity ratio generally indicates more assets financed through debt relative to equity.', src: 'DuPont model example' },
         { name: 'Leverage lifting ROE', expr: 'Unchanged ROA + Higher Leverage → Higher ROE', def: 'Underlying operating returns have not improved, shareholders appear to earn a higher return, and the improvement comes from using more debt. Higher ROE may reflect greater risk rather than better management performance.', src: 'DuPont model example' },
         { name: 'ROE as a financial story', expr: 'ROE = Asset Efficiency x Profitability x Leverage', def: 'The takeaway form of the decomposition — what the DuPont model turns a return ratio into, so a strategic decision can be tested driver by driver rather than on the headline return.', src: 'DuPont model example' },
         { name: 'Growth financing chain', expr: 'Revenue Growth → More Assets → More Financing Required', def: 'Revenue growth often requires more working capital, additional inventory and receivables, more non-current assets, and additional funding to finance those assets.', src: 'Sustainable Growth' },

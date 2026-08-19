@@ -1648,7 +1648,7 @@
               <h3 class="path-label">Audit what the notes actually state</h3>
               <span class="path-time">~10 min</span>
             </div>
-            <p>Do this before you try to revise from them, so you know where the gaps are. Several relationships this week discusses are absent by design: the symbolic present-value formula, its worked example, the average return on assets calculation and the two Excel NPV() illustrations all sat in images that were never published, and nothing has been reconstructed in their place. The average-return line is reproduced exactly as I typed it, truncation and all — do not read it as a finished figure, and do not go looking for the ROA calculation anywhere on this page, because the Problems topic states in words that it is not here.</p>
+            <p>Do this before you try to revise from them, so you know what is here. The relationships that used to be missing — the symbolic present-value formula, its worked example, the average return on assets calculation and its average-book-value denominator, and Excel’s NPV() form — sat in images in my notes and have now been transcribed from them exactly as written. One gap remains and it is mine, not the page’s: the average-return line is reproduced exactly as I typed it, truncation and all, so do not read <em>$16.m</em> as a finished figure. My notes also repeat the same NPV() image twice where the second was meant to show the time-0 investment added, so that addition is stated in words rather than as a formula.</p>
             <button class="path-go" type="button" data-goto="formulas">Open Formulas <span aria-hidden="true">&rarr;</span></button>
           </li>
           <li class="path-step">
@@ -1698,8 +1698,11 @@
         <span class="block-num">02 / Discounting</span>
         <h2>One year’s cash flow, restated in today’s terms</h2>
         <p>For a cash flow received in one year, the notes define <strong>PV</strong> as the value of the future cash
-          flow today and <strong>r</strong> as the appropriate discount rate, or cost of capital. At a cost of capital
-          of 10%, the future $112,000 is economically equivalent to <strong>$101,818</strong> today.</p>
+          flow today and <strong>r</strong> as the appropriate discount rate, or cost of capital.</p>
+        <div class="formula">PV = Future Cash Flow / (1 + r)</div>
+        <p>At a cost of capital of 10%:</p>
+        <div class="formula">PV = $112,000 / 1.10 = $101,818</div>
+        <p>The future $112,000 is therefore economically equivalent to <strong>$101,818</strong> today.</p>
 
         <figure>
           <div class="fig-frame">
@@ -1962,9 +1965,10 @@
       <div class="block" data-topic="Investment Appraisal">
         <span class="block-num">08 / Average return on assets</span>
         <h2>Average ROA as an appraisal measure</h2>
-        <p>The second of the three measures. Its calculation, and the illustration for a fully depreciated asset
-          under straight-line depreciation, are held as images in the source notes and are not reproduced on this
-          page.</p>
+        <p>The second of the three measures.</p>
+        <div class="formula">Average ROA = Average Profit / Average Book Value of Assets</div>
+        <p>For a fully depreciated asset with straight-line depreciation:</p>
+        <div class="formula">Average Book Value = (Initial Value + Residual Value) / 2</div>
         <p>If an asset falls from $33m to zero:</p>
         <div class="formula">(33+0)/2 = $16.m</div>
 
@@ -2150,10 +2154,11 @@
       <div class="block" data-topic="Investment Appraisal">
         <span class="block-num">12 / Excel NPV</span>
         <h2>An important calculation detail</h2>
-        <p>Excel's <em>NPV()</em> function discounts <strong>future cash flows only</strong>. The two worked
-          illustrations of this behaviour are held as images in the source notes and are not reproduced on this page.
-          The initial investment occurs at time 0 and must therefore be added separately, where CF0 is normally
-          negative.</p>
+        <p>Excel's <em>NPV()</em> function discounts <strong>future cash flows only</strong>:</p>
+        <div class="formula">PV = NPV(r, CF1, CF2, ..., CFn)</div>
+        <p>The initial investment occurs at time 0 and must therefore be added separately, where CF0 is normally
+          negative. My notes place a second image here to show that addition, but it is a duplicate of the one
+          above rather than a distinct formula, so the addition is stated in words only.</p>
 
         <figure>
           <div class="fig-frame">
@@ -2622,9 +2627,9 @@
       <div class="block" data-topic="Problems with common approaches">
         <span class="block-num">22 / Average accounting ROA</span>
         <h2>Why average ROA is weak for investment appraisal</h2>
-        <p>The definition and calculation of average accounting ROA are held as an image in the source notes and are
-          not reproduced on this page. What my notes state in words is why it is weak as an appraisal measure, on
-          three grounds:</p>
+        <div class="formula">Average ROA = Average Profit / Average Book Value of Assets</div>
+        <p>The same measure introduced under Investment Appraisal, restated here so the objection has something to
+          bite on. What my notes state in words is why it is weak as an appraisal measure, on three grounds:</p>
         <ul>
           <li>It uses <strong>accounting profit rather than cash flow</strong></li>
           <li>Averaging removes information about <strong>when returns occur</strong></li>
@@ -2924,13 +2929,13 @@
       <div class="block">
         <span class="block-num">05 / Quick reference</span>
         <h2>Formulas</h2>
-        <p>Thirteen relationships, in the order the page introduces them and copied exactly as my notes write them — including the truncated average-return line and the Excel IRR entry as it is spelled there. The three drivers of value appear twice because the week states them twice: once as what accounting profit leaves out, and once as the test a sound appraisal method has to pass. Several formulas are missing because they were missing from the notes — the symbolic present-value formula and its worked example, the average return on assets calculation, the definition and calculation of average accounting ROA, and two illustrations of Excel’s NPV() behaviour all sat in images that were not published, and none of them has been reconstructed here.</p>
+        <p>Eighteen relationships, in the order the page introduces them and copied exactly as my notes write them — including the truncated average-return line and the Excel IRR entry as it is spelled there. The three drivers of value appear twice because the week states them twice: once as what accounting profit leaves out, and once as the test a sound appraisal method has to pass. Five of these were previously absent because they sat in images in my notes rather than in text: the symbolic present-value formula, its worked example, the average return on assets calculation, its average-book-value denominator, and Excel’s NPV() form. They have now been transcribed from those images exactly as written, and nothing has been reconstructed or inferred.</p>
 
         <div class="toolbar">
           <label class="visually-hidden" for="formulas-search">Filter formulas</label>
           <input class="search" id="formulas-search" type="search" placeholder="Filter formulas &mdash; try &ldquo;NPV&rdquo; or &ldquo;depreciation&rdquo;"
             autocomplete="off">
-          <span class="count" id="formulas-count" aria-live="polite">13 of 13</span>
+          <span class="count" id="formulas-count" aria-live="polite">18 of 18</span>
         </div>
 
         <div class="glossary" id="formulas"></div>
@@ -3049,7 +3054,7 @@
                 { term: 'Accounting loss with positive cash flow', src: 'Profit vs Cash Flow', def: 'A project can report an accounting loss while still generating positive cash flow, because depreciation is charged against profit without any cash leaving the business.' },
                 { term: 'Total accounting profit', src: 'Profit vs Cash Flow', def: 'The first of the three candidate appraisal measures. Ranking investments purely by total profit can produce ‘a different decisions’ from ranking them by economic value.' },
                 { term: 'The three drivers of value', src: 'Profit vs Cash Flow', formula: 'Cash flow + timing of cash flow + risk', def: 'The drivers that accounting profit does not directly incorporate, which is why profit can mislead an investment decision.' },
-                { term: 'Average return on assets', src: 'Average ROA', formula: '(33+0)/2 = $16.m', def: 'The second candidate appraisal measure. The source notes work it for a fully depreciated asset under straight-line depreciation; the formula itself is held in an image and is not reproduced. The worked line shown is for an asset that falls from $33m to zero.' },
+                { term: 'Average return on assets', src: 'Average ROA', formula: 'Average ROA = Average Profit / Average Book Value of Assets', def: 'The second candidate appraisal measure. For a fully depreciated asset under straight-line depreciation the denominator is (Initial Value + Residual Value) / 2; for an asset falling from $33m to zero the notes work that as (33+0)/2 = $16.m.' },
                 { term: 'Limitation of average ROA', src: 'Average ROA', def: 'It remains an accounting-based return mesaure. It can favour a project with higher accounting profits even where another project generates cash earlier, which may make that alternative economically more value, and it therefore does not fully incorporate cash flow timing or risk.' },
                 { term: 'Net Present Value (NPV)', src: 'NPV', def: 'Building on from the Concept of Present Value, NPV evaluates projects using their actual cash-flow pattern rather than accounting profit.' },
                 { term: 'NPV decision rule', src: 'NPV', def: 'For mutually exclusive projects, prefer the project with the highest positive NPV, assuming the projects are comparable and the correct hurdle rate has been used.' },
@@ -3085,7 +3090,7 @@
         { term: 'Payback and value creation', src: 'Problems with common approaches', def: 'Payback does not measure value creation: a project can repay its investment yet still have negative NPV.' },
         { term: '2-year-payback example', src: 'Problems with common approaches', def: 'Project A invests 100 and receives 50, then 50; Project B invests 100 and receives 90, then 10. Both have a 2-year-payback, yet B is more valuable because more cash arrives earlier. At a 10% hurdle rate, A’s PV is 86.8 giving NPV = -13.2, and B’s PV is 90.1 giving NPV = -9.9. Both recover their nominal investment but still destroy economic value.' },
         { term: 'Equal payback periods', src: 'Problems with common approaches', def: 'Equal payback periods do not imply equal investments.' },
-        { term: 'Average accounting ROA', src: 'Problems with common approaches', def: 'A candidate appraisal measure the notes reject. Its definition and calculation sit in an image that was not published, and are not reproduced here. It is weak because it uses accounting profit rather than cash flow, averaging removes information about when returns occur, and it does not explicitly incorporate risk.' },
+        { term: 'Average accounting ROA', src: 'Problems with common approaches', formula: 'Average ROA = Average Profit / Average Book Value of Assets', def: 'A candidate appraisal measure the notes reject. It is weak because it uses accounting profit rather than cash flow, averaging removes information about when returns occur, and it does not explicitly incorporate risk.' },
         { term: 'The problem with averaging', src: 'Problems with common approaches', def: 'Averaging is particularly problematic in finance because timing matters.' },
         { term: 'Internal Rate of Return (IRR)', src: 'Problems with common approaches', def: 'Incorporates cash flow and the timing of cash flow, but does not incorporate project risk on its own.' },
         { term: 'Hurdle rate as the IRR benchmark', src: 'Problems with common approaches', def: 'Because IRR carries no risk adjustment of its own, the IRR must be compared against an independently estimated hurdle rate.' },
@@ -3173,8 +3178,8 @@
         { abbr: 'CFn', long: 'Cash flow in period n', def: 'The last cash flow in the series. It appears only inside the Excel entry my notes write as =IFR(CF0:CFn), which calculates IRR from every project cash flow, the initial time-0 outlay included — not the same entry as the NPV() function used previously, where the initial cash flow is handled separately.', src: 'Internal rate of return' },
         { abbr: 'IRR', long: 'Internal rate of return', def: 'The discount rate that makes an investment’s NPV equal to zero, expressing the investment’s implied annual return from the cash flows generated and the timing of those cash flows. For a standalone investment the whole decision is one comparison against the hurdle rate: above it the investment creates value, equal to it NPV = 0, below it the investment destroys value. It improves on accounting return by incorporating cash and timing, but unlike NPV it does not directly measure the amount of economic value created — and where IRR and NPV conflict on mutually exclusive projects, prefer NPV.', src: 'Internal rate of return' },
         { abbr: 'NPV', long: 'Net Present Value', def: 'A dollar measure of the economic value generated by an investment, forming a fundamental basis for valuation and investment decision-making. It evaluates projects using their actual cash-flow pattern rather than accounting profit, and it satisfies all three drivers of value because it discounts future cash flows at a hurdle rate reflecting risk. For mutually exclusive projects the rule is to choose the investment with the highest positive NPV, using an appropriately estimated hurdle rate.', src: 'Concept of present value' },
-        { abbr: 'PV', long: 'Present value', def: 'Converts a future cash flow into its equivalent value today. For a cash flow received in one year the notes define PV as the value of the future cash flow today and r as the appropriate discount rate, or cost of capital. The symbolic formula and its worked example sit in images in the source notes and are not reproduced on this page.', src: 'Concept of present value' },
-        { abbr: 'ROA', long: 'Return on assets', def: 'Appears on this page only as average ROA — the second of the three candidate appraisal measures, and one my notes end up rejecting for investment selection. Its definition and calculation are held in images in the source notes and are not reproduced here. What the notes do state in words is that it remains an accounting-based return mesaure: it is built from profit and asset values rather than cash flow, averaging removes information about when returns occur, and it does not explicitly incorporate risk — so it may describe accounting performance, but it should not determine which investment creates the most value.', src: 'Average ROA' },
+        { abbr: 'PV', long: 'Present value', def: 'Converts a future cash flow into its equivalent value today. For a cash flow received in one year the notes define PV = Future Cash Flow / (1 + r), where r is the appropriate discount rate, or cost of capital. At 10% that gives PV = $112,000 / 1.10 = $101,818.', src: 'Concept of present value' },
+        { abbr: 'ROA', long: 'Return on assets', def: 'Appears on this page only as average ROA — the second of the three candidate appraisal measures, and one my notes end up rejecting for investment selection. Defined as Average Profit / Average Book Value of Assets, where the denominator for a fully depreciated straight-line asset is (Initial Value + Residual Value) / 2. It remains an accounting-based return mesaure: it is built from profit and asset values rather than cash flow, averaging removes information about when returns occur, and it does not explicitly incorporate risk — so it may describe accounting performance, but it should not determine which investment creates the most value.', src: 'Average ROA' },
         { abbr: 'WACC', long: 'Weighted average cost of capital', def: 'Written in the notes as Hurdle Rate / WACC / cost of capital, it represents the minimum return given the project’s risk. Higher perceived risk means a higher hurdle rate and lower perceived risk a lower one, so the choice of hurdle rate can change which mutually exclusive project is preferred.', src: 'Hurdle Rate' }
       ];
 
@@ -3190,13 +3195,18 @@
       }, 'No acronyms match that filter.');
 
       var FORMULAS = [
+        { name: 'Present value of a one-year cash flow', expr: 'PV = Future Cash Flow / (1 + r)', def: 'The symbolic definition the notes give for a cash flow received in one year, where PV is the value of that future cash flow today and r is the appropriate discount rate, or cost of capital.', src: 'Concept of present value' },
+        { name: 'Present value, worked', expr: 'PV = $112,000 / 1.10 = $101,818', def: 'The same relationship at a cost of capital of 10%. The future $112,000 is economically equivalent to $101,818 today.', src: 'Concept of present value' },
         { name: 'Discount rate and present value', expr: 'Higher discount rate → lower present value', def: 'The rule the notes state for one year’s cash flow restated in today’s terms: investors require greater compensation for supplying capital, so a higher discount rate gives a lower present value. At a cost of capital of 10%, a future $112,000 is economically equivalent to $101,818 today.', src: 'Concept of present value' },
         { name: 'The future surplus, discounted', expr: '$2000/1.10 = $1818', def: 'The $2000 future surplus must itself be discounted. The investment therefore creates $1818 of value today, and the distinction matters because the future surplus and today’s value creation are not the same amount.', src: 'Concept of present value' },
         { name: 'Net present value', expr: 'NPV = Present Value of Future Cash Flows - Initial Outlay', def: 'NPV provides a dollar measure of the economic value generated by an investment, forming a fundamental basis for valuation and investment decision-making. The initial investment is not compared directly with the nominal future cash flow; that cash flow must first be expressed in today’s terms.', src: 'Concept of present value' },
         { name: 'Net present value, worked', expr: 'NPV = $101818 - $100000 = $1818', def: 'The same investment measured in today’s dollars rather than future dollars. A positive NPV means value is created after allowing for the cost of capital.', src: 'Concept of present value' },
         { name: 'Profit to cash flow', expr: 'Cash Flow = Profit + Depreciation', def: 'Depreciation is an accounting expense but not a current cash outflow, so adding that charge back recovers the cash the project actually generated. Where depreciation is the relevant non-cash expense and taxes are excluded.', src: 'Profit vs Cash Flow' },
         { name: 'The three drivers of value', expr: 'Cash flow + timing of cash flow + risk', def: 'What accounting profit does not directly incorporate. Ranking investments purely by total profit can therefore produce ‘a different decisions’ from ranking them by economic value.', src: 'Profit vs Cash Flow' },
-        { name: 'Average return on assets, worked', expr: '(33+0)/2 = $16.m', def: 'The line the notes give for an asset that falls from $33m to zero, reproduced exactly as written. The calculation itself, and the illustration for a fully depreciated asset under straight-line depreciation, are held as images in the source notes and are not reproduced on this page.', src: 'Average ROA' },
+        { name: 'Average return on assets', expr: 'Average ROA = Average Profit / Average Book Value of Assets', def: 'The second candidate appraisal measure. The notes introduce it under Investment Appraisal and return to it under Problems with common approaches, where the same definition is restated before the measure is rejected for investment selection.', src: 'Average ROA' },
+        { name: 'Average book value', expr: 'Average Book Value = (Initial Value + Residual Value) / 2', def: 'The denominator above, for a fully depreciated asset under straight-line depreciation.', src: 'Average ROA' },
+        { name: 'Average return on assets, worked', expr: '(33+0)/2 = $16.m', def: 'The line the notes give for an asset that falls from $33m to zero, reproduced exactly as written — including the truncated figure. Read it as my typing, not as a finished number.', src: 'Average ROA' },
+        { name: 'Excel NPV()', expr: 'PV = NPV(r, CF1, CF2, ..., CFn)', def: 'Excel’s NPV() function discounts future cash flows only. The initial investment occurs at time 0 and must be added separately, where CF0 is normally negative. Including the time-0 investment inside the function would incorrectly discount a cash flow that already occurs today.', src: 'Investment Appraisal' },
         { name: 'Risk and the hurdle rate', expr: 'Higher perceived risk → higher hurdle rate', def: 'The Hurdle Rate / WACC / cost of capital represents the minimum return given the project’s risk, and the notes give the converse in the same breath — ‘Lower perceived risk → lower hurdle rate’. The choice of hurdle rate can therefore change which mutually exclusive project is preferred.', src: 'Hurdle Rate' },
         { name: 'Internal rate of return', expr: 'NPV = 0 at r = IRR', def: 'IRR is the discount rate that makes an investment’s NPV equal to zero, and read forward it is the rate at which the investment is effectively growing each year as its cash flows occur and compound. For a standalone investment the whole decision is one comparison against the hurdle rate: IRR above the hurdle rate creates value, IRR equal to it gives NPV = 0, and IRR below it destroys value.', src: 'Internal rate of return' },
         { name: 'IRR in Excel', expr: '=IFR(CF0:CFn)', def: 'The Excel entry exactly as my notes write it. Excel calculates IRR using all project cash flows, including the initial time-0 outlay — not the same entry as the NPV() function used previously, where the initial cash flow is handled separately. The series -33, 14.16, 14.6, 14.6 returns IRR = 13.8%.', src: 'Internal rate of return' },
