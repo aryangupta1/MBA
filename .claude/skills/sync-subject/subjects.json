@@ -95,9 +95,9 @@
         "title": "Live",
         "week": "Week 3: Ideation and Prototyping",
         "why": "Notion Type is `Pre-Live Session` so the publish filter passes it, but the body reads as a live-session classroom diary — an in-class pre-mortem on a named external project plus a persona-test instruction. Rule 1 keys off Type, so this sails through the filter that exists to catch it.",
-        "action": "Do not publish, in any week, in any rebuild. This is settled — do not re-open it and do not argue it back in on the grounds that its Notion Type says Pre-Live Session. If Aryan later wants it published he will say so explicitly.",
+        "action": "Do not publish to any public week page, in any week, in any rebuild — do not argue it back in on the grounds that its Notion Type says Pre-Live Session. It IS carried on the password-gated page only-accessible-by-url/semester-2-private-notes.html, which is built by hand and not by this pipeline; that page is not a precedent for the week pages.",
         "raisedBy": "raised 2026-08-17 and 2026-08-18; ruled 2026-08-18",
-        "ruling": "HELD BACK — do not publish. Ruled by Aryan, 2026-08-18, when the rebuilt pipeline surfaced it."
+        "ruling": "HELD BACK from public week pages — ruled by Aryan 2026-08-18. PARTIALLY REVERSED 2026-08-19: Aryan asked for every semester-2 Live Session and Shadow Boxing note on a password-gated page and, when this one was put to him specifically, chose \"Include it\". The week-page exclusion stands unchanged."
       }
     ]
   },

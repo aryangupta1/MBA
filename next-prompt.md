@@ -7,11 +7,14 @@
 > Every session must leave this file updated before it ends.
 
 **Last updated:** 2026-08-19
-**Left by:** Two jobs. (1) Notion is **not** retired — Aryan still writes there and will use
-both tools until he's comfortable in Obsidian; built the **`sync-notes`** skill (Notion →
-vault) and rewired every doc that said otherwise. (2) **Fixed the images**, which turned out
-to mean the opposite of publishing them: 16 of 17 were formula screenshots and were
-transcribed into the pages as text. Nothing is committed.
+**Left by:** Four jobs, all shipped and pushed. (1) Notion is **not** retired — Aryan still
+writes there and will use both tools until he's comfortable in Obsidian; built the
+**`sync-notes`** skill (Notion → vault) and rewired every doc that said otherwise.
+(2) **Fixed the images**, which turned out to mean the opposite of publishing them: 16 of 17
+were formula screenshots and were transcribed into the pages as text. (3) **DMBA 6008 Week 4
+published in progress**, one topic of four. (4) Built the **password-gated private notes
+page** carrying every semester-2 Live Session and Shadow Boxing note. Working tree is clean;
+`master` is level with `origin/master`.
 
 ---
 
@@ -140,9 +143,8 @@ that is never published.
 
 1. **Ask him to approve the hook** (`/hooks`). Sixth session running that `next-prompt.md`
    was not auto-injected. `settings.json` is correct; it needs his one-time approval.
-2. **Nothing is committed.** `git status`: `sync-notes/` and `assets/` untracked, plus edits
-   to the three DMBA 6008 week pages, `CLAUDE.md`, `docs/README.md`, `docs/vault-sync.md`,
-   `docs/notion-sync.md`, `.claude/skills/sync-subject/SKILL.md`.
+2. **Everything from this session is committed and pushed** — `d15c99c`, `0336681`,
+   `82ad11e`, `8a3e600`. Nothing is left dangling.
 3. **DMBA 6008 Week 4 is now PUBLISHED, in progress.** Aryan's call on 2026-08-19:
    *"just publish what is available, good to have the skeletal and WIP available."* One topic
    of four (`Recap of NPV`) carries the whole page; the other three render as **"not yet
@@ -170,11 +172,47 @@ All gates pass (`checks.py` clean, 475 prose words against a 1,440 budget), and 
 checked in a browser: figure renders, formulas render, empty-topic chips render dashed, hub
 card and `library.html` entry both live.
 
+## The private notes page — 2026-08-19
+
+`only-accessible-by-url/semester-2-private-notes.html` — **live** at
+`https://aryangupta1.github.io/MBA/only-accessible-by-url/semester-2-private-notes.html`,
+password `password`. Every semester-2 **Live Session** and **Shadow Boxing** note, the
+material that is barred from the public week pages.
+
+Not synced by any skill — **hand-built, and it must be rebuilt by hand.** `sync-subject` does
+not know it exists and will never update it. Structure: a follow-ups roll-up (7 items, each
+tagged with its source note), assessment signals (5), quotes (4), then the DMBA 6008 and
+DMBA 6005 notes in full, then a "what was left out" section.
+
+**It is genuinely encrypted, not gated.** AES-256-GCM, PBKDF2-SHA256 at 310,000 iterations,
+decrypted in the browser with WebCrypto. The committed file contains **no readable prose** —
+verified against the deployed bytes, not just the local file. That matters because the repo is
+public: a JavaScript `if (password === ...)` check would have shipped the notes in plaintext to
+anyone who hit View Source.
+
+**Aryan chose this knowing what it is.** He was told the repo is public and that a client-side
+password is decorative, and answered *"Public with a password gate anyway"*. The password is
+`password`, his choice, his stated irony. **The security ceiling is the password, and the
+password is guessable** — treat everything on that page as effectively public.
+
+Three things were withheld from it on privacy grounds, not asked about:
+
+- **The DMBA 6005 class slide** — it has a webcam thumbnail of an identifiable person. Its
+  seven questions are transcribed in full instead, so no content was lost.
+- **The Persona C portrait** — a real person's stock photo captioned with an invented name,
+  income and quotes.
+- **The lecturer's name** — stripped to "the lecturer" throughout, per the standing rule.
+
+**If the page is rebuilt, re-apply all three.** They are the reason it is safe to have shipped.
+
 ## Settled — do not re-open
 
-- **DMBA 6005 Week 3 `Live`** — Aryan ruled 2026-08-18: **hold it back.** Never published, in
-  any week, in any rebuild, regardless of its `Pre-Live Session` Type. Enforced in
-  `subjects.json` → `DMBA6005.needsReview.ruling`. The Type argument is closed.
+- **DMBA 6005 Week 3 `Live`** — Aryan ruled 2026-08-18: **hold it back from public week
+  pages.** Never published to a week page, in any week, in any rebuild, regardless of its
+  `Pre-Live Session` Type. Enforced in `subjects.json` → `DMBA6005.needsReview.ruling`. The
+  Type argument is closed. **Partially reversed 2026-08-19:** it *is* carried on the
+  password-gated private page below, which he asked for and which is not built by
+  `sync-subject`. That is not a precedent for the week pages.
 - **Notion is a live note-taking surface again** (2026-08-19). Any doc still saying his notes
   "are no longer in Notion" is stale — that phrasing was purged this session.
 - **Formula images are transcribed, never published** (2026-08-19). Settled during the
