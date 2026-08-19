@@ -211,8 +211,8 @@ Notion→vault sync state is seeded for all **296** pages as of 2026-08-19
 | | DMBA 6008 | DMBA 6005 |
 | --- | --- | --- |
 | Weeks in the vault | 0–4 | 0–3 |
-| Weeks published | 0–3 | 0–3 |
-| Outstanding | **Week 4 is NEW** — 3 of its 4 topics are empty in the source | none |
+| Weeks published | **0–4** | 0–3 |
+| Outstanding | Week 4 published in progress (2026-08-19, Aryan's call) — 3 of its 4 topics are still empty in the source and render as "not yet written" | none |
 | Held for review | — | Week 3 `Live` |
 
 Empty in the source, so empty on the page: DMBA 6008 Week 4's `Strategy and Finance`,

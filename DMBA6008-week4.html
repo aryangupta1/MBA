@@ -1,0 +1,2665 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 4 — Project evaluation — DMBA 6008</title>
+  <meta name="description" content="DMBA 6008 Week 4 — project evaluation. A recap of net present value applied to a lease-versus-buy decision: discounting, present cost and why nominal totals mislead. Published in progress: three of four topics are not yet written.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ======================================================================
+       DESK — house design system, study-page profile.
+       A macOS window floating over the desktop wallpaper. The window holds the
+       whole week; the dock at the foot of the screen is the site navigation.
+       Tokens and components: docs/design-system.md
+       ====================================================================== */
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      /* surfaces */
+      --paper: #F4F1E9;
+      --paper2: #EFEBE1;
+      --surface: #FFFFFF;
+      --surface2: #FBFAF7;
+      --rule: rgba(28, 26, 22, 0.07);
+
+      /* ink */
+      --ink: #141317;
+      --ink2: #57534B;
+      --ink3: #8C867A;
+      --line: #E4E0D5;
+      --line2: #EFEBE2;
+
+      /* accents shared across the house */
+      --lime: #D6F24E;
+      --butter: #EDE884;
+      --blush: #F9DCDC;
+      --sky: #D7E4F8;
+      --mint: #D1EEDA;
+      --lilac: #E6DDF3;
+      --sand: #F2EEBD;
+      --pin: #E8453C;
+      --ink-blue: #3B6FE0;
+
+      /* mac window chrome */
+      --tl-red: #FD5D5C;
+      --tl-amber: #FAC900;
+      --tl-green: #28C840;
+
+      /* Subject identity. --accent* is the modern name; the --petrol* aliases
+         are kept so the hand-authored hex literals inside the SVG figures stay
+         in tune with the chrome. */
+      --accent: #2F5470;
+      --accent-deep: #1F3B51;
+      --accent-soft: #E9EFF4;
+      --accent-glow: rgba(47, 84, 112, 0.13);
+      --petrol: var(--accent);
+      --petrol-deep: var(--accent-deep);
+      --petrol-soft: var(--accent-soft);
+      --petrol-glow: var(--accent-glow);
+
+      /* Verdict colours: value created / break-even / value destroyed */
+      --pos: #1F6A4A;
+      --pos-soft: #E6F1EB;
+      --neu: #8A6D1F;
+      --neu-soft: #F6F0DF;
+      --neg: #B3402A;
+      --neg-soft: #F8E9E5;
+
+      /* geometry */
+      --radius: 14px;
+      --radius-lg: 20px;
+      --r-win: 24px;
+      --r-pill: 999px;
+      --bar: 46px;
+
+      /* elevation */
+      --sh-win: 0 4px 29px rgba(0, 0, 0, 0.16);
+      --sh-card: 0 22px 48px -26px rgba(20, 19, 23, 0.55);
+      --sh-float: 0 40px 90px -32px rgba(10, 18, 30, 0.7);
+
+      /* type */
+      --font-display: 'Mona Sans', 'Helvetica Neue', Arial, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.62;
+      color: var(--ink);
+      background: #3F6EA4;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      padding-bottom: 104px;      /* clearance for the fixed dock */
+    }
+
+    /* ── The desktop behind the window ─────────────────────────────────── */
+    .desk {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      background: linear-gradient(180deg, #33587F 0%, #4C7BA8 30%, #7CA0BE 56%, #9FB4AF 74%, #A7B677 100%);
+    }
+    .desk::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(52% 26% at 50% 16%, rgba(255, 255, 255, 0.55), transparent 66%),
+        radial-gradient(26% 14% at 74% 22%, rgba(255, 255, 255, 0.34), transparent 70%);
+      filter: blur(10px);
+    }
+    .desk::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 20, 34, 0.34), rgba(10, 20, 34, 0.5));
+    }
+    .desk-hills {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      width: 100%;
+      height: 52%;
+      display: block;
+      filter: blur(1.5px);
+    }
+
+    /* ── Stage + back link ─────────────────────────────────────────────── */
+    .stage {
+      width: min(1080px, calc(100% - 2 * clamp(12px, 3vw, 32px)));
+      margin-inline: auto;
+      padding: clamp(16px, 3vw, 34px) 0 clamp(40px, 6vw, 70px);
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: clamp(14px, 2vw, 20px);
+      padding: 9px 18px;
+      border-radius: var(--r-pill);
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .back:hover { background: rgba(255, 255, 255, 0.28); transform: translateX(-3px); }
+
+    /* ── The window ────────────────────────────────────────────────────── */
+    /* No overflow:hidden — descendants need position:sticky to reach the
+       viewport, so the corners are rounded on the first and last children. */
+    .win {
+      position: relative;
+      background: var(--surface);
+      border-radius: var(--r-win);
+      box-shadow: var(--sh-win), var(--sh-float);
+    }
+
+    .win-bar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: var(--bar);
+      padding: 0 14px;
+      border-radius: var(--r-win) var(--r-win) 0 0;
+      background: rgba(241, 239, 234, 0.92);
+      backdrop-filter: blur(14px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
+      border-bottom: 1px solid rgba(20, 19, 23, 0.09);
+    }
+    .win-lights { display: flex; gap: 7px; flex: 0 0 auto; }
+    .win-lights i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+    .win-lights i:nth-child(1) { background: var(--tl-red); }
+    .win-lights i:nth-child(2) { background: var(--tl-amber); }
+    .win-lights i:nth-child(3) { background: var(--tl-green); }
+    .win-addr {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding: 5px 16px;
+      border-radius: var(--r-pill);
+      background: rgba(20, 19, 23, 0.06);
+      font-size: 0.75rem;
+      color: var(--ink2);
+      text-align: center;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .win-tool {
+      flex: 0 0 auto;
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.58rem;
+      letter-spacing: -0.02em;
+    }
+    @media (max-width: 560px) { .win-addr { font-size: 0.68rem; padding: 4px 10px; } }
+
+    .wrap {
+      width: min(880px, calc(100% - 2 * clamp(18px, 5vw, 44px)));
+      margin-inline: auto;
+    }
+
+    /* ── Hero ──────────────────────────────────────────────────────────── */
+    header.hero {
+      position: relative;
+      padding: clamp(38px, 6vw, 72px) 0 clamp(28px, 4vw, 44px);
+      background:
+        radial-gradient(ellipse 80% 70% at 12% 0%, var(--accent-glow), transparent 58%),
+        linear-gradient(180deg, var(--paper2), var(--surface) 78%);
+      overflow: hidden;
+    }
+    header.hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--rule) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+      background-size: 74px 74px;
+      mask-image: radial-gradient(ellipse 78% 70% at 50% 30%, #000, transparent 76%);
+      -webkit-mask-image: radial-gradient(ellipse 78% 70% at 50% 30%, #000, transparent 76%);
+    }
+    header.hero > .wrap { position: relative; z-index: 2; }
+
+    .eyebrow {
+      display: inline-block;
+      margin: 0 0 18px;
+      padding: 7px 16px 7px 30px;
+      position: relative;
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transform: rotate(-2deg);
+      box-shadow: 0 6px 16px -9px rgba(20, 19, 23, 0.6);
+    }
+    .eyebrow::before {
+      content: "";
+      position: absolute;
+      left: 11px;
+      top: -8px;
+      width: 10px;
+      height: 24px;
+      border: 2px solid rgba(20, 19, 23, 0.35);
+      border-radius: 6px;
+      border-bottom-color: transparent;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2.1rem, 6vw, 3.6rem);
+      line-height: 0.94;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+
+    .standfirst {
+      margin: 0;
+      max-width: 60ch;
+      font-size: clamp(1rem, 1.7vw, 1.14rem);
+      line-height: 1.58;
+      color: var(--ink2);
+    }
+
+    .meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(22px, 3vw, 32px); }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 15px;
+      border-radius: var(--r-pill);
+      background: #fff;
+      border: 1px solid var(--line);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--ink2);
+      box-shadow: 0 4px 10px -6px rgba(20, 19, 23, 0.4);
+    }
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--pos);
+      animation: ping 2.6s ease-out infinite;
+    }
+    @keyframes ping {
+      0%   { box-shadow: 0 0 0 0 rgba(31, 106, 74, 0.55); }
+      70%  { box-shadow: 0 0 0 7px rgba(31, 106, 74, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(31, 106, 74, 0); }
+    }
+
+    /* ── Mode tabs — a macOS segmented control ─────────────────────────── */
+    .tabs {
+      position: sticky;
+      top: var(--bar);
+      z-index: 20;
+      padding: 12px 0;
+      background: rgba(251, 250, 247, 0.9);
+      backdrop-filter: blur(12px) saturate(160%);
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+      border-block: 1px solid var(--line2);
+    }
+    .tablist {
+      width: min(880px, calc(100% - 2 * clamp(18px, 5vw, 44px)));
+      margin-inline: auto;
+      display: flex;
+      /* Wraps at ANY width, not only on a phone: .tablist hides its scrollbar, so a row
+         that overflows leaves the last tab unreachable with no affordance. Six tabs need
+         ~857px and five need ~727px, so a 700px breakpoint left every laptop width
+         between clipping. Wrapping only engages when the row genuinely does not fit. */
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 4px;
+      border-radius: var(--r-pill);
+      background: rgba(20, 19, 23, 0.05);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tablist::-webkit-scrollbar { display: none; }
+    .tab {
+      flex: 1 1 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+      padding: 10px 18px;
+      border: 0;
+      border-radius: var(--r-pill);
+      background: transparent;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .tab:hover { color: var(--ink); background: rgba(255, 255, 255, 0.7); }
+    .tab-num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.66rem;
+      letter-spacing: 0.02em;
+      opacity: 0.55;
+    }
+
+    /* On a phone the row also drops its decorative numbers and tightens up, and the
+       pill radius gives way to a rounded rectangle. Wrapping itself is unconditional
+       and lives on .tablist above. */
+    @media (max-width: 700px) {
+      .tablist { border-radius: var(--radius-lg); }
+      .tab { padding: 9px 14px; font-size: 0.82rem; }
+      .tab-num { display: none; }
+    }
+    .tab[aria-selected="true"] {
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: 0 2px 8px -2px rgba(20, 19, 23, 0.28);
+    }
+    .tab[aria-selected="true"] .tab-num { color: var(--accent); opacity: 1; }
+
+    .panel { display: none; }
+    .panel.active { display: block; animation: fade-up 0.45s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+    @keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    main.wrap { padding-top: clamp(30px, 5vw, 52px); }
+
+    /* ── Topic sub-tabs (used where a week splits into topics) ─────────── */
+    .subtabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: clamp(26px, 4vw, 40px);
+    }
+    .subtab {
+      padding: 9px 17px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .subtab:hover { border-color: var(--accent); color: var(--ink); }
+    .subtab[aria-selected="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+    .subtab--empty { color: var(--ink3); border-style: dashed; }
+    .subtab--empty[aria-selected="true"] { background: var(--ink3); border-color: var(--ink3); color: #ffffff; }
+    .subpanel { display: none; }
+    .subpanel.active { display: block; animation: fade-up 0.4s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+
+    .unwritten {
+      padding: clamp(24px, 4vw, 38px);
+      border: 1.5px dashed var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--surface2);
+    }
+    .unwritten h2 { margin-top: 0.5rem; }
+    .unwritten ul { color: var(--ink2); }
+
+    /* ── Content blocks ────────────────────────────────────────────────── */
+    .block {
+      margin-bottom: clamp(40px, 6vw, 68px);
+      scroll-margin-top: calc(var(--bar) + 90px);
+    }
+    .block:last-child { margin-bottom: 0; }
+    .block-num {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 5px 13px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0 0 0.7rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+    h3 {
+      margin: 2rem 0 0.6rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.12rem, 2.2vw, 1.32rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+    h4 {
+      margin: 1.6rem 0 0.5rem;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: -0.01em;
+    }
+    h5 {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+    }
+    p { margin: 0 0 1rem; }
+    .block > p, .unwritten > p { color: var(--ink2); }
+    strong { font-weight: 700; color: var(--ink); }
+    em { font-style: italic; }
+    a { color: var(--accent); text-underline-offset: 3px; }
+
+    ul, ol { margin: 0 0 1.1rem; padding-left: 1.3rem; color: var(--ink2); }
+    li { margin-bottom: 0.5rem; }
+    li::marker { color: var(--accent); }
+
+    .takeaways {
+      list-style: none;
+      margin: 1.4rem 0;
+      padding: clamp(18px, 3vw, 26px) clamp(18px, 3vw, 28px);
+      background: var(--surface2);
+      border: 1px solid var(--line2);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--sh-card);
+    }
+    .takeaways li {
+      position: relative;
+      margin: 0 0 0.75rem;
+      padding-left: 1.9rem;
+      color: var(--ink2);
+    }
+    .takeaways li:last-child { margin-bottom: 0; }
+    .takeaways li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      background: var(--lime);
+      box-shadow: 0 0 0 3px rgba(214, 242, 78, 0.3);
+    }
+
+    .steps { counter-reset: step; list-style: none; padding-left: 0; margin: 1.4rem 0; }
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      margin-bottom: 1rem;
+      padding-left: 2.6rem;
+      color: var(--ink2);
+    }
+    .steps li::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 0.05em;
+      width: 1.9rem;
+      height: 1.9rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    .steps li strong { display: block; color: var(--ink); }
+
+    /* ── Callouts ──────────────────────────────────────────────────────── */
+    .callout {
+      display: flex;
+      gap: 14px;
+      margin: 1.6rem 0;
+      padding: clamp(18px, 3vw, 24px);
+      border-radius: var(--radius-lg);
+      background: var(--sand);
+      box-shadow: 6px 6px 0 rgba(20, 19, 23, 0.06);
+    }
+    .callout p { margin: 0; font-size: 1.02rem; font-weight: 600; line-height: 1.5; color: var(--ink); }
+    .callout p + p { margin-top: 0.7rem; font-weight: 400; color: var(--ink2); }
+    .icon { flex: 0 0 auto; font-size: 1.15rem; line-height: 1.35; }
+    /* A callout with more than one paragraph wraps them in a div, or the flex
+       row would lay the paragraphs out side by side. */
+    .callout > div { flex: 1 1 auto; min-width: 0; }
+    .callout--key { background: var(--sand); }
+    .callout--ask { background: var(--sky); }
+
+    /* ── Tables ────────────────────────────────────────────────────────── */
+    .table-scroll {
+      margin: 1.5rem 0;
+      overflow-x: auto;
+      border: 1px solid var(--line2);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      box-shadow: var(--sh-card);
+      -webkit-overflow-scrolling: touch;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 460px; }
+    thead th {
+      position: sticky;
+      top: 0;
+      background: var(--paper2);
+      text-align: left;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    tbody th { text-align: left; font-weight: 700; color: var(--ink); }
+    td, tbody th { padding: 12px 16px; border-bottom: 1px solid var(--line2); vertical-align: top; color: var(--ink2); }
+    tbody tr:last-child td, tbody tr:last-child th { border-bottom: 0; }
+    tbody tr:hover { background: var(--surface2); }
+
+    .verdict {
+      display: inline-block;
+      padding: 3px 11px;
+      border-radius: var(--r-pill);
+      font-size: 0.72rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .verdict--pos { background: var(--pos-soft); color: var(--pos); }
+    .verdict--neu { background: var(--neu-soft); color: var(--neu); }
+    .verdict--neg { background: var(--neg-soft); color: var(--neg); }
+
+    /* ── Formulas ──────────────────────────────────────────────────────── */
+    .formula {
+      margin: 1.3rem 0;
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: #F2F0EA;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      box-shadow: var(--sh-card);
+    }
+    .formula-stack { display: flex; flex-direction: column; gap: 6px; }
+    .formula-stack span { display: block; white-space: nowrap; }
+
+    /* ── Worked examples ───────────────────────────────────────────────── */
+    .example-grid { display: grid; gap: 16px; margin: 1.5rem 0; }
+    @media (min-width: 620px) { .example-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); } }
+    .example {
+      padding: 20px 22px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .example--pos { border-color: rgba(31, 106, 74, 0.35); background: linear-gradient(180deg, var(--pos-soft), #fff 46%); }
+    .example--neg { border-color: rgba(179, 64, 42, 0.35); background: linear-gradient(180deg, var(--neg-soft), #fff 46%); }
+    .example dl { margin: 0; font-size: 0.86rem; }
+    .example dt { font-weight: 600; color: var(--ink2); }
+    .example dd { margin: 0 0 0.5rem; font-family: var(--font-mono); color: var(--ink); }
+    .result {
+      margin: 0.9rem 0 0;
+      padding-top: 0.8rem;
+      border-top: 1px dashed var(--line);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--accent-deep);
+    }
+    .note { font-size: 0.84rem; color: var(--ink3); }
+
+    /* ── Principle cards ───────────────────────────────────────────────── */
+    .principles { display: grid; gap: 14px; counter-reset: principle; margin: 1.6rem 0; }
+    @media (min-width: 640px) { .principles { grid-template-columns: 1fr 1fr; } }
+    .principle {
+      position: relative;
+      counter-increment: principle;
+      padding: 22px 22px 22px 62px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+      transition: transform 0.24s ease, box-shadow 0.24s ease;
+    }
+    .principle:hover { transform: translateY(-3px); box-shadow: 0 30px 56px -30px rgba(20, 19, 23, 0.6); }
+    .principle::before {
+      content: counter(principle, decimal-leading-zero);
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      opacity: 0.4;
+    }
+    .p-name { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .p-q { font-size: 0.88rem; font-style: italic; color: var(--accent-deep); margin-bottom: 8px; }
+    .p-def { margin: 0; font-size: 0.88rem; color: var(--ink2); }
+
+    /* ── Figures ───────────────────────────────────────────────────────── */
+    figure { margin: 1.8rem 0; }
+    .fig-frame {
+      overflow-x: auto;
+      padding: clamp(16px, 3vw, 26px);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+      -webkit-overflow-scrolling: touch;
+    }
+    .fig-frame svg { width: 100%; height: auto; min-width: 420px; display: block; }
+    figcaption {
+      margin-top: 0.75rem;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: var(--ink3);
+    }
+    .svg-label { font-family: var(--font-sans); font-size: 12px; font-weight: 600; fill: var(--ink); }
+    .svg-sub { font-family: var(--font-sans); font-size: 10px; font-weight: 500; fill: var(--ink3); }
+    .svg-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      fill: var(--ink3);
+    }
+    .svg-mono { font-family: var(--font-mono); font-size: 11px; font-weight: 600; fill: var(--accent-deep); }
+
+    /* ── Key concepts ──────────────────────────────────────────────────── */
+    .toolbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 1.1rem; }
+    .search {
+      flex: 1 1 240px;
+      min-width: 0;
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--ink);
+      box-shadow: 0 4px 12px -8px rgba(20, 19, 23, 0.5);
+    }
+    .search:focus { outline: 3px solid var(--accent-glow); outline-offset: 0; border-color: var(--accent); }
+    .count {
+      flex: 0 0 auto;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.3rem; }
+    .chip {
+      padding: 7px 15px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .chip:hover { border-color: var(--accent); color: var(--ink); }
+    .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+
+    .glossary { display: grid; gap: 12px; }
+    .term {
+      position: relative;
+      padding: 18px 20px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .term:hover { transform: translateY(-2px); box-shadow: var(--sh-card); }
+    .term[hidden] { display: none; }
+    .term-topic {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 3px 10px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .term-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .term-name {
+      margin: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: -0.02em;
+    }
+    .term-src {
+      flex: 0 0 auto;
+      max-width: 45%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--ink3);
+    }
+    .term-src--own {
+      padding: 2px 9px;
+      border-radius: var(--r-pill);
+      background: var(--lime);
+      color: var(--ink);
+    }
+    .term-def { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--ink2); }
+    .term-formula {
+      margin-top: 0.7rem;
+      padding: 9px 13px;
+      border-radius: 10px;
+      background: var(--paper2);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-deep);
+      overflow-x: auto;
+    }
+    /* ── Acronym headings (Acronyms tab; everything else reuses .term) ─── */
+    .term-abbr { font-family: var(--font-mono); font-weight: 700; color: var(--accent-deep); }
+    .term-long { font-weight: 500; color: var(--ink2); }
+
+    .no-results { padding: 26px; text-align: center; color: var(--ink3); }
+
+    /* ── Flashcards ────────────────────────────────────────────────────── */
+    .deck { margin-top: 1.4rem; }
+    .deck-meta { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .deck-count { font-size: 0.8rem; font-weight: 600; color: var(--ink3); font-variant-numeric: tabular-nums; }
+    .deck-count strong { color: var(--ink); }
+    .progress { flex: 1 1 auto; height: 6px; border-radius: var(--r-pill); background: rgba(20, 19, 23, 0.08); overflow: hidden; }
+    .progress-fill {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: var(--r-pill);
+      background: linear-gradient(90deg, var(--accent), var(--lime));
+      transition: width 0.3s ease;
+    }
+
+    .flip {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: none;
+      perspective: 1400px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .flip-inner {
+      position: relative;
+      display: block;
+      min-height: 320px;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.3, 1);
+    }
+    .flip[aria-pressed="true"] .flip-inner { transform: rotateY(180deg); }
+    .face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      padding: clamp(24px, 4vw, 40px);
+      border-radius: var(--radius-lg);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      text-align: left;
+    }
+    .face-front {
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .face-back {
+      background: linear-gradient(150deg, var(--accent-deep), var(--accent));
+      color: #F2F0EA;
+      transform: rotateY(180deg);
+      box-shadow: var(--sh-card);
+    }
+    .face-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+    .face-back .face-tag { color: rgba(242, 240, 234, 0.65); }
+    .face-topic { font-weight: 600; letter-spacing: 0.04em; text-transform: none; opacity: 0.8; }
+    .face-back .face-topic { color: rgba(242, 240, 234, 0.75); }
+    .face-text {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.1rem, 3.2vw, 1.42rem);
+      line-height: 1.28;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .face-back .face-text { color: #FBFAF7; font-weight: 600; font-size: clamp(0.98rem, 2.8vw, 1.18rem); line-height: 1.5; }
+    .face-hint { font-size: 0.74rem; color: var(--ink3); }
+    .face-back .face-hint { color: rgba(242, 240, 234, 0.6); }
+
+    .deck-controls { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+    .btn {
+      flex: 1 1 auto;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: var(--r-pill);
+      background: var(--ink);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+      box-shadow: 0 12px 22px -16px rgba(20, 19, 23, 0.9);
+    }
+    .btn:hover:not(:disabled) { transform: translateY(-2px); }
+    .btn:disabled { opacity: 0.34; cursor: not-allowed; }
+    .btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+    .btn--ghost:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
+
+    .kbd-hint { margin: 14px 0 0; font-size: 0.76rem; color: var(--ink3); text-align: center; }
+    kbd {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-bottom-width: 2px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink2);
+    }
+
+    /* ── Footer ────────────────────────────────────────────────────────── */
+    footer.page-foot {
+      margin-top: clamp(50px, 8vw, 88px);
+      padding: clamp(30px, 5vw, 46px) 0;
+      border-radius: 0 0 var(--r-win) var(--r-win);
+      background: var(--butter);
+    }
+    footer.page-foot p {
+      margin: 0 0 0.4rem;
+      font-size: 0.84rem;
+      color: rgba(20, 19, 23, 0.78);
+    }
+    footer.page-foot p:first-child { font-weight: 700; color: var(--ink); }
+    footer.page-foot p:last-child { margin-bottom: 0; }
+
+    /* ── Dock ──────────────────────────────────────────────────────────── */
+    .dock {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 18px 40px -18px rgba(20, 19, 23, 0.6);
+      max-width: calc(100vw - 24px);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .dock::-webkit-scrollbar { display: none; }
+    .dock-item {
+      position: relative;
+      flex: 0 0 auto;
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      background: linear-gradient(160deg, #fff, #EDEAE2);
+      box-shadow: 0 2px 6px rgba(20, 19, 23, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.3), box-shadow 0.22s ease;
+    }
+    .dock-item:hover, .dock-item:focus-visible {
+      transform: translateY(-12px) scale(1.14);
+      box-shadow: 0 14px 26px -10px rgba(20, 19, 23, 0.5);
+    }
+    .dock-item[data-tint="lime"]  { background: linear-gradient(160deg, #E9FB88, var(--lime)); }
+    .dock-item[data-tint="sky"]   { background: linear-gradient(160deg, #EDF3FD, var(--sky)); }
+    .dock-item[data-tint="blush"] { background: linear-gradient(160deg, #FDF0F0, var(--blush)); }
+    .dock-item[data-tint="mint"]  { background: linear-gradient(160deg, #EAF8EE, var(--mint)); }
+    .dock-item[data-tint="lilac"] { background: linear-gradient(160deg, #F4EFFB, var(--lilac)); }
+    .dock-item[data-tint="sand"]  { background: linear-gradient(160deg, #FAF8DE, var(--sand)); }
+    .dock-item::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      padding: 5px 11px;
+      border-radius: 9px;
+      background: rgba(20, 19, 23, 0.92);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.72rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    .dock-item:hover::after, .dock-item:focus-visible::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .dock-item[aria-current="page"] {
+      box-shadow: 0 2px 6px rgba(20, 19, 23, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 0 0 2px var(--ink);
+    }
+    .dock-sep { flex: 0 0 auto; width: 1px; height: 34px; background: rgba(20, 19, 23, 0.14); margin: 0 2px; }
+    @media (max-width: 600px) {
+      body { padding-bottom: 84px; }
+      .dock { gap: 6px; padding: 7px 9px; bottom: 12px; }
+      .dock-item { width: 44px; height: 44px; font-size: 0.68rem; }
+      .dock-item::after { display: none; }
+      .dock-sep { height: 28px; }
+    }
+
+    /* ── Summary index, collapse and search ───────────────────────────────
+       The index is BUILT AT RUNTIME from the blocks themselves (see the
+       script), so it can never drift from the content and a re-sync needs
+       no extra work. With JavaScript off the summary reads exactly as it
+       did before — every block is open and there is simply no index. */
+    .toc {
+      margin-bottom: clamp(28px, 4vw, 44px);
+      padding: clamp(18px, 3vw, 24px);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .toc-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .toc-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .toc-actions { display: flex; gap: 8px; }
+    .toc-btn {
+      padding: 6px 13px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .toc-btn:hover { border-color: var(--accent); color: var(--ink); }
+    .toc .toolbar { margin-bottom: 0.9rem; }
+    .toc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 2px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 640px) { .toc-list { grid-template-columns: 1fr 1fr; column-gap: 14px; } }
+    .toc-list.is-long { max-height: 19rem; overflow-y: auto; }
+    .toc-list li[hidden] { display: none; }
+    .toc-list a {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      padding: 7px 10px;
+      border-radius: 10px;
+      color: var(--ink2);
+      text-decoration: none;
+      font-size: 0.86rem;
+      line-height: 1.4;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+    .toc-list a:hover { background: var(--accent-soft); color: var(--ink); }
+    .toc-n {
+      flex: 0 0 auto;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+    .toc-empty { margin: 0; padding: 14px 10px 4px; color: var(--ink3); font-size: 0.86rem; }
+
+    /* A block becomes a disclosure. `.block` itself is untouched so the
+       prose-budget gate still measures the same thing. */
+    .block[hidden] { display: none; }
+    .block-d > summary {
+      list-style: none;
+      cursor: pointer;
+      position: relative;
+      padding-right: 34px;
+    }
+    .block-d > summary::-webkit-details-marker { display: none; }
+    .block-d > summary::after {
+      content: "";
+      position: absolute;
+      right: 8px;
+      top: 0.75em;
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid var(--ink3);
+      border-bottom: 2px solid var(--ink3);
+      transform: rotate(45deg);
+      transition: transform 0.22s ease, border-color 0.22s ease;
+    }
+    .block-d[open] > summary::after { transform: rotate(-135deg); }
+    .block-d > summary:hover h2 { color: var(--accent); }
+    .block-d > summary:hover::after { border-color: var(--accent); }
+    .block-d > summary h2 { transition: color 0.2s ease; }
+    .block-d > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 4px; border-radius: 10px; }
+    .block-d:not([open]) > summary h2 { margin-bottom: 0; }
+    /* Topic chips built at runtime use aria-pressed; the sub-tabbed weeks
+       use aria-selected. Same look for both. */
+    .subtab[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    /* ── Accessibility ─────────────────────────────────────────────────── */
+    :focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 3px; border-radius: 8px; }
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      z-index: 200;
+      padding: 12px 20px;
+      background: var(--ink);
+      color: #fff;
+      border-radius: 0 0 10px 0;
+      text-decoration: none;
+    }
+    .skip:focus { left: 0; }
+    .visually-hidden, .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+    /* ── Quiz & Apply it ───────────────────────────────────────────────
+       Two practice modes layered on top of the synced material. Both are
+       rendered at runtime from authored arrays, the way the glossary and
+       the deck already are, so a re-sync replaces data and never markup.
+       Right/wrong reuse the --pos/--neg verdict tokens the page already
+       defines; no new token is introduced. */
+    .quizbar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 1.5rem 0 0.4rem;
+      padding: 13px 18px;
+      border-radius: var(--radius-lg);
+      background: var(--surface2);
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .quizbar .progress { min-width: 120px; }
+    .quizbar .btn { flex: 0 0 auto; }
+    .quiz-score {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+    .quiz-score strong { color: var(--ink); }
+    .quiz-verdict {
+      margin: 0.6rem 0 0;
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      background: var(--pos-soft);
+      color: var(--pos);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .quiz-verdict[hidden] { display: none; }
+
+    .quiz-list, .scen-list { display: grid; gap: 16px; margin-top: 1.4rem; }
+    .quiz-q, .scen {
+      padding: clamp(18px, 3vw, 26px);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+    }
+    .quiz-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .quiz-n {
+      flex: 0 0 auto;
+      padding: 3px 11px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .quiz-stem {
+      margin: 0 0 0.2rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.04rem;
+      line-height: 1.36;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: pretty;
+    }
+
+    .opts { display: grid; gap: 9px; margin-top: 1rem; }
+    .opt {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--ink2);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    }
+    .opt:hover:not(:disabled) { border-color: var(--accent); color: var(--ink); transform: translateY(-1px); }
+    .opt:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; }
+    .opt:disabled { cursor: default; }
+    .opt-key {
+      flex: 0 0 auto;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--paper2);
+      color: var(--ink2);
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      font-weight: 800;
+    }
+    .opt-t { flex: 1 1 auto; min-width: 0; }
+    .opt[data-state="right"] { border-color: var(--pos); background: var(--pos-soft); color: var(--ink); }
+    .opt[data-state="right"] .opt-key { background: var(--pos); color: #fff; }
+    .opt[data-state="wrong"] { border-color: var(--neg); background: var(--neg-soft); color: var(--ink); }
+    .opt[data-state="wrong"] .opt-key { background: var(--neg); color: #fff; }
+    .opt[data-state="off"] { opacity: 0.5; }
+
+    .fb {
+      margin-top: 12px;
+      padding: 13px 17px;
+      border-radius: var(--radius);
+      background: var(--surface2);
+      border-left: 3px solid var(--ink3);
+    }
+    .fb + .fb { margin-top: 9px; }
+    .fb p { margin: 0.35rem 0 0; font-size: 0.87rem; color: var(--ink2); }
+    .fb-tag {
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+    .fb--right { border-left-color: var(--pos); background: var(--pos-soft); }
+    .fb--right .fb-tag { color: var(--pos); }
+    .fb--wrong { border-left-color: var(--neg); background: var(--neg-soft); }
+    .fb--wrong .fb-tag { color: var(--neg); }
+
+    /* ── Progressive reveals — hints and walkthroughs ──────────────────── */
+    .reveal {
+      margin-top: 10px;
+      border: 1.5px dashed var(--line);
+      border-radius: var(--radius);
+      background: var(--surface2);
+    }
+    .reveal > summary {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 16px;
+      list-style: none;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+    }
+    .reveal > summary::-webkit-details-marker { display: none; }
+    .reveal > summary::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+      transform: rotate(-45deg);
+      transition: transform 0.22s ease;
+    }
+    .reveal[open] > summary::before { transform: rotate(45deg); }
+    .reveal > summary:hover { color: var(--accent); }
+    .reveal > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; border-radius: var(--radius); }
+    .reveal-body { padding: 0 16px 14px; }
+    .reveal-body p { margin: 0; font-size: 0.88rem; color: var(--ink2); }
+    .reveal-body .steps { margin: 0.2rem 0 0; }
+    .reveal-body .steps li { font-size: 0.88rem; }
+    .reveal--work { border-style: solid; border-color: var(--line2); background: #fff; }
+
+    /* ── Apply it ──────────────────────────────────────────────────────── */
+    .scen-title {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.12rem, 2.2vw, 1.3rem);
+      line-height: 1.16;
+      letter-spacing: -0.025em;
+    }
+    .scen-setup { margin: 0 0 0.9rem; font-size: 0.94rem; color: var(--ink2); }
+    .scen-task {
+      margin: 0 0 1.1rem;
+      padding: 13px 17px;
+      border-radius: var(--radius);
+      background: var(--sky);
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+    .scen-task strong {
+      display: block;
+      margin-bottom: 3px;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .check { list-style: none; margin: 0.4rem 0 0; padding-left: 0; }
+    .check li {
+      position: relative;
+      margin-bottom: 0.55rem;
+      padding-left: 1.7rem;
+      font-size: 0.88rem;
+      color: var(--ink2);
+    }
+    .check li:last-child { margin-bottom: 0; }
+    .check li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.28em;
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid var(--ink3);
+      border-radius: 4px;
+      background: #fff;
+    }
+    .reveal-body h5 { margin-top: 1.2rem; }
+
+    /* ── The study path ────────────────────────────────────────────────
+       "How to master this week" — the first block of the summary panel.
+       A numbered route through the modes the week actually has, with each
+       step able to jump straight to its tab. Authored as static markup so
+       the panel still reads with JS off; only the jump is enhanced. */
+    .path {
+      counter-reset: pathstep;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin: 1.5rem 0 1.3rem;
+      padding-left: 0;
+    }
+    .path-step {
+      counter-increment: pathstep;
+      position: relative;
+      margin: 0;
+      padding: 19px 22px 19px 66px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+    }
+    .path-step::before {
+      content: counter(pathstep, decimal-leading-zero);
+      position: absolute;
+      left: 20px;
+      top: 19px;
+      z-index: 1;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    /* The spine that makes it read as a route rather than a list. */
+    .path-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 34px;
+      top: 49px;
+      bottom: -13px;
+      width: 2px;
+      background: var(--line);
+    }
+    .path-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .path-label {
+      margin: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.02rem;
+      line-height: 1.24;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .path-time {
+      flex: 0 0 auto;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+    .path-step > p { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--ink2); }
+    .path-go {
+      margin-top: 13px;
+      padding: 7px 15px;
+      border: 1px solid var(--accent-soft);
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    }
+    .path-go:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .path-go:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; }
+    .path-close {
+      margin: 0;
+      padding: 17px 21px;
+      border-radius: var(--radius-lg);
+      background: var(--lime);
+      font-size: 0.94rem;
+      line-height: 1.5;
+      color: var(--ink);
+      box-shadow: 6px 6px 0 rgba(20, 19, 23, 0.06);
+    }
+    .path-close strong {
+      display: block;
+      margin-bottom: 3px;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 520px) {
+      .path-head { flex-direction: column; gap: 2px; }
+    }
+
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#panel-summary">Skip to content</a>
+
+  <div class="desk" aria-hidden="true">
+    <svg class="desk-hills" viewBox="0 0 1440 600" preserveAspectRatio="none" focusable="false">
+      <defs>
+        <linearGradient id="dh1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#A9BE8C"/><stop offset="1" stop-color="#8FA96E"/>
+        </linearGradient>
+        <linearGradient id="dh2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#C6D25E"/><stop offset="1" stop-color="#9DB248"/>
+        </linearGradient>
+        <linearGradient id="dh3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#7FA045"/><stop offset="1" stop-color="#4F7431"/>
+        </linearGradient>
+        <linearGradient id="dh4" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#5C8235"/><stop offset="1" stop-color="#33501F"/>
+        </linearGradient>
+      </defs>
+      <path fill="url(#dh1)" d="M0 214C176 132 352 108 566 168c214 60 366 122 552 96 122-17 232-70 322-124V600H0Z"/>
+      <path fill="url(#dh2)" d="M0 322C154 240 330 226 520 276c190 50 336 118 522 96 132-16 268-84 398-152V600H0Z"/>
+      <path fill="url(#dh3)" d="M0 430C132 356 302 330 486 372c184 42 326 110 512 92 130-13 288-72 442-140V600H0Z"/>
+      <path fill="url(#dh4)" d="M0 536C160 470 356 452 556 486c200 34 346 78 512 62 138-14 254-52 372-98V600H0Z"/>
+    </svg>
+  </div>
+
+  <div class="stage">
+    <a class="back" href="DMBA6008-weeks.html"><span aria-hidden="true">←</span> All weeks</a>
+
+    <div class="win">
+      <div class="win-bar">
+        <span class="win-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="win-addr">DMBA 6008 &nbsp;/&nbsp; Week 4 &mdash; Project evaluation</span>
+        <span class="win-tool" aria-hidden="true">MBA</span>
+      </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">DMBA 6008 · Finance, Strategy and Technology · Week 4</p>
+      <h1>PROJECT<br><span class="hero-em">EVALUATION</span></h1>
+      <p class="standfirst">Two ways to pay for the same software, five years apart in shape. Week 4 recaps net present value as the tool that makes them comparable — and shows why the option with the larger nominal total can still be the cheaper one. <strong>This week is a work in progress:</strong> one topic of four is written, and the rest are titles only.</p>
+      <div class="meta-row">
+        <span class="pill"><span class="dot" aria-hidden="true"></span> Pre-live session</span>
+        <span class="pill">12 key terms</span>
+        <span class="pill">20 flashcards</span>
+        <span class="pill">5 quiz questions</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Week 4 study modes">
+    <div class="tablist" role="tablist">
+      <button class="tab" id="tab-summary" role="tab" aria-selected="true" aria-controls="panel-summary"
+        data-panel="summary"><span class="tab-num" aria-hidden="true">01</span>Summary &amp; visuals</button>
+      <button class="tab" id="tab-terms" role="tab" aria-selected="false" aria-controls="panel-terms"
+        data-panel="terms" tabindex="-1"><span class="tab-num" aria-hidden="true">02</span>Key concepts</button>
+      <button class="tab" id="tab-cards" role="tab" aria-selected="false" aria-controls="panel-cards"
+        data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
+
+      <button class="tab" id="tab-acronyms" role="tab" aria-selected="false" aria-controls="panel-acronyms"
+        data-panel="acronyms" tabindex="-1"><span class="tab-num" aria-hidden="true">04</span>Acronyms</button>
+      <button class="tab" id="tab-formulas" role="tab" aria-selected="false" aria-controls="panel-formulas"
+        data-panel="formulas" tabindex="-1"><span class="tab-num" aria-hidden="true">05</span>Formulas</button>
+      <button class="tab" id="tab-quiz" role="tab" aria-selected="false" aria-controls="panel-quiz"
+        data-panel="quiz" tabindex="-1"><span class="tab-num" aria-hidden="true">06</span>Quiz</button>
+      <button class="tab" id="tab-apply" role="tab" aria-selected="false" aria-controls="panel-apply"
+        data-panel="apply" tabindex="-1"><span class="tab-num" aria-hidden="true">07</span>Apply it</button>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- ══════════════════ 01 · SUMMARY & VISUALS ══════════════════ -->
+    <section class="panel active" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" tabindex="0">
+      <div class="block">
+        <span class="block-num">00 / Start here</span>
+        <h2>How to master this week</h2>
+        <p>A short week, deliberately. One written topic, one formula and one worked example — a full pass takes about forty minutes, and most of that is making the example your own.</p>
+
+        <ol class="path">
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Read the recap in order</h3>
+              <span class="path-time">~10 min</span>
+            </div>
+            <p>Four blocks, then three titles. Do not skip the timing figure — the entire $826 comes from which payments sit at t = 0 and which do not. Read the note about the $2000 and 2,200 discrepancy rather than skimming past it.</p>
+            <button class="path-go" type="button" data-goto="summary">Open Summary &amp; visuals <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Learn the one formula properly</h3>
+              <span class="path-time">~5 min</span>
+            </div>
+            <p>PV = CFt / (1 + r)^t is the whole week. Say out loud what each of the three symbols does to the answer, and be able to state why a t = 0 cash flow is untouched by it.</p>
+            <button class="path-go" type="button" data-goto="formulas">Open Formulas <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Rebuild the lease calculation yourself</h3>
+              <span class="path-time">~10 min</span>
+            </div>
+            <p>Cover the page and reproduce the five discounted terms to $9,174, then subtract from $10,000 to get $826. If you cannot get there, you do not yet own the example.</p>
+            <button class="path-go" type="button" data-goto="summary">Open Summary &amp; visuals <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Separate nominal from present</h3>
+              <span class="path-time">~5 min</span>
+            </div>
+            <p>Twelve terms, but the pair that matters is nominal cash totals against present economic cost. $11,000 against $10,000 says buy; $9,174 against $10,000 says lease. Know which comparison is the valid one and why.</p>
+            <button class="path-go" type="button" data-goto="terms">Open Key concepts <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Drill the numbers</h3>
+              <span class="path-time">~7 min</span>
+            </div>
+            <p>Twenty cards. The figures — $10,000, $9,174, $826, $11,000 — should come back without hesitation, because a half-remembered worked example is worse than none.</p>
+            <button class="path-go" type="button" data-goto="cards">Open Flashcards <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Test the reasoning</h3>
+              <span class="path-time">~8 min</span>
+            </div>
+            <p>Five questions aimed at the confusions this material invites: totals versus present values, and what the hurdle rate actually changes.</p>
+            <button class="path-go" type="button" data-goto="quiz">Open Quiz <span aria-hidden="true">&rarr;</span></button>
+          </li>
+        </ol>
+
+        <p class="path-close"><strong>The test</strong>You have it when you can explain, without the page, why an option costing more in total can still be the cheaper one.</p>
+      </div>
+
+      <div class="block" data-topic="Recap of NPV">
+        <span class="block-num">01 / The decision</span>
+        <h2>NPV in a lease-versus-buy decision</h2>
+        <p>NPV allows cash flows occurring at different points in time to be compared on a
+          <strong>present-value basis</strong>. For mutually exclusive financing or acquisition options, compare the
+          present value of the cash outflows and choose the option with the <strong>lower present cost</strong>.</p>
+
+        <div class="callout callout--ask">
+          <span class="icon" aria-hidden="true">❓</span>
+          <p><em>Which option consumes less economic value today after recognising the time value of money?</em></p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Recap of NPV">
+        <span class="block-num">02 / Discounting</span>
+        <h2>Why a later dollar counts for less</h2>
+        <p>Future payments are discounted because a dollar paid later has a lower present value than a dollar paid
+          today.</p>
+
+        <div class="formula">PV = CFt / (1 + r)^t</div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Term</th>
+                <th scope="col">What it is</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">CFt</th><td>Cash flow in period t</td></tr>
+              <tr><th scope="row">r</th><td>Hurdle / discount rate</td></tr>
+              <tr><th scope="row">t</th><td>Number of periods from today</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ul>
+          <li>A cash flow occurring <strong>immediately (t=0) is not discounted</strong></li>
+          <li>As either r or t increases, the present value of a future outflow falls</li>
+          <li>The discount/hurdle rate may reflect the <strong>cost of financing</strong> the competing alternatives</li>
+        </ul>
+      </div>
+
+      <div class="block" data-topic="Recap of NPV">
+        <span class="block-num">03 / Worked example</span>
+        <h2>Lease versus buy, at a 10% hurdle rate</h2>
+        <p>Software can either be bought for $10,000 immediately, or leased over five annual payments with the first
+          paid immediately. Both give access for the same five-year period, so the comparison is driven by the
+          <strong>timing and present value</strong> of the cash flows.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 208" role="img" aria-labelledby="npvfig1-title npvfig1-desc">
+              <title id="npvfig1-title">The same software, paid for in two different shapes</title>
+              <desc id="npvfig1-desc">Two payment profiles on a shared five-period timeline. Buying is a single
+                payment at time zero. Leasing is five equal payments, one at each of periods zero through four. Only
+                the buy payment and the first lease payment sit at time zero and escape discounting; the remaining
+                four lease payments are discounted back, which is why the lease costs less in present-value
+                terms.</desc>
+
+              <text class="svg-eyebrow" x="0" y="12">SAME SOFTWARE, TWO PAYMENT SHAPES</text>
+
+              <text class="svg-label" x="0" y="52">BUY</text>
+              <rect x="120" y="32" width="104" height="28" rx="8" fill="#2F5470" />
+              <text class="svg-label" x="172" y="51" text-anchor="middle" fill="#ffffff">$10,000</text>
+
+              <text class="svg-label" x="0" y="104">LEASE</text>
+              <rect x="120" y="84" width="104" height="28" rx="8" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.35" />
+              <text class="svg-label" x="172" y="103" text-anchor="middle">$2,200</text>
+              <rect x="240" y="84" width="104" height="28" rx="8" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.35" />
+              <text class="svg-label" x="292" y="103" text-anchor="middle">$2,200</text>
+              <rect x="360" y="84" width="104" height="28" rx="8" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.35" />
+              <text class="svg-label" x="412" y="103" text-anchor="middle">$2,200</text>
+              <rect x="480" y="84" width="104" height="28" rx="8" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.35" />
+              <text class="svg-label" x="532" y="103" text-anchor="middle">$2,200</text>
+              <rect x="600" y="84" width="104" height="28" rx="8" fill="#E9EFF4" stroke="#2F5470" stroke-opacity="0.35" />
+              <text class="svg-label" x="652" y="103" text-anchor="middle">$2,200</text>
+
+              <path d="M120 128 L710 128" stroke="#c9c3b6" stroke-width="1.5" />
+              <text class="svg-sub" x="172" y="146" text-anchor="middle">t = 0</text>
+              <text class="svg-sub" x="292" y="146" text-anchor="middle">t = 1</text>
+              <text class="svg-sub" x="412" y="146" text-anchor="middle">t = 2</text>
+              <text class="svg-sub" x="532" y="146" text-anchor="middle">t = 3</text>
+              <text class="svg-sub" x="652" y="146" text-anchor="middle">t = 4</text>
+
+              <text class="svg-eyebrow" x="0" y="146">TIMING</text>
+
+              <rect x="0" y="164" width="344" height="34" rx="10" fill="#ffffff" stroke="#e2ded5" />
+              <text class="svg-sub" x="16" y="185">Not discounted &#183; paid today</text>
+              <rect x="360" y="164" width="350" height="34" rx="10" fill="#ffffff" stroke="#e2ded5" />
+              <text class="svg-sub" x="376" y="185">Discounted back at 10% &#183; worth less today</text>
+            </svg>
+          </div>
+          <figcaption>Only the payments at t = 0 escape discounting. That is the whole of the difference between the
+            two options.</figcaption>
+        </figure>
+
+        <div class="formula formula-stack">
+          <span>PVlease = 2,200 + 2,200/1.10 + 2,200/1.10² + 2,200/1.10³ + 2,200/1.10⁴ = $9,174</span>
+        </div>
+
+        <p class="note">My notes describe the lease as “five annual payments of $2000”, but the calculation they set
+          out uses payments of 2,200 — and only 2,200 produces the $9,174 recorded below. Both are reproduced here
+          exactly as written rather than reconciled.</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Option</th>
+                <th scope="col">Present value of cash outflows</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Buy</th><td>$10,000</td></tr>
+              <tr><th scope="row">Lease</th><td>$9,174</td></tr>
+              <tr><th scope="row">Economic advantage of leasing</th><td>$826</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Leasing creates an <strong>$826 advantage</strong> relative to buying in this example. Although nominal
+          lease payments total $11,000, comparing $11,000 with $10,000 would be misleading, because most lease
+          payments occur in the future.</p>
+      </div>
+
+      <div class="block" data-topic="Recap of NPV">
+        <span class="block-num">04 / Takeaways</span>
+        <h2>What this recap is for</h2>
+        <ul class="takeaways">
+          <li><strong>Do not compare nominal cash totals when their timing differs</strong> — discount them to a
+            common point in time first</li>
+          <li>The hurdle rate can materially affect lease-versus-buy conclusions, because it determines how heavily
+            future payments are discounted</li>
+          <li>For alternatives delivering the same underlying benefit, compare their <strong>present economic
+            cost</strong>, not just the upfront price or the total contractual payments</li>
+          <li>NPV converts financing and investment alternatives into a common value measure, supporting decisions
+            about <strong>asset acquisition, financing and capital allocation</strong></li>
+        </ul>
+      </div>
+
+      <div class="block" data-topic="Strategy and Finance" data-topic-empty="true">
+        <span class="block-num">05 / Not yet written</span>
+        <h2>Strategy and Finance</h2>
+        <p>This sub-page of my Week 4 pre-live note exists but has no content yet. Nothing has been generated to
+          stand in for it.</p>
+      </div>
+
+      <div class="block" data-topic="Golden rules of project evaluation" data-topic-empty="true">
+        <span class="block-num">06 / Not yet written</span>
+        <h2>Golden rules of project evaluation</h2>
+        <p>Empty in the source. The title is the only thing that exists so far, and it is left here so the shape of
+          the week is visible rather than hidden.</p>
+      </div>
+
+      <div class="block" data-topic="Application and solution" data-topic-empty="true">
+        <span class="block-num">07 / Not yet written</span>
+        <h2>Application and solution</h2>
+        <p>Also empty in the source. Expect it to work the recap through to a decision once written.</p>
+      </div>
+
+      <div class="block">
+        <span class="block-num">08 / Where this week stands</span>
+        <h2>One topic of four, published deliberately</h2>
+        <p>Week 4 is published while still in progress. <strong>Recap of NPV</strong> is complete and is the whole of
+          the material below; the other three topics are titles only. The quiz, flashcards and scenarios are drawn
+          from the recap alone — nothing on this page speculates about what the empty topics will say.</p>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 02 · KEY CONCEPTS ══════════════════ -->
+    <section class="panel" id="panel-terms" role="tabpanel" aria-labelledby="tab-terms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">02 / Reference</span>
+        <h2>Key concepts &amp; terminology</h2>
+        <p>Twelve terms, all from the one written topic. The pair worth separating cold is <em>nominal cash totals</em> against <em>present economic cost</em> — the whole week turns on not confusing them.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="term-search">Filter terms</label>
+          <input class="search" id="term-search" type="search" placeholder="Filter terms — try “discount” or “lease”"
+            autocomplete="off">
+          <span class="count" id="term-count" aria-live="polite">12 of 12</span>
+        </div>
+
+        <div class="glossary" id="glossary"></div>
+      </div>
+    </section>
+    <!-- ══════════════════ 03 · FLASHCARDS ══════════════════ -->
+    <section class="panel" id="panel-cards" role="tabpanel" aria-labelledby="tab-cards" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">03 / Active recall</span>
+        <h2>Flashcards</h2>
+        <p>Twenty cards drawn from the NPV recap. The numbers matter here: $10,000, $9,174 and $826 are the spine of the worked example.</p>
+
+        <div class="deck">
+          <div class="deck-meta">
+            <span class="deck-count"><strong id="card-index">1</strong> / <span id="card-total">20</span></span>
+            <span class="progress"><span class="progress-fill" id="progress-fill"></span></span>
+          </div>
+
+          <button class="flip" id="flip-card" aria-pressed="false" aria-label="Flashcard — press to reveal the answer">
+            <span class="flip-inner">
+              <span class="face face-front">
+                <span class="face-tag">Question</span>
+                <span class="face-text" id="card-q"></span>
+                <span class="face-hint">Click, tap, or press Space to reveal</span>
+              </span>
+              <span class="face face-back">
+                <span class="face-tag">Answer</span>
+                <span class="face-text" id="card-a"></span>
+                <span class="face-hint">Press → for the next card</span>
+              </span>
+            </span>
+          </button>
+
+          <div class="deck-controls">
+            <button class="btn" id="prev-btn" type="button">← Previous</button>
+            <button class="btn btn--ghost" id="shuffle-btn" type="button">Shuffle</button>
+            <button class="btn" id="next-btn" type="button">Next →</button>
+          </div>
+
+          <p class="kbd-hint"><kbd>←</kbd> <kbd>→</kbd> to move · <kbd>Space</kbd> to flip · <kbd>S</kbd> to shuffle
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-acronyms" role="tabpanel" aria-labelledby="tab-acronyms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">04 / Shorthand</span>
+        <h2>Acronyms &amp; abbreviations</h2>
+        <p>Three abbreviations run through this week. My notes spell out Net Present Value (NPV) and use PV and CFt without ever writing them out, so those two carry the standard expansion to keep the tab usable. The definition beneath every entry is taken only from what this page actually says about the term.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="acronyms-search">Filter acronyms</label>
+          <input class="search" id="acronyms-search" type="search" placeholder="Filter &mdash; try &ldquo;NPV&rdquo; or &ldquo;PV&rdquo;"
+            autocomplete="off">
+          <span class="count" id="acronyms-count" aria-live="polite">3 of 3</span>
+        </div>
+
+        <div class="glossary" id="acronyms"></div>
+      </div>
+    </section>
+    <section class="panel" id="panel-formulas" role="tabpanel" aria-labelledby="tab-formulas" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">05 / Quick reference</span>
+        <h2>Formulas</h2>
+        <p>Four relationships, in the order the page introduces them and copied exactly as my notes write them. Two of them were written as equations in images rather than as text and have been transcribed from those images character for character. One inconsistency is preserved rather than resolved: the prose describes the lease as five payments of $2000, while the calculation uses 2,200 &mdash; and only 2,200 produces the $9,174 the table records.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="formulas-search">Filter formulas</label>
+          <input class="search" id="formulas-search" type="search" placeholder="Filter formulas &mdash; try &ldquo;PV&rdquo; or &ldquo;lease&rdquo;"
+            autocomplete="off">
+          <span class="count" id="formulas-count" aria-live="polite">4 of 4</span>
+        </div>
+
+        <div class="glossary" id="formulas"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 06 · QUIZ ══════════════════ -->
+    <section class="panel" id="panel-quiz" role="tabpanel" aria-labelledby="tab-quiz" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">06 / Test yourself</span>
+        <h2>Quiz</h2>
+        <p>Five questions, all drawn from the one topic this week has written. They test the thing the recap exists to drill: that a comparison between cash flows is meaningless until they sit at the same point in time. Nothing here touches the three topics still to be written.</p>
+
+        <div class="quizbar">
+          <div class="quiz-score">
+            <span><strong id="quiz-done">0</strong> of <span id="quiz-total">0</span> answered</span>
+            <span><strong id="quiz-right">0</strong> correct</span>
+          </div>
+          <span class="progress"><span class="progress-fill" id="quiz-fill"></span></span>
+          <button class="btn btn--ghost" id="quiz-reset" type="button">Start over</button>
+        </div>
+        <p class="quiz-verdict" id="quiz-verdict" role="status" aria-live="polite" hidden></p>
+
+        <div class="quiz-list" id="quiz-list"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 07 · APPLY IT ══════════════════ -->
+    <section class="panel" id="panel-apply" role="tabpanel" aria-labelledby="tab-apply" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">07 / Put it to work</span>
+        <h2>Apply it</h2>
+        <p>Four scenarios, each a variation on the lease-versus-buy shape. They are qualitative where the page does not supply figures, because inventing numbers would teach you the wrong habit. Work them before reading the walkthrough.</p>
+
+        <div class="scen-list" id="scen-list"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="page-foot">
+    <div class="wrap">
+      <p>DMBA 6008 Finance, Strategy and Technology · Week 4 · Pre-live session</p>
+      <p>Compiled from my own pre-live notes for this week. Synced from Notion on 2026-08-19.</p>
+    </div>
+  </footer>
+    </div><!-- /.win -->
+  </div><!-- /.stage -->
+
+  <nav class="dock" aria-label="Site">
+    <a class="dock-item" data-tint="lime" data-label="Home" href="index.html"><span aria-hidden="true">&#8962;</span><span class="sr-only">Home</span></a>
+    <a class="dock-item" data-label="Library" href="library.html"><span aria-hidden="true">&#9776;</span><span class="sr-only">Library</span></a>
+    <span class="dock-sep" aria-hidden="true"></span>
+    <a class="dock-item" data-tint="sky" data-label="DMBA 6008 &mdash; Finance" href="DMBA6008-weeks.html">6008</a>
+    <a class="dock-item" data-tint="sand" data-label="DMBA 6005 &mdash; Agile" href="DMBA6005-weeks.html">6005</a>
+    <span class="dock-sep" aria-hidden="true"></span>
+    <a class="dock-item" data-tint="mint" data-label="DMBA 6001 &mdash; Readings" href="library.html?subject=DMBA6001">6001</a>
+    <a class="dock-item" data-tint="blush" data-label="DMBA 6002 &mdash; Assessments" href="library.html?subject=DMBA6002">6002</a>
+    <a class="dock-item" data-tint="lilac" data-label="DMBA 6004 &mdash; Remote work" href="library.html?subject=DMBA6004">6004</a>
+  </nav>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ── Tabs ─────────────────────────────────────────────── */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+
+      function selectTab(tab) {
+        tabs.forEach(function (t) {
+          var isTarget = t === tab;
+          var panel = document.getElementById('panel-' + t.getAttribute('data-panel'));
+          t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+          t.tabIndex = isTarget ? 0 : -1;
+          if (!panel) return;
+          panel.classList.toggle('active', isTarget);
+          if (isTarget) {
+            panel.removeAttribute('hidden');
+          } else {
+            panel.setAttribute('hidden', '');
+          }
+        });
+      }
+
+      tabs.forEach(function (tab, i) {
+        tab.addEventListener('click', function () { selectTab(tab); });
+        tab.addEventListener('keydown', function (e) {
+          var next = null;
+          if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+          if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+          if (!next) return;
+          e.preventDefault();
+          selectTab(next);
+          next.focus();
+        });
+      });
+
+      /* ── Key concepts ─────────────────────────────────────── */
+      var TERMS = [
+                { term: 'Net Present Value (NPV)', src: 'Recap of NPV', def: 'Allows cash flows occurring at different points in time to be compared on a present-value basis. It converts financing and investment alternatives into a common value measure, supporting decisions about asset acquisition, financing and capital allocation.' },
+                { term: 'Present-value basis', src: 'Recap of NPV', def: 'The common footing cash flows must be put on before they can be compared. Amounts arriving at different times are not comparable as stated; they have to be brought back to today first.' },
+                { term: 'Mutually exclusive financing options', src: 'Recap of NPV', def: 'Acquisition or financing alternatives where choosing one means rejecting the other. For these, compare the present value of the cash outflows and choose the option with the lower present cost.' },
+                { term: 'Lower present cost', src: 'Recap of NPV', formula: 'PV = CFt / (1 + r)^t', def: 'The decision rule for mutually exclusive outflow options. The question the notes pose is which option consumes less economic value today after recognising the time value of money.' },
+                { term: 'Discounting', src: 'Recap of NPV', def: 'Future payments are discounted because a dollar paid later has a lower present value than a dollar paid today. A cash flow occurring immediately, at t=0, is not discounted at all.' },
+                { term: 'CFt', src: 'Recap of NPV', def: 'Cash flow in period t — the numerator of the present-value expression.' },
+                { term: 'Hurdle / discount rate (r)', src: 'Recap of NPV', def: 'The rate future payments are discounted at. It may reflect the cost of financing the competing alternatives, and it can materially affect a lease-versus-buy conclusion because it determines how heavily future payments are discounted.' },
+                { term: 'Periods from today (t)', src: 'Recap of NPV', def: 'How far in the future a cash flow sits. As either r or t increases, the present value of a future outflow falls.' },
+                { term: 'Lease versus buy', src: 'Recap of NPV', def: 'The worked comparison. Buying costs $10,000 immediately; leasing spreads payments across five years with the first paid immediately. Both give access to the same software for the same five-year period.' },
+                { term: 'Economic advantage of leasing', src: 'Recap of NPV', formula: '$10,000 - $9,174 = $826', def: 'The gap between the two present values in the worked example. Leasing creates an $826 advantage relative to buying at a 10% hurdle rate.' },
+                { term: 'Nominal cash totals', src: 'Recap of NPV', def: 'The undiscounted sum of payments — $11,000 of lease payments against $10,000 to buy. Comparing these directly would be misleading, because most lease payments occur in the future.' },
+                { term: 'Present economic cost', src: 'Recap of NPV', def: 'What alternatives delivering the same underlying benefit should be compared on — not the upfront price, and not the total contractual payments.' }
+              ];
+
+      var glossaryEl = document.getElementById('glossary');
+      var countEl = document.getElementById('term-count');
+      var searchEl = document.getElementById('term-search');
+
+      function escapeHtml(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      glossaryEl.innerHTML = TERMS.map(function (t) {
+        var tag = t.own
+          ? '<span class="term-src term-src--own">Key Definitions</span>'
+          : '<span class="term-src">' + escapeHtml(t.src) + '</span>';
+        return '<article class="term" data-search="' +
+          escapeHtml((t.term + ' ' + t.def + ' ' + (t.formula || '')).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' + escapeHtml(t.term) + '</h3>' + tag + '</div>' +
+          '<p class="term-def">' + escapeHtml(t.def) + '</p>' +
+          (t.formula ? '<div class="term-formula">' + escapeHtml(t.formula) + '</div>' : '') +
+          '</article>';
+      }).join('') + '<p class="no-results" id="no-results" hidden>No terms match that filter.</p>';
+
+      var termEls = Array.prototype.slice.call(glossaryEl.querySelectorAll('.term'));
+      var noResultsEl = document.getElementById('no-results');
+
+      searchEl.addEventListener('input', function () {
+        var q = searchEl.value.trim().toLowerCase();
+        var shown = 0;
+        termEls.forEach(function (el) {
+          var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+          if (match) { el.removeAttribute('hidden'); shown++; }
+          else { el.setAttribute('hidden', ''); }
+        });
+        countEl.textContent = shown + ' of ' + TERMS.length;
+        if (shown === 0) { noResultsEl.removeAttribute('hidden'); }
+        else { noResultsEl.setAttribute('hidden', ''); }
+      });
+
+      /* ── Acronyms & formulas ──────────────────────────────── */
+      /* Both reference tabs are a filtered list of .term cards, so they share
+         one renderer with the key-concepts glossary's markup and behaviour.
+         It no-ops when a week does not emit that tab. */
+      function buildRef(listId, items, toHtml, emptyMsg) {
+        var listEl = document.getElementById(listId);
+        var countEl = document.getElementById(listId + '-count');
+        var searchEl = document.getElementById(listId + '-search');
+        if (!listEl || !countEl || !searchEl) return;
+
+        listEl.innerHTML = items.map(toHtml).join('') +
+          '<p class="no-results" hidden>' + emptyMsg + '</p>';
+
+        var els = Array.prototype.slice.call(listEl.querySelectorAll('.term'));
+        var noneEl = listEl.querySelector('.no-results');
+        countEl.textContent = items.length + ' of ' + items.length;
+
+        searchEl.addEventListener('input', function () {
+          var q = searchEl.value.trim().toLowerCase();
+          var shown = 0;
+          els.forEach(function (el) {
+            var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+            if (match) { el.removeAttribute('hidden'); shown++; }
+            else { el.setAttribute('hidden', ''); }
+          });
+          countEl.textContent = shown + ' of ' + items.length;
+          if (shown === 0) { noneEl.removeAttribute('hidden'); }
+          else { noneEl.setAttribute('hidden', ''); }
+        });
+      }
+
+      var ACRONYMS = [
+        { abbr: 'NPV', long: 'Net Present Value', def: 'Written out in my notes. It allows cash flows occurring at different points in time to be compared on a present-value basis, and converts financing and investment alternatives into a common value measure supporting decisions about asset acquisition, financing and capital allocation.', src: 'Recap of NPV' },
+        { abbr: 'PV', long: 'Present value', def: 'Never written out in the notes; the standard expansion is used here. It is the value today of a cash flow arriving later, and it is what both options in the lease-versus-buy comparison are reduced to before they are compared.', src: 'Recap of NPV' },
+        { abbr: 'CFt', long: 'Cash flow in period t', def: 'The expansion my notes give when defining the terms of the present-value formula. It is the numerator of PV = CFt / (1 + r)^t.', src: 'Recap of NPV' }
+      ];
+
+      buildRef('acronyms', ACRONYMS, function (a) {
+        return '<article class="term" data-search="' +
+          escapeHtml((a.abbr + ' ' + a.long + ' ' + a.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' +
+          '<span class="term-abbr">' + escapeHtml(a.abbr) + '</span>' +
+          (a.long ? ' &middot; <span class="term-long">' + escapeHtml(a.long) + '</span>' : '') +
+          '</h3><span class="term-src">' + escapeHtml(a.src) + '</span></div>' +
+          (a.def ? '<p class="term-def">' + escapeHtml(a.def) + '</p>' : '') +
+          '</article>';
+      }, 'No acronyms match that filter.');
+      var FORMULAS = [
+        { name: 'Present value of a future cash flow', expr: 'PV = CFt / (1 + r)^t', def: 'The general discounting relationship, where CFt is the cash flow in period t, r is the hurdle or discount rate and t is the number of periods from today. A cash flow occurring immediately, at t=0, is not discounted.', src: 'Recap of NPV' },
+        { name: 'Present value of the lease', expr: 'PVlease = 2,200 + 2,200/1.10 + 2,200/1.10² + 2,200/1.10³ + 2,200/1.10⁴ = $9,174', def: 'The worked lease calculation at a 10% hurdle rate, transcribed exactly from the image in my notes. The first payment is undiscounted because it is made immediately; the remaining four are discounted back one to four periods. Note that the surrounding prose says the payments are $2000, which does not reproduce this result.', src: 'Recap of NPV' },
+        { name: 'Economic advantage of leasing', expr: '$10,000 - $9,174 = $826', def: 'The gap between the present cost of buying and the present cost of leasing. Leasing creates an $826 advantage relative to buying in this example.', src: 'Recap of NPV' },
+        { name: 'Why nominal totals mislead', expr: '$11,000 nominal vs $10,000 — but $9,174 vs $10,000 in present value', def: 'Although nominal lease payments total more than the purchase price, comparing the two directly would be misleading, because most lease payments occur in the future. Discount to a common point in time first.', src: 'Recap of NPV' }
+      ];
+
+      buildRef('formulas', FORMULAS, function (f) {
+        return '<article class="term" data-search="' +
+          escapeHtml((f.name + ' ' + f.expr + ' ' + f.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' + escapeHtml(f.name) + '</h3>' +
+          '<span class="term-src">' + escapeHtml(f.src) + '</span></div>' +
+          '<div class="term-formula">' + escapeHtml(f.expr) + '</div>' +
+          (f.def ? '<p class="term-def">' + escapeHtml(f.def) + '</p>' : '') +
+          '</article>';
+      }, 'No formulas match that filter.');
+
+      /* ── Flashcards ───────────────────────────────────────── */
+      var CARDS = [
+                { q: 'What does NPV let you do with cash flows that arrive at different times?', a: 'Compare them on a present-value basis.' },
+                { q: 'For mutually exclusive financing options, what is the decision rule?', a: 'Compare the present value of the cash outflows and choose the option with the lower present cost.' },
+                { q: 'State the question the notes pose for this kind of choice.', a: 'Which option consumes less economic value today after recognising the time value of money?' },
+                { q: 'Why are future payments discounted?', a: 'Because a dollar paid later has a lower present value than a dollar paid today.' },
+                { q: 'Write the present-value formula as the notes give it.', a: 'PV = CFt / (1 + r)^t' },
+                { q: 'What is CFt?', a: 'Cash flow in period t.' },
+                { q: 'What is r?', a: 'The hurdle rate, or discount rate.' },
+                { q: 'What is t?', a: 'The number of periods from today.' },
+                { q: 'Which cash flow is not discounted, and why?', a: 'One occurring immediately, at t=0 — it is already in today’s terms.' },
+                { q: 'What happens to the present value of a future outflow as r or t increases?', a: 'It falls.' },
+                { q: 'What may the discount/hurdle rate reflect?', a: 'The cost of financing the competing alternatives.' },
+                { q: 'In the worked example, what does buying cost?', a: '$10,000, paid immediately.' },
+                { q: 'What is the present value of the lease option?', a: '$9,174.' },
+                { q: 'What is the economic advantage of leasing here?', a: '$826.' },
+                { q: 'Nominal lease payments total $11,000 against $10,000 to buy. Why is that comparison misleading?', a: 'Because most lease payments occur in the future, so the totals are not on a common time basis.' },
+                { q: 'Why is the comparison in this example driven by timing rather than by what is acquired?', a: 'Both alternatives provide access to the software for the same five-year period.' },
+                { q: 'What is the first analytical takeaway?', a: 'Do not compare nominal cash totals when their timing differs — discount them to a common point in time first.' },
+                { q: 'How can the hurdle rate change a lease-versus-buy conclusion?', a: 'It determines how heavily future payments are discounted, so it can materially affect which option wins.' },
+                { q: 'For alternatives delivering the same benefit, what should management compare?', a: 'Their present economic cost — not just the upfront price or the total contractual payments.' },
+                { q: 'What broader decisions does NPV support?', a: 'Asset acquisition, financing and capital allocation.' }
+              ];
+
+      var order = CARDS.map(function (_, i) { return i; });
+      var pos = 0;
+
+      var flipBtn = document.getElementById('flip-card');
+      var qEl = document.getElementById('card-q');
+      var aEl = document.getElementById('card-a');
+      var idxEl = document.getElementById('card-index');
+      var totalEl = document.getElementById('card-total');
+      var fillEl = document.getElementById('progress-fill');
+      var prevBtn = document.getElementById('prev-btn');
+      var nextBtn = document.getElementById('next-btn');
+      var shuffleBtn = document.getElementById('shuffle-btn');
+
+      totalEl.textContent = CARDS.length;
+
+      function render() {
+        var card = CARDS[order[pos]];
+        flipBtn.setAttribute('aria-pressed', 'false');
+        // Swap the text only once the card is edge-on, so the answer is never
+        // readable through the flip.
+        window.setTimeout(function () {
+          qEl.textContent = card.q;
+          aEl.textContent = card.a;
+        }, flipBtn.getAttribute('data-flipped') === 'true' ? 180 : 0);
+        flipBtn.setAttribute('data-flipped', 'false');
+        idxEl.textContent = pos + 1;
+        fillEl.style.width = ((pos + 1) / CARDS.length * 100) + '%';
+        prevBtn.disabled = pos === 0;
+        nextBtn.disabled = pos === CARDS.length - 1;
+      }
+
+      function flip() {
+        var flipped = flipBtn.getAttribute('aria-pressed') === 'true';
+        flipBtn.setAttribute('aria-pressed', flipped ? 'false' : 'true');
+        flipBtn.setAttribute('data-flipped', flipped ? 'false' : 'true');
+      }
+
+      function go(delta) {
+        var next = pos + delta;
+        if (next < 0 || next >= CARDS.length) return;
+        pos = next;
+        render();
+      }
+
+      flipBtn.addEventListener('click', flip);
+      prevBtn.addEventListener('click', function () { go(-1); });
+      nextBtn.addEventListener('click', function () { go(1); });
+
+      shuffleBtn.addEventListener('click', function () {
+        for (var i = order.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = order[i];
+          order[i] = order[j];
+          order[j] = tmp;
+        }
+        pos = 0;
+        render();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        var panel = document.getElementById('panel-cards');
+        if (panel.hasAttribute('hidden')) return;
+        var tag = (e.target.tagName || '').toLowerCase();
+        if (tag === 'input' || tag === 'textarea') return;
+
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+        else if (e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); flip(); }
+        else if (e.key === 's' || e.key === 'S') { e.preventDefault(); shuffleBtn.click(); }
+      });
+
+      render();
+    })();
+
+
+
+    /* ── Summary index, collapse and search ─────────────────────────────
+       Progressive enhancement, built at runtime from the blocks that are
+       already on the page. Nothing in the authored markup changes, so the
+       prose-budget gate still measures the same blocks and a re-sync gets
+       this for free. With JS off the summary reads exactly as before.
+
+       A week whose summary is split into topic subpanels gets one index
+       per subpanel; otherwise the whole panel gets one. */
+    (function () {
+      'use strict';
+
+      var summaryPanel = document.getElementById('panel-summary');
+      if (!summaryPanel) return;
+
+      var subs = summaryPanel.querySelectorAll('.subpanel');
+      var containers = subs.length
+        ? Array.prototype.slice.call(subs)
+        : [summaryPanel];
+
+      containers.forEach(function (container, ci) {
+        var blocks = Array.prototype.slice.call(container.children).filter(function (el) {
+          return el.classList && el.classList.contains('block');
+        });
+        // Two or three sections navigate fine on their own.
+        if (blocks.length < 4) return;
+
+        var items = [];
+
+        blocks.forEach(function (block, i) {
+          var num = block.querySelector('.block-num');
+          var h2 = block.querySelector('h2');
+          if (!num || !h2) return;
+
+          block.id = block.id || 'sec-' + ci + '-' + (i + 1);
+
+          var details = document.createElement('details');
+          details.className = 'block-d';
+          details.open = true;
+          var head = document.createElement('summary');
+          head.className = 'block-head';
+          var body = document.createElement('div');
+          body.className = 'block-body';
+
+          // The eyebrow and the heading become the disclosure control;
+          // everything after the heading becomes the collapsible body.
+          var kids = Array.prototype.slice.call(block.childNodes);
+          var pastHeading = false;
+          kids.forEach(function (node) {
+            if (node === num || node === h2) {
+              head.appendChild(node);
+              if (node === h2) pastHeading = true;
+              return;
+            }
+            (pastHeading ? body : head).appendChild(node);
+          });
+
+          details.appendChild(head);
+          details.appendChild(body);
+          block.appendChild(details);
+
+          items.push({
+            block: block,
+            details: details,
+            num: num.textContent.trim(),
+            title: h2.textContent.trim(),
+            text: (block.textContent || '').toLowerCase()
+          });
+        });
+
+        if (items.length < 4) return;
+
+        var sid = 'week-search-' + ci;
+        var toc = document.createElement('nav');
+        toc.className = 'toc';
+        toc.setAttribute('aria-label', 'Contents');
+        toc.innerHTML =
+          '<div class="toc-top">' +
+            '<span class="toc-title">Contents</span>' +
+            '<div class="toc-actions">' +
+              '<button class="toc-btn" type="button" data-act="expand">Expand all</button>' +
+              '<button class="toc-btn" type="button" data-act="collapse">Collapse all</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="toolbar">' +
+            '<label class="visually-hidden" for="' + sid + '">Search this week</label>' +
+            '<input class="search" id="' + sid + '" type="search" autocomplete="off" ' +
+              'placeholder="Search these sections…">' +
+            '<span class="count" aria-live="polite"></span>' +
+          '</div>' +
+          '<ol class="toc-list"></ol>' +
+          '<p class="toc-empty" hidden>Nothing in this week matches that search.</p>';
+
+        var list = toc.querySelector('.toc-list');
+
+        // A long week opens as an outline: index first, then a list of
+        // headings you can pick from. A short one reads straight through,
+        // exactly as it did before. "Expand all" is one click either way.
+        var LONG = 12;
+        if (items.length > LONG) {
+          list.classList.add('is-long');
+          items.forEach(function (it) { it.details.open = false; });
+        }
+
+        items.forEach(function (it) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = '#' + it.block.id;
+          var n = document.createElement('span');
+          n.className = 'toc-n';
+          n.textContent = it.num.split('/')[0].trim();
+          var t = document.createElement('span');
+          t.textContent = it.title;
+          a.appendChild(n);
+          a.appendChild(t);
+          li.appendChild(a);
+          list.appendChild(li);
+          it.li = li;
+        });
+
+        container.insertBefore(toc, blocks[0]);
+
+        // A collapsed section must open when it is jumped to.
+        list.addEventListener('click', function (e) {
+          var a = e.target && e.target.closest ? e.target.closest('a') : null;
+          if (!a) return;
+          var target = document.getElementById(a.getAttribute('href').slice(1));
+          if (target) {
+            var d = target.querySelector('details.block-d');
+            if (d) d.open = true;
+          }
+        });
+
+        toc.querySelector('.toc-actions').addEventListener('click', function (e) {
+          var b = e.target && e.target.closest ? e.target.closest('button') : null;
+          if (!b) return;
+          var open = b.getAttribute('data-act') === 'expand';
+          items.forEach(function (it) {
+            if (!it.block.hasAttribute('hidden')) it.details.open = open;
+          });
+        });
+
+        var input = toc.querySelector('.search');
+        var count = toc.querySelector('.count');
+        var empty = toc.querySelector('.toc-empty');
+        var activeTopic = '';
+
+        // ── Topic chips ────────────────────────────────────────────────
+        // Built from the data-topic each block carries, so a week reads one
+        // topic at a time the way the sub-tabbed weeks already do. A block
+        // with no data-topic (a week-level takeaway, say) always shows.
+        var topics = [], emptyTopics = {};
+        items.forEach(function (it) {
+          var t = it.block.getAttribute('data-topic');
+          it.topic = t || '';
+          if (!t) return;
+          if (topics.indexOf(t) === -1) topics.push(t);
+          if (it.block.getAttribute('data-topic-empty') === 'true') emptyTopics[t] = true;
+        });
+
+        if (topics.length > 1) {
+          var chips = document.createElement('div');
+          chips.className = 'subtabs';
+          chips.setAttribute('aria-label', 'Topics');
+          ['All'].concat(topics).forEach(function (label, k) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'subtab' + (emptyTopics[label] ? ' subtab--empty' : '');
+            b.setAttribute('aria-pressed', k === 0 ? 'true' : 'false');
+            b.setAttribute('data-topic', k === 0 ? '' : label);
+            b.textContent = label;
+            chips.appendChild(b);
+          });
+          chips.addEventListener('click', function (e) {
+            var b = e.target && e.target.closest ? e.target.closest('button') : null;
+            if (!b) return;
+            activeTopic = b.getAttribute('data-topic') || '';
+            Array.prototype.forEach.call(chips.children, function (c) {
+              c.setAttribute('aria-pressed', c === b ? 'true' : 'false');
+            });
+            applyFilter();
+          });
+          container.insertBefore(chips, toc);
+        }
+
+        function applyFilter() {
+          var q = input.value.trim().toLowerCase();
+          var shown = 0;
+          items.forEach(function (it) {
+            var hit = (!q || it.text.indexOf(q) !== -1) &&
+                      (!activeTopic || !it.topic || it.topic === activeTopic);
+            if (hit) {
+              it.block.removeAttribute('hidden');
+              it.li.removeAttribute('hidden');
+              if (q) it.details.open = true;
+              shown++;
+            } else {
+              it.block.setAttribute('hidden', '');
+              it.li.setAttribute('hidden', '');
+            }
+          });
+          count.textContent = shown + ' of ' + items.length + ' sections';
+          if (shown === 0) empty.removeAttribute('hidden');
+          else empty.setAttribute('hidden', '');
+        }
+
+        input.addEventListener('input', applyFilter);
+        applyFilter();
+      });
+    })();
+
+  </script>
+
+  <script>
+    /* ── Quiz & Apply it ────────────────────────────────────────────────
+       Two practice modes. QUIZ and SCENARIOS are the only authored parts;
+       the renderer below is identical on every week page, so a re-sync
+       swaps the arrays and leaves the behaviour alone. Progressive
+       enhancement: with JS off both panels sit empty and the five synced
+       modes are unaffected. */
+    (function () {
+      'use strict';
+
+      var quizListEl = document.getElementById('quiz-list');
+      var scenListEl = document.getElementById('scen-list');
+      if (!quizListEl && !scenListEl) return;
+
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      var KEYS = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+      var QUIZ = /*QUIZ*/[
+        {"topic": "Recap of NPV", "q": "Two mutually exclusive ways of acquiring the same asset produce different streams of cash outflows. What does the week say to compare?", "hint": "The options deliver the same benefit, so the comparison has to be about something other than what you get.", "options": [{"t": "The total contractual payments under each option, choosing the smaller total.", "ok": false, "note": "This is exactly the comparison the week warns against. Nominal lease payments total $11,000 against $10,000 to buy, which points the wrong way once timing is recognised."}, {"t": "The present value of the cash outflows, choosing the option with the lower present cost.", "ok": true, "note": "The rule as the notes state it for mutually exclusive financing or acquisition options. The question posed is which option consumes less economic value today after recognising the time value of money."}, {"t": "The upfront payment under each option, choosing the smaller one.", "ok": false, "note": "The upfront figure is one cash flow among several. The page explicitly says not to compare on the upfront price for alternatives delivering the same underlying benefit."}, {"t": "The number of periods over which each option is paid, preferring the longer one.", "ok": false, "note": "Spreading payments is not automatically better — it is better here only because discounting makes the later payments worth less. The length of the stream is not itself the criterion."}]},
+        {"topic": "Recap of NPV", "q": "In the present-value expression the week uses, what happens as either r or t increases?", "hint": "Both sit in the denominator, and they compound.", "options": [{"t": "The present value of a future outflow rises.", "ok": false, "note": "The page states the opposite. Both r and t sit in the denominator of PV = CFt / (1 + r)^t, so increasing either reduces the result."}, {"t": "The present value is unaffected; only CFt changes it.", "ok": false, "note": "CFt is the numerator, but r and t are what convert it into today's terms. Changing either changes the answer."}, {"t": "The present value of a future outflow falls.", "ok": true, "note": "Stated directly in the notes. A higher discount rate, or a payment further away, both reduce what that payment costs in today's terms."}, {"t": "The present value falls only if the cash flow occurs at t = 0.", "ok": false, "note": "A cash flow at t = 0 is the one case that is not discounted at all, so it is unaffected by r."}]},
+        {"topic": "Recap of NPV", "q": "Why is the first lease payment treated differently from the other four?", "hint": "Look at when it is paid rather than how large it is.", "options": [{"t": "It is larger than the others, so it carries more weight.", "ok": false, "note": "All five payments are equal in the calculation. Their sizes are not what separates them."}, {"t": "It is paid immediately, so at t = 0 it is not discounted.", "ok": true, "note": "The notes say a cash flow occurring immediately is not discounted. In the worked calculation the first payment enters undiscounted and only the remaining four are divided down."}, {"t": "It is a deposit and sits outside the NPV calculation entirely.", "ok": false, "note": "It is inside the calculation — it is the leading undiscounted term. Being undiscounted is not the same as being excluded."}, {"t": "It is discounted at a different hurdle rate from the rest.", "ok": false, "note": "One hurdle rate of 10% applies throughout. What differs across the payments is t, not r."}]},
+        {"topic": "Recap of NPV", "q": "Leasing totals $11,000 in nominal payments against $10,000 to buy, yet the week concludes leasing is better. What resolves the apparent contradiction?", "hint": "The two figures are not measured at the same moment.", "options": [{"t": "The lease includes services the purchase does not, which justifies the extra $1,000.", "ok": false, "note": "The page is explicit that both alternatives provide access to the same software for the same five-year period. Nothing extra is being bought."}, {"t": "The nominal totals are simply wrong and should be recalculated.", "ok": false, "note": "The nominal totals are correct as totals. The objection is not to their arithmetic but to comparing them at all when their timing differs."}, {"t": "Most lease payments occur in the future, so on a present-value basis they come to $9,174 rather than $11,000.", "ok": true, "note": "The week's central move. Discounted to today the lease costs $9,174 against $10,000 to buy, an $826 advantage — and comparing $11,000 with $10,000 would be misleading."}, {"t": "The hurdle rate converts the purchase price upward to $11,000 for comparison.", "ok": false, "note": "Discounting moves future amounts back to today; it does not inflate a payment already made at t = 0. The $10,000 is already in present-value terms."}]},
+        {"topic": "Recap of NPV", "q": "What does the week say about the role of the hurdle rate in a lease-versus-buy conclusion?", "hint": "Ask what would change if the rate were much lower.", "options": [{"t": "It is a formality, since both options are discounted at the same rate and the effects cancel.", "ok": false, "note": "They do not cancel, because the two options have different timing. The rate bites harder on the option with more distant cash flows."}, {"t": "It can materially affect the conclusion, because it determines how heavily future payments are discounted.", "ok": true, "note": "Stated as an analytical takeaway. The lease's advantage comes entirely from its later payments being discounted, so the size of that discount decides the outcome."}, {"t": "It only matters when the two options have the same nominal total.", "ok": false, "note": "The worked example has different nominal totals — $11,000 against $10,000 — and the rate is decisive there precisely because it is what makes them comparable."}, {"t": "It is fixed by the asset being acquired rather than chosen.", "ok": false, "note": "The notes say the discount or hurdle rate may reflect the cost of financing the competing alternatives, which makes it a judgement about financing, not a property of the software."}]}
+      ]/*END_QUIZ*/;
+      var SCENARIOS = /*SCENARIOS*/[
+        {"topic": "Recap of NPV", "title": "The finance director's shortcut", "setup": "A finance director compares two ways of acquiring the same fleet of laptops. One quote is a single payment now; the other spreads payments across four years and comes to more in total. She rejects the spread option on the grounds that it costs more.", "task": "Explain what is wrong with her reasoning, and what she should compare instead.", "hints": ["Ask whether the two figures she compared are measured at the same point in time.", "The week has a specific objection to totals when timing differs.", "Name the basis the comparison should be put on before either number means anything."], "walkthrough": ["She has compared nominal cash totals for options whose payments occur at different times, which the week identifies as the error to avoid.", "Both options deliver the same underlying benefit — the same laptops — so the comparison is driven by the timing and present value of the cash flows, not by what is acquired.", "Each stream should be discounted to a common point in time at an appropriate hurdle rate, giving a present cost for each.", "The option with the lower present cost wins, which may well be the one with the larger nominal total, exactly as leasing beat buying at $9,174 against $10,000."], "checklist": ["Names the error as comparing nominal totals across different timings", "States that both options deliver the same benefit, so timing is what separates them", "Says the streams must be discounted to a common point in time first", "Concludes on lower present cost rather than lower total"]},
+        {"topic": "Recap of NPV", "title": "Moving the hurdle rate", "setup": "A colleague accepts the lease-versus-buy analysis but argues the hurdle rate used was too high. He wants it lowered substantially before the decision is signed off.", "task": "Explain the direction his change would push the result, and why the choice of rate is not a technicality.", "hints": ["Work out what a lower r does to each individual discounted payment.", "Then ask which of the two options has more cash flows exposed to that change.", "The week states plainly what the hurdle rate determines."], "walkthrough": ["A lower r raises the present value of every future payment, because r sits in the denominator of PV = CFt / (1 + r)^t.", "Buying is a single payment at t = 0, which is not discounted at all, so its present cost is unchanged by the rate.", "The lease has four payments beyond t = 0, so lowering the rate raises its present cost while leaving buying untouched — narrowing and potentially reversing the $826 advantage.", "This is why the notes say the hurdle rate can materially affect lease-versus-buy conclusions: it determines how heavily future payments are discounted, so it is a decision input, not a formatting choice."], "checklist": ["States that a lower rate raises the present value of future payments", "Notes that a t = 0 cash flow is unaffected by the rate", "Identifies the lease as the option exposed to the change", "Concludes that the advantage narrows, and explains why the rate matters"]},
+        {"topic": "Recap of NPV", "title": "The same total, two shapes", "setup": "Two suppliers offer the same equipment for the same total amount of money. One asks for it all today. The other asks for equal instalments across three years.", "task": "Decide which to prefer on the week's reasoning, and say what would have to be true for the answer to flip.", "hints": ["If the totals are identical, the totals cannot be what decides it.", "Consider where each payment sits on the timeline.", "Then consider what assumption about r you are relying on."], "walkthrough": ["With identical nominal totals, the decision rests entirely on timing, which is the week's point in its purest form.", "The instalment option pushes most of its cash beyond t = 0, so those payments are discounted and its present cost is lower.", "The immediate option is entirely at t = 0 and is therefore undiscounted, making it the more expensive in present-value terms.", "The answer flips only if r were zero or negative, since a positive discount rate is what makes later payments cheaper — the whole reason a dollar paid later has a lower present value than a dollar paid today."], "checklist": ["Recognises that equal totals make timing the only differentiator", "Prefers the instalment option and explains the discounting reason", "Identifies the t = 0 payment as the undiscounted one", "States the condition on r under which the conclusion would change"]},
+        {"topic": "Recap of NPV", "title": "Reading the recap against itself", "setup": "A study partner is working from the same notes and points out that the prose describes the lease as five annual payments of $2000, while the calculation beside it uses 2,200. He asks which number to revise for.", "task": "Say how you would resolve it, and what you would not do.", "hints": ["One of the two figures is checkable against a result the notes already record.", "Try reproducing $9,174 from each candidate payment.", "Then think about what it would cost you to quietly pick one and move on."], "walkthrough": ["The notes record a lease present value of $9,174, so that figure is the fixed point to test against.", "Discounting five payments of 2,200 at 10%, with the first undiscounted, reproduces $9,174; five payments of $2000 does not.", "So the calculation is internally consistent at 2,200 and the prose figure is the one out of step — but that is an inference about the source, not something the notes state.", "The right move is to flag the inconsistency and check it against the original material, rather than silently rewriting either number, because a study aid that quietly resolves a contradiction hides the fact that one exists."], "checklist": ["Uses the recorded $9,174 as the test rather than guessing", "Checks the candidate payment figures against that result", "Identifies the prose figure as the inconsistent one", "Says the discrepancy should be flagged and verified, not silently corrected"]}
+      ]/*END_SCENARIOS*/;
+
+      /* ── Quiz ─────────────────────────────────────────────── */
+      if (quizListEl && QUIZ.length) {
+        var doneEl = document.getElementById('quiz-done');
+        var rightEl = document.getElementById('quiz-right');
+        var totalEl = document.getElementById('quiz-total');
+        var fillEl = document.getElementById('quiz-fill');
+        var verdictEl = document.getElementById('quiz-verdict');
+        var resetBtn = document.getElementById('quiz-reset');
+
+        var answered = 0;
+        var correct = 0;
+
+        totalEl.textContent = QUIZ.length;
+
+        quizListEl.innerHTML = QUIZ.map(function (q, i) {
+          return '<article class="quiz-q">' +
+            '<div class="quiz-head">' +
+              '<span class="quiz-n">Question ' + (i + 1) + '</span>' +
+              (q.topic ? '<span class="term-src">' + esc(q.topic) + '</span>' : '') +
+            '</div>' +
+            '<p class="quiz-stem">' + esc(q.q) + '</p>' +
+            (q.hint
+              ? '<details class="reveal"><summary>Hint</summary>' +
+                '<div class="reveal-body"><p>' + esc(q.hint) + '</p></div></details>'
+              : '') +
+            '<div class="opts" role="group" aria-label="Answer options for question ' + (i + 1) + '">' +
+              q.options.map(function (o, j) {
+                return '<button class="opt" type="button" data-q="' + i + '" data-o="' + j + '">' +
+                  '<span class="opt-key" aria-hidden="true">' + KEYS[j] + '</span>' +
+                  '<span class="opt-t">' + esc(o.t) + '</span></button>';
+              }).join('') +
+            '</div>' +
+            '<div class="fb-slot" id="fb-' + i + '" role="status" aria-live="polite"></div>' +
+            '</article>';
+        }).join('');
+
+        var qEls = Array.prototype.slice.call(quizListEl.querySelectorAll('.quiz-q'));
+
+        function paintScore() {
+          doneEl.textContent = answered;
+          rightEl.textContent = correct;
+          fillEl.style.width = (answered / QUIZ.length * 100) + '%';
+          if (answered === QUIZ.length) {
+            verdictEl.textContent = 'All done — ' + correct + ' of ' + QUIZ.length +
+              ' correct. Reread the ones you missed in Summary & visuals, then start over.';
+            verdictEl.removeAttribute('hidden');
+          } else {
+            verdictEl.setAttribute('hidden', '');
+          }
+        }
+
+        function answer(i, chosen) {
+          var q = QUIZ[i];
+          var wrap = qEls[i];
+          if (wrap.getAttribute('data-answered') === 'true') return;
+          wrap.setAttribute('data-answered', 'true');
+
+          var opts = Array.prototype.slice.call(wrap.querySelectorAll('.opt'));
+          var rightIdx = -1;
+          q.options.forEach(function (o, j) { if (o.ok) rightIdx = j; });
+
+          opts.forEach(function (el, j) {
+            el.disabled = true;
+            if (j === rightIdx) el.setAttribute('data-state', 'right');
+            else if (j === chosen) el.setAttribute('data-state', 'wrong');
+            else el.setAttribute('data-state', 'off');
+          });
+
+          var isRight = chosen === rightIdx;
+          answered++;
+          if (isRight) correct++;
+
+          var html = '<div class="fb ' + (isRight ? 'fb--right' : 'fb--wrong') + '">' +
+            '<span class="fb-tag">' + (isRight ? 'Correct' : 'Not this one') + '</span>' +
+            '<p>' + esc(q.options[chosen].note) + '</p></div>';
+          if (!isRight) {
+            html += '<div class="fb fb--right">' +
+              '<span class="fb-tag">' + KEYS[rightIdx] + ' is the answer</span>' +
+              '<p>' + esc(q.options[rightIdx].note) + '</p></div>';
+          }
+          document.getElementById('fb-' + i).innerHTML = html;
+          paintScore();
+        }
+
+        quizListEl.addEventListener('click', function (e) {
+          var node = e.target;
+          while (node && node !== quizListEl && !(node.classList && node.classList.contains('opt'))) {
+            node = node.parentNode;
+          }
+          if (!node || node === quizListEl || node.disabled) return;
+          answer(parseInt(node.getAttribute('data-q'), 10), parseInt(node.getAttribute('data-o'), 10));
+        });
+
+        resetBtn.addEventListener('click', function () {
+          answered = 0;
+          correct = 0;
+          qEls.forEach(function (wrap, i) {
+            wrap.removeAttribute('data-answered');
+            Array.prototype.slice.call(wrap.querySelectorAll('.opt')).forEach(function (el) {
+              el.disabled = false;
+              el.removeAttribute('data-state');
+            });
+            Array.prototype.slice.call(wrap.querySelectorAll('.reveal')).forEach(function (d) { d.open = false; });
+            document.getElementById('fb-' + i).innerHTML = '';
+          });
+          paintScore();
+          quizListEl.scrollIntoView({ block: 'start' });
+        });
+
+        paintScore();
+      }
+
+      /* ── Apply it ─────────────────────────────────────────── */
+      if (scenListEl && SCENARIOS.length) {
+        scenListEl.innerHTML = SCENARIOS.map(function (s, i) {
+          var hints = (s.hints || []).map(function (h, k) {
+            return '<details class="reveal"><summary>Hint ' + (k + 1) + '</summary>' +
+              '<div class="reveal-body"><p>' + esc(h) + '</p></div></details>';
+          }).join('');
+
+          var steps = (s.walkthrough || []).map(function (w) {
+            return '<li>' + esc(w) + '</li>';
+          }).join('');
+
+          var checks = (s.checklist || []).map(function (c) {
+            return '<li>' + esc(c) + '</li>';
+          }).join('');
+
+          return '<article class="scen">' +
+            '<div class="quiz-head">' +
+              '<span class="quiz-n">Scenario ' + (i + 1) + '</span>' +
+              (s.topic ? '<span class="term-src">' + esc(s.topic) + '</span>' : '') +
+            '</div>' +
+            '<h3 class="scen-title">' + esc(s.title) + '</h3>' +
+            '<p class="scen-setup">' + esc(s.setup) + '</p>' +
+            '<p class="scen-task"><strong>Your task</strong>' + esc(s.task) + '</p>' +
+            hints +
+            '<details class="reveal reveal--work"><summary>Work it through</summary>' +
+              '<div class="reveal-body">' +
+                (steps ? '<ol class="steps">' + steps + '</ol>' : '') +
+                (checks ? '<h5>A strong answer covers</h5><ul class="check">' + checks + '</ul>' : '') +
+              '</div>' +
+            '</details>' +
+            '</article>';
+        }).join('');
+      }
+    })();
+  </script>
+
+
+  <script>
+    /* ── Study path ─────────────────────────────────────────────────────
+       The only behaviour the block needs: a step's button selects its mode
+       tab. Everything else about the block is static markup. */
+    (function () {
+      'use strict';
+      var path = document.querySelector('.path');
+      if (!path) return;
+
+      path.addEventListener('click', function (e) {
+        var node = e.target;
+        while (node && node !== path && !(node.classList && node.classList.contains('path-go'))) {
+          node = node.parentNode;
+        }
+        if (!node || node === path) return;
+        var tab = document.getElementById('tab-' + node.getAttribute('data-goto'));
+        if (!tab) return;
+        tab.click();
+        tab.scrollIntoView({ block: 'center' });
+        tab.focus();
+      });
+    })();
+  </script>
+
+</body>
+
+</html>

@@ -35,7 +35,7 @@ Subjects are grouped by semester on `index.html`.
 
 | Code | Subject | Content |
 | --- | --- | --- |
-| DMBA 6008 | Finance, Strategy and Technology | Weeks 0–3. Week hub + per-week study pages, built from the vault. Three core modes — summary & visuals, key concepts, flashcards — plus **acronyms** and **formulas** where the week has them, and **discussion questions** where a Live note supplies them (Week 2 only so far). Every week also carries a **quiz**, an **Apply it** tab and a **study path**, all derived from the built page |
+| DMBA 6008 | Finance, Strategy and Technology | Weeks 0–4. Week hub + per-week study pages, built from the vault. **Week 4 is published in progress** — one of its four topics is written, the rest render as "not yet written". Three core modes — summary & visuals, key concepts, flashcards — plus **acronyms** and **formulas** where the week has them, and **discussion questions** where a Live note supplies them (Week 2 only so far). Every week also carries a **quiz**, an **Apply it** tab and a **study path**, all derived from the built page |
 | DMBA 6005 | Agile Project Development | Weeks 0–3. Week hub + per-week study pages, same modes, built from the vault. Live since 2026-08-06 |
 
 The **quiz, Apply-it and study-path components are not synced from any source** — they are

@@ -143,12 +143,32 @@ that is never published.
 2. **Nothing is committed.** `git status`: `sync-notes/` and `assets/` untracked, plus edits
    to the three DMBA 6008 week pages, `CLAUDE.md`, `docs/README.md`, `docs/vault-sync.md`,
    `docs/notion-sync.md`, `.claude/skills/sync-subject/SKILL.md`.
-3. **DMBA 6008 Week 4 is NEW and unpublished.** Re-confirmed on the 2026-08-19 full sync —
-   the week totals **363 words across 4 topics**. Only `Recap of NPV` (2,646 bytes) has content; `Strategy and Finance`,
-   `Golden rules of project evaluation` and `Application and solution` are **0 bytes — empty
-   in Notion itself**. Do not generate filler. Worth telling him they're blank so he can
-   write them. **Its 2 images are both formulas** — the multi-period `PV = CFt / (1+r)^t` and
-   a lease worked example totalling $9,174 — so transcribe them, do not publish them.
+3. **DMBA 6008 Week 4 is now PUBLISHED, in progress.** Aryan's call on 2026-08-19:
+   *"just publish what is available, good to have the skeletal and WIP available."* One topic
+   of four (`Recap of NPV`) carries the whole page; the other three render as **"not yet
+   written"** blocks with dashed topic chips, on the page and on the hub card. **When he
+   writes them:** drop each block's `data-topic-empty="true"`, swap the hub's
+   `topic--pending` chips, and **re-derive the practice JSON** — the quiz, scenarios and
+   study path draw on the recap alone by design.
+
+## Week 4 shipped in progress — 2026-08-19
+
+Built from the vault, not Notion. 8 summary blocks, 12 key terms, 20 flashcards, 5 quiz
+questions, 4 scenarios, a 6-step study path, plus Acronyms and Formulas tabs.
+
+**Both its images were formulas, so both were transcribed, not published** — `PV = CFt / (1 + r)^t`
+and the lease calculation. `assets/` still holds exactly one file, the Week 0 slide.
+
+**One inconsistency was preserved rather than fixed, deliberately.** His notes describe the
+lease as *"five annual payments of $2000"*, but the calculation beside it uses **2,200** — and
+only 2,200 reproduces the **$9,174** his own table records. Both are on the page exactly as
+written, with a note saying they differ and that neither was reconciled. A quiz scenario is
+built around resolving it. **Do not silently "fix" either number** — if he wants it settled he
+will say which is right.
+
+All gates pass (`checks.py` clean, 475 prose words against a 1,440 budget), and the page was
+checked in a browser: figure renders, formulas render, empty-topic chips render dashed, hub
+card and `library.html` entry both live.
 
 ## Settled — do not re-open
 

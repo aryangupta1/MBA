@@ -1,0 +1,201 @@
+{
+  "page": "DMBA6008-week4.html",
+  "quizIntro": "Five questions, all drawn from the one topic this week has written. They test the thing the recap exists to drill: that a comparison between cash flows is meaningless until they sit at the same point in time. Nothing here touches the three topics still to be written.",
+  "applyIntro": "Four scenarios, each a variation on the lease-versus-buy shape. They are qualitative where the page does not supply figures, because inventing numbers would teach you the wrong habit. Work them before reading the walkthrough.",
+
+  "studyPath": {
+    "intro": "A short week, deliberately. One written topic, one formula and one worked example — a full pass takes about forty minutes, and most of that is making the example your own.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Read the recap in order",
+        "detail": "Four blocks, then three titles. Do not skip the timing figure — the entire $826 comes from which payments sit at t = 0 and which do not. Read the note about the $2000 and 2,200 discrepancy rather than skimming past it.",
+        "time": "~10 min"
+      },
+      {
+        "goto": "formulas",
+        "label": "Learn the one formula properly",
+        "detail": "PV = CFt / (1 + r)^t is the whole week. Say out loud what each of the three symbols does to the answer, and be able to state why a t = 0 cash flow is untouched by it.",
+        "time": "~5 min"
+      },
+      {
+        "goto": "summary",
+        "label": "Rebuild the lease calculation yourself",
+        "detail": "Cover the page and reproduce the five discounted terms to $9,174, then subtract from $10,000 to get $826. If you cannot get there, you do not yet own the example.",
+        "time": "~10 min"
+      },
+      {
+        "goto": "terms",
+        "label": "Separate nominal from present",
+        "detail": "Twelve terms, but the pair that matters is nominal cash totals against present economic cost. $11,000 against $10,000 says buy; $9,174 against $10,000 says lease. Know which comparison is the valid one and why.",
+        "time": "~5 min"
+      },
+      {
+        "goto": "cards",
+        "label": "Drill the numbers",
+        "detail": "Twenty cards. The figures — $10,000, $9,174, $826, $11,000 — should come back without hesitation, because a half-remembered worked example is worse than none.",
+        "time": "~7 min"
+      },
+      {
+        "goto": "quiz",
+        "label": "Test the reasoning",
+        "detail": "Five questions aimed at the confusions this material invites: totals versus present values, and what the hurdle rate actually changes.",
+        "time": "~8 min"
+      }
+    ],
+    "close": "You have it when you can explain, without the page, why an option costing more in total can still be the cheaper one."
+  },
+
+  "quiz": [
+    {
+      "topic": "Recap of NPV",
+      "q": "Two mutually exclusive ways of acquiring the same asset produce different streams of cash outflows. What does the week say to compare?",
+      "hint": "The options deliver the same benefit, so the comparison has to be about something other than what you get.",
+      "options": [
+        { "t": "The total contractual payments under each option, choosing the smaller total.", "ok": false, "note": "This is exactly the comparison the week warns against. Nominal lease payments total $11,000 against $10,000 to buy, which points the wrong way once timing is recognised." },
+        { "t": "The present value of the cash outflows, choosing the option with the lower present cost.", "ok": true, "note": "The rule as the notes state it for mutually exclusive financing or acquisition options. The question posed is which option consumes less economic value today after recognising the time value of money." },
+        { "t": "The upfront payment under each option, choosing the smaller one.", "ok": false, "note": "The upfront figure is one cash flow among several. The page explicitly says not to compare on the upfront price for alternatives delivering the same underlying benefit." },
+        { "t": "The number of periods over which each option is paid, preferring the longer one.", "ok": false, "note": "Spreading payments is not automatically better — it is better here only because discounting makes the later payments worth less. The length of the stream is not itself the criterion." }
+      ]
+    },
+    {
+      "topic": "Recap of NPV",
+      "q": "In the present-value expression the week uses, what happens as either r or t increases?",
+      "hint": "Both sit in the denominator, and they compound.",
+      "options": [
+        { "t": "The present value of a future outflow rises.", "ok": false, "note": "The page states the opposite. Both r and t sit in the denominator of PV = CFt / (1 + r)^t, so increasing either reduces the result." },
+        { "t": "The present value is unaffected; only CFt changes it.", "ok": false, "note": "CFt is the numerator, but r and t are what convert it into today's terms. Changing either changes the answer." },
+        { "t": "The present value of a future outflow falls.", "ok": true, "note": "Stated directly in the notes. A higher discount rate, or a payment further away, both reduce what that payment costs in today's terms." },
+        { "t": "The present value falls only if the cash flow occurs at t = 0.", "ok": false, "note": "A cash flow at t = 0 is the one case that is not discounted at all, so it is unaffected by r." }
+      ]
+    },
+    {
+      "topic": "Recap of NPV",
+      "q": "Why is the first lease payment treated differently from the other four?",
+      "hint": "Look at when it is paid rather than how large it is.",
+      "options": [
+        { "t": "It is larger than the others, so it carries more weight.", "ok": false, "note": "All five payments are equal in the calculation. Their sizes are not what separates them." },
+        { "t": "It is paid immediately, so at t = 0 it is not discounted.", "ok": true, "note": "The notes say a cash flow occurring immediately is not discounted. In the worked calculation the first payment enters undiscounted and only the remaining four are divided down." },
+        { "t": "It is a deposit and sits outside the NPV calculation entirely.", "ok": false, "note": "It is inside the calculation — it is the leading undiscounted term. Being undiscounted is not the same as being excluded." },
+        { "t": "It is discounted at a different hurdle rate from the rest.", "ok": false, "note": "One hurdle rate of 10% applies throughout. What differs across the payments is t, not r." }
+      ]
+    },
+    {
+      "topic": "Recap of NPV",
+      "q": "Leasing totals $11,000 in nominal payments against $10,000 to buy, yet the week concludes leasing is better. What resolves the apparent contradiction?",
+      "hint": "The two figures are not measured at the same moment.",
+      "options": [
+        { "t": "The lease includes services the purchase does not, which justifies the extra $1,000.", "ok": false, "note": "The page is explicit that both alternatives provide access to the same software for the same five-year period. Nothing extra is being bought." },
+        { "t": "The nominal totals are simply wrong and should be recalculated.", "ok": false, "note": "The nominal totals are correct as totals. The objection is not to their arithmetic but to comparing them at all when their timing differs." },
+        { "t": "Most lease payments occur in the future, so on a present-value basis they come to $9,174 rather than $11,000.", "ok": true, "note": "The week's central move. Discounted to today the lease costs $9,174 against $10,000 to buy, an $826 advantage — and comparing $11,000 with $10,000 would be misleading." },
+        { "t": "The hurdle rate converts the purchase price upward to $11,000 for comparison.", "ok": false, "note": "Discounting moves future amounts back to today; it does not inflate a payment already made at t = 0. The $10,000 is already in present-value terms." }
+      ]
+    },
+    {
+      "topic": "Recap of NPV",
+      "q": "What does the week say about the role of the hurdle rate in a lease-versus-buy conclusion?",
+      "hint": "Ask what would change if the rate were much lower.",
+      "options": [
+        { "t": "It is a formality, since both options are discounted at the same rate and the effects cancel.", "ok": false, "note": "They do not cancel, because the two options have different timing. The rate bites harder on the option with more distant cash flows." },
+        { "t": "It can materially affect the conclusion, because it determines how heavily future payments are discounted.", "ok": true, "note": "Stated as an analytical takeaway. The lease's advantage comes entirely from its later payments being discounted, so the size of that discount decides the outcome." },
+        { "t": "It only matters when the two options have the same nominal total.", "ok": false, "note": "The worked example has different nominal totals — $11,000 against $10,000 — and the rate is decisive there precisely because it is what makes them comparable." },
+        { "t": "It is fixed by the asset being acquired rather than chosen.", "ok": false, "note": "The notes say the discount or hurdle rate may reflect the cost of financing the competing alternatives, which makes it a judgement about financing, not a property of the software." }
+      ]
+    }
+  ],
+
+  "scenarios": [
+    {
+      "topic": "Recap of NPV",
+      "title": "The finance director's shortcut",
+      "setup": "A finance director compares two ways of acquiring the same fleet of laptops. One quote is a single payment now; the other spreads payments across four years and comes to more in total. She rejects the spread option on the grounds that it costs more.",
+      "task": "Explain what is wrong with her reasoning, and what she should compare instead.",
+      "hints": [
+        "Ask whether the two figures she compared are measured at the same point in time.",
+        "The week has a specific objection to totals when timing differs.",
+        "Name the basis the comparison should be put on before either number means anything."
+      ],
+      "walkthrough": [
+        "She has compared nominal cash totals for options whose payments occur at different times, which the week identifies as the error to avoid.",
+        "Both options deliver the same underlying benefit — the same laptops — so the comparison is driven by the timing and present value of the cash flows, not by what is acquired.",
+        "Each stream should be discounted to a common point in time at an appropriate hurdle rate, giving a present cost for each.",
+        "The option with the lower present cost wins, which may well be the one with the larger nominal total, exactly as leasing beat buying at $9,174 against $10,000."
+      ],
+      "checklist": [
+        "Names the error as comparing nominal totals across different timings",
+        "States that both options deliver the same benefit, so timing is what separates them",
+        "Says the streams must be discounted to a common point in time first",
+        "Concludes on lower present cost rather than lower total"
+      ]
+    },
+    {
+      "topic": "Recap of NPV",
+      "title": "Moving the hurdle rate",
+      "setup": "A colleague accepts the lease-versus-buy analysis but argues the hurdle rate used was too high. He wants it lowered substantially before the decision is signed off.",
+      "task": "Explain the direction his change would push the result, and why the choice of rate is not a technicality.",
+      "hints": [
+        "Work out what a lower r does to each individual discounted payment.",
+        "Then ask which of the two options has more cash flows exposed to that change.",
+        "The week states plainly what the hurdle rate determines."
+      ],
+      "walkthrough": [
+        "A lower r raises the present value of every future payment, because r sits in the denominator of PV = CFt / (1 + r)^t.",
+        "Buying is a single payment at t = 0, which is not discounted at all, so its present cost is unchanged by the rate.",
+        "The lease has four payments beyond t = 0, so lowering the rate raises its present cost while leaving buying untouched — narrowing and potentially reversing the $826 advantage.",
+        "This is why the notes say the hurdle rate can materially affect lease-versus-buy conclusions: it determines how heavily future payments are discounted, so it is a decision input, not a formatting choice."
+      ],
+      "checklist": [
+        "States that a lower rate raises the present value of future payments",
+        "Notes that a t = 0 cash flow is unaffected by the rate",
+        "Identifies the lease as the option exposed to the change",
+        "Concludes that the advantage narrows, and explains why the rate matters"
+      ]
+    },
+    {
+      "topic": "Recap of NPV",
+      "title": "The same total, two shapes",
+      "setup": "Two suppliers offer the same equipment for the same total amount of money. One asks for it all today. The other asks for equal instalments across three years.",
+      "task": "Decide which to prefer on the week's reasoning, and say what would have to be true for the answer to flip.",
+      "hints": [
+        "If the totals are identical, the totals cannot be what decides it.",
+        "Consider where each payment sits on the timeline.",
+        "Then consider what assumption about r you are relying on."
+      ],
+      "walkthrough": [
+        "With identical nominal totals, the decision rests entirely on timing, which is the week's point in its purest form.",
+        "The instalment option pushes most of its cash beyond t = 0, so those payments are discounted and its present cost is lower.",
+        "The immediate option is entirely at t = 0 and is therefore undiscounted, making it the more expensive in present-value terms.",
+        "The answer flips only if r were zero or negative, since a positive discount rate is what makes later payments cheaper — the whole reason a dollar paid later has a lower present value than a dollar paid today."
+      ],
+      "checklist": [
+        "Recognises that equal totals make timing the only differentiator",
+        "Prefers the instalment option and explains the discounting reason",
+        "Identifies the t = 0 payment as the undiscounted one",
+        "States the condition on r under which the conclusion would change"
+      ]
+    },
+    {
+      "topic": "Recap of NPV",
+      "title": "Reading the recap against itself",
+      "setup": "A study partner is working from the same notes and points out that the prose describes the lease as five annual payments of $2000, while the calculation beside it uses 2,200. He asks which number to revise for.",
+      "task": "Say how you would resolve it, and what you would not do.",
+      "hints": [
+        "One of the two figures is checkable against a result the notes already record.",
+        "Try reproducing $9,174 from each candidate payment.",
+        "Then think about what it would cost you to quietly pick one and move on."
+      ],
+      "walkthrough": [
+        "The notes record a lease present value of $9,174, so that figure is the fixed point to test against.",
+        "Discounting five payments of 2,200 at 10%, with the first undiscounted, reproduces $9,174; five payments of $2000 does not.",
+        "So the calculation is internally consistent at 2,200 and the prose figure is the one out of step — but that is an inference about the source, not something the notes state.",
+        "The right move is to flag the inconsistency and check it against the original material, rather than silently rewriting either number, because a study aid that quietly resolves a contradiction hides the fact that one exists."
+      ],
+      "checklist": [
+        "Uses the recorded $9,174 as the test rather than guessing",
+        "Checks the candidate payment figures against that result",
+        "Identifies the prose figure as the inconsistent one",
+        "Says the discrepancy should be flagged and verified, not silently corrected"
+      ]
+    }
+  ]
+}
