@@ -107,6 +107,35 @@ improve a formula — that is writing his academic content.
 > prose implies the second should show CF0 added. The page states that in words rather than
 > inventing the equation. **Worth telling Aryan so he can fix the Notion source.**
 
+## The first real sync ran — 2026-08-19
+
+Full Notion re-fetch of both semester-2 subjects, **98 pages across 8 parallel agents**
+(Aryan chose the exhaustive option over a timestamp check). Result:
+
+- **97 of 98 pages byte-identical** to the migration capture.
+- **1 genuine change**: DMBA 6008 Week 3 `Live` gained two lines —
+  *"NPV formula in excel actually calculates present value / To get NPV we need to do
+  PV - Outlay, ie time zero cash flow."* That is a `Live Session` note, **`publish: false`**,
+  so it is in the vault and will never reach the site. Correctly excluded.
+- **Every published week reports UNCHANGED.** No page rebuilt, nothing to publish.
+- `verify.py`: all six checks pass. 225 `publish: true` / 72 `false`, 52/52 attachments.
+
+Pleasing detail: that Live note is Aryan's own statement of the CF0 point — the exact gap left
+open when his notes duplicated the `NPV()` image. He has the answer; it just lives in a note
+that is never published.
+
+### Two things this run exposed
+
+1. **Agents mangle whitespace.** They dropped the trailing newline on 45 files and a trailing
+   space in another. Semantically harmless, but each one changes the hash and would have
+   produced ~46 phantom "changed" events, burying the single real one. Backing up `raw/`
+   first and diffing before applying is what caught it. **This is now written into
+   `sync-notes/SKILL.md` as a mandatory step, not advice.**
+2. **`Edited Time` moved mid-run.** The inventory query returned `2026-08-17` for that Live
+   note; a direct fetch minutes later returned `2026-08-19 08:53` and one extra line the agent
+   had missed. `notion-fetch` serves an `as of` snapshot. Verify anything that looks freshly
+   edited with your own fetch before it lands in the vault.
+
 ## Do first
 
 1. **Ask him to approve the hook** (`/hooks`). Sixth session running that `next-prompt.md`
@@ -114,8 +143,8 @@ improve a formula — that is writing his academic content.
 2. **Nothing is committed.** `git status`: `sync-notes/` and `assets/` untracked, plus edits
    to the three DMBA 6008 week pages, `CLAUDE.md`, `docs/README.md`, `docs/vault-sync.md`,
    `docs/notion-sync.md`, `.claude/skills/sync-subject/SKILL.md`.
-3. **DMBA 6008 Week 4 is NEW and unpublished.** Confirmed from live Notion: only
-   `Recap of NPV` (2,646 bytes) has content; `Strategy and Finance`,
+3. **DMBA 6008 Week 4 is NEW and unpublished.** Re-confirmed on the 2026-08-19 full sync —
+   the week totals **363 words across 4 topics**. Only `Recap of NPV` (2,646 bytes) has content; `Strategy and Finance`,
    `Golden rules of project evaluation` and `Application and solution` are **0 bytes — empty
    in Notion itself**. Do not generate filler. Worth telling him they're blank so he can
    write them. **Its 2 images are both formulas** — the multi-period `PV = CFt / (1+r)^t` and

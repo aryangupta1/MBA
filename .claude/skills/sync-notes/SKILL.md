@@ -147,6 +147,34 @@ Attachment filenames use the **full** notion id. Truncated ids silently overwrot
 images during the migration; `publish_images.py` downstream now refuses to publish on a
 collision.
 
+### Agents silently mangle whitespace — back up and diff *(learned 2026-08-19)*
+
+On the first real fan-out run, agents dropped the **trailing newline** on 45 of 98 raw files
+and a **trailing space** mid-file on another. Nothing was lost semantically, but every one of
+those files hashes differently, so `apply_harvest.py` would have reported ~46 phantom
+"Notion changed" events and rewritten those vault notes for no reason — burying the *one*
+genuine change in noise.
+
+**So, every run:**
+
+1. **Back up first**, before dispatching a single agent:
+   `cd ~/MBA/.mba-sync && cp -R raw children.d children.tsv notes-state.json backup-<stamp>/`
+2. **Diff the harvest against that backup before applying**, and classify each difference as
+   byte-identical / whitespace-only / real. Restore the baseline bytes for whitespace-only
+   differences — the backup is the more carefully captured version.
+3. **Verify any "real" difference with your own `notion-fetch`** before it reaches the vault.
+   An agent transcribing prose is exactly where a hallucination would land, and this cache is
+   what overwrites Aryan's notes. On the 2026-08-19 run one real change was found; a direct
+   re-fetch confirmed it was genuine *and* revealed the agent's copy was already one line
+   stale, because he was editing the page during the harvest.
+
+Tell agents explicitly to preserve trailing whitespace and the final newline. They will still
+get it wrong sometimes, which is why steps 1–3 are not optional.
+
+> **Notion's `Edited Time` can move mid-run.** `notion-fetch` results carry an `as of`
+> timestamp and can serve a cached snapshot. Treat a harvest as a point-in-time read, not a
+> lock, and re-check anything that looks freshly edited.
+
 ---
 
 ## Phase 3 — Apply, with the conflict guard
