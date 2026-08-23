@@ -57,10 +57,10 @@
     "weekNumber": 4,
     "page": "DMBA6008-week4.html",
     "topics": {
-     "Application and solution": "75a11da44c80",
-     "Golden rules of project evaluation": "75a11da44c80",
+     "Application and solution": "acca7a65be86",
+     "Golden rules of project evaluation": "1acae4854ddb",
      "Recap of NPV": "614e73f4fccb",
-     "Strategy and Finance": "75a11da44c80"
+     "Strategy and Finance": "9f99de5b4e9c"
     }
    }
   }
@@ -94,6 +94,16 @@
      "Long-term strategic value for $RUs": "2a3094744d21",
      "Personas": "d19737c01ef2",
      "Why we prototype": "543088df91c9"
+    }
+   },
+   "Week 4 Scope and CX": {
+    "weekNumber": 4,
+    "page": "DMBA6005-week4.html",
+    "topics": {
+     "Aligning scope with CX": "5ac57ea17045",
+     "Scope Management": "cbcbdeb8e1af",
+     "Scoping Projects": "175b4fd52f05",
+     "StellarCX application Future you": "eb863d4e65dc"
     }
    },
    "Week1 Project Management": {

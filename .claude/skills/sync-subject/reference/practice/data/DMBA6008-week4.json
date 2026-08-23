@@ -1,61 +1,81 @@
 {
   "page": "DMBA6008-week4.html",
-  "quizIntro": "Five questions, all drawn from the one topic this week has written. They test the thing the recap exists to drill: that a comparison between cash flows is meaningless until they sit at the same point in time. Nothing here touches the three topics still to be written.",
-  "applyIntro": "Four scenarios, each a variation on the lease-versus-buy shape. They are qualitative where the page does not supply figures, because inventing numbers would teach you the wrong habit. Work them before reading the walkthrough.",
-
+  "quizIntro": "Fourteen questions across all four topics. They test the confusions this material invites: a total against a present value, an allocated cost against an incremental one, a sunk cost against an opportunity cost, and a profit against the cash it does or does not become.",
+  "applyIntro": "Six scenarios across the four topics. The first three are qualitative, because the page does not supply figures for them and inventing numbers would teach the wrong habit; the last three work the golden rules and the Woods Ltd model the page does supply. Work them before reading the walkthrough.",
   "studyPath": {
-    "intro": "A short week, deliberately. One written topic, one formula and one worked example — a full pass takes about forty minutes, and most of that is making the example your own.",
+    "intro": "Four topics now, running from a single formula to a complete five-year project model. A full pass takes about two hours, and the Woods Ltd build is worth half of it on its own.",
     "steps": [
       {
         "goto": "summary",
-        "label": "Read the recap in order",
-        "detail": "Four blocks, then three titles. Do not skip the timing figure — the entire $826 comes from which payments sit at t = 0 and which do not. Read the note about the $2000 and 2,200 discrepancy rather than skimming past it.",
-        "time": "~10 min"
-      },
-      {
-        "goto": "formulas",
-        "label": "Learn the one formula properly",
-        "detail": "PV = CFt / (1 + r)^t is the whole week. Say out loud what each of the three symbols does to the answer, and be able to state why a t = 0 cash flow is untouched by it.",
-        "time": "~5 min"
+        "label": "Start with the NPV recap",
+        "time": "~15 min",
+        "detail": "Blocks 01 to 04. Do not skip the timing figure — the entire $826 comes from which payments sit at t = 0 and which do not. Read the note about the $2000 and 2,200 discrepancy rather than skimming past it."
       },
       {
         "goto": "summary",
-        "label": "Rebuild the lease calculation yourself",
-        "detail": "Cover the page and reproduce the five discounted terms to $9,174, then subtract from $10,000 to get $826. If you cannot get there, you do not yet own the example.",
-        "time": "~10 min"
+        "label": "Read strategy into the model",
+        "time": "~15 min",
+        "detail": "Blocks 05 to 08 are the bridge: six drivers, free cash flow, and the chain that ends in a value-creation decision. The point to hold is that revenue growth is only one of six ways a strategy can create value."
       },
       {
-        "goto": "terms",
-        "label": "Separate nominal from present",
-        "detail": "Twelve terms, but the pair that matters is nominal cash totals against present economic cost. $11,000 against $10,000 says buy; $9,174 against $10,000 says lease. Know which comparison is the valid one and why.",
-        "time": "~5 min"
+        "goto": "summary",
+        "label": "Learn the eight golden rules cold",
+        "time": "~25 min",
+        "detail": "Blocks 09 to 12 are the examinable core. Work the table until you can say include or exclude without looking, then test yourself on the three pairs — allocated against incremental overhead, opportunity against sunk cost, synergy against cannibalisation."
+      },
+      {
+        "goto": "summary",
+        "label": "Rebuild Woods Ltd yourself",
+        "time": "~35 min",
+        "detail": "Blocks 13 to 19. Cover the page and reproduce it: $2,100m market, $210m revenue, $20.5m before tax, $34.4m cash profit, −$152.5m at t = 0, and +$19.1m of NPV. If you cannot get to $19.1m, you do not yet own the model."
+      },
+      {
+        "goto": "formulas",
+        "label": "Drill the twenty-three relationships",
+        "time": "~15 min",
+        "detail": "Filter for “working capital” and follow that one thread through the model — $52.5m committed at t = 0, $4.2m added in Year 1, the whole balance recovered in Year 5. It is the input that most often gets forgotten."
       },
       {
         "goto": "cards",
-        "label": "Drill the numbers",
-        "detail": "Twenty cards. The figures — $10,000, $9,174, $826, $11,000 — should come back without hesitation, because a half-remembered worked example is worse than none.",
-        "time": "~7 min"
+        "label": "Drill the numbers and the pairs",
+        "time": "~15 min",
+        "detail": "Fifty-eight cards. The figures should come back without hesitation, because a half-remembered worked example is worse than none. Pay attention to the include-or-exclude cards; they are the ones that decide a model."
       },
       {
         "goto": "quiz",
         "label": "Test the reasoning",
-        "detail": "Five questions aimed at the confusions this material invites: totals versus present values, and what the hurdle rate actually changes.",
-        "time": "~8 min"
+        "time": "~15 min",
+        "detail": "Fourteen questions aimed at what this material gets wrong in practice: double-counting financing, treating an allocation as a cost, chasing a total instead of a present value."
       }
     ],
-    "close": "You have it when you can explain, without the page, why an option costing more in total can still be the cheaper one."
+    "close": "You have it when you can take a proposed project, decide unaided which of its cash flows belong in the model, and say what the resulting NPV means in dollars rather than in the abstract."
   },
-
   "quiz": [
     {
       "topic": "Recap of NPV",
       "q": "Two mutually exclusive ways of acquiring the same asset produce different streams of cash outflows. What does the week say to compare?",
       "hint": "The options deliver the same benefit, so the comparison has to be about something other than what you get.",
       "options": [
-        { "t": "The total contractual payments under each option, choosing the smaller total.", "ok": false, "note": "This is exactly the comparison the week warns against. Nominal lease payments total $11,000 against $10,000 to buy, which points the wrong way once timing is recognised." },
-        { "t": "The present value of the cash outflows, choosing the option with the lower present cost.", "ok": true, "note": "The rule as the notes state it for mutually exclusive financing or acquisition options. The question posed is which option consumes less economic value today after recognising the time value of money." },
-        { "t": "The upfront payment under each option, choosing the smaller one.", "ok": false, "note": "The upfront figure is one cash flow among several. The page explicitly says not to compare on the upfront price for alternatives delivering the same underlying benefit." },
-        { "t": "The number of periods over which each option is paid, preferring the longer one.", "ok": false, "note": "Spreading payments is not automatically better — it is better here only because discounting makes the later payments worth less. The length of the stream is not itself the criterion." }
+        {
+          "t": "The total contractual payments under each option, choosing the smaller total.",
+          "ok": false,
+          "note": "This is exactly the comparison the week warns against. Nominal lease payments total $11,000 against $10,000 to buy, which points the wrong way once timing is recognised."
+        },
+        {
+          "t": "The present value of the cash outflows, choosing the option with the lower present cost.",
+          "ok": true,
+          "note": "The rule as the notes state it for mutually exclusive financing or acquisition options. The question posed is which option consumes less economic value today after recognising the time value of money."
+        },
+        {
+          "t": "The upfront payment under each option, choosing the smaller one.",
+          "ok": false,
+          "note": "The upfront figure is one cash flow among several. The page explicitly says not to compare on the upfront price for alternatives delivering the same underlying benefit."
+        },
+        {
+          "t": "The number of periods over which each option is paid, preferring the longer one.",
+          "ok": false,
+          "note": "Spreading payments is not automatically better — it is better here only because discounting makes the later payments worth less. The length of the stream is not itself the criterion."
+        }
       ]
     },
     {
@@ -63,10 +83,26 @@
       "q": "In the present-value expression the week uses, what happens as either r or t increases?",
       "hint": "Both sit in the denominator, and they compound.",
       "options": [
-        { "t": "The present value of a future outflow rises.", "ok": false, "note": "The page states the opposite. Both r and t sit in the denominator of PV = CFt / (1 + r)^t, so increasing either reduces the result." },
-        { "t": "The present value is unaffected; only CFt changes it.", "ok": false, "note": "CFt is the numerator, but r and t are what convert it into today's terms. Changing either changes the answer." },
-        { "t": "The present value of a future outflow falls.", "ok": true, "note": "Stated directly in the notes. A higher discount rate, or a payment further away, both reduce what that payment costs in today's terms." },
-        { "t": "The present value falls only if the cash flow occurs at t = 0.", "ok": false, "note": "A cash flow at t = 0 is the one case that is not discounted at all, so it is unaffected by r." }
+        {
+          "t": "The present value of a future outflow rises.",
+          "ok": false,
+          "note": "The page states the opposite. Both r and t sit in the denominator of PV = CFt / (1 + r)^t, so increasing either reduces the result."
+        },
+        {
+          "t": "The present value is unaffected; only CFt changes it.",
+          "ok": false,
+          "note": "CFt is the numerator, but r and t are what convert it into today's terms. Changing either changes the answer."
+        },
+        {
+          "t": "The present value of a future outflow falls.",
+          "ok": true,
+          "note": "Stated directly in the notes. A higher discount rate, or a payment further away, both reduce what that payment costs in today's terms."
+        },
+        {
+          "t": "The present value falls only if the cash flow occurs at t = 0.",
+          "ok": false,
+          "note": "A cash flow at t = 0 is the one case that is not discounted at all, so it is unaffected by r."
+        }
       ]
     },
     {
@@ -74,10 +110,26 @@
       "q": "Why is the first lease payment treated differently from the other four?",
       "hint": "Look at when it is paid rather than how large it is.",
       "options": [
-        { "t": "It is larger than the others, so it carries more weight.", "ok": false, "note": "All five payments are equal in the calculation. Their sizes are not what separates them." },
-        { "t": "It is paid immediately, so at t = 0 it is not discounted.", "ok": true, "note": "The notes say a cash flow occurring immediately is not discounted. In the worked calculation the first payment enters undiscounted and only the remaining four are divided down." },
-        { "t": "It is a deposit and sits outside the NPV calculation entirely.", "ok": false, "note": "It is inside the calculation — it is the leading undiscounted term. Being undiscounted is not the same as being excluded." },
-        { "t": "It is discounted at a different hurdle rate from the rest.", "ok": false, "note": "One hurdle rate of 10% applies throughout. What differs across the payments is t, not r." }
+        {
+          "t": "It is larger than the others, so it carries more weight.",
+          "ok": false,
+          "note": "All five payments are equal in the calculation. Their sizes are not what separates them."
+        },
+        {
+          "t": "It is paid immediately, so at t = 0 it is not discounted.",
+          "ok": true,
+          "note": "The notes say a cash flow occurring immediately is not discounted. In the worked calculation the first payment enters undiscounted and only the remaining four are divided down."
+        },
+        {
+          "t": "It is a deposit and sits outside the NPV calculation entirely.",
+          "ok": false,
+          "note": "It is inside the calculation — it is the leading undiscounted term. Being undiscounted is not the same as being excluded."
+        },
+        {
+          "t": "It is discounted at a different hurdle rate from the rest.",
+          "ok": false,
+          "note": "One hurdle rate of 10% applies throughout. What differs across the payments is t, not r."
+        }
       ]
     },
     {
@@ -85,10 +137,26 @@
       "q": "Leasing totals $11,000 in nominal payments against $10,000 to buy, yet the week concludes leasing is better. What resolves the apparent contradiction?",
       "hint": "The two figures are not measured at the same moment.",
       "options": [
-        { "t": "The lease includes services the purchase does not, which justifies the extra $1,000.", "ok": false, "note": "The page is explicit that both alternatives provide access to the same software for the same five-year period. Nothing extra is being bought." },
-        { "t": "The nominal totals are simply wrong and should be recalculated.", "ok": false, "note": "The nominal totals are correct as totals. The objection is not to their arithmetic but to comparing them at all when their timing differs." },
-        { "t": "Most lease payments occur in the future, so on a present-value basis they come to $9,174 rather than $11,000.", "ok": true, "note": "The week's central move. Discounted to today the lease costs $9,174 against $10,000 to buy, an $826 advantage — and comparing $11,000 with $10,000 would be misleading." },
-        { "t": "The hurdle rate converts the purchase price upward to $11,000 for comparison.", "ok": false, "note": "Discounting moves future amounts back to today; it does not inflate a payment already made at t = 0. The $10,000 is already in present-value terms." }
+        {
+          "t": "The lease includes services the purchase does not, which justifies the extra $1,000.",
+          "ok": false,
+          "note": "The page is explicit that both alternatives provide access to the same software for the same five-year period. Nothing extra is being bought."
+        },
+        {
+          "t": "The nominal totals are simply wrong and should be recalculated.",
+          "ok": false,
+          "note": "The nominal totals are correct as totals. The objection is not to their arithmetic but to comparing them at all when their timing differs."
+        },
+        {
+          "t": "Most lease payments occur in the future, so on a present-value basis they come to $9,174 rather than $11,000.",
+          "ok": true,
+          "note": "The week's central move. Discounted to today the lease costs $9,174 against $10,000 to buy, an $826 advantage — and comparing $11,000 with $10,000 would be misleading."
+        },
+        {
+          "t": "The hurdle rate converts the purchase price upward to $11,000 for comparison.",
+          "ok": false,
+          "note": "Discounting moves future amounts back to today; it does not inflate a payment already made at t = 0. The $10,000 is already in present-value terms."
+        }
       ]
     },
     {
@@ -96,14 +164,272 @@
       "q": "What does the week say about the role of the hurdle rate in a lease-versus-buy conclusion?",
       "hint": "Ask what would change if the rate were much lower.",
       "options": [
-        { "t": "It is a formality, since both options are discounted at the same rate and the effects cancel.", "ok": false, "note": "They do not cancel, because the two options have different timing. The rate bites harder on the option with more distant cash flows." },
-        { "t": "It can materially affect the conclusion, because it determines how heavily future payments are discounted.", "ok": true, "note": "Stated as an analytical takeaway. The lease's advantage comes entirely from its later payments being discounted, so the size of that discount decides the outcome." },
-        { "t": "It only matters when the two options have the same nominal total.", "ok": false, "note": "The worked example has different nominal totals — $11,000 against $10,000 — and the rate is decisive there precisely because it is what makes them comparable." },
-        { "t": "It is fixed by the asset being acquired rather than chosen.", "ok": false, "note": "The notes say the discount or hurdle rate may reflect the cost of financing the competing alternatives, which makes it a judgement about financing, not a property of the software." }
+        {
+          "t": "It is a formality, since both options are discounted at the same rate and the effects cancel.",
+          "ok": false,
+          "note": "They do not cancel, because the two options have different timing. The rate bites harder on the option with more distant cash flows."
+        },
+        {
+          "t": "It can materially affect the conclusion, because it determines how heavily future payments are discounted.",
+          "ok": true,
+          "note": "Stated as an analytical takeaway. The lease's advantage comes entirely from its later payments being discounted, so the size of that discount decides the outcome."
+        },
+        {
+          "t": "It only matters when the two options have the same nominal total.",
+          "ok": false,
+          "note": "The worked example has different nominal totals — $11,000 against $10,000 — and the rate is decisive there precisely because it is what makes them comparable."
+        },
+        {
+          "t": "It is fixed by the asset being acquired rather than chosen.",
+          "ok": false,
+          "note": "The notes say the discount or hurdle rate may reflect the cost of financing the competing alternatives, which makes it a judgement about financing, not a property of the software."
+        }
+      ]
+    },
+    {
+      "topic": "Strategy and Finance",
+      "q": "A change programme is forecast to raise no revenue at all. On the page's own logic, can it still create value?",
+      "hint": "Revenue growth is only one of the six drivers listed.",
+      "options": [
+        {
+          "t": "No — an initiative that does not increase revenue cannot produce a positive NPV.",
+          "ok": false,
+          "note": "The page says the opposite outright: not every project needs to increase revenue."
+        },
+        {
+          "t": "Yes, primarily through cost reduction and improved profitability.",
+          "ok": true,
+          "note": "This is the example the page gives. Profitability is a driver in its own right, alongside revenue growth."
+        },
+        {
+          "t": "Only if it is funded from retained earnings rather than debt.",
+          "ok": false,
+          "note": "Funding influences financial risk and the required return, but it is not what decides whether value is created."
+        },
+        {
+          "t": "Only if it also reduces the risk of the existing business.",
+          "ok": false,
+          "note": "Risk determines the required return; it is not a precondition for value creation."
+        }
+      ]
+    },
+    {
+      "topic": "Strategy and Finance",
+      "q": "A division reports rising profit and rising revenue, but its free cash flow has fallen. What does the page offer as the explanation?",
+      "hint": "Four things are deducted before cash counts as free.",
+      "options": [
+        {
+          "t": "Depreciation has increased, which reduces the cash available.",
+          "ok": false,
+          "note": "Depreciation is non-cash. The page is explicit that it is added back when converting profit to cash flow."
+        },
+        {
+          "t": "The tax rate must have risen.",
+          "ok": false,
+          "note": "Possible in principle, but not the mechanism the page gives for growth consuming cash."
+        },
+        {
+          "t": "Growth has required working capital or asset reinvestment, which consumes the cash first.",
+          "ok": true,
+          "note": "Exactly the page's warning: profitable growth does not automatically mean more distributable cash."
+        },
+        {
+          "t": "Free cash flow is measured before profit, so the two are unrelated.",
+          "ok": false,
+          "note": "Free cash flow starts from cash earnings; the two are closely related, which is why the divergence needs explaining."
+        }
+      ]
+    },
+    {
+      "topic": "Golden rules of project evaluation",
+      "q": "Your company has already spent $500k researching a software platform. The project that would use it is now being evaluated. How does the $500k enter the NPV?",
+      "hint": "Ask whether the decision you are making now can change that number.",
+      "options": [
+        {
+          "t": "As an opportunity cost, because the money could have been spent elsewhere.",
+          "ok": false,
+          "note": "Opportunity cost is a future cash flow sacrificed. This one has already gone."
+        },
+        {
+          "t": "It does not enter at all — it is a sunk cost.",
+          "ok": true,
+          "note": "Rule 7. Costs already incurred cannot be changed by the current decision and are therefore not incremental."
+        },
+        {
+          "t": "As a capital outflow at t = 0, alongside the equipment.",
+          "ok": false,
+          "note": "That would make a past, unrecoverable payment look like a consequence of the decision. It is not."
+        },
+        {
+          "t": "Spread across the project's life as an amortisation charge.",
+          "ok": false,
+          "note": "Amortising a sunk cost into the model reintroduces exactly the number rule 7 excludes."
+        }
+      ]
+    },
+    {
+      "topic": "Golden rules of project evaluation",
+      "q": "The project will occupy office space the company could otherwise lease out for $100k p.a. What does the model do with that?",
+      "hint": "The space is not free just because the company already owns it.",
+      "options": [
+        {
+          "t": "Nothing — the company already owns the space, so there is no cash outflow.",
+          "ok": false,
+          "note": "This is the trap. A resource used by the project may no longer generate cash elsewhere, and that foregone cash flow is a genuine economic cost."
+        },
+        {
+          "t": "Excludes it, as an allocated overhead.",
+          "ok": false,
+          "note": "An allocated overhead redistributes an existing cost. This is a foregone external receipt, which is different."
+        },
+        {
+          "t": "Includes $100k p.a. as an opportunity cost.",
+          "ok": true,
+          "note": "Rule 6. Value sacrificed by using resources for the project is included."
+        },
+        {
+          "t": "Includes it only in the terminal year, when the space is released.",
+          "ok": false,
+          "note": "The cash is foregone in every year the project occupies the space, not once at the end."
+        }
+      ]
+    },
+    {
+      "topic": "Golden rules of project evaluation",
+      "q": "A project's cash flows have had interest payments deducted, and are then discounted at the company's hurdle rate. What has gone wrong?",
+      "hint": "Ask what the hurdle rate already contains.",
+      "options": [
+        {
+          "t": "Nothing — interest is a real cash outflow and belongs in the model.",
+          "ok": false,
+          "note": "It is a real outflow, but rule 1 excludes it from project cash flows for a specific reason."
+        },
+        {
+          "t": "Financing cost has been counted twice, because it is already in the discount rate.",
+          "ok": true,
+          "note": "Rule 1. Deducting interest and then discounting at a rate that already reflects financing cost double counts it, understating NPV."
+        },
+        {
+          "t": "The cash flows should have been measured before tax instead.",
+          "ok": false,
+          "note": "Rule 2 requires after-tax cash flows. That is a separate matter and is not the error here."
+        },
+        {
+          "t": "The hurdle rate should have been raised to compensate.",
+          "ok": false,
+          "note": "Raising the rate compounds the double count rather than correcting it. The fix is to remove financing from the cash flows."
+        }
+      ]
+    },
+    {
+      "topic": "Golden rules of project evaluation",
+      "q": "Head office allocates $200k of existing legal costs to your project. Total legal spend across the organisation does not change. Include or exclude?",
+      "hint": "Rule 5 turns on whether the organisation's total cost actually rises.",
+      "options": [
+        {
+          "t": "Include — the project is consuming legal resource, so it should carry the charge.",
+          "ok": false,
+          "note": "The charge redistributes a cost that exists either way. Consuming an existing resource is not the same as causing new expenditure."
+        },
+        {
+          "t": "Exclude — the allocation redistributes an existing cost rather than creating a new one.",
+          "ok": true,
+          "note": "Rule 5. Include an overhead only where the project causes an actual increase in organisational expenditure."
+        },
+        {
+          "t": "Include half, since the project uses roughly half the legal team's time.",
+          "ok": false,
+          "note": "The test is not proportion of use; it is whether total organisational cost rises."
+        },
+        {
+          "t": "Exclude, but only because it is a non-cash charge.",
+          "ok": false,
+          "note": "It is a real cash cost to the organisation. The reason to exclude it is that it is not incremental to this decision."
+        }
+      ]
+    },
+    {
+      "topic": "Application and solution",
+      "q": "Woods Ltd's Year 1 revenue is $210m. Where does that figure come from?",
+      "hint": "Two steps: the market moves first, then Woods takes a slice of it.",
+      "options": [
+        {
+          "t": "The $2,000m market grown at 8%, times a 10% share.",
+          "ok": false,
+          "note": "8% is Woods' own revenue growth after Year 1, not the market growth. The market grows at 5%."
+        },
+        {
+          "t": "The $2,000m market grown at 5% to $2,100m, times a 10% share.",
+          "ok": true,
+          "note": "2000(1.05) = $2,100m, and Woods captures 10% of it."
+        },
+        {
+          "t": "The $2,000m market times a 10% share, then grown at 5%.",
+          "ok": false,
+          "note": "This happens to reach the same number, but it inverts the model: Woods takes a share of the grown market, not a grown share of today's market."
+        },
+        {
+          "t": "$226.8m less the 8% growth applied in Year 2.",
+          "ok": false,
+          "note": "$226.8m is Year 2, derived from Year 1. Year 1 is not derived from it."
+        }
+      ]
+    },
+    {
+      "topic": "Application and solution",
+      "q": "Woods Ltd's Year 1 profit after tax is $14.4m, yet the model uses $34.4m as the cash figure. Why?",
+      "hint": "One line in the profit calculation never actually left the bank.",
+      "options": [
+        {
+          "t": "The $17m of synergies is added after tax.",
+          "ok": false,
+          "note": "Synergies are already inside the profit calculation, before tax: 210 − 178.5 + 17 − 8 − 20."
+        },
+        {
+          "t": "The $20m of depreciation is added back, because it is non-cash.",
+          "ok": true,
+          "note": "Depreciation must be in profit because it reduces taxable income, then added back to reach project cash flow. 14.4 + 20 = $34.4m."
+        },
+        {
+          "t": "The $20m is the working capital released in the year.",
+          "ok": false,
+          "note": "Working capital is a separate line, and in Year 1 it is an outflow of $4.2m, not an inflow."
+        },
+        {
+          "t": "Tax is paid a year in arrears, so Year 1 carries no tax.",
+          "ok": false,
+          "note": "The model applies the 30% rate in the year. The $20m gap is exactly the depreciation charge."
+        }
+      ]
+    },
+    {
+      "topic": "Application and solution",
+      "q": "Woods Ltd's revenue rises from $210m to $226.8m. What working capital cash flow does that create in the year?",
+      "hint": "Only the change is a cash flow, not the balance.",
+      "options": [
+        {
+          "t": "An outflow of $56.7m — 25% of the new revenue.",
+          "ok": false,
+          "note": "That is the new balance required, not the cash flow. The balance already stood at $52.5m."
+        },
+        {
+          "t": "An outflow of $4.2m — 25% of the $16.8m increase.",
+          "ok": true,
+          "note": "Only the incremental increase in working capital is treated as a cash outflow each period."
+        },
+        {
+          "t": "No cash flow, because working capital is recovered at the end of the project.",
+          "ok": false,
+          "note": "It is recovered at the end, but it must be funded in the meantime."
+        },
+        {
+          "t": "An inflow of $4.2m, since higher revenue brings in more cash.",
+          "ok": false,
+          "note": "Working capital must be funded before the revenue it supports is generated, so growth costs cash rather than releasing it."
+        }
       ]
     }
   ],
-
   "scenarios": [
     {
       "topic": "Recap of NPV",
@@ -153,29 +479,6 @@
     },
     {
       "topic": "Recap of NPV",
-      "title": "The same total, two shapes",
-      "setup": "Two suppliers offer the same equipment for the same total amount of money. One asks for it all today. The other asks for equal instalments across three years.",
-      "task": "Decide which to prefer on the week's reasoning, and say what would have to be true for the answer to flip.",
-      "hints": [
-        "If the totals are identical, the totals cannot be what decides it.",
-        "Consider where each payment sits on the timeline.",
-        "Then consider what assumption about r you are relying on."
-      ],
-      "walkthrough": [
-        "With identical nominal totals, the decision rests entirely on timing, which is the week's point in its purest form.",
-        "The instalment option pushes most of its cash beyond t = 0, so those payments are discounted and its present cost is lower.",
-        "The immediate option is entirely at t = 0 and is therefore undiscounted, making it the more expensive in present-value terms.",
-        "The answer flips only if r were zero or negative, since a positive discount rate is what makes later payments cheaper — the whole reason a dollar paid later has a lower present value than a dollar paid today."
-      ],
-      "checklist": [
-        "Recognises that equal totals make timing the only differentiator",
-        "Prefers the instalment option and explains the discounting reason",
-        "Identifies the t = 0 payment as the undiscounted one",
-        "States the condition on r under which the conclusion would change"
-      ]
-    },
-    {
-      "topic": "Recap of NPV",
       "title": "Reading the recap against itself",
       "setup": "A study partner is working from the same notes and points out that the prose describes the lease as five annual payments of $2000, while the calculation beside it uses 2,200. He asks which number to revise for.",
       "task": "Say how you would resolve it, and what you would not do.",
@@ -195,6 +498,75 @@
         "Checks the candidate payment figures against that result",
         "Identifies the prose figure as the inconsistent one",
         "Says the discrepancy should be flagged and verified, not silently corrected"
+      ]
+    },
+    {
+      "topic": "Golden rules of project evaluation",
+      "title": "The cash flows that should not be there",
+      "setup": "A manager brings you a project model. It deducts interest on the loan that will fund the equipment, carries $300k of previously spent feasibility work as a Year 1 cost, and includes a $150k head-office charge that head office would incur regardless. It excludes the $80k p.a. of sales the project will take from an existing product line, on the grounds that those sales stay inside the company.",
+      "task": "Identify which four treatments are wrong and state the rule each one breaks.",
+      "hints": [
+        "Three of the four items should not be in the model at all, and one that is missing should be.",
+        "Two of the exclusions turn on the same question: does the organisation's total cost actually change?",
+        "The missing item is a side effect, and the rules require both directions of side effect to be captured."
+      ],
+      "walkthrough": [
+        "Interest breaks rule 1. Financing cost is already in the hurdle rate, so deducting it and then discounting double counts it.",
+        "The $300k of feasibility work breaks rule 7. It is a sunk cost, already incurred and unaffected by the decision.",
+        "The $150k head-office charge breaks rule 5. Total organisational cost does not rise, so the allocation is not incremental.",
+        "The $80k of lost sales breaks rule 4. Cannibalisation is a side effect and the loss must be included, even though the sales stayed inside the company."
+      ],
+      "checklist": [
+        "Names all three items that must be removed, with the rule each breaks",
+        "Names the cannibalisation as an omission rather than a further exclusion",
+        "Explains double counting as the specific harm in the interest case",
+        "Distinguishes the head-office allocation from a genuine increase in organisational spend"
+      ]
+    },
+    {
+      "topic": "Application and solution",
+      "title": "The board wants a bigger number",
+      "setup": "Woods Ltd's model returns an NPV of +$19.1m on a $152.5m commitment, with an IRR of 13.8% against a 10% hurdle rate. A board member observes that the margin is thin and asks whether the assumptions could be revisited to make the case stronger.",
+      "task": "Say which assumptions the page itself flags as the ones to test, and what the honest direction of that testing is.",
+      "hints": [
+        "The page names two assumptions specifically.",
+        "Both of them are optimistic inputs rather than conservative ones.",
+        "Testing an assumption and improving it are opposite exercises."
+      ],
+      "walkthrough": [
+        "The page singles out the 10% immediate market share and the $17m annual synergies as the assumptions deserving stress-testing.",
+        "Both are inputs that flatter the result: a first-year share of an entirely new market, and synergies assumed to arrive in full from Year 1.",
+        "The page's position is that validation quality is only as strong as the opening assumptions, so the testing should ask what happens if these are lower — not what they would need to be to justify the project.",
+        "Note the direction of the request. Revisiting assumptions to reach a wanted answer inverts the purpose of the model."
+      ],
+      "checklist": [
+        "Names the market-share and synergy assumptions specifically",
+        "Explains why both are optimistic rather than neutral inputs",
+        "States that stress-testing means testing downwards, not tuning upwards",
+        "Connects the answer to the page's claim about validation quality"
+      ]
+    },
+    {
+      "topic": "Application and solution",
+      "title": "Two projects, two measures",
+      "setup": "A colleague argues that Woods Ltd should be judged on its IRR of 13.8% rather than its NPV of $19.1m, because a percentage is comparable across projects of any size and a dollar figure is not.",
+      "task": "Set out what each measure tells you here, and whether the two disagree.",
+      "hints": [
+        "The page states plainly what each of the two measures indicates.",
+        "Check first whether the two actually point in different directions for this project.",
+        "The comparability argument is about a property of the measure, not about this project's verdict."
+      ],
+      "walkthrough": [
+        "The page is explicit: IRR indicates the rate of return, NPV shows the dollar value created.",
+        "For Woods Ltd they do not disagree. NPV is +$19.1m and IRR of 13.8% exceeds the 10% hurdle rate, so both support proceeding.",
+        "The page treats IRR as a cross check on the NPV verdict rather than as a substitute for it.",
+        "So the colleague's preference does not change the decision here; it changes what the decision is expressed in, and the page keeps both readings rather than choosing one."
+      ],
+      "checklist": [
+        "States what each measure indicates, in the page's own terms",
+        "Notes that both measures agree for this project",
+        "Describes IRR's role on this page as a cross check",
+        "Avoids claiming the page resolves which measure is superior in general"
       ]
     }
   ]

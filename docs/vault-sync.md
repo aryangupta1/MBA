@@ -205,16 +205,24 @@ sync commit.
 
 ## 7. Current state
 
-Notion→vault sync state is seeded for all **296** pages as of 2026-08-19
+Notion→vault sync state covers all **304** pages as of 2026-08-23
 (`~/MBA/.mba-sync/notes-state.json`), so the conflict guard has a baseline for every note.
 
 | | DMBA 6008 | DMBA 6005 |
 | --- | --- | --- |
-| Weeks in the vault | 0–4 | 0–3 |
-| Weeks published | **0–4** | 0–3 |
-| Outstanding | Week 4 published in progress (2026-08-19, Aryan's call) — 3 of its 4 topics are still empty in the source and render as "not yet written" | none |
+| Weeks in the vault | 0–4 | 0–4 |
+| Weeks published | **0–4** | **0–4** |
+| Outstanding | none — Week 4's last three topics were written and published 2026-08-23 | none |
 | Held for review | — | Week 3 `Live` |
 
-Empty in the source, so empty on the page: DMBA 6008 Week 4's `Strategy and Finance`,
-`Golden rules of project evaluation`, `Application and solution`; DMBA 6005 Week 1's
-`Creating your reflective journal`.
+Empty in the source, so empty on the page: DMBA 6005 Week 1's
+`Creating your reflective journal`. **DMBA 6008 Week 4's three placeholders are gone** —
+`Strategy and Finance`, `Golden rules of project evaluation` and `Application and solution`
+were written in Notion and published on 2026-08-23.
+
+A non-week notebook also arrived on 2026-08-21: DMBA 6008's **`Assessment 1: Financial
+Analysis`**, holding a `Plan` note. Its Type is `Assessment`, so it is `publish: false` and
+never reaches a week page. Its two sub-pages — `Live Session Transcript` and `Live Session
+Chat` — were **deliberately not harvested**, because a transcript and a class chat log would
+carry the lecturer's name and classmates' words into the vault, which rule 3 forbids. They are
+the only two unresolved wikilinks `verify.py` reports, and that gate failure is expected.

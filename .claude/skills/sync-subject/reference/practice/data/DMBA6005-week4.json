@@ -1,0 +1,330 @@
+{
+  "page": "DMBA6005-week4.html",
+  "quizIntro": "Twelve questions across the four topics. They target the distinctions this week keeps blurring: an output against an outcome, managed change against scope creep, validation against control, and a user interface against the relationship that surrounds it.",
+  "applyIntro": "Six scenarios. They are qualitative throughout, because this week is a case week and the notes supply no figures to work — inventing any would teach the wrong habit. Decide your answer before opening the walkthrough.",
+
+  "studyPath": {
+    "intro": "Four topics that build on each other: what scope is, how it is governed, what CX adds to it, and one case where all three collide. A full pass takes about two hours.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Start with the triple constraint",
+        "detail": "Blocks 01 to 11. The move that matters is early: scope around what the audience does differently, not around the medium the client asked for. Read the scope creep table slowly — those six consequences are the argument for everything in the next topic.",
+        "time": "~30 min"
+      },
+      {
+        "goto": "summary",
+        "label": "Learn the governance cycle",
+        "detail": "Blocks 12 to 17. Six steps, and the two at the end are the ones people conflate. Be able to say which question belongs to Validate Scope and which to Control Scope without looking at the table.",
+        "time": "~25 min"
+      },
+      {
+        "goto": "summary",
+        "label": "Add the customer",
+        "detail": "Blocks 18 to 26. UI, UX and CX are nested rather than parallel, which is the whole point of the figure. Trace the journey strip from project scope down to lived experience and note where touchpoints sit — that is the bridge the topic is named for.",
+        "time": "~25 min"
+      },
+      {
+        "goto": "summary",
+        "label": "Work the $RUs case",
+        "detail": "Blocks 27 to 36. Read it as a scoping problem, not a product review: which features protect the killer idea, which merely enlarge the app, and where each of the three tensions constrains what the scope may contain.",
+        "time": "~25 min"
+      },
+      {
+        "goto": "terms",
+        "label": "Drill the definitional pairs",
+        "detail": "Sixty terms, but the value is in the pairs. Filter for “scope” and work through requirements against scope, managed change against scope creep, validate against control, and pitch scope against deliver scope.",
+        "time": "~15 min"
+      },
+      {
+        "goto": "cards",
+        "label": "Test recall",
+        "detail": "Ninety-nine cards. The framework cards — MoSCoW's four categories, the six process steps, the five stakeholder groups — are the ones an exam can ask for cold, so get those to the point of no hesitation.",
+        "time": "~20 min"
+      },
+      {
+        "goto": "quiz",
+        "label": "Test the judgement",
+        "detail": "Twelve questions built on the decisions this material actually forces: whether a change is legitimate, whether a feature belongs in an MVP, and whether a technically complete deliverable has succeeded.",
+        "time": "~15 min"
+      }
+    ],
+    "close": "You have it when you can take a mid-project change request and say, unaided, whether accepting it is agility or scope creep — and what you would trade to make it the former."
+  },
+
+  "quiz": [
+    {
+      "topic": "Scoping Projects",
+      "q": "A client's time and cost are both fixed and cannot move. On the triple constraint, what does that make scope?",
+      "hint": "If two corners are pinned, only one is left to work with.",
+      "options": [
+        { "t": "Also fixed — all three constraints move together or not at all.", "ok": false, "note": "They are interdependent, not identical. Fixing two does not fix the third; it concentrates the pressure on it." },
+        { "t": "The main variable available for prioritisation.", "ok": true, "note": "Exactly what the notes say. Where time and cost are fixed, scope becomes the variable you prioritise with." },
+        { "t": "Irrelevant, since the project is now fully specified.", "ok": false, "note": "The opposite. With time and cost pinned, scope is the only remaining lever and needs more attention, not less." },
+        { "t": "A quality problem rather than a scope problem.", "ok": false, "note": "Quality is what absorbs pressure when scope rises against fixed time and cost — it is the consequence, not the constraint." }
+      ]
+    },
+    {
+      "topic": "Scoping Projects",
+      "q": "A client's brief runs to forty pages and asks for an app, a campaign and an activation. What does the week say the team should do first?",
+      "hint": "The volume of a brief is not the same as its focus.",
+      "options": [
+        { "t": "Scope all three deliverables, since the client has been explicit about what they want.", "ok": false, "note": "Those are mediums, not necessarily the real project outcome. Treating the brief as a checklist is the error the topic names." },
+        { "t": "Push back and ask the client to shorten the brief before work begins.", "ok": false, "note": "The notes expect too much information as normal, and put the work of interpretation on the team rather than the client." },
+        { "t": "Listen for the nugget of gold — the idea or need that reveals what the client is fundamentally trying to achieve.", "ok": true, "note": "Clients often provide too much information rather than a focused brief, and the brief should be interpreted calmly rather than treated as a checklist." },
+        { "t": "Pick the deliverable with the clearest success criteria and scope that one.", "ok": false, "note": "This still starts from the medium. Problem diagnosis has to come before solution specification." }
+      ]
+    },
+    {
+      "topic": "Scoping Projects",
+      "q": "A campaign reaches four million people and is widely shared, but nobody who saw it changed what they did. How does the week assess it?",
+      "hint": "Three stages, and the first two are not the destination.",
+      "options": [
+        { "t": "Successful — reach at that scale is a measurable project outcome.", "ok": false, "note": "Reach and social engagement are not sufficient evidence of effectiveness if they do not contribute to the intended behaviour or KPI." },
+        { "t": "Successful on the outer ring, which is what a campaign is for.", "ok": false, "note": "The outer ring alone creates reach without meaningful impact. A strong project must connect both rings." },
+        { "t": "It reached attention and possibly memory, but not behaviour — the stage the week treats as the real outcome.", "ok": true, "note": "Attention alone is a temporary sugar hit, and even memorable work fails if the stunt is what is remembered." },
+        { "t": "Unassessable without the client's budget figures.", "ok": false, "note": "The week's test is behavioural, not financial. The question is what the audience did differently." }
+      ]
+    },
+    {
+      "topic": "Scoping Projects",
+      "q": "Mid-delivery, a stakeholder asks for one extra feature. Under the Agile principle the week states, what makes accepting it legitimate?",
+      "hint": "The principle is not about whether change is allowed.",
+      "options": [
+        { "t": "That the team has enough slack to absorb it without changing the schedule.", "ok": false, "note": "Absorbing work into an unchanged schedule is precisely the mechanism of scope creep — timeline slippage follows." },
+        { "t": "That it is consciously prioritised, with a trade-off against time, investment or an existing priority.", "ok": true, "note": "Change is legitimate when it is consciously prioritised; continually adding work without trade-offs is not agility." },
+        { "t": "That the stakeholder who requested it has decision rights over the project.", "ok": false, "note": "Unclear decision rights are listed as a cause of scope creep, but clear ones do not by themselves make an addition legitimate." },
+        { "t": "That it is small enough not to affect the critical path.", "ok": false, "note": "Scope creep emerges gradually through apparently harmless requests. Size is what disguises it, not what excuses it." }
+      ]
+    },
+    {
+      "topic": "Scoping Projects",
+      "q": "Capacity has tightened and something has to go. Under MoSCoW, which category is the first candidate to defer?",
+      "hint": "Four categories, and the one you want is not the one you would cut last.",
+      "options": [
+        { "t": "Won't have", "ok": false, "note": "Won't-have items were already explicitly exlcuded, so there is nothing left to defer." },
+        { "t": "Should have", "ok": false, "note": "Should-haves are important for the longer-term solution and are delivered if capacity allows — they go after could-haves." },
+        { "t": "Could have", "ok": true, "note": "A low-priority, relatively low-cost enhancement, named in the framework as the first candidate to defer." },
+        { "t": "Must have", "ok": false, "note": "The project cannot function without a must-have. The scoping decision on those is to protect them." }
+      ]
+    },
+    {
+      "topic": "Scope Management",
+      "q": "Two stakeholders disagree about whether a deliverable was ever in scope. Which artefact settles it?",
+      "hint": "One of the artefacts has a role specifically for this moment.",
+      "options": [
+        { "t": "The Work Breakdown Structure, since it lists every component of work.", "ok": false, "note": "The WBS shows the work required to deliver a promise. What was promised is a different question." },
+        { "t": "The Statement of Work, which acts as the baseline when scope disagreements arise later.", "ok": true, "note": "The SOW performs two roles — agreement and reference point — and the second is exactly this." },
+        { "t": "The scope management plan, which governs how disputes are handled.", "ok": false, "note": "It establishes who approves changes and how, but it does not record what was agreed to in the first place." },
+        { "t": "The MoSCoW list, which records the agreed priorities.", "ok": false, "note": "MoSCoW is a scope-control mechanism for competing requirements, not a record of commitment." }
+      ]
+    },
+    {
+      "topic": "Scope Management",
+      "q": "A stakeholder raises a requirement during consultation. Does it become part of the project scope?",
+      "hint": "The week draws a critical distinction between two words people use interchangeably.",
+      "options": [
+        { "t": "Yes — requirements gathered from stakeholders define the scope.", "ok": false, "note": "This collapses the distinction the topic marks as critical. Collecting stakeholder wishlists is explicitly not the objective." },
+        { "t": "Not necessarily — requirements are stakeholder needs; scope is the agreed project response to them.", "ok": true, "note": "Not every identified requirement necessarily becomes part of the final project scope." },
+        { "t": "Only if it can be decomposed into the WBS.", "ok": false, "note": "Decomposition happens after scope is defined. Feasibility of breakdown is not the test for inclusion." },
+        { "t": "Only if it arrives before the project charter is signed.", "ok": false, "note": "The charter is one input to defining scope, not a cut-off that decides which requirements qualify." }
+      ]
+    },
+    {
+      "topic": "Scope Management",
+      "q": "A deliverable meets every specification but the client refuses to sign it off. Which process has failed, and why is that possible?",
+      "hint": "Two processes ask different questions; only one of them involves the client saying yes.",
+      "options": [
+        { "t": "Control scope — the team has drifted from what was agreed.", "ok": false, "note": "Control scope asks whether you are still delivering what was agreed. Here the specification was met, so the drift is not the issue." },
+        { "t": "Validate scope — a deliverable can be technically completed and still fail stakeholder acceptance.", "ok": true, "note": "Validation is challenging because teams and stakeholders may interpret \"complete\" differently. The clearer the acceptance criteria, the smaller that gap." },
+        { "t": "Create WBS — the work was decomposed incorrectly.", "ok": false, "note": "A decomposition error would show up as missing or misestimated work, not as a specification-compliant deliverable being rejected." },
+        { "t": "Neither — this is scope creep by the client.", "ok": false, "note": "Scope creep is work expanding without review. Refusing to accept a finished deliverable is an acceptance problem, not an expansion one." }
+      ]
+    },
+    {
+      "topic": "Aligning scope with CX",
+      "q": "A team rebuilds its checkout screen until it tests perfectly, yet customers remain unhappy with the company. Which level has been optimised, and which has not?",
+      "hint": "The three levels are nested, not parallel.",
+      "options": [
+        { "t": "CX has been optimised but UX has not.", "ok": false, "note": "This inverts the nesting. A single screen is the innermost level, not the total relationship." },
+        { "t": "UI has been optimised, but CX — the total relationship across touchpoints — has not.", "ok": true, "note": "A strong interface does not compensate for a poor end-to-end customer experience." },
+        { "t": "All three, since the interface is where customers meet the organisation.", "ok": false, "note": "The interface is one touchpoint. CX also covers expectations, emotions, service interactions, memories and the ongoing relationship." },
+        { "t": "None — customer unhappiness is a brand issue rather than a design one.", "ok": false, "note": "The week treats the surrounding journey as designable, and as part of what scope should account for." }
+      ]
+    },
+    {
+      "topic": "Aligning scope with CX",
+      "q": "A café serves excellent coffee, but customers queue in confusion, struggle to pay and leave irritated. What does the week say this shows?",
+      "hint": "There is a formula-like line in the notes for exactly this shape.",
+      "options": [
+        { "t": "The product needs improving before the experience can be addressed.", "ok": false, "note": "The product is already strong. The failure is in the stages around it." },
+        { "t": "Poor CX = strong product + poor surrounding touchpoints.", "ok": true, "note": "A well-scoped core deliverable may still fail if waiting, onboarding, payment, support or other journey stages create excessive friction." },
+        { "t": "The touchpoints are irrelevant if the core deliverable is good.", "ok": false, "note": "Customers usually judge the overall experience from the combined journey, not from one isolated interaction." },
+        { "t": "This is a UX failure, since the payment interaction is the product.", "ok": false, "note": "Payment, waiting and support are touchpoints across the journey. The failure spans the relationship, which is CX." }
+      ]
+    },
+    {
+      "topic": "StellarCX application Future you",
+      "q": "Murray is enthusiastic about the AI in Future You. What does the week say the enthusiasm should actually rest on?",
+      "hint": "The notes are explicit about what the technology is and is not.",
+      "options": [
+        { "t": "The AI capability itself, which is what differentiates the product from competitors.", "ok": false, "note": "The notes state that his enthusiasm is explicitly not based on using AI for its own sake." },
+        { "t": "The mechanism it enables: personalised experience, stronger engagement, trust, and a longer-term client relationship.", "ok": true, "note": "Technology is the enabler, not the project objective — which aligns with the scoping principle that a medium is not the solution." },
+        { "t": "The earned media the novelty would attract from fintech coverage and influencers.", "ok": false, "note": "Earned media is not itself evidence of project success. A viral app generating no trusted relationships fails the strategic objective." },
+        { "t": "The cost saving from replacing adviser time with automated guidance.", "ok": false, "note": "The proposal is a client-acquisition and relationship strategy. Cost substitution is not the value the notes identify." }
+      ]
+    },
+    {
+      "topic": "StellarCX application Future you",
+      "q": "Estate and inheritance planning is proposed alongside the Future You simulator. What scope question does the week raise about it?",
+      "hint": "The question is about sequencing, not about whether the feature has value.",
+      "options": [
+        { "t": "Whether $RUs has the regulatory permissions to offer inheritance advice at all.", "ok": false, "note": "Compliance is a live tension in the case, but it is not the question the notes attach to this feature." },
+        { "t": "Whether younger clients would use it, given they are decades from inheriting.", "ok": false, "note": "The notes accept the strategic logic — younger clients may need to prepare for transfers from older generations." },
+        { "t": "Whether it is a Must have for validating Future You, or a later-stage extension once the core proposition is proven.", "ok": true, "note": "The feature materially expands the product scope beyond the core concept, which is exactly when the MVP question applies." },
+        { "t": "Whether it belongs to $RUs or to StellarCX to deliver.", "ok": false, "note": "Ownership of delivery is not among the tensions or scope questions the case raises." }
+      ]
+    }
+  ],
+
+  "scenarios": [
+    {
+      "topic": "Scoping Projects",
+      "title": "The client who ordered the medium",
+      "setup": "A retail client asks your team to build an app. Pressed on why, they say a competitor launched one last year. The brief lists screens, features and a launch date, and says nothing about what customers should do afterwards.",
+      "task": "Reframe the scope so it describes a change rather than an artefact, and say what you would need from the client to do it.",
+      "hints": [
+        "The thing they asked for sits in a category the week names.",
+        "There is a single question that converts an output into an outcome.",
+        "Your reframing has to survive the 20-word test."
+      ],
+      "walkthrough": [
+        "An app is a medium, not necessarily the real project outcome. Scoping to it risks executing the requested deliverables perfectly while solving the wrong problem.",
+        "Ask what the client wants the customer or intended audience to do differently the next day. That moves the definition from output toward behavioural outcome.",
+        "Rebuild the scope around that behaviour, then test whether an app is the strongest response to it — idea first, execution second.",
+        "Check the result against the 20-word test: if the concept needs a lengthy explanation, it is probably not yet clear."
+      ],
+      "checklist": [
+        "Identifies the app as a medium rather than an outcome",
+        "Uses the do-differently-the-next-day question to reframe",
+        "Keeps the behavioural outcome, not the artefact, as the scope baseline",
+        "Notes that the competitor's launch is not a project objective"
+      ]
+    },
+    {
+      "topic": "Scoping Projects",
+      "title": "Six weeks of harmless requests",
+      "setup": "A project is eight weeks into a twelve-week schedule. Over six weeks the team has agreed to an extra audience segment, two small features and a stakeholder's reporting dashboard. Nobody has changed the schedule, the budget or the resourcing. The team is behind and tired.",
+      "task": "Name what has happened, explain why each request looked reasonable, and set out how the next one should be handled.",
+      "hints": [
+        "The problem is not that the requests were unreasonable.",
+        "The week lists specific consequences that map onto what the team is experiencing.",
+        "There are four questions to put to the next request."
+      ],
+      "walkthrough": [
+        "This is scope creep: features, audiences and requirements added after delivery began without corresponding changes to time, cost or resources.",
+        "Each request looked harmless in isolation — that is how it emerges. Weak initial scope definition and unclear decision rights let them accumulate.",
+        "The consequences are already visible: timeline slippage, capacity consumed by unplanned work, and effort spread across too many deliverables.",
+        "For the next request, ask whether it strengthens the original objective, what existing priority it should replace, what happens to time, investment or resources, and whether it is required now or can move to a later iteration."
+      ],
+      "checklist": [
+        "Names it as scope creep and defines the term",
+        "Locates the problem in unpriced and unmanaged change rather than in change itself",
+        "Maps at least two of the listed consequences onto the team's symptoms",
+        "Applies the four questions rather than simply refusing the next request"
+      ]
+    },
+    {
+      "topic": "Scope Management",
+      "title": "Signed off, then disputed",
+      "setup": "A supplier delivers a platform that meets the written specification. At the acceptance meeting the client says it is not what they expected and asks for changes. The supplier points to the specification; the client points to conversations held during the project.",
+      "task": "Diagnose which parts of the scope management process were weak, and say what would have surfaced this earlier.",
+      "hints": [
+        "Two artefacts and one process are all implicated.",
+        "The disagreement is about the meaning of a single word.",
+        "The week has a specific view on when validation should first happen."
+      ],
+      "walkthrough": [
+        "Ambiguity in the SOW is the first weakness — it increases the likelihood of expectation gaps and makes later scope control more difficult.",
+        "Validation is the failing process: it obtains stakeholder acceptance, and it is difficult precisely because teams and stakeholders interpret \"complete\" differently.",
+        "Clear agreed acceptance criteria would have made validation less subjective, which is the week's remedy for exactly this dispute.",
+        "Validation should not be an end-of-project surprise. Incremental, testable delivery would have compared actual outputs against expectations repeatedly rather than once."
+      ],
+      "checklist": [
+        "Identifies SOW ambiguity as a root cause",
+        "Names validation rather than control as the failing process",
+        "Points to acceptance criteria as what reduces subjectivity",
+        "Recommends earlier and incremental stakeholder engagement"
+      ]
+    },
+    {
+      "topic": "Aligning scope with CX",
+      "title": "On time, on budget, unloved",
+      "setup": "A team delivers a booking system to specification, on schedule and under budget. Six months later, usage is low. Customers say the system works but that getting help when a booking goes wrong is slow and confusing, and that they were never told what to expect after booking.",
+      "task": "Assess the project against both the delivery question and the CX question, and say what the scope should have included.",
+      "hints": [
+        "There are two questions to answer here, not one.",
+        "The complaints cluster in particular stages of a sequence.",
+        "One tool exists specifically to make this kind of friction visible before launch."
+      ],
+      "walkthrough": [
+        "On the traditional delivery question the project succeeded: agreed scope, on time, on budget.",
+        "On the CX question it did not. Technical completion does not guarantee customer satisfaction, and customers judge the combined journey rather than one interaction.",
+        "The complaints sit in service and support and in ongoing engagement — stages after the core deliverable, where journey thinking asks what happens when something goes wrong and what happens afterwards.",
+        "Journey mapping would have made that friction visible, and scope should have accounted for the experience around the core deliverable because those surrounding interactions materially affect customer value."
+      ],
+      "checklist": [
+        "Separates the delivery verdict from the CX verdict",
+        "Locates the failures in specific journey stages rather than in the product",
+        "Names journey mapping as the tool that surfaces hidden friction",
+        "Argues for scope covering the surrounding experience, not unlimited features"
+      ]
+    },
+    {
+      "topic": "StellarCX application Future you",
+      "title": "Scoping the MVP",
+      "setup": "StellarCX's proposal for $RUs contains the Future You simulator, a conversational AI assistant, and estate and inheritance planning tools. The team has capacity to build and validate only part of it in the first release.",
+      "task": "Decide what belongs in the first release and justify it against the central assumption the project needs to test.",
+      "hints": [
+        "One element is described as the creative differentiator.",
+        "An MVP is a learning mechanism before it is a smaller product.",
+        "The case states the assumption that has to be validated."
+      ],
+      "walkthrough": [
+        "The Future You interaction is the creative element that differentiates the proposition, so the scope must protect the mechanism that makes it compelling: the future-self representation, meaningful projections, understandable conversation, and the link between current behaviour and future consequences.",
+        "The assumption to validate is whether interacting with a personalised future self materially increases younger users' engagement with financial planning and $RUs.",
+        "Estate and inheritance planning materially expands scope beyond the core concept. It may be strategically useful without belonging in the initial MVP.",
+        "Test every additional feature against whether it strengthens the core behavioural proposition or simply makes the app larger, and accept the tension between an ambitious platform and a focused, testable initial scope."
+      ],
+      "checklist": [
+        "Puts the Future You interaction at the centre of the first release",
+        "States the central assumption the MVP exists to validate",
+        "Defers estate planning without dismissing its strategic value",
+        "Applies the strengthen-or-enlarge test to additional features"
+      ]
+    },
+    {
+      "topic": "StellarCX application Future you",
+      "title": "The selfie and the regulator",
+      "setup": "The Future You simulator relies on user photographs, financial data, projected outcomes and lifestyle assumptions, and its conversational AI answers user questions about their finances. A compliance reviewer asks what the app is permitted to say, and a privacy reviewer asks why the app needs a photograph at all.",
+      "task": "Set out the two tensions these reviewers represent and explain why neither can be resolved late in delivery.",
+      "hints": [
+        "The week names three tensions; two of them are in play here.",
+        "One of the two is explicitly described as something that cannot be added afterwards.",
+        "Be careful about claiming the case resolves the regulatory question."
+      ],
+      "walkthrough": [
+        "The privacy reviewer represents personalisation against privacy: more personal data gives potentially richer CX but greater privacy and trust exposure.",
+        "Privacy therefore cannot be treated as a technical issue added after the experience has been designed — the data requirement is a design decision, not an implementation detail.",
+        "The compliance reviewer represents AI guidance against compliance: the team must determine the acceptable boundary between education, contextual guidance and personalised financial advice.",
+        "The source material flags regulation, privacy, ethics and AI financial guidance as unresolved and does not specify the final regulatory solution, so the honest answer names the boundary as something the project must set rather than something the case supplies."
+      ],
+      "checklist": [
+        "Names both tensions in the week's own terms",
+        "Explains why privacy cannot be retrofitted after the experience is designed",
+        "States the three-way boundary between education, contextual guidance and personalised advice",
+        "Acknowledges that the source does not specify the final regulatory solution"
+      ]
+    }
+  ]
+}
