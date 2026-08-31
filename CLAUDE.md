@@ -36,7 +36,7 @@ Subjects are grouped by semester on `index.html`.
 | Code | Subject | Content |
 | --- | --- | --- |
 | DMBA 6008 | Finance, Strategy and Technology | Weeks 0–4, all complete. Week hub + per-week study pages, built from the vault. Week 4 was published in progress on 2026-08-19 and its remaining three topics were written and published on 2026-08-23. Three core modes — summary & visuals, key concepts, flashcards — plus **acronyms** and **formulas** where the week has them, and **discussion questions** where a Live note supplies them (Week 2 only so far). Every week also carries a **quiz**, an **Apply it** tab and a **study path**, all derived from the built page |
-| DMBA 6005 | Agile Project Development | Weeks 0–4. Week hub + per-week study pages, same modes, built from the vault. Live since 2026-08-06 |
+| DMBA 6005 | Agile Project Development | Weeks 0–5. Week hub + per-week study pages, same modes, built from the vault. Live since 2026-08-06. Week 5 (costing and estimation) published 2026-08-31 — two topics, and the subject's first **formulas** tab |
 
 The **quiz, Apply-it and study-path components are not synced from any source** — they are
 derived from the assembled page and live in
@@ -128,6 +128,17 @@ and do not copy `publish: false` content into any page under this repo.
   still follow the older [style guide](docs/style-guide.md).
 - **`only-accessible-by-url/` is unlisted content.** Never link to it from `index.html`,
   `library.html`, or any indexed page. Keep the `noindex` meta and the `robots.txt` rule.
+- **The unlisted area now carries the Live Session pages** — one per week, per subject
+  (`<CODE>-week<N>-private.html`), built by `.claude/private-pages/build.py` from the vault on
+  Aryan's instruction of **2026-08-31**. They are **unlisted only, with no password gate**;
+  he was told plainly that this means plaintext in a public repo and chose it anyway.
+  `only-accessible-by-url/SECRET-PAGES.md` is their index and lives in that directory
+  deliberately, so `robots.txt` covers it. **This is not a licence to publish Live Session
+  material anywhere else** — the public week pages are still governed by rule 1.
+  **Third-party material stays withheld regardless**: no lecturer or classmate name (the
+  6008 Week 1 diary's is replaced with `[lecturer]`), no transcript, no class chat log, and
+  no image containing an identifiable person — the 6005 Week 3 class slide carries the
+  lecturer's webcam thumbnail and is transcribed as text instead of published.
 - **Do not commit or push unless the user asks.**
 
 ## Academic-integrity constraints

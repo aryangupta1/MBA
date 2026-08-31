@@ -1,3 +1,7 @@
 # Python bytecode from running reference/checks.py — never part of the site.
 __pycache__/
 *.pyc
+
+# Working directory for a sync run — assembled vault markdown and page fragments.
+# Intermediate build input, never part of the site.
+scratchpad/

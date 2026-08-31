@@ -1,0 +1,296 @@
+{
+  "page": "DMBA6005-week5.html",
+  "quizIntro": "Ten questions across both topics. They target the traps this week sets: mistaking fixed budget and timeline for cost control, treating one financial measure as universally correct, reading a run of failed experiments as a failed strategy, and calling a project successful because it landed on schedule.",
+  "applyIntro": "Five scenarios that put you in the seat where the decision is actually made. Each is qualitative, because this week's notes give the reasoning rather than a full worked dataset. Work the setup before opening a hint.",
+
+  "studyPath": {
+    "intro": "Two topics that pull in opposite directions: the first argues for financial discipline, the second argues that financial discipline is not enough. A full pass takes about an hour and forty minutes.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Read Working out costs first, in order",
+        "detail": "Blocks 01 to 07 build one argument: fixing budget and timeline moves the cost problem into the iteration loop rather than solving it. Do not skip block 03 — the three viability conditions are the part most people assume rather than test, and they show up in the scenarios.",
+        "time": "~25 min"
+      },
+      {
+        "goto": "formulas",
+        "label": "Learn the three formulas before the second topic",
+        "detail": "There are only three, and two of them belong to this first topic. Get the discount factor and ROI fixed now, because the second topic assumes you can already tell what each one answers and spends its time on what they miss.",
+        "time": "~10 min"
+      },
+      {
+        "goto": "summary",
+        "label": "Read Non-financial options, blocks 08 to 17",
+        "detail": "This half reverses the first. Watch for the turn at block 12: once strategic randomness is on the table, a failed project stops being evidence of bad management. Blocks 13 and 17 are the two that most often get misremembered.",
+        "time": "~30 min"
+      },
+      {
+        "goto": "terms",
+        "label": "Work the glossary, filtering by source",
+        "detail": "Thirty-eight terms, and the two halves use different vocabularies. Filter to Working out costs and check you can state each without the page; then do Non-financial options, where the terms marked as my own wording are the ones worth quoting precisely.",
+        "time": "~15 min"
+      },
+      {
+        "goto": "cards",
+        "label": "Run the deck cold",
+        "detail": "Fifty-three cards. The financial ones are checkable in a sentence; the judgement ones are not, so say the answer out loud before flipping. Any card about exploration versus exploitation that you cannot answer both directions on needs another pass at block 14.",
+        "time": "~20 min"
+      },
+      {
+        "goto": "quiz",
+        "label": "Sit the quiz without notes",
+        "detail": "The distractors are built from the specific confusions this week invites, so read every option note even on questions you get right. A wrong answer here usually means a block, not a fact, needs rereading.",
+        "time": "~15 min"
+      },
+      {
+        "goto": "apply",
+        "label": "Work two scenarios end to end",
+        "detail": "Pick one from each topic — a costing scenario and a selection scenario. Write your reasoning before opening the hints, then mark yourself against the checklist rather than the walkthrough.",
+        "time": "~20 min"
+      }
+    ],
+    "close": "You have it when you can argue both sides of a project that came in on time and on budget and still should not have been funded."
+  },
+
+  "quiz": [
+    {
+      "topic": "Working out costs",
+      "q": "An Agile team has a fixed budget and a fixed timeline. What does this tell you about the project's cost risk?",
+      "hint": "Think about what is still allowed to move, and what that movement consumes.",
+      "options": [
+        { "t": "Cost risk is controlled, because the budget cannot be exceeded", "ok": false, "note": "This is the assumption the topic exists to correct. Fixing the budget figure does not fix the cost of the work; scope is still evolving, and that evolution consumes real resources." },
+        { "t": "Cost risk remains, because evolving scope can still escalate cost", "ok": true, "note": "Correct. Iteration can escalate cost through expanding requirements, additional sprints, larger teams, increasing infrastructure usage and accumulated technical debt, which is why cost must be tracked and forecast continuously." },
+        { "t": "Cost risk transfers entirely to the schedule", "ok": false, "note": "The notes do not describe a transfer of risk between constraints. Both budget and timeline are fixed here; it is scope that moves." },
+        { "t": "Cost risk can only be assessed at project approval", "ok": false, "note": "The opposite of what the page argues. Assessing cost only at approval is precisely the failure mode continuous tracking and forecasting is meant to prevent." }
+      ]
+    },
+    {
+      "topic": "Working out costs",
+      "q": "A project is running many sprints, closing tickets steadily and reporting high velocity. Which risk does the page warn about?",
+      "hint": "The page draws a distinction between two things that look identical on a progress chart.",
+      "options": [
+        { "t": "The team is under-resourced for the scope", "ok": false, "note": "Nothing in the symptom points to under-resourcing, and the page does not use velocity as a resourcing signal." },
+        { "t": "The discount rate applied to the project is too low", "ok": false, "note": "The discount rate governs how future cash flows are valued. It has no bearing on whether current delivery activity is producing value." },
+        { "t": "The project may be producing activity rather than value", "ok": true, "note": "Correct. The page warns that evolving scope can make a technology project appear productive while its economics progressively deteriorate, which is why the managerial objective is value rather than activity." },
+        { "t": "The triple constraint has been violated", "ok": false, "note": "High velocity is not itself a constraint violation. The page's concern is that execution measures can look healthy while value is not being created." }
+      ]
+    },
+    {
+      "topic": "Working out costs",
+      "q": "Which of the following is NOT one of the three conditions the page says should exist before comparing financial returns?",
+      "hint": "Two of the three are about capacity and reason; one is about people.",
+      "options": [
+        { "t": "Need", "ok": false, "note": "Need is the first condition — a legitimate organisational reason for the project." },
+        { "t": "Funds", "ok": false, "note": "Funds is the second condition — sufficient financial capacity to undertake the project." },
+        { "t": "A positive NPV", "ok": true, "note": "Correct. NPV is one of the measures you apply after the three conditions are satisfied, not a precondition. The three are need, funds and management will." },
+        { "t": "Management will", "ok": false, "note": "Management will is the third condition — meaningful senior commitment to implementing the project, not merely approval on paper." }
+      ]
+    },
+    {
+      "topic": "Working out costs",
+      "q": "A compliance project is mandated by new legislation. How does the page say financial evaluation should be used?",
+      "hint": "Compliance is not optional, so the question the numbers answer has to change.",
+      "options": [
+        { "t": "To support how to deliver rather than whether to comply", "ok": true, "note": "Correct. For a directive-driven project, arising from legislation or head-office requirements, financial evaluation may support how to deliver rather than whether to comply." },
+        { "t": "To demonstrate the value that can be captured", "ok": false, "note": "That is the financial implication of an opportunity-driven project, not a directive-driven one." },
+        { "t": "To justify expenditure against the cost of solving the problem", "ok": false, "note": "That is the financial implication of a problem-driven project." },
+        { "t": "Financial evaluation should be skipped for mandated projects", "ok": false, "note": "The page does not say to skip it. It redirects the evaluation toward the delivery choice rather than the compliance choice." }
+      ]
+    },
+    {
+      "topic": "Working out costs",
+      "q": "Two projects deliver the same total nominal cash benefit, but one delivers most of it in year one and the other in year five. Which measure captures the difference, and why?",
+      "hint": "One of the two measures has a term for time in it.",
+      "options": [
+        { "t": "ROI, because it shows return per dollar invested", "ok": false, "note": "ROI shows relative profitability but does not capture timing. Both projects would look identical on ROI if benefits and costs are the same in nominal terms." },
+        { "t": "Neither, because the totals are equal", "ok": false, "note": "This is the error the block exists to correct. Equal nominal totals can represent different economic value once timing is taken into account." },
+        { "t": "NPV, because the discount factor falls as n increases", "ok": true, "note": "Correct. NPV is particularly useful for longer projects because the same nominal benefit is worth less the later it arrives — the discount factor 1 / (1+r)^n falls as n rises." },
+        { "t": "Payback, because it measures the recovery period", "ok": false, "note": "Payback is listed as a possible approach but is not the measure the page uses to explain why timing changes economic value." }
+      ]
+    },
+    {
+      "topic": "Working out costs",
+      "q": "Interest rates rise sharply. All project forecasts are unchanged. What happens to a capital-intensive project whose benefits arrive late?",
+      "hint": "Nothing about the project changed. Something about the environment did.",
+      "options": [
+        { "t": "It becomes relatively more attractive", "ok": false, "note": "The reverse. Heavier discounting penalises exactly this cash-flow shape." },
+        { "t": "It is unaffected, because its forecasts have not changed", "ok": false, "note": "The page makes the opposite point: the financial environment can change which project is economically preferable even when the underlying forecasts remain unchanged." },
+        { "t": "It becomes relatively less attractive", "ok": true, "note": "Correct. If capital becomes expensive, future cash flows are discounted more heavily, so projects requiring significant upfront investment or delivering benefits later become relatively less attractive." },
+        { "t": "Its ROI falls proportionally", "ok": false, "note": "ROI does not contain a discount rate, so a change in the cost of capital does not mechanically move it." }
+      ]
+    },
+    {
+      "topic": "Non-financial options",
+      "q": "A weighted scoring model produces a clear numerical ranking. What is the main risk?",
+      "hint": "Ask where the numbers in the model came from.",
+      "options": [
+        { "t": "It cannot combine financial and non-financial criteria", "ok": false, "note": "It can — the page lists this as one of its advantages." },
+        { "t": "It creates false objectivity", "ok": true, "note": "Correct. The numerical result can create false objectivity: the ranking is only as defensible as the weights and scores used to produce it." },
+        { "t": "It hides the trade-offs between criteria", "ok": false, "note": "The opposite. The page credits it with making trade-offs transparent rather than leaving them implicit." },
+        { "t": "It requires weights to exceed 100%", "ok": false, "note": "Weights should total 100%." }
+      ]
+    },
+    {
+      "topic": "Non-financial options",
+      "q": "An organisation funds ten experiments. Nine return almost nothing; one uncovers a major new business opportunity. How should this be judged?",
+      "hint": "The page insists the unit of evaluation is the thing that changes the verdict.",
+      "options": [
+        { "t": "As a failure, since ninety per cent of initiatives failed", "ok": false, "note": "This is the individual-project reading the page warns against. Judged one at a time, the portfolio appears badly managed." },
+        { "t": "As a portfolio outcome, where the nine were the cost of finding the one", "ok": true, "note": "Correct. Project failure does not equal portfolio failure. Evaluating the combined outcome may show the nine unsuccessful experiments were effectively the cost of discovering the one outsized winner." },
+        { "t": "As inconclusive until a second round is funded", "ok": false, "note": "The page does not require a second round to reach a verdict; it requires the right unit of evaluation." },
+        { "t": "As a failure of the weighted scoring model used to select them", "ok": false, "note": "Nothing connects this outcome to the selection method. The point is about how experimental outcomes are judged, not how the experiments were chosen." }
+      ]
+    },
+    {
+      "topic": "Non-financial options",
+      "q": "A consultancy earns most of its revenue from one large client. Why does the page treat this as over-exploitation?",
+      "hint": "Think about what the firm has become efficient at, and what it has stopped doing.",
+      "options": [
+        { "t": "Because the client is unprofitable in present-value terms", "ok": false, "note": "Nothing suggests the relationship is unprofitable. It is described as commercially attractive in the short term." },
+        { "t": "Because the firm has failed to apply a balanced scorecard", "ok": false, "note": "The balanced scorecard is a selection and evaluation framework; the page does not use it to diagnose client concentration." },
+        { "t": "Because exploration is inherently more valuable than exploitation", "ok": false, "note": "The page argues sustainable organisations need both, not that one mode is inherently superior." },
+        { "t": "Because the firm becomes efficient around one source of value while neglecting alternatives", "ok": true, "note": "Correct. A gorilla client is another form of over-exploitation: bargaining power shifts to the customer, resources become tailored to one relationship, and losing the client can threaten the entire organisation." }
+      ]
+    },
+    {
+      "topic": "Non-financial options",
+      "q": "A project lands on schedule, on budget and in full scope, but customers reject the solution. How does the page classify it?",
+      "hint": "The page separates two questions, and only one of them is about delivery.",
+      "options": [
+        { "t": "A success, because all three constraints were met", "ok": false, "note": "The triple constraint measures execution. The page states explicitly that a project can meet all three constraints and still fail if customers reject the solution." },
+        { "t": "A failure on outcomes, despite succeeding on outputs", "ok": true, "note": "Correct. True project success is primarily about outcomes, not outputs. The triple constraint answers whether the project was delivered as planned; strategic evaluation asks whether it was the right project and created the intended value." },
+        { "t": "A scope failure, since the delivered scope was wrong", "ok": false, "note": "Scope was delivered in full, by the terms of the question. The failure is in value, not in execution against the plan." },
+        { "t": "Not assessable without the project's ROI", "ok": false, "note": "The page's broader definition of success does not depend on a financial metric — it includes value delivered, stakeholder satisfaction, strategic contribution, sustainability and team health." }
+      ]
+    }
+  ],
+
+  "scenarios": [
+    {
+      "topic": "Working out costs",
+      "title": "Sprint eleven of six",
+      "setup": "A delivery team was funded for six sprints against a fixed budget and a fixed launch date. It is now in sprint eleven. Every sprint has closed its committed tickets, stakeholder requirements have grown steadily, and two specialist contractors were added in sprint eight. The sponsor is pleased because the team has never missed a commitment.",
+      "task": "Explain to the sponsor why this project may be in financial trouble despite an unbroken delivery record.",
+      "hints": [
+        "The sponsor is reading an execution measure. Ask what it does not measure.",
+        "Three of the page's five escalation channels are visible in the setup. Name them.",
+        "The managerial objective is not staying within budget. It is a test applied to each increment."
+      ],
+      "walkthrough": [
+        "Separate the two things the sponsor has merged: meeting sprint commitments is an execution measure, and it says nothing about whether the expenditure is producing value.",
+        "Identify the escalation channels actually present — expanding stakeholder requirements, additional sprints, and larger or more specialised teams. Each converts evolving scope into real cost under a budget that was fixed at approval.",
+        "Make the diagnostic point: evolving scope can make a project appear productive while its economics progressively deteriorate. The unbroken record is consistent with exactly that.",
+        "Restate the objective. Cost control here is not about staying under a number; it is about ensuring expenditure continues to produce value rather than activity.",
+        "Recommend the control the page prescribes: cost tracked and forecast continuously from here, with each further increment tested on whether its incremental value justifies its incremental cost."
+      ],
+      "checklist": [
+        "Distinguishes delivery performance from value creation",
+        "Names specific escalation channels from the setup rather than generic overrun",
+        "States the value-rather-than-activity objective",
+        "Recommends continuous forecasting instead of a single re-approval",
+        "Frames the go-forward test as incremental value against incremental cost"
+      ]
+    },
+    {
+      "topic": "Working out costs",
+      "title": "Two proposals, one lens",
+      "setup": "You are asked to rank two proposals. The first is a small internal automation with benefits landing within eight months. The second is a platform rebuild requiring heavy upfront capital, with benefits accruing across six years. A colleague has ranked them on ROI alone and concluded the automation wins comfortably.",
+      "task": "Decide whether the ROI ranking should stand, and justify the measure you would use for each proposal.",
+      "hints": [
+        "Ask what ROI does not contain.",
+        "The page says the appropriate measure depends on named factors. Which of them differ sharply between these two?",
+        "The answer is not that one measure is superior. It is that they answer different questions."
+      ],
+      "walkthrough": [
+        "State the governing principle: there is no universally correct financial measure for every project, so the ranking cannot be accepted or rejected on the metric's name alone.",
+        "Identify the factors that differ — project duration, timing of cash flows, and capital required upfront. All three are precisely the dimensions ROI does not capture.",
+        "Accept ROI as reasonable for the automation. Its horizon is short enough that cash-flow timing is less central to the decision, which is the condition under which ROI is most useful.",
+        "Reject it as the sole basis for the rebuild. With benefits spread across six years, the discount factor materially changes their present value, so NPV is the measure that answers whether value is created.",
+        "Conclude on the comparison itself: ranking the two against each other on a single measure is the actual error, because NPV and ROI have different decision focuses — value creation against investment efficiency."
+      ],
+      "checklist": [
+        "Rejects the premise that one measure is universally correct",
+        "Names the specific factors that make the two proposals different",
+        "Defends ROI for the short-horizon case rather than dismissing it",
+        "Explains why discounting matters for the six-year case",
+        "Identifies the single-measure comparison as the underlying mistake"
+      ]
+    },
+    {
+      "topic": "Non-financial options",
+      "title": "The scorecard that ranked wrong",
+      "setup": "A public agency built a weighted scoring model to rank four initiatives. Financial return carried a sixty per cent weight; strategic alignment, customer impact and technical feasibility shared the remainder. The model selected a revenue-generating initiative over one central to the agency's statutory purpose. The executive who set the weights is presenting the result as objective.",
+      "task": "Critique the process and set out what should change.",
+      "hints": [
+        "The arithmetic is not in dispute. Look upstream of it.",
+        "The page has a specific warning about numerical outputs from this model.",
+        "Consider whether financial return should be the dominant criterion for this particular organisation."
+      ],
+      "walkthrough": [
+        "Confirm what is sound: the model does force criteria to be articulated, makes trade-offs transparent and produces a defensible explanation of the choice. Those are real advantages.",
+        "Name the failure precisely: false objectivity. The numerical result is only as defensible as the weights and scores used to produce it, so calling the output objective misrepresents where the judgement sits.",
+        "Attack the weighting, not the sum. In a public organisation, financial return may not be the primary objective, so a sixty per cent weight on it encodes a priority the agency's purpose does not support.",
+        "Apply the governing principle: project selection should optimise the organisation's objectives, not merely the project's standalone financial result. Selecting the highest financial return can be strategically inferior where it poorly supports organisational priorities.",
+        "Recommend re-weighting against the agency's stated objectives and re-running the model, making explicit that the weights are a management judgement being published, not a calculation."
+      ],
+      "checklist": [
+        "Credits what the model legitimately achieves",
+        "Names false objectivity as the specific risk",
+        "Locates the error in the weights rather than the arithmetic",
+        "Applies the non-profit and public organisation point about primary objectives",
+        "Proposes re-weighting with the judgement made explicit"
+      ]
+    },
+    {
+      "topic": "Non-financial options",
+      "title": "Shutting down the lab",
+      "setup": "An innovation unit has run twelve exploratory initiatives over two years. Ten produced nothing commercial, one broke even, and one is now a growing revenue line. A new CFO has proposed closing the unit and redirecting its budget to the core product, arguing that a two-in-twelve hit rate is indefensible.",
+      "task": "Argue the case either way, using the portfolio logic from this week.",
+      "hints": [
+        "Start by asking what the correct unit of evaluation is.",
+        "There is a distinction on this page that decides the question in one line.",
+        "Then consider what closing the unit does to the organisation's future, not just its current costs."
+      ],
+      "walkthrough": [
+        "Reject the individual-project framing. Judged one initiative at a time the unit looks badly managed; that is exactly the reading the page identifies as mistaken.",
+        "Apply the distinction directly: project failure does not equal portfolio failure. If experimentation is expected to have a low success rate, individual failures do not demonstrate that the strategy has failed.",
+        "Reframe the ten as a cost of discovery. The combined portfolio outcome may show they were effectively the cost of finding the growing revenue line.",
+        "Name the management danger in the CFO's proposal: terminating experimentation after unsuccessful attempts creates a selection problem, progressively leaving only initiatives with predictable outcomes and removing the uncertainty from which breakthroughs emerge.",
+        "Concede the legitimate half of the CFO's case. Too much exploration consumes resources without generating sufficient reliable cash flow, so the defensible question is the size of the exploration allocation, not whether it should exist.",
+        "Close on the balance: exploitation funds today's business while exploration protects tomorrow's, and the right mix depends on the organisation's risk appetite, strategic objectives and operating environment."
+      ],
+      "checklist": [
+        "Identifies the unit of evaluation as the crux",
+        "States the project-failure against portfolio-failure distinction",
+        "Explains the selection problem created by shutting experimentation down",
+        "Concedes the real risk of over-exploration rather than arguing one-sidedly",
+        "Ends on the mix and what determines it, not on a verdict alone"
+      ]
+    },
+    {
+      "topic": "Non-financial options",
+      "title": "On time, on budget, unwanted",
+      "setup": "A replacement scheduling system shipped on its original date, inside its original budget, with every planned feature delivered. Six months on, adoption is low, staff have reverted to the spreadsheets the system was meant to replace, and two of the delivery team have resigned citing the pace of the final quarter. The programme is being written up as a success.",
+      "task": "Assess whether this project succeeded, and set out what the write-up should measure instead.",
+      "hints": [
+        "Every execution measure passed. Ask what category of measure that is.",
+        "Three of the page's four failure conditions are visible in the setup.",
+        "There is a second question the page says matters more than the first."
+      ],
+      "walkthrough": [
+        "Grant the execution result honestly: schedule, cost and scope were all met, and those remain important measures of project execution.",
+        "State the limit: these do not establish whether the project created value. A project can meet all three constraints and still fail.",
+        "Map the setup onto the page's failure conditions — customers rejected the solution, stakeholders gained little value, and the delivery process damaged the team. Three of the four are present.",
+        "Introduce the broader definition of success: value delivered, user and stakeholder satisfaction, strategic contribution, sustainability of the outcome, and the health and capability of the delivery team.",
+        "Recast the write-up around the second question. The triple constraint answers whether the project was delivered as planned; what the report needs to answer is whether it was the right project and whether it created the intended value."
+      ],
+      "checklist": [
+        "Acknowledges the execution measures were genuinely met",
+        "Names outputs against outcomes as the governing distinction",
+        "Maps at least three of the page's failure conditions onto the setup",
+        "Lists the broader success dimensions including team health",
+        "States the reframed question the write-up should answer"
+      ]
+    }
+  ]
+}

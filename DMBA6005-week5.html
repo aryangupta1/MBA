@@ -1,0 +1,3091 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 5 — Costing and importance of project estimation — DMBA 6005</title>
+  <meta name="description" content="DMBA 6005 Week 5 — costing and the importance of project estimation. Why flexible scope does not mean flexible cost, the three conditions for a viable project, choosing between NPV and ROI, weighted scoring and the balanced scorecard, strategic randomness and exploration versus exploitation, and judging success by outcomes rather than outputs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ======================================================================
+       DESK — house design system, study-page profile.
+       A macOS window floating over the desktop wallpaper. The window holds the
+       whole week; the dock at the foot of the screen is the site navigation.
+       Tokens and components: docs/design-system.md
+       ====================================================================== */
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      /* surfaces */
+      --paper: #F4F1E9;
+      --paper2: #EFEBE1;
+      --surface: #FFFFFF;
+      --surface2: #FBFAF7;
+      --rule: rgba(28, 26, 22, 0.07);
+
+      /* ink */
+      --ink: #141317;
+      --ink2: #57534B;
+      --ink3: #8C867A;
+      --line: #E4E0D5;
+      --line2: #EFEBE2;
+
+      /* accents shared across the house */
+      --lime: #D6F24E;
+      --butter: #EDE884;
+      --blush: #F9DCDC;
+      --sky: #D7E4F8;
+      --mint: #D1EEDA;
+      --lilac: #E6DDF3;
+      --sand: #F2EEBD;
+      --pin: #E8453C;
+      --ink-blue: #3B6FE0;
+
+      /* mac window chrome */
+      --tl-red: #FD5D5C;
+      --tl-amber: #FAC900;
+      --tl-green: #28C840;
+
+      /* Subject identity. --accent* is the modern name; the --petrol* aliases
+         are kept so the hand-authored hex literals inside the SVG figures stay
+         in tune with the chrome. */
+      --accent: #A8722C;
+      --accent-deep: #6F4A17;
+      --accent-soft: #F7EFE2;
+      --accent-glow: rgba(168, 114, 44, 0.13);
+      --petrol: var(--accent);
+      --petrol-deep: var(--accent-deep);
+      --petrol-soft: var(--accent-soft);
+      --petrol-glow: var(--accent-glow);
+
+      /* Verdict colours: value created / break-even / value destroyed */
+      --pos: #1F6A4A;
+      --pos-soft: #E6F1EB;
+      --neu: #8A6D1F;
+      --neu-soft: #F6F0DF;
+      --neg: #B3402A;
+      --neg-soft: #F8E9E5;
+
+      /* geometry */
+      --radius: 14px;
+      --radius-lg: 20px;
+      --r-win: 24px;
+      --r-pill: 999px;
+      --bar: 46px;
+
+      /* elevation */
+      --sh-win: 0 4px 29px rgba(0, 0, 0, 0.16);
+      --sh-card: 0 22px 48px -26px rgba(20, 19, 23, 0.55);
+      --sh-float: 0 40px 90px -32px rgba(10, 18, 30, 0.7);
+
+      /* type */
+      --font-display: 'Mona Sans', 'Helvetica Neue', Arial, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.62;
+      color: var(--ink);
+      background: #3F6EA4;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      padding-bottom: 104px;      /* clearance for the fixed dock */
+    }
+
+    /* ── The desktop behind the window ─────────────────────────────────── */
+    .desk {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      background: linear-gradient(180deg, #33587F 0%, #4C7BA8 30%, #7CA0BE 56%, #9FB4AF 74%, #A7B677 100%);
+    }
+    .desk::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(52% 26% at 50% 16%, rgba(255, 255, 255, 0.55), transparent 66%),
+        radial-gradient(26% 14% at 74% 22%, rgba(255, 255, 255, 0.34), transparent 70%);
+      filter: blur(10px);
+    }
+    .desk::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 20, 34, 0.34), rgba(10, 20, 34, 0.5));
+    }
+    .desk-hills {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      width: 100%;
+      height: 52%;
+      display: block;
+      filter: blur(1.5px);
+    }
+
+    /* ── Stage + back link ─────────────────────────────────────────────── */
+    .stage {
+      width: min(1080px, calc(100% - 2 * clamp(12px, 3vw, 32px)));
+      margin-inline: auto;
+      padding: clamp(16px, 3vw, 34px) 0 clamp(40px, 6vw, 70px);
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: clamp(14px, 2vw, 20px);
+      padding: 9px 18px;
+      border-radius: var(--r-pill);
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .back:hover { background: rgba(255, 255, 255, 0.28); transform: translateX(-3px); }
+
+    /* ── The window ────────────────────────────────────────────────────── */
+    /* No overflow:hidden — descendants need position:sticky to reach the
+       viewport, so the corners are rounded on the first and last children. */
+    .win {
+      position: relative;
+      background: var(--surface);
+      border-radius: var(--r-win);
+      box-shadow: var(--sh-win), var(--sh-float);
+    }
+
+    .win-bar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: var(--bar);
+      padding: 0 14px;
+      border-radius: var(--r-win) var(--r-win) 0 0;
+      background: rgba(241, 239, 234, 0.92);
+      backdrop-filter: blur(14px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
+      border-bottom: 1px solid rgba(20, 19, 23, 0.09);
+    }
+    .win-lights { display: flex; gap: 7px; flex: 0 0 auto; }
+    .win-lights i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+    .win-lights i:nth-child(1) { background: var(--tl-red); }
+    .win-lights i:nth-child(2) { background: var(--tl-amber); }
+    .win-lights i:nth-child(3) { background: var(--tl-green); }
+    .win-addr {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding: 5px 16px;
+      border-radius: var(--r-pill);
+      background: rgba(20, 19, 23, 0.06);
+      font-size: 0.75rem;
+      color: var(--ink2);
+      text-align: center;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .win-tool {
+      flex: 0 0 auto;
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.58rem;
+      letter-spacing: -0.02em;
+    }
+    @media (max-width: 560px) { .win-addr { font-size: 0.68rem; padding: 4px 10px; } }
+
+    .wrap {
+      width: min(880px, calc(100% - 2 * clamp(18px, 5vw, 44px)));
+      margin-inline: auto;
+    }
+
+    /* ── Hero ──────────────────────────────────────────────────────────── */
+    header.hero {
+      position: relative;
+      padding: clamp(38px, 6vw, 72px) 0 clamp(28px, 4vw, 44px);
+      background:
+        radial-gradient(ellipse 80% 70% at 12% 0%, var(--accent-glow), transparent 58%),
+        linear-gradient(180deg, var(--paper2), var(--surface) 78%);
+      overflow: hidden;
+    }
+    header.hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--rule) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+      background-size: 74px 74px;
+      mask-image: radial-gradient(ellipse 78% 70% at 50% 30%, #000, transparent 76%);
+      -webkit-mask-image: radial-gradient(ellipse 78% 70% at 50% 30%, #000, transparent 76%);
+    }
+    header.hero > .wrap { position: relative; z-index: 2; }
+
+    .eyebrow {
+      display: inline-block;
+      margin: 0 0 18px;
+      padding: 7px 16px 7px 30px;
+      position: relative;
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transform: rotate(-2deg);
+      box-shadow: 0 6px 16px -9px rgba(20, 19, 23, 0.6);
+    }
+    .eyebrow::before {
+      content: "";
+      position: absolute;
+      left: 11px;
+      top: -8px;
+      width: 10px;
+      height: 24px;
+      border: 2px solid rgba(20, 19, 23, 0.35);
+      border-radius: 6px;
+      border-bottom-color: transparent;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2.1rem, 6vw, 3.6rem);
+      line-height: 0.94;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+
+    .standfirst {
+      margin: 0;
+      max-width: 60ch;
+      font-size: clamp(1rem, 1.7vw, 1.14rem);
+      line-height: 1.58;
+      color: var(--ink2);
+    }
+
+    .meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(22px, 3vw, 32px); }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 15px;
+      border-radius: var(--r-pill);
+      background: #fff;
+      border: 1px solid var(--line);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--ink2);
+      box-shadow: 0 4px 10px -6px rgba(20, 19, 23, 0.4);
+    }
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--pos);
+      animation: ping 2.6s ease-out infinite;
+    }
+    @keyframes ping {
+      0%   { box-shadow: 0 0 0 0 rgba(31, 106, 74, 0.55); }
+      70%  { box-shadow: 0 0 0 7px rgba(31, 106, 74, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(31, 106, 74, 0); }
+    }
+
+    /* ── Mode tabs — a macOS segmented control ─────────────────────────── */
+    .tabs {
+      position: sticky;
+      top: var(--bar);
+      z-index: 20;
+      padding: 12px 0;
+      background: rgba(251, 250, 247, 0.9);
+      backdrop-filter: blur(12px) saturate(160%);
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+      border-block: 1px solid var(--line2);
+    }
+    .tablist {
+      width: min(880px, calc(100% - 2 * clamp(18px, 5vw, 44px)));
+      margin-inline: auto;
+      display: flex;
+      /* Wraps at ANY width, not only on a phone: .tablist hides its scrollbar, so a row
+         that overflows leaves the last tab unreachable with no affordance. Six tabs need
+         ~857px and five need ~727px, so a 700px breakpoint left every laptop width
+         between clipping. Wrapping only engages when the row genuinely does not fit. */
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 4px;
+      border-radius: var(--r-pill);
+      background: rgba(20, 19, 23, 0.05);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tablist::-webkit-scrollbar { display: none; }
+    .tab {
+      flex: 1 1 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+      padding: 10px 18px;
+      border: 0;
+      border-radius: var(--r-pill);
+      background: transparent;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .tab:hover { color: var(--ink); background: rgba(255, 255, 255, 0.7); }
+    .tab-num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.66rem;
+      letter-spacing: 0.02em;
+      opacity: 0.55;
+    }
+
+    /* On a phone the row also drops its decorative numbers and tightens up, and the
+       pill radius gives way to a rounded rectangle. Wrapping itself is unconditional
+       and lives on .tablist above. */
+    @media (max-width: 700px) {
+      .tablist { border-radius: var(--radius-lg); }
+      .tab { padding: 9px 14px; font-size: 0.82rem; }
+      .tab-num { display: none; }
+    }
+    .tab[aria-selected="true"] {
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: 0 2px 8px -2px rgba(20, 19, 23, 0.28);
+    }
+    .tab[aria-selected="true"] .tab-num { color: var(--accent); opacity: 1; }
+
+    .panel { display: none; }
+    .panel.active { display: block; animation: fade-up 0.45s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+    @keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    main.wrap { padding-top: clamp(30px, 5vw, 52px); }
+
+    /* ── Topic sub-tabs (used where a week splits into topics) ─────────── */
+    .subtabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: clamp(26px, 4vw, 40px);
+    }
+    .subtab {
+      padding: 9px 17px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .subtab:hover { border-color: var(--accent); color: var(--ink); }
+    .subtab[aria-selected="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+    .subtab--empty { color: var(--ink3); border-style: dashed; }
+    .subtab--empty[aria-selected="true"] { background: var(--ink3); border-color: var(--ink3); color: #ffffff; }
+    .subpanel { display: none; }
+    .subpanel.active { display: block; animation: fade-up 0.4s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+
+    .unwritten {
+      padding: clamp(24px, 4vw, 38px);
+      border: 1.5px dashed var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--surface2);
+    }
+    .unwritten h2 { margin-top: 0.5rem; }
+    .unwritten ul { color: var(--ink2); }
+
+    /* ── Content blocks ────────────────────────────────────────────────── */
+    .block {
+      margin-bottom: clamp(40px, 6vw, 68px);
+      scroll-margin-top: calc(var(--bar) + 90px);
+    }
+    .block:last-child { margin-bottom: 0; }
+    .block-num {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 5px 13px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0 0 0.7rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+    h3 {
+      margin: 2rem 0 0.6rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.12rem, 2.2vw, 1.32rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+    h4 {
+      margin: 1.6rem 0 0.5rem;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: -0.01em;
+    }
+    h5 {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+    }
+    p { margin: 0 0 1rem; }
+    .block > p, .unwritten > p { color: var(--ink2); }
+    strong { font-weight: 700; color: var(--ink); }
+    em { font-style: italic; }
+    a { color: var(--accent); text-underline-offset: 3px; }
+
+    ul, ol { margin: 0 0 1.1rem; padding-left: 1.3rem; color: var(--ink2); }
+    li { margin-bottom: 0.5rem; }
+    li::marker { color: var(--accent); }
+
+    .takeaways {
+      list-style: none;
+      margin: 1.4rem 0;
+      padding: clamp(18px, 3vw, 26px) clamp(18px, 3vw, 28px);
+      background: var(--surface2);
+      border: 1px solid var(--line2);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--sh-card);
+    }
+    .takeaways li {
+      position: relative;
+      margin: 0 0 0.75rem;
+      padding-left: 1.9rem;
+      color: var(--ink2);
+    }
+    .takeaways li:last-child { margin-bottom: 0; }
+    .takeaways li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      background: var(--lime);
+      box-shadow: 0 0 0 3px rgba(214, 242, 78, 0.3);
+    }
+
+    .steps { counter-reset: step; list-style: none; padding-left: 0; margin: 1.4rem 0; }
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      margin-bottom: 1rem;
+      padding-left: 2.6rem;
+      color: var(--ink2);
+    }
+    .steps li::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 0.05em;
+      width: 1.9rem;
+      height: 1.9rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    .steps li strong { display: block; color: var(--ink); }
+
+    /* ── Callouts ──────────────────────────────────────────────────────── */
+    .callout {
+      display: flex;
+      gap: 14px;
+      margin: 1.6rem 0;
+      padding: clamp(18px, 3vw, 24px);
+      border-radius: var(--radius-lg);
+      background: var(--sand);
+      box-shadow: 6px 6px 0 rgba(20, 19, 23, 0.06);
+    }
+    .callout p { margin: 0; font-size: 1.02rem; font-weight: 600; line-height: 1.5; color: var(--ink); }
+    .callout p + p { margin-top: 0.7rem; font-weight: 400; color: var(--ink2); }
+    .icon { flex: 0 0 auto; font-size: 1.15rem; line-height: 1.35; }
+    /* A callout with more than one paragraph wraps them in a div, or the flex
+       row would lay the paragraphs out side by side. */
+    .callout > div { flex: 1 1 auto; min-width: 0; }
+    .callout--key { background: var(--sand); }
+    .callout--ask { background: var(--sky); }
+
+    /* ── Tables ────────────────────────────────────────────────────────── */
+    .table-scroll {
+      margin: 1.5rem 0;
+      overflow-x: auto;
+      border: 1px solid var(--line2);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      box-shadow: var(--sh-card);
+      -webkit-overflow-scrolling: touch;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 460px; }
+    thead th {
+      position: sticky;
+      top: 0;
+      background: var(--paper2);
+      text-align: left;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    tbody th { text-align: left; font-weight: 700; color: var(--ink); }
+    td, tbody th { padding: 12px 16px; border-bottom: 1px solid var(--line2); vertical-align: top; color: var(--ink2); }
+    tbody tr:last-child td, tbody tr:last-child th { border-bottom: 0; }
+    tbody tr:hover { background: var(--surface2); }
+
+    .verdict {
+      display: inline-block;
+      padding: 3px 11px;
+      border-radius: var(--r-pill);
+      font-size: 0.72rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .verdict--pos { background: var(--pos-soft); color: var(--pos); }
+    .verdict--neu { background: var(--neu-soft); color: var(--neu); }
+    .verdict--neg { background: var(--neg-soft); color: var(--neg); }
+
+    /* ── Formulas ──────────────────────────────────────────────────────── */
+    .formula {
+      margin: 1.3rem 0;
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: #F2F0EA;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      box-shadow: var(--sh-card);
+    }
+    .formula-stack { display: flex; flex-direction: column; gap: 6px; }
+    .formula-stack span { display: block; white-space: nowrap; }
+
+    /* ── Worked examples ───────────────────────────────────────────────── */
+    .example-grid { display: grid; gap: 16px; margin: 1.5rem 0; }
+    @media (min-width: 620px) { .example-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); } }
+    .example {
+      padding: 20px 22px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .example--pos { border-color: rgba(31, 106, 74, 0.35); background: linear-gradient(180deg, var(--pos-soft), #fff 46%); }
+    .example--neg { border-color: rgba(179, 64, 42, 0.35); background: linear-gradient(180deg, var(--neg-soft), #fff 46%); }
+    .example dl { margin: 0; font-size: 0.86rem; }
+    .example dt { font-weight: 600; color: var(--ink2); }
+    .example dd { margin: 0 0 0.5rem; font-family: var(--font-mono); color: var(--ink); }
+    .result {
+      margin: 0.9rem 0 0;
+      padding-top: 0.8rem;
+      border-top: 1px dashed var(--line);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--accent-deep);
+    }
+    .note { font-size: 0.84rem; color: var(--ink3); }
+
+    /* ── Principle cards ───────────────────────────────────────────────── */
+    .principles { display: grid; gap: 14px; counter-reset: principle; margin: 1.6rem 0; }
+    @media (min-width: 640px) { .principles { grid-template-columns: 1fr 1fr; } }
+    .principle {
+      position: relative;
+      counter-increment: principle;
+      padding: 22px 22px 22px 62px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+      transition: transform 0.24s ease, box-shadow 0.24s ease;
+    }
+    .principle:hover { transform: translateY(-3px); box-shadow: 0 30px 56px -30px rgba(20, 19, 23, 0.6); }
+    .principle::before {
+      content: counter(principle, decimal-leading-zero);
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      opacity: 0.4;
+    }
+    .p-name { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .p-q { font-size: 0.88rem; font-style: italic; color: var(--accent-deep); margin-bottom: 8px; }
+    .p-def { margin: 0; font-size: 0.88rem; color: var(--ink2); }
+
+    /* ── Figures ───────────────────────────────────────────────────────── */
+    figure { margin: 1.8rem 0; }
+    .fig-frame {
+      overflow-x: auto;
+      padding: clamp(16px, 3vw, 26px);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+      -webkit-overflow-scrolling: touch;
+    }
+    .fig-frame svg { width: 100%; height: auto; min-width: 420px; display: block; }
+    figcaption {
+      margin-top: 0.75rem;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: var(--ink3);
+    }
+    .svg-label { font-family: var(--font-sans); font-size: 12px; font-weight: 600; fill: var(--ink); }
+    .svg-sub { font-family: var(--font-sans); font-size: 10px; font-weight: 500; fill: var(--ink3); }
+    .svg-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      fill: var(--ink3);
+    }
+    .svg-mono { font-family: var(--font-mono); font-size: 11px; font-weight: 600; fill: var(--accent-deep); }
+
+    /* ── Key concepts ──────────────────────────────────────────────────── */
+    .toolbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 1.1rem; }
+    .search {
+      flex: 1 1 240px;
+      min-width: 0;
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--ink);
+      box-shadow: 0 4px 12px -8px rgba(20, 19, 23, 0.5);
+    }
+    .search:focus { outline: 3px solid var(--accent-glow); outline-offset: 0; border-color: var(--accent); }
+    .count {
+      flex: 0 0 auto;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.3rem; }
+    .chip {
+      padding: 7px 15px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .chip:hover { border-color: var(--accent); color: var(--ink); }
+    .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+
+    .glossary { display: grid; gap: 12px; }
+    .term {
+      position: relative;
+      padding: 18px 20px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .term:hover { transform: translateY(-2px); box-shadow: var(--sh-card); }
+    .term[hidden] { display: none; }
+    .term-topic {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 3px 10px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .term-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .term-name {
+      margin: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: -0.02em;
+    }
+    .term-src {
+      flex: 0 0 auto;
+      max-width: 45%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--ink3);
+    }
+    .term-src--own {
+      padding: 2px 9px;
+      border-radius: var(--r-pill);
+      background: var(--lime);
+      color: var(--ink);
+    }
+    .term-def { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--ink2); }
+    .term-formula {
+      margin-top: 0.7rem;
+      padding: 9px 13px;
+      border-radius: 10px;
+      background: var(--paper2);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-deep);
+      overflow-x: auto;
+    }
+    /* ── Acronym headings (Acronyms tab; everything else reuses .term) ─── */
+    .term-abbr { font-family: var(--font-mono); font-weight: 700; color: var(--accent-deep); }
+    .term-long { font-weight: 500; color: var(--ink2); }
+
+    .no-results { padding: 26px; text-align: center; color: var(--ink3); }
+
+    /* ── Flashcards ────────────────────────────────────────────────────── */
+    .deck { margin-top: 1.4rem; }
+    .deck-meta { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .deck-count { font-size: 0.8rem; font-weight: 600; color: var(--ink3); font-variant-numeric: tabular-nums; }
+    .deck-count strong { color: var(--ink); }
+    .progress { flex: 1 1 auto; height: 6px; border-radius: var(--r-pill); background: rgba(20, 19, 23, 0.08); overflow: hidden; }
+    .progress-fill {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: var(--r-pill);
+      background: linear-gradient(90deg, var(--accent), var(--lime));
+      transition: width 0.3s ease;
+    }
+
+    .flip {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: none;
+      perspective: 1400px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .flip-inner {
+      position: relative;
+      display: block;
+      min-height: 320px;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.3, 1);
+    }
+    .flip[aria-pressed="true"] .flip-inner { transform: rotateY(180deg); }
+    .face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      padding: clamp(24px, 4vw, 40px);
+      border-radius: var(--radius-lg);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      text-align: left;
+    }
+    .face-front {
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .face-back {
+      background: linear-gradient(150deg, var(--accent-deep), var(--accent));
+      color: #F2F0EA;
+      transform: rotateY(180deg);
+      box-shadow: var(--sh-card);
+    }
+    .face-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+    .face-back .face-tag { color: rgba(242, 240, 234, 0.65); }
+    .face-topic { font-weight: 600; letter-spacing: 0.04em; text-transform: none; opacity: 0.8; }
+    .face-back .face-topic { color: rgba(242, 240, 234, 0.75); }
+    .face-text {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.1rem, 3.2vw, 1.42rem);
+      line-height: 1.28;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .face-back .face-text { color: #FBFAF7; font-weight: 600; font-size: clamp(0.98rem, 2.8vw, 1.18rem); line-height: 1.5; }
+    .face-hint { font-size: 0.74rem; color: var(--ink3); }
+    .face-back .face-hint { color: rgba(242, 240, 234, 0.6); }
+
+    .deck-controls { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+    .btn {
+      flex: 1 1 auto;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: var(--r-pill);
+      background: var(--ink);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+      box-shadow: 0 12px 22px -16px rgba(20, 19, 23, 0.9);
+    }
+    .btn:hover:not(:disabled) { transform: translateY(-2px); }
+    .btn:disabled { opacity: 0.34; cursor: not-allowed; }
+    .btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+    .btn--ghost:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
+
+    .kbd-hint { margin: 14px 0 0; font-size: 0.76rem; color: var(--ink3); text-align: center; }
+    kbd {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-bottom-width: 2px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink2);
+    }
+
+    /* ── Footer ────────────────────────────────────────────────────────── */
+    footer.page-foot {
+      margin-top: clamp(50px, 8vw, 88px);
+      padding: clamp(30px, 5vw, 46px) 0;
+      border-radius: 0 0 var(--r-win) var(--r-win);
+      background: var(--butter);
+    }
+    footer.page-foot p {
+      margin: 0 0 0.4rem;
+      font-size: 0.84rem;
+      color: rgba(20, 19, 23, 0.78);
+    }
+    footer.page-foot p:first-child { font-weight: 700; color: var(--ink); }
+    footer.page-foot p:last-child { margin-bottom: 0; }
+
+    /* ── Dock ──────────────────────────────────────────────────────────── */
+    .dock {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 18px 40px -18px rgba(20, 19, 23, 0.6);
+      max-width: calc(100vw - 24px);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .dock::-webkit-scrollbar { display: none; }
+    .dock-item {
+      position: relative;
+      flex: 0 0 auto;
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      background: linear-gradient(160deg, #fff, #EDEAE2);
+      box-shadow: 0 2px 6px rgba(20, 19, 23, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.3), box-shadow 0.22s ease;
+    }
+    .dock-item:hover, .dock-item:focus-visible {
+      transform: translateY(-12px) scale(1.14);
+      box-shadow: 0 14px 26px -10px rgba(20, 19, 23, 0.5);
+    }
+    .dock-item[data-tint="lime"]  { background: linear-gradient(160deg, #E9FB88, var(--lime)); }
+    .dock-item[data-tint="sky"]   { background: linear-gradient(160deg, #EDF3FD, var(--sky)); }
+    .dock-item[data-tint="blush"] { background: linear-gradient(160deg, #FDF0F0, var(--blush)); }
+    .dock-item[data-tint="mint"]  { background: linear-gradient(160deg, #EAF8EE, var(--mint)); }
+    .dock-item[data-tint="lilac"] { background: linear-gradient(160deg, #F4EFFB, var(--lilac)); }
+    .dock-item[data-tint="sand"]  { background: linear-gradient(160deg, #FAF8DE, var(--sand)); }
+    .dock-item::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      padding: 5px 11px;
+      border-radius: 9px;
+      background: rgba(20, 19, 23, 0.92);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.72rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    .dock-item:hover::after, .dock-item:focus-visible::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .dock-item[aria-current="page"] {
+      box-shadow: 0 2px 6px rgba(20, 19, 23, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 0 0 2px var(--ink);
+    }
+    .dock-sep { flex: 0 0 auto; width: 1px; height: 34px; background: rgba(20, 19, 23, 0.14); margin: 0 2px; }
+    @media (max-width: 600px) {
+      body { padding-bottom: 84px; }
+      .dock { gap: 6px; padding: 7px 9px; bottom: 12px; }
+      .dock-item { width: 44px; height: 44px; font-size: 0.68rem; }
+      .dock-item::after { display: none; }
+      .dock-sep { height: 28px; }
+    }
+
+    /* ── Summary index, collapse and search ───────────────────────────────
+       The index is BUILT AT RUNTIME from the blocks themselves (see the
+       script), so it can never drift from the content and a re-sync needs
+       no extra work. With JavaScript off the summary reads exactly as it
+       did before — every block is open and there is simply no index. */
+    .toc {
+      margin-bottom: clamp(28px, 4vw, 44px);
+      padding: clamp(18px, 3vw, 24px);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .toc-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .toc-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .toc-actions { display: flex; gap: 8px; }
+    .toc-btn {
+      padding: 6px 13px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .toc-btn:hover { border-color: var(--accent); color: var(--ink); }
+    .toc .toolbar { margin-bottom: 0.9rem; }
+    .toc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 2px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 640px) { .toc-list { grid-template-columns: 1fr 1fr; column-gap: 14px; } }
+    .toc-list.is-long { max-height: 19rem; overflow-y: auto; }
+    .toc-list li[hidden] { display: none; }
+    .toc-list a {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      padding: 7px 10px;
+      border-radius: 10px;
+      color: var(--ink2);
+      text-decoration: none;
+      font-size: 0.86rem;
+      line-height: 1.4;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+    .toc-list a:hover { background: var(--accent-soft); color: var(--ink); }
+    .toc-n {
+      flex: 0 0 auto;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+    .toc-empty { margin: 0; padding: 14px 10px 4px; color: var(--ink3); font-size: 0.86rem; }
+
+    /* A block becomes a disclosure. `.block` itself is untouched so the
+       prose-budget gate still measures the same thing. */
+    .block[hidden] { display: none; }
+    .block-d > summary {
+      list-style: none;
+      cursor: pointer;
+      position: relative;
+      padding-right: 34px;
+    }
+    .block-d > summary::-webkit-details-marker { display: none; }
+    .block-d > summary::after {
+      content: "";
+      position: absolute;
+      right: 8px;
+      top: 0.75em;
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid var(--ink3);
+      border-bottom: 2px solid var(--ink3);
+      transform: rotate(45deg);
+      transition: transform 0.22s ease, border-color 0.22s ease;
+    }
+    .block-d[open] > summary::after { transform: rotate(-135deg); }
+    .block-d > summary:hover h2 { color: var(--accent); }
+    .block-d > summary:hover::after { border-color: var(--accent); }
+    .block-d > summary h2 { transition: color 0.2s ease; }
+    .block-d > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 4px; border-radius: 10px; }
+    .block-d:not([open]) > summary h2 { margin-bottom: 0; }
+    /* Topic chips built at runtime use aria-pressed; the sub-tabbed weeks
+       use aria-selected. Same look for both. */
+    .subtab[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    /* ── Accessibility ─────────────────────────────────────────────────── */
+    :focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 3px; border-radius: 8px; }
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      z-index: 200;
+      padding: 12px 20px;
+      background: var(--ink);
+      color: #fff;
+      border-radius: 0 0 10px 0;
+      text-decoration: none;
+    }
+    .skip:focus { left: 0; }
+    .visually-hidden, .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+    /* ── Quiz & Apply it ───────────────────────────────────────────────
+       Two practice modes layered on top of the synced material. Both are
+       rendered at runtime from authored arrays, the way the glossary and
+       the deck already are, so a re-sync replaces data and never markup.
+       Right/wrong reuse the --pos/--neg verdict tokens the page already
+       defines; no new token is introduced. */
+    .quizbar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 1.5rem 0 0.4rem;
+      padding: 13px 18px;
+      border-radius: var(--radius-lg);
+      background: var(--surface2);
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .quizbar .progress { min-width: 120px; }
+    .quizbar .btn { flex: 0 0 auto; }
+    .quiz-score {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+    .quiz-score strong { color: var(--ink); }
+    .quiz-verdict {
+      margin: 0.6rem 0 0;
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      background: var(--pos-soft);
+      color: var(--pos);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .quiz-verdict[hidden] { display: none; }
+
+    .quiz-list, .scen-list { display: grid; gap: 16px; margin-top: 1.4rem; }
+    .quiz-q, .scen {
+      padding: clamp(18px, 3vw, 26px);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+    }
+    .quiz-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .quiz-n {
+      flex: 0 0 auto;
+      padding: 3px 11px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .quiz-stem {
+      margin: 0 0 0.2rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.04rem;
+      line-height: 1.36;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: pretty;
+    }
+
+    .opts { display: grid; gap: 9px; margin-top: 1rem; }
+    .opt {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--ink2);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    }
+    .opt:hover:not(:disabled) { border-color: var(--accent); color: var(--ink); transform: translateY(-1px); }
+    .opt:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; }
+    .opt:disabled { cursor: default; }
+    .opt-key {
+      flex: 0 0 auto;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--paper2);
+      color: var(--ink2);
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      font-weight: 800;
+    }
+    .opt-t { flex: 1 1 auto; min-width: 0; }
+    .opt[data-state="right"] { border-color: var(--pos); background: var(--pos-soft); color: var(--ink); }
+    .opt[data-state="right"] .opt-key { background: var(--pos); color: #fff; }
+    .opt[data-state="wrong"] { border-color: var(--neg); background: var(--neg-soft); color: var(--ink); }
+    .opt[data-state="wrong"] .opt-key { background: var(--neg); color: #fff; }
+    .opt[data-state="off"] { opacity: 0.5; }
+
+    .fb {
+      margin-top: 12px;
+      padding: 13px 17px;
+      border-radius: var(--radius);
+      background: var(--surface2);
+      border-left: 3px solid var(--ink3);
+    }
+    .fb + .fb { margin-top: 9px; }
+    .fb p { margin: 0.35rem 0 0; font-size: 0.87rem; color: var(--ink2); }
+    .fb-tag {
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+    .fb--right { border-left-color: var(--pos); background: var(--pos-soft); }
+    .fb--right .fb-tag { color: var(--pos); }
+    .fb--wrong { border-left-color: var(--neg); background: var(--neg-soft); }
+    .fb--wrong .fb-tag { color: var(--neg); }
+
+    /* ── Progressive reveals — hints and walkthroughs ──────────────────── */
+    .reveal {
+      margin-top: 10px;
+      border: 1.5px dashed var(--line);
+      border-radius: var(--radius);
+      background: var(--surface2);
+    }
+    .reveal > summary {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 16px;
+      list-style: none;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+    }
+    .reveal > summary::-webkit-details-marker { display: none; }
+    .reveal > summary::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+      transform: rotate(-45deg);
+      transition: transform 0.22s ease;
+    }
+    .reveal[open] > summary::before { transform: rotate(45deg); }
+    .reveal > summary:hover { color: var(--accent); }
+    .reveal > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; border-radius: var(--radius); }
+    .reveal-body { padding: 0 16px 14px; }
+    .reveal-body p { margin: 0; font-size: 0.88rem; color: var(--ink2); }
+    .reveal-body .steps { margin: 0.2rem 0 0; }
+    .reveal-body .steps li { font-size: 0.88rem; }
+    .reveal--work { border-style: solid; border-color: var(--line2); background: #fff; }
+
+    /* ── Apply it ──────────────────────────────────────────────────────── */
+    .scen-title {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.12rem, 2.2vw, 1.3rem);
+      line-height: 1.16;
+      letter-spacing: -0.025em;
+    }
+    .scen-setup { margin: 0 0 0.9rem; font-size: 0.94rem; color: var(--ink2); }
+    .scen-task {
+      margin: 0 0 1.1rem;
+      padding: 13px 17px;
+      border-radius: var(--radius);
+      background: var(--sky);
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+    .scen-task strong {
+      display: block;
+      margin-bottom: 3px;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .check { list-style: none; margin: 0.4rem 0 0; padding-left: 0; }
+    .check li {
+      position: relative;
+      margin-bottom: 0.55rem;
+      padding-left: 1.7rem;
+      font-size: 0.88rem;
+      color: var(--ink2);
+    }
+    .check li:last-child { margin-bottom: 0; }
+    .check li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.28em;
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid var(--ink3);
+      border-radius: 4px;
+      background: #fff;
+    }
+    .reveal-body h5 { margin-top: 1.2rem; }
+
+    /* ── The study path ────────────────────────────────────────────────
+       "How to master this week" — the first block of the summary panel.
+       A numbered route through the modes the week actually has, with each
+       step able to jump straight to its tab. Authored as static markup so
+       the panel still reads with JS off; only the jump is enhanced. */
+    .path {
+      counter-reset: pathstep;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin: 1.5rem 0 1.3rem;
+      padding-left: 0;
+    }
+    .path-step {
+      counter-increment: pathstep;
+      position: relative;
+      margin: 0;
+      padding: 19px 22px 19px 66px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+    }
+    .path-step::before {
+      content: counter(pathstep, decimal-leading-zero);
+      position: absolute;
+      left: 20px;
+      top: 19px;
+      z-index: 1;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    /* The spine that makes it read as a route rather than a list. */
+    .path-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 34px;
+      top: 49px;
+      bottom: -13px;
+      width: 2px;
+      background: var(--line);
+    }
+    .path-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .path-label {
+      margin: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.02rem;
+      line-height: 1.24;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .path-time {
+      flex: 0 0 auto;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+    .path-step > p { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--ink2); }
+    .path-go {
+      margin-top: 13px;
+      padding: 7px 15px;
+      border: 1px solid var(--accent-soft);
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    }
+    .path-go:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .path-go:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; }
+    .path-close {
+      margin: 0;
+      padding: 17px 21px;
+      border-radius: var(--radius-lg);
+      background: var(--lime);
+      font-size: 0.94rem;
+      line-height: 1.5;
+      color: var(--ink);
+      box-shadow: 6px 6px 0 rgba(20, 19, 23, 0.06);
+    }
+    .path-close strong {
+      display: block;
+      margin-bottom: 3px;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 520px) {
+      .path-head { flex-direction: column; gap: 2px; }
+    }
+
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#panel-summary">Skip to content</a>
+
+  <div class="desk" aria-hidden="true">
+    <svg class="desk-hills" viewBox="0 0 1440 600" preserveAspectRatio="none" focusable="false">
+      <defs>
+        <linearGradient id="dh1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#A9BE8C"/><stop offset="1" stop-color="#8FA96E"/>
+        </linearGradient>
+        <linearGradient id="dh2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#C6D25E"/><stop offset="1" stop-color="#9DB248"/>
+        </linearGradient>
+        <linearGradient id="dh3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#7FA045"/><stop offset="1" stop-color="#4F7431"/>
+        </linearGradient>
+        <linearGradient id="dh4" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#5C8235"/><stop offset="1" stop-color="#33501F"/>
+        </linearGradient>
+      </defs>
+      <path fill="url(#dh1)" d="M0 214C176 132 352 108 566 168c214 60 366 122 552 96 122-17 232-70 322-124V600H0Z"/>
+      <path fill="url(#dh2)" d="M0 322C154 240 330 226 520 276c190 50 336 118 522 96 132-16 268-84 398-152V600H0Z"/>
+      <path fill="url(#dh3)" d="M0 430C132 356 302 330 486 372c184 42 326 110 512 92 130-13 288-72 442-140V600H0Z"/>
+      <path fill="url(#dh4)" d="M0 536C160 470 356 452 556 486c200 34 346 78 512 62 138-14 254-52 372-98V600H0Z"/>
+    </svg>
+  </div>
+
+  <div class="stage">
+    <a class="back" href="DMBA6005-weeks.html"><span aria-hidden="true">←</span> All weeks</a>
+
+    <div class="win">
+      <div class="win-bar">
+        <span class="win-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="win-addr">DMBA 6005 &nbsp;/&nbsp; Week 5 &mdash; Costing and importance of project estimation</span>
+        <span class="win-tool" aria-hidden="true">MBA</span>
+      </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">DMBA 6005 · Agile Project Development · Week 5</p>
+      <h1>COSTING<br><span class="hero-em">AND ESTIMATION</span></h1>
+      <p class="standfirst">Agile fixes budget and timeline and lets scope move — which is often mistaken for financial freedom. Week 5 works through what it costs to keep that door open, how to choose a financial lens rather than default to one, and what happens to project selection once the criteria that matter stop being financial at all.</p>
+      <div class="meta-row">
+        <span class="pill"><span class="dot" aria-hidden="true"></span> Pre-live session</span>
+        <span class="pill">38 key terms</span>
+        <span class="pill">53 flashcards</span>
+        <span class="pill">10 quiz questions</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Week 5 study modes">
+    <div class="tablist" role="tablist">
+      <button class="tab" id="tab-summary" role="tab" aria-selected="true" aria-controls="panel-summary"
+        data-panel="summary"><span class="tab-num" aria-hidden="true">01</span>Summary &amp; visuals</button>
+      <button class="tab" id="tab-terms" role="tab" aria-selected="false" aria-controls="panel-terms"
+        data-panel="terms" tabindex="-1"><span class="tab-num" aria-hidden="true">02</span>Key concepts</button>
+      <button class="tab" id="tab-cards" role="tab" aria-selected="false" aria-controls="panel-cards"
+        data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
+
+      <button class="tab" id="tab-acronyms" role="tab" aria-selected="false" aria-controls="panel-acronyms"
+        data-panel="acronyms" tabindex="-1"><span class="tab-num" aria-hidden="true">04</span>Acronyms</button>
+      <button class="tab" id="tab-formulas" role="tab" aria-selected="false" aria-controls="panel-formulas"
+        data-panel="formulas" tabindex="-1"><span class="tab-num" aria-hidden="true">05</span>Formulas</button>
+      <button class="tab" id="tab-quiz" role="tab" aria-selected="false" aria-controls="panel-quiz"
+        data-panel="quiz" tabindex="-1"><span class="tab-num" aria-hidden="true">06</span>Quiz</button>
+      <button class="tab" id="tab-apply" role="tab" aria-selected="false" aria-controls="panel-apply"
+        data-panel="apply" tabindex="-1"><span class="tab-num" aria-hidden="true">07</span>Apply it</button>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- ══════════════════ 01 · SUMMARY & VISUALS ══════════════════ -->
+    <section class="panel active" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" tabindex="0">
+      <div class="block">
+        <span class="block-num">00 / Start here</span>
+        <h2>How to master this week</h2>
+        <p>Two topics that pull in opposite directions: the first argues for financial discipline, the second argues that financial discipline is not enough. A full pass takes about an hour and forty minutes.</p>
+
+        <ol class="path">
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Read Working out costs first, in order</h3>
+              <span class="path-time">~25 min</span>
+            </div>
+            <p>Blocks 01 to 07 build one argument: fixing budget and timeline moves the cost problem into the iteration loop rather than solving it. Do not skip block 03 — the three viability conditions are the part most people assume rather than test, and they show up in the scenarios.</p>
+            <button class="path-go" type="button" data-goto="summary">Open Summary &amp; visuals <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Learn the three formulas before the second topic</h3>
+              <span class="path-time">~10 min</span>
+            </div>
+            <p>There are only three, and two of them belong to this first topic. Get the discount factor and ROI fixed now, because the second topic assumes you can already tell what each one answers and spends its time on what they miss.</p>
+            <button class="path-go" type="button" data-goto="formulas">Open Formulas <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Read Non-financial options, blocks 08 to 17</h3>
+              <span class="path-time">~30 min</span>
+            </div>
+            <p>This half reverses the first. Watch for the turn at block 12: once strategic randomness is on the table, a failed project stops being evidence of bad management. Blocks 13 and 17 are the two that most often get misremembered.</p>
+            <button class="path-go" type="button" data-goto="summary">Open Summary &amp; visuals <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Work the glossary, filtering by source</h3>
+              <span class="path-time">~15 min</span>
+            </div>
+            <p>Thirty-eight terms, and the two halves use different vocabularies. Filter to Working out costs and check you can state each without the page; then do Non-financial options, where the terms marked as my own wording are the ones worth quoting precisely.</p>
+            <button class="path-go" type="button" data-goto="terms">Open Key concepts <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Run the deck cold</h3>
+              <span class="path-time">~20 min</span>
+            </div>
+            <p>Fifty-three cards. The financial ones are checkable in a sentence; the judgement ones are not, so say the answer out loud before flipping. Any card about exploration versus exploitation that you cannot answer both directions on needs another pass at block 14.</p>
+            <button class="path-go" type="button" data-goto="cards">Open Flashcards <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Sit the quiz without notes</h3>
+              <span class="path-time">~15 min</span>
+            </div>
+            <p>The distractors are built from the specific confusions this week invites, so read every option note even on questions you get right. A wrong answer here usually means a block, not a fact, needs rereading.</p>
+            <button class="path-go" type="button" data-goto="quiz">Open Quiz <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Work two scenarios end to end</h3>
+              <span class="path-time">~20 min</span>
+            </div>
+            <p>Pick one from each topic — a costing scenario and a selection scenario. Write your reasoning before opening the hints, then mark yourself against the checklist rather than the walkthrough.</p>
+            <button class="path-go" type="button" data-goto="apply">Open Apply it <span aria-hidden="true">&rarr;</span></button>
+          </li>
+        </ol>
+
+        <p class="path-close"><strong>The test</strong>You have it when you can argue both sides of a project that came in on time and on budget and still should not have been funded.</p>
+      </div>
+
+      <div class="block" data-topic="Working out costs">
+        <span class="block-num">01 / The core idea</span>
+        <h2>Flexible scope does not mean flexible cost</h2>
+        <p>Agile commonly fixes <strong>budget and timeline while allowing scope to evolve</strong>. That trade is often read as financial freedom, and it is not. Iteration keeps the door open for cost to escalate long after the project was approved.</p>
+        <ul>
+          <li>Expanding stakeholder requirements</li>
+          <li>Additional sprints</li>
+          <li>Larger or more specialised teams</li>
+          <li>Increasing cloud/infrastructure usage</li>
+          <li>Accumulated technical debt</li>
+        </ul>
+        <p>Cost therefore needs to be <strong>tracked and forecast continuously</strong>, rather than assessed only when the project is approved.</p>
+        <div class="callout--key"><p>Agile provides flexibility in what gets delivered, not immunity from financial constraints</p></div>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 236" role="img" aria-labelledby="wcfig1-title wcfig1-desc">
+              <title id="wcfig1-title">How evolving scope escalates cost when budget and time are fixed</title>
+              <desc id="wcfig1-desc">On the left, a box shows that Agile fixes budget and timeline while scope is
+                allowed to evolve. An arrow leads to five stacked escalation channels: expanding stakeholder
+                requirements, additional sprints, larger or more specialised teams, increasing cloud and
+                infrastructure usage, and accumulated technical debt. These feed a single outcome box on the right
+                labelled cost escalation. A return arrow underneath runs back from that outcome to the left-hand box
+                and is labelled continuous tracking and forecasting, showing that the control is a loop rather than
+                a one-off approval decision.</desc>
+
+              <text class="svg-eyebrow" x="14" y="22">Fixed</text>
+              <rect x="14" y="32" width="146" height="76" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-width="2"/>
+              <text class="svg-label" x="87" y="58" text-anchor="middle">Budget</text>
+              <text class="svg-label" x="87" y="78" text-anchor="middle">Timeline</text>
+              <text class="svg-sub" x="87" y="98" text-anchor="middle">scope evolves</text>
+
+              <path d="M166 70 L196 70" stroke="#6F4A17" stroke-width="2" marker-end="url(#wcArrow)"/>
+              <defs>
+                <marker id="wcArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                  <path d="M0 0 L10 5 L0 10 z" fill="#6F4A17"/>
+                </marker>
+              </defs>
+
+              <text class="svg-eyebrow" x="206" y="22">Escalation channels</text>
+              <rect x="206" y="30" width="300" height="24" rx="6" fill="#ffffff" stroke="#A8722C" stroke-width="1.5"/>
+              <text class="svg-sub" x="216" y="46">Expanding stakeholder requirements</text>
+              <rect x="206" y="58" width="300" height="24" rx="6" fill="#ffffff" stroke="#A8722C" stroke-width="1.5"/>
+              <text class="svg-sub" x="216" y="74">Additional sprints</text>
+              <rect x="206" y="86" width="300" height="24" rx="6" fill="#ffffff" stroke="#A8722C" stroke-width="1.5"/>
+              <text class="svg-sub" x="216" y="102">Larger or more specialised teams</text>
+              <rect x="206" y="114" width="300" height="24" rx="6" fill="#ffffff" stroke="#A8722C" stroke-width="1.5"/>
+              <text class="svg-sub" x="216" y="130">Increasing cloud/infrastructure usage</text>
+              <rect x="206" y="142" width="300" height="24" rx="6" fill="#ffffff" stroke="#A8722C" stroke-width="1.5"/>
+              <text class="svg-sub" x="216" y="158">Accumulated technical debt</text>
+
+              <path d="M512 98 L542 98" stroke="#6F4A17" stroke-width="2" marker-end="url(#wcArrow)"/>
+              <rect x="550" y="60" width="156" height="76" rx="10" fill="#A8722C"/>
+              <text class="svg-label" x="628" y="90" text-anchor="middle" fill="#ffffff">Cost</text>
+              <text class="svg-label" x="628" y="110" text-anchor="middle" fill="#ffffff">escalation</text>
+
+              <path d="M628 144 L628 196 L87 196 L87 118" stroke="#6F4A17" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#wcArrow)"/>
+              <text class="svg-sub" x="358" y="214" text-anchor="middle">Continuous tracking and forecasting &mdash; not a one-off approval</text>
+            </svg>
+          </div>
+          <figcaption>Fixing budget and time does not close the cost question; it moves it into the iteration loop.</figcaption>
+        </figure>
+      </div>
+
+      <div class="block" data-topic="Working out costs">
+        <span class="block-num">02 / The managerial objective</span>
+        <h2>Value rather than activity</h2>
+        <p>The purpose of cost control is not simply staying within the budget; it is ensuring expenditure continues to produce <strong>value rather than activity</strong>. The distinction matters because the two look identical on a burndown chart.</p>
+        <p>In technology projects, evolving scope can make a project appear productive while its economics progressively deteriorate. Managers should therefore continually test whether the incremental value of further development justifies its incremental cost.</p>
+        <div class="callout--ask"><p>Is this sprint producing value, or producing activity?</p></div>
+      </div>
+
+      <div class="block" data-topic="Working out costs">
+        <span class="block-num">03 / Framing the project</span>
+        <h2>Three conditions, then the numbers</h2>
+        <p>Before comparing financial returns, three conditions should exist.</p>
+        <ol class="steps">
+          <li><strong>Need</strong> &mdash; a legitimate organisational reason for the project</li>
+          <li><strong>Funds</strong> &mdash; sufficient financial capacity to undertake it</li>
+          <li><strong>Management will</strong> &mdash; meaningful senior commitment to implementing it, not merely approval on paper</li>
+        </ol>
+        <p>The financial case then depends partly on why the project exists at all.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th scope="col">Project driver</th><th scope="col">Financial implication</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Problem</th><td>Justify expenditure against the cost/value of solving it</td></tr>
+              <tr><th scope="row">Opportunity</th><td>Demonstrate the value that can be captured</td></tr>
+              <tr><th scope="row">Directive</th><td>Financial evaluation may support <em>how</em> to deliver rather than <em>whether</em> to comply</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul>
+          <li>Directives may arise from legislation or head-office requirements</li>
+          <li>Technology projects can be harder to justify because novel projects often lack a reliable historical track record</li>
+          <li>A credible financial case therefore improves the likelihood of a project being selected when competing initiatives exist</li>
+        </ul>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 168" role="img" aria-labelledby="wcfig2-title wcfig2-desc">
+              <title id="wcfig2-title">The three viability conditions as sequential gates</title>
+              <desc id="wcfig2-desc">Three gates in a row, labelled need, funds and management will, each with a short
+                description underneath. An arrow runs left to right through all three into a final box labelled only
+                now compare financial returns. Text beneath notes that management will is the gate most often assumed
+                rather than tested, because approval on paper is not the same as commitment to implement.</desc>
+
+              <rect x="14" y="40" width="176" height="70" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-width="2"/>
+              <text class="svg-label" x="102" y="66" text-anchor="middle">1 &middot; Need</text>
+              <text class="svg-sub" x="102" y="86" text-anchor="middle">a legitimate</text>
+              <text class="svg-sub" x="102" y="100" text-anchor="middle">organisational reason</text>
+
+              <path d="M196 75 L220 75" stroke="#6F4A17" stroke-width="2" marker-end="url(#wcArrow2)"/>
+              <defs>
+                <marker id="wcArrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                  <path d="M0 0 L10 5 L0 10 z" fill="#6F4A17"/>
+                </marker>
+              </defs>
+
+              <rect x="226" y="40" width="176" height="70" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-width="2"/>
+              <text class="svg-label" x="314" y="66" text-anchor="middle">2 &middot; Funds</text>
+              <text class="svg-sub" x="314" y="86" text-anchor="middle">financial capacity</text>
+              <text class="svg-sub" x="314" y="100" text-anchor="middle">to undertake it</text>
+
+              <path d="M408 75 L432 75" stroke="#6F4A17" stroke-width="2" marker-end="url(#wcArrow2)"/>
+
+              <rect x="438" y="40" width="176" height="70" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-width="2"/>
+              <text class="svg-label" x="526" y="66" text-anchor="middle">3 &middot; Management will</text>
+              <text class="svg-sub" x="526" y="86" text-anchor="middle">commitment, not</text>
+              <text class="svg-sub" x="526" y="100" text-anchor="middle">approval on paper</text>
+
+              <path d="M620 75 L644 75" stroke="#6F4A17" stroke-width="2" marker-end="url(#wcArrow2)"/>
+              <rect x="650" y="46" width="58" height="58" rx="10" fill="#A8722C"/>
+              <text class="svg-sub" x="679" y="72" text-anchor="middle" fill="#ffffff">Compare</text>
+              <text class="svg-sub" x="679" y="88" text-anchor="middle" fill="#ffffff">returns</text>
+
+              <text class="svg-sub" x="14" y="140">Gate 3 is the one most often assumed rather than tested &mdash; approval on paper is not commitment to implement.</text>
+            </svg>
+          </div>
+          <figcaption>All three gates come before the arithmetic, not after it.</figcaption>
+        </figure>
+      </div>
+
+      <div class="block" data-topic="Working out costs">
+        <span class="block-num">04 / Choosing the lens</span>
+        <h2>There is no universally correct measure</h2>
+        <p>While NPV, ROI and payback can be seen as possible approaches, there is <strong>no universally correct financial measure for every project</strong>. The appropriate measure depends on factors including:</p>
+        <ul>
+          <li>Project duration</li>
+          <li>Timing of cash flows</li>
+          <li>Capital required upfront</li>
+          <li>Cost of capital</li>
+          <li>Organisational cash availability</li>
+          <li>Broader strategic and implementation considerations</li>
+        </ul>
+        <p>The important skill is therefore not merely calculating a metric, but <strong>choosing and interpreting it in the context of the organisation and project</strong>.</p>
+      </div>
+
+      <div class="block" data-topic="Working out costs">
+        <span class="block-num">05 / Net present value</span>
+        <h2>Why cash-flow timing changes attractiveness</h2>
+        <p>NPV becomes particularly useful for longer projects because two investments generating the same nominal total cash benefit can create different economic value depending on <strong>when those cash flows occur</strong>.</p>
+        <div class="formula">Discount factor = 1 / (1+r)^n</div>
+        <p>Where <strong>r</strong> is the discount rate and <strong>n</strong> is the number of periods into the future. As r or n increases, the present value of a future cash flow falls.</p>
+        <div class="callout--key"><p>Do not compare long-term projects only on total projected benefits and costs. The cash-flow profile matters as much as the final total</p></div>
+      </div>
+
+      <div class="block" data-topic="Working out costs">
+        <span class="block-num">06 / Return on investment</span>
+        <h2>ROI as a short-horizon measure</h2>
+        <div class="formula">ROI = (Benefits - Project costs) / Project costs</div>
+        <ul>
+          <li>Shows the return generated relative to the amount invested</li>
+          <li>Higher ROI indicates more benefit generated per dollar of project cost</li>
+          <li>Particularly useful as a simple comparison where the investment horizon is sufficiently short that cash-flow timing is less central to the decision</li>
+        </ul>
+        <p>The two measures can legitimately rank the same pair of projects differently, because they are not asking the same question.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th scope="col"></th><th scope="col">NPV</th><th scope="col">ROI</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Core question</th><td>What are future cash flows worth today?</td><td>How much return is generated per dollar invested?</td></tr>
+              <tr><th scope="row">Most useful when</th><td>Cash flows extend materially through time</td><td>A simpler, shorter-horizon comparison is appropriate</td></tr>
+              <tr><th scope="row">Captures</th><td>Timing and discounted value</td><td>Relative profitability of investment</td></tr>
+              <tr><th scope="row">Key limitation</th><td>Sensitive to the discount rate and cash-flow assumptions</td><td>Does not capture timing, risk or non-financial value</td></tr>
+              <tr><th scope="row">Decision focus</th><td class="verdict--pos">Value creation</td><td class="verdict--neu">Investment efficiency</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 200" role="img" aria-labelledby="wcfig3-title wcfig3-desc">
+              <title id="wcfig3-title">NPV and ROI answer different questions across the investment horizon</title>
+              <desc id="wcfig3-desc">A horizontal axis runs from a short horizon on the left to a long horizon on the
+                right. A band along the left portion is labelled ROI, described as return per dollar invested and
+                most useful where timing matters less. A band along the right portion is labelled NPV, described as
+                value created after discounting and most useful where cash flows extend through time. The two bands
+                overlap in the middle, and a note there says that in the overlap the two measures can rank the same
+                projects differently, so the manager must decide which question the decision actually turns on.</desc>
+
+              <line x1="30" y1="150" x2="690" y2="150" stroke="#6F4A17" stroke-width="2"/>
+              <text class="svg-sub" x="30" y="172">Short horizon</text>
+              <text class="svg-sub" x="690" y="172" text-anchor="end">Long horizon</text>
+
+              <rect x="30" y="40" width="340" height="42" rx="8" fill="#F7EFE2" stroke="#A8722C" stroke-width="2"/>
+              <text class="svg-label" x="46" y="58">ROI</text>
+              <text class="svg-sub" x="46" y="74">return per dollar invested</text>
+
+              <rect x="350" y="92" width="340" height="42" rx="8" fill="#A8722C"/>
+              <text class="svg-label" x="674" y="110" text-anchor="end" fill="#ffffff">NPV</text>
+              <text class="svg-sub" x="674" y="126" text-anchor="end" fill="#ffffff">value created after discounting</text>
+
+              <line x1="350" y1="30" x2="350" y2="150" stroke="#6F4A17" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <line x1="370" y1="30" x2="370" y2="150" stroke="#6F4A17" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <text class="svg-eyebrow" x="360" y="24" text-anchor="middle">Overlap</text>
+              <text class="svg-sub" x="30" y="192">In the overlap the two can rank the same projects differently &mdash; decide which question the decision turns on.</text>
+            </svg>
+          </div>
+          <figcaption>Neither measure is superior; they are answering different questions about the same project.</figcaption>
+        </figure>
+      </div>
+
+      <div class="block" data-topic="Working out costs">
+        <span class="block-num">07 / Context</span>
+        <h2>The environment can change the decision</h2>
+        <p>Two features of the organisation's financial environment can flip which project is preferable, even when the project forecasts themselves have not moved.</p>
+        <ul>
+          <li><strong>Cost of capital</strong> &mdash; if capital becomes expensive, future cash flows are discounted more heavily, so projects requiring significant upfront investment or delivering benefits later become relatively less attractive</li>
+          <li><strong>Availability of capital</strong> &mdash; a cash-rich organisation may tolerate a capital-intensive project that another organisation could not realistically fund</li>
+        </ul>
+        <p>Project attractiveness therefore depends not only on expected returns but also on the organisation's <strong>financial capacity and constraints</strong>. A project should be financially defensible, but financial metrics alone do not determine the correct investment.</p>
+        <div class="callout--key"><p>Contextualise the project first, then select the financial method that best represents its economics, rather than treating NPV or ROI as universally superior</p></div>
+        <ul class="takeaways">
+          <li>Agile's flexible scope actually increases the need for continuous cost discipline: each additional feature, sprint or capability should still justify its incremental expenditure</li>
+          <li>A project's financial attractiveness is partly a function of its <strong>cash-flow timing</strong>, not merely the total dollars eventually earned</li>
+          <li>NPV and ROI can legitimately favour different alternatives because they answer different questions; the managerial task is deciding which question matters in the project's context</li>
+          <li>Cost of capital and available cash can change which project is economically preferable even when the underlying forecasts remain unchanged</li>
+          <li>A strong project pitch should establish <strong>need + funding capacity + managerial commitment</strong>, then demonstrate how the selected financial measure supports the investment decision</li>
+        </ul>
+      </div>
+
+      <div class="block" data-topic="Non-financial options">
+        <span class="block-num">08 / The limit of the numbers</span>
+        <h2>Why financial metrics are insufficient</h2>
+        <p>NPV and ROI capture financial attractiveness, but projects also differ in strategic alignment, customer impact, technical feasibility, risk, resource availability and innovation potential.</p>
+        <p>This matters most in <strong>non-profits, public organisations and innovation portfolios</strong>, where financial return may not be the primary objective. Even in for-profit organisations, selecting the project with the highest financial return can be strategically inferior if it poorly supports organisational priorities.</p>
+        <div class="callout--key"><p>Project selection should optimise the organisation's objectives, not merely the project's standalone financial result</p></div>
+      </div>
+
+      <div class="block" data-topic="Non-financial options">
+        <span class="block-num">09 / Weighted scoring</span>
+        <h2>Making competing priorities explicit</h2>
+        <ol class="steps">
+          <li>Identify the criteria relevant to project selection.</li>
+          <li>Assign each criterion a <strong>weight based on its importance</strong>.</li>
+          <li>Score each project independently against each criterion.</li>
+          <li>Multiply each score by its weighting.</li>
+          <li>Sum the weighted scores to rank the alternatives.</li>
+        </ol>
+        <div class="formula">Weighted project score = &Sigma; (criterion score &times; criterion weight)</div>
+        <p>Weights should total <strong>100%</strong>, and a highly weighted criterion has greater influence on the final decision.</p>
+        <ul>
+          <li>Forces managers to articulate <strong>what actually matters</strong> before choosing between projects</li>
+          <li>Makes trade-offs transparent rather than leaving them implicit</li>
+          <li>Provides a defensible explanation of why one project was selected</li>
+          <li>Can combine financial and non-financial criteria within the same framework</li>
+        </ul>
+        <div class="callout--ask"><p>Risk: the numerical result can create false objectivity. The ranking is only as defensible as the weights and scores used to produce it</p></div>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 220" role="img" aria-labelledby="nffig1-title nffig1-desc">
+              <title id="nffig1-title">How a weighted scoring model produces a ranking</title>
+              <desc id="nffig1-desc">A column of criteria on the left, each paired with a weight, feeds into a
+                multiplication step in the middle where a project's score against each criterion is multiplied by
+                that criterion's weight. The products are summed on the right into a single weighted project score
+                used to rank alternatives. A note at the bottom records that the weights must total one hundred per
+                cent, and that the arithmetic makes judgement visible rather than removing it.</desc>
+
+              <text class="svg-eyebrow" x="14" y="22">Criteria &times; weight</text>
+              <rect x="14" y="32" width="200" height="26" rx="6" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5"/>
+              <text class="svg-sub" x="24" y="49">Strategic alignment</text>
+              <text class="svg-mono" x="204" y="49" text-anchor="end">w1</text>
+              <rect x="14" y="62" width="200" height="26" rx="6" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5"/>
+              <text class="svg-sub" x="24" y="79">Customer impact</text>
+              <text class="svg-mono" x="204" y="79" text-anchor="end">w2</text>
+              <rect x="14" y="92" width="200" height="26" rx="6" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5"/>
+              <text class="svg-sub" x="24" y="109">Technical feasibility</text>
+              <text class="svg-mono" x="204" y="109" text-anchor="end">w3</text>
+              <rect x="14" y="122" width="200" height="26" rx="6" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5"/>
+              <text class="svg-sub" x="24" y="139">Risk</text>
+              <text class="svg-mono" x="204" y="139" text-anchor="end">w4</text>
+
+              <defs>
+                <marker id="nfArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                  <path d="M0 0 L10 5 L0 10 z" fill="#6F4A17"/>
+                </marker>
+              </defs>
+              <path d="M220 90 L262 90" stroke="#6F4A17" stroke-width="2" marker-end="url(#nfArrow)"/>
+
+              <rect x="270" y="56" width="180" height="68" rx="10" fill="#ffffff" stroke="#A8722C" stroke-width="2"/>
+              <text class="svg-label" x="360" y="82" text-anchor="middle">score &times; weight</text>
+              <text class="svg-sub" x="360" y="102" text-anchor="middle">per criterion, per project</text>
+
+              <path d="M456 90 L498 90" stroke="#6F4A17" stroke-width="2" marker-end="url(#nfArrow)"/>
+
+              <rect x="506" y="50" width="200" height="80" rx="10" fill="#A8722C"/>
+              <text class="svg-label" x="606" y="78" text-anchor="middle" fill="#ffffff">&Sigma; weighted score</text>
+              <text class="svg-sub" x="606" y="100" text-anchor="middle" fill="#ffffff">ranks the alternatives</text>
+
+              <text class="svg-sub" x="14" y="180">Weights total 100%. A higher weight gives that criterion more influence over the ranking.</text>
+              <text class="svg-sub" x="14" y="200">The arithmetic makes judgement visible &mdash; it does not remove it.</text>
+            </svg>
+          </div>
+          <figcaption>The model's output is only as defensible as the weights and scores fed into it.</figcaption>
+        </figure>
+      </div>
+
+      <div class="block" data-topic="Non-financial options">
+        <span class="block-num">10 / Balanced scorecard</span>
+        <h2>Causal links, not more KPIs</h2>
+        <p>The balanced scorecard evaluates initiatives across interconnected dimensions: financial outcomes, customer value, internal processes, learning, growth and innovation, and organisational vision and strategy.</p>
+        <p>Its greater value is not merely producing additional KPIs, but identifying <strong>causal relationships between strategic objectives</strong>.</p>
+        <div class="formula-stack">
+          <div class="formula">Improving internal systems &rarr; enables a more personalised customer experience &rarr; supports customer value &rarr; contributes to profitability</div>
+        </div>
+        <ul>
+          <li>Balanced scorecards can become overly elaborate and bureaucratic</li>
+          <li>Large frameworks may generate extensive KPIs without necessarily improving the underlying decision</li>
+          <li>They may therefore fit large formal organisations better than highly Agile, people-centred environments</li>
+        </ul>
+        <div class="callout--key"><p>Examine the interdependencies and causal links between strategic outcomes rather than treating each KPI independently</p></div>
+      </div>
+
+      <div class="block" data-topic="Non-financial options">
+        <span class="block-num">11 / Portfolio level</span>
+        <h2>Risk balanced across projects, not within one</h2>
+        <p>Organisations should not assess every project as though it must independently represent the safest or highest-return option. A portfolio can deliberately contain both:</p>
+        <ul>
+          <li>lower-risk, incremental projects producing predictable returns; and</li>
+          <li>higher-risk experiments offering disproportionate upside.</li>
+        </ul>
+        <p>The appropriate mix depends on the organisation's <strong>risk appetite, strategic objectives and operating environment</strong>. A startup may tolerate considerably more experimentation than a government organisation whose priorities include reliability, compliance and continuity.</p>
+      </div>
+
+      <div class="block" data-topic="Non-financial options">
+        <span class="block-num">12 / Strategic randomness</span>
+        <h2>Why deliberate exploration is necessary</h2>
+        <p>If an organisation continually directs resources toward the opportunities already known to work, it becomes increasingly efficient at <strong>exploiting existing value</strong> &mdash; and increasingly exposed.</p>
+        <ul>
+          <li>existing opportunities may disappear;</li>
+          <li>customer preferences may change;</li>
+          <li>technology may shift;</li>
+          <li>competitors may disrupt the existing model;</li>
+          <li>the organisation may become dependent on a narrow source of revenue.</li>
+        </ul>
+        <p><strong>Strategic randomness</strong> means deliberately creating space for controlled experimentation, divergent thinking and initiatives whose outcomes cannot be confidently predicted. The objective is not randomness for its own sake, but a portfolio in which most resources exploit known opportunities, a smaller proportion explores uncertain ones, failure among exploratory projects is expected, and occasional large successes compensate for unsuccessful experiments.</p>
+        <div class="callout--key"><p>If experimentation is expected to have a low success rate, individual failures do not demonstrate that the strategy has failed</p></div>
+      </div>
+
+      <div class="block" data-topic="Non-financial options">
+        <span class="block-num">13 / Judging failure</span>
+        <h2>Project failure is not portfolio failure</h2>
+        <p>Suppose ten experimental initiatives are funded: nine generate little or no commercial return, and one identifies a major new business opportunity.</p>
+        <p>Evaluating each initiative independently would make the portfolio appear badly managed. Evaluating the <strong>combined portfolio outcome</strong> may show that the nine unsuccessful experiments were effectively the cost of discovering the one outsized winner.</p>
+        <div class="callout--key"><p>Project failure &ne; portfolio failure</p></div>
+        <p>The management danger is that organisations unintentionally eliminate innovation by terminating experimentation after several unsuccessful attempts &mdash; funding only initiatives with predictable outcomes, and progressively removing the very uncertainty from which breakthrough opportunities emerge.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 200" role="img" aria-labelledby="nffig2-title nffig2-desc">
+              <title id="nffig2-title">Ten funded experiments judged individually and as a portfolio</title>
+              <desc id="nffig2-desc">Ten squares represent ten funded experimental initiatives. Nine are drawn pale
+                and labelled little or no commercial return; the tenth is filled solid and labelled major new
+                business opportunity. Below, two verdict boxes contrast the two ways of reading the same result:
+                judged one at a time the portfolio looks badly managed, while judged as a combined outcome the nine
+                unsuccessful experiments were the cost of discovering the one outsized winner.</desc>
+
+              <text class="svg-eyebrow" x="14" y="22">Ten funded experiments</text>
+              <rect x="14" y="32" width="52" height="52" rx="8" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5"/>
+              <rect x="74" y="32" width="52" height="52" rx="8" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5"/>
+              <rect x="134" y="32" width="52" height="52" rx="8" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5"/>
+              <rect x="194" y="32" width="52" height="52" rx="8" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5"/>
+              <rect x="254" y="32" width="52" height="52" rx="8" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5"/>
+              <rect x="314" y="32" width="52" height="52" rx="8" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5"/>
+              <rect x="374" y="32" width="52" height="52" rx="8" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5"/>
+              <rect x="434" y="32" width="52" height="52" rx="8" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5"/>
+              <rect x="494" y="32" width="52" height="52" rx="8" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5"/>
+              <rect x="554" y="32" width="52" height="52" rx="8" fill="#A8722C"/>
+              <text class="svg-label" x="580" y="64" text-anchor="middle" fill="#ffffff">1</text>
+
+              <text class="svg-sub" x="14" y="102">Nine &mdash; little or no commercial return</text>
+              <text class="svg-sub" x="616" y="64">&larr; one major</text>
+              <text class="svg-sub" x="616" y="80">opportunity</text>
+
+              <rect x="14" y="118" width="330" height="58" rx="10" fill="#ffffff" stroke="#A8722C" stroke-width="2"/>
+              <text class="svg-eyebrow" x="28" y="138">Judged one at a time</text>
+              <text class="svg-sub" x="28" y="158">The portfolio appears badly managed &mdash;</text>
+              <text class="svg-sub" x="28" y="172">nine of ten initiatives failed.</text>
+
+              <rect x="360" y="118" width="346" height="58" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-width="2"/>
+              <text class="svg-eyebrow" x="374" y="138">Judged as a portfolio</text>
+              <text class="svg-sub" x="374" y="158">The nine were the cost of discovering</text>
+              <text class="svg-sub" x="374" y="172">the one outsized winner.</text>
+            </svg>
+          </div>
+          <figcaption>The same ten results support opposite verdicts depending on the unit of evaluation.</figcaption>
+        </figure>
+      </div>
+
+      <div class="block" data-topic="Non-financial options">
+        <span class="block-num">14 / The two modes</span>
+        <h2>Exploration versus exploitation</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th scope="col">Dimension</th><th scope="col">Exploration</th><th scope="col">Exploitation</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Objective</th><td>Search, discovery, breakthroughs</td><td>Efficiency and growth from existing opportunities</td></tr>
+              <tr><th scope="row">Uncertainty</th><td class="verdict--neg">High</td><td class="verdict--pos">Low</td></tr>
+              <tr><th scope="row">Financial profile</th><td>Many small losses; potential outsized winners</td><td>More predictable returns</td></tr>
+              <tr><th scope="row">Culture</th><td>Experimentation, novelty, tolerance of failure</td><td>Planning, consistency, execution</td></tr>
+              <tr><th scope="row">People</th><td>Comfortable operating under uncertainty</td><td>Strong organisers and operators</td></tr>
+              <tr><th scope="row">Management logic</th><td>Learn what might work</td><td>Scale what already works</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul>
+          <li><strong>Too much exploitation</strong> creates efficiency but exposes the organisation to disruption and concentration risk</li>
+          <li><strong>Too much exploration</strong> consumes resources without generating sufficient reliable cash flow</li>
+          <li>Sustainable organisations therefore need both</li>
+        </ul>
+        <div class="callout--ask"><p>How much uncertainty can the organisation afford while preserving enough exploration to create its next source of growth?</p></div>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 190" role="img" aria-labelledby="nffig3-title nffig3-desc">
+              <title id="nffig3-title">The portfolio balance between exploitation and exploration</title>
+              <desc id="nffig3-desc">A single horizontal bar is split into a large left segment labelled exploitation,
+                which funds today's business and produces predictable returns, and a smaller right segment labelled
+                exploration, which protects tomorrow's business and produces many small losses with occasional
+                outsized winners. Warnings sit at each end: pushing the split too far toward exploitation creates
+                disruption and concentration risk, while pushing it too far toward exploration consumes resources
+                without generating reliable cash flow.</desc>
+
+              <text class="svg-eyebrow" x="14" y="26">One portfolio, two modes</text>
+              <rect x="14" y="40" width="470" height="62" rx="10" fill="#A8722C"/>
+              <text class="svg-label" x="249" y="68" text-anchor="middle" fill="#ffffff">Exploitation</text>
+              <text class="svg-sub" x="249" y="88" text-anchor="middle" fill="#ffffff">funds today &middot; predictable returns</text>
+
+              <rect x="490" y="40" width="216" height="62" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-width="2"/>
+              <text class="svg-label" x="598" y="68" text-anchor="middle">Exploration</text>
+              <text class="svg-sub" x="598" y="88" text-anchor="middle">protects tomorrow</text>
+
+              <path d="M14 116 L14 126 L484 126 L484 116" stroke="#6F4A17" stroke-width="1.5" fill="none"/>
+              <path d="M490 116 L490 126 L706 126 L706 116" stroke="#6F4A17" stroke-width="1.5" fill="none"/>
+
+              <text class="svg-sub" x="14" y="150">Too far left: efficient, but exposed to</text>
+              <text class="svg-sub" x="14" y="166">disruption and concentration risk.</text>
+              <text class="svg-sub" x="706" y="150" text-anchor="end">Too far right: consumes resources without</text>
+              <text class="svg-sub" x="706" y="166" text-anchor="end">generating reliable cash flow.</text>
+            </svg>
+          </div>
+          <figcaption>The split is a deliberate management choice, not an accident of which projects got approved.</figcaption>
+        </figure>
+      </div>
+
+      <div class="block" data-topic="Non-financial options">
+        <span class="block-num">15 / Concentration risk</span>
+        <h2>The gorilla client</h2>
+        <p>A <strong>gorilla client</strong> is a customer responsible for a disproportionately large share of the organisation's business. Commercially attractive in the short term, it creates strategic vulnerability:</p>
+        <ul>
+          <li>bargaining power shifts toward the customer;</li>
+          <li>managers may become reluctant to challenge the client;</li>
+          <li>resources become increasingly tailored to one relationship;</li>
+          <li>loss of the client can threaten the entire organisation.</li>
+        </ul>
+        <p>This is another form of over-exploitation: the company becomes extremely efficient around one existing source of value while neglecting alternatives.</p>
+        <div class="callout--key"><p>Diversification creates resilience even where concentration appears financially attractive today</p></div>
+      </div>
+
+      <div class="block" data-topic="Non-financial options">
+        <span class="block-num">16 / Permission to fail</span>
+        <h2>Incentives shape exploration</h2>
+        <p>Strategic randomness cannot exist if employees are penalised whenever an experiment fails. If performance systems reward only predictable delivery, KPI achievement and short-term financial returns, employees rationally avoid uncertain initiatives.</p>
+        <p>An organisation claiming to value innovation therefore needs mechanisms that distinguish <strong>disciplined experiments that fail</strong> from poorly managed projects. Failure should not automatically be rewarded, but <strong>intelligent experimentation and learning must be protected</strong>.</p>
+      </div>
+
+      <div class="block" data-topic="Non-financial options">
+        <span class="block-num">17 / Defining success</span>
+        <h2>Outputs versus outcomes</h2>
+        <p>Traditional project success emphasises schedule, cost and scope. These remain important measures of project execution, but they do not establish whether the project created value. A project can meet all three constraints and still fail if:</p>
+        <ul>
+          <li>customers reject the solution;</li>
+          <li>the wrong problem was solved;</li>
+          <li>stakeholders gain little value;</li>
+          <li>the delivery process damages the team.</li>
+        </ul>
+        <p>Conversely, a project may exceed its original budget or schedule yet create significant strategic or customer value. <strong>True project success is primarily about outcomes, not outputs</strong> &mdash; value delivered, user and stakeholder satisfaction, strategic contribution, sustainability of the outcome, and the health and capability of the delivery team.</p>
+        <div class="formula-stack">
+          <div class="formula">Triple constraint asks: &ldquo;Did we deliver the project as planned?&rdquo;</div>
+          <div class="formula">Strategic evaluation asks: &ldquo;Was it the right project, and did it create the intended value?&rdquo;</div>
+        </div>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 216" role="img" aria-labelledby="nffig4-title nffig4-desc">
+              <title id="nffig4-title">Execution measures inside a wider ring of outcome measures</title>
+              <desc id="nffig4-desc">An inner box holds the three execution measures of schedule, cost and scope, and
+                is labelled did we deliver the project as planned. It sits inside a larger surrounding ring holding
+                the outcome measures: value delivered, user and stakeholder satisfaction, strategic contribution,
+                sustainability of the outcome, and team health and capability. The ring is labelled was it the right
+                project and did it create the intended value. A note records that a project can satisfy the inner box
+                completely and still fail the outer ring.</desc>
+
+              <rect x="120" y="24" width="480" height="146" rx="16" fill="#F7EFE2" stroke="#A8722C" stroke-width="2"/>
+              <text class="svg-eyebrow" x="360" y="46" text-anchor="middle">Outcomes &mdash; was it the right project?</text>
+
+              <rect x="256" y="76" width="208" height="62" rx="10" fill="#A8722C"/>
+              <text class="svg-sub" x="360" y="98" text-anchor="middle" fill="#ffffff">Schedule &middot; Cost &middot; Scope</text>
+              <text class="svg-sub" x="360" y="118" text-anchor="middle" fill="#ffffff">delivered as planned?</text>
+
+              <text class="svg-sub" x="136" y="76">Value delivered</text>
+              <text class="svg-sub" x="136" y="94">Stakeholder satisfaction</text>
+              <text class="svg-sub" x="136" y="112">Strategic contribution</text>
+              <text class="svg-sub" x="480" y="76">Sustainability</text>
+              <text class="svg-sub" x="480" y="94">Team health</text>
+              <text class="svg-sub" x="480" y="112">and capability</text>
+
+              <text class="svg-sub" x="360" y="160" text-anchor="middle">A project can satisfy the inner box completely and still fail the ring around it.</text>
+              <text class="svg-sub" x="360" y="196" text-anchor="middle">Execution measures are necessary. They are not the definition of success.</text>
+            </svg>
+          </div>
+          <figcaption>The triple constraint measures delivery; it does not measure whether delivery was worth it.</figcaption>
+        </figure>
+
+        <ul class="takeaways">
+          <li>Financial optimisation at the individual-project level can produce a strategically fragile portfolio; organisations need to optimise <strong>the portfolio</strong>, not every experiment</li>
+          <li><strong>Exploration and exploitation are complementary capabilities</strong>: exploitation funds today's business, while exploration protects tomorrow's</li>
+          <li>A high failure rate can be rational where experiments are deliberately bounded and the potential winners have asymmetric upside</li>
+          <li>Weighted scoring helps expose managerial priorities, but assigning numbers does not remove judgement &mdash; it merely makes that judgement visible</li>
+          <li>Project success should ultimately be assessed through <strong>value and outcomes</strong>, with cost, scope and schedule treated as execution measures rather than the complete definition of success</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 02 · KEY CONCEPTS ══════════════════ -->
+    <section class="panel" id="panel-terms" role="tabpanel" aria-labelledby="tab-terms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">02 / Reference</span>
+        <h2>Key concepts &amp; terminology</h2>
+        <p>Thirty-eight terms across both topics — the cost-discipline and metric-selection vocabulary from <em>Working out costs</em>, and the portfolio, scorecard and exploration vocabulary from <em>Non-financial options</em>. Entries marked as my own wording are copied from the definitions in my notes; the rest are drawn from what the page says about them.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="term-search">Filter terms</label>
+          <input class="search" id="term-search" type="search" placeholder="Filter terms — try “ROI” or “exploration”"
+            autocomplete="off">
+          <span class="count" id="term-count" aria-live="polite">38 of 38</span>
+        </div>
+
+        <div class="glossary" id="glossary"></div>
+      </div>
+    </section>
+    <!-- ══════════════════ 03 · FLASHCARDS ══════════════════ -->
+    <section class="panel" id="panel-cards" role="tabpanel" aria-labelledby="tab-cards" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">03 / Active recall</span>
+        <h2>Flashcards</h2>
+        <p>Fifty-three cards. The financial half asks you to compute and to choose between measures; the non-financial half asks you to judge — given this symptom, which selection logic applies and why. Several deliberately test the traps this material sets: a metric against the question it answers, a project failure against a portfolio failure, and an output against an outcome.</p>
+
+        <div class="deck">
+          <div class="deck-meta">
+            <span class="deck-count"><strong id="card-index">1</strong> / <span id="card-total">53</span></span>
+            <span class="progress"><span class="progress-fill" id="progress-fill"></span></span>
+          </div>
+
+          <button class="flip" id="flip-card" aria-pressed="false" aria-label="Flashcard — press to reveal the answer">
+            <span class="flip-inner">
+              <span class="face face-front">
+                <span class="face-tag">Question</span>
+                <span class="face-text" id="card-q"></span>
+                <span class="face-hint">Click, tap, or press Space to reveal</span>
+              </span>
+              <span class="face face-back">
+                <span class="face-tag">Answer</span>
+                <span class="face-text" id="card-a"></span>
+                <span class="face-hint">Press → for the next card</span>
+              </span>
+            </span>
+          </button>
+
+          <div class="deck-controls">
+            <button class="btn" id="prev-btn" type="button">← Previous</button>
+            <button class="btn btn--ghost" id="shuffle-btn" type="button">Shuffle</button>
+            <button class="btn" id="next-btn" type="button">Next →</button>
+          </div>
+
+          <p class="kbd-hint"><kbd>←</kbd> <kbd>→</kbd> to move · <kbd>Space</kbd> to flip · <kbd>S</kbd> to shuffle
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-acronyms" role="tabpanel" aria-labelledby="tab-acronyms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">04 / Shorthand</span>
+        <h2>Acronyms &amp; abbreviations</h2>
+        <p>Three abbreviations run through this week. My notes spell out Net Present Value (NPV) and Return on Investment (ROI); KPI is used without ever being written out, so it carries the standard expansion to keep the tab usable. The definition beneath every entry is taken only from what this page actually says about the term.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="acronyms-search">Filter acronyms</label>
+          <input class="search" id="acronyms-search" type="search" placeholder="Filter &mdash; try &ldquo;NPV&rdquo; or &ldquo;ROI&rdquo;"
+            autocomplete="off">
+          <span class="count" id="acronyms-count" aria-live="polite">3 of 3</span>
+        </div>
+
+        <div class="glossary" id="acronyms"></div>
+      </div>
+    </section>
+    <section class="panel" id="panel-formulas" role="tabpanel" aria-labelledby="tab-formulas" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">05 / Quick reference</span>
+        <h2>Formulas</h2>
+        <p>Three relationships, in the order the page introduces them and copied exactly as my notes write them. This is a costing and selection week rather than a computation week, so the arithmetic is deliberately light &mdash; the discount factor and ROI carry the financial lens, and the weighted score carries the non-financial one.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="formulas-search">Filter formulas</label>
+          <input class="search" id="formulas-search" type="search" placeholder="Filter formulas &mdash; try &ldquo;ROI&rdquo; or &ldquo;weight&rdquo;"
+            autocomplete="off">
+          <span class="count" id="formulas-count" aria-live="polite">3 of 3</span>
+        </div>
+
+        <div class="glossary" id="formulas"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 06 · QUIZ ══════════════════ -->
+    <section class="panel" id="panel-quiz" role="tabpanel" aria-labelledby="tab-quiz" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">06 / Test yourself</span>
+        <h2>Quiz</h2>
+        <p>Ten questions across both topics. They target the traps this week sets: mistaking fixed budget and timeline for cost control, treating one financial measure as universally correct, reading a run of failed experiments as a failed strategy, and calling a project successful because it landed on schedule.</p>
+
+        <div class="quizbar">
+          <div class="quiz-score">
+            <span><strong id="quiz-done">0</strong> of <span id="quiz-total">0</span> answered</span>
+            <span><strong id="quiz-right">0</strong> correct</span>
+          </div>
+          <span class="progress"><span class="progress-fill" id="quiz-fill"></span></span>
+          <button class="btn btn--ghost" id="quiz-reset" type="button">Start over</button>
+        </div>
+        <p class="quiz-verdict" id="quiz-verdict" role="status" aria-live="polite" hidden></p>
+
+        <div class="quiz-list" id="quiz-list"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 07 · APPLY IT ══════════════════ -->
+    <section class="panel" id="panel-apply" role="tabpanel" aria-labelledby="tab-apply" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">07 / Put it to work</span>
+        <h2>Apply it</h2>
+        <p>Five scenarios that put you in the seat where the decision is actually made. Each is qualitative, because this week's notes give the reasoning rather than a full worked dataset. Work the setup before opening a hint.</p>
+
+        <div class="scen-list" id="scen-list"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="page-foot">
+    <div class="wrap">
+      <p>DMBA 6005 Agile Project Development · Week 5 · Pre-live session</p>
+      <p>Compiled from my own pre-live notes for this week. Built from my Obsidian vault on 31 August 2026.</p>
+    </div>
+  </footer>
+    </div><!-- /.win -->
+  </div><!-- /.stage -->
+
+  <nav class="dock" aria-label="Site">
+    <a class="dock-item" data-tint="lime" data-label="Home" href="index.html"><span aria-hidden="true">&#8962;</span><span class="sr-only">Home</span></a>
+    <a class="dock-item" data-label="Library" href="library.html"><span aria-hidden="true">&#9776;</span><span class="sr-only">Library</span></a>
+    <span class="dock-sep" aria-hidden="true"></span>
+    <a class="dock-item" data-tint="sky" data-label="DMBA 6008 &mdash; Finance" href="DMBA6008-weeks.html">6008</a>
+    <a class="dock-item" data-tint="sand" data-label="DMBA 6005 &mdash; Agile" href="DMBA6005-weeks.html">6005</a>
+    <span class="dock-sep" aria-hidden="true"></span>
+    <a class="dock-item" data-tint="mint" data-label="DMBA 6001 &mdash; Readings" href="library.html?subject=DMBA6001">6001</a>
+    <a class="dock-item" data-tint="blush" data-label="DMBA 6002 &mdash; Assessments" href="library.html?subject=DMBA6002">6002</a>
+    <a class="dock-item" data-tint="lilac" data-label="DMBA 6004 &mdash; Remote work" href="library.html?subject=DMBA6004">6004</a>
+  </nav>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ── Tabs ─────────────────────────────────────────────── */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+
+      function selectTab(tab) {
+        tabs.forEach(function (t) {
+          var isTarget = t === tab;
+          var panel = document.getElementById('panel-' + t.getAttribute('data-panel'));
+          t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+          t.tabIndex = isTarget ? 0 : -1;
+          if (!panel) return;
+          panel.classList.toggle('active', isTarget);
+          if (isTarget) {
+            panel.removeAttribute('hidden');
+          } else {
+            panel.setAttribute('hidden', '');
+          }
+        });
+      }
+
+      tabs.forEach(function (tab, i) {
+        tab.addEventListener('click', function () { selectTab(tab); });
+        tab.addEventListener('keydown', function (e) {
+          var next = null;
+          if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+          if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+          if (!next) return;
+          e.preventDefault();
+          selectTab(next);
+          next.focus();
+        });
+      });
+
+      /* ── Key concepts ─────────────────────────────────────── */
+      var TERMS = /*TERMS*/[
+        { term: 'Cost escalation in Agile', src: 'Working out costs', def: 'The way iteration can drive cost up even when budget and timeline are fixed — through expanding stakeholder requirements, additional sprints, larger or more specialised teams, increasing cloud/infrastructure usage and accumulated technical debt.' },
+        { term: 'Continuous cost tracking', src: 'Working out costs', def: 'Treating cost as something forecast throughout delivery rather than assessed only when the project is approved. The consequence of allowing scope to evolve after approval.' },
+        { term: 'Value rather than activity', src: 'Working out costs', def: 'The real purpose of cost control. Evolving scope can make a technology project appear productive while its economics progressively deteriorate, so managers must test whether incremental value justifies incremental cost.' },
+        { term: 'Need', src: 'Working out costs', def: 'The first condition for a viable project — a legitimate organisational reason for it to exist.', own: true },
+        { term: 'Funds', src: 'Working out costs', def: 'The second condition for a viable project — sufficient financial capacity to undertake it.', own: true },
+        { term: 'Management will', src: 'Working out costs', def: 'The third condition for a viable project — meaningful senior commitment to implementing it, not merely approval on paper.', own: true },
+        { term: 'Problem-driven project', src: 'Working out costs', def: 'A project whose financial case must justify expenditure against the cost or value of solving the problem.' },
+        { term: 'Opportunity-driven project', src: 'Working out costs', def: 'A project whose financial case must demonstrate the value that can be captured.' },
+        { term: 'Directive-driven project', src: 'Working out costs', def: 'A project arising from legislation or head-office requirements, where financial evaluation may support how to deliver rather than whether to comply.' },
+        { term: 'No universally correct measure', src: 'Working out costs', def: 'The principle that NPV, ROI and payback are all possible approaches, and the appropriate one depends on duration, cash-flow timing, upfront capital, cost of capital, cash availability and broader strategic considerations.' },
+        { term: 'Net present value (NPV)', src: 'Working out costs', def: 'Particularly useful for longer projects, because two investments with the same nominal total cash benefit can create different economic value depending on when those cash flows occur.' },
+        { term: 'Discount factor', src: 'Working out costs', def: 'The multiplier that converts a future cash flow to its present value. As r or n increases, the present value of a future cash flow falls.', formula: 'Discount factor = 1 / (1+r)^n' },
+        { term: 'Return on investment (ROI)', src: 'Working out costs', def: 'The return generated relative to the amount invested. A higher ROI indicates more benefit generated per dollar of project cost.', formula: 'ROI = (Benefits - Project costs) / Project costs' },
+        { term: 'Short-horizon comparison', src: 'Working out costs', def: 'The condition under which ROI is particularly useful — where the investment horizon is short enough that cash-flow timing is less central to the decision.' },
+        { term: 'Cost of capital', src: 'Working out costs', def: 'If capital becomes expensive, future cash flows are discounted more heavily, so projects requiring significant upfront investment or delivering benefits later become relatively less attractive.' },
+        { term: 'Availability of capital', src: 'Working out costs', def: 'A cash-rich organisation may tolerate a capital-intensive project another organisation could not realistically fund. Attractiveness depends on financial capacity and constraints, not expected returns alone.' },
+        { term: 'Financially defensible, not sufficient', src: 'Working out costs', def: 'A project should stand up financially, but financial metrics alone do not determine the correct investment — organisational need, strategic context, implementation practicality and management commitment sit alongside them.' },
+        { term: 'Multi-criteria decision', src: 'Non-financial options', def: 'Project selection viewed as a choice across strategic alignment, customer impact, technical feasibility, risk, resource availability and innovation potential, not financial return alone.' },
+        { term: 'Weighted scoring model', src: 'Non-financial options', def: 'A selection method that makes competing priorities explicit: identify criteria, weight them by importance, score each project, multiply, and sum to rank alternatives.', formula: 'Weighted project score = Σ (criterion score × criterion weight)' },
+        { term: 'False objectivity', src: 'Non-financial options', def: 'The risk in weighted scoring that a numerical result appears more rigorous than it is. The ranking is only as defensible as the weights and scores used to produce it.' },
+        { term: 'Balanced scorecard', src: 'Non-financial options', def: 'A framework evaluating initiatives across financial outcomes, customer value, internal processes, learning, growth and innovation, and organisational vision and strategy.' },
+        { term: 'Causal relationships between objectives', src: 'Non-financial options', def: 'The balanced scorecard’s greater value — identifying how strategic objectives connect, rather than simply producing additional KPIs treated independently.' },
+        { term: 'Scorecard bureaucracy', src: 'Non-financial options', def: 'The limitation that balanced scorecards can become overly elaborate, generating extensive KPIs without improving the underlying decision, and may fit large formal organisations better than Agile, people-centred ones.' },
+        { term: 'Portfolio-level selection', src: 'Non-financial options', def: 'Judging risk across a set of projects rather than requiring each project independently to be the safest or highest-return option.' },
+        { term: 'Risk appetite', src: 'Non-financial options', def: 'What determines the appropriate mix of incremental and experimental projects, alongside strategic objectives and operating environment. A startup may tolerate far more experimentation than a government organisation.' },
+        { term: 'Concentration risk from optimisation', src: 'Non-financial options', def: 'The vulnerability created when an organisation continually directs resources toward opportunities already known to work, becoming efficient at exploiting existing value while opportunities, preferences, technology or competitors shift.' },
+        { term: 'Strategic randomness', src: 'Non-financial options', def: 'Deliberately creating space for controlled experimentation, divergent thinking and initiatives whose outcomes cannot be confidently predicted — not randomness for its own sake, but a deliberate portfolio shape.', own: true },
+        { term: 'Project failure ≠ portfolio failure', src: 'Non-financial options', def: 'Where experimentation is expected to have a low success rate, individual failures do not demonstrate the strategy has failed. Nine unsuccessful experiments can be the cost of discovering one outsized winner.' },
+        { term: 'Innovation selection problem', src: 'Non-financial options', def: 'The management danger that terminating experimentation after several unsuccessful attempts leaves only initiatives with predictable outcomes, removing the uncertainty from which breakthroughs emerge.' },
+        { term: 'Exploration', src: 'Non-financial options', def: 'The mode aimed at search, discovery and breakthroughs. High uncertainty, many small losses with potential outsized winners, a culture tolerant of failure, and the logic of learning what might work.' },
+        { term: 'Exploitation', src: 'Non-financial options', def: 'The mode aimed at efficiency and growth from existing opportunities. Low uncertainty, more predictable returns, a culture of planning and execution, and the logic of scaling what already works.' },
+        { term: 'The strategic tension', src: 'Non-financial options', def: 'Too much exploitation creates efficiency but exposes the organisation to disruption and concentration risk; too much exploration consumes resources without generating sufficient reliable cash flow. Sustainable organisations need both.' },
+        { term: 'Gorilla client', src: 'Non-financial options', def: 'A customer responsible for a disproportionately large share of the organisation’s business. Attractive short term, but bargaining power shifts to them, managers become reluctant to challenge them, and losing them can threaten the organisation.', own: true },
+        { term: 'Cultural permission to fail', src: 'Non-financial options', def: 'The condition strategic randomness depends on. If systems reward only predictable delivery, KPI achievement and short-term returns, employees rationally avoid uncertain initiatives.' },
+        { term: 'Disciplined experiment that fails', src: 'Non-financial options', def: 'The category an innovating organisation must be able to distinguish from a poorly managed project. Failure should not automatically be rewarded, but intelligent experimentation and learning must be protected.' },
+        { term: 'Outputs versus outcomes', src: 'Non-financial options', def: 'Schedule, cost and scope measure execution; they do not establish whether value was created. True project success is primarily about outcomes.' },
+        { term: 'Limits of the triple constraint', src: 'Non-financial options', def: 'A project can meet schedule, cost and scope and still fail if customers reject the solution, the wrong problem was solved, stakeholders gain little value, or the delivery process damages the team.' },
+        { term: 'Broader definition of success', src: 'Non-financial options', def: 'Value delivered, user and stakeholder satisfaction, strategic contribution, sustainability of the outcome, and the health and capability of the delivery team.' },
+      ]/*END_TERMS*/;
+
+      var glossaryEl = document.getElementById('glossary');
+      var countEl = document.getElementById('term-count');
+      var searchEl = document.getElementById('term-search');
+
+      function escapeHtml(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      glossaryEl.innerHTML = TERMS.map(function (t) {
+        var tag = t.own
+          ? '<span class="term-src term-src--own">Key Definitions</span>'
+          : '<span class="term-src">' + escapeHtml(t.src) + '</span>';
+        return '<article class="term" data-search="' +
+          escapeHtml((t.term + ' ' + t.def + ' ' + (t.formula || '')).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' + escapeHtml(t.term) + '</h3>' + tag + '</div>' +
+          '<p class="term-def">' + escapeHtml(t.def) + '</p>' +
+          (t.formula ? '<div class="term-formula">' + escapeHtml(t.formula) + '</div>' : '') +
+          '</article>';
+      }).join('') + '<p class="no-results" id="no-results" hidden>No terms match that filter.</p>';
+
+      var termEls = Array.prototype.slice.call(glossaryEl.querySelectorAll('.term'));
+      var noResultsEl = document.getElementById('no-results');
+
+      searchEl.addEventListener('input', function () {
+        var q = searchEl.value.trim().toLowerCase();
+        var shown = 0;
+        termEls.forEach(function (el) {
+          var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+          if (match) { el.removeAttribute('hidden'); shown++; }
+          else { el.setAttribute('hidden', ''); }
+        });
+        countEl.textContent = shown + ' of ' + TERMS.length;
+        if (shown === 0) { noResultsEl.removeAttribute('hidden'); }
+        else { noResultsEl.setAttribute('hidden', ''); }
+      });
+
+      /* ── Acronyms & formulas ──────────────────────────────── */
+      /* Both reference tabs are a filtered list of .term cards, so they share
+         one renderer with the key-concepts glossary's markup and behaviour.
+         It no-ops when a week does not emit that tab. */
+      function buildRef(listId, items, toHtml, emptyMsg) {
+        var listEl = document.getElementById(listId);
+        var countEl = document.getElementById(listId + '-count');
+        var searchEl = document.getElementById(listId + '-search');
+        if (!listEl || !countEl || !searchEl) return;
+
+        listEl.innerHTML = items.map(toHtml).join('') +
+          '<p class="no-results" hidden>' + emptyMsg + '</p>';
+
+        var els = Array.prototype.slice.call(listEl.querySelectorAll('.term'));
+        var noneEl = listEl.querySelector('.no-results');
+        countEl.textContent = items.length + ' of ' + items.length;
+
+        searchEl.addEventListener('input', function () {
+          var q = searchEl.value.trim().toLowerCase();
+          var shown = 0;
+          els.forEach(function (el) {
+            var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+            if (match) { el.removeAttribute('hidden'); shown++; }
+            else { el.setAttribute('hidden', ''); }
+          });
+          countEl.textContent = shown + ' of ' + items.length;
+          if (shown === 0) { noneEl.removeAttribute('hidden'); }
+          else { noneEl.setAttribute('hidden', ''); }
+        });
+      }
+
+      var ACRONYMS = [
+        { abbr: 'NPV', long: 'Net Present Value', def: 'Written out in my notes. It becomes particularly useful for longer projects, because two investments generating the same nominal total cash benefit can create different economic value depending on when those cash flows occur.', src: 'Working out costs' },
+        { abbr: 'ROI', long: 'Return on Investment', def: 'Written out in my notes. It shows the return generated relative to the amount invested, and is most useful where the investment horizon is short enough that cash-flow timing is less central to the decision.', src: 'Working out costs' },
+        { abbr: 'KPI', long: 'Key Performance Indicator', def: 'Never written out in the notes; the standard expansion is used here. The page uses it to make the point that a balanced scorecard\'s value lies in the causal links between objectives, not in generating more KPIs.', src: 'Non-financial options' },
+      ];
+      var FORMULAS = [
+        { name: 'Discount factor', expr: 'Discount factor = 1 / (1+r)^n', def: 'The multiplier that converts a future cash flow to its present value, where r is the discount rate and n is the number of periods into the future. As r or n increases, the present value of a future cash flow falls.', src: 'Working out costs' },
+        { name: 'Return on investment', expr: 'ROI = (Benefits - Project costs) / Project costs', def: 'The return generated relative to the amount invested. A higher ROI indicates more benefit generated per dollar of project cost.', src: 'Working out costs' },
+        { name: 'Weighted project score', expr: 'Weighted project score = \u03a3 (criterion score \u00d7 criterion weight)', def: 'The weighted scoring model. Each project is scored against each criterion, each score is multiplied by that criterion\'s weight, and the products are summed to rank the alternatives. Weights should total 100%.', src: 'Non-financial options' },
+      ];
+
+      /* ── Flashcards ───────────────────────────────────────── */
+      var CARDS = /*CARDS*/[
+        { q: 'In Agile, which two of scope, budget and timeline are commonly fixed?', a: 'Budget and timeline. Scope is what is allowed to evolve.' },
+        { q: 'Name three ways iteration can escalate cost even under a fixed budget.', a: 'Any three of: expanding stakeholder requirements, additional sprints, larger or more specialised teams, increasing cloud/infrastructure usage, accumulated technical debt.' },
+        { q: 'When should project cost be assessed?', a: 'Continuously — tracked and forecast throughout delivery, rather than only when the project is approved.' },
+        { q: 'What is the purpose of cost control, if not simply staying within budget?', a: 'Ensuring expenditure continues to produce value rather than activity.' },
+        { q: 'How can evolving scope disguise a deteriorating project?', a: 'It can make the project appear productive while its economics progressively deteriorate.' },
+        { q: 'What test should a manager continually apply to further development?', a: 'Whether the incremental value of further development justifies its incremental cost.' },
+        { q: 'What three conditions should exist before comparing financial returns?', a: 'Need, funds, and management will.' },
+        { q: 'What does “management will” mean as a viability condition?', a: 'Meaningful senior commitment to implementing the project — not merely approval on paper.' },
+        { q: 'How does the financial case differ for a problem-driven project?', a: 'It must justify expenditure against the cost or value of solving the problem.' },
+        { q: 'How does the financial case differ for a directive-driven project?', a: 'Financial evaluation may support how to deliver rather than whether to comply. Directives may arise from legislation or head-office requirements.' },
+        { q: 'Why can technology projects be harder to justify financially?', a: 'Novel projects often lack a reliable historical track record.' },
+        { q: 'Is there a universally correct financial measure for every project?', a: 'No. The appropriate measure depends on duration, cash-flow timing, upfront capital, cost of capital, cash availability and broader strategic considerations.' },
+        { q: 'What is the important skill, if not calculating a metric?', a: 'Choosing and interpreting the metric in the context of the organisation and project.' },
+        { q: 'Why is NPV particularly useful for longer projects?', a: 'Two investments generating the same nominal total cash benefit can create different economic value depending on when those cash flows occur.' },
+        { q: 'State the discount factor.', a: 'Discount factor = 1 / (1+r)^n, where r is the discount rate and n is the number of periods into the future.' },
+        { q: 'What happens to the present value of a future cash flow as r or n increases?', a: 'It falls.' },
+        { q: 'State the ROI formula.', a: 'ROI = (Benefits - Project costs) / Project costs.' },
+        { q: 'What does a higher ROI indicate?', a: 'More benefit generated per dollar of project cost.' },
+        { q: 'When is ROI particularly useful?', a: 'As a simple comparison where the investment horizon is short enough that cash-flow timing is less central to the decision.' },
+        { q: 'What is NPV’s key limitation?', a: 'It is sensitive to the discount rate and cash-flow assumptions.' },
+        { q: 'What is ROI’s key limitation?', a: 'It does not capture timing, risk or non-financial value.' },
+        { q: 'NPV and ROI have different decision focuses — what are they?', a: 'NPV focuses on value creation; ROI focuses on investment efficiency.' },
+        { q: 'How does an expensive cost of capital change project attractiveness?', a: 'Future cash flows are discounted more heavily, so projects needing large upfront investment or delivering benefits later become relatively less attractive.' },
+        { q: 'Why can the same project be viable for one organisation and not another?', a: 'A cash-rich organisation may tolerate a capital-intensive project another could not realistically fund. Attractiveness depends on financial capacity and constraints, not just expected returns.' },
+        { q: 'What should a strong project pitch establish before the financial measure?', a: 'Need, funding capacity and managerial commitment.' },
+        { q: 'Beyond financial attractiveness, name four dimensions on which projects differ.', a: 'Any four of: strategic alignment, customer impact, technical feasibility, risk, resource availability, innovation potential.' },
+        { q: 'Where is multi-criteria selection especially important?', a: 'In non-profits, public organisations and innovation portfolios, where financial return may not be the primary objective.' },
+        { q: 'Can the highest-return project be the wrong choice in a for-profit organisation?', a: 'Yes — it can be strategically inferior if it poorly supports organisational priorities.' },
+        { q: 'List the five steps of a weighted scoring model.', a: 'Identify the criteria; weight each by importance; score each project against each criterion; multiply score by weight; sum the weighted scores to rank alternatives.' },
+        { q: 'State the weighted project score formula.', a: 'Weighted project score = Σ (criterion score × criterion weight). Weights should total 100%.' },
+        { q: 'What is the main risk of a weighted scoring model?', a: 'False objectivity — the ranking is only as defensible as the weights and scores used to produce it.' },
+        { q: 'Across what dimensions does a balanced scorecard evaluate initiatives?', a: 'Financial outcomes, customer value, internal processes, learning, growth and innovation, and organisational vision and strategy.' },
+        { q: 'What is the balanced scorecard’s greater value beyond producing KPIs?', a: 'Identifying causal relationships between strategic objectives.' },
+        { q: 'Give the worked causal chain example from the notes.', a: 'Improving internal systems → enables a more personalised customer experience → supports customer value → contributes to profitability.' },
+        { q: 'What is the balanced scorecard’s main limitation?', a: 'It can become overly elaborate and bureaucratic, generating extensive KPIs without improving the underlying decision.' },
+        { q: 'Should every project independently be the safest or highest-return option?', a: 'No. A portfolio can deliberately contain both lower-risk incremental projects and higher-risk experiments with disproportionate upside.' },
+        { q: 'What determines the appropriate mix of safe and experimental projects?', a: 'The organisation’s risk appetite, strategic objectives and operating environment.' },
+        { q: 'Why does continually backing what already works create vulnerability?', a: 'Existing opportunities may disappear, preferences change, technology shifts, competitors disrupt the model, or the organisation becomes dependent on a narrow revenue source.' },
+        { q: 'Define strategic randomness.', a: 'Deliberately creating space for controlled experimentation, divergent thinking and initiatives whose outcomes cannot be confidently predicted.' },
+        { q: 'What portfolio shape does strategic randomness aim for?', a: 'Most resources exploit known opportunities, a smaller proportion explores uncertain ones, failure among exploratory projects is expected, and occasional large successes compensate.' },
+        { q: 'Nine of ten funded experiments return little. Has the strategy failed?', a: 'Not necessarily. Judged as a combined portfolio, the nine may be the cost of discovering the one outsized winner. Project failure ≠ portfolio failure.' },
+        { q: 'What is the management danger in terminating experimentation too early?', a: 'It creates a selection problem — only initiatives with predictable outcomes get funded, removing the uncertainty from which breakthroughs emerge.' },
+        { q: 'Contrast the management logic of exploration and exploitation.', a: 'Exploration: learn what might work. Exploitation: scale what already works.' },
+        { q: 'Contrast the financial profiles of exploration and exploitation.', a: 'Exploration: many small losses with potential outsized winners. Exploitation: more predictable returns.' },
+        { q: 'What does too much exploitation expose an organisation to?', a: 'Disruption and concentration risk, despite the efficiency it creates.' },
+        { q: 'What is a gorilla client?', a: 'A customer responsible for a disproportionately large share of the organisation’s business.' },
+        { q: 'Name two strategic vulnerabilities a gorilla client creates.', a: 'Any two of: bargaining power shifts to the customer; managers become reluctant to challenge them; resources become tailored to one relationship; losing them can threaten the organisation.' },
+        { q: 'Why is a gorilla client a form of over-exploitation?', a: 'The company becomes extremely efficient around one existing source of value while neglecting alternatives.' },
+        { q: 'Why do employees rationally avoid uncertain initiatives?', a: 'If performance systems reward only predictable delivery, KPI achievement and short-term financial returns, experimentation carries personal downside and no upside.' },
+        { q: 'What distinction must an innovating organisation be able to make about failure?', a: 'Between disciplined experiments that fail and poorly managed projects. Failure is not automatically rewarded, but intelligent experimentation must be protected.' },
+        { q: 'Name three ways a project can meet schedule, cost and scope and still fail.', a: 'Any three of: customers reject the solution; the wrong problem was solved; stakeholders gain little value; the delivery process damages the team.' },
+        { q: 'What should a broader definition of project success consider?', a: 'Value delivered, user and stakeholder satisfaction, strategic contribution, sustainability of the outcome, and the health and capability of the delivery team.' },
+        { q: 'What question does the triple constraint answer, and what question matters more?', a: 'It answers “Did we deliver the project as planned?” The more important question is “Was it the right project, and did it create the intended value?”' },
+      ]/*END_CARDS*/;
+
+      var order = CARDS.map(function (_, i) { return i; });
+      var pos = 0;
+
+      var flipBtn = document.getElementById('flip-card');
+      var qEl = document.getElementById('card-q');
+      var aEl = document.getElementById('card-a');
+      var idxEl = document.getElementById('card-index');
+      var totalEl = document.getElementById('card-total');
+      var fillEl = document.getElementById('progress-fill');
+      var prevBtn = document.getElementById('prev-btn');
+      var nextBtn = document.getElementById('next-btn');
+      var shuffleBtn = document.getElementById('shuffle-btn');
+
+      totalEl.textContent = CARDS.length;
+
+      function render() {
+        var card = CARDS[order[pos]];
+        flipBtn.setAttribute('aria-pressed', 'false');
+        // Swap the text only once the card is edge-on, so the answer is never
+        // readable through the flip.
+        window.setTimeout(function () {
+          qEl.textContent = card.q;
+          aEl.textContent = card.a;
+        }, flipBtn.getAttribute('data-flipped') === 'true' ? 180 : 0);
+        flipBtn.setAttribute('data-flipped', 'false');
+        idxEl.textContent = pos + 1;
+        fillEl.style.width = ((pos + 1) / CARDS.length * 100) + '%';
+        prevBtn.disabled = pos === 0;
+        nextBtn.disabled = pos === CARDS.length - 1;
+      }
+
+      function flip() {
+        var flipped = flipBtn.getAttribute('aria-pressed') === 'true';
+        flipBtn.setAttribute('aria-pressed', flipped ? 'false' : 'true');
+        flipBtn.setAttribute('data-flipped', flipped ? 'false' : 'true');
+      }
+
+      function go(delta) {
+        var next = pos + delta;
+        if (next < 0 || next >= CARDS.length) return;
+        pos = next;
+        render();
+      }
+
+      flipBtn.addEventListener('click', flip);
+      prevBtn.addEventListener('click', function () { go(-1); });
+      nextBtn.addEventListener('click', function () { go(1); });
+
+      shuffleBtn.addEventListener('click', function () {
+        for (var i = order.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = order[i];
+          order[i] = order[j];
+          order[j] = tmp;
+        }
+        pos = 0;
+        render();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        var panel = document.getElementById('panel-cards');
+        if (panel.hasAttribute('hidden')) return;
+        var tag = (e.target.tagName || '').toLowerCase();
+        if (tag === 'input' || tag === 'textarea') return;
+
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+        else if (e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); flip(); }
+        else if (e.key === 's' || e.key === 'S') { e.preventDefault(); shuffleBtn.click(); }
+      });
+
+      render();
+    })();
+
+
+
+    /* ── Summary index, collapse and search ─────────────────────────────
+       Progressive enhancement, built at runtime from the blocks that are
+       already on the page. Nothing in the authored markup changes, so the
+       prose-budget gate still measures the same blocks and a re-sync gets
+       this for free. With JS off the summary reads exactly as before.
+
+       A week whose summary is split into topic subpanels gets one index
+       per subpanel; otherwise the whole panel gets one. */
+    (function () {
+      'use strict';
+
+      var summaryPanel = document.getElementById('panel-summary');
+      if (!summaryPanel) return;
+
+      var subs = summaryPanel.querySelectorAll('.subpanel');
+      var containers = subs.length
+        ? Array.prototype.slice.call(subs)
+        : [summaryPanel];
+
+      containers.forEach(function (container, ci) {
+        var blocks = Array.prototype.slice.call(container.children).filter(function (el) {
+          return el.classList && el.classList.contains('block');
+        });
+        // Two or three sections navigate fine on their own.
+        if (blocks.length < 4) return;
+
+        var items = [];
+
+        blocks.forEach(function (block, i) {
+          var num = block.querySelector('.block-num');
+          var h2 = block.querySelector('h2');
+          if (!num || !h2) return;
+
+          block.id = block.id || 'sec-' + ci + '-' + (i + 1);
+
+          var details = document.createElement('details');
+          details.className = 'block-d';
+          details.open = true;
+          var head = document.createElement('summary');
+          head.className = 'block-head';
+          var body = document.createElement('div');
+          body.className = 'block-body';
+
+          // The eyebrow and the heading become the disclosure control;
+          // everything after the heading becomes the collapsible body.
+          var kids = Array.prototype.slice.call(block.childNodes);
+          var pastHeading = false;
+          kids.forEach(function (node) {
+            if (node === num || node === h2) {
+              head.appendChild(node);
+              if (node === h2) pastHeading = true;
+              return;
+            }
+            (pastHeading ? body : head).appendChild(node);
+          });
+
+          details.appendChild(head);
+          details.appendChild(body);
+          block.appendChild(details);
+
+          items.push({
+            block: block,
+            details: details,
+            num: num.textContent.trim(),
+            title: h2.textContent.trim(),
+            text: (block.textContent || '').toLowerCase()
+          });
+        });
+
+        if (items.length < 4) return;
+
+        var sid = 'week-search-' + ci;
+        var toc = document.createElement('nav');
+        toc.className = 'toc';
+        toc.setAttribute('aria-label', 'Contents');
+        toc.innerHTML =
+          '<div class="toc-top">' +
+            '<span class="toc-title">Contents</span>' +
+            '<div class="toc-actions">' +
+              '<button class="toc-btn" type="button" data-act="expand">Expand all</button>' +
+              '<button class="toc-btn" type="button" data-act="collapse">Collapse all</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="toolbar">' +
+            '<label class="visually-hidden" for="' + sid + '">Search this week</label>' +
+            '<input class="search" id="' + sid + '" type="search" autocomplete="off" ' +
+              'placeholder="Search these sections…">' +
+            '<span class="count" aria-live="polite"></span>' +
+          '</div>' +
+          '<ol class="toc-list"></ol>' +
+          '<p class="toc-empty" hidden>Nothing in this week matches that search.</p>';
+
+        var list = toc.querySelector('.toc-list');
+
+        // A long week opens as an outline: index first, then a list of
+        // headings you can pick from. A short one reads straight through,
+        // exactly as it did before. "Expand all" is one click either way.
+        var LONG = 12;
+        if (items.length > LONG) {
+          list.classList.add('is-long');
+          items.forEach(function (it) { it.details.open = false; });
+        }
+
+        items.forEach(function (it) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = '#' + it.block.id;
+          var n = document.createElement('span');
+          n.className = 'toc-n';
+          n.textContent = it.num.split('/')[0].trim();
+          var t = document.createElement('span');
+          t.textContent = it.title;
+          a.appendChild(n);
+          a.appendChild(t);
+          li.appendChild(a);
+          list.appendChild(li);
+          it.li = li;
+        });
+
+        container.insertBefore(toc, blocks[0]);
+
+        // A collapsed section must open when it is jumped to.
+        list.addEventListener('click', function (e) {
+          var a = e.target && e.target.closest ? e.target.closest('a') : null;
+          if (!a) return;
+          var target = document.getElementById(a.getAttribute('href').slice(1));
+          if (target) {
+            var d = target.querySelector('details.block-d');
+            if (d) d.open = true;
+          }
+        });
+
+        toc.querySelector('.toc-actions').addEventListener('click', function (e) {
+          var b = e.target && e.target.closest ? e.target.closest('button') : null;
+          if (!b) return;
+          var open = b.getAttribute('data-act') === 'expand';
+          items.forEach(function (it) {
+            if (!it.block.hasAttribute('hidden')) it.details.open = open;
+          });
+        });
+
+        var input = toc.querySelector('.search');
+        var count = toc.querySelector('.count');
+        var empty = toc.querySelector('.toc-empty');
+        var activeTopic = '';
+
+        // ── Topic chips ────────────────────────────────────────────────
+        // Built from the data-topic each block carries, so a week reads one
+        // topic at a time the way the sub-tabbed weeks already do. A block
+        // with no data-topic (a week-level takeaway, say) always shows.
+        var topics = [], emptyTopics = {};
+        items.forEach(function (it) {
+          var t = it.block.getAttribute('data-topic');
+          it.topic = t || '';
+          if (!t) return;
+          if (topics.indexOf(t) === -1) topics.push(t);
+          if (it.block.getAttribute('data-topic-empty') === 'true') emptyTopics[t] = true;
+        });
+
+        if (topics.length > 1) {
+          var chips = document.createElement('div');
+          chips.className = 'subtabs';
+          chips.setAttribute('aria-label', 'Topics');
+          ['All'].concat(topics).forEach(function (label, k) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'subtab' + (emptyTopics[label] ? ' subtab--empty' : '');
+            b.setAttribute('aria-pressed', k === 0 ? 'true' : 'false');
+            b.setAttribute('data-topic', k === 0 ? '' : label);
+            b.textContent = label;
+            chips.appendChild(b);
+          });
+          chips.addEventListener('click', function (e) {
+            var b = e.target && e.target.closest ? e.target.closest('button') : null;
+            if (!b) return;
+            activeTopic = b.getAttribute('data-topic') || '';
+            Array.prototype.forEach.call(chips.children, function (c) {
+              c.setAttribute('aria-pressed', c === b ? 'true' : 'false');
+            });
+            applyFilter();
+          });
+          container.insertBefore(chips, toc);
+        }
+
+        function applyFilter() {
+          var q = input.value.trim().toLowerCase();
+          var shown = 0;
+          items.forEach(function (it) {
+            var hit = (!q || it.text.indexOf(q) !== -1) &&
+                      (!activeTopic || !it.topic || it.topic === activeTopic);
+            if (hit) {
+              it.block.removeAttribute('hidden');
+              it.li.removeAttribute('hidden');
+              if (q) it.details.open = true;
+              shown++;
+            } else {
+              it.block.setAttribute('hidden', '');
+              it.li.setAttribute('hidden', '');
+            }
+          });
+          count.textContent = shown + ' of ' + items.length + ' sections';
+          if (shown === 0) empty.removeAttribute('hidden');
+          else empty.setAttribute('hidden', '');
+        }
+
+        input.addEventListener('input', applyFilter);
+        applyFilter();
+      });
+    })();
+
+  </script>
+
+  <script>
+    /* ── Quiz & Apply it ────────────────────────────────────────────────
+       Two practice modes. QUIZ and SCENARIOS are the only authored parts;
+       the renderer below is identical on every week page, so a re-sync
+       swaps the arrays and leaves the behaviour alone. Progressive
+       enhancement: with JS off both panels sit empty and the five synced
+       modes are unaffected. */
+    (function () {
+      'use strict';
+
+      var quizListEl = document.getElementById('quiz-list');
+      var scenListEl = document.getElementById('scen-list');
+      if (!quizListEl && !scenListEl) return;
+
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      var KEYS = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+      var QUIZ = /*QUIZ*/[
+        {"topic": "Working out costs", "q": "An Agile team has a fixed budget and a fixed timeline. What does this tell you about the project's cost risk?", "hint": "Think about what is still allowed to move, and what that movement consumes.", "options": [{"t": "Cost risk is controlled, because the budget cannot be exceeded", "ok": false, "note": "This is the assumption the topic exists to correct. Fixing the budget figure does not fix the cost of the work; scope is still evolving, and that evolution consumes real resources."}, {"t": "Cost risk remains, because evolving scope can still escalate cost", "ok": true, "note": "Correct. Iteration can escalate cost through expanding requirements, additional sprints, larger teams, increasing infrastructure usage and accumulated technical debt, which is why cost must be tracked and forecast continuously."}, {"t": "Cost risk transfers entirely to the schedule", "ok": false, "note": "The notes do not describe a transfer of risk between constraints. Both budget and timeline are fixed here; it is scope that moves."}, {"t": "Cost risk can only be assessed at project approval", "ok": false, "note": "The opposite of what the page argues. Assessing cost only at approval is precisely the failure mode continuous tracking and forecasting is meant to prevent."}]},
+        {"topic": "Working out costs", "q": "A project is running many sprints, closing tickets steadily and reporting high velocity. Which risk does the page warn about?", "hint": "The page draws a distinction between two things that look identical on a progress chart.", "options": [{"t": "The team is under-resourced for the scope", "ok": false, "note": "Nothing in the symptom points to under-resourcing, and the page does not use velocity as a resourcing signal."}, {"t": "The discount rate applied to the project is too low", "ok": false, "note": "The discount rate governs how future cash flows are valued. It has no bearing on whether current delivery activity is producing value."}, {"t": "The project may be producing activity rather than value", "ok": true, "note": "Correct. The page warns that evolving scope can make a technology project appear productive while its economics progressively deteriorate, which is why the managerial objective is value rather than activity."}, {"t": "The triple constraint has been violated", "ok": false, "note": "High velocity is not itself a constraint violation. The page's concern is that execution measures can look healthy while value is not being created."}]},
+        {"topic": "Working out costs", "q": "Which of the following is NOT one of the three conditions the page says should exist before comparing financial returns?", "hint": "Two of the three are about capacity and reason; one is about people.", "options": [{"t": "Need", "ok": false, "note": "Need is the first condition — a legitimate organisational reason for the project."}, {"t": "Funds", "ok": false, "note": "Funds is the second condition — sufficient financial capacity to undertake the project."}, {"t": "A positive NPV", "ok": true, "note": "Correct. NPV is one of the measures you apply after the three conditions are satisfied, not a precondition. The three are need, funds and management will."}, {"t": "Management will", "ok": false, "note": "Management will is the third condition — meaningful senior commitment to implementing the project, not merely approval on paper."}]},
+        {"topic": "Working out costs", "q": "A compliance project is mandated by new legislation. How does the page say financial evaluation should be used?", "hint": "Compliance is not optional, so the question the numbers answer has to change.", "options": [{"t": "To support how to deliver rather than whether to comply", "ok": true, "note": "Correct. For a directive-driven project, arising from legislation or head-office requirements, financial evaluation may support how to deliver rather than whether to comply."}, {"t": "To demonstrate the value that can be captured", "ok": false, "note": "That is the financial implication of an opportunity-driven project, not a directive-driven one."}, {"t": "To justify expenditure against the cost of solving the problem", "ok": false, "note": "That is the financial implication of a problem-driven project."}, {"t": "Financial evaluation should be skipped for mandated projects", "ok": false, "note": "The page does not say to skip it. It redirects the evaluation toward the delivery choice rather than the compliance choice."}]},
+        {"topic": "Working out costs", "q": "Two projects deliver the same total nominal cash benefit, but one delivers most of it in year one and the other in year five. Which measure captures the difference, and why?", "hint": "One of the two measures has a term for time in it.", "options": [{"t": "ROI, because it shows return per dollar invested", "ok": false, "note": "ROI shows relative profitability but does not capture timing. Both projects would look identical on ROI if benefits and costs are the same in nominal terms."}, {"t": "Neither, because the totals are equal", "ok": false, "note": "This is the error the block exists to correct. Equal nominal totals can represent different economic value once timing is taken into account."}, {"t": "NPV, because the discount factor falls as n increases", "ok": true, "note": "Correct. NPV is particularly useful for longer projects because the same nominal benefit is worth less the later it arrives — the discount factor 1 / (1+r)^n falls as n rises."}, {"t": "Payback, because it measures the recovery period", "ok": false, "note": "Payback is listed as a possible approach but is not the measure the page uses to explain why timing changes economic value."}]},
+        {"topic": "Working out costs", "q": "Interest rates rise sharply. All project forecasts are unchanged. What happens to a capital-intensive project whose benefits arrive late?", "hint": "Nothing about the project changed. Something about the environment did.", "options": [{"t": "It becomes relatively more attractive", "ok": false, "note": "The reverse. Heavier discounting penalises exactly this cash-flow shape."}, {"t": "It is unaffected, because its forecasts have not changed", "ok": false, "note": "The page makes the opposite point: the financial environment can change which project is economically preferable even when the underlying forecasts remain unchanged."}, {"t": "It becomes relatively less attractive", "ok": true, "note": "Correct. If capital becomes expensive, future cash flows are discounted more heavily, so projects requiring significant upfront investment or delivering benefits later become relatively less attractive."}, {"t": "Its ROI falls proportionally", "ok": false, "note": "ROI does not contain a discount rate, so a change in the cost of capital does not mechanically move it."}]},
+        {"topic": "Non-financial options", "q": "A weighted scoring model produces a clear numerical ranking. What is the main risk?", "hint": "Ask where the numbers in the model came from.", "options": [{"t": "It cannot combine financial and non-financial criteria", "ok": false, "note": "It can — the page lists this as one of its advantages."}, {"t": "It creates false objectivity", "ok": true, "note": "Correct. The numerical result can create false objectivity: the ranking is only as defensible as the weights and scores used to produce it."}, {"t": "It hides the trade-offs between criteria", "ok": false, "note": "The opposite. The page credits it with making trade-offs transparent rather than leaving them implicit."}, {"t": "It requires weights to exceed 100%", "ok": false, "note": "Weights should total 100%."}]},
+        {"topic": "Non-financial options", "q": "An organisation funds ten experiments. Nine return almost nothing; one uncovers a major new business opportunity. How should this be judged?", "hint": "The page insists the unit of evaluation is the thing that changes the verdict.", "options": [{"t": "As a failure, since ninety per cent of initiatives failed", "ok": false, "note": "This is the individual-project reading the page warns against. Judged one at a time, the portfolio appears badly managed."}, {"t": "As a portfolio outcome, where the nine were the cost of finding the one", "ok": true, "note": "Correct. Project failure does not equal portfolio failure. Evaluating the combined outcome may show the nine unsuccessful experiments were effectively the cost of discovering the one outsized winner."}, {"t": "As inconclusive until a second round is funded", "ok": false, "note": "The page does not require a second round to reach a verdict; it requires the right unit of evaluation."}, {"t": "As a failure of the weighted scoring model used to select them", "ok": false, "note": "Nothing connects this outcome to the selection method. The point is about how experimental outcomes are judged, not how the experiments were chosen."}]},
+        {"topic": "Non-financial options", "q": "A consultancy earns most of its revenue from one large client. Why does the page treat this as over-exploitation?", "hint": "Think about what the firm has become efficient at, and what it has stopped doing.", "options": [{"t": "Because the client is unprofitable in present-value terms", "ok": false, "note": "Nothing suggests the relationship is unprofitable. It is described as commercially attractive in the short term."}, {"t": "Because the firm has failed to apply a balanced scorecard", "ok": false, "note": "The balanced scorecard is a selection and evaluation framework; the page does not use it to diagnose client concentration."}, {"t": "Because exploration is inherently more valuable than exploitation", "ok": false, "note": "The page argues sustainable organisations need both, not that one mode is inherently superior."}, {"t": "Because the firm becomes efficient around one source of value while neglecting alternatives", "ok": true, "note": "Correct. A gorilla client is another form of over-exploitation: bargaining power shifts to the customer, resources become tailored to one relationship, and losing the client can threaten the entire organisation."}]},
+        {"topic": "Non-financial options", "q": "A project lands on schedule, on budget and in full scope, but customers reject the solution. How does the page classify it?", "hint": "The page separates two questions, and only one of them is about delivery.", "options": [{"t": "A success, because all three constraints were met", "ok": false, "note": "The triple constraint measures execution. The page states explicitly that a project can meet all three constraints and still fail if customers reject the solution."}, {"t": "A failure on outcomes, despite succeeding on outputs", "ok": true, "note": "Correct. True project success is primarily about outcomes, not outputs. The triple constraint answers whether the project was delivered as planned; strategic evaluation asks whether it was the right project and created the intended value."}, {"t": "A scope failure, since the delivered scope was wrong", "ok": false, "note": "Scope was delivered in full, by the terms of the question. The failure is in value, not in execution against the plan."}, {"t": "Not assessable without the project's ROI", "ok": false, "note": "The page's broader definition of success does not depend on a financial metric — it includes value delivered, stakeholder satisfaction, strategic contribution, sustainability and team health."}]}
+      ]/*END_QUIZ*/;
+      var SCENARIOS = /*SCENARIOS*/[
+        {"topic": "Working out costs", "title": "Sprint eleven of six", "setup": "A delivery team was funded for six sprints against a fixed budget and a fixed launch date. It is now in sprint eleven. Every sprint has closed its committed tickets, stakeholder requirements have grown steadily, and two specialist contractors were added in sprint eight. The sponsor is pleased because the team has never missed a commitment.", "task": "Explain to the sponsor why this project may be in financial trouble despite an unbroken delivery record.", "hints": ["The sponsor is reading an execution measure. Ask what it does not measure.", "Three of the page's five escalation channels are visible in the setup. Name them.", "The managerial objective is not staying within budget. It is a test applied to each increment."], "walkthrough": ["Separate the two things the sponsor has merged: meeting sprint commitments is an execution measure, and it says nothing about whether the expenditure is producing value.", "Identify the escalation channels actually present — expanding stakeholder requirements, additional sprints, and larger or more specialised teams. Each converts evolving scope into real cost under a budget that was fixed at approval.", "Make the diagnostic point: evolving scope can make a project appear productive while its economics progressively deteriorate. The unbroken record is consistent with exactly that.", "Restate the objective. Cost control here is not about staying under a number; it is about ensuring expenditure continues to produce value rather than activity.", "Recommend the control the page prescribes: cost tracked and forecast continuously from here, with each further increment tested on whether its incremental value justifies its incremental cost."], "checklist": ["Distinguishes delivery performance from value creation", "Names specific escalation channels from the setup rather than generic overrun", "States the value-rather-than-activity objective", "Recommends continuous forecasting instead of a single re-approval", "Frames the go-forward test as incremental value against incremental cost"]},
+        {"topic": "Working out costs", "title": "Two proposals, one lens", "setup": "You are asked to rank two proposals. The first is a small internal automation with benefits landing within eight months. The second is a platform rebuild requiring heavy upfront capital, with benefits accruing across six years. A colleague has ranked them on ROI alone and concluded the automation wins comfortably.", "task": "Decide whether the ROI ranking should stand, and justify the measure you would use for each proposal.", "hints": ["Ask what ROI does not contain.", "The page says the appropriate measure depends on named factors. Which of them differ sharply between these two?", "The answer is not that one measure is superior. It is that they answer different questions."], "walkthrough": ["State the governing principle: there is no universally correct financial measure for every project, so the ranking cannot be accepted or rejected on the metric's name alone.", "Identify the factors that differ — project duration, timing of cash flows, and capital required upfront. All three are precisely the dimensions ROI does not capture.", "Accept ROI as reasonable for the automation. Its horizon is short enough that cash-flow timing is less central to the decision, which is the condition under which ROI is most useful.", "Reject it as the sole basis for the rebuild. With benefits spread across six years, the discount factor materially changes their present value, so NPV is the measure that answers whether value is created.", "Conclude on the comparison itself: ranking the two against each other on a single measure is the actual error, because NPV and ROI have different decision focuses — value creation against investment efficiency."], "checklist": ["Rejects the premise that one measure is universally correct", "Names the specific factors that make the two proposals different", "Defends ROI for the short-horizon case rather than dismissing it", "Explains why discounting matters for the six-year case", "Identifies the single-measure comparison as the underlying mistake"]},
+        {"topic": "Non-financial options", "title": "The scorecard that ranked wrong", "setup": "A public agency built a weighted scoring model to rank four initiatives. Financial return carried a sixty per cent weight; strategic alignment, customer impact and technical feasibility shared the remainder. The model selected a revenue-generating initiative over one central to the agency's statutory purpose. The executive who set the weights is presenting the result as objective.", "task": "Critique the process and set out what should change.", "hints": ["The arithmetic is not in dispute. Look upstream of it.", "The page has a specific warning about numerical outputs from this model.", "Consider whether financial return should be the dominant criterion for this particular organisation."], "walkthrough": ["Confirm what is sound: the model does force criteria to be articulated, makes trade-offs transparent and produces a defensible explanation of the choice. Those are real advantages.", "Name the failure precisely: false objectivity. The numerical result is only as defensible as the weights and scores used to produce it, so calling the output objective misrepresents where the judgement sits.", "Attack the weighting, not the sum. In a public organisation, financial return may not be the primary objective, so a sixty per cent weight on it encodes a priority the agency's purpose does not support.", "Apply the governing principle: project selection should optimise the organisation's objectives, not merely the project's standalone financial result. Selecting the highest financial return can be strategically inferior where it poorly supports organisational priorities.", "Recommend re-weighting against the agency's stated objectives and re-running the model, making explicit that the weights are a management judgement being published, not a calculation."], "checklist": ["Credits what the model legitimately achieves", "Names false objectivity as the specific risk", "Locates the error in the weights rather than the arithmetic", "Applies the non-profit and public organisation point about primary objectives", "Proposes re-weighting with the judgement made explicit"]},
+        {"topic": "Non-financial options", "title": "Shutting down the lab", "setup": "An innovation unit has run twelve exploratory initiatives over two years. Ten produced nothing commercial, one broke even, and one is now a growing revenue line. A new CFO has proposed closing the unit and redirecting its budget to the core product, arguing that a two-in-twelve hit rate is indefensible.", "task": "Argue the case either way, using the portfolio logic from this week.", "hints": ["Start by asking what the correct unit of evaluation is.", "There is a distinction on this page that decides the question in one line.", "Then consider what closing the unit does to the organisation's future, not just its current costs."], "walkthrough": ["Reject the individual-project framing. Judged one initiative at a time the unit looks badly managed; that is exactly the reading the page identifies as mistaken.", "Apply the distinction directly: project failure does not equal portfolio failure. If experimentation is expected to have a low success rate, individual failures do not demonstrate that the strategy has failed.", "Reframe the ten as a cost of discovery. The combined portfolio outcome may show they were effectively the cost of finding the growing revenue line.", "Name the management danger in the CFO's proposal: terminating experimentation after unsuccessful attempts creates a selection problem, progressively leaving only initiatives with predictable outcomes and removing the uncertainty from which breakthroughs emerge.", "Concede the legitimate half of the CFO's case. Too much exploration consumes resources without generating sufficient reliable cash flow, so the defensible question is the size of the exploration allocation, not whether it should exist.", "Close on the balance: exploitation funds today's business while exploration protects tomorrow's, and the right mix depends on the organisation's risk appetite, strategic objectives and operating environment."], "checklist": ["Identifies the unit of evaluation as the crux", "States the project-failure against portfolio-failure distinction", "Explains the selection problem created by shutting experimentation down", "Concedes the real risk of over-exploration rather than arguing one-sidedly", "Ends on the mix and what determines it, not on a verdict alone"]},
+        {"topic": "Non-financial options", "title": "On time, on budget, unwanted", "setup": "A replacement scheduling system shipped on its original date, inside its original budget, with every planned feature delivered. Six months on, adoption is low, staff have reverted to the spreadsheets the system was meant to replace, and two of the delivery team have resigned citing the pace of the final quarter. The programme is being written up as a success.", "task": "Assess whether this project succeeded, and set out what the write-up should measure instead.", "hints": ["Every execution measure passed. Ask what category of measure that is.", "Three of the page's four failure conditions are visible in the setup.", "There is a second question the page says matters more than the first."], "walkthrough": ["Grant the execution result honestly: schedule, cost and scope were all met, and those remain important measures of project execution.", "State the limit: these do not establish whether the project created value. A project can meet all three constraints and still fail.", "Map the setup onto the page's failure conditions — customers rejected the solution, stakeholders gained little value, and the delivery process damaged the team. Three of the four are present.", "Introduce the broader definition of success: value delivered, user and stakeholder satisfaction, strategic contribution, sustainability of the outcome, and the health and capability of the delivery team.", "Recast the write-up around the second question. The triple constraint answers whether the project was delivered as planned; what the report needs to answer is whether it was the right project and whether it created the intended value."], "checklist": ["Acknowledges the execution measures were genuinely met", "Names outputs against outcomes as the governing distinction", "Maps at least three of the page's failure conditions onto the setup", "Lists the broader success dimensions including team health", "States the reframed question the write-up should answer"]}
+      ]/*END_SCENARIOS*/;
+
+      /* ── Quiz ─────────────────────────────────────────────── */
+      if (quizListEl && QUIZ.length) {
+        var doneEl = document.getElementById('quiz-done');
+        var rightEl = document.getElementById('quiz-right');
+        var totalEl = document.getElementById('quiz-total');
+        var fillEl = document.getElementById('quiz-fill');
+        var verdictEl = document.getElementById('quiz-verdict');
+        var resetBtn = document.getElementById('quiz-reset');
+
+        var answered = 0;
+        var correct = 0;
+
+        totalEl.textContent = QUIZ.length;
+
+        quizListEl.innerHTML = QUIZ.map(function (q, i) {
+          return '<article class="quiz-q">' +
+            '<div class="quiz-head">' +
+              '<span class="quiz-n">Question ' + (i + 1) + '</span>' +
+              (q.topic ? '<span class="term-src">' + esc(q.topic) + '</span>' : '') +
+            '</div>' +
+            '<p class="quiz-stem">' + esc(q.q) + '</p>' +
+            (q.hint
+              ? '<details class="reveal"><summary>Hint</summary>' +
+                '<div class="reveal-body"><p>' + esc(q.hint) + '</p></div></details>'
+              : '') +
+            '<div class="opts" role="group" aria-label="Answer options for question ' + (i + 1) + '">' +
+              q.options.map(function (o, j) {
+                return '<button class="opt" type="button" data-q="' + i + '" data-o="' + j + '">' +
+                  '<span class="opt-key" aria-hidden="true">' + KEYS[j] + '</span>' +
+                  '<span class="opt-t">' + esc(o.t) + '</span></button>';
+              }).join('') +
+            '</div>' +
+            '<div class="fb-slot" id="fb-' + i + '" role="status" aria-live="polite"></div>' +
+            '</article>';
+        }).join('');
+
+        var qEls = Array.prototype.slice.call(quizListEl.querySelectorAll('.quiz-q'));
+
+        function paintScore() {
+          doneEl.textContent = answered;
+          rightEl.textContent = correct;
+          fillEl.style.width = (answered / QUIZ.length * 100) + '%';
+          if (answered === QUIZ.length) {
+            verdictEl.textContent = 'All done — ' + correct + ' of ' + QUIZ.length +
+              ' correct. Reread the ones you missed in Summary & visuals, then start over.';
+            verdictEl.removeAttribute('hidden');
+          } else {
+            verdictEl.setAttribute('hidden', '');
+          }
+        }
+
+        function answer(i, chosen) {
+          var q = QUIZ[i];
+          var wrap = qEls[i];
+          if (wrap.getAttribute('data-answered') === 'true') return;
+          wrap.setAttribute('data-answered', 'true');
+
+          var opts = Array.prototype.slice.call(wrap.querySelectorAll('.opt'));
+          var rightIdx = -1;
+          q.options.forEach(function (o, j) { if (o.ok) rightIdx = j; });
+
+          opts.forEach(function (el, j) {
+            el.disabled = true;
+            if (j === rightIdx) el.setAttribute('data-state', 'right');
+            else if (j === chosen) el.setAttribute('data-state', 'wrong');
+            else el.setAttribute('data-state', 'off');
+          });
+
+          var isRight = chosen === rightIdx;
+          answered++;
+          if (isRight) correct++;
+
+          var html = '<div class="fb ' + (isRight ? 'fb--right' : 'fb--wrong') + '">' +
+            '<span class="fb-tag">' + (isRight ? 'Correct' : 'Not this one') + '</span>' +
+            '<p>' + esc(q.options[chosen].note) + '</p></div>';
+          if (!isRight) {
+            html += '<div class="fb fb--right">' +
+              '<span class="fb-tag">' + KEYS[rightIdx] + ' is the answer</span>' +
+              '<p>' + esc(q.options[rightIdx].note) + '</p></div>';
+          }
+          document.getElementById('fb-' + i).innerHTML = html;
+          paintScore();
+        }
+
+        quizListEl.addEventListener('click', function (e) {
+          var node = e.target;
+          while (node && node !== quizListEl && !(node.classList && node.classList.contains('opt'))) {
+            node = node.parentNode;
+          }
+          if (!node || node === quizListEl || node.disabled) return;
+          answer(parseInt(node.getAttribute('data-q'), 10), parseInt(node.getAttribute('data-o'), 10));
+        });
+
+        resetBtn.addEventListener('click', function () {
+          answered = 0;
+          correct = 0;
+          qEls.forEach(function (wrap, i) {
+            wrap.removeAttribute('data-answered');
+            Array.prototype.slice.call(wrap.querySelectorAll('.opt')).forEach(function (el) {
+              el.disabled = false;
+              el.removeAttribute('data-state');
+            });
+            Array.prototype.slice.call(wrap.querySelectorAll('.reveal')).forEach(function (d) { d.open = false; });
+            document.getElementById('fb-' + i).innerHTML = '';
+          });
+          paintScore();
+          quizListEl.scrollIntoView({ block: 'start' });
+        });
+
+        paintScore();
+      }
+
+      /* ── Apply it ─────────────────────────────────────────── */
+      if (scenListEl && SCENARIOS.length) {
+        scenListEl.innerHTML = SCENARIOS.map(function (s, i) {
+          var hints = (s.hints || []).map(function (h, k) {
+            return '<details class="reveal"><summary>Hint ' + (k + 1) + '</summary>' +
+              '<div class="reveal-body"><p>' + esc(h) + '</p></div></details>';
+          }).join('');
+
+          var steps = (s.walkthrough || []).map(function (w) {
+            return '<li>' + esc(w) + '</li>';
+          }).join('');
+
+          var checks = (s.checklist || []).map(function (c) {
+            return '<li>' + esc(c) + '</li>';
+          }).join('');
+
+          return '<article class="scen">' +
+            '<div class="quiz-head">' +
+              '<span class="quiz-n">Scenario ' + (i + 1) + '</span>' +
+              (s.topic ? '<span class="term-src">' + esc(s.topic) + '</span>' : '') +
+            '</div>' +
+            '<h3 class="scen-title">' + esc(s.title) + '</h3>' +
+            '<p class="scen-setup">' + esc(s.setup) + '</p>' +
+            '<p class="scen-task"><strong>Your task</strong>' + esc(s.task) + '</p>' +
+            hints +
+            '<details class="reveal reveal--work"><summary>Work it through</summary>' +
+              '<div class="reveal-body">' +
+                (steps ? '<ol class="steps">' + steps + '</ol>' : '') +
+                (checks ? '<h5>A strong answer covers</h5><ul class="check">' + checks + '</ul>' : '') +
+              '</div>' +
+            '</details>' +
+            '</article>';
+        }).join('');
+      }
+    })();
+  </script>
+
+
+  <script>
+    /* ── Study path ─────────────────────────────────────────────────────
+       The only behaviour the block needs: a step's button selects its mode
+       tab. Everything else about the block is static markup. */
+    (function () {
+      'use strict';
+      var path = document.querySelector('.path');
+      if (!path) return;
+
+      path.addEventListener('click', function (e) {
+        var node = e.target;
+        while (node && node !== path && !(node.classList && node.classList.contains('path-go'))) {
+          node = node.parentNode;
+        }
+        if (!node || node === path) return;
+        var tab = document.getElementById('tab-' + node.getAttribute('data-goto'));
+        if (!tab) return;
+        tab.click();
+        tab.scrollIntoView({ block: 'center' });
+        tab.focus();
+      });
+    })();
+  </script>
+
+</body>
+
+</html>

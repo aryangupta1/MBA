@@ -205,15 +205,22 @@ sync commit.
 
 ## 7. Current state
 
-Notion→vault sync state covers all **304** pages as of 2026-08-23
+Notion→vault sync state covers all **314** pages as of 2026-08-31
 (`~/MBA/.mba-sync/notes-state.json`), so the conflict guard has a baseline for every note.
 
 | | DMBA 6008 | DMBA 6005 |
 | --- | --- | --- |
-| Weeks in the vault | 0–4 | 0–4 |
-| Weeks published | **0–4** | **0–4** |
-| Outstanding | none — Week 4's last three topics were written and published 2026-08-23 | none |
+| Weeks in the vault | 0–4 | 0–**5** |
+| Weeks published | **0–4** | **0–5** |
+| Outstanding | none | none — Week 5 published 2026-08-31 |
 | Held for review | — | Week 3 `Live` |
+
+**Live Session notes are now published too, to unlisted pages only** (Aryan, 2026-08-31):
+one page per week at `only-accessible-by-url/<CODE>-week<N>-private.html`, built by
+`.claude/private-pages/build.py`, indexed in `only-accessible-by-url/SECRET-PAGES.md`.
+The public week pages are unchanged and still carry `Pre-Live Session` material only.
+Lecturer and classmate names, transcripts, chat logs and any image showing an identifiable
+person stay withheld from those pages as well.
 
 Empty in the source, so empty on the page: DMBA 6005 Week 1's
 `Creating your reflective journal`. **DMBA 6008 Week 4's three placeholders are gone** —

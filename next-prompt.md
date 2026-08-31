@@ -6,138 +6,147 @@
 >
 > Every session must leave this file updated before it ends.
 
-**Last updated:** 2026-08-23
-**Left by:** A full Notion→vault→website sync, committed and pushed. Aryan had written new
-material in Notion; four things came down. (1) **DMBA 6008 Week 4 is now complete** — its
-three "not yet written" topics were written and are published, which is the big one.
-(2) **DMBA 6005 Week 4 is a new page**, live. (3) A new **Assessment 1 notebook** landed in
-6008, `publish: false`. (4) DMBA 6008 Week 3's `Live` note grew, `publish: false`.
-Working tree clean; `master` level with `origin/master`.
+**Last updated:** 2026-08-31
+**Left by:** A full Notion→vault→website sync, plus a new kind of page. **DMBA 6005 Week 5
+is published**, and **every Live Session note is now on an unlisted per-week page** by
+Aryan's explicit instruction. Committed and pushed; working tree clean.
 
 ---
 
 ## The one thing worth learning from this run
 
-**A sub-page edit does not bump its parent note's `Edited Time` in Notion.** The skill warns
-about it; this run is the proof. DMBA 6008 Week 4's `Learn` note reported **UNCHANGED** at
-every level the inventory can see — same timestamp as 2026-08-18 — while three of its four
-sub-pages had gone from empty to ~650 words each. A timestamp-driven sync would have missed
-the single most important change in the workspace.
+**His notes contain overlapping emphasis runs that a regex cannot parse.** Patterns like
+`***Consequently, **forecast returns were inflated** “execution challenges”**` appear
+throughout the 6008 live-session prep notes. A naive `**(.+?)**` / `*(.+?)*` pair turns
+those into crossed tags, and two of the eight private pages failed a tag-balance check
+before this was caught.
 
-**So: after the inventory pass, always re-fetch the sub-pages of any week that is published
-in progress or otherwise incomplete.** That is where his writing actually lands.
+`.claude/private-pages/build.py` now uses a **stack-based emphasis tokeniser** that closes
+and reopens tags around a mismatch and force-closes anything still open at end of line, so
+the output is balanced whatever the input does. **Any future markdown→HTML work in this repo
+should reuse `_emphasise()` rather than reaching for a regex.**
 
-## What came down — 2026-08-23
+## What came down — 2026-08-31
 
-One metered `notion-query-data-sources` call. Live inventory: **91 notes**, against 88 cached
-— three new. Plus one changed, plus the invisible sub-page edits above.
+One metered `notion-query-data-sources` call. Live inventory: **96 notes**, against 91
+cached — five new, one changed, nothing deleted.
 
 | What | Type | Where it went |
 | --- | --- | --- |
-| DMBA 6008 Wk4 `Strategy and Finance` | Pre-Live | **Published** — was empty |
-| DMBA 6008 Wk4 `Golden rules of project evaluation` | Pre-Live | **Published** — was empty |
-| DMBA 6008 Wk4 `Application and solution` | Pre-Live | **Published** — was empty |
-| DMBA 6005 Wk4 `Learn` + 4 topic sub-pages | Pre-Live | **Published** — new page |
-| DMBA 6005 Wk4 `Live` | Live Session | vault only |
-| DMBA 6005 Wk4 `Shadow Boxing` | (blank in Notion) | vault only; also excluded by `syncRules` |
-| DMBA 6008 `Assessment 1: Financial Analysis` → `Plan` | Assessment | vault only |
-| DMBA 6008 Wk3 `Live` | Live Session | vault only — gained IRR-vs-NPV and breakout notes |
+| DMBA 6005 Wk5 `Learn` + `Working out costs` + `Non-financial options` | Pre-Live | **Published** — new public week page |
+| DMBA 6005 Wk5 `Live` + `Live Prep` | Live Session | vault + **unlisted page** |
+| DMBA 6005 `Assessment 1: User Stories & Pre-mortem` → `Plan`, `Final Version` | Assessment | vault only |
+| DMBA 6008 Wk4 `Live Session` + `Prep` + `Diary` | Live Session | vault + **unlisted page** |
+| DMBA 6008 `Assessment 1` → `Plan` | Assessment | vault only — **its two rubric images downloaded this time** |
 
-`apply_harvest.py`: **8 NEW, 4 UPDATED, 94 UNCHANGED, zero conflicts.** Nothing of his was
-overwritten. The raw cache was backed up first (`backup-20260823-171237`) and diffed — exactly
-the 12 intended files changed, no whitespace damage, because the harvest was done inline
-rather than by agents.
+`apply_harvest.py`: **10 NEW, 1 UPDATED, zero conflicts.** Nothing of his was overwritten.
+Backed up first (`backup-20260831-181924`) and diffed — exactly the 11 intended files
+changed, no whitespace damage, because the harvest was done **inline, not by agents**.
 
-## Two things deliberately left undone — tell Aryan
+`verify.py`: 5 of 6 gates pass. The failure is the **expected** one — `Live Session
+Transcript` and `Live Session Chat` are the only unresolved wikilinks, and they are
+deliberately never harvested. **Do not "fix" it by fetching them.** There are now four such
+sub-pages, not two: Week 3's pair and Week 4's pair.
 
-1. **The Assessment 1 `Plan` note has two sub-pages that were NOT harvested**: `Live Session
-   Transcript` and `Live Session Chat`. A transcript and a class chat log would carry **the
-   lecturer's name and classmates' words** into the vault, and sync-notes rule 3 forbids that
-   absolutely. They are the **only** two unresolved wikilinks `verify.py` reports — that gate
-   failure is expected and documented, not a defect. **Do not "fix" it by fetching them.**
-   If Aryan wants that material, ask him how he wants it de-identified first.
-2. **The `Plan` note's two rubric images were not downloaded.** Notion's presigned URLs had
-   already expired by the time the raw was written. The note is `publish: false`, so nothing
-   on the site is missing; the vault copy just has no rubric screenshots. Trivial to re-fetch
-   if he wants them.
+## The new thing: unlisted live-session pages
 
-## What was published
+Aryan asked for the live pages published but hidden. Asked how, he chose **one page per
+week** and **unlisted URL only, no password** — after being shown plainly that this means
+plaintext in a public repo.
 
-### DMBA 6008 Week 4 — finished
+```
+only-accessible-by-url/<CODE>-week<N>-private.html   8 pages: 6005 wk1,3,4,5 · 6008 wk1,2,3,4
+only-accessible-by-url/SECRET-PAGES.md               the index, grouped by subject
+.claude/private-pages/build.py                       the builder — idempotent, re-run any time
+.claude/private-pages/README.md                      what it will not publish, and why
+```
 
-The three placeholder blocks and the "one topic of four" closing block were replaced with
-**16 real blocks**. Page went 8 → 21 summary blocks, 1 → 4 figures, 12 → **48** key terms,
-20 → **58** flashcards, 4 → **23** formulas, 3 → **9** acronyms, 5 → **14** quiz questions,
-4 → **6** scenarios.
+`SECRET-PAGES.md` sits **inside** `only-accessible-by-url/` on purpose: the repo has no
+`.nojekyll`, so a root-level `.md` can be served as a public page, and an index of unlisted
+URLs must not be. `robots.txt` already disallows that whole directory.
 
-- **No images this time** — all three new topics are pure text, so the transcribe-vs-publish
-  decision did not arise. The whole Woods Ltd model went into `FORMULAS` as text, and the
-  Formulas search filter was verified working on it (`working capital` → 5 of 23).
-- Every stale sentence was swept: meta description, standfirst, hub card, `library.html`
-  entry, the three panel intros and the closing block. Nothing still says "in progress".
-- **The practice JSON was re-derived**, per `practice/README.md`. Study path rewritten from
-  a "short week, one topic" route to a seven-step, two-hour route; nine questions and three
-  scenarios added covering the new topics; one redundant scenario dropped.
+**The withholdings are enforced in code and are not preferences:**
 
-### DMBA 6005 Week 4 — new
+- The lecturer's first name appears once, in DMBA 6008 Week 1's diary
+  (`… found some “fakes” last semester`). It renders as `[lecturer]`.
+- The DMBA 6005 Week 3 class slide has the **lecturer's webcam thumbnail** in the corner.
+  Its seven questions are transcribed as text; the PNG is not published.
+- The 6008 Week 1 ROA/WACC diagram has no people in it and **is** published, at
+  `assets/notes/private/`.
+- Any image not in `IMAGE_ALT` renders as a withheld placeholder. **Look at an image before
+  adding it.**
 
-`DMBA6005-week4.html`, built from `week-shell.html`. 37 blocks, **9 figures**, 60 terms,
-99 cards, 10 acronyms, 12 quiz questions, 6 scenarios. No Formulas tab — it is a case and
-process week with no equations, and the spec says do not pad one to fill the template.
+## What was published publicly
 
-Figures are case/process vocabulary, not finance's: a triple-constraint triangle, an
-attention→memory→behaviour strip, concentric outer/inner rings, a WBS tree, the six-step
-governance cycle with its return arrow, nested UI/UX/CX boxes, a customer-journey strip with
-touchpoint markers, the AI-capability-to-relationship chain, and three balance beams for the
-unresolved tensions.
+### DMBA 6005 Week 5 — new
+
+`DMBA6005-week5.html`, from `week-shell.html`. 17 blocks, **7 figures**, 38 terms, 53 cards,
+**3 formulas** (the subject's first Formulas tab), 3 acronyms, 10 quiz questions, 5 scenarios,
+a 7-step study path. Registered in `library.html`; hub card added and its pill moved
+5 → 6 weeks published.
+
+Figures are process and portfolio vocabulary, not finance's: a cost-escalation loop, the
+three viability gates, an ROI/NPV horizon band, the weighted-scoring mechanism, ten
+experiment squares read two ways, an exploitation/exploration split bar, and execution
+measures nested inside an outcomes ring.
+
+**Its footer says "Built from my Obsidian vault on 31 August 2026", not "Synced from Notion".**
+The other nine week pages still carry the stale Notion wording — see Open threads.
 
 ## Gates
 
-All six pass on both pages. `checks.py` clean. Prose **1,167 / 3,360** (6008) and
-**2,829 / 5,920** (6005) — comfortably inside budget. Gate 1 done by tracing every numeric
-token back to the source markdown; gate 4 swept for lecturer fields, telemetry, Pre-Class Prep
-and Live-note content, all zero. **Checked in a real browser** at 1400px and at 420px: figures
-render, quiz scores, formula filter works, tables scroll inside their own containers, tab bar
-wraps cleanly, hub cards and both `library.html` entries live.
+`checks.py` clean on the new page — prose **1,469 / 2,880**, comfortably inside budget.
+Gate 1 done by tracing every formula and claim back to the two topic markdown files; gate 4
+swept for Live/Assessment content, lecturer fields and telemetry, all zero. The page's inline
+JS was **parsed with `node --check` and the four arrays evaluated**, which is worth repeating —
+it is how the `Σ` and `×` escapes in `FORMULAS` were confirmed to render.
 
-**His typos are preserved verbatim, as required** — `executred`, `exlcude`, `componenots`,
-`btter`, `acceptnace`, `exeuction`, `become ad hoc?`, `feel distance and abstract`,
-`Australian's in their 30s`. Do not tidy them.
+The eight private pages were tag-balance checked, id-duplicate checked, back-link checked and
+`noindex` checked; all eight pass.
+
+**Checked in a browser:** the week page, the hub, `library.html?subject=DMBA6005`, and two
+private pages were opened. **Aryan has not yet confirmed how they look** — ask him.
 
 ## Do first
 
-1. **Ask him to approve the hook** (`/hooks`). Seventh session running that `next-prompt.md`
+1. **Ask him to approve the hook** (`/hooks`). Eighth session running that `next-prompt.md`
    was not auto-injected — it had to be read manually. `settings.json` is correct; it needs
    his one-time approval.
-2. **Tell him about the two withheld sub-pages** (above). That is his call, not ours.
-3. **The private notes page is now stale.** `only-accessible-by-url/semester-2-private-notes.html`
-   is hand-built and no skill updates it. Since it was written, DMBA 6008 Week 3's `Live`
-   gained the IRR-vs-NPV material and the breakout-session notes, and DMBA 6005 Week 4's
-   `Live` is new. **If he wants it current, it must be rebuilt by hand** — and the three
-   privacy withholdings re-applied (the 6005 class slide with the webcam thumbnail, the
-   Persona C portrait, the lecturer's name).
+2. **Ask whether the private pages should keep the AI-use remark.** DMBA 6008 Week 1's diary
+   says *"Most people if not all will be using AI to aid their assignments…"*. No individual
+   is named, so it does not breach the name rule and it was published — but it is a candid
+   remark about the cohort now sitting in plaintext in a public repo. **His call, and he has
+   not been asked yet.**
+3. **Ask whether he wants the private pages password-gated after all.** He chose unlisted-only
+   with the tradeoff stated, but the offer stands and `semester-2-private-notes.html` already
+   has a working AES-256-GCM + PBKDF2 implementation to copy.
+
+## Open threads
+
+- [ ] **Nine week pages still say "Synced from Notion on …" in the footer.** Pages have been
+      built from the vault since 2026-08-18, so it is false on all of them. Only
+      `DMBA6005-week5.html` is correct. A one-line sweep, still not done — it was out of
+      scope this run too.
+- [ ] **`semester-2-private-notes.html` is stale and cannot be updated.** It predates 6005
+      Weeks 4–5 and 6008 Week 4. The new per-week pages supersede it, but **rebuilding or
+      deleting it needs its password**, which no session has. Ask him for it, or ask whether
+      to just delete it.
+- [ ] **Four syllabus files could not be migrated** (6001, 6002, 6004, 6008) — Notion exposes
+      them as internal `file://` refs. He must download them by hand.
+- [ ] **The lecturer's name and email are still in git history**, `7a63ab5` onward. Scrubbing
+      needs a history rewrite and force-push; not done, not asked.
 
 ## Settled — do not re-open
 
 - **DMBA 6005 Week 3 `Live`** — held back from public week pages, permanently. Enforced in
-  `subjects.json` → `DMBA6005.needsReview.ruling`. It appears on the password-gated private
-  page only; that is not a precedent.
+  `subjects.json` → `DMBA6005.needsReview.ruling`. It appears on unlisted pages only.
 - **Formula images are transcribed, never published** (2026-08-19).
 - **Notion is a live note-taking surface**, feeding the vault. Never publish from it directly.
 - **DMBA 6008 Week 4's lease inconsistency stays unreconciled.** His prose says five payments
   of $2000; the calculation uses 2,200; only 2,200 reproduces his own $9,174. Both are on the
   page with a note that they differ. **Do not silently fix either number.**
-
-## Still open
-
-- **Four syllabus files could not be migrated** (6001, 6002, 6004, 6008) — Notion exposes them
-  as internal `file://` refs. He must download them by hand.
-- **The lecturer's name and email are still in git history**, `7a63ab5` onward. Scrubbing needs
-  a history rewrite and force-push; not done, not asked.
-- **Every week page's footer still says "Synced from Notion on …".** Since 2026-08-18 pages are
-  built from the vault, so the wording is stale on all nine. A one-line sweep, but it was not
-  asked for and touching nine pages unprompted felt out of scope. Worth doing next time
-  something else brings those files into play.
+- **Live Session material on unlisted pages is authorised; on public week pages it is not.**
+  `sync-subject` rule 1 is unchanged. The unlisted pages are not a precedent for the week pages.
 
 ## Do not
 
@@ -145,4 +154,7 @@ wraps cleanly, hub cards and both `library.html` entries live.
 - Do not commit `~/MBA` to this repo.
 - Do not write back to Notion from any skill. Every sync is one-way.
 - Do not harvest a Live Session transcript or chat log into the vault.
-- Do not add a third exception to the self-contained-page rule without asking.
+- Do not link `only-accessible-by-url/` from any indexed page.
+- Do not put an index of unlisted URLs at the repo root — there is no `.nojekyll`.
+- Do not tidy his typos. They are preserved deliberately: `aroujnd`, `stand out form the rest`,
+  `not is simply staying within the budget`, `Agile's flexibility scope`.

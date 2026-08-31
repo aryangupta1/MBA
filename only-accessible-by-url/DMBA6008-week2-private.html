@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>DMBA 6008 Week 2 — live notes (unlisted)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F2EC; --paper2:#FBF9F5; --surface:#FFFFFF; --surface2:#F7F4EE;
+    --ink:#141317; --ink2:#3D3A36; --ink3:#8C867A;
+    --line:#E2DED5; --line2:#EDE9E1;
+    --accent:#2F5470; --accent-deep:#1F3B51; --accent-soft:#E9EFF4;
+    --warn:#9A5B22; --warn-soft:#FBF0E4;
+    --r:12px; --r-lg:18px; --r-pill:999px;
+    --sh:0 1px 2px rgba(20,19,23,.05), 0 8px 24px rgba(20,19,23,.06);
+    --font-d:"Mona Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --font-b:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --font-m:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink2);font-family:var(--font-b);
+       font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:860px;margin:0 auto;padding:clamp(20px,5vw,56px) clamp(16px,4vw,32px)}
+  a{color:var(--accent-deep)}
+  .backlink{display:inline-block;font-size:.85rem;color:var(--ink3);text-decoration:none;margin-bottom:18px}
+  .backlink:hover{color:var(--accent-deep)}
+  .eyebrow{font-family:var(--font-d);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;
+           color:var(--accent-deep);margin:0 0 8px;font-weight:700}
+  h1{font-family:var(--font-d);font-weight:800;font-size:clamp(1.7rem,4.5vw,2.4rem);
+     letter-spacing:-.025em;color:var(--ink);margin:0 0 10px;line-height:1.12}
+  .standfirst{margin:0 0 18px;color:var(--ink3);font-size:.95rem}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
+  .badge{font-family:var(--font-d);font-size:.72rem;font-weight:600;letter-spacing:.03em;
+         padding:5px 11px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--accent-deep)}
+  .badge--warn{background:var(--warn-soft);color:var(--warn)}
+  .notice{background:var(--warn-soft);border-left:3px solid var(--warn);border-radius:var(--r);
+          padding:13px 16px;margin:0 0 28px}
+  .notice p{margin:0;font-size:.87rem;color:var(--warn)}
+  .note{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+        box-shadow:var(--sh);padding:clamp(18px,4vw,30px);margin:0 0 22px}
+  .note-head{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;
+             border-bottom:1px solid var(--line2);padding-bottom:12px;margin-bottom:16px}
+  .note-head h2{font-family:var(--font-d);font-weight:700;font-size:1.15rem;color:var(--ink);
+                margin:0;letter-spacing:-.01em}
+  .note-type{font-family:var(--font-d);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;
+             color:var(--ink3);background:var(--surface2);padding:3px 9px;border-radius:var(--r-pill)}
+  .note h3{font-family:var(--font-d);font-weight:700;font-size:1rem;color:var(--ink);margin:22px 0 8px}
+  .note h4{font-family:var(--font-d);font-weight:700;font-size:.92rem;color:var(--ink);margin:18px 0 6px}
+  .note h5,.note h6{font-family:var(--font-d);font-weight:600;font-size:.86rem;color:var(--ink2);margin:14px 0 6px}
+  .note p{margin:0 0 11px}
+  .note ul,.note ol{margin:0 0 12px;padding-left:1.25rem}
+  .note li{margin-bottom:5px}
+  .note li>ul,.note li>ol{margin-top:5px}
+  .note hr{border:0;border-top:1px solid var(--line2);margin:20px 0}
+  .empty{color:var(--ink3);font-style:italic;font-size:.9rem;margin:0}
+  code{font-family:var(--font-m);font-size:.85em;background:var(--surface2);padding:1px 5px;border-radius:4px}
+  .wl{font-family:var(--font-m);font-size:.82em;color:var(--ink3);background:var(--surface2);
+      padding:1px 6px;border-radius:4px}
+  .callout{background:var(--accent-soft);border-radius:var(--r);padding:13px 16px;margin:14px 0}
+  .callout p{margin:0;font-size:.92rem;color:var(--accent-deep)}
+  blockquote{margin:14px 0;padding:0 0 0 14px;border-left:3px solid var(--line);color:var(--ink3)}
+  blockquote p{margin:0;font-size:.92rem}
+  .tbl{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:var(--r)}
+  table{border-collapse:collapse;width:100%;min-width:460px;font-size:.87rem}
+  th,td{text-align:left;padding:9px 13px;border-bottom:1px solid var(--line2);vertical-align:top}
+  thead th{background:var(--surface2);font-family:var(--font-d);font-size:.75rem;letter-spacing:.03em;
+           text-transform:uppercase;color:var(--ink3)}
+  tr:last-child td,tr:last-child th{border-bottom:0}
+  .withheld{background:var(--warn-soft);border:1px dashed var(--warn);border-radius:var(--r);
+            padding:14px 16px;margin:16px 0}
+  .withheld-why{margin:0 0 10px;font-size:.85rem;color:var(--warn)}
+  .withheld-title{margin:0 0 8px;font-weight:600;color:var(--ink)}
+  .withheld-list{margin:0;padding-left:1.25rem;font-size:.9rem}
+  .fig{margin:18px 0;padding:0}
+  .fig img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:var(--r);background:#fff}
+  figcaption{margin-top:9px;font-size:.8rem;color:var(--ink3);line-height:1.55}
+  .doc-foot{margin:32px 0 0;padding-top:18px;border-top:1px solid var(--line);font-size:.8rem;color:var(--ink3)}
+  .doc-foot p{margin:0 0 6px}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="backlink" href="../DMBA6008-weeks.html">&larr; DMBA 6008 week hub</a>
+  <p class="eyebrow">DMBA 6008 &middot; Finance, Strategy and Technology &middot; Week 2</p>
+  <h1>Drivers of Returns</h1>
+  <p class="standfirst">My live-session notes for this week. These are working notes, not a study page &mdash; they are not published on the public week page and are not linked from anywhere on the site.</p>
+  <div class="badges">
+    <span class="badge">Live session</span>
+    <span class="badge badge--warn">Unlisted &mdash; not indexed</span>
+  </div>
+  <div class="notice"><p><strong>Unlisted, not private.</strong> This page has no password. It is excluded from search engines and linked from nowhere, but it lives in a public repository, so treat anything here as readable by anyone who finds the URL.</p></div>
+  <section class="note">
+    <div class="note-head"><h2>Live</h2><span class="note-type">Live Session</span></div>
+<ul>
+<li><span class='wl'>Discussion Questions</span></li>
+<li><span class='wl'>Diary</span></li>
+</ul>
+  </section>
+  <section class="note">
+    <div class="note-head"><h2>Diary</h2><span class="note-type">Live Session</span></div>
+<ul>
+<li>Too much growth can be bad</li>
+<li>Sustainable growth is important</li>
+<li>Look at the spreadsheets and play aroujnd</li>
+</ul>
+  </section>
+  <section class="note">
+    <div class="note-head"><h2>Discussion Questions</h2><span class="note-type">Live Session</span></div>
+<div class="notice"><p><strong>Provenance.</strong> The answers below are the supplied AI-generated responses distributed with the discussion questions. They are not my own writing, and they are reproduced here unedited.</p></div><p><strong>Supplied AI-generated responses to discussion questions</strong></p>
+<ol>
+<li><strong>What does a high ROA actually tell us about a business model—and what might it conceal?</strong>A high ROA indicates that the company is generating strong earnings relative to its asset base. This could mean it has a lean, efficient operation or high-margin products. However, it might conceal underinvestment in long-term assets, off-balance-sheet liabilities (e.g., operating leases), or reliance on intangible or outsourced assets. In some cases, it may simply reflect accounting choices rather than operational performance.</li>
+<li><strong>Can a company grow too quickly?</strong>Yes. Rapid growth often requires substantial investment in assets (inventory, fixed assets, working capital), which may exceed the company's internal funding capacity. If growth outpaces the ability to generate or access capital sustainably, the firm may resort to excessive borrowing, risking liquidity issues, deteriorating creditworthiness, or equity dilution. Growth that isn’t well-managed can also strain operations, culture, and customer experience.</li>
+<li><strong>How might two companies with similar ROA profiles be on very different financial trajectories?</strong>One company might achieve high ROA through high profit margins but low asset turnover (e.g., a luxury brand), while another relies on low margins and high asset turnover (e.g., a discount retailer). Additionally, one firm may be growing using retained earnings, while the other may be funding asset expansion through unsustainable debt. ROA alone doesn’t capture risk, funding quality, or reinvestment potential.</li>
+<li><strong>When might it be strategically acceptable for a business to operate with a declining ROA?</strong>A business investing in long-term strategic assets—like new technology platforms, international expansion, or innovation capabilities—might experience a temporary decline in ROA. This is acceptable if the investment is expected to generate future returns that outweigh the short-term drop in efficiency. Startups or companies undergoing transformation often face this situation.</li>
+<li><strong>How can management decisions about capital allocation impact sustainable growth and long-term returns?</strong>If management reinvests earnings into productive assets, this can support sustainable growth without increasing debt. However, excessive dividends or poor reinvestment choices (e.g., low-return acquisitions) can limit growth and erode ROA. Capital allocation decisions determine how growth is financed and whether returns exceed the cost of capital—core to long-term value creation.</li>
+<li><strong>Is maximising ROA always in the best interest of shareholders?</strong>Not necessarily. Obsessing over ROA might discourage management from making necessary long-term investments that lower ROA in the short term. For instance, scaling a business, entering new markets, or investing in R&amp;D may depress ROA temporarily but create greater shareholder value over time. Shareholders care more about sustainable value creation than just short-term efficiency metrics.</li>
+<li><strong>How can external market conditions influence a firm’s sustainable growth rate, even if ROA remains stable?</strong>Even with stable ROA, higher interest rates can increase the cost of funding asset growth, while tighter capital markets may restrict access to external funding. Inflation can erode margins or increase asset replacement costs. Market volatility may also affect earnings stability and investor confidence, all of which influence how fast a company can grow without overextending financially.</li>
+<li><strong>In what ways can a company with a high ROA still face financial distress or strategic risk?</strong>A high ROA firm may be too dependent on a single product, market, or customer segment, creating strategic vulnerability. It might also be underinvesting in future growth to maintain high returns, leaving it exposed to disruption. Alternatively, it may be overleveraged—achieving high ROA on the back of high risk—and a downturn in earnings could quickly lead to distress if fixed obligations are high.</li>
+</ol>
+  </section>
+  <div class="doc-foot">
+    <p>DMBA 6008 Finance, Strategy and Technology &middot; Week 2 &middot; live session</p>
+    <p>Built from my Obsidian vault on 31 August 2026. Lecturer and classmate names are withheld from every page on this site.</p>
+  </div>
+</main>
+</body>
+</html>

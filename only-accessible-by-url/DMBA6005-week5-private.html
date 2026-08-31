@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>DMBA 6005 Week 5 — live notes (unlisted)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F2EC; --paper2:#FBF9F5; --surface:#FFFFFF; --surface2:#F7F4EE;
+    --ink:#141317; --ink2:#3D3A36; --ink3:#8C867A;
+    --line:#E2DED5; --line2:#EDE9E1;
+    --accent:#A8722C; --accent-deep:#6F4A17; --accent-soft:#F7EFE2;
+    --warn:#9A5B22; --warn-soft:#FBF0E4;
+    --r:12px; --r-lg:18px; --r-pill:999px;
+    --sh:0 1px 2px rgba(20,19,23,.05), 0 8px 24px rgba(20,19,23,.06);
+    --font-d:"Mona Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --font-b:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --font-m:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink2);font-family:var(--font-b);
+       font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:860px;margin:0 auto;padding:clamp(20px,5vw,56px) clamp(16px,4vw,32px)}
+  a{color:var(--accent-deep)}
+  .backlink{display:inline-block;font-size:.85rem;color:var(--ink3);text-decoration:none;margin-bottom:18px}
+  .backlink:hover{color:var(--accent-deep)}
+  .eyebrow{font-family:var(--font-d);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;
+           color:var(--accent-deep);margin:0 0 8px;font-weight:700}
+  h1{font-family:var(--font-d);font-weight:800;font-size:clamp(1.7rem,4.5vw,2.4rem);
+     letter-spacing:-.025em;color:var(--ink);margin:0 0 10px;line-height:1.12}
+  .standfirst{margin:0 0 18px;color:var(--ink3);font-size:.95rem}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
+  .badge{font-family:var(--font-d);font-size:.72rem;font-weight:600;letter-spacing:.03em;
+         padding:5px 11px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--accent-deep)}
+  .badge--warn{background:var(--warn-soft);color:var(--warn)}
+  .notice{background:var(--warn-soft);border-left:3px solid var(--warn);border-radius:var(--r);
+          padding:13px 16px;margin:0 0 28px}
+  .notice p{margin:0;font-size:.87rem;color:var(--warn)}
+  .note{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+        box-shadow:var(--sh);padding:clamp(18px,4vw,30px);margin:0 0 22px}
+  .note-head{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;
+             border-bottom:1px solid var(--line2);padding-bottom:12px;margin-bottom:16px}
+  .note-head h2{font-family:var(--font-d);font-weight:700;font-size:1.15rem;color:var(--ink);
+                margin:0;letter-spacing:-.01em}
+  .note-type{font-family:var(--font-d);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;
+             color:var(--ink3);background:var(--surface2);padding:3px 9px;border-radius:var(--r-pill)}
+  .note h3{font-family:var(--font-d);font-weight:700;font-size:1rem;color:var(--ink);margin:22px 0 8px}
+  .note h4{font-family:var(--font-d);font-weight:700;font-size:.92rem;color:var(--ink);margin:18px 0 6px}
+  .note h5,.note h6{font-family:var(--font-d);font-weight:600;font-size:.86rem;color:var(--ink2);margin:14px 0 6px}
+  .note p{margin:0 0 11px}
+  .note ul,.note ol{margin:0 0 12px;padding-left:1.25rem}
+  .note li{margin-bottom:5px}
+  .note li>ul,.note li>ol{margin-top:5px}
+  .note hr{border:0;border-top:1px solid var(--line2);margin:20px 0}
+  .empty{color:var(--ink3);font-style:italic;font-size:.9rem;margin:0}
+  code{font-family:var(--font-m);font-size:.85em;background:var(--surface2);padding:1px 5px;border-radius:4px}
+  .wl{font-family:var(--font-m);font-size:.82em;color:var(--ink3);background:var(--surface2);
+      padding:1px 6px;border-radius:4px}
+  .callout{background:var(--accent-soft);border-radius:var(--r);padding:13px 16px;margin:14px 0}
+  .callout p{margin:0;font-size:.92rem;color:var(--accent-deep)}
+  blockquote{margin:14px 0;padding:0 0 0 14px;border-left:3px solid var(--line);color:var(--ink3)}
+  blockquote p{margin:0;font-size:.92rem}
+  .tbl{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:var(--r)}
+  table{border-collapse:collapse;width:100%;min-width:460px;font-size:.87rem}
+  th,td{text-align:left;padding:9px 13px;border-bottom:1px solid var(--line2);vertical-align:top}
+  thead th{background:var(--surface2);font-family:var(--font-d);font-size:.75rem;letter-spacing:.03em;
+           text-transform:uppercase;color:var(--ink3)}
+  tr:last-child td,tr:last-child th{border-bottom:0}
+  .withheld{background:var(--warn-soft);border:1px dashed var(--warn);border-radius:var(--r);
+            padding:14px 16px;margin:16px 0}
+  .withheld-why{margin:0 0 10px;font-size:.85rem;color:var(--warn)}
+  .withheld-title{margin:0 0 8px;font-weight:600;color:var(--ink)}
+  .withheld-list{margin:0;padding-left:1.25rem;font-size:.9rem}
+  .fig{margin:18px 0;padding:0}
+  .fig img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:var(--r);background:#fff}
+  figcaption{margin-top:9px;font-size:.8rem;color:var(--ink3);line-height:1.55}
+  .doc-foot{margin:32px 0 0;padding-top:18px;border-top:1px solid var(--line);font-size:.8rem;color:var(--ink3)}
+  .doc-foot p{margin:0 0 6px}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="backlink" href="../DMBA6005-weeks.html">&larr; DMBA 6005 week hub</a>
+  <p class="eyebrow">DMBA 6005 &middot; Agile Project Development &middot; Week 5</p>
+  <h1>Costing and estimation</h1>
+  <p class="standfirst">My live-session notes for this week. These are working notes, not a study page &mdash; they are not published on the public week page and are not linked from anywhere on the site.</p>
+  <div class="badges">
+    <span class="badge">Live session</span>
+    <span class="badge badge--warn">Unlisted &mdash; not indexed</span>
+  </div>
+  <div class="notice"><p><strong>Unlisted, not private.</strong> This page has no password. It is excluded from search engines and linked from nowhere, but it lives in a public repository, so treat anything here as readable by anyone who finds the URL.</p></div>
+  <section class="note">
+    <div class="note-head"><h2>Live</h2><span class="note-type">Live Session</span></div>
+<ul>
+<li><span class='wl'>Live Prep</span></li>
+</ul>
+<p>Live Diary</p>
+<p>Shadow Boxing</p>
+  </section>
+  <section class="note">
+    <div class="note-head"><h2>Live Prep — Global Green Books class prep</h2><span class="note-type">Live Session</span></div>
+<h2>Global Green Books — Class Prep Cheat Sheet</h2>
+<h3>1. Case Overview</h3>
+<h4>1.1 Project Objective</h4>
+<p>Global Green Books is launching a sustainability-focused publication collection supported by:</p>
+<ul>
+<li>Social media content</li>
+<li>Paid advertising</li>
+<li>Influencer engagement</li>
+<li>Live launch event</li>
+<li>Livestreaming</li>
+<li>Reporting and analytics</li>
+</ul>
+<p>The campaign needs to be <strong>high-impact but cost-effective</strong> because the organisation is already under budget pressure.</p>
+<h4>1.2 Existing Management Problems</h4>
+<ul>
+<li>Influencer costs historically become known too late.</li>
+<li>Venue/equipment deadlines have been missed, creating last-minute surcharges.</li>
+<li>Designers and videographers are pulled into competing projects.</li>
+<li>Resource availability makes budgets difficult to finalise.</li>
+<li>Creative work, suppliers and the fixed event date create significant schedule dependencies.</li>
+</ul>
+<p><strong>Core issue:</strong> This is not simply a cost-estimation problem; it is a <strong>cost + resource + schedule dependency problem</strong>.</p>
+<hr>
+<h3>2. Starting Budget</h3>
+<h4>2.1 Internal Labour</h4>
+<div class="tbl"><table><thead><tr><th>Resource</th><th>Calculation</th><th>Cost</th></tr></thead><tbody><tr><td>Social Media Manager</td><td>20 hrs × $40</td><td>$800</td></tr><tr><td>Designer</td><td>15 hrs × $35</td><td>$525</td></tr><tr><td>Event Coordinator</td><td>30 hrs × $45</td><td>$1,350</td></tr><tr><td>Editor</td><td>8 hrs × $50</td><td>$400</td></tr><tr><td><strong>Total labour</strong></td><td></td><td><strong>$3,075</strong></td></tr></tbody></table></div>
+<h4>2.2 Overhead</h4>
+<p>Overhead = <strong>20% of labour</strong></p>
+<p><strong>$3,075 × 20% = $615</strong></p>
+<h4>2.3 Base Estimated Cost</h4>
+<div class="tbl"><table><thead><tr><th>Cost</th><th>Amount</th></tr></thead><tbody><tr><td>Internal labour</td><td>$3,075</td></tr><tr><td>Influencer package</td><td>$2,000</td></tr><tr><td>Livestream crew</td><td>$1,200</td></tr><tr><td>Venue</td><td>$3,000</td></tr><tr><td>Ads and boosts</td><td>$1,500</td></tr><tr><td>AI tools &amp; consumables</td><td>$400</td></tr><tr><td>Overhead</td><td>$615</td></tr><tr><td><strong>Base estimated cost</strong></td><td><strong>$11,790</strong></td></tr></tbody></table></div>
+<hr>
+<h3>3. Contingency Budget</h3>
+<h4>3.1 Influencer Contingency</h4>
+<p>15% contingency for influencer negotiation slippage:</p>
+<p><strong>$2,000 × 15% = $300</strong></p>
+<h4>3.2 Event Logistics Contingency</h4>
+<p>Assuming “other event logistics” includes:</p>
+<ul>
+<li>Venue = $3,000</li>
+<li>Livestream crew = $1,200</li>
+</ul>
+<p>Event logistics base:</p>
+<p><strong>$4,200</strong></p>
+<p>10% contingency:</p>
+<p><strong>$4,200 × 10% = $420</strong></p>
+<h4>3.3 Total Estimated Budget</h4>
+<div class="tbl"><table><thead><tr><th></th><th>Amount</th></tr></thead><tbody><tr><td>Base estimate</td><td>$11,790</td></tr><tr><td>Influencer contingency</td><td>$300</td></tr><tr><td>Event logistics contingency</td><td>$420</td></tr><tr><td><strong>Budget incl. contingency</strong></td><td><strong>$12,510</strong></td></tr></tbody></table></div>
+<blockquote><p><strong>Assumption:</strong> “All other event logistics” is not precisely defined. If Event Coordinator labour or other costs are included, the contingency changes.</p></blockquote>
+<hr>
+<h3>4. Target Profit Margin</h3>
+<p>The project has a <strong>20% target profit margin</strong>.</p>
+<p><strong>Profit Margin = Profit / Revenue</strong></p>
+<p>Therefore:</p>
+<p><strong>Required Revenue = Cost / (1 − Profit Margin)</strong></p>
+<p>Using the contingency-adjusted cost:</p>
+<p><strong>$12,510 / 0.80 = $15,637.50</strong></p>
+<p>Therefore:</p>
+<ul>
+<li>Required revenue ≈ <strong>$15,638</strong></li>
+<li>Target profit ≈ <strong>$3,128</strong></li>
+<li>Profit margin = <strong>20%</strong></li>
+</ul>
+<h4>4.1 Margin vs Markup</h4>
+<p>Do not calculate:</p>
+<p><strong>$12,510 × 1.20 = $15,012</strong></p>
+<p>This represents a <strong>20% markup on cost</strong>, not a 20% profit margin.</p>
+<p>At $15,012 revenue:</p>
+<p><strong>Profit margin = $2,502 / $15,012 ≈ 16.7%</strong></p>
+<hr>
+<h3>5. Direct vs Indirect Costs</h3>
+<h4>5.1 Classification</h4>
+<div class="tbl"><table><thead><tr><th>Direct Costs</th><th>Indirect Costs</th></tr></thead><tbody><tr><td>Social Media Manager labour</td><td>Organisational overhead</td></tr><tr><td>Designer labour</td><td>Shared AI/software subscriptions</td></tr><tr><td>Event Coordinator labour</td><td>Shared computer equipment</td></tr><tr><td>Editor labour</td><td>Utilities/admin support</td></tr><tr><td>Influencer package</td><td></td></tr><tr><td>Livestream crew</td><td></td></tr><tr><td>Venue</td><td></td></tr><tr><td>Ads and boosts</td><td></td></tr></tbody></table></div>
+<h4>5.2 AI Tools &amp; Consumables</h4>
+<p>This item is ambiguous:</p>
+<ul>
+<li>Campaign-specific consumables → <strong>Direct</strong></li>
+<li>Shared AI subscriptions/tools → <strong>Indirect</strong></li>
+</ul>
+<h4>5.3 Why the Distinction Matters</h4>
+<ul>
+<li><strong>Direct costs</strong> show resources specifically consumed by the campaign.</li>
+<li><strong>Indirect costs</strong> capture supporting organisational resources.</li>
+<li>Ignoring indirect costs can make a project appear artificially cheap.</li>
+</ul>
+<p><strong>Key principle:</strong> Budgeting should reflect the project's <strong>true economic resource consumption</strong>, not just its visible invoices.</p>
+<hr>
+<h3>6. Mid-Campaign Diagnosis</h3>
+<p>At the halfway point:</p>
+<ul>
+<li><strong>50% of available time has elapsed</strong></li>
+<li>Only <strong>30% of campaign assets are completed</strong></li>
+<li>Completed assets are <strong>not yet live</strong></li>
+<li>Planning is approximately <strong>50% complete</strong></li>
+<li>Venue deposit remains unpaid</li>
+<li>One contractor has dropped out</li>
+<li>Video editing took <strong>twice as long as planned</strong></li>
+<li>Event date remains fixed in two weeks</li>
+</ul>
+<h4>6.1 Main Warning Sign</h4>
+<p><strong>50% time elapsed + 30% assets completed + 0% live + fixed deadline</strong></p>
+<p>The remaining work must now be delivered faster than originally planned.</p>
+<p>Likely consequences:</p>
+<ul>
+<li>Overtime</li>
+<li>Expedited suppliers</li>
+<li>Replacement contractors</li>
+<li>Rushed approvals</li>
+<li>Premium bookings</li>
+<li>Greater rework risk</li>
+</ul>
+<p><strong>Key relationship:</strong></p>
+<p><strong>Schedule delay → fewer delivery options → higher recovery costs</strong></p>
+<hr>
+<h3>7. Known Cost Variance</h3>
+<p>Editor budget:</p>
+<p><strong>8 hrs × $50 = $400</strong></p>
+<p>Actual editing effort:</p>
+<p><strong>16 hrs × $50 = $800</strong></p>
+<p>Therefore:</p>
+<p><strong>Cost variance = +$400</strong></p>
+<p>The initial contingency does not specifically address <strong>creative rework</strong>, revealing a weakness in the original risk allowance.</p>
+<hr>
+<h3>8. Budgeting and Timeline Risks</h3>
+<div class="tbl"><table><thead><tr><th>Risk</th><th>Likely Consequence</th></tr></thead><tbody><tr><td>Contractor dropout</td><td>Replacement cost + schedule delay</td></tr><tr><td>Multiple revisions</td><td>Additional labour and rework</td></tr><tr><td>Venue deposit unpaid</td><td>Venue loss or surcharge</td></tr><tr><td>Fixed event date</td><td>Schedule compression</td></tr><tr><td>Shared internal resources</td><td>Availability uncertainty</td></tr><tr><td>Influencer negotiation</td><td>Cost uncertainty</td></tr><tr><td>Assets not yet live</td><td>Reduced campaign impact window</td></tr><tr><td>Late decisions</td><td>Expediting and premium costs</td></tr></tbody></table></div>
+<h4>8.1 Cost–Schedule Coupling</h4>
+<p>In fast-moving projects, schedule and cost are interconnected.</p>
+<p>A delay can increase costs even when project scope has not changed because the team may need to:</p>
+<ul>
+<li>add resources;</li>
+<li>pay overtime;</li>
+<li>use more expensive suppliers;</li>
+<li>accelerate approvals;</li>
+<li>compress downstream activities.</li>
+</ul>
+<hr>
+<h3>9. Contingency Budgeting</h3>
+<h4>9.1 Purpose</h4>
+<p>Contingency provides a financial buffer for <strong>identified uncertainty</strong>.</p>
+<p>Current allowances cover:</p>
+<ul>
+<li>Influencer negotiation risk → 15%</li>
+<li>Event logistics risk → 10%</li>
+</ul>
+<h4>9.2 Is the Current Contingency Appropriate?</h4>
+<p>The realised risks are now:</p>
+<ul>
+<li>Contractor failure</li>
+<li>Creative rework</li>
+<li>Resource availability</li>
+<li>Schedule compression</li>
+</ul>
+<p>These do not closely match the original contingency categories.</p>
+<p><strong>Recommendation:</strong> Reassess the allocation of contingency rather than simply increasing every budget line.</p>
+<p>Additional contingency should focus on:</p>
+<ul>
+<li>Replacement contractors</li>
+<li>Extra creative labour</li>
+<li>Rework</li>
+<li>Schedule recovery</li>
+</ul>
+<p><strong>Key principle:</strong> Contingency should reflect the project's <strong>actual risk exposure</strong>, not be a generic percentage added to cost.</p>
+<hr>
+<h3>10. Responding to a Fixed Event Date</h3>
+<h4>10.1 Constraint Priority</h4>
+<p>Because the event date is fixed, <strong>schedule becomes the dominant constraint</strong>.</p>
+<p>The team should:</p>
+<ol>
+<li>Identify must-have campaign deliverables.</li>
+<li>Remove or defer lower-value content.</li>
+<li>Identify critical dependencies.</li>
+<li>Reallocate resources to critical activities.</li>
+<li>Replace the failed contractor where necessary.</li>
+<li>Lock approvals to prevent further revision cycles.</li>
+<li>Secure the venue immediately.</li>
+</ol>
+<h4>10.2 Agile Response</h4>
+<p>If <strong>time and budget are constrained</strong>, scope should flex.</p>
+<p>Instead of attempting every planned asset, prioritise:</p>
+<ul>
+<li>Core launch video</li>
+<li>Highest-value social content</li>
+<li>Influencer content</li>
+<li>Essential event promotion</li>
+</ul>
+<p><strong>Protect the outcome, not every original deliverable.</strong></p>
+<hr>
+<h3>11. Useful Project Management Tools</h3>
+<h4>11.1 Work Breakdown Structure (WBS)</h4>
+<p>Use the WBS to identify:</p>
+<ul>
+<li>Remaining tasks</li>
+<li>Ownership</li>
+<li>Dependencies</li>
+<li>Estimated cost</li>
+<li>Completion status</li>
+</ul>
+<h4>11.2 Critical Path / Dependency Analysis</h4>
+<p>Identify activities that directly threaten the fixed launch date.</p>
+<p>Example:</p>
+<p><strong>Creative production → Approval → Scheduling → Publication → Promotion → Event</strong></p>
+<p>A delay early in this chain can affect every downstream activity.</p>
+<h4>11.3 Rolling Forecast</h4>
+<p>Replace reliance on the original budget with:</p>
+<p><strong>Original Budget → Actual Cost to Date → Estimate to Complete → Forecast Final Cost</strong></p>
+<h4>11.4 Risk Register</h4>
+<p>Track:</p>
+<ul>
+<li>Risk</li>
+<li>Probability</li>
+<li>Impact</li>
+<li>Owner</li>
+<li>Mitigation</li>
+<li>Contingency</li>
+</ul>
+<h4>11.5 Scope Prioritisation</h4>
+<p>Use:</p>
+<ul>
+<li><strong>Must have</strong></li>
+<li><strong>Should have</strong></li>
+<li><strong>Could have</strong></li>
+</ul>
+<p>to protect critical value when time becomes constrained.</p>
+<hr>
+<h3>12. Main Cost Drivers</h3>
+<h4>12.1 Largest Planned Costs</h4>
+<div class="tbl"><table><thead><tr><th>Cost Driver</th><th>Planned Cost</th></tr></thead><tbody><tr><td>Venue</td><td>$3,000</td></tr><tr><td>Internal labour</td><td>$3,075</td></tr><tr><td>Influencer package</td><td>$2,000</td></tr><tr><td>Ads</td><td>$1,500</td></tr><tr><td>Livestream crew</td><td>$1,200</td></tr></tbody></table></div>
+<h4>12.2 Main Cost-Variance Drivers</h4>
+<p>The largest planned cost is not necessarily the greatest risk.</p>
+<p>Important variance drivers include:</p>
+<ul>
+<li>Labour hours</li>
+<li>Revisions and rework</li>
+<li>Contractor availability</li>
+<li>External supplier pricing</li>
+<li>Venue booking timing</li>
+<li>Internal resource conflicts</li>
+</ul>
+<p><strong>Key distinction:</strong></p>
+<p><strong>Largest cost ≠ greatest cost risk</strong></p>
+<hr>
+<h3>13. Improving Cost Forecasting</h3>
+<h4>13.1 Estimate from the WBS</h4>
+<p>Estimate costs at task/work-package level rather than relying on a single campaign-wide estimate.</p>
+<h4>13.2 Track Labour Variance</h4>
+<p>Compare:</p>
+<p><strong>Budgeted hours → Actual hours → Forecast remaining hours</strong></p>
+<p>This would have identified the editing overrun early.</p>
+<h4>13.3 Lock External Costs Earlier</h4>
+<p>Secure quotes/contracts for:</p>
+<ul>
+<li>Influencers</li>
+<li>Venue</li>
+<li>Livestream crew</li>
+<li>External creative contractors</li>
+</ul>
+<h4>13.4 Confirm Internal Resource Capacity</h4>
+<p>Ensure designers, editors and other internal staff are genuinely available before committing to the schedule.</p>
+<h4>13.5 Use Historical Information</h4>
+<p>Previous campaigns already demonstrated:</p>
+<ul>
+<li>Late booking costs</li>
+<li>Influencer pricing uncertainty</li>
+<li>Internal resource conflicts</li>
+</ul>
+<p>Recurring issues should become <strong>forecast assumptions and risk allowances</strong>, not future surprises.</p>
+<hr>
+<h3>14. Weekly Sponsor Reporting</h3>
+<p>Reporting should be short, decision-oriented and forward-looking.</p>
+<div class="tbl"><table><thead><tr><th>Area</th><th>Key Question</th></tr></thead><tbody><tr><td>Schedule</td><td>Are we ahead, on or behind plan?</td></tr><tr><td>Scope</td><td>What has been delivered and what remains?</td></tr><tr><td>Cost</td><td>Budget vs actual vs forecast final cost?</td></tr><tr><td>Risks</td><td>What could materially affect delivery?</td></tr><tr><td>Issues</td><td>What has already occurred?</td></tr><tr><td>Decisions</td><td>What requires sponsor approval?</td></tr><tr><td>Next Week</td><td>What are the critical upcoming activities?</td></tr></tbody></table></div>
+<h4>14.1 Example Status Report</h4>
+<p><strong>Schedule: RED</strong></p>
+<ul>
+<li>50% of time elapsed</li>
+<li>30% of assets completed</li>
+<li>Assets not yet live</li>
+</ul>
+<p><strong>Budget: AMBER</strong></p>
+<ul>
+<li>Editing effort has doubled</li>
+<li>Replacement contractor may create further variance</li>
+</ul>
+<p><strong>Critical Issue</strong></p>
+<ul>
+<li>Venue deposit remains unpaid</li>
+</ul>
+<p><strong>Decision Required</strong></p>
+<ul>
+<li>Approve scope prioritisation</li>
+<li>Secure replacement contractor</li>
+<li>Finalise venue payment</li>
+</ul>
+<h4>14.2 Reporting Principle</h4>
+<p>Poor reporting:</p>
+<blockquote><p>“We spent $X this week.”</p></blockquote>
+<p>Better reporting:</p>
+<blockquote><p>“We have spent $X, expect another $Y to complete the remaining work, and therefore forecast a final project cost of $Z.”</p></blockquote>
+<p><strong>Sponsor reporting should focus on the forecast final outcome, not merely historical expenditure.</strong></p>
+<hr>
+<h3>15. What Can and Cannot Be Calculated</h3>
+<h4>15.1 Can Calculate</h4>
+<ul>
+<li>Baseline labour cost</li>
+<li>Overhead</li>
+<li>Starting project budget</li>
+<li>Contingency under stated assumptions</li>
+<li>Known editor cost variance</li>
+<li>Revenue required for the target profit margin</li>
+</ul>
+<h4>15.2 Cannot Reliably Calculate</h4>
+<ul>
+<li>Final project cost</li>
+<li>ROI</li>
+<li>Earned Value</li>
+<li>Cost Performance Index (CPI)</li>
+<li>Schedule Performance Index (SPI)</li>
+</ul>
+<p>The case does not provide sufficient information on:</p>
+<ul>
+<li>Actual total spending to date</li>
+<li>Budgeted value of completed work</li>
+<li>Remaining labour requirements</li>
+<li>Replacement contractor cost</li>
+<li>Expected campaign revenue/benefits</li>
+</ul>
+<p><strong>Do not manufacture precision where the underlying data does not exist.</strong></p>
+<hr>
+<h3>16. Recommended Management Response</h3>
+<p>The original <strong>$12,510 contingency-adjusted estimate should no longer be treated as the operative forecast</strong>.</p>
+<p>At the halfway point:</p>
+<ul>
+<li>Schedule performance is weak.</li>
+<li>Labour cost variance has emerged.</li>
+<li>A contractor has failed.</li>
+<li>The venue remains unsecured.</li>
+<li>The launch date is fixed.</li>
+</ul>
+<p>Management should therefore:</p>
+<ol>
+<li><strong>Reforecast the cost to completion.</strong></li>
+<li><strong>Secure critical external dependencies immediately.</strong></li>
+<li><strong>Prioritise must-have campaign assets.</strong></li>
+<li><strong>Flex lower-value scope to protect the launch date.</strong></li>
+<li><strong>Reallocate contingency toward the risks actually materialising.</strong></li>
+<li><strong>Report forecast cost and schedule outcomes weekly to the sponsor.</strong></li>
+</ol>
+<hr>
+<h3>Analytical Takeaways</h3>
+<ul>
+<li>The starting budget becomes less useful once actual performance diverges from assumptions; management needs a <strong>rolling forecast</strong>, not a defence of the original estimate.</li>
+<li>Schedule slippage can become a direct cost problem through overtime, replacement suppliers, expedited work and reduced negotiating power.</li>
+<li>Contingency should correspond to <strong>specific identified risks</strong> rather than operate as a generic financial cushion.</li>
+<li>When the event date is fixed, the most rational Agile response is often to <strong>flex lower-value scope</strong> rather than attempt to keep time, cost and scope simultaneously fixed.</li>
+<li>Project reporting should emphasise <strong>forecast final cost, delivery risk and decisions required</strong>, rather than simply reporting money already spent.</li>
+</ul>
+  </section>
+  <div class="doc-foot">
+    <p>DMBA 6005 Agile Project Development &middot; Week 5 &middot; live session</p>
+    <p>Built from my Obsidian vault on 31 August 2026. Lecturer and classmate names are withheld from every page on this site.</p>
+  </div>
+</main>
+</body>
+</html>
