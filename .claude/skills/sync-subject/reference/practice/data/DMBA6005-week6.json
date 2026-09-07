@@ -1,0 +1,295 @@
+{
+  "page": "DMBA6005-week6.html",
+  "quizIntro": "Ten questions across the three topics — six on Scrum, three on Gantt charts and one on the critical path, which is all the notes support so far. They target the confusions this week invites: a milestone that has a duration, burn-down read as velocity, a request that skips the Product Owner, and asking which tool is Agile instead of which question each tool answers.",
+  "applyIntro": "Five scenarios, three from Scrum and two from Gantt charts. There is none on critical path diagrams, because that topic is only partly written and a scenario would have to invent the rest. Each setup is qualitative, since the notes give reasoning rather than a worked dataset. Write your answer before opening a hint.",
+
+  "studyPath": {
+    "intro": "Three topics of uneven size. Scrum and Gantt charts are complete and argue with each other from block 03 onwards; critical path diagrams stops after one block and should not be relied on yet. A full pass takes a little over two hours.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Read Scrum, blocks 01 to 10, in order",
+        "detail": "Block 02 is the argument in miniature: a 1-day task underestimated by 100% costs a day, a 3-month one costs three months. Hold that when you reach block 03’s table, because every row is that comparison restated. Block 06’s separation chain — stakeholder uncertainty, Product Owner, prioritised backlog, Scrum Team — is what the scenarios test, and block 09’s two-question table decides most of the quiz.",
+        "time": "~30 min"
+      },
+      {
+        "goto": "summary",
+        "label": "Read Gantt Charts and the partial critical path topic, blocks 11 to 22",
+        "detail": "Block 13 gives the one test that runs through the rest — can it be partly done? — and blocks 15 and 16 apply it. Read block 19’s table until you can quote both questions. Blocks 21 and 22 are a different case: the notes define the critical path and then stop, and block 22 says so. Take the definition and the callout only; the comparison with Gantt visibility is not written, so nothing here or later assumes it.",
+        "time": "~30 min"
+      },
+      {
+        "goto": "formulas",
+        "label": "Fix the two formulas",
+        "detail": "There are only two: velocity, and minimum project duration as the maximum of the dependent paths. Neither needs arithmetic; what matters is what each is for. Velocity is a capacity and predictability metric, not a target, and the duration formula is why critical means schedule-constraining rather than difficult or important.",
+        "time": "~5 min"
+      },
+      {
+        "goto": "terms",
+        "label": "Work the glossary by source",
+        "detail": "Forty-three terms. Two of them appear twice under different sources — Percentage-complete estimate and Critical path — and reading both entries side by side shows how the Scrum and Gantt topics use the same idea. Filter to one source at a time and check you can state each term without the page.",
+        "time": "~15 min"
+      },
+      {
+        "goto": "cards",
+        "label": "Run the deck cold",
+        "detail": "Sixty-two cards. The judgement cards — what a flat burn-down line means, whether something with duration can be a milestone — are the ones worth saying out loud before flipping. The figure cards are checkable in a second: two weeks, fifteen minutes, 2 days and 6 months, specification 1.4.1 on 15th June.",
+        "time": "~20 min"
+      },
+      {
+        "goto": "quiz",
+        "label": "Sit the quiz without notes",
+        "detail": "Every distractor is a confusion this week sets up on purpose — the Scrum Master for the Product Owner, velocity for burn-down, a task for a milestone — so read the note on the option you rejected as well as the one you chose. The single critical path question asks only what block 21 states.",
+        "time": "~15 min"
+      },
+      {
+        "goto": "apply",
+        "label": "Work two scenarios end to end",
+        "detail": "Take one Scrum scenario and one Gantt scenario. The Scrum ones turn on who should be doing what; the Gantt ones turn on which question the tool answers. Write your reasoning before the first hint and mark against the checklist, not the walkthrough.",
+        "time": "~25 min"
+      }
+    ],
+    "close": "You have it when you can say, for any item on a schedule, whether it is a task or a milestone, and for any metric on a board, which question it answers and which it does not."
+  },
+
+  "quiz": [
+    {
+      "topic": "Scrum",
+      "q": "A colleague says adopting Scrum means giving up planning and discipline. According to the page, what does Scrum actually fix, and what does it leave free?",
+      "hint": "The page names three things that are rigid and one thing that is adaptable.",
+      "options": [
+        { "t": "It fixes the scope of what gets built and leaves the process flexible", "ok": false, "note": "Reversed. The structure — fixed sprint periods, defined roles, regular ceremonies — is what is rigid; what gets built can remain highly adaptable." },
+        { "t": "It fixes nothing, because Scrum is a rejection of planning", "ok": false, "note": "The page says the opposite: Scrum is a specific implementation of Agile, not a rejection of planning or discipline. Planning is not removed, it is repeated on a short horizon." },
+        { "t": "It fixes the structure — sprint periods, roles, ceremonies — and leaves what gets built adaptable", "ok": true, "note": "Correct. The structure is deliberately quite rigid, but what gets built can remain highly adaptable. Uncertainty is managed through short feedback cycles rather than detailed long-term forecasts." },
+        { "t": "It fixes a detailed long-term forecast and adjusts it at each sprint", "ok": false, "note": "Scrum replaces long-range task prediction with a repeated cycle. Its strategic implication is that uncertainty is managed through short feedback cycles rather than increasingly detailed long-term forecasts." }
+      ]
+    },
+    {
+      "topic": "Scrum",
+      "q": "A 1-day task and a 3-month task are each underestimated by 100%. What does the page draw from the comparison?",
+      "hint": "Same percentage, very different consequence.",
+      "options": [
+        { "t": "The 1-day task becomes 2 days and the 3-month task becomes 6 months, so atomising makes estimation errors less damaging", "ok": true, "note": "Correct. That is exactly the page’s example: atomising large deliverables into many small, independently completable tasks means the same estimation error costs a day rather than three months." },
+        { "t": "Both errors are equally serious, because both are 100%", "ok": false, "note": "The percentage is the same but the damage is not. The page uses the pair to show why Scrum atomises work: estimation errors become less damaging when tasks are small." },
+        { "t": "Atomising removes the need to estimate at all", "ok": false, "note": "The page does not say estimation stops. It says progress becomes closer to binary — done or not done — which reduces reliance on subjective percentage-complete estimates. Estimation continues; its errors are smaller." },
+        { "t": "The 3-month task should be reported as 60% complete instead", "ok": false, "note": "That is the false precision the page warns about: estimating that a three-month task is “60% complete” says little about whether it will actually finish on time." }
+      ]
+    },
+    {
+      "topic": "Scrum",
+      "q": "A developer is stuck waiting on another team. In the Scrum role structure, whose primary responsibility is removing that blocker?",
+      "hint": "Two of the roles have a boundary or a backlog to look after. One has the process.",
+      "options": [
+        { "t": "The Product Owner", "ok": false, "note": "The Product Owner represents users and stakeholders and maintains and prioritises the backlog. The managerial logic is shielding the team from competing stakeholder demands, not clearing blockers." },
+        { "t": "The stakeholders who requested the work", "ok": false, "note": "The page’s separation keeps stakeholders on the far side of the Product Owner, precisely so they do not continuously interrupt delivery. They are not part of the delivery mechanism." },
+        { "t": "The developer alone, because the team self-organises", "ok": false, "note": "The Scrum Team does self-organise, and the page says different capabilities can be redirected toward whichever blockers matter most. But removing blockers is listed as the Scrum Master’s primary responsibility." },
+        { "t": "The Scrum Master", "ok": true, "note": "Correct. The Scrum Master facilitates the Scrum process, removes blockers and supports team effectiveness — reducing delivery friction without relying on traditional command-and-control management." }
+      ]
+    },
+    {
+      "topic": "Scrum",
+      "q": "Midway through a sprint a stakeholder asks for a new feature. Where does the page say that request should go?",
+      "hint": "Follow the separation chain in block 06 from left to right.",
+      "options": [
+        { "t": "Straight into the sprint backlog, because the team must stay responsive", "ok": false, "note": "The sprint backlog is the subset selected for the current sprint. Once the sprint begins, the team focuses primarily on the committed work rather than continually reacting to wider stakeholder requests." },
+        { "t": "To the Product Owner, to be prioritised in the product backlog for a future sprint", "ok": true, "note": "Correct. The chain is stakeholder uncertainty → Product Owner → prioritised backlog → Scrum Team. The Product Owner continuously works on future priorities, and priorities can change between sprints." },
+        { "t": "To the Scrum Master, who decides whether to accept it", "ok": false, "note": "The Scrum Master facilitates the process and removes blockers. Maintaining and prioritising the backlog is the Product Owner’s responsibility, not the Scrum Master’s." },
+        { "t": "To the daily stand-up, where the team decides on it", "ok": false, "note": "The stand-up is a 15-minute meeting for coordination and blocker identification built around three questions. It is not a forum for stakeholder requests." }
+      ]
+    },
+    {
+      "topic": "Scrum",
+      "q": "Which measure answers the question “are we on track within this sprint?”",
+      "hint": "The page puts two metrics side by side and gives each its own question.",
+      "options": [
+        { "t": "The burn-down chart", "ok": true, "note": "Correct. Burn-down answers “are we on track within this sprint?” — it shows how much work remains as the sprint progresses, read against an ideal line that reaches zero at sprint completion." },
+        { "t": "Velocity", "ok": false, "note": "Velocity answers a different question: how much work can this team normally complete per sprint? It is a capacity and predictability metric measured across sprints." },
+        { "t": "The percentage complete of the largest task", "ok": false, "note": "That is the subjective estimate Scrum exists to reduce reliance on. The page’s point is that a small task is either done or not done." },
+        { "t": "The story-point total of the sprint backlog", "ok": false, "note": "That is the starting quantity of remaining work. On its own it says nothing about whether the work is on track; the burn-down is that total tracked against time within the sprint." }
+      ]
+    },
+    {
+      "topic": "Scrum",
+      "q": "Partway through a sprint the burn-down shows remaining work increasing. What is the page’s reading, and its response?",
+      "hint": "Five patterns are tabled. Only one has the line going the wrong way.",
+      "options": [
+        { "t": "Tasks were overestimated; increase future commitment cautiously", "ok": false, "note": "That is the response to work burning down much faster than ideal — the opposite shape." },
+        { "t": "Little work is being completed; identify the blocker or bottleneck", "ok": false, "note": "That is the reading of a flat line. Here the line is rising, which is a different signal." },
+        { "t": "New work or scope has entered; investigate scope control and backlog discipline", "ok": true, "note": "Correct. Remaining work increasing means new work or scope has entered the sprint, and the management response is to investigate scope control and backlog discipline." },
+        { "t": "Velocity has fallen; set a higher velocity target for the team", "ok": false, "note": "Velocity is a capacity and predictability metric, not a target for maximising employee speed. The pattern here is about scope entering the sprint, not about the team’s capacity." }
+      ]
+    },
+    {
+      "topic": "Gantt Charts",
+      "q": "Which of these items is a milestone?",
+      "hint": "Apply one test: can it be partly done?",
+      "options": [
+        { "t": "“Complete testing next week”", "ok": false, "note": "This is the page’s named common mistake — a milestone turned into an elaborate task. It has duration and can be partially complete, so it is a task." },
+        { "t": "“Printer works by next week”", "ok": false, "note": "Vague and effectively describing continuing activity. The page’s wording table marks it: not a milestone." },
+        { "t": "“Testing 80% complete”", "ok": false, "note": "If it can be 80% complete, it is probably a task. Milestone achievement is binary — passed or not passed." },
+        { "t": "“Passes specification 1.4.1 on 15th June”", "ok": true, "note": "Correct. Defined test, defined date, binary result. It occurs at a date but does not itself occupy a period of time." }
+      ]
+    },
+    {
+      "topic": "Gantt Charts",
+      "q": "A programme manager asks when the integration work should happen relative to a vendor’s delivery. Which tool answers that, and why?",
+      "hint": "Each tool has a primary orientation and a main question in block 19.",
+      "options": [
+        { "t": "The Kanban board, because it shows real-time execution", "ok": false, "note": "The board’s question is “what is happening now?” Its horizon is immediate operational work, and its strength is real-time execution visibility — not when work should happen across the project." },
+        { "t": "The Gantt chart, because its orientation is time and its question is when work should happen", "ok": true, "note": "Correct. The Gantt chart is oriented to time, asks “when should work happen?”, covers the whole project or roadmap, and its strengths are forecasting, dependencies, milestones and deadlines." },
+        { "t": "The burn-down chart, because it tracks remaining work against time", "ok": false, "note": "The burn-down’s horizontal axis is time within the sprint. It answers whether the sprint is on track, not how work is sequenced across the project." },
+        { "t": "Neither, because a hybrid project has to choose one", "ok": false, "note": "The page says a hybrid digital project can legitimately use both. Neither tool replaces the other; they work at different levels." }
+      ]
+    },
+    {
+      "topic": "Gantt Charts",
+      "q": "A project schedule is a handful of six-month bars with nothing between their start and finish. What is the page’s diagnosis?",
+      "hint": "The granularity table has three rows. Which one is this?",
+      "options": [
+        { "t": "Too granular: the schedule is cluttered and expensive to maintain", "ok": false, "note": "That is the opposite failure. Too granular means dozens of tiny bars that are costly to maintain and difficult to interpret." },
+        { "t": "Appropriate, because summary tasks are meant to give an overview", "ok": false, "note": "A summary task groups related tasks to provide a managerial-level overview, but six-month bars give very weak operational visibility unless supported by smaller tasks and milestones. The overview alone cannot do the control job." },
+        { "t": "Too large: delays and bottlenecks stay hidden and progress estimates become unreliable", "ok": true, "note": "Correct. Tasks that are too large or vague hide delays and bottlenecks and make progress estimates unreliable. Managers should distrust a schedule built from large tasks without frequent binary milestones." },
+        { "t": "Out of date, which creates false confidence", "ok": false, "note": "That is a separate failure from block 18, and nothing in the setup says the schedule has not been maintained. The problem described here is granularity." }
+      ]
+    },
+    {
+      "topic": "Critical path diagrams",
+      "q": "Which statement about the critical path matches what the page states?",
+      "hint": "The definition is about duration and dependency, and the callout says what “critical” does not mean.",
+      "options": [
+        { "t": "It is the path containing the project’s most difficult and expensive activities", "ok": false, "note": "The callout is explicit: critical does not mean difficult, expensive or important to the manager. It means schedule-constraining because of dependencies." },
+        { "t": "It is the longest-duration dependent path, and it sets the shortest possible completion time", "ok": true, "note": "Correct. Because all activities on that path must occur in sequence, it determines the shortest possible project completion time — minimum project duration is the maximum of the dependent paths." },
+        { "t": "It is the shortest path through the project, so it shows the earliest finish", "ok": false, "note": "Backwards. The shorter dependent path finishes earlier and does not constrain the schedule; it is the longest path that fixes how soon the project can finish." },
+        { "t": "It is the path with the most activities, whatever their durations", "ok": false, "note": "The page defines it by duration — the longest-duration dependent path — and the formula takes the maximum duration of each dependent path, not a count of activities." }
+      ]
+    }
+  ],
+
+  "scenarios": [
+    {
+      "topic": "Scrum",
+      "title": "Scope creeping into the sprint",
+      "setup": "A product team runs two-week sprints. In each of the last three, the burn-down has shown remaining work rising partway through the sprint rather than falling, and the sprint has ended with work still open. Stakeholders from two business units have been messaging developers directly with small additions during the sprint, and the developers have been taking them on to stay helpful.",
+      "task": "Diagnose what the burn-down is showing and explain which part of the Scrum structure is being bypassed.",
+      "hints": [
+        "Match the burn-down shape to the page’s pattern table before saying anything about people.",
+        "Where is stakeholder uncertainty supposed to enter the structure, and where is it entering here?",
+        "The fix is not to refuse the requests. It is to route them somewhere specific, at a specific time."
+      ],
+      "walkthrough": [
+        "Read the pattern: remaining work increasing means new work or scope has entered the sprint. The page’s response is to investigate scope control and backlog discipline.",
+        "Name the bypass. The separation runs stakeholder uncertainty → Product Owner → prioritised backlog → Scrum Team. Requests going straight to developers skip the Product Owner entirely, which is the boundary the structure depends on.",
+        "Recall what the sprint commitment is for: once a sprint begins, the team focuses primarily on the committed work rather than continually reacting to wider stakeholder requests. That is what makes the cadence predictable.",
+        "Route the requests to the Product Owner, who maintains and prioritises the product backlog and shields the team from competing demands. They can enter a sprint backlog at the next sprint planning, because priorities can change between sprints.",
+        "Close on the takeaways’ question: poor sprint outcomes can be caused by the wrong amount of work being fed into the sprint, not by team performance. The fix sits with the boundary, not with the developers."
+      ],
+      "checklist": [
+        "Reads the rising line as scope entering, not as slow work",
+        "States the separation chain and identifies where it is broken",
+        "Explains why the sprint commitment matters",
+        "Routes the requests to the Product Owner and the next sprint planning",
+        "Locates the cause in the structure rather than the team"
+      ]
+    },
+    {
+      "topic": "Scrum",
+      "title": "The stand-up that became a meeting",
+      "setup": "A team’s daily stand-up now runs close to an hour. Whoever is blocked explains the problem in full and the room works it through on the spot, while everyone else waits. On the board, one card has sat in Work in Progress for the whole sprint. The Scrum Master has been chairing the discussions rather than acting on them.",
+      "task": "Set out what the stand-up should be, what the lingering card is telling you, and who should be doing what.",
+      "hints": [
+        "Start with the page’s figure for the stand-up and its three questions.",
+        "A persistent card in Work in Progress is a named warning sign for four things.",
+        "The page separates raising a blocker from resolving it. Where does resolution happen, and whose responsibility is it?"
+      ],
+      "walkthrough": [
+        "Restore the format: a 15-minute meeting around the board, built on three questions — what did I complete, what am I working on, what is blocking me. Its purpose is coordination and blocker identification, not solving every problem during the meeting.",
+        "Apply the page’s rule: a blocker raised in the stand-up should trigger follow-up action afterwards rather than turning the stand-up itself into a long problem-solving session.",
+        "Read the card. Persistent cards in Work in Progress are a visible warning sign for blockers, underestimated complexity, dependency problems or excessive work-in-progress. A card that has sat there all sprint needs investigating, not waiting.",
+        "Assign the follow-up. Removing blockers and supporting team effectiveness is the Scrum Master’s primary responsibility, and the logic is reducing friction without command-and-control; chairing an hour-long discussion is neither. Cross-functional team members can immediately identify where they can help, and the team can redirect capabilities toward whichever blockers matter most.",
+        "State why it matters: the stand-up exposes problems when they are still small, and its short cadence creates accountability without continuous managerial supervision. Progress visibility is meant to reduce the need for lengthy status meetings — an hour-long stand-up recreates the meeting it was meant to replace."
+      ],
+      "checklist": [
+        "Quotes the 15-minute format and the three questions",
+        "Separates raising a blocker from solving it",
+        "Reads the persistent card against the page’s four warning signs",
+        "Gives the follow-up to the Scrum Master and the cross-functional team",
+        "Explains what the stand-up is for in terms of visibility and accountability"
+      ]
+    },
+    {
+      "topic": "Scrum",
+      "title": "Velocity as a target",
+      "setup": "A delivery director has noticed that a team’s velocity swings widely from sprint to sprint. The proposed fix is to set a velocity figure for each sprint that must beat the previous one, publish it, and use it to compare individual team members. The team has also been changing how it breaks down its tasks from sprint to sprint, and lost a member partway through the quarter.",
+      "task": "Advise whether this is the right use of velocity, and what the volatility should prompt instead.",
+      "hints": [
+        "What does the page say velocity is primarily for, and what does it say velocity is not?",
+        "The page lists five things highly volatile velocity suggests. Two of them are in the setup.",
+        "The takeaways have a view on what happens to a metric once people are measured against it."
+      ],
+      "walkthrough": [
+        "State what velocity is: the amount of work completed by a scrum team during one sprint, usually in story points or another consistent internal measure. It is primarily a capacity and predictability metric, not a target for maximising employee speed.",
+        "Read the volatility as a diagnosis. Highly volatile velocity suggests poor estimation, changing team capacity, inconsistent task decomposition, blockers or dependencies, or unstable scope. The setup shows two of these directly: the lost team member and the changing task breakdown.",
+        "Say what stable velocity buys: it improves future sprint commitments, reduces overpromising, enables better resource planning and signals that task sizing and capacity are becoming understood. The value is in the commitment loop, not in the number rising.",
+        "Name the harm in the proposal. The takeaways say the strongest Scrum metrics are diagnostic rather than punitive: burn-down and velocity should improve planning accuracy and capacity matching, not become targets employees manipulate. A published, rising, individual target is the opposite of that.",
+        "Replace it with the page’s loop — plan sprint, observe burn-down, measure completed work, update expected velocity, improve the next sprint commitment — and put the takeaways’ question to the director: are poor sprint outcomes caused by team performance, bad task decomposition, blockers, or the Product Owner feeding the wrong amount of work into the sprint?"
+      ],
+      "checklist": [
+        "Defines velocity as a capacity and predictability metric, not a target",
+        "Maps the setup onto the page’s causes of volatile velocity",
+        "Explains what a stable velocity is used for",
+        "Identifies the diagnostic-versus-punitive point from the takeaways",
+        "Proposes the planning loop in place of the target"
+      ]
+    },
+    {
+      "topic": "Gantt Charts",
+      "title": "Three milestones, one milestone",
+      "setup": "A schedule review of a systems project turns up three items listed as milestones: “Testing 80% complete”, “Printer works by next week”, and “Passes specification 1.4.1 on 15th June”. All the rigorous checkpoints sit on the software stream; the hardware and training streams run as long bars with nothing between their start and finish. One of the software checkpoints sits on the critical path.",
+      "task": "Decide which items are real milestones, and set out how the milestone discipline across the whole schedule should change.",
+      "hints": [
+        "Apply one test to each item: can it be partly done?",
+        "The SMART list and the wording table settle the three items. The five practices settle the schedule.",
+        "Not every late milestone carries the same consequence, and the page says why."
+      ],
+      "walkthrough": [
+        "Apply the definition: a milestone is a significant event with no duration, a point at which something has been fully achieved. It is binary — passed or not passed, go or no-go. If it has duration or can be partially complete, it is a task.",
+        "Sort the three. “Testing 80% complete”: if it can be 80% complete, it is probably a task. “Printer works by next week”: vague and effectively describing continuing activity — not a milestone. “Passes specification 1.4.1 on 15th June”: defined test, defined date, binary result — a milestone. Note that time-framed does not mean duration: it occurs at a date without occupying a period.",
+        "Explain why it matters. Percentage-complete estimates within large tasks can be unreliable; a milestone reduces progress to a single question — has the defined condition been achieved or not? — which gives much stronger evidence about whether the project is progressing or beginning to drift.",
+        "Apply the five practices to the schedule: define milestones early; use frequent checkpoints, because long periods without them let drift stay invisible until recovery is difficult; cover the whole project rather than placing rigorous milestones around one stream while the hardware and training streams go untested; make achievement binary; and pay particular attention to the critical path.",
+        "Weigh the critical-path checkpoint. A delayed milestone outside the critical path may be recoverable without delaying final completion; a delay on the critical path can move the entire project completion date. Stop there — the notes treat critical-path mechanics separately and have not yet written the comparison."
+      ],
+      "checklist": [
+        "Applies the no-duration, binary test to each item",
+        "Reaches the right verdict on all three wordings",
+        "Explains the evidential difference between a checkpoint and a percentage",
+        "Applies all five design practices, including whole-project coverage",
+        "Distinguishes a late milestone on the critical path from one off it"
+      ]
+    },
+    {
+      "topic": "Gantt Charts",
+      "title": "Agile now, so drop the Gantt",
+      "setup": "A hybrid digital programme has several teams working in sprints on boards, a vendor delivering components on a fixed schedule, and a deployment date the client will not move. The sponsor proposes retiring the programme’s Gantt chart, on the grounds that the teams are Agile now and the boards show everything. The chart, it turns out, has not been updated for some time and still shows the original vendor dates.",
+      "task": "Decide whether to keep the Gantt chart, and if so on what condition.",
+      "hints": [
+        "Ask what question each tool answers, rather than which tool is Agile.",
+        "The page names the settings where a Gantt chart is particularly useful. Several of them are in the setup.",
+        "The chart’s current state is a separate problem from whether the chart should exist."
+      ],
+      "walkthrough": [
+        "Separate the two questions. The Gantt chart is oriented to time and asks when work should happen, across the whole project or roadmap. The Kanban or Scrum board is oriented to flow and asks what is happening now, over immediate operational work.",
+        "Match the setup to the page’s uses. Fixed client or deployment deadlines, coordinating interdependent work, stakeholder communication and hybrid agile–waterfall projects are exactly where the Gantt chart is particularly useful. Scrum and Kanban manage short-term workflow; the Gantt chart remains useful above the sprint level, and a hybrid digital project can legitimately use both.",
+        "Reframe the sponsor’s question. The relevant question is not which tool is Agile but what level of uncertainty and coordination needs to be managed — immediate workflow or the wider project timeline. This programme has both.",
+        "Confront the chart’s state. A Gantt chart is useful only while its assumptions match the project. Outdated, it creates false confidence, because stakeholders may make decisions from a schedule that no longer represents actual delivery conditions; without updating it becomes historical documentation.",
+        "Set the condition: keep it, with continuous maintenance and re-forecasting so that it can show emerging delays, changing dependencies, milestone risk, resource conflicts and impacts on downstream deadlines — and judge it by whether it represents current reality strongly enough to support decisions before delays become irreversible."
+      ],
+      "checklist": [
+        "States the different question each tool answers",
+        "Connects the setup to the page’s named uses of a Gantt chart",
+        "Replaces the which-tool-is-Agile question with the level-of-coordination question",
+        "Names false confidence as the cost of the stale chart",
+        "Makes continuous re-forecasting the condition for keeping it"
+      ]
+    }
+  ]
+}

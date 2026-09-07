@@ -2519,11 +2519,32 @@
         { abbr: 'ROI', long: 'Return on Investment', def: 'Written out in my notes. It shows the return generated relative to the amount invested, and is most useful where the investment horizon is short enough that cash-flow timing is less central to the decision.', src: 'Working out costs' },
         { abbr: 'KPI', long: 'Key Performance Indicator', def: 'Never written out in the notes; the standard expansion is used here. The page uses it to make the point that a balanced scorecard\'s value lies in the causal links between objectives, not in generating more KPIs.', src: 'Non-financial options' },
       ];
+
+      buildRef('acronyms', ACRONYMS, function (a) {
+        return '<article class="term" data-search="' +
+          escapeHtml((a.abbr + ' ' + a.long + ' ' + a.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' +
+          '<span class="term-abbr">' + escapeHtml(a.abbr) + '</span>' +
+          (a.long ? ' &middot; <span class="term-long">' + escapeHtml(a.long) + '</span>' : '') +
+          '</h3><span class="term-src">' + escapeHtml(a.src) + '</span></div>' +
+          (a.def ? '<p class="term-def">' + escapeHtml(a.def) + '</p>' : '') +
+          '</article>';
+      }, 'No acronyms match that filter.');
       var FORMULAS = [
         { name: 'Discount factor', expr: 'Discount factor = 1 / (1+r)^n', def: 'The multiplier that converts a future cash flow to its present value, where r is the discount rate and n is the number of periods into the future. As r or n increases, the present value of a future cash flow falls.', src: 'Working out costs' },
         { name: 'Return on investment', expr: 'ROI = (Benefits - Project costs) / Project costs', def: 'The return generated relative to the amount invested. A higher ROI indicates more benefit generated per dollar of project cost.', src: 'Working out costs' },
         { name: 'Weighted project score', expr: 'Weighted project score = \u03a3 (criterion score \u00d7 criterion weight)', def: 'The weighted scoring model. Each project is scored against each criterion, each score is multiplied by that criterion\'s weight, and the products are summed to rank the alternatives. Weights should total 100%.', src: 'Non-financial options' },
       ];
+
+      buildRef('formulas', FORMULAS, function (f) {
+        return '<article class="term" data-search="' +
+          escapeHtml((f.name + ' ' + f.expr + ' ' + f.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' + escapeHtml(f.name) + '</h3>' +
+          '<span class="term-src">' + escapeHtml(f.src) + '</span></div>' +
+          '<div class="term-formula">' + escapeHtml(f.expr) + '</div>' +
+          (f.def ? '<p class="term-def">' + escapeHtml(f.def) + '</p>' : '') +
+          '</article>';
+      }, 'No formulas match that filter.');
 
       /* ── Flashcards ───────────────────────────────────────── */
       var CARDS = /*CARDS*/[

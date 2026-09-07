@@ -1,0 +1,451 @@
+{
+  "page": "DMBA6008-week5.html",
+  "quizIntro": "Ten questions across the four topics. They target the confusions this week invites: cash for all investors against cash for the owners, today’s dividend against next period’s, a Year 5 terminal value against what it is worth today, and a historical ratio against the forecast assumption it becomes. Every wrong option is a mistake someone actually makes with this material.",
+  "applyIntro": "Five scenarios across the four topics. Three are qualitative, because the page gives no figures for them and inventing some would teach the wrong habit; the terminal-value scenario and the drivers scenario use only the numbers the notes supply — the $90m, 3%, 15%, $92.7m, $772.5m, $384.1m, $633.8m and $6.34 chain, and the dashboard levels. Commit to an answer before opening the walkthrough.",
+  "studyPath": {
+    "intro": "Four topics that build on one another: the cash-flow pathway defines what is being valued, the Gordon Growth Model prices it in one line, the DCF stretches that into a year-by-year forecast, and the driver dashboard is where the forecast actually comes from. A full pass takes a little over two hours.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Walk the pathway to the owners",
+        "time": "~20 min",
+        "detail": "Blocks 01 to 06. Hold the six stages in order — Assets, Cash Profit, Reinvestment, Cash for all investors, Debt obligations, Cash for owners — and be able to say what is subtracted at each one. FCFF and FCFE are different numbers separated by interest and debt repayments; the whole week rests on not confusing them."
+      },
+      {
+        "goto": "summary",
+        "label": "Price a growing perpetuity",
+        "time": "~20 min",
+        "detail": "Blocks 07 to 12. Three inputs, in order: total dividends to DPS₀, roll it forward one period to D₁, then divide by Rₑ − g. Note which dividend goes in the numerator and why, and then dwell on the denominator — the page says the two inputs that share it deserve more scrutiny than the arithmetic."
+      },
+      {
+        "goto": "summary",
+        "label": "Work the terminal-value chain by hand",
+        "time": "~30 min",
+        "detail": "Blocks 13 to 19. Cover the page and reproduce the worked example: $90m grown at 3% to $92.7m, divided by 0.15 − 0.03 to $772.5m, then divided by 1.15⁵ to $384.1m. The third step is the one the notes flag as the common mistake. Do not try to back out the explicit-FCFE figure — the notes give the $633.8m total and the $384.1m part, and nothing else."
+      },
+      {
+        "goto": "summary",
+        "label": "Read the dashboard as assumptions",
+        "time": "~20 min",
+        "detail": "Blocks 20 to 26. Nine ratios, each with a calculation, a current level and a role in the forecast. The point is the transition the page describes — a ratio such as 5.05× asset utilisation stops being a performance measure and becomes the mechanism that turns a revenue forecast into an asset base, and therefore into reinvestment that never reaches shareholders."
+      },
+      {
+        "goto": "formulas",
+        "label": "Drill the formulas",
+        "time": "~15 min",
+        "detail": "Filter for “terminal” and follow one thread: FCFE₆ = FCFE₅(1 + g), TV₅ = FCFE₆ / (Rₑ − g), PV(TV) = TV₅ / (1 + Rₑ)⁵. Then filter for “revenue” and see how many of the nine dashboard calculations have it as numerator or denominator — that is why a revenue forecast propagates through the whole model."
+      },
+      {
+        "goto": "cards",
+        "label": "Drill the numbers and the directions",
+        "time": "~15 min",
+        "detail": "Eighty-seven cards. The direction cards matter most — what a higher D₁, g or Rₑ does to value, what a lower operating cost margin does to EBITDA. The nine dashboard levels should come back unprompted, because the scenario questions turn on which ratio is doing the work."
+      },
+      {
+        "goto": "quiz",
+        "label": "Test the distinctions",
+        "time": "~10 min",
+        "detail": "Ten questions aimed at what this material gets wrong in practice: adding a Year 5 value to today’s figures, dividing today’s dividend instead of next year’s, and reading a historical ratio as a forecast."
+      }
+    ],
+    "close": "You have it when you can take a revenue forecast, say which dashboard ratios turn it into reinvestment and financing obligations, name the residual that is left for owners, and explain why its terminal value has to travel back to today before it is worth anything."
+  },
+  "quiz": [
+    {
+      "topic": "How much cash for the owners",
+      "q": "A firm’s FCFF is large and positive. On the page’s pathway, what still stands between that figure and the cash its owners receive?",
+      "hint": "FCFF is cash for all investors. Ask which investors are served first.",
+      "options": [
+        {
+          "t": "Nothing — FCFF is the cash available to the owners.",
+          "ok": false,
+          "note": "FCFF is the cash for all investors, debt and equity together. The page is explicit that debt holders rank first, so FCFF is not yet the owners’ figure."
+        },
+        {
+          "t": "Working capital investment and CapEx.",
+          "ok": false,
+          "note": "Those two are already deducted to reach FCFF — FCFF = Cash profit generated by assets - Working capital investment - CapEx. They come before FCFF, not after it."
+        },
+        {
+          "t": "Interest payments and debt repayments.",
+          "ok": true,
+          "note": "The two debt obligations the page names. Free cash flow available to equity holders = FCFF - Interest - Debt repayments, and that residual is approximately dividends."
+        },
+        {
+          "t": "The dividend itself.",
+          "ok": false,
+          "note": "The dividend is what the owners’ cash approximately is — the end of the pathway, not an obstacle on it. The page writes Free Cash Flow to Equity ~= Dividends."
+        }
+      ]
+    },
+    {
+      "topic": "How much cash for the owners",
+      "q": "The page gives three conditions under which a company generates substantial operating cash yet little cash for its owners. Which of these is NOT one of them?",
+      "hint": "Three of the four sit on the pathway between cash profit and cash for owners. One works in a different direction entirely.",
+      "options": [
+        {
+          "t": "Working-capital requirements are high.",
+          "ok": false,
+          "note": "This is the first of the three conditions the page lists. Working capital is one of the two forms of reinvestment that take cash before anything reaches investors."
+        },
+        {
+          "t": "Maintaining or growing the asset base requires substantial CapEx.",
+          "ok": false,
+          "note": "The second condition. CapEx replaces depreciating assets or acquires assets needed for growth, and it comes out of cash profit before FCFF."
+        },
+        {
+          "t": "Debt servicing absorbs significant cash.",
+          "ok": false,
+          "note": "The third condition. Interest and debt repayments come out of FCFF before equity holders receive anything."
+        },
+        {
+          "t": "The operating cost margin has fallen.",
+          "ok": true,
+          "note": "Not one of the three, and it points the other way: the driver topic says a decrease in the operating cost margin increases EBITDA and future cash generation. A falling margin makes more cash, not less."
+        }
+      ]
+    },
+    {
+      "topic": "Simple business valuation",
+      "q": "A company has just paid a dividend of D₀ per share and expects dividends to grow at g. What goes in the numerator of P₀ = D₁ / (Rₑ − g)?",
+      "hint": "Present value is based on future cash flows, and the dividend just paid is not one.",
+      "options": [
+        {
+          "t": "D₀, the dividend just paid.",
+          "ok": false,
+          "note": "The page states that valuation uses the next-period dividend, not today’s, because present value is based on future cash flows. D₀ is rolled forward, not used directly."
+        },
+        {
+          "t": "D₀(1 + g), the dividend expected next period.",
+          "ok": true,
+          "note": "D₁ = D₀(1 + g) is the second of the three moves the page sets out, after converting total dividends to a per-share figure and before applying Rₑ."
+        },
+        {
+          "t": "D₀ / (1 + g), today’s dividend brought back a period.",
+          "ok": false,
+          "note": "This moves the wrong way. The model rolls today’s dividend forward one period at the growth rate; it does not discount it back."
+        },
+        {
+          "t": "The company’s total dividends, grown at g.",
+          "ok": false,
+          "note": "The GGM prices a share, so the first move is DPS₀ = Total dividends / Shares outstanding. Total dividends grown at g would give a company-level figure, not a share price."
+        }
+      ]
+    },
+    {
+      "topic": "Simple business valuation",
+      "q": "Two analysts agree on D₁ but differ by a small amount on g. Why can that produce a large difference in the estimated value?",
+      "hint": "Look at where g sits in the formula, and what else sits there with it.",
+      "options": [
+        {
+          "t": "Because g sits in the denominator Rₑ − g, so a small change in it materially changes the estimated value.",
+          "ok": true,
+          "note": "The page’s own explanation: the denominator Rₑ − g makes the valuation particularly sensitive to assumptions about growth and required return, which is why those assumptions deserve more scrutiny than the arithmetic."
+        },
+        {
+          "t": "Because g multiplies D₁ directly, so any change in g scales the whole numerator.",
+          "ok": false,
+          "note": "g does appear in D₁ = D₀(1 + g), but that is a single period of growth. The leverage the page describes comes from the denominator, not the numerator."
+        },
+        {
+          "t": "Because the model applies g to the company’s total dividends rather than to a per-share figure.",
+          "ok": false,
+          "note": "The model works per share — DPS₀ is the first of the three moves. Which figure g is applied to is not what makes the valuation sensitive."
+        },
+        {
+          "t": "Because a higher g automatically raises Rₑ by the same amount.",
+          "ok": false,
+          "note": "The page treats g and Rₑ as separate inputs with opposite effects — higher g raises value, higher Rₑ lowers it. It does not state that one moves the other."
+        }
+      ]
+    },
+    {
+      "topic": "Simple business valuation",
+      "q": "Management wants a higher share price without changing next year’s dividend. Which lever does the page give them?",
+      "hint": "The page names three ways management creates shareholder value. Only one of them leaves the cash distribution alone.",
+      "options": [
+        {
+          "t": "Grow revenue, since share price is a multiple of current profit.",
+          "ok": false,
+          "note": "The page says the opposite: share price is the present value of future shareholder cash flows, not simply a multiple of current profit. Revenue is not one of the three levers."
+        },
+        {
+          "t": "Lower the assumed g so that the valuation looks conservative.",
+          "ok": false,
+          "note": "A lower g lowers the value — future dividends compound more slowly. Conservatism is a virtue in the terminal growth assumption, but it moves the price down, not up."
+        },
+        {
+          "t": "Issue more shares so that more dividends are paid in total.",
+          "ok": false,
+          "note": "DPS₀ = Total dividends / Shares outstanding. More shares against the same total dividends lowers the per-share figure the model prices."
+        },
+        {
+          "t": "Manage risk sufficiently to reduce investors’ required return Rₑ.",
+          "ok": true,
+          "note": "The third of the three levers the page gives: increase sustainable cash to owners, create credible long-term growth, or manage risk to reduce the required return. A lower Rₑ shrinks the denominator and raises P₀."
+        }
+      ]
+    },
+    {
+      "topic": "Business valuation DCF Model",
+      "q": "Using the page’s example — FCFE₅ = $90m, g = 3%, Rₑ = 15% — an analyst adds $772.5m to the present value of the explicit FCFE to reach equity value. What has gone wrong?",
+      "hint": "Ask what date the $772.5m is expressed at.",
+      "options": [
+        {
+          "t": "They used FCFE₅ instead of FCFE₆ in the terminal value.",
+          "ok": false,
+          "note": "The $772.5m already uses FCFE₆: 92.7 / (0.15 − 0.03). The growth step was done correctly."
+        },
+        {
+          "t": "Nothing — $772.5m is the terminal value and it is added to the explicit present value.",
+          "ok": false,
+          "note": "It is the terminal value, but the page is explicit that it is a Year 5 value, not today’s value, and cannot be added to anything until it is discounted back."
+        },
+        {
+          "t": "They added a Year 5 value to today’s figures. The amount to add is 772.5 / 1.15⁵ = $384.1m.",
+          "ok": true,
+          "note": "The common mistake the notes flag: calculating terminal value correctly but forgetting to discount it back from the end of the forecast period. PV(TV) = TV₅ / (1 + Rₑ)⁵ = $384.1m."
+        },
+        {
+          "t": "The denominator should have been Rₑ alone rather than Rₑ − g.",
+          "ok": false,
+          "note": "The terminal value uses the Gordon Growth Model, TV₅ = FCFE₆ / (Rₑ − g). Dropping g would ignore the stable perpetual growth the continuing period assumes."
+        }
+      ]
+    },
+    {
+      "topic": "Business valuation DCF Model",
+      "q": "In the worked example, where does the $92.7m come from?",
+      "hint": "It is the first cash flow of the continuing period, one year on from the last explicit one.",
+      "options": [
+        {
+          "t": "90 × 1.03 — the Year 5 FCFE grown one year at the terminal growth rate.",
+          "ok": true,
+          "note": "FCFE₆ = FCFE₅(1 + g) = 90(1.03) = $92.7m. The terminal value formula needs next year’s cash flow, so the Year 5 figure is rolled forward once."
+        },
+        {
+          "t": "90 × 1.15 — the Year 5 FCFE grown at the required return.",
+          "ok": false,
+          "note": "Rₑ is the discount rate, not the growth rate. Growing at 15% would give a figure the page never uses; the cash flow grows at g = 3%."
+        },
+        {
+          "t": "90 × 1.03⁵ — the Year 5 FCFE grown over the five explicit years.",
+          "ok": false,
+          "note": "Only one period of growth separates FCFE₅ from FCFE₆. The fifth power belongs to the discounting step, 1.15⁵, not to the growth step."
+        },
+        {
+          "t": "90 / 1.03 — the Year 5 FCFE brought back one period.",
+          "ok": false,
+          "note": "This moves the wrong way. FCFE₆ sits one year after FCFE₅, so the Year 5 figure is grown forward, not discounted back."
+        }
+      ]
+    },
+    {
+      "topic": "Business valuation DCF Model",
+      "q": "Management of a fast-growing company proposes a terminal growth rate well above the overall economy’s, on the grounds that the company is growing quickly now. What does the page say?",
+      "hint": "Separate what the explicit forecast period is for from what the continuing period assumes.",
+      "options": [
+        {
+          "t": "Accept it — a company’s current growth rate is the best estimate of its perpetual growth.",
+          "ok": false,
+          "note": "The page says a company cannot sustainably grow materially faster than the overall economy forever; otherwise it would become implausibly large. Current growth belongs in the explicit years, where near-term cash flows are allowed to behave differently."
+        },
+        {
+          "t": "Reject it — the terminal growth assumption should be conservative, because no company can outgrow the economy forever.",
+          "ok": true,
+          "note": "Stated directly in the terminal value section. The DCF exists precisely so that high near-term growth can be forecast year by year before the cash flows settle into a stable long-run rate."
+        },
+        {
+          "t": "Accept it, but shorten the explicit forecast period to compensate.",
+          "ok": false,
+          "note": "The explicit horizon should reflect how far management can credibly forecast. It is not a dial to trade against an implausible g."
+        },
+        {
+          "t": "It does not matter much, because terminal value is a small part of the total.",
+          "ok": false,
+          "note": "The page’s takeaway is the reverse: terminal value can represent a large proportion of total valuation, which is exactly why the growth assumption behind it has to be defensible."
+        }
+      ]
+    },
+    {
+      "topic": "Business valuation Financial drivers",
+      "q": "The dashboard reads asset utilisation at 5.05×. What is that number, in the valuation?",
+      "hint": "The page describes a transition that every one of the nine ratios goes through.",
+      "options": [
+        {
+          "t": "A performance measure that describes how efficiently the company used its assets last year.",
+          "ok": false,
+          "note": "That is what it was before the transition. The page says ratios such as asset utilisation now become forecasting assumptions inside the valuation model, rather than merely performance measures."
+        },
+        {
+          "t": "The forecast — the historical relationship is projected forward unchanged.",
+          "ok": false,
+          "note": "The page is explicit that the latest year’s ratios provide the baseline, not necessarily the final forecast. Projecting every ratio unchanged skips the analyst’s decision."
+        },
+        {
+          "t": "The rate at which the asset base depreciates each year.",
+          "ok": false,
+          "note": "That is the depreciation rate, D&A ÷ Net non-current assets at 12.4%. Asset utilisation is Revenue ÷ Net non-current assets, and its role is to set the asset base forecast revenue requires."
+        },
+        {
+          "t": "A baseline forecasting assumption the analyst must decide to maintain or adjust, which sets the asset base forecast revenue will require.",
+          "ok": true,
+          "note": "Both halves are on the page: asset utilisation determines the asset base required to support forecast revenue, and for each driver the analyst decides whether to maintain the historical relationship or adjust it for expectations about future operations."
+        }
+      ]
+    },
+    {
+      "topic": "Business valuation Financial drivers",
+      "q": "A forecast raises revenue growth sharply and holds every dashboard ratio at its historical level. Why might equity value rise by much less than revenue does?",
+      "hint": "Follow the revenue through the ratios that have it as a denominator.",
+      "options": [
+        {
+          "t": "Because the 30% tax rate takes a share of every extra dollar of revenue.",
+          "ok": false,
+          "note": "The tax rate converts forecast pre-tax profit into after-tax profit; it is not the mechanism the page gives for growth being absorbed. Tax applies to profit, not to revenue."
+        },
+        {
+          "t": "Because higher revenue growth raises the required return Rₑ.",
+          "ok": false,
+          "note": "Nothing on the page links the revenue forecast to Rₑ. The explanation the page gives is about reinvestment, not the discount rate."
+        },
+        {
+          "t": "Because at 16.5% current assets to revenue and 5.05× asset utilisation, the extra revenue requires more working capital and non-current assets, and that reinvestment absorbs cash before it reaches shareholders.",
+          "ok": true,
+          "note": "The page’s takeaway in full: revenue growth is not automatically value creation. If it requires disproportionately more operating costs, working capital or non-current assets, much of the additional cash is absorbed by reinvestment."
+        },
+        {
+          "t": "Because the 67.8% payout ratio means most of the extra profit is retained rather than paid out.",
+          "ok": false,
+          "note": "The payout ratio determines the proportion of profit distributed versus retained, and retained earnings increase equity. That is a distribution question, not the absorption of cash by reinvestment that the page describes."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "How much cash for the owners",
+      "title": "Profitable, and paying nothing",
+      "setup": "A founder tells you her manufacturing business must be worth a great deal because it generates substantial operating cash every year. On closer reading, receivables and inventory grow every year with sales, the plant needs continual replacement, and a large loan is being paid down on schedule. Shareholders have received almost nothing.",
+      "task": "Explain, using the pathway, why the operating cash and the owners’ cash can be so far apart, and say what a valuation of this business would actually have to forecast.",
+      "hints": [
+        "Walk the six stages of the pathway and ask what each one takes.",
+        "The page names three conditions under which exactly this happens — all three are present in the setup.",
+        "Finish with the five forecasts a realistic valuation requires, not just the first."
+      ],
+      "walkthrough": [
+        "Cash profit from the assets is only the start of the pathway. Before any investor sees it, the business must reinvest in working capital — the growing receivables and inventory — and in CapEx to replace the plant.",
+        "What survives reinvestment is FCFF, the cash for all investors. Debt holders have the prior claim on it: interest and the scheduled loan repayments come out first.",
+        "Only the residual belongs to equity holders. The setup contains all three of the page’s conditions — high working-capital requirements, substantial CapEx for the asset base, and debt servicing absorbing cash — so a large operating cash figure leaves relatively little for owners.",
+        "A valuation therefore forecasts the entire pathway: operating performance and cash generation, future working-capital requirements, CapEx for maintenance and growth, interest obligations and debt repayments. The residual cash flow is what supports the value of equity.",
+        "The founder’s error is valuing the top of the pathway. The page’s takeaway is that assumptions about reinvestment needs and debt obligations can be as consequential as assumptions about profitability."
+      ],
+      "checklist": [
+        "Distinguishes cash profit from assets from the cash that reaches owners",
+        "Names FCFF and what is subtracted before and after it",
+        "Matches the setup to the three conditions the page gives",
+        "Lists what a realistic valuation has to forecast beyond operating cash",
+        "Identifies the residual as what supports equity value"
+      ]
+    },
+    {
+      "topic": "Simple business valuation",
+      "title": "The board’s dividend shortcut",
+      "setup": "A board member values the company by taking the total dividend just paid, dividing it by the number of shares, and then dividing that by the required return less the expected growth rate. He presents the result as the share price. The company is thought to be steady, with dividends expected to keep growing at a modest constant rate.",
+      "task": "Say what is wrong with the calculation as performed, what each of the three inputs does to the answer, and how far the result can be trusted.",
+      "hints": [
+        "The page builds the valuation in three moves — check whether he did all three.",
+        "The dividend just paid is not the dividend the model discounts.",
+        "The page also says what the GGM is good for, and what its result is only as credible as."
+      ],
+      "walkthrough": [
+        "The first move is right: DPS₀ = Total dividends / Shares outstanding converts the company’s dividend to a per-share figure.",
+        "The second move is missing. The model prices next period’s dividend, D₁ = D₀(1 + g), because present value is based on future cash flows. Dividing today’s dividend by Rₑ − g understates the price.",
+        "The three inputs move value in known directions: a higher D₁ raises it, a higher g raises it because future dividends compound faster, and a higher Rₑ lowers it because investors discount risky future cash flows more heavily.",
+        "Because Rₑ and g both sit in the denominator, small changes in either materially change the result, so the assumptions deserve more scrutiny than the arithmetic.",
+        "The page positions the GGM as a quick approximation and a valuation sense-check rather than a detailed forecast. The board should treat the corrected figure as only as credible as its assumptions about future cash flow, growth and risk."
+      ],
+      "checklist": [
+        "Credits the per-share conversion as correct",
+        "Identifies the missing roll-forward from D₀ to D₁ and explains why it matters",
+        "States the direction each of D₁, g and Rₑ pushes the value",
+        "Explains the sensitivity that comes from the denominator",
+        "Frames the result as a sense-check, not a detailed valuation"
+      ]
+    },
+    {
+      "topic": "Business valuation DCF Model",
+      "title": "The value that never came home",
+      "setup": "A colleague has built a five-year DCF using the page’s figures: FCFE in Year 5 of $90m, a terminal growth rate of 3% and a required return of 15%. She calculates a terminal value of $772.5m, adds it to the present value of the explicit cash flows, divides by 100 million shares and reports a share price. Her equity value is far above the $633.8m the notes arrive at.",
+      "task": "Find the error, correct it using only the page’s numbers, and say what the corrected share price is.",
+      "hints": [
+        "Reproduce her $772.5m first; the mistake is not in that step.",
+        "Ask what date the terminal value is expressed at, and what the page says has to happen before it is added to anything.",
+        "The page gives the corrected equity value and the share count — but not the explicit-FCFE part on its own."
+      ],
+      "walkthrough": [
+        "Her terminal value is right: FCFE₆ = 90(1.03) = $92.7m, and TV₅ = 92.7 / (0.15 − 0.03) = $772.5m.",
+        "The error is the one the notes flag as the common mistake: $772.5m is a Year 5 value, not today’s value, and it has been added to present values without being discounted back over the five years of the explicit forecast period.",
+        "The correction is PV(TV) = TV₅ / (1 + Rₑ)⁵ = 772.5 / 1.15⁵ = $384.1m. That is the figure to add to the present value of the explicit FCFE.",
+        "Equity Value = PV (Explicit FCFE) + PV (Terminal Value). With the notes’ equity value of $633.8m and 100 million shares outstanding, Share Price = 633.8m / 100m = $6.34.",
+        "Note what the page does not give: the present value of the explicit FCFE is not stated as a number in the notes, so the derivation of $633.8m cannot be reproduced from the page alone. What can be checked is the terminal-value chain and the final division."
+      ],
+      "checklist": [
+        "Confirms the terminal value of $772.5m is correctly calculated",
+        "Names the error as adding a Year 5 value to today’s figures",
+        "Discounts it back to $384.1m with the right exponent",
+        "Reaches $6.34 from the $633.8m equity value and 100 million shares",
+        "Notes that the explicit-FCFE present value is not given in the notes"
+      ]
+    },
+    {
+      "topic": "Business valuation DCF Model",
+      "title": "How far can you see",
+      "setup": "A software company exposed to rapid technological change asks for a valuation. Its management wants the explicit forecast period extended well beyond five years so that its high current growth is fully captured, and wants the same high growth used as the terminal rate beyond that.",
+      "task": "Advise on the length of the explicit period and on the terminal growth rate, using the page’s reasoning for each.",
+      "hints": [
+        "The page says what the explicit horizon should reflect, and which kinds of business it names as hard to forecast.",
+        "High near-term growth and perpetual growth are handled in different parts of the model.",
+        "Consider how much of the total valuation the terminal value can represent."
+      ],
+      "walkthrough": [
+        "The explicit forecast period is for the years in which management can make reasonable estimates. Its length should reflect how far management can credibly forecast, and the page says uncertainty rises rapidly in businesses exposed to technological disruption and competitive change — which argues against stretching it, not for it.",
+        "High current growth belongs in the explicit years. That is what makes a DCF more realistic than the GGM: near-term cash flows are allowed to behave differently before settling into long-run growth.",
+        "The terminal growth rate should be conservative. A company cannot sustainably grow materially faster than the overall economy forever; otherwise it would become implausibly large.",
+        "Because terminal value can represent a large proportion of total valuation, an inflated g would dominate the answer. The page’s closing test applies: are the forecast cash flows, terminal growth rate and required return economically defensible rather than merely mathematically convenient?"
+      ],
+      "checklist": [
+        "Ties the horizon to how far management can credibly forecast",
+        "Notes that technological disruption raises uncertainty and shortens credible horizons",
+        "Places high current growth in the explicit period, not the terminal rate",
+        "Argues for a conservative g using the page’s economy-wide reasoning",
+        "Connects the stakes to the proportion of value that terminal value can carry"
+      ]
+    },
+    {
+      "topic": "Business valuation Financial drivers",
+      "title": "The strategy that moves the ratios",
+      "setup": "You are valuing a retailer from its latest statements. The dashboard reads an operating cost margin of 90.7%, asset utilisation of 5.05× and an interest rate of 4.7% on debt and lease liabilities. Management’s strategy is to open many more stores under long leases and to run them with a leaner cost base than the existing network.",
+      "task": "Decide which drivers you would adjust rather than maintain, say in which direction each moves and why, and explain what that does to the cash available to equity holders.",
+      "hints": [
+        "For each driver the page gives you one decision: maintain the historical relationship, or adjust it.",
+        "Trace the strategy through the forecast chain — revenue, then costs, assets and liabilities, then profit, then cash flow.",
+        "The page has a specific reason for treating lease liabilities the way it does."
+      ],
+      "walkthrough": [
+        "The latest year’s ratios are the baseline, not the final forecast. The analytical task is deciding which relationships are structurally persistent and which should change with the firm’s strategy and outlook.",
+        "The leaner cost base argues for adjusting the operating cost margin below 90.7%. The page says a decrease in the margin increases EBITDA and future cash generation, since EBITDA = Revenue - Operating Costs.",
+        "The store roll-out bears on asset utilisation and working capital. Forecast revenue growth may require additional assets and therefore investment, and the working-capital ratios link revenue growth to required current assets — so the growth is paid for in reinvestment before it reaches shareholders.",
+        "The long leases are financing. The page treats debt and lease liabilities together because lease liabilities behave similarly to debt in economic substance and generate interest expense, so the 4.7% rate will be applied to a larger financing base, raising future interest and debt obligations.",
+        "The net effect on cash available to equity holders is the page’s central warning: revenue growth is not automatically value creation. Higher EBITDA from the margin has to be set against the cash absorbed by reinvestment and the larger financing obligations, and the forecast is only credible if those operational and financing assumptions hold."
+      ],
+      "checklist": [
+        "Treats the dashboard as a baseline and states the maintain-or-adjust decision explicitly",
+        "Adjusts the operating cost margin downward and links it to EBITDA",
+        "Connects the store growth to asset utilisation and working-capital reinvestment",
+        "Recognises the leases as debt-like financing that generates interest expense",
+        "Concludes on cash to equity holders rather than on revenue"
+      ]
+    }
+  ]
+}

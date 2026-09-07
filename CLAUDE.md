@@ -35,8 +35,8 @@ Subjects are grouped by semester on `index.html`.
 
 | Code | Subject | Content |
 | --- | --- | --- |
-| DMBA 6008 | Finance, Strategy and Technology | Weeks 0–4, all complete. Week hub + per-week study pages, built from the vault. Week 4 was published in progress on 2026-08-19 and its remaining three topics were written and published on 2026-08-23. Three core modes — summary & visuals, key concepts, flashcards — plus **acronyms** and **formulas** where the week has them, and **discussion questions** where a Live note supplies them (Week 2 only so far). Every week also carries a **quiz**, an **Apply it** tab and a **study path**, all derived from the built page |
-| DMBA 6005 | Agile Project Development | Weeks 0–5. Week hub + per-week study pages, same modes, built from the vault. Live since 2026-08-06. Week 5 (costing and estimation) published 2026-08-31 — two topics, and the subject's first **formulas** tab |
+| DMBA 6008 | Finance, Strategy and Technology | Weeks 0–5, all complete. Week hub + per-week study pages, built from the vault. Week 5 (business evaluation) published 2026-09-07 — four topics, all eleven of its source images were formula renders and were transcribed, not published. Three core modes — summary & visuals, key concepts, flashcards — plus **acronyms** and **formulas** where the week has them, and **discussion questions** where a Live note supplies them (Week 2 only so far). Every week also carries a **quiz**, an **Apply it** tab and a **study path**, all derived from the built page |
+| DMBA 6005 | Agile Project Development | Weeks 0–6. Week hub + per-week study pages, same modes, built from the vault. Live since 2026-08-06. Week 6 (scheduling and design sprints) published 2026-09-07 — three topics, of which `Critical path diagrams` is only partly written in the source and the page says so |
 
 The **quiz, Apply-it and study-path components are not synced from any source** — they are
 derived from the assembled page and live in

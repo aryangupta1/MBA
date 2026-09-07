@@ -205,14 +205,14 @@ sync commit.
 
 ## 7. Current state
 
-Notion→vault sync state covers all **314** pages as of 2026-08-31
+Notion→vault sync state covers all **323** pages as of 2026-09-07
 (`~/MBA/.mba-sync/notes-state.json`), so the conflict guard has a baseline for every note.
 
 | | DMBA 6008 | DMBA 6005 |
 | --- | --- | --- |
-| Weeks in the vault | 0–4 | 0–**5** |
-| Weeks published | **0–4** | **0–5** |
-| Outstanding | none | none — Week 5 published 2026-08-31 |
+| Weeks in the vault | 0–**5** | 0–**6** |
+| Weeks published | **0–5** | **0–6** |
+| Outstanding | none — Week 5 published 2026-09-07 | Week 6's `Critical path diagrams` is only partly written in the source; the page says so. Published 2026-09-07 |
 | Held for review | — | Week 3 `Live` |
 
 **Live Session notes are now published too, to unlisted pages only** (Aryan, 2026-08-31):
