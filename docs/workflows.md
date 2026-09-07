@@ -76,6 +76,28 @@ Step-by-step recipes. Each assumes you have read [conventions.md](conventions.md
 3. Open all five pages (`blogs/index.html` and each `blogs/blog-N/index.html`) in both
    light and dark mode before calling it done.
 
+## Rebuild a subject's master search page
+
+`DMBA<code>-search.html` indexes every term, acronym, formula and flashcard from the
+subject's week pages. It is derived from those pages, so **it must be rebuilt whenever any
+week page of that subject changes** — a new week, a re-sync, a fixed definition.
+
+1. Make sure the week pages are final first: the script reads their `TERMS`, `ACRONYMS`,
+   `FORMULAS` and `CARDS` arrays, so run it after the practice content is spliced.
+2. Rebuild:
+
+   ```bash
+   python3 .claude/skills/sync-subject/reference/search/build_search.py finance   # or agile, 6008, 6005, all
+   ```
+
+   It prints a per-week counts table; every number should equal the week page's own hero
+   pills and reference-tab counts. A mismatch means a week page is malformed.
+3. `python3 .claude/skills/sync-subject/reference/checks.py DMBA<code>-search.html`.
+4. Open it, type a term you know is on a week page, follow its week pill back, and check it
+   at 390px. Try the hub's search card too — it lands on the page with `?q=` filled in.
+5. No `library.html` edit is needed unless the page is new to the subject; both existing
+   search pages are already registered under their hub entries.
+
 ## Modify the hub or the library
 
 `index.html` and `library.html` are the entry path for every reader.

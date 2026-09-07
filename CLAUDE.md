@@ -35,14 +35,21 @@ Subjects are grouped by semester on `index.html`.
 
 | Code | Subject | Content |
 | --- | --- | --- |
-| DMBA 6008 | Finance, Strategy and Technology | Weeks 0–5, all complete. Week hub + per-week study pages, built from the vault. Week 5 (business evaluation) published 2026-09-07 — four topics, all eleven of its source images were formula renders and were transcribed, not published. Three core modes — summary & visuals, key concepts, flashcards — plus **acronyms** and **formulas** where the week has them, and **discussion questions** where a Live note supplies them (Week 2 only so far). Every week also carries a **quiz**, an **Apply it** tab and a **study path**, all derived from the built page |
-| DMBA 6005 | Agile Project Development | Weeks 0–6. Week hub + per-week study pages, same modes, built from the vault. Live since 2026-08-06. Week 6 (scheduling and design sprints) published 2026-09-07 — three topics, of which `Critical path diagrams` is only partly written in the source and the page says so |
+| DMBA 6008 | Finance, Strategy and Technology | Weeks 0–5, all complete. Week hub + per-week study pages, built from the vault. Week 5 (business evaluation) published 2026-09-07 — four topics, all eleven of its source images were formula renders and were transcribed, not published. Three core modes — summary & visuals, key concepts, flashcards — plus **acronyms** and **formulas** where the week has them, and **discussion questions** where a Live note supplies them (Week 2 only so far). Every week also carries a **quiz**, an **Apply it** tab and a **study path**, all derived from the built page. A **master search page** (`DMBA6008-search.html`) indexes every term, acronym, formula and flashcard across all six weeks — 1,157 entries as of 2026-09-07, derived from the week pages |
+| DMBA 6005 | Agile Project Development | Weeks 0–6. Week hub + per-week study pages, same modes, built from the vault. Live since 2026-08-06. Week 6 (scheduling and design sprints) published 2026-09-07 — three topics, of which `Critical path diagrams` is only partly written in the source and the page says so. A **master search page** (`DMBA6005-search.html`) indexes every term, acronym, formula and flashcard across all seven weeks — 915 entries as of 2026-09-07 |
 
 The **quiz, Apply-it and study-path components are not synced from any source** — they are
 derived from the assembled page and live in
 [`.claude/skills/sync-subject/reference/practice/`](.claude/skills/sync-subject/reference/practice/README.md).
 **A re-sync that changes a week must re-derive that week's practice content**; that folder's
 `README.md` is binding.
+
+The **master search pages are derived the same way, one step further down**:
+[`.claude/skills/sync-subject/reference/search/build_search.py`](.claude/skills/sync-subject/reference/search/README.md)
+reads the built week pages' `TERMS` / `ACRONYMS` / `FORMULAS` / `CARDS` arrays and rebuilds
+`DMBA<code>-search.html`. It adds no content of its own. **A re-sync that changes any week
+page must re-run it for that subject**, after the practice content is spliced; that folder's
+`README.md` is binding too.
 
 Semester 2 pages are built from the Obsidian vault by the **`sync-subject` skill**
 (`.claude/skills/sync-subject/`) — Aryan says *"update finance"* and it assembles, builds,

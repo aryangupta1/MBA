@@ -169,6 +169,8 @@
       transition: background 0.2s ease, transform 0.2s ease;
     }
     .back:hover { background: rgba(255, 255, 255, 0.28); transform: translateX(-3px); }
+    .back + .back { margin-left: 8px; }
+    .back--search:hover { transform: translateY(-2px); }
 
     /* ── The window ────────────────────────────────────────────────────── */
     /* No overflow:hidden — descendants need position:sticky to reach the
@@ -1568,6 +1570,7 @@
 
   <div class="stage">
     <a class="back" href="DMBA6008-weeks.html"><span aria-hidden="true">←</span> All weeks</a>
+    <a class="back back--search" href="DMBA6008-search.html">Search all weeks</a>
 
     <div class="win">
       <div class="win-bar">

@@ -36,7 +36,7 @@ Notion --sync-assignments--> the vault's assignment tracker
 | Skill | Say | Does |
 | --- | --- | --- |
 | [`sync-notes`](../.claude/skills/sync-notes/SKILL.md) | *"sync notion"* | Pulls Notion notes into the vault. **Never overwrites an Obsidian edit** |
-| [`sync-subject`](../.claude/skills/sync-subject/SKILL.md) | *"update finance"* | Builds week pages from the vault, six QA gates |
+| [`sync-subject`](../.claude/skills/sync-subject/SKILL.md) | *"update finance"* | Builds week pages from the vault, six QA gates; then rebuilds the subject's master search page from them |
 | [`sync-assignments`](../.claude/skills/sync-assignments/SKILL.md) | *"sync assignments"* | Mirrors the Notion Assignments/Exams database into the vault |
 
 `notion-sync-automation.md` is why `sync-subject` is shaped the way it is.

@@ -4,14 +4,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{WEEK_LABEL}} — {{WEEK_TITLE_PLAIN}} — {{SUBJECT_CODE_SPACED}}</title>
-  <meta name="description" content="{{META_DESCRIPTION}}">
+  <title>Search — {{SUBJECT_CODE_SPACED}} {{SUBJECT_NAME}}</title>
+  <meta name="description" content="Master search for {{SUBJECT_CODE_SPACED}} {{SUBJECT_NAME}}: every key concept, acronym, formula and flashcard from {{WEEK_RANGE}} in one searchable dictionary, each entry linked back to its week.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="{{FONT_HREF}}"
     rel="stylesheet">
   <style>
+    /* ══════════════════════════════════════════════════════════════════
+       DESK — house design system, open-window profile, master-search page.
+       GENERATED: .claude/skills/sync-subject/reference/search/build_search.py
+       splices this shell; the stylesheet below is the week shell's, sliced,
+       plus the search additions at the end. docs/design-system.md governs.
+       ══════════════════════════════════════════════════════════════════ */
     /* ======================================================================
        DESK — house design system, study-page profile.
        A macOS window floating over the desktop wallpaper. The window holds the
@@ -828,95 +834,6 @@
 
     .no-results { padding: 26px; text-align: center; color: var(--ink3); }
 
-    /* ── Flashcards ────────────────────────────────────────────────────── */
-    .deck { margin-top: 1.4rem; }
-    .deck-meta { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
-    .deck-count { font-size: 0.8rem; font-weight: 600; color: var(--ink3); font-variant-numeric: tabular-nums; }
-    .deck-count strong { color: var(--ink); }
-    .progress { flex: 1 1 auto; height: 6px; border-radius: var(--r-pill); background: rgba(20, 19, 23, 0.08); overflow: hidden; }
-    .progress-fill {
-      display: block;
-      height: 100%;
-      width: 0;
-      border-radius: var(--r-pill);
-      background: linear-gradient(90deg, var(--accent), var(--lime));
-      transition: width 0.3s ease;
-    }
-
-    .flip {
-      display: block;
-      width: 100%;
-      padding: 0;
-      border: 0;
-      background: none;
-      perspective: 1400px;
-      cursor: pointer;
-      font-family: inherit;
-    }
-    .flip-inner {
-      position: relative;
-      display: block;
-      min-height: 320px;
-      transform-style: preserve-3d;
-      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.3, 1);
-    }
-    .flip[aria-pressed="true"] .flip-inner { transform: rotateY(180deg); }
-    .face {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 14px;
-      padding: clamp(24px, 4vw, 40px);
-      border-radius: var(--radius-lg);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      text-align: left;
-    }
-    .face-front {
-      background: linear-gradient(180deg, #fff, var(--surface2));
-      border: 1px solid var(--line2);
-      box-shadow: var(--sh-card);
-    }
-    .face-back {
-      background: linear-gradient(150deg, var(--accent-deep), var(--accent));
-      color: #F2F0EA;
-      transform: rotateY(180deg);
-      box-shadow: var(--sh-card);
-    }
-    .face-tag {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-      font-family: var(--font-display);
-      font-size: 0.66rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink3);
-    }
-    .face-back .face-tag { color: rgba(242, 240, 234, 0.65); }
-    .face-topic { font-weight: 600; letter-spacing: 0.04em; text-transform: none; opacity: 0.8; }
-    .face-back .face-topic { color: rgba(242, 240, 234, 0.75); }
-    .face-text {
-      flex: 1 1 auto;
-      display: flex;
-      align-items: center;
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: clamp(1.1rem, 3.2vw, 1.42rem);
-      line-height: 1.28;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      text-wrap: balance;
-    }
-    .face-back .face-text { color: #FBFAF7; font-weight: 600; font-size: clamp(0.98rem, 2.8vw, 1.18rem); line-height: 1.5; }
-    .face-hint { font-size: 0.74rem; color: var(--ink3); }
-    .face-back .face-hint { color: rgba(242, 240, 234, 0.6); }
-
-    .deck-controls { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
     .btn {
       flex: 1 1 auto;
       padding: 12px 20px;
@@ -1045,112 +962,6 @@
       .dock-sep { height: 28px; }
     }
 
-    /* ── Summary index, collapse and search ───────────────────────────────
-       The index is BUILT AT RUNTIME from the blocks themselves (see the
-       script), so it can never drift from the content and a re-sync needs
-       no extra work. With JavaScript off the summary reads exactly as it
-       did before — every block is open and there is simply no index. */
-    .toc {
-      margin-bottom: clamp(28px, 4vw, 44px);
-      padding: clamp(18px, 3vw, 24px);
-      border-radius: var(--radius-lg);
-      background: linear-gradient(180deg, #fff, var(--surface2));
-      border: 1px solid var(--line2);
-      box-shadow: var(--sh-card);
-    }
-    .toc-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
-    }
-    .toc-title {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink);
-    }
-    .toc-actions { display: flex; gap: 8px; }
-    .toc-btn {
-      padding: 6px 13px;
-      border: 1px solid var(--line);
-      border-radius: var(--r-pill);
-      background: #fff;
-      color: var(--ink2);
-      font-family: var(--font-sans);
-      font-size: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: border-color 0.2s ease, color 0.2s ease;
-    }
-    .toc-btn:hover { border-color: var(--accent); color: var(--ink); }
-    .toc .toolbar { margin-bottom: 0.9rem; }
-    .toc-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      gap: 2px;
-      grid-template-columns: 1fr;
-    }
-    @media (min-width: 640px) { .toc-list { grid-template-columns: 1fr 1fr; column-gap: 14px; } }
-    .toc-list.is-long { max-height: 19rem; overflow-y: auto; }
-    .toc-list li[hidden] { display: none; }
-    .toc-list a {
-      display: flex;
-      gap: 10px;
-      align-items: baseline;
-      padding: 7px 10px;
-      border-radius: 10px;
-      color: var(--ink2);
-      text-decoration: none;
-      font-size: 0.86rem;
-      line-height: 1.4;
-      transition: background 0.18s ease, color 0.18s ease;
-    }
-    .toc-list a:hover { background: var(--accent-soft); color: var(--ink); }
-    .toc-n {
-      flex: 0 0 auto;
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 0.72rem;
-      color: var(--accent);
-      font-variant-numeric: tabular-nums;
-    }
-    .toc-empty { margin: 0; padding: 14px 10px 4px; color: var(--ink3); font-size: 0.86rem; }
-
-    /* A block becomes a disclosure. `.block` itself is untouched so the
-       prose-budget gate still measures the same thing. */
-    .block[hidden] { display: none; }
-    .block-d > summary {
-      list-style: none;
-      cursor: pointer;
-      position: relative;
-      padding-right: 34px;
-    }
-    .block-d > summary::-webkit-details-marker { display: none; }
-    .block-d > summary::after {
-      content: "";
-      position: absolute;
-      right: 8px;
-      top: 0.75em;
-      width: 9px;
-      height: 9px;
-      border-right: 2px solid var(--ink3);
-      border-bottom: 2px solid var(--ink3);
-      transform: rotate(45deg);
-      transition: transform 0.22s ease, border-color 0.22s ease;
-    }
-    .block-d[open] > summary::after { transform: rotate(-135deg); }
-    .block-d > summary:hover h2 { color: var(--accent); }
-    .block-d > summary:hover::after { border-color: var(--accent); }
-    .block-d > summary h2 { transition: color 0.2s ease; }
-    .block-d > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 4px; border-radius: 10px; }
-    .block-d:not([open]) > summary h2 { margin-bottom: 0; }
     /* Topic chips built at runtime use aria-pressed; the sub-tabbed weeks
        use aria-selected. Same look for both. */
     .subtab[aria-pressed="true"] {
@@ -1193,11 +1004,217 @@
         scroll-behavior: auto !important;
       }
     }
+
+    /* ══════════════════════════════════════════════════════════════════
+       Master search — additions on top of the week-page system.
+       No new tokens. The sticky bar mirrors .tabs; results reuse .term.
+       ══════════════════════════════════════════════════════════════════ */
+    .searchbar {
+      position: sticky;
+      top: var(--bar);
+      z-index: 20;
+      padding: 14px 0 12px;
+      background: rgba(251, 250, 247, 0.92);
+      backdrop-filter: blur(12px) saturate(160%);
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+      border-block: 1px solid var(--line2);
+    }
+    .searchbar .toolbar { margin-bottom: 10px; }
+    .searchbar .search { font-size: 1rem; padding: 14px 20px; }
+    .searchbar .count { min-width: 8ch; text-align: right; }
+
+    .facets { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+    .facet { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .facet-label {
+      margin-right: 2px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.64rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+    .facet .subtab { padding: 7px 13px; font-size: 0.78rem; }
+    .facet .subtab .n {
+      margin-left: 6px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.68rem;
+      opacity: 0.6;
+      font-variant-numeric: tabular-nums;
+    }
+    .facet .subtab[aria-pressed="true"] .n { opacity: 0.9; }
+
+    /* Letter rail — the dictionary's thumb index */
+    .letters { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 20px; }
+    .letter {
+      min-width: 30px;
+      padding: 6px 4px;
+      border: 1px solid var(--line2);
+      border-radius: 9px;
+      background: #fff;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.74rem;
+      color: var(--ink2);
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+    }
+    .letter:hover:not(:disabled) { border-color: var(--accent); color: var(--ink); }
+    .letter:disabled { opacity: 0.3; cursor: default; }
+    .letters[hidden] { display: none; }
+
+    .letter-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 28px 0 12px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.03em;
+      color: var(--accent);
+      scroll-margin-top: calc(var(--bar) + 190px);
+    }
+    .letter-head::after { content: ""; flex: 1 1 auto; height: 1px; background: var(--line); }
+    .letter-head:first-child { margin-top: 0; }
+
+    /* One entry card. .term, .term-name, .term-def, .term-formula, .term-abbr,
+       .term-long and .term-topic are the week pages' own; the additions are the
+       meta row and the week pill that links back. */
+    .term-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    .term-meta .term-topic { margin-bottom: 0; }
+    .term-meta .term-src { max-width: none; }
+    .term-week {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: var(--r-pill);
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.66rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.18s ease, transform 0.18s ease;
+    }
+    .term-week:hover { background: var(--accent-deep); transform: translateY(-1px); }
+    .term-where {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--ink3);
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100%;
+    }
+    .term--card .term-name { font-size: 0.98rem; font-weight: 700; line-height: 1.4; letter-spacing: -0.01em; }
+
+    /* A term that lives in more than one week: one card, one sense per week */
+    .senses { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 10px; }
+    .sense { padding-top: 10px; border-top: 1px dashed var(--line); }
+    .sense .term-meta { margin-bottom: 4px; }
+    .sense .term-def { margin-top: 0.3rem; }
+
+    mark { background: var(--butter); color: inherit; padding: 0 2px; border-radius: 3px; }
+    .term-formula mark { background: rgba(237, 232, 132, 0.7); }
+
+    /* Flashcard answers stay behind a disclosure so recall stays active.
+       Same .reveal the Quiz and Apply-it tabs use on the week pages. */
+    .reveal {
+      margin-top: 10px;
+      border: 1.5px dashed var(--line);
+      border-radius: var(--radius);
+      background: var(--surface2);
+    }
+    .reveal > summary {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 16px;
+      list-style: none;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+    }
+    .reveal > summary::-webkit-details-marker { display: none; }
+    .reveal > summary::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+      transform: rotate(-45deg);
+      transition: transform 0.22s ease;
+    }
+    .reveal[open] > summary::before { transform: rotate(45deg); }
+    .reveal > summary:hover { color: var(--accent); }
+    .reveal > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; border-radius: var(--radius); }
+    .reveal-body { padding: 0 16px 14px; }
+    .reveal-body p { margin: 0; font-size: 0.88rem; color: var(--ink2); }
+
+    .more { display: flex; justify-content: center; margin-top: 24px; }
+    .more .btn { flex: 0 1 auto; }
+    .more[hidden] { display: none; }
+    .results-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .results-head h2 { margin-bottom: 0.4rem; }
+    #results-scope { color: var(--accent); }
+
+    /* On a phone the three chip rows would make the sticky bar ~320px tall,
+       so they fold behind one toggle that names the current selection. */
+    .facets-toggle { display: none; }
+    @media (max-width: 600px) {
+      .facets-toggle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 9px 14px;
+        border: 1px solid var(--line);
+        border-radius: var(--r-pill);
+        background: #fff;
+        font-family: var(--font-sans);
+        font-size: 0.8rem;
+        color: var(--ink2);
+        cursor: pointer;
+        text-align: left;
+      }
+      .facets-toggle::before {
+        content: "";
+        flex: 0 0 auto;
+        width: 7px;
+        height: 7px;
+        border-right: 2px solid var(--accent);
+        border-bottom: 2px solid var(--accent);
+        transform: rotate(45deg);
+        transition: transform 0.22s ease;
+      }
+      .facets-toggle[aria-expanded="true"]::before { transform: rotate(-135deg); }
+      .facets-toggle-label { flex: 0 0 auto; font-weight: 700; color: var(--ink); }
+      .facets-summary { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .facets { display: none; }
+      .searchbar.facets-open .facets { display: flex; margin-top: 10px; }
+      .letter-head { scroll-margin-top: calc(var(--bar) + 150px); }
+      .searchbar .search { font-size: 0.95rem; padding: 12px 16px; }
+      .facets { gap: 8px 12px; }
+      .facet .subtab { padding: 6px 11px; font-size: 0.74rem; }
+      .letter { min-width: 27px; font-size: 0.7rem; }
+      .letter-head { font-size: 1.3rem; }
+    }
   </style>
 </head>
 
 <body>
-  <a class="skip" href="#panel-summary">Skip to content</a>
+  <a class="skip" href="#q">Skip to search</a>
 
   <div class="desk" aria-hidden="true">
     <svg class="desk-hills" viewBox="0 0 1440 600" preserveAspectRatio="none" focusable="false">
@@ -1224,114 +1241,80 @@
 
   <div class="stage">
     <a class="back" href="{{HUB_PAGE}}"><span aria-hidden="true">←</span> All weeks</a>
-    <a class="back back--search" href="{{SEARCH_PAGE}}">Search all weeks</a>
 
     <div class="win">
       <div class="win-bar">
         <span class="win-lights" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="win-addr">{{SUBJECT_CODE_SPACED}} &nbsp;/&nbsp; {{WEEK_LABEL}} &mdash; {{WEEK_TITLE_PLAIN}}</span>
+        <span class="win-addr">{{SUBJECT_CODE_SPACED}} &nbsp;/&nbsp; Search &mdash; every term, acronym, formula and flashcard</span>
         <span class="win-tool" aria-hidden="true">MBA</span>
       </div>
 
   <header class="hero">
     <div class="wrap">
-      <p class="eyebrow">{{SUBJECT_CODE_SPACED}} · {{SUBJECT_NAME}} · {{WEEK_LABEL}}</p>
-      <h1>{{WEEK_TITLE_HTML}}</h1>
-      <p class="standfirst">{{STANDFIRST}}</p>
+      <p class="eyebrow">{{SUBJECT_CODE_SPACED}} · {{SUBJECT_NAME}} · Master search</p>
+      <h1>Look it <em>up</em></h1>
+      <p class="standfirst">One search box across {{WEEK_RANGE}}. Type a term, an acronym, a fragment of a formula or a phrase from a flashcard, and the matching entries appear as you type &mdash; each one labelled with the week it comes from and linked back to it.</p>
       <div class="meta-row">
-        <span class="pill"><span class="dot" aria-hidden="true"></span> Pre-live session</span>
+        <span class="pill"><span class="dot" aria-hidden="true"></span> {{WEEK_COUNT}} weeks indexed</span>
         <span class="pill">{{TERM_COUNT}} key terms</span>
+        <span class="pill">{{ACRONYM_COUNT}} acronyms</span>
+        <span class="pill">{{FORMULA_COUNT}} formulas</span>
         <span class="pill">{{CARD_COUNT}} flashcards</span>
       </div>
     </div>
   </header>
 
-  <nav class="tabs" aria-label="{{WEEK_LABEL}} study modes">
-    <div class="tablist" role="tablist">
-      <button class="tab" id="tab-summary" role="tab" aria-selected="true" aria-controls="panel-summary"
-        data-panel="summary"><span class="tab-num" aria-hidden="true">01</span>Summary &amp; visuals</button>
-      <button class="tab" id="tab-terms" role="tab" aria-selected="false" aria-controls="panel-terms"
-        data-panel="terms" tabindex="-1"><span class="tab-num" aria-hidden="true">02</span>Key concepts</button>
-      <button class="tab" id="tab-cards" role="tab" aria-selected="false" aria-controls="panel-cards"
-        data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
-<!--INSERT:DISCUSSION_TAB-->
-<!--INSERT:ACRONYMS_TAB-->
-<!--INSERT:FORMULAS_TAB-->
+  <div class="searchbar" role="search">
+    <div class="wrap">
+      <div class="toolbar">
+        <label class="visually-hidden" for="q">Search {{SUBJECT_CODE_SPACED}}</label>
+        <input class="search" id="q" type="search" autocomplete="off" spellcheck="false"
+          placeholder="Search {{ENTRY_COUNT}} entries — a term, an acronym, a formula…">
+        <span class="count" id="count" aria-live="polite">{{ENTRY_COUNT}} entries</span>
+      </div>
+      <button class="facets-toggle" type="button" id="facets-toggle" aria-expanded="false" aria-controls="facets">
+        <span class="facets-toggle-label">Filters</span>
+        <span class="facets-summary" id="facets-summary">Everything · All weeks · A to Z</span>
+      </button>
+      <div class="facets" id="facets">
+        <div class="facet" id="facet-kind" role="group" aria-label="Entry type"><span class="facet-label">Show</span></div>
+        <div class="facet" id="facet-week" role="group" aria-label="Week"><span class="facet-label">Week</span></div>
+        <div class="facet" id="facet-sort" role="group" aria-label="Order"><span class="facet-label">Order</span></div>
+      </div>
     </div>
-  </nav>
+  </div>
 
   <main class="wrap">
 
-    <!-- ══════════════════ 01 · SUMMARY & VISUALS ══════════════════ -->
-    <section class="panel active" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" tabindex="0">
-<!--INSERT:SUMMARY-->
-    </section>
-
-    <!-- ══════════════════ 02 · KEY CONCEPTS ══════════════════ -->
-    <section class="panel" id="panel-terms" role="tabpanel" aria-labelledby="tab-terms" tabindex="0" hidden>
-      <div class="block">
-        <span class="block-num">02 / Reference</span>
-        <h2>Key concepts &amp; terminology</h2>
-        <p>{{TERMS_BLURB}}</p>
-
-        <div class="toolbar">
-          <label class="visually-hidden" for="term-search">Filter terms</label>
-          <input class="search" id="term-search" type="search" placeholder="Filter terms — try “{{FILTER_HINT_A}}” or “{{FILTER_HINT_B}}”"
-            autocomplete="off">
-          <span class="count" id="term-count" aria-live="polite">{{TERM_COUNT}} of {{TERM_COUNT}}</span>
-        </div>
-
-        <div class="glossary" id="glossary"></div>
+    <section class="block" id="results-block" aria-labelledby="results-label">
+      <span class="block-num">Index</span>
+      <div class="results-head">
+        <h2 id="results-label">Every entry, <span id="results-scope">A to Z</span></h2>
       </div>
-    </section>
-    <!-- ══════════════════ 03 · FLASHCARDS ══════════════════ -->
-    <section class="panel" id="panel-cards" role="tabpanel" aria-labelledby="tab-cards" tabindex="0" hidden>
-      <div class="block">
-        <span class="block-num">03 / Active recall</span>
-        <h2>Flashcards</h2>
-        <p>{{CARDS_BLURB}}</p>
-
-        <div class="deck">
-          <div class="deck-meta">
-            <span class="deck-count"><strong id="card-index">1</strong> / <span id="card-total">{{CARD_COUNT}}</span></span>
-            <span class="progress"><span class="progress-fill" id="progress-fill"></span></span>
-          </div>
-
-          <button class="flip" id="flip-card" aria-pressed="false" aria-label="Flashcard — press to reveal the answer">
-            <span class="flip-inner">
-              <span class="face face-front">
-                <span class="face-tag">Question</span>
-                <span class="face-text" id="card-q"></span>
-                <span class="face-hint">Click, tap, or press Space to reveal</span>
-              </span>
-              <span class="face face-back">
-                <span class="face-tag">Answer</span>
-                <span class="face-text" id="card-a"></span>
-                <span class="face-hint">Press → for the next card</span>
-              </span>
-            </span>
-          </button>
-
-          <div class="deck-controls">
-            <button class="btn" id="prev-btn" type="button">← Previous</button>
-            <button class="btn btn--ghost" id="shuffle-btn" type="button">Shuffle</button>
-            <button class="btn" id="next-btn" type="button">Next →</button>
-          </div>
-
-          <p class="kbd-hint"><kbd>←</kbd> <kbd>→</kbd> to move · <kbd>Space</kbd> to flip · <kbd>S</kbd> to shuffle
-          </p>
-        </div>
+      <nav class="letters" id="letters" aria-label="Jump to a letter"></nav>
+      <div class="glossary" id="results"></div>
+      <p class="no-results" id="no-results" hidden>Nothing matches that. Try fewer words or a different spelling &mdash; this index only knows what the week pages say.</p>
+      <div class="more" id="more" hidden>
+        <button class="btn btn--ghost" type="button" id="more-btn">Show more</button>
       </div>
+      <noscript>
+        <p class="no-results">This index is assembled in the browser and needs JavaScript. Every entry in it also lives on its week page, reachable from <a href="{{HUB_PAGE}}">the week hub</a>.</p>
+      </noscript>
     </section>
-<!--INSERT:DISCUSSION_PANEL-->
-<!--INSERT:ACRONYMS_PANEL-->
-<!--INSERT:FORMULAS_PANEL-->
+
+    <section class="block" aria-labelledby="howto-label">
+      <span class="block-num">How it works</span>
+      <h2 id="howto-label">What this index is, and is not</h2>
+      <p>Every entry here is lifted unedited from a published week page &mdash; the Key concepts glossary, the Acronyms and Formulas tabs, and the flashcard deck. A term that appears in more than one week is shown once, with each week&rsquo;s definition beneath it, so you can see how the idea develops across the subject. Nothing is written for this page: if a definition is wrong here it is wrong on the week page too, and that is where it gets fixed.</p>
+      <p class="kbd-hint"><kbd>/</kbd> to focus the search &middot; <kbd>Esc</kbd> to clear it &middot; the search is kept in the address bar, so a lookup can be bookmarked or shared</p>
+    </section>
+
   </main>
 
   <footer class="page-foot">
     <div class="wrap">
-      <p>{{SUBJECT_CODE_SPACED}} {{SUBJECT_NAME}} · {{WEEK_LABEL}} · Pre-live session</p>
-      <p>Compiled from my own pre-live notes for this week. Synced from Notion on {{SYNC_DATE}}.</p>
+      <p>{{SUBJECT_CODE_SPACED}} {{SUBJECT_NAME}} · Master search · {{WEEK_RANGE}}</p>
+      <p>Derived from the published week pages, which are built from my own pre-live notes. Live-session material is not indexed. Last built on {{BUILD_DATE}}.</p>
     </div>
   </footer>
     </div><!-- /.win -->
@@ -1341,8 +1324,8 @@
     <a class="dock-item" data-tint="lime" data-label="Home" href="index.html"><span aria-hidden="true">&#8962;</span><span class="sr-only">Home</span></a>
     <a class="dock-item" data-label="Library" href="library.html"><span aria-hidden="true">&#9776;</span><span class="sr-only">Library</span></a>
     <span class="dock-sep" aria-hidden="true"></span>
-    <a class="dock-item" data-tint="sky" data-label="DMBA 6008 &mdash; Finance" href="DMBA6008-weeks.html">6008</a>
-    <a class="dock-item" data-tint="sand" data-label="DMBA 6005 &mdash; Agile" href="DMBA6005-weeks.html">6005</a>
+    <a class="dock-item" data-tint="sky" data-label="DMBA 6008 &mdash; Finance" href="DMBA6008-weeks.html"{{DOCK_CURRENT_6008}}>6008</a>
+    <a class="dock-item" data-tint="sand" data-label="DMBA 6005 &mdash; Agile" href="DMBA6005-weeks.html"{{DOCK_CURRENT_6005}}>6005</a>
     <span class="dock-sep" aria-hidden="true"></span>
     <a class="dock-item" data-tint="mint" data-label="DMBA 6001 &mdash; Readings" href="library.html?subject=DMBA6001">6001</a>
     <a class="dock-item" data-tint="blush" data-label="DMBA 6002 &mdash; Assessments" href="library.html?subject=DMBA6002">6002</a>
@@ -1353,400 +1336,411 @@
     (function () {
       'use strict';
 
-      /* ── Tabs ─────────────────────────────────────────────── */
-      var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+      /* Everything on this page comes from the week pages, spliced in by
+         build_search.py. Nothing is authored here. */
+      var DATA = /*SEARCH_DATA*/{}/*END_SEARCH_DATA*/;
+      var entries = DATA.entries || [];
+      var weeks = DATA.weeks || [];
+      var weekByN = {};
+      weeks.forEach(function (w) { weekByN[w.n] = w; });
 
-      function selectTab(tab) {
-        tabs.forEach(function (t) {
-          var isTarget = t === tab;
-          var panel = document.getElementById('panel-' + t.getAttribute('data-panel'));
-          t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
-          t.tabIndex = isTarget ? 0 : -1;
-          if (!panel) return;
-          panel.classList.toggle('active', isTarget);
-          if (isTarget) {
-            panel.removeAttribute('hidden');
-          } else {
-            panel.setAttribute('hidden', '');
-          }
+      var KINDS = [
+        { k: 'all', label: 'Everything' },
+        { k: 'term', label: 'Key concepts' },
+        { k: 'acronym', label: 'Acronyms' },
+        { k: 'formula', label: 'Formulas' },
+        { k: 'card', label: 'Flashcards' }
+      ];
+      var KIND_LABEL = { term: 'Key concept', acronym: 'Acronym', formula: 'Formula', card: 'Flashcard' };
+      var PAGE = 80;
+
+      var qEl = document.getElementById('q');
+      var countEl = document.getElementById('count');
+      var resultsEl = document.getElementById('results');
+      var noneEl = document.getElementById('no-results');
+      var moreEl = document.getElementById('more');
+      var moreBtn = document.getElementById('more-btn');
+      var lettersEl = document.getElementById('letters');
+      var scopeEl = document.getElementById('results-scope');
+      var facetKind = document.getElementById('facet-kind');
+      var facetWeek = document.getElementById('facet-week');
+      var facetSort = document.getElementById('facet-sort');
+      var searchbar = document.querySelector('.searchbar');
+      var facetsToggle = document.getElementById('facets-toggle');
+      var facetsSummary = document.getElementById('facets-summary');
+      if (!qEl || !resultsEl) return;
+
+      if (facetsToggle && searchbar) {
+        facetsToggle.addEventListener('click', function () {
+          var open = searchbar.classList.toggle('facets-open');
+          facetsToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
       }
 
-      tabs.forEach(function (tab, i) {
-        tab.addEventListener('click', function () { selectTab(tab); });
-        tab.addEventListener('keydown', function (e) {
-          var next = null;
-          if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
-          if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
-          if (!next) return;
-          e.preventDefault();
-          selectTab(next);
-          next.focus();
-        });
+      /* ── Text helpers ────────────────────────────────────────────── */
+      function esc(s) {
+        return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+      // Length-preserving fold, so match offsets line up with the original
+      // text when highlighting.
+      function fold(s) {
+        return String(s == null ? '' : s).toLowerCase()
+          .replace(/[’‘]/g, "'").replace(/[“”]/g, '"')
+          .replace(/[‐-―−]/g, '-');
+      }
+      function headOf(e) { return e.t === 'acronym' ? e.abbr : e.t === 'card' ? e.q : e.name; }
+
+      entries.forEach(function (e, i) {
+        e.i = i;
+        e.head = headOf(e) || '';
+        e.key = fold(e.head).replace(/^[^a-z0-9$]+/, '');
+        e.h1 = fold(e.head);
+        e.h2 = fold([e.long, e.expr, e.formula].filter(Boolean).join(' · '));
+        e.h3 = fold([e.def, e.a, e.src, e.topic].filter(Boolean).join(' · '));
       });
 
-      /* ── Key concepts ─────────────────────────────────────── */
-      var TERMS = /*TERMS*/[]/*END_TERMS*/;
+      var totals = { all: entries.length, term: 0, acronym: 0, formula: 0, card: 0 };
+      entries.forEach(function (e) { totals[e.t] = (totals[e.t] || 0) + 1; });
 
-      var glossaryEl = document.getElementById('glossary');
-      var countEl = document.getElementById('term-count');
-      var searchEl = document.getElementById('term-search');
+      /* ── State, seeded from the address bar ─────────────────────── */
+      var params = new URLSearchParams(window.location.search);
+      var state = {
+        q: params.get('q') || '',
+        kind: params.get('type') || 'all',
+        week: params.get('week') != null && params.get('week') !== '' ? params.get('week') : 'all',
+        sort: params.get('order') === 'week' ? 'week' : 'az',
+        limit: PAGE
+      };
+      if (!KINDS.some(function (k) { return k.k === state.kind; })) state.kind = 'all';
+      if (state.week !== 'all') {
+        state.week = parseInt(state.week, 10);
+        if (!weekByN[state.week]) state.week = 'all';
+      }
+      qEl.value = state.q;
 
-      function escapeHtml(s) {
-        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      function syncUrl() {
+        var p = new URLSearchParams();
+        if (state.q.trim()) p.set('q', state.q.trim());
+        if (state.kind !== 'all') p.set('type', state.kind);
+        if (state.week !== 'all') p.set('week', String(state.week));
+        if (state.sort !== 'az') p.set('order', state.sort);
+        var qs = p.toString();
+        var url = window.location.pathname + (qs ? '?' + qs : '') + window.location.hash;
+        try { window.history.replaceState(null, '', url); } catch (err) { /* file:// in some browsers */ }
       }
 
-      glossaryEl.innerHTML = TERMS.map(function (t) {
-        var tag = t.own
-          ? '<span class="term-src term-src--own">Key Definitions</span>'
-          : '<span class="term-src">' + escapeHtml(t.src) + '</span>';
-        return '<article class="term" data-search="' +
-          escapeHtml((t.term + ' ' + t.def + ' ' + (t.formula || '')).toLowerCase()) + '">' +
-          '<div class="term-head"><h3 class="term-name">' + escapeHtml(t.term) + '</h3>' + tag + '</div>' +
-          '<p class="term-def">' + escapeHtml(t.def) + '</p>' +
-          (t.formula ? '<div class="term-formula">' + escapeHtml(t.formula) + '</div>' : '') +
-          '</article>';
-      }).join('') + '<p class="no-results" id="no-results" hidden>No terms match that filter.</p>';
-
-      var termEls = Array.prototype.slice.call(glossaryEl.querySelectorAll('.term'));
-      var noResultsEl = document.getElementById('no-results');
-
-      searchEl.addEventListener('input', function () {
-        var q = searchEl.value.trim().toLowerCase();
-        var shown = 0;
-        termEls.forEach(function (el) {
-          var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
-          if (match) { el.removeAttribute('hidden'); shown++; }
-          else { el.setAttribute('hidden', ''); }
-        });
-        countEl.textContent = shown + ' of ' + TERMS.length;
-        if (shown === 0) { noResultsEl.removeAttribute('hidden'); }
-        else { noResultsEl.setAttribute('hidden', ''); }
+      /* ── Facets ──────────────────────────────────────────────────── */
+      function chip(label, value, pressed, n) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'subtab';
+        b.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+        b.setAttribute('data-value', String(value));
+        b.innerHTML = esc(label) + (n != null ? '<span class="n">' + n + '</span>' : '');
+        return b;
+      }
+      KINDS.forEach(function (k) {
+        facetKind.appendChild(chip(k.label, k.k, state.kind === k.k, totals[k.k] || 0));
       });
+      facetWeek.appendChild(chip('All', 'all', state.week === 'all'));
+      weeks.forEach(function (w) {
+        var b = chip('Week ' + w.n, w.n, state.week === w.n);
+        b.title = w.title;
+        facetWeek.appendChild(b);
+      });
+      facetSort.appendChild(chip('A to Z', 'az', state.sort === 'az'));
+      facetSort.appendChild(chip('By week', 'week', state.sort === 'week'));
 
-      /* ── Acronyms & formulas ──────────────────────────────── */
-      /* Both reference tabs are a filtered list of .term cards, so they share
-         one renderer with the key-concepts glossary's markup and behaviour.
-         It no-ops when a week does not emit that tab. */
-      function buildRef(listId, items, toHtml, emptyMsg) {
-        var listEl = document.getElementById(listId);
-        var countEl = document.getElementById(listId + '-count');
-        var searchEl = document.getElementById(listId + '-search');
-        if (!listEl || !countEl || !searchEl) return;
-
-        listEl.innerHTML = items.map(toHtml).join('') +
-          '<p class="no-results" hidden>' + emptyMsg + '</p>';
-
-        var els = Array.prototype.slice.call(listEl.querySelectorAll('.term'));
-        var noneEl = listEl.querySelector('.no-results');
-        countEl.textContent = items.length + ' of ' + items.length;
-
-        searchEl.addEventListener('input', function () {
-          var q = searchEl.value.trim().toLowerCase();
-          var shown = 0;
-          els.forEach(function (el) {
-            var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
-            if (match) { el.removeAttribute('hidden'); shown++; }
-            else { el.setAttribute('hidden', ''); }
-          });
-          countEl.textContent = shown + ' of ' + items.length;
-          if (shown === 0) { noneEl.removeAttribute('hidden'); }
-          else { noneEl.setAttribute('hidden', ''); }
+      function press(group, value) {
+        Array.prototype.forEach.call(group.querySelectorAll('.subtab'), function (b) {
+          b.setAttribute('aria-pressed', b.getAttribute('data-value') === String(value) ? 'true' : 'false');
         });
       }
-
-<!--INSERT:ACRONYMS_DATA-->
-<!--INSERT:FORMULAS_DATA-->
-
-      /* ── Flashcards ───────────────────────────────────────── */
-      var CARDS = /*CARDS*/[]/*END_CARDS*/;
-
-      var order = CARDS.map(function (_, i) { return i; });
-      var pos = 0;
-
-      var flipBtn = document.getElementById('flip-card');
-      var qEl = document.getElementById('card-q');
-      var aEl = document.getElementById('card-a');
-      var idxEl = document.getElementById('card-index');
-      var totalEl = document.getElementById('card-total');
-      var fillEl = document.getElementById('progress-fill');
-      var prevBtn = document.getElementById('prev-btn');
-      var nextBtn = document.getElementById('next-btn');
-      var shuffleBtn = document.getElementById('shuffle-btn');
-
-      totalEl.textContent = CARDS.length;
-
-      function render() {
-        var card = CARDS[order[pos]];
-        flipBtn.setAttribute('aria-pressed', 'false');
-        // Swap the text only once the card is edge-on, so the answer is never
-        // readable through the flip.
-        window.setTimeout(function () {
-          qEl.textContent = card.q;
-          aEl.textContent = card.a;
-        }, flipBtn.getAttribute('data-flipped') === 'true' ? 180 : 0);
-        flipBtn.setAttribute('data-flipped', 'false');
-        idxEl.textContent = pos + 1;
-        fillEl.style.width = ((pos + 1) / CARDS.length * 100) + '%';
-        prevBtn.disabled = pos === 0;
-        nextBtn.disabled = pos === CARDS.length - 1;
-      }
-
-      function flip() {
-        var flipped = flipBtn.getAttribute('aria-pressed') === 'true';
-        flipBtn.setAttribute('aria-pressed', flipped ? 'false' : 'true');
-        flipBtn.setAttribute('data-flipped', flipped ? 'false' : 'true');
-      }
-
-      function go(delta) {
-        var next = pos + delta;
-        if (next < 0 || next >= CARDS.length) return;
-        pos = next;
+      facetKind.addEventListener('click', function (e) {
+        var b = e.target.closest ? e.target.closest('.subtab') : null;
+        if (!b) return;
+        state.kind = b.getAttribute('data-value');
+        press(facetKind, state.kind);
+        state.limit = PAGE;
         render();
-      }
+      });
+      facetWeek.addEventListener('click', function (e) {
+        var b = e.target.closest ? e.target.closest('.subtab') : null;
+        if (!b) return;
+        var v = b.getAttribute('data-value');
+        state.week = v === 'all' ? 'all' : parseInt(v, 10);
+        press(facetWeek, v);
+        state.limit = PAGE;
+        render();
+      });
+      facetSort.addEventListener('click', function (e) {
+        var b = e.target.closest ? e.target.closest('.subtab') : null;
+        if (!b) return;
+        state.sort = b.getAttribute('data-value');
+        press(facetSort, state.sort);
+        state.limit = PAGE;
+        render();
+      });
 
-      flipBtn.addEventListener('click', flip);
-      prevBtn.addEventListener('click', function () { go(-1); });
-      nextBtn.addEventListener('click', function () { go(1); });
+      /* ── Matching and ranking ────────────────────────────────────── */
+      function tokens(q) { return fold(q).split(/\s+/).filter(Boolean); }
 
-      shuffleBtn.addEventListener('click', function () {
-        for (var i = order.length - 1; i > 0; i--) {
-          var j = Math.floor(Math.random() * (i + 1));
-          var tmp = order[i];
-          order[i] = order[j];
-          order[j] = tmp;
+      // 0 = no match. Otherwise a score: a hit in the heading beats one in
+      // the expansion or formula, which beats one in the definition.
+      function score(e, toks) {
+        var s = 0;
+        for (var i = 0; i < toks.length; i++) {
+          var t = toks[i];
+          var p1 = e.h1.indexOf(t);
+          if (p1 === 0) { s += 6; continue; }
+          if (p1 > 0) { s += /[\s(\-\/]/.test(e.h1.charAt(p1 - 1)) ? 4 : 3; continue; }
+          if (e.h2.indexOf(t) !== -1) { s += 2; continue; }
+          if (e.h3.indexOf(t) !== -1) { s += 1; continue; }
+          return 0;
         }
-        pos = 0;
+        if (e.h1 === toks.join(' ')) s += 10;
+        if (e.t === 'card') s -= 0.5;
+        return s;
+      }
+
+      function groupKey(e) { return e.t + '|' + e.key.replace(/[^a-z0-9$]+/g, ' ').trim(); }
+
+      function compute() {
+        var toks = tokens(state.q);
+        var hits = [];
+        entries.forEach(function (e) {
+          if (state.kind !== 'all' && e.t !== state.kind) return;
+          if (state.week !== 'all' && e.w !== state.week) return;
+          var s = toks.length ? score(e, toks) : 1;
+          if (!s) return;
+          hits.push({ e: e, s: s });
+        });
+
+        // The same heading in several weeks becomes one card with a sense
+        // per week — the dictionary reading of "this term, across the
+        // subject". Cards are never merged unless the question is identical.
+        var groups = [], byKey = {};
+        hits.forEach(function (h) {
+          var k = groupKey(h.e);
+          var g = h.e.key ? byKey[k] : null;
+          if (!g) {
+            g = { key: h.e.key, t: h.e.t, head: h.e.head, items: [], s: 0 };
+            if (h.e.key) byKey[k] = g;
+            groups.push(g);
+          }
+          g.items.push(h.e);
+          if (h.s > g.s) g.s = h.s;
+        });
+        groups.forEach(function (g) {
+          g.items.sort(function (a, b) { return a.w - b.w || a.i - b.i; });
+          g.first = g.items[0];
+        });
+
+        if (toks.length) {
+          groups.sort(function (a, b) { return b.s - a.s || a.key.localeCompare(b.key) || a.first.w - b.first.w; });
+        } else if (state.sort === 'az') {
+          groups.sort(function (a, b) { return a.key.localeCompare(b.key) || a.first.w - b.first.w; });
+        } else {
+          groups.sort(function (a, b) { return a.first.w - b.first.w || a.first.i - b.first.i; });
+        }
+        return { groups: groups, hits: hits.length, toks: toks };
+      }
+
+      /* ── Rendering ───────────────────────────────────────────────── */
+      function hl(text, toks) {
+        var s = String(text == null ? '' : text);
+        if (!toks.length) return esc(s);
+        var low = fold(s), ranges = [];
+        toks.forEach(function (t) {
+          var from = 0, p;
+          while ((p = low.indexOf(t, from)) !== -1) { ranges.push([p, p + t.length]); from = p + 1; }
+        });
+        if (!ranges.length) return esc(s);
+        ranges.sort(function (a, b) { return a[0] - b[0]; });
+        var merged = [];
+        ranges.forEach(function (r) {
+          var last = merged[merged.length - 1];
+          if (last && r[0] <= last[1]) { if (r[1] > last[1]) last[1] = r[1]; }
+          else merged.push([r[0], r[1]]);
+        });
+        var out = '', at = 0;
+        merged.forEach(function (r) {
+          out += esc(s.slice(at, r[0])) + '<mark>' + esc(s.slice(r[0], r[1])) + '</mark>';
+          at = r[1];
+        });
+        return out + esc(s.slice(at));
+      }
+
+      function weekPill(e) {
+        var w = weekByN[e.w] || { href: '#', title: '' };
+        return '<a class="term-week" href="' + esc(w.href) + '" title="' + esc('Week ' + e.w + ' — ' + w.title) + '">Week ' + e.w + '</a>';
+      }
+      function metaRow(e, toks, withKind) {
+        // A term Aryan defined himself carries own:true and no src; the week
+        // pages tag those "Key Definitions", so this does too.
+        var where = e.src || e.topic || '';
+        return '<div class="term-meta">' +
+          (withKind ? '<span class="term-topic">' + KIND_LABEL[e.t] + '</span>' : '') +
+          weekPill(e) +
+          (e.own ? '<span class="term-src term-src--own">Key Definitions</span>' : '') +
+          (where ? '<span class="term-where">' + hl(where, toks) + '</span>' : '') +
+          '</div>';
+      }
+      function bodyOf(e, toks) {
+        if (e.t === 'term') {
+          return (e.def ? '<p class="term-def">' + hl(e.def, toks) + '</p>' : '') +
+            (e.formula ? '<div class="term-formula">' + hl(e.formula, toks) + '</div>' : '');
+        }
+        if (e.t === 'acronym') return e.def ? '<p class="term-def">' + hl(e.def, toks) + '</p>' : '';
+        if (e.t === 'formula') {
+          return '<div class="term-formula">' + hl(e.expr, toks) + '</div>' +
+            (e.def ? '<p class="term-def">' + hl(e.def, toks) + '</p>' : '');
+        }
+        if (e.t === 'card') {
+          return '<details class="reveal"><summary>Answer</summary><div class="reveal-body"><p>' + hl(e.a, toks) + '</p></div></details>';
+        }
+        return '';
+      }
+      function headingOf(g, toks) {
+        var e = g.first;
+        if (g.t === 'acronym') {
+          return '<span class="term-abbr">' + hl(e.abbr, toks) + '</span>' +
+            (e.long ? ' &middot; <span class="term-long">' + hl(e.long, toks) + '</span>' : '');
+        }
+        return hl(g.head, toks);
+      }
+      function cardHtml(g, toks) {
+        var e0 = g.first;
+        var html = '<article class="term term--' + g.t + '">';
+        if (g.items.length === 1) {
+          html += metaRow(e0, toks, true) +
+            '<h3 class="term-name">' + headingOf(g, toks) + '</h3>' +
+            bodyOf(e0, toks);
+        } else {
+          html += '<div class="term-meta"><span class="term-topic">' + KIND_LABEL[g.t] + '</span>' +
+            '<span class="term-where">In ' + g.items.length + ' weeks</span></div>' +
+            '<h3 class="term-name">' + headingOf(g, toks) + '</h3><ol class="senses">';
+          g.items.forEach(function (e) {
+            var longDiff = (g.t === 'acronym' && e.long && fold(e.long) !== fold(e0.long))
+              ? '<p class="term-def"><span class="term-long">' + hl(e.long, toks) + '</span></p>' : '';
+            html += '<li class="sense">' + metaRow(e, toks, false) + longDiff + bodyOf(e, toks) + '</li>';
+          });
+          html += '</ol>';
+        }
+        return html + '</article>';
+      }
+
+      function letterOf(g) {
+        var c = g.key.charAt(0);
+        return /[a-z]/.test(c) ? c.toUpperCase() : '#';
+      }
+
+      function renderLetters(groups, lettered) {
+        if (!lettered) { lettersEl.setAttribute('hidden', ''); lettersEl.innerHTML = ''; return; }
+        var have = {};
+        groups.forEach(function (g) { have[letterOf(g)] = true; });
+        var html = '';
+        '#ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(function (L) {
+          html += '<button class="letter" type="button" data-letter="' + L + '"' + (have[L] ? '' : ' disabled') + '>' + L + '</button>';
+        });
+        lettersEl.innerHTML = html;
+        lettersEl.removeAttribute('hidden');
+      }
+
+      var lastResult = null;
+      function render() {
+        var r = compute();
+        lastResult = r;
+        var lettered = !r.toks.length && state.sort === 'az';
+        var shown = r.groups.slice(0, state.limit);
+
+        var html = '', currentLetter = null;
+        shown.forEach(function (g) {
+          if (lettered) {
+            var L = letterOf(g);
+            if (L !== currentLetter) {
+              currentLetter = L;
+              html += '<h3 class="letter-head" id="letter-' + (L === '#' ? 'other' : L) + '">' + L + '</h3>';
+            }
+          }
+          html += cardHtml(g, r.toks);
+        });
+        resultsEl.innerHTML = html;
+
+        renderLetters(r.groups, lettered);
+
+        if (r.hits === 0) noneEl.removeAttribute('hidden');
+        else noneEl.setAttribute('hidden', '');
+
+        if (r.groups.length > shown.length) {
+          moreBtn.textContent = 'Show ' + Math.min(PAGE, r.groups.length - shown.length) + ' more (' + (r.groups.length - shown.length) + ' left)';
+          moreEl.removeAttribute('hidden');
+        } else {
+          moreEl.setAttribute('hidden', '');
+        }
+
+        countEl.textContent = r.toks.length || state.kind !== 'all' || state.week !== 'all'
+          ? r.hits + ' of ' + entries.length + ' entries'
+          : entries.length + ' entries';
+
+        var scope;
+        if (r.toks.length) scope = 'matching “' + state.q.trim() + '”';
+        else if (state.week !== 'all') scope = 'from Week ' + state.week + (state.sort === 'az' ? ', A to Z' : '');
+        else scope = state.sort === 'az' ? 'A to Z' : 'week by week';
+        scopeEl.textContent = scope;
+
+        if (facetsSummary) {
+          var kindLabel = 'Everything';
+          KINDS.forEach(function (k) { if (k.k === state.kind) kindLabel = k.label; });
+          facetsSummary.textContent = kindLabel + ' · ' +
+            (state.week === 'all' ? 'All weeks' : 'Week ' + state.week) + ' · ' +
+            (state.sort === 'az' ? 'A to Z' : 'By week');
+        }
+
+        syncUrl();
+      }
+
+      moreBtn.addEventListener('click', function () {
+        state.limit += PAGE;
         render();
       });
 
-      document.addEventListener('keydown', function (e) {
-        var panel = document.getElementById('panel-cards');
-        if (panel.hasAttribute('hidden')) return;
-        var tag = (e.target.tagName || '').toLowerCase();
-        if (tag === 'input' || tag === 'textarea') return;
+      lettersEl.addEventListener('click', function (e) {
+        var b = e.target.closest ? e.target.closest('.letter') : null;
+        if (!b || b.disabled) return;
+        var L = b.getAttribute('data-letter');
+        state.limit = Infinity;   // the whole alphabet has to be on the page to jump within it
+        render();
+        var target = document.getElementById('letter-' + (L === '#' ? 'other' : L));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
 
-        if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
-        else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
-        else if (e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); flip(); }
-        else if (e.key === 's' || e.key === 'S') { e.preventDefault(); shuffleBtn.click(); }
+      /* ── Typing ──────────────────────────────────────────────────── */
+      var timer = null;
+      qEl.addEventListener('input', function () {
+        state.q = qEl.value;
+        state.limit = PAGE;
+        window.clearTimeout(timer);
+        timer = window.setTimeout(render, 90);
+      });
+      qEl.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          if (qEl.value) { qEl.value = ''; state.q = ''; state.limit = PAGE; render(); }
+          else qEl.blur();
+        }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
+        var tag = (e.target.tagName || '').toLowerCase();
+        if (tag === 'input' || tag === 'textarea' || e.target.isContentEditable) return;
+        e.preventDefault();
+        qEl.focus();
+        qEl.select();
       });
 
       render();
+      if (!state.q && window.matchMedia && window.matchMedia('(pointer: fine)').matches) qEl.focus();
     })();
-
-
-
-    /* ── Summary index, collapse and search ─────────────────────────────
-       Progressive enhancement, built at runtime from the blocks that are
-       already on the page. Nothing in the authored markup changes, so the
-       prose-budget gate still measures the same blocks and a re-sync gets
-       this for free. With JS off the summary reads exactly as before.
-
-       A week whose summary is split into topic subpanels gets one index
-       per subpanel; otherwise the whole panel gets one. */
-    (function () {
-      'use strict';
-
-      var summaryPanel = document.getElementById('panel-summary');
-      if (!summaryPanel) return;
-
-      var subs = summaryPanel.querySelectorAll('.subpanel');
-      var containers = subs.length
-        ? Array.prototype.slice.call(subs)
-        : [summaryPanel];
-
-      containers.forEach(function (container, ci) {
-        var blocks = Array.prototype.slice.call(container.children).filter(function (el) {
-          return el.classList && el.classList.contains('block');
-        });
-        // Two or three sections navigate fine on their own.
-        if (blocks.length < 4) return;
-
-        var items = [];
-
-        blocks.forEach(function (block, i) {
-          var num = block.querySelector('.block-num');
-          var h2 = block.querySelector('h2');
-          if (!num || !h2) return;
-
-          block.id = block.id || 'sec-' + ci + '-' + (i + 1);
-
-          var details = document.createElement('details');
-          details.className = 'block-d';
-          details.open = true;
-          var head = document.createElement('summary');
-          head.className = 'block-head';
-          var body = document.createElement('div');
-          body.className = 'block-body';
-
-          // The eyebrow and the heading become the disclosure control;
-          // everything after the heading becomes the collapsible body.
-          var kids = Array.prototype.slice.call(block.childNodes);
-          var pastHeading = false;
-          kids.forEach(function (node) {
-            if (node === num || node === h2) {
-              head.appendChild(node);
-              if (node === h2) pastHeading = true;
-              return;
-            }
-            (pastHeading ? body : head).appendChild(node);
-          });
-
-          details.appendChild(head);
-          details.appendChild(body);
-          block.appendChild(details);
-
-          items.push({
-            block: block,
-            details: details,
-            num: num.textContent.trim(),
-            title: h2.textContent.trim(),
-            text: (block.textContent || '').toLowerCase()
-          });
-        });
-
-        if (items.length < 4) return;
-
-        var sid = 'week-search-' + ci;
-        var toc = document.createElement('nav');
-        toc.className = 'toc';
-        toc.setAttribute('aria-label', 'Contents');
-        toc.innerHTML =
-          '<div class="toc-top">' +
-            '<span class="toc-title">Contents</span>' +
-            '<div class="toc-actions">' +
-              '<button class="toc-btn" type="button" data-act="expand">Expand all</button>' +
-              '<button class="toc-btn" type="button" data-act="collapse">Collapse all</button>' +
-            '</div>' +
-          '</div>' +
-          '<div class="toolbar">' +
-            '<label class="visually-hidden" for="' + sid + '">Search this week</label>' +
-            '<input class="search" id="' + sid + '" type="search" autocomplete="off" ' +
-              'placeholder="Search these sections…">' +
-            '<span class="count" aria-live="polite"></span>' +
-          '</div>' +
-          '<ol class="toc-list"></ol>' +
-          '<p class="toc-empty" hidden>Nothing in this week matches that search.</p>';
-
-        var list = toc.querySelector('.toc-list');
-
-        // A long week opens as an outline: index first, then a list of
-        // headings you can pick from. A short one reads straight through,
-        // exactly as it did before. "Expand all" is one click either way.
-        var LONG = 12;
-        if (items.length > LONG) {
-          list.classList.add('is-long');
-          items.forEach(function (it) { it.details.open = false; });
-        }
-
-        items.forEach(function (it) {
-          var li = document.createElement('li');
-          var a = document.createElement('a');
-          a.href = '#' + it.block.id;
-          var n = document.createElement('span');
-          n.className = 'toc-n';
-          n.textContent = it.num.split('/')[0].trim();
-          var t = document.createElement('span');
-          t.textContent = it.title;
-          a.appendChild(n);
-          a.appendChild(t);
-          li.appendChild(a);
-          list.appendChild(li);
-          it.li = li;
-        });
-
-        container.insertBefore(toc, blocks[0]);
-
-        // A collapsed section must open when it is jumped to.
-        list.addEventListener('click', function (e) {
-          var a = e.target && e.target.closest ? e.target.closest('a') : null;
-          if (!a) return;
-          var target = document.getElementById(a.getAttribute('href').slice(1));
-          if (target) {
-            var d = target.querySelector('details.block-d');
-            if (d) d.open = true;
-          }
-        });
-
-        toc.querySelector('.toc-actions').addEventListener('click', function (e) {
-          var b = e.target && e.target.closest ? e.target.closest('button') : null;
-          if (!b) return;
-          var open = b.getAttribute('data-act') === 'expand';
-          items.forEach(function (it) {
-            if (!it.block.hasAttribute('hidden')) it.details.open = open;
-          });
-        });
-
-        var input = toc.querySelector('.search');
-        var count = toc.querySelector('.count');
-        var empty = toc.querySelector('.toc-empty');
-        var activeTopic = '';
-
-        // ── Topic chips ────────────────────────────────────────────────
-        // Built from the data-topic each block carries, so a week reads one
-        // topic at a time the way the sub-tabbed weeks already do. A block
-        // with no data-topic (a week-level takeaway, say) always shows.
-        var topics = [], emptyTopics = {};
-        items.forEach(function (it) {
-          var t = it.block.getAttribute('data-topic');
-          it.topic = t || '';
-          if (!t) return;
-          if (topics.indexOf(t) === -1) topics.push(t);
-          if (it.block.getAttribute('data-topic-empty') === 'true') emptyTopics[t] = true;
-        });
-
-        if (topics.length > 1) {
-          var chips = document.createElement('div');
-          chips.className = 'subtabs';
-          chips.setAttribute('aria-label', 'Topics');
-          ['All'].concat(topics).forEach(function (label, k) {
-            var b = document.createElement('button');
-            b.type = 'button';
-            b.className = 'subtab' + (emptyTopics[label] ? ' subtab--empty' : '');
-            b.setAttribute('aria-pressed', k === 0 ? 'true' : 'false');
-            b.setAttribute('data-topic', k === 0 ? '' : label);
-            b.textContent = label;
-            chips.appendChild(b);
-          });
-          chips.addEventListener('click', function (e) {
-            var b = e.target && e.target.closest ? e.target.closest('button') : null;
-            if (!b) return;
-            activeTopic = b.getAttribute('data-topic') || '';
-            Array.prototype.forEach.call(chips.children, function (c) {
-              c.setAttribute('aria-pressed', c === b ? 'true' : 'false');
-            });
-            applyFilter();
-          });
-          container.insertBefore(chips, toc);
-        }
-
-        function applyFilter() {
-          var q = input.value.trim().toLowerCase();
-          var shown = 0;
-          items.forEach(function (it) {
-            var hit = (!q || it.text.indexOf(q) !== -1) &&
-                      (!activeTopic || !it.topic || it.topic === activeTopic);
-            if (hit) {
-              it.block.removeAttribute('hidden');
-              it.li.removeAttribute('hidden');
-              if (q) it.details.open = true;
-              shown++;
-            } else {
-              it.block.setAttribute('hidden', '');
-              it.li.setAttribute('hidden', '');
-            }
-          });
-          count.textContent = shown + ' of ' + items.length + ' sections';
-          if (shown === 0) empty.removeAttribute('hidden');
-          else empty.setAttribute('hidden', '');
-        }
-
-        input.addEventListener('input', applyFilter);
-        applyFilter();
-      });
-    })();
-
   </script>
 </body>
 

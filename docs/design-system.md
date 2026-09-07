@@ -34,7 +34,9 @@ window over a dimmed desktop. That last move is exactly what a week study page i
 | `index.html` | `library.html` |
 | `DMBA6008-weeks.html`, `DMBA6005-weeks.html` | every `DMBA6001/6002/6004-*.html` page |
 | `DMBA6008-week0/1.html`, `DMBA6005-week0/1.html` | `blogs/` (owns `blogs/assets/`) |
-| `.claude/skills/sync-subject/reference/week-shell.html` | `only-accessible-by-url/` |
+| `DMBA6008-search.html`, `DMBA6005-search.html` | `only-accessible-by-url/` |
+| `.claude/skills/sync-subject/reference/week-shell.html` | |
+| `.claude/skills/sync-subject/reference/search/search-shell.html` | |
 
 Semester 1 pages keep the visual identity they were written with — that is a standing
 constraint in [`../CLAUDE.md`](../CLAUDE.md), not an oversight. `library.html` says so to
@@ -368,6 +370,44 @@ Contract notes that matter to a restyle:
 - The study path block carries **no `data-topic`**, so the topic chips leave it visible under
   every filter — which is the intent.
 
+### The master search page — one dictionary per subject
+
+Added 2026-09-07. `DMBA60xx-search.html` is an **Open window** page whose window holds a
+search box instead of tabs. It is **generated, not hand-written**:
+`reference/search/build_search.py` lifts every entry from the subject's week pages'
+`TERMS` / `ACRONYMS` / `FORMULAS` / `CARDS` arrays and splices them into
+`reference/search/search-shell.html`. The shell's stylesheet is the week shell's, sliced —
+tokens, `.term*`, `.toolbar` / `.search` / `.count`, `.subtab`, `.btn`, footer, dock,
+accessibility — with the search additions appended. **No new token.** When a token or one
+of those components changes in `week-shell.html`, make the same change in
+`search-shell.html` by hand (or re-slice); there is still no shared stylesheet, by rule.
+
+| Class | What it is |
+| --- | --- |
+| `.searchbar` | the sticky bar under the window title bar — same position, blur and border as `.tabs`, holding the `.toolbar` / `.search` / `.count` and the facets |
+| `.facets` / `.facet` / `.facet-label` | three groups of `.subtab[aria-pressed]` chips: type (Everything · Key concepts · Acronyms · Formulas · Flashcards, each with a count in `.n`), week, and order (A to Z · By week) |
+| `.facets-toggle` / `.facets-summary` | **phone only** (≤ 600 px): the three chip rows fold behind one button that names the current selection ("Everything · All weeks · A to Z"), because open they made the sticky bar ~320 px tall on an 844 px screen. `aria-expanded` on the button, `.facets-open` on `.searchbar` |
+| `.letters` / `.letter` | the dictionary's thumb index — 27 buttons, letters with no entries disabled; shown only when browsing A to Z with no query |
+| `.letter-head` | the group heading between letters in that same view |
+| `.term-meta` | the row above a result's `.term-name`: a `.term-topic` kind label, a `.term-week` pill linking to the week page, `.term-src--own` "Key Definitions" where the week page has it, and `.term-where` for the source topic |
+| `.senses` / `.sense` | a heading that appears in more than one week is **one card**, with one sense per week beneath it — the dictionary reading of "this term, across the subject" |
+| `mark` | the matched tokens, tinted butter |
+| `.reveal` | a flashcard's answer sits behind the same disclosure the Quiz tab uses, so recall stays active |
+| `.more` | results render 80 groups at a time; the ghost `.btn` appends the next 80 |
+
+Behaviour worth knowing before touching the script: every token in the query must match;
+a hit at the start of the heading outranks one inside it, which outranks the expansion or
+formula, which outranks the definition. `/` focuses the box and `Esc` clears it. The state
+— `q`, `type`, `week`, `order` — is mirrored to the address bar with `replaceState`, which is
+what lets the hub's search form (`GET ?q=`) land on live results and a lookup be shared.
+
+**The hub gained a `.lookup` card for it.** A pinned white paper between the Weeks section
+head and the week grid, holding a `<form role="search">` that GETs `?q=` to the search page
+with a lime `.lookup-btn` (lime is still the "yes" colour), plus a third hero pill `Master
+search →` (`a.pill { text-decoration: none }`). Every week page carries a second back pill,
+`.back--search` ("Search all weeks"), spaced by `.back + .back { margin-left: 8px }`; in the
+shell its href is `{{SEARCH_PAGE}}`, fed from `subjects.json` → `searchPage`.
+
 ### Study-page components
 
 The week pages keep their full component vocabulary and their entire inline script
@@ -394,8 +434,8 @@ Each covered page is one of three shapes.
 | Profile | Pages | Shape |
 | --- | --- | --- |
 | **Desktop** | `index.html` | wallpaper hero → pinboard of subject windows → butter footer → dock |
-| **Folder** | `DMBA60xx-weeks.html` | wallpaper hero (subject identity) → pinboard of week windows → mode explainer rows → butter footer → dock |
-| **Open window** | `DMBA60xx-weekN.html` | fixed dimmed wallpaper → back pill → one window holding hero, sticky tabs, content, footer → dock |
+| **Folder** | `DMBA60xx-weeks.html` | wallpaper hero (subject identity) → pinboard: the `.lookup` search card, then the week windows → mode explainer rows → butter footer → dock |
+| **Open window** | `DMBA60xx-weekN.html`, `DMBA60xx-search.html` | fixed dimmed wallpaper → back pill(s) → one window holding hero, a sticky strip (tabs on a week page, the search bar on the search page), content, footer → dock |
 
 The **Open window** profile is the one the reference's project detail inspired: content
 floats over a darkened desktop (`.desk` with a `linear-gradient(rgba(10,20,34,.34–.5))`

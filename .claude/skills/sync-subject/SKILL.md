@@ -103,6 +103,7 @@ discussion questions leaves both empty and shows three tabs, not four.
 | `reference/fragment-spec.md` | hand this to every fragment-building agent, verbatim |
 | `reference/checks.py` | QA gates 2, 3, 5 and 6 — structure, SVG overflow, inline-layout, prose length |
 | `reference/practice/` | the study path, Quiz and Apply-it components — `build.py`, the shared `tpl/`, the authored `data/<PAGE>.json`, and a `README.md` that is binding on every re-sync |
+| `reference/search/` | the master search page — `build_search.py` derives `<prefix>-search.html` from the built week pages, `search-shell.html` is its template, and its `README.md` is binding on every re-sync |
 | `../../../docs/vault-sync-state.json` | the manifest: what was published, and each topic's content hash |
 | `reference/vault_discover.py` | Phase 0 — discovery and diff against the vault |
 | `reference/publish_images.py` | Phase 2 — copies a week's images into `assets/notes/` |
@@ -328,8 +329,14 @@ Hand the agent `docs/vault-sync.md` §3b. The rules that actually bite:
   and gets no Formulas tab. Do not pad one to fill the template.
 
 Slots: `<!--INSERT:ACRONYMS_TAB-->` / `_PANEL` / `_DATA`, and the same three for `FORMULAS`.
-The shared `buildRef()` renderer is already in the shell and no-ops when a tab is absent, so
-there is no JS to write. Everything renders as `.term` cards — **no new component**.
+The shared `buildRef()` renderer is already in the shell and no-ops when a tab is absent —
+**but the shell only defines it, it never calls it.** The `_DATA` insert must therefore carry
+the array *and* its call block: `buildRef('acronyms', ACRONYMS, …)` after `ACRONYMS`, and
+`buildRef('formulas', FORMULAS, …)` after `FORMULAS`. Copy both blocks verbatim from
+`DMBA6008-week4.html`. Leave them out and the tab renders a count over an empty list, which
+`checks.py` cannot see — `DMBA6005-week5.html` shipped that way on 2026-08-31 and was caught
+only by opening the tab in a browser. Everything renders as `.term` cards — **no new
+component**.
 
 ---
 
@@ -363,6 +370,24 @@ nothing from a Live Session note, and nothing from a topic the page marks unwrit
 
 ---
 
+## Phase 3d — Rebuild the master search page *(one command, no agents)*
+
+Each live subject has a `<prefix>-search.html` that indexes every term, acronym, formula and
+flashcard across its week pages. It is **derived from the built pages** — it reads their
+`TERMS` / `ACRONYMS` / `FORMULAS` / `CARDS` arrays — so it runs **last**, after 3b and 3c have
+spliced everything into the week page:
+
+```
+python3 .claude/skills/sync-subject/reference/search/build_search.py <code>
+```
+
+**This is binding on every run that adds or changes a week page**; skip it and the index
+silently lags the weeks. It prints a per-week counts table that must equal the pages' own
+hero pills and reference-tab counts. Read `reference/search/README.md` before touching the
+template. Nothing is authored here — the page adds no content of its own.
+
+---
+
 ## Phase 4 — Assemble and register
 
 **Splice with a script, not by hand.** Summary blobs run 5–7k words each and there is no
@@ -378,7 +403,9 @@ reason to route them through context.
    stylesheet and one type pair. `{{FONT_HREF}}` is the house font link and is identical for
    every subject — do not swap in a per-subject pairing. `{{HUB_PAGE}}` is the back link and
    comes from `subjects.json` → `hubPage`; a week page's parent is its **week hub**, never
-   `library.html`.
+   `library.html`. `{{SEARCH_PAGE}}` is the second back pill ("Search all weeks") and comes
+   from `subjects.json` → `searchPage` — **a shipped page must never contain the literal
+   placeholder**; grep for `{{` before you move on.
    The summary **index, collapse and search** needs nothing from you — the shell's script
    builds it at load from whatever `.block` elements the summary ends up with. Do not
    hand-author a contents list; it would drift.
@@ -392,7 +419,8 @@ reason to route them through context.
    published on 2026-08-14 — filling one means dropping both the attribute and the
    `subtab--empty` class.)
 3. Update the hub page `<prefix>-weeks.html` — add the week card and fix **its
-   hand-written per-week counts**, which are the easiest thing to leave stale.
+   hand-written per-week counts**, which are the easiest thing to leave stale. The hub's
+   `.lookup` search card needs nothing per week; the search page itself is Phase 3d.
 4. Register in `library.html`. **`articlesBySubject` and `validSubjects` must be edited
    together** — a subject in one but not the other silently falls back to DMBA 6002.
 5. On a subject's **first** page only: drop `card--muted` from its `index.html` card, rewrite

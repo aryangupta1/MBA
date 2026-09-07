@@ -12,6 +12,7 @@
     "notionCourseId": "3097b336873c80c0948dcc805089b071",
     "filePrefix": "DMBA6008",
     "hubPage": "DMBA6008-weeks.html",
+    "searchPage": "DMBA6008-search.html",
     "cardClass": "card--6008",
     "stripe": "--course-d",
     "palette": {
@@ -50,6 +51,7 @@
     "notionCourseId": "3a17b336873c80c284a7cd6be4a60c4d",
     "filePrefix": "DMBA6005",
     "hubPage": "DMBA6005-weeks.html",
+    "searchPage": "DMBA6005-search.html",
     "cardClass": "card--6005",
     "stripe": "--course-e",
     "palette": {

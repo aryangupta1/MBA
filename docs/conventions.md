@@ -20,6 +20,19 @@ Rules:
   `DMBA6002-Assessment<N>-Overview.html`.
 - No dates or version numbers in filenames — git holds history.
 
+**The generated Semester 2 family** follows a fixed shape and is not hand-written:
+
+```
+DMBA<code>-weeks.html          the subject's week hub
+DMBA<code>-week<N>.html        one study page per week
+DMBA<code>-search.html         the subject's master search page
+```
+
+`sync-subject` builds the first two from the vault and
+`reference/search/build_search.py` derives the third from the built week pages. Change the
+template or the source and regenerate; a hand edit to generated content is overwritten by
+the next run.
+
 **Known legacy exceptions** (do not rename; renaming breaks any shared URL):
 `DMBA-6001-john_deere_case_study.html`, `DMBA-6001-telecom-iot.html`,
 `DMBA-6004-Week6-case.md`. New files follow the canonical form.
@@ -125,6 +138,7 @@ Adding a **new subject** means: a new key in `articlesBySubject`, the code added
 | Putting what | Goes where |
 | --- | --- |
 | A reader-facing artefact page | Repo root, `DMBA<code>-<slug>.html`, registered in `library.html` |
+| A generated Semester 2 page (hub, week, search) | Repo root, built by `sync-subject` / `reference/search/build_search.py`, registered in `library.html` by the run that creates it |
 | A blog post | `blogs/blog-<N>/index.html`, listed in `blogs/index.html` |
 | An appendix that must not be indexed | `only-accessible-by-url/`, never linked from an indexed page |
 | A figure for a blog post | `blogs/blog-<N>/images/` |

@@ -214,6 +214,11 @@ Notion→vault sync state covers all **323** pages as of 2026-09-07
 | Weeks published | **0–5** | **0–6** |
 | Outstanding | none — Week 5 published 2026-09-07 | Week 6's `Critical path diagrams` is only partly written in the source; the page says so. Published 2026-09-07 |
 | Held for review | — | Week 3 `Live` |
+| Master search page | `DMBA6008-search.html` — 1,157 entries | `DMBA6005-search.html` — 915 entries |
+
+The two search pages exist as of 2026-09-07. They are **derived from the built week pages**,
+not from the vault, by `.claude/skills/sync-subject/reference/search/build_search.py <code>`,
+and must be rebuilt after any run that changes a week page.
 
 **Live Session notes are now published too, to unlisted pages only** (Aryan, 2026-08-31):
 one page per week at `only-accessible-by-url/<CODE>-week<N>-private.html`, built by
