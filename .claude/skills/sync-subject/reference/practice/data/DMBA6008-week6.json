@@ -1,0 +1,506 @@
+{
+  "page": "DMBA6008-week6.html",
+  "quizIntro": "Twelve questions across the four topics. They target the confusions this week invites: a firm-specific shock against market risk, the unlevered beta against the levered one shareholders actually bear, an exit value against what it is worth today, post-funding value against pre-funding value, and enterprise value against the equity value left once net debt comes out. Every wrong option is a mistake someone actually makes with this material.",
+  "applyIntro": "Five scenarios across the four topics. Two are qualitative, because the page gives no figures for them and inventing some would teach the wrong habit; three use only the numbers the notes supply — the βU 0.8, 30%, 4% and 6.5% hurdle-rate table, the $30m, 8x, 60% and $8m venture chain, and the $20m, 16x, $30m, 40% and 5m private-company chain. Commit to an answer before opening the walkthrough.",
+  "studyPath": {
+    "intro": "Four topics in two pairs: the first two build the equity hurdle rate — which risk is priced, how beta measures it, and what debt does to it — and the second two apply a required return to a business that has no market price, first a venture and then an established private company. A full pass takes a little over two hours.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Settle which risk is priced",
+        "time": "~20 min",
+        "detail": "Blocks 01 to 07. Start with the two-path diagram and be able to say why a recession is paid for and a product recall is not. Then read beta against its 1.0 benchmark — at β = 1.2 a 1% market move is roughly a 1.2% move in the stock — and build re = rf + βi(MRP) knowing which of the three components is the only one that differs between companies."
+      },
+      {
+        "goto": "summary",
+        "label": "Follow the debt chain to the hurdle rate",
+        "time": "~25 min",
+        "detail": "Blocks 08 to 13. Hold the chain the page repeats: higher debt → greater ROE volatility → higher levered beta → higher equity hurdle rate. Sit with the ROE table — the same EBIT fall costs 7pp with no debt and 14pp levered — before the formula βL = βU [1 + (1 − T) D/E], then check the worked table: 0.80 and 9.2% at no debt, up to 1.47 and 13.6% at 120% D/E."
+      },
+      {
+        "goto": "summary",
+        "label": "Run the venture chain backwards by hand",
+        "time": "~25 min",
+        "detail": "Blocks 14 to 20. Cover the page and reproduce the three steps: $30m × 8 = $240m at exit, $240m / (1.60)⁵ = $22.888m today, $8m / $22.888m = 34.95% for the VC. The 60% is the point — the page says the extreme reduction is the hurdle rate, not the multiple. Block 19’s pre-funding value and notional share price are reproduced as the notes write them."
+      },
+      {
+        "goto": "summary",
+        "label": "Walk the private-company chain",
+        "time": "~25 min",
+        "detail": "Blocks 21 to 27. Five moves: 16 × $20m = $320m of enterprise value, less $30m net debt for $290m of equity value, × (1 − 0.40) for $174m, ÷ 5m shares for $34.80. Note that the cap rate of 6.25% is the same $320m by another route, and that the 40% is the valuer’s judgement — the page is explicit that no model generates it."
+      },
+      {
+        "goto": "formulas",
+        "label": "Drill the formulas",
+        "time": "~15 min",
+        "detail": "Filter for “beta” and read CAPM and the levered-beta conversion side by side — βL is what goes into βi for a leveraged company. Then filter for “value” and line up the three routes to a per-share figure: exit value discounted and divided, pre-funding value over existing shares, and adjusted equity value over shares outstanding. Note which formula has EV on the left and which has equity value."
+      },
+      {
+        "goto": "cards",
+        "label": "Drill the numbers and the directions",
+        "time": "~15 min",
+        "detail": "Ninety-six cards. The direction cards matter most — what a higher beta, a higher D/E, a higher VC required return or a higher cap rate does to the answer. The four rows of the D/E table, the two ROE pairs and both worked chains should come back unprompted, because the scenarios turn on which step was skipped."
+      },
+      {
+        "goto": "quiz",
+        "label": "Test the distinctions",
+        "time": "~10 min",
+        "detail": "Twelve questions aimed at what this material gets wrong in practice: pricing a diversifiable risk, reading a high ROE as better operations, dividing the VC’s $8m by the exit value instead of the post-funding value, and reporting an EBIT multiple as if it were equity value."
+      }
+    ],
+    "close": "You have it when you can take a company’s beta and capital structure to a hurdle rate, explain why a venture worth $240m at exit is worth about $22.9m today and what that does to the founders’ share, and turn a listed-peer multiple into a notional private-company share price while naming the one step in that chain that is judgement rather than arithmetic."
+  },
+  "quiz": [
+    {
+      "topic": "Equity hurdle rate Beta and CAPM",
+      "q": "A listed company’s largest customer unexpectedly moves to a competitor. Under CAPM, what does that do to the return its shareholders require?",
+      "hint": "Ask whether an investor holding a well-diversified portfolio could have offset this event elsewhere.",
+      "options": [
+        {
+          "t": "It raises the required return, because the company is now riskier.",
+          "ok": false,
+          "note": "A firm-specific shock can be offset by holding investments exposed differently to the same event. The page says investors receive no additional return for risks that can be diversified away."
+        },
+        {
+          "t": "It raises the required return only if the company’s beta is above 1.0.",
+          "ok": false,
+          "note": "Beta measures how the shares move relative to the overall market. Losing one customer is a firm-specific shock, not a market movement, so beta is not what decides whether it is priced."
+        },
+        {
+          "t": "It does not — a firm-specific shock can be diversified away, so investors receive no additional return for bearing it.",
+          "ok": true,
+          "note": "CAPM assumes investors hold well-diversified portfolios, so the relevant risk for the required return is systematic / market exposure, not every risk facing the company."
+        },
+        {
+          "t": "It raises the market risk premium, since the company’s expected return has fallen.",
+          "ok": false,
+          "note": "The market risk premium is the historical excess return earned by shares relative to low-risk government bonds — a market-wide figure the page puts at around 6–7% for Australia. One company’s customer loss does not move it."
+        }
+      ]
+    },
+    {
+      "topic": "Equity hurdle rate Beta and CAPM",
+      "q": "A stock has a beta of 1.2. What does the page say that means?",
+      "hint": "Beta is read against a benchmark of 1.0, and it describes a movement relative to the market’s.",
+      "options": [
+        {
+          "t": "A 1% market movement is associated with roughly a 1.2% movement in the stock in the same direction — about 20% greater sensitivity to the market.",
+          "ok": true,
+          "note": "The page’s own worked reading of β = 1.2: the stock moves more than the market, so it carries greater market risk, and the 20% is the extra sensitivity over a stock that moves in line with the market."
+        },
+        {
+          "t": "The stock moves about 20% for every 1% the market moves.",
+          "ok": false,
+          "note": "The 20% is the greater sensitivity relative to the market, not the size of the move. At β = 1.2 a 1% market move is roughly a 1.2% move in the stock."
+        },
+        {
+          "t": "The stock moves roughly 1.2% in the opposite direction to the market.",
+          "ok": false,
+          "note": "The page is explicit that the movement is in the same direction. A beta above 1.0 means the stock amplifies the market’s move, not that it runs against it."
+        },
+        {
+          "t": "The stock earns a return 1.2 times the risk-free rate.",
+          "ok": false,
+          "note": "In CAPM, beta scales the market risk premium, not the risk-free rate: re = rf + βi(MRP). Beta itself is about how the shares move relative to the market, not a multiple of a return."
+        }
+      ]
+    },
+    {
+      "topic": "Equity hurdle rate Beta and CAPM",
+      "q": "A company’s beta rises, but its expected cash flows have not changed at all. What does the page say follows?",
+      "hint": "Look at what beta does inside the CAPM formula, and at the analytical takeaway the page draws from it.",
+      "options": [
+        {
+          "t": "Nothing changes for the investment decision, because value depends on expected cash flows.",
+          "ok": false,
+          "note": "The page says the opposite: a rising beta increases the equity hurdle rate even if expected cash flows have not changed, so risk alone can make an investment less attractive."
+        },
+        {
+          "t": "The equity hurdle rate rises, so an investment can become less attractive even though nothing about its cash flows has changed.",
+          "ok": true,
+          "note": "Higher β → greater required return → higher equity hurdle rate. CAPM forces managers to ask whether the expected return compensates shareholders for market exposure, not simply whether a project is profitable in absolute terms."
+        },
+        {
+          "t": "The risk-free rate rises to compensate.",
+          "ok": false,
+          "note": "The risk-free rate is compensation for the time value of money, typically proxied by a government bond yield, and it is the same base for every company. Beta decides how much of the market premium is added on top of it."
+        },
+        {
+          "t": "The market risk premium rises, because the company is now more exposed.",
+          "ok": false,
+          "note": "The market risk premium is a market-wide historical figure. What changes for one company is the beta that scales that premium, not the premium itself."
+        }
+      ]
+    },
+    {
+      "topic": "Beta un-levered versus levered",
+      "q": "You are determining the return required by the shareholders of a leveraged company. Which beta goes into the CAPM formula?",
+      "hint": "The page separates business risk from financial risk and says which of the two betas carries both.",
+      "options": [
+        {
+          "t": "The unlevered beta, because it reflects the underlying business.",
+          "ok": false,
+          "note": "Unlevered beta measures market risk assuming no debt financing — the business before financial leverage is introduced. It isolates business risk and leaves out the financial risk shareholders actually carry."
+        },
+        {
+          "t": "The average of the unlevered and levered betas.",
+          "ok": false,
+          "note": "Nothing on the page averages the two. The formula βL = βU [1 + (1 − T) D/E] converts one into the other, and the page says to use the levered beta for a leveraged company."
+        },
+        {
+          "t": "The unlevered beta, because interest is tax deductible and the (1 − T) term cancels the effect of debt.",
+          "ok": false,
+          "note": "The (1 − T) term reduces the effective impact of debt; it does not remove it. Higher D/E still means a higher levered beta, which is why the hurdle rate in the worked table climbs from 9.2% to 13.6%."
+        },
+        {
+          "t": "The levered beta — it shows the risk actually borne by shareholders under the chosen capital structure.",
+          "ok": true,
+          "note": "The page’s instruction: use the levered beta when determining the return required by shareholders of a leveraged company. It carries business risk through βU and financial risk through the leverage bracket."
+        }
+      ]
+    },
+    {
+      "topic": "Beta un-levered versus levered",
+      "q": "Two companies earn the same EBIT. One has no debt and reports ROE of 21%; the other is levered and reports 35%. How does the page say to read the higher figure?",
+      "hint": "Ask what leverage does to the equity base and to fixed costs, and what the same EBIT shock does to each company.",
+      "options": [
+        {
+          "t": "It may partly reflect leverage — a smaller equity base and greater financial risk — rather than better operating performance.",
+          "ok": true,
+          "note": "The page’s takeaway: ROE must be interpreted alongside leverage. Debt reduces the equity base and introduces fixed interest costs, so the return to shareholders rises on the same EBIT even though absolute profit is lower."
+        },
+        {
+          "t": "The levered company must have the superior operations, since its ROE is higher.",
+          "ok": false,
+          "note": "Both companies generate the same EBIT. The page says a high ROE can partly reflect leverage rather than superior operating performance — the operations are identical by construction."
+        },
+        {
+          "t": "The levered company has created value for free, since its shareholders earn more on the same business.",
+          "ok": false,
+          "note": "The page says this does not represent free value creation: shareholders achieve the higher return by bearing more financial risk, and absolute profit is lower after interest."
+        },
+        {
+          "t": "The levered company is the safer investment, since a higher return signals lower risk.",
+          "ok": false,
+          "note": "The reverse. When EBIT falls from $30m to $20m, the unlevered ROE drops 7pp and the levered ROE drops 14pp — debt magnifies both upside and downside for equity holders."
+        }
+      ]
+    },
+    {
+      "topic": "Beta un-levered versus levered",
+      "q": "In βL = βU [1 + (1 − T) D/E], what does the (1 − T) term reflect?",
+      "hint": "T is the corporate tax rate. Ask what a company can deduct.",
+      "options": [
+        {
+          "t": "It converts EBIT into after-tax profit before the beta is computed.",
+          "ok": false,
+          "note": "The formula relates two betas, not profit figures. T enters only through the leverage bracket, to adjust how much financial risk a given D/E adds."
+        },
+        {
+          "t": "It increases the effective impact of debt, because tax is an additional fixed obligation.",
+          "ok": false,
+          "note": "The direction is wrong. The page says the term reduces the effective impact of debt — multiplying D/E by (1 − T) makes the bracket smaller, not larger."
+        },
+        {
+          "t": "It reflects that interest is tax deductible, reducing the effective impact of debt on the levered beta.",
+          "ok": true,
+          "note": "The page’s interpretation in one line: the (1 − T) term reflects the notion that interest is tax deductible, reducing the effective impact of debt."
+        },
+        {
+          "t": "It is the tax rate applied to the equity hurdle rate to give an after-tax required return.",
+          "ok": false,
+          "note": "The hurdle rates in the worked table — 9.2%, 11.0%, 12.8%, 13.6% — are not tax-adjusted. T does its work inside the beta conversion, before CAPM is applied."
+        }
+      ]
+    },
+    {
+      "topic": "Valuing an early-stage venture",
+      "q": "Why can a venture capital investor’s required return sit far above the conventional equity hurdle rate derived from the CAPM?",
+      "hint": "The page lists four things the VC is uncertain about. None of them is a number from a share-price series.",
+      "options": [
+        {
+          "t": "Because venture capital is a form of lending, and lenders require interest cover.",
+          "ok": false,
+          "note": "The page defines VC as equity investment rather than lending. An early-stage venture is in this position precisely because it has insufficient history or stability to raise debt."
+        },
+        {
+          "t": "Because of substantial uncertainty around commercialisation, market adoption, competitive technologies and execution by the founding team.",
+          "ok": true,
+          "note": "The page’s four sources of uncertainty, and its chain: higher uncertainty → higher required return → heavier discounting of future value → lower valuation today."
+        },
+        {
+          "t": "Because an early-stage venture’s beta, estimated from five years of monthly share-price data, is far above 1.0.",
+          "ok": false,
+          "note": "The page attributes the gap to uncertainty, not to a beta estimate, and it describes the venture’s share price as notional because the company is not publicly traded — there is no market price to read a beta from."
+        },
+        {
+          "t": "Because the exit multiple is applied to EBIT rather than to cash flow.",
+          "ok": false,
+          "note": "The exit multiple sets the exit value; the required return is the rate that exit value is then discounted at. They are separate steps of the model, and the multiple is not the reason the rate is high."
+        }
+      ]
+    },
+    {
+      "topic": "Valuing an early-stage venture",
+      "q": "Using the page’s example — an $8m investment, a $240m exit value and a $22.888m value today — what is the denominator of the VC’s ownership stake?",
+      "hint": "The stake is agreed today, so ask which of the figures is a value today rather than a value in year five.",
+      "options": [
+        {
+          "t": "The exit value of $240m, giving 8 / 240 = 3.3%.",
+          "ok": false,
+          "note": "The $240m is a year-5 figure. The page discounts it to today before the stake is calculated, which is why the founders give up roughly 35%, not 3%."
+        },
+        {
+          "t": "The post-funding value of $22.888m, giving 8 / 22.888 = 34.95%.",
+          "ok": true,
+          "note": "VC Ownership = Investment / Post-funding Value. The page’s wording is that the VC contributes $8m into a business valued at $22.888m after funding."
+        },
+        {
+          "t": "The pre-funding value, since that is what the founders own before the VC invests.",
+          "ok": false,
+          "note": "Pre-funding value is the value attributable to the existing owners immediately before the investment, and the page derives it by subtracting the new investment from the post-funding value. It is a result of the stake calculation, not its denominator."
+        },
+        {
+          "t": "The forecast EBIT at exit of $30m.",
+          "ok": false,
+          "note": "EBIT at exit is the input the exit multiple is applied to. It is not a value of the business at any date, so dividing an investment by it gives nothing the page recognises."
+        }
+      ]
+    },
+    {
+      "topic": "Valuing an early-stage venture",
+      "q": "The founders object that giving up roughly 35% of the company for $8m is too much. What does the page say the relevant comparison is?",
+      "hint": "The page says dilution can appear severe, and then says what percentage ownership should be compared against.",
+      "options": [
+        {
+          "t": "Decline the funding — a 35% dilution is severe and the founders should keep control.",
+          "ok": false,
+          "note": "The page says the dilution can appear severe, but the relevant comparison is not percentage ownership alone. Founders should focus on the value created by funding, not dilution in isolation."
+        },
+        {
+          "t": "Raise debt instead, since it involves no dilution.",
+          "ok": false,
+          "note": "An early-stage venture has insufficient history or stability to raise debt — that is why venture capital is the next major funding source once bootstrapping, family funding and grants are exhausted."
+        },
+        {
+          "t": "Accept it only if the VC lowers its required return to the CAPM hurdle rate.",
+          "ok": false,
+          "note": "The page says the VC required return can sit far above the CAPM hurdle because of the venture’s uncertainty. It notes that small changes in the required return alter dilution, but nothing on the page suggests it comes down to the CAPM rate."
+        },
+        {
+          "t": "Compare a smaller share of a substantially more valuable business with a larger share of one that cannot fund its growth — the $30m EBIT and $240m exit assume the funding.",
+          "ok": true,
+          "note": "The founder trade-off as the page states it, together with its warning that without capital the forecast operating outcome may not be achievable at all."
+        }
+      ]
+    },
+    {
+      "topic": "Valuing a private company",
+      "q": "A private company has EBIT of $20m and net debt of $30m; listed peers trade at an average EV/EBIT of 16x. An analyst reports $320m as the equity value. What has been missed?",
+      "hint": "Ask what the multiple produces, and what the page says sits between that figure and the equity holders.",
+      "options": [
+        {
+          "t": "Subtracting net debt of $30m — the $320m is enterprise value, and equity value is $290m.",
+          "ok": true,
+          "note": "16 × $20m gives EV, the value of the operating assets/business. Subtracting net debt isolates the value attributable to equity holders: $320m − $30m = $290m."
+        },
+        {
+          "t": "Nothing — the multiple is applied to EBIT, so $320m is already the equity value.",
+          "ok": false,
+          "note": "The benchmark is Enterprise Value / EBIT, so applying it gives enterprise value. The page is explicit that the comparable valuation begins with EV and that net debt still has to come out."
+        },
+        {
+          "t": "Adding net debt of $30m to reach $350m, since debt is part of the company’s value.",
+          "ok": false,
+          "note": "EV = Market Capitalisation + Net Debt, so enterprise value already includes the debt. Equity value is found by taking net debt away from EV, not adding it."
+        },
+        {
+          "t": "Applying the 40% private-company discount to $320m to reach $192m.",
+          "ok": false,
+          "note": "The page applies the discount to the $290m equity value, after net debt, to reach $174m. Discounting EV skips the net debt step and starts from the wrong base."
+        }
+      ]
+    },
+    {
+      "topic": "Valuing a private company",
+      "q": "The 16x EBIT multiple is also expressed as a capitalisation rate of 6.25%. How does the page relate the two?",
+      "hint": "Cap Rate = 1/16. Ask whether that changes the $320m.",
+      "options": [
+        {
+          "t": "The cap rate is the shareholders’ required return, so it should be built with CAPM rather than taken from the multiple.",
+          "ok": false,
+          "note": "The page presents the cap rate purely as 1/16 — an alternative expression of the multiple — and does not derive it from CAPM anywhere. It says the terminology is particularly common in sectors such as property."
+        },
+        {
+          "t": "A higher cap rate means a higher enterprise value.",
+          "ok": false,
+          "note": "EV = EBIT / Cap Rate. Dividing $20m by a larger rate gives a smaller EV; a 6.25% cap rate is exactly the same as a 16x multiple, and a higher rate would be a lower multiple."
+        },
+        {
+          "t": "It is mathematically another way of expressing the same valuation relationship — $20m / 0.0625 = $320m, exactly as 16 × $20m does.",
+          "ok": true,
+          "note": "The page’s words: this is mathematically another way of expressing the same valuation relationship. Same EBIT, same $320m of enterprise value."
+        },
+        {
+          "t": "The cap rate is applied to equity value, whereas the multiple is applied to EBIT.",
+          "ok": false,
+          "note": "Both start from EBIT and both produce enterprise value: EV = EBIT / Cap Rate. Net debt still comes out afterwards to reach equity value."
+        }
+      ]
+    },
+    {
+      "topic": "Valuing a private company",
+      "q": "In the worked example a 40% private-company discount takes the $290m equity value to $174m. Where does the 40% come from?",
+      "hint": "The page has one sentence on what the discount is not, and one on what it reflects.",
+      "options": [
+        {
+          "t": "It is generated by the valuation model from the gap between the private company’s EBIT and the comparables’ EBIT.",
+          "ok": false,
+          "note": "The page is explicit that the 40% is not mechanically generated by the valuation model. EBIT differences are what the multiple handles; the discount is a separate, judgemental step."
+        },
+        {
+          "t": "It reflects the valuer’s judgement based on the company’s characteristics and previous comparable transactions/valuations.",
+          "ok": true,
+          "note": "The page’s own description. The characteristics it has in mind are difficulty selling an ownership stake, limited product diversity, a smaller customer base, dependence on key executives or founders, and reliance on a specific technology."
+        },
+        {
+          "t": "It is the proportion of the company’s value that is net debt.",
+          "ok": false,
+          "note": "Net debt is $30m of the $320m enterprise value and has already been deducted to reach $290m. The discount is applied to what is left, for reasons that have nothing to do with debt."
+        },
+        {
+          "t": "It is the reduction implied by lower liquidity alone, since that is the only discount the notes quantify.",
+          "ok": false,
+          "note": "The notes list several reasons for a discount and quantify none of them separately. The 40% covers the company’s characteristics as a whole, by judgement — which is why the page says the assumptions behind it are as important as the headline valuation."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "Equity hurdle rate Beta and CAPM",
+      "title": "Two risks, one hurdle",
+      "setup": "The CFO of a consumer-staples company, whose demand barely moves through economic cycles, argues that its equity hurdle rate should be set high because of the risks it faces: a possible product recall, reliance on one supplier and a pending lawsuit. A counterpart at a highly cyclical semiconductor company argues that his hurdle should be low, since his firm has few risks of that kind.",
+      "task": "Using the logic of CAPM, say who has the argument backwards, and set out how each company’s hurdle rate should actually be built.",
+      "hints": [
+        "Ask which risks a well-diversified investor is paid for, and which are offset elsewhere in the portfolio.",
+        "The page says which kind of business tends to have a higher beta, and gives a semiconductor company as its example.",
+        "Of the three components in re = rf + βi(MRP), only one differs between the two companies."
+      ],
+      "walkthrough": [
+        "CAPM assumes investors hold well-diversified portfolios. A recall, a supplier failure or a lawsuit is a firm-specific shock that can be offset by holding investments exposed differently to the same event, so investors receive no additional return for it. Neither CFO’s list belongs in the hurdle rate.",
+        "What is priced is systematic / market exposure, measured by beta. The page says defensive businesses tend to have lower betas because demand remains stable through cycles, while a highly cyclical semiconductor company sees amplified gains in a boom and amplified losses in a downturn — a higher beta and therefore a higher required equity return.",
+        "Both hurdles are built the same way: re = rf + βi(MRP). The risk-free rate, proxied by a government bond yield, and the market risk premium, historically around 6–7% in Australia, are the same for both companies. Beta is the only company-specific input, scaling how much of the premium is added on top of the risk-free base.",
+        "So both have it backwards. The staples company’s many specific risks do not raise its hurdle, and its stable demand points to a lower beta; the semiconductor company’s few specific risks do not lower its hurdle, and its cyclicality points to a higher one.",
+        "The question each should be asking is the one the page closes on: is the expected return sufficient for the systematic risk shareholders must bear — not whether the project is profitable in absolute terms, and not how long the list of things that could go wrong is."
+      ],
+      "checklist": [
+        "Separates diversifiable, firm-specific shocks from market risk and says only the second is priced",
+        "Links defensive and cyclical demand to lower and higher betas",
+        "Names the three CAPM components and identifies beta as the only one that differs",
+        "Concludes that both CFOs have the direction wrong",
+        "Frames the decision as return against systematic risk, not absolute profitability"
+      ]
+    },
+    {
+      "topic": "Beta un-levered versus levered",
+      "title": "The refinancing that lifts ROE",
+      "setup": "A company currently carries no debt. Its unlevered beta is 0.8, the corporate tax rate is 30%, the risk-free rate is 4% and the market risk premium is 6.5%. The CFO proposes borrowing to take debt-to-equity to 100%, pointing to the notes’ example in which leverage lifts ROE from 21% to 35% on the same EBIT, and describes the plan as creating value for shareholders.",
+      "task": "Say what happens to the equity hurdle rate, and tell the board how to read the CFO’s ROE claim.",
+      "hints": [
+        "For a leveraged company the return shareholders require is built from the levered beta — the page’s table gives it at 100% D/E.",
+        "Ask what the same EBIT does to ROE under each structure, and why — the page gives two reasons.",
+        "Then ask what the same fall in EBIT, from $30m to $20m, does to ROE under each structure."
+      ],
+      "walkthrough": [
+        "With no debt, the levered beta equals the unlevered beta, 0.80, and the page’s table gives an equity hurdle rate of 9.2% — the risk-free 4% plus 0.80 times the 6.5% premium.",
+        "At 100% debt-to-equity the conversion βL = βU [1 + (1 − T) D/E] gives a levered beta of 1.36 in the page’s table and an equity hurdle rate of 12.8%. Higher D/E means a higher levered beta because shareholders absorb more financial risk; the (1 − T) term reduces the effect of debt because interest is tax deductible, but does not remove it.",
+        "The ROE claim is real but not free. The same EBIT produces a higher return to shareholders because debt reduces the equity base and introduces fixed interest costs — leverage can increase ROE in favourable conditions even though absolute profit is lower. The page says this is not free value creation: shareholders earn the higher return by bearing more financial risk.",
+        "The other side of the bargain is in the notes’ shock. When EBIT falls from $30m to $20m, ROE falls from 21% to 14% with no debt but from 35% to 21% when levered — twice the percentage-point decline for the same deterioration in operating performance.",
+        "So the board should read the higher ROE alongside the higher hurdle: the return now has to clear 12.8% rather than 9.2%, and the question is whether the additional return sufficiently compensates shareholders for the additional financial risk. More leverage is not automatically beneficial simply because ROE rises; capital structure affects valuation indirectly through the required return."
+      ],
+      "checklist": [
+        "States the hurdle rate at 0% and 100% D/E using the page’s table",
+        "Explains the rise through the levered beta and the role of the (1 − T) term",
+        "Gives both reasons the same EBIT yields a higher ROE, and notes absolute profit is lower",
+        "Uses the $30m to $20m shock to show the doubled downside",
+        "Concludes with the page’s question about compensation for financial risk rather than with the ROE figure"
+      ]
+    },
+    {
+      "topic": "Valuing an early-stage venture",
+      "title": "Thirty-five per cent of what",
+      "setup": "Two founders have a functioning product and early revenue, have exhausted their savings, family funding and grants, and cannot raise debt. A venture capital fund offers $8m on a five-year horizon, forecasting EBIT at exit of $30m and an exit multiple of 8x EBIT, at a required return of 60% a year. The founders say that giving up about a third of a business that could be worth $240m is far too much for $8m.",
+      "task": "Reproduce how the VC’s stake arises from those inputs, and say what the founders should be comparing instead.",
+      "hints": [
+        "The model works backwards from exit — three steps, in order.",
+        "The founders are comparing $8m with a year-five figure. Ask what that figure is worth today at 60%.",
+        "The page says what the $30m EBIT forecast assumes, and what the relevant comparison for founders is."
+      ],
+      "walkthrough": [
+        "Step one is value at exit: EV₅ = EBIT₅ × Exit Multiple = $30m × 8 = $240m. The 8x reflects what investors believe a comparable business could be worth at exit, realised by sale of the VC stake, an IPO or acquisition by a strategic buyer.",
+        "Step two discounts that to today: PV = $240m / (1.60)⁵ = $22.888m. The extreme reduction is driven by the very high risk-adjusted hurdle rate, which the page ties to uncertainty about commercialisation, market adoption, competitive technologies and the founding team’s execution.",
+        "Step three is the stake: VC Ownership = Investment / Post-funding Value = 8 / 22.888 = 34.95%. The denominator is the value today after funding, not the exit value — which is why $8m buys roughly 35% of a business the founders think of as worth $240m.",
+        "The founders’ comparison is the wrong one. The page notes that the $30m EBIT and the $240m exit value assume the venture receives the funding required to scale; without capital, the forecast operating outcome may not be achievable. The relevant comparison is a smaller percentage of a substantially more valuable business against a larger percentage of a venture that cannot fund its growth.",
+        "If they want to negotiate, the page names the two assumptions the valuation depends on most heavily — the exit multiple and the required VC return — and says small changes in either materially alter founder dilution and implied value. The questions to put are the page’s three: what is a credible exit value, how risky is achieving it, and what stake is required today to earn the target return."
+      ],
+      "checklist": [
+        "Computes the $240m exit value and says what the multiple represents",
+        "Discounts it to $22.888m and attributes the reduction to the 60% required return",
+        "Divides $8m by the post-funding value, not the exit value, to reach 34.95%",
+        "States that the forecast assumes the funding and reframes the comparison as value created",
+        "Identifies the exit multiple and the required return as the assumptions to negotiate"
+      ]
+    },
+    {
+      "topic": "Valuing a private company",
+      "title": "The multiple that skipped two steps",
+      "setup": "You are reviewing a junior analyst’s valuation of a private company with EBIT of $20m, net debt of $30m and 5 million shares outstanding. Relevant listed companies in the same sector trade at an average EV/EBIT of 16x, and a partner has judged a 40% private-company discount appropriate given the firm’s dependence on its founder and its small customer base. The analyst has multiplied EBIT by 16, reported the result as the equity value, and divided it by the 5 million shares to give a value per share.",
+      "task": "Identify what the analyst skipped, correct the chain using only the page’s figures, and say what the resulting per-share figure is and is not.",
+      "hints": [
+        "What does an EV/EBIT multiple produce, and what does the page say sits between that and the equity holders?",
+        "The $290m the page reaches is described as being before something.",
+        "The last step is a division — but the page attaches a warning to what comes out of it."
+      ],
+      "walkthrough": [
+        "16 × $20m = $320m is enterprise value — the value of the operating assets/business. Since EV = Market Capitalisation + Net Debt, the equity holders’ share is EV less net debt: $320m − $30m = $290m. That is the first skipped step. The cap-rate route gives the same starting point: $20m / 0.0625 = $320m.",
+        "The $290m comes from listed-company comparables and, in the page’s words, is before adjusting for the disadvantages of being privately held. Applying the partner’s discount, Adjusted Equity Value = $290m × (1 − 0.40) = $174m. That is the second skipped step, and the page is explicit that the 40% is judgement based on the company’s characteristics and previous comparable transactions, not something the model generates.",
+        "Only then is the remainder spread across the shares: Share Value = Adjusted Equity Value / Shares Outstanding = $174m / 5m = $34.80 per share.",
+        "The $34.80 is a notional private-company share price, not an exchange-traded market price. It reflects both the public-company comparable evidence and the adjustments for private-company-specific risk.",
+        "Because the discount can have a major valuation impact and is inherently judgemental, the review should test the assumption behind it and the comparability of the 16x peers, and present a defensible range rather than a single number."
+      ],
+      "checklist": [
+        "Names $320m as enterprise value and deducts net debt to reach $290m",
+        "Applies the 40% discount to equity value, not to EV, to reach $174m",
+        "Divides by 5 million shares to reach $34.80",
+        "Describes the result as notional rather than a market price",
+        "Flags the discount and the comparables as the judgements to defend"
+      ]
+    },
+    {
+      "topic": "Valuing a private company",
+      "title": "The comparables that do not compare",
+      "setup": "A valuation report on a family-owned regional business — one product line, a founder who still runs its sales, and a handful of large customers — benchmarks it against three listed multinationals in the same sector, each with broad product ranges and operations across many countries. The report applies their average EV/EBIT directly, with no discount, and describes the result as purely market-based.",
+      "task": "Critique the report, and say what a defensible private-company valuation of this business would need to show.",
+      "hints": [
+        "The page says what makes a listed company a comparable — three characteristics.",
+        "It also lists why public-company benchmarks usually cannot be applied directly. Count how many apply here.",
+        "Consider what the page calls the science and what it calls the art."
+      ],
+      "walkthrough": [
+        "Starting from listed comparables is right. A private company is not listed on a securities exchange, so valuers lack the depth of observable market information available for listed firms, and the page says valuation relies heavily on benchmarking against comparable public companies.",
+        "But comparables must share similar industry exposure, risk characteristics and cash flow characteristics, and the page warns that comparable multiples are only as useful as the comparability of the firms selected — differences in scale, risk, product depth and cash flows can materially distort the result. Three multinationals with broad ranges share the sector with this business and little else.",
+        "Public-company benchmarks usually cannot be applied directly. The business shows most of the page’s reasons for a discount: smaller scale, narrower geographical reach, lower product and customer diversification, dependence on the founder, and lower liquidity because a stake in it may take longer to sell.",
+        "The discount is not mechanically generated by the model; it reflects the valuer’s judgement based on the company’s characteristics and previous comparable transactions or valuations. It can have a major valuation impact, so the assumptions behind it are as important as the headline. Calling the undiscounted number market-based hides the judgement rather than avoiding it.",
+        "A defensible valuation would state the benchmark, argue the comparability of each peer, justify the discount against the specific private-company risks, and present a range from market benchmarks plus justified adjustments. The page’s question to ask of any such valuation is whether the selected public comparables are genuinely similar, and what private-company risks justify the discount being applied."
+      ],
+      "checklist": [
+        "Accepts benchmarking as the right starting point and says why",
+        "Tests the three peers against the page’s comparability criteria",
+        "Matches the business to the page’s reasons for a private-company discount",
+        "Treats the discount as judgement that must be justified, not as a mechanical output",
+        "Ends with a defensible range and the page’s closing question"
+      ]
+    }
+  ]
+}

@@ -5,3 +5,6 @@ __pycache__/
 # Working directory for a sync run — assembled vault markdown and page fragments.
 # Intermediate build input, never part of the site.
 scratchpad/
+
+# The live-session access code. Never committed; build.py reads it at build time.
+.env

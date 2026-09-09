@@ -124,6 +124,12 @@ Requirements for anything placed there:
 3. **No inbound link from any indexed page** — not `index.html`, not `library.html`, not a
    blog post.
 
+**Live-session notes are handled differently** (since 2026-09-09): they live in `live/`,
+linked from the hubs, with the page content encrypted under an access code that stays in
+the git-ignored `.env`. That gate protects the notes' text; it does **not** relax the rules
+below — no lecturer or classmate name, no transcript, no chat log, no image of a person, on
+any page, gated or not.
+
 Security by obscurity only. Never put anything genuinely confidential — personal data,
 credentials, another person's information, unpublished third-party material — in this
 repository at all. It is a public GitHub repo and a public website.

@@ -380,6 +380,8 @@ a.pill{text-decoration:none}
   transition:transform .18s ease;
 }
 .lookup-btn:hover{transform:translateY(-2px)}
+.lookup--live{display:block;text-decoration:none;color:inherit;transform:rotate(-.5deg)}
+.lookup--live .lookup-btn{background:var(--accent-soft);color:var(--accent-deep)}
 @media (max-width:600px){.lookup{transform:none}.lookup-btn{flex:1 1 auto;justify-content:center}}
 
 /* ── Mode explainer ────────────────────────────────────────────────── */
@@ -543,6 +545,7 @@ a.pill{text-decoration:none}
         <span class="pill"><span class="dot" aria-hidden="true"></span> In progress</span>
         <span class="pill">7 weeks published</span>
         <a class="pill" href="DMBA6005-search.html">Master search &rarr;</a>
+        <a class="pill" href="live/DMBA6005.html">Live sessions &rarr;</a>
     </div>
   </div>
 </header>
@@ -586,6 +589,13 @@ a.pill{text-decoration:none}
           <button class="lookup-btn" type="submit">Search <span aria-hidden="true">&rarr;</span></button>
         </div>
       </form>
+
+      <a class="lookup lookup--live" href="live/DMBA6005.html" aria-labelledby="live-label">
+        <span class="lookup-kicker">Live sessions</span>
+        <h3 class="lookup-title" id="live-label">My in-class notes, behind an access code</h3>
+        <p class="lookup-desc">One page per week of live-session notes &mdash; the material kept off the public week pages. Enter the access code once and every live page of this subject stays open for the tab.</p>
+        <div class="lookup-row"><span class="lookup-btn">Open live sessions <span aria-hidden="true">&rarr;</span></span></div>
+      </a>
 
       <ul class="weeks">
       <li>

@@ -1,5 +1,7 @@
 User-agent: *
 Disallow: /MBA/only-accessible-by-url/
 Disallow: /only-accessible-by-url/
+Disallow: /MBA/live/
+Disallow: /live/
 Disallow: /MBA/docs/
 Disallow: /docs/

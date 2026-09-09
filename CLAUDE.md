@@ -35,7 +35,7 @@ Subjects are grouped by semester on `index.html`.
 
 | Code | Subject | Content |
 | --- | --- | --- |
-| DMBA 6008 | Finance, Strategy and Technology | Weeks 0–5, all complete. Week hub + per-week study pages, built from the vault. Week 5 (business evaluation) published 2026-09-07 — four topics, all eleven of its source images were formula renders and were transcribed, not published. Three core modes — summary & visuals, key concepts, flashcards — plus **acronyms** and **formulas** where the week has them, and **discussion questions** where a Live note supplies them (Week 2 only so far). Every week also carries a **quiz**, an **Apply it** tab and a **study path**, all derived from the built page. A **master search page** (`DMBA6008-search.html`) indexes every term, acronym, formula and flashcard across all six weeks — 1,157 entries as of 2026-09-07, derived from the week pages |
+| DMBA 6008 | Finance, Strategy and Technology | Weeks 0–6, all complete. Week hub + per-week study pages, built from the vault. Week 6 (equity hurdle rate and valuation applications) published 2026-09-09 — four topics, all eleven of its source images were formula renders and were transcribed, not published; its notes carry a `$28.888m` / `$22.888m` inconsistency that is reproduced as written. Three core modes — summary & visuals, key concepts, flashcards — plus **acronyms** and **formulas** where the week has them, and **discussion questions** where a Live note supplies them (Week 2 only so far). Every week also carries a **quiz**, an **Apply it** tab and a **study path**, all derived from the built page. A **master search page** (`DMBA6008-search.html`) indexes every term, acronym, formula and flashcard across all seven weeks — 1,359 entries as of 2026-09-09, derived from the week pages |
 | DMBA 6005 | Agile Project Development | Weeks 0–6. Week hub + per-week study pages, same modes, built from the vault. Live since 2026-08-06. Week 6 (scheduling and design sprints) published 2026-09-07 — three topics, of which `Critical path diagrams` is only partly written in the source and the page says so. A **master search page** (`DMBA6005-search.html`) indexes every term, acronym, formula and flashcard across all seven weeks — 915 entries as of 2026-09-07 |
 
 The **quiz, Apply-it and study-path components are not synced from any source** — they are
@@ -135,17 +135,22 @@ and do not copy `publish: false` content into any page under this repo.
   still follow the older [style guide](docs/style-guide.md).
 - **`only-accessible-by-url/` is unlisted content.** Never link to it from `index.html`,
   `library.html`, or any indexed page. Keep the `noindex` meta and the `robots.txt` rule.
-- **The unlisted area now carries the Live Session pages** — one per week, per subject
-  (`<CODE>-week<N>-private.html`), built by `.claude/private-pages/build.py` from the vault on
-  Aryan's instruction of **2026-08-31**. They are **unlisted only, with no password gate**;
-  he was told plainly that this means plaintext in a public repo and chose it anyway.
-  `only-accessible-by-url/SECRET-PAGES.md` is their index and lives in that directory
-  deliberately, so `robots.txt` covers it. **This is not a licence to publish Live Session
-  material anywhere else** — the public week pages are still governed by rule 1.
-  **Third-party material stays withheld regardless**: no lecturer or classmate name (the
-  6008 Week 1 diary's is replaced with `[lecturer]`), no transcript, no class chat log, and
-  no image containing an identifiable person — the 6005 Week 3 class slide carries the
-  lecturer's webcam thumbnail and is transcribed as text instead of published.
+- **The Live Session pages live in `live/` behind an access code** — one per week, per
+  subject (`live/<CODE>-week<N>.html`) plus a per-subject index (`live/<CODE>.html`), built
+  by `.claude/private-pages/build.py` from the vault. Every page's content is encrypted at
+  build time with the code in the git-ignored `.env` (`LIVE_ACCESS_CODE`) and decrypted in
+  the browser; nothing readable is committed. Set up on Aryan's instruction of
+  **2026-09-09**, replacing the unlisted plaintext pages of 2026-08-31, which were deleted.
+  The pages **are** linked — a `Live sessions →` pill and a pinned card on each hub, and a
+  `library.html` entry — because the gate, not obscurity, is the control. **Never commit
+  `.env`, never print the code, and never write a live page without the gate.**
+  `only-accessible-by-url/SECRET-PAGES.md` is their index. **This is not a licence to
+  publish Live Session material anywhere else** — the public week pages are still governed
+  by rule 1. **Third-party material stays withheld regardless of the gate**: no lecturer or
+  classmate name (the 6008 Week 1 diary's is replaced with `[lecturer]`), no transcript, no
+  class chat log, no image containing an identifiable person (the 6005 Week 3 class slide
+  carries the lecturer's webcam thumbnail and is transcribed as text), and formula
+  screenshots are transcribed, not published.
 - **Do not commit or push unless the user asks.**
 
 ## Academic-integrity constraints

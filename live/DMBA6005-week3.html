@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>DMBA 6005 Week 3 — live notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F2EC; --paper2:#FBF9F5; --surface:#FFFFFF; --surface2:#F7F4EE;
+    --ink:#141317; --ink2:#3D3A36; --ink3:#8C867A;
+    --line:#E2DED5; --line2:#EDE9E1;
+    --accent:#A8722C; --accent-deep:#6F4A17; --accent-soft:#F7EFE2;
+    --warn:#9A5B22; --warn-soft:#FBF0E4;
+    --r:12px; --r-lg:18px; --r-pill:999px;
+    --sh:0 1px 2px rgba(20,19,23,.05), 0 8px 24px rgba(20,19,23,.06);
+    --font-d:"Mona Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --font-b:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --font-m:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink2);font-family:var(--font-b);
+       font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  [hidden]{display:none!important}
+  .wrap{max-width:860px;margin:0 auto;padding:clamp(20px,5vw,56px) clamp(16px,4vw,32px)}
+  a{color:var(--accent-deep)}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  /* gate */
+  .gate{min-height:100svh;display:grid;place-items:center;padding:24px}
+  .gate-card{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--line);
+             border-radius:var(--r-lg);box-shadow:var(--sh);padding:clamp(24px,5vw,36px)}
+  .gate-kicker{font-family:var(--font-d);font-size:.7rem;font-weight:700;letter-spacing:.14em;
+               text-transform:uppercase;color:var(--accent-deep);margin:0 0 10px}
+  .lock{font-size:28px;line-height:1}
+  .gate-card h1{font-family:var(--font-d);font-weight:800;font-size:1.5rem;letter-spacing:-.02em;
+                color:var(--ink);margin:12px 0 6px}
+  .gate-card p{margin:0 0 18px;font-size:.9rem;color:var(--ink3)}
+  .field{display:flex;gap:8px}
+  .field input{flex:1;min-width:0;font:inherit;font-size:.95rem;padding:11px 14px;border:1px solid var(--line);
+               border-radius:var(--r);background:var(--paper2);color:var(--ink)}
+  .field input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+  .btn{font:inherit;font-weight:600;font-size:.9rem;padding:11px 18px;cursor:pointer;border:0;
+       border-radius:var(--r);background:var(--accent);color:#fff}
+  .btn:hover{background:var(--accent-deep)}
+  .btn:disabled{opacity:.6;cursor:progress}
+  .msg{margin-top:12px;font-size:.85rem;min-height:1.2em}
+  .msg--err{color:#A3302B}
+  .gate-foot{margin-top:20px;padding-top:16px;border-top:1px solid var(--line2);font-size:.78rem;
+             color:var(--ink3);line-height:1.55}
+  .gate-foot a{color:var(--ink3)}
+
+  /* document */
+  .backlinks{display:flex;flex-wrap:wrap;gap:6px 18px;margin-bottom:18px}
+  .backlink{display:inline-block;font-size:.85rem;color:var(--ink3);text-decoration:none}
+  .backlink:hover{color:var(--accent-deep)}
+  .eyebrow{font-family:var(--font-d);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;
+           color:var(--accent-deep);margin:0 0 8px;font-weight:700}
+  h1{font-family:var(--font-d);font-weight:800;font-size:clamp(1.7rem,4.5vw,2.4rem);
+     letter-spacing:-.025em;color:var(--ink);margin:0 0 10px;line-height:1.12}
+  .standfirst{margin:0 0 18px;color:var(--ink3);font-size:.95rem}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
+  .badge{font-family:var(--font-d);font-size:.72rem;font-weight:600;letter-spacing:.03em;
+         padding:5px 11px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--accent-deep)}
+  .badge--warn{background:var(--warn-soft);color:var(--warn)}
+  .notice{background:var(--warn-soft);border-left:3px solid var(--warn);border-radius:var(--r);
+          padding:13px 16px;margin:0 0 28px}
+  .notice p{margin:0;font-size:.87rem;color:var(--warn)}
+  .note{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+        box-shadow:var(--sh);padding:clamp(18px,4vw,30px);margin:0 0 22px}
+  .note-head{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;
+             border-bottom:1px solid var(--line2);padding-bottom:12px;margin-bottom:16px}
+  .note-head h2{font-family:var(--font-d);font-weight:700;font-size:1.15rem;color:var(--ink);
+                margin:0;letter-spacing:-.01em}
+  .note-type{font-family:var(--font-d);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;
+             color:var(--ink3);background:var(--surface2);padding:3px 9px;border-radius:var(--r-pill)}
+  .note h3{font-family:var(--font-d);font-weight:700;font-size:1rem;color:var(--ink);margin:22px 0 8px}
+  .note h4{font-family:var(--font-d);font-weight:700;font-size:.92rem;color:var(--ink);margin:18px 0 6px}
+  .note h5,.note h6{font-family:var(--font-d);font-weight:600;font-size:.86rem;color:var(--ink2);margin:14px 0 6px}
+  .note p{margin:0 0 11px}
+  .note ul,.note ol{margin:0 0 12px;padding-left:1.25rem}
+  .note li{margin-bottom:5px}
+  .note li>ul,.note li>ol{margin-top:5px}
+  .note hr{border:0;border-top:1px solid var(--line2);margin:20px 0}
+  .empty{color:var(--ink3);font-style:italic;font-size:.9rem;margin:0}
+  code{font-family:var(--font-m);font-size:.85em;background:var(--surface2);padding:1px 5px;border-radius:4px}
+  .wl{font-family:var(--font-m);font-size:.82em;color:var(--ink3);background:var(--surface2);
+      padding:1px 6px;border-radius:4px}
+  .callout{background:var(--accent-soft);border-radius:var(--r);padding:13px 16px;margin:14px 0}
+  .callout p{margin:0;font-size:.92rem;color:var(--accent-deep)}
+  blockquote{margin:14px 0;padding:0 0 0 14px;border-left:3px solid var(--line);color:var(--ink3)}
+  blockquote p{margin:0;font-size:.92rem}
+  .formula{background:var(--ink);color:#F5F2EC;font-family:var(--font-m);font-size:.92rem;line-height:1.8;
+           padding:12px 16px;border-radius:var(--r);margin:14px 0;overflow-x:auto}
+  .tbl{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:var(--r)}
+  table{border-collapse:collapse;width:100%;min-width:460px;font-size:.87rem}
+  th,td{text-align:left;padding:9px 13px;border-bottom:1px solid var(--line2);vertical-align:top}
+  thead th{background:var(--surface2);font-family:var(--font-d);font-size:.75rem;letter-spacing:.03em;
+           text-transform:uppercase;color:var(--ink3)}
+  tr:last-child td,tr:last-child th{border-bottom:0}
+  .withheld{background:var(--warn-soft);border:1px dashed var(--warn);border-radius:var(--r);
+            padding:14px 16px;margin:16px 0}
+  .withheld-why{margin:0 0 10px;font-size:.85rem;color:var(--warn)}
+  .withheld-title{margin:0 0 8px;font-weight:600;color:var(--ink)}
+  .withheld-list{margin:0;padding-left:1.25rem;font-size:.9rem}
+  .fig{margin:18px 0;padding:0}
+  .fig img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:var(--r);background:#fff}
+  figcaption{margin-top:9px;font-size:.8rem;color:var(--ink3);line-height:1.55}
+
+  /* index list */
+  .weeks{list-style:none;margin:0 0 26px;padding:0;display:grid;gap:14px}
+  .wk{display:block;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);
+      border-radius:var(--r-lg);box-shadow:var(--sh);padding:18px 22px;
+      transition:transform .18s ease,box-shadow .18s ease}
+  .wk:hover{transform:translateY(-2px);box-shadow:0 1px 2px rgba(20,19,23,.05),0 14px 30px rgba(20,19,23,.1)}
+  .wk-num{font-family:var(--font-d);font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+          color:var(--accent-deep)}
+  .wk h2{font-family:var(--font-d);font-weight:700;font-size:1.1rem;color:var(--ink);margin:4px 0 6px;letter-spacing:-.01em}
+  .wk p{margin:0;font-size:.88rem;color:var(--ink3)}
+  .wk-flags{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
+  .flag{font-family:var(--font-d);font-size:.68rem;letter-spacing:.04em;padding:3px 9px;border-radius:var(--r-pill);
+        background:var(--surface2);color:var(--ink3)}
+  .none{font-size:.88rem;color:var(--ink3)}
+  .none ul{margin:6px 0 0;padding-left:1.25rem}
+
+  .doc-foot{margin:32px 0 0;padding-top:18px;border-top:1px solid var(--line);font-size:.8rem;color:var(--ink3)}
+  .doc-foot p{margin:0 0 6px}
+  .lock-btn{font:inherit;font-size:.8rem;font-weight:600;color:var(--ink3);background:none;border:1px solid var(--line);
+            border-radius:var(--r-pill);padding:6px 14px;cursor:pointer;margin-top:8px}
+  .lock-btn:hover{color:var(--accent-deep);border-color:var(--accent-deep)}
+</style>
+</head>
+<body>
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <div class="lock" aria-hidden="true">🔒</div>
+    <p class="gate-kicker">DMBA 6005 &middot; Week 3 live notes</p>
+    <h1>Enter the access code</h1>
+    <p>Live-session notes for week 3. Unlocking here unlocks every live page of DMBA 6005 in this tab.</p>
+    <form id="form" autocomplete="off">
+      <div class="field">
+        <label class="sr-only" for="pw">Access code</label>
+        <input type="password" id="pw" placeholder="Access code" autocomplete="current-password" required>
+        <button class="btn" type="submit" id="go">Unlock</button>
+      </div>
+      <p class="msg" id="msg" role="status" aria-live="polite"></p>
+    </form>
+    <p class="gate-foot">The notes are encrypted with AES-256-GCM and the key is derived from the access code with PBKDF2. Nothing readable is stored in this file. Once unlocked, every live page of this subject stays open until you close the tab or press <em>Lock</em>. <a href="../DMBA6005-weeks.html">Back to the DMBA 6005 week hub</a>.</p>
+  </div>
+</div>
+<main class="wrap" id="doc" hidden></main>
+<script id="payload" type="application/json">{"v":1,"kdf":"PBKDF2-SHA256","iter":310000,"salt":"CbpjM6TXDs/Jjbg40sQcJA==","iv":"dnORcM7WqGOEsZWF","ct":"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"}</script>
+<script>
+(function(){
+  var KEY='mba-live-code';
+  var gate=document.getElementById('gate'), doc=document.getElementById('doc'),
+      form=document.getElementById('form'), pw=document.getElementById('pw'),
+      go=document.getElementById('go'), msg=document.getElementById('msg');
+  var blob=JSON.parse(document.getElementById('payload').textContent);
+  function b64(s){var b=atob(s),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a;}
+  function say(t,err){msg.className=err?'msg msg--err':'msg';msg.textContent=t;}
+  function unlock(code){
+    if(!window.crypto||!window.crypto.subtle){
+      say('This browser cannot decrypt the page here (WebCrypto needs https:// or localhost).',true);
+      return Promise.reject(new Error('no-webcrypto'));
+    }
+    var enc=new TextEncoder();
+    return crypto.subtle.importKey('raw',enc.encode(code),'PBKDF2',false,['deriveKey'])
+      .then(function(base){return crypto.subtle.deriveKey(
+        {name:'PBKDF2',salt:b64(blob.salt),iterations:blob.iter,hash:'SHA-256'},
+        base,{name:'AES-GCM',length:256},false,['decrypt']);})
+      .then(function(key){return crypto.subtle.decrypt({name:'AES-GCM',iv:b64(blob.iv)},key,b64(blob.ct));})
+      .then(function(plain){
+        doc.innerHTML=new TextDecoder().decode(plain);
+        try{sessionStorage.setItem(KEY,code);}catch(e){}
+        gate.hidden=true; doc.hidden=false; window.scrollTo(0,0);
+        Array.prototype.forEach.call(doc.querySelectorAll('[data-lock]'),function(b){
+          b.addEventListener('click',function(){try{sessionStorage.removeItem(KEY);}catch(e){} location.reload();});
+        });
+      });
+  }
+  form.addEventListener('submit',function(e){
+    e.preventDefault(); go.disabled=true; say('Unlocking…');
+    unlock(pw.value).catch(function(err){
+      go.disabled=false;
+      if(!err||err.message!=='no-webcrypto'){say('Wrong access code.',true);}
+      pw.select();
+    });
+  });
+  var saved=null; try{saved=sessionStorage.getItem(KEY);}catch(e){}
+  if(saved){
+    say('Unlocking…');
+    unlock(saved).catch(function(){try{sessionStorage.removeItem(KEY);}catch(e){} say(''); pw.focus();});
+  } else { pw.focus(); }
+})();
+</script>
+</body>
+</html>

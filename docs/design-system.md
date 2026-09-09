@@ -408,6 +408,14 @@ search →` (`a.pill { text-decoration: none }`). Every week page carries a seco
 `.back--search` ("Search all weeks"), spaced by `.back + .back { margin-left: 8px }`; in the
 shell its href is `{{SEARCH_PAGE}}`, fed from `subjects.json` → `searchPage`.
 
+**And a second pinned card, `.lookup.lookup--live`** (2026-09-09), directly under the search
+card: an `<a>` to `live/<CODE>.html` wearing the same paper, kicker, title and description,
+with a `.lookup-btn` tinted `--accent-soft` / `--accent-deep` rather than lime (it is a link,
+not a "yes"), tilted the other way (`rotate(-.5deg)`). A fourth hero pill, `Live sessions →`,
+points at the same page. The live pages themselves are **not** DESK pages — they use the
+lighter single-column stylesheet of `.claude/private-pages/build.py`, sharing the tokens and
+the type pair — and they add no token here.
+
 ### Study-page components
 
 The week pages keep their full component vocabulary and their entire inline script
@@ -434,7 +442,7 @@ Each covered page is one of three shapes.
 | Profile | Pages | Shape |
 | --- | --- | --- |
 | **Desktop** | `index.html` | wallpaper hero → pinboard of subject windows → butter footer → dock |
-| **Folder** | `DMBA60xx-weeks.html` | wallpaper hero (subject identity) → pinboard: the `.lookup` search card, then the week windows → mode explainer rows → butter footer → dock |
+| **Folder** | `DMBA60xx-weeks.html` | wallpaper hero (subject identity) → pinboard: the `.lookup` search card, the `.lookup--live` card, then the week windows → mode explainer rows → butter footer → dock |
 | **Open window** | `DMBA60xx-weekN.html`, `DMBA60xx-search.html` | fixed dimmed wallpaper → back pill(s) → one window holding hero, a sticky strip (tabs on a week page, the search bar on the search page), content, footer → dock |
 
 The **Open window** profile is the one the reference's project detail inspired: content

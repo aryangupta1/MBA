@@ -380,6 +380,8 @@ a.pill{text-decoration:none}
   transition:transform .18s ease;
 }
 .lookup-btn:hover{transform:translateY(-2px)}
+.lookup--live{display:block;text-decoration:none;color:inherit;transform:rotate(-.5deg)}
+.lookup--live .lookup-btn{background:var(--accent-soft);color:var(--accent-deep)}
 @media (max-width:600px){.lookup{transform:none}.lookup-btn{flex:1 1 auto;justify-content:center}}
 
 /* ── Mode explainer ────────────────────────────────────────────────── */
@@ -541,8 +543,9 @@ a.pill{text-decoration:none}
     <p class="lede" style="margin-top:24px">Week-by-week study pages built from my pre-live notes. Each week opens into a summary with visuals, a searchable concept reference, a flashcard deck for active recall, a multiple-choice quiz with hints and explanations, and scenarios to apply the week to.</p>
     <div class="meta-row">
         <span class="pill"><span class="dot" aria-hidden="true"></span> In progress</span>
-        <span class="pill">6 weeks published</span>
+        <span class="pill">7 weeks published</span>
         <a class="pill" href="DMBA6008-search.html">Master search &rarr;</a>
+        <a class="pill" href="live/DMBA6008.html">Live sessions &rarr;</a>
     </div>
   </div>
 </header>
@@ -586,6 +589,13 @@ a.pill{text-decoration:none}
           <button class="lookup-btn" type="submit">Search <span aria-hidden="true">&rarr;</span></button>
         </div>
       </form>
+
+      <a class="lookup lookup--live" href="live/DMBA6008.html" aria-labelledby="live-label">
+        <span class="lookup-kicker">Live sessions</span>
+        <h3 class="lookup-title" id="live-label">My in-class notes, behind an access code</h3>
+        <p class="lookup-desc">One page per week of live-session notes &mdash; the material kept off the public week pages. Enter the access code once and every live page of this subject stays open for the tab.</p>
+        <div class="lookup-row"><span class="lookup-btn">Open live sessions <span aria-hidden="true">&rarr;</span></span></div>
+      </a>
 
       <ul class="weeks">
       <li>
@@ -759,6 +769,36 @@ a.pill{text-decoration:none}
             <span class="inside"><span class="n">87</span> flashcards</span>
             <span class="inside"><span class="n">33</span> formulas</span>
             <span class="inside"><span class="n">10</span> quiz questions</span>
+            <span class="inside"><span class="n">5</span> scenarios</span>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a class="week" href="DMBA6008-week6.html">
+          <div class="week-bar">
+            <span class="week-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="week-addr">DMBA6008-week6.html</span>
+          </div>
+          <div class="week-body">
+            <div class="week-top">
+              <span class="week-num">Week 06</span>
+              <span class="arrow" aria-hidden="true">&rarr;</span>
+            </div>
+            <h3 class="week-title">Equity hurdle rate and valuation applications</h3>
+            <p class="week-desc">Which risk shareholders are paid for and which they are not; beta and the CAPM as the equity hurdle rate; how debt turns a business beta into a higher levered beta and required return; an early-stage venture valued backwards from a $240m exit to $22.888m today and a 34.95% VC stake; and a private company benchmarked at 16&times; EBIT, adjusted for net debt and a 40% private-company discount to $34.80 a share.</p>
+            <div class="topics">
+            <span class="topic">Equity hurdle rate Beta and CAPM</span>
+            <span class="topic">Beta un-levered versus levered</span>
+            <span class="topic">Valuing an early-stage venture</span>
+            <span class="topic">Valuing a private company</span>
+            </div>
+            <div class="whats-inside">
+            <span class="inside"><span class="n">14</span> visuals</span>
+            <span class="inside"><span class="n">67</span> key concepts</span>
+            <span class="inside"><span class="n">96</span> flashcards</span>
+            <span class="inside"><span class="n">29</span> formulas</span>
+            <span class="inside"><span class="n">12</span> quiz questions</span>
             <span class="inside"><span class="n">5</span> scenarios</span>
             </div>
           </div>

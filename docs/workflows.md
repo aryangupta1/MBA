@@ -98,6 +98,28 @@ week page of that subject changes** — a new week, a re-sync, a fixed definitio
 5. No `library.html` edit is needed unless the page is new to the subject; both existing
    search pages are already registered under their hub entries.
 
+## Rebuild the live-session pages
+
+`live/<CODE>-week<N>.html` and `live/<CODE>.html` are generated from the vault's Live
+Session notes, encrypted under `LIVE_ACCESS_CODE` from `.env`. Rebuild after any
+`sync-notes` run that touches a Live Session note.
+
+1. Confirm `.env` exists in the repo root with `LIVE_ACCESS_CODE=<code>` and that
+   `git check-ignore .env` prints it — it must never be committed.
+2. If a new week has a Live note, look at every image it embeds first, then append the week
+   to `PAGES` in `.claude/private-pages/build.py`; a formula screenshot goes in
+   `IMAGE_FORMULA` (transcribed, exactly), a diagram with no person in it in `IMAGE_ALT`,
+   anything with an identifiable person in `IMAGE_WITHHELD`.
+3. `python3 .claude/private-pages/build.py` (needs `node`). It prints the redactions it
+   applied; the 6008 Week 1 lecturer-name redaction should always be there.
+4. `grep -c '<img\|prod-files' live/*.html` should print `0` for every file — nothing
+   readable ships.
+5. Open the subject hub, follow the `Live sessions →` pill, try a wrong code, then the real
+   one; open a week page in the same tab and confirm it unlocks without asking again.
+   WebCrypto needs a secure context, so test over `http://localhost` or the live site,
+   not `file://`.
+6. Update the tables in `only-accessible-by-url/SECRET-PAGES.md`.
+
 ## Modify the hub or the library
 
 `index.html` and `library.html` are the entry path for every reader.
