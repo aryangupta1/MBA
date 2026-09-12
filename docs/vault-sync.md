@@ -230,6 +230,15 @@ hub and from `library.html`. The public week pages are unchanged and still carry
 any image showing an identifiable person stay withheld from the gated pages as well, and
 formula screenshots are transcribed there too.
 
+**Assessment notebooks joined them on 2026-09-12** (Aryan: "add assessment notebooks to the
+live sessions"): one gated page per notebook at `live/<CODE>-assessment<N>.html`, same code,
+same encryption, listed in an "Assessment notebooks" section of the subject index. `build.py`
+**discovers** them — every vault folder named `Assessment <N> …` under a semester-2 subject,
+every note in it — so a new notebook needs no code change. `Assessment` notes stay
+`publish: false`: this is Aryan's own working and submitted work, and the gate is the only
+place it appears. The same withholding rules hold, and screenshots of text (the DMBA 6008
+Assessment 1 rubric) are transcribed via `IMAGE_TRANSCRIBED`.
+
 Empty in the source, so empty on the page: DMBA 6005 Week 1's
 `Creating your reflective journal`. **DMBA 6008 Week 4's three placeholders are gone** —
 `Strategy and Finance`, `Golden rules of project evaluation` and `Application and solution`
@@ -237,7 +246,8 @@ were written in Notion and published on 2026-08-23.
 
 A non-week notebook also arrived on 2026-08-21: DMBA 6008's **`Assessment 1: Financial
 Analysis`**, holding a `Plan` note. Its Type is `Assessment`, so it is `publish: false` and
-never reaches a week page. Its two sub-pages — `Live Session Transcript` and `Live Session
+never reaches a week page (since 2026-09-12 it renders on the gated
+`live/DMBA6008-assessment1.html`). Its two sub-pages — `Live Session Transcript` and `Live Session
 Chat` — were **deliberately not harvested**, because a transcript and a class chat log would
 carry the lecturer's name and classmates' words into the vault, which rule 3 forbids. They are
 the only two unresolved wikilinks `verify.py` reports, and that gate failure is expected.

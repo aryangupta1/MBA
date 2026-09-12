@@ -412,7 +412,9 @@ shell its href is `{{SEARCH_PAGE}}`, fed from `subjects.json` → `searchPage`.
 card: an `<a>` to `live/<CODE>.html` wearing the same paper, kicker, title and description,
 with a `.lookup-btn` tinted `--accent-soft` / `--accent-deep` rather than lime (it is a link,
 not a "yes"), tilted the other way (`rotate(-.5deg)`). A fourth hero pill, `Live sessions →`,
-points at the same page. The live pages themselves are **not** DESK pages — they use the
+points at the same page. Since 2026-09-12 the card's copy names both things behind the gate
+— live-session notes and assessment notebooks — with no change to its markup or styles. The
+live pages themselves (week and assessment alike) are **not** DESK pages — they use the
 lighter single-column stylesheet of `.claude/private-pages/build.py`, sharing the tokens and
 the type pair — and they add no token here.
 

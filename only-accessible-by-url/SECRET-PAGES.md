@@ -1,9 +1,10 @@
 # Live-session pages
 
-Every **Live Session** page on this site, grouped by subject. These carry my live-session
-notes — the material that is deliberately kept off the public week pages.
+Every **Live Session** page on this site, grouped by subject, and — since 2026-09-12 — every
+**assessment notebook**. These carry my live-session notes and my assessment work — the
+material that is deliberately kept off the public week pages.
 
-**Last updated:** 2026-09-09
+**Last updated:** 2026-09-12
 
 > This file still lives in `only-accessible-by-url/` so `robots.txt` covers it. The pages
 > themselves moved to **`live/`** on 2026-09-09 and are now **access-code protected**: the
@@ -33,7 +34,7 @@ classmate's name or words, live-session transcripts and class chat logs (never h
 into the vault at all), any image with an identifiable person in it, and formula screenshots
 (transcribed as text, like the public pages).
 
-Rebuild after any `sync-notes` run that touches a Live Session note:
+Rebuild after any `sync-notes` run that touches a Live Session or Assessment note:
 
 ```sh
 python3 .claude/private-pages/build.py      # needs node and .env
@@ -61,6 +62,22 @@ python3 .claude/private-pages/build.py      # needs node and .env
 | **6** — Equity hurdle rate and valuation applications | `live/DMBA6008-week6.html` | Live, Live Prep — MedScope Technologies case | 3 formula images transcribed |
 
 Live URLs follow `https://aryangupta1.github.io/MBA/live/<file>`.
+
+---
+
+## Assessment notebooks
+
+Added 2026-09-12. `build.py` **discovers** these — every vault folder named
+`Assessment <N> …` under a semester-2 subject becomes one page, carrying every note in it
+(sub-pages after their parent, headed `Parent — Child`). A new notebook needs no code change;
+only check its images before the build. Listed in the "Assessment notebooks" section of each
+subject index.
+
+| Subject | Assessment | Page | Notes on it | Flags |
+| --- | --- | --- | --- | --- |
+| DMBA 6005 | **1** — User Stories & Pre-mortem video assignment | `live/DMBA6005-assessment1.html` | Plan, Final Version | — |
+| DMBA 6008 | **1** — Financial Analysis | `live/DMBA6008-assessment1.html` | Plan | rubric (2 screenshots) transcribed; transcript and chat sub-pages never harvested — titles only |
+| DMBA 6008 | **2** — Company Valuation | `live/DMBA6008-assessment2.html` | Part A, Part A — Overview | — |
 
 ---
 

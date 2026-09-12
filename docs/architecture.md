@@ -34,11 +34,13 @@
 │   ├── 6001/index.html        Standalone presentation page (dark theme, unrelated to blog theme)
 │   └── agup0534-blog-post-*.pdf   Submitted PDFs
 │
-├── live/                      Live-session notes — ACCESS-CODE GATED (content encrypted
-│   ├── DMBA6008.html          at build time by .claude/private-pages/build.py; the code
-│   ├── DMBA6008-week<N>.html  lives in the git-ignored .env). Linked from each hub and
-│   ├── DMBA6005.html          from library.html; noindex + robots disallow as well
-│   └── DMBA6005-week<N>.html
+├── live/                      Live-session notes + assessment notebooks — ACCESS-CODE
+│   ├── DMBA6008.html          GATED (content encrypted at build time by
+│   ├── DMBA6008-week<N>.html  .claude/private-pages/build.py; the code lives in the
+│   ├── DMBA6008-assessment<N>.html  git-ignored .env). Assessment pages are discovered
+│   ├── DMBA6005.html          from the vault, not listed. Linked from each hub and from
+│   ├── DMBA6005-week<N>.html  library.html; noindex + robots disallow as well
+│   └── DMBA6005-assessment<N>.html
 │
 ├── only-accessible-by-url/    Unlisted appendices — noindex + robots disallow
 │   ├── stakeholder-mapping.html

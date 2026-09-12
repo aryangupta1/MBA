@@ -137,7 +137,10 @@ and do not copy `publish: false` content into any page under this repo.
   `library.html`, or any indexed page. Keep the `noindex` meta and the `robots.txt` rule.
 - **The Live Session pages live in `live/` behind an access code** — one per week, per
   subject (`live/<CODE>-week<N>.html`) plus a per-subject index (`live/<CODE>.html`), built
-  by `.claude/private-pages/build.py` from the vault. Every page's content is encrypted at
+  by `.claude/private-pages/build.py` from the vault. Since **2026-09-12** the same gate also
+  carries Aryan's **assessment notebooks** (`live/<CODE>-assessment<N>.html`), **discovered
+  automatically** from every vault folder named `Assessment <N> …` — no code change for a new
+  one. Every page's content is encrypted at
   build time with the code in the git-ignored `.env` (`LIVE_ACCESS_CODE`) and decrypted in
   the browser; nothing readable is committed. Set up on Aryan's instruction of
   **2026-09-09**, replacing the unlisted plaintext pages of 2026-08-31, which were deleted.
@@ -145,8 +148,8 @@ and do not copy `publish: false` content into any page under this repo.
   `library.html` entry — because the gate, not obscurity, is the control. **Never commit
   `.env`, never print the code, and never write a live page without the gate.**
   `only-accessible-by-url/SECRET-PAGES.md` is their index. **This is not a licence to
-  publish Live Session material anywhere else** — the public week pages are still governed
-  by rule 1. **Third-party material stays withheld regardless of the gate**: no lecturer or
+  publish Live Session material or assessment work anywhere else** — the public week pages
+  are still governed by rule 1. **Third-party material stays withheld regardless of the gate**: no lecturer or
   classmate name (the 6008 Week 1 diary's is replaced with `[lecturer]`), no transcript, no
   class chat log, no image containing an identifiable person (the 6005 Week 3 class slide
   carries the lecturer's webcam thumbnail and is transcribed as text), and formula

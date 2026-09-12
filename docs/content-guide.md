@@ -124,9 +124,11 @@ Requirements for anything placed there:
 3. **No inbound link from any indexed page** — not `index.html`, not `library.html`, not a
    blog post.
 
-**Live-session notes are handled differently** (since 2026-09-09): they live in `live/`,
-linked from the hubs, with the page content encrypted under an access code that stays in
-the git-ignored `.env`. That gate protects the notes' text; it does **not** relax the rules
+**Live-session notes and assessment notebooks are handled differently** (live notes since
+2026-09-09, assessment notebooks since 2026-09-12): they live in `live/`, linked from the
+hubs, with the page content encrypted under an access code that stays in the git-ignored
+`.env`. The gate is the only place either appears — assessment working and submitted work
+never goes on a public page. That gate protects the notes' text; it does **not** relax the rules
 below — no lecturer or classmate name, no transcript, no chat log, no image of a person, on
 any page, gated or not.
 

@@ -100,24 +100,29 @@ week page of that subject changes** — a new week, a re-sync, a fixed definitio
 
 ## Rebuild the live-session pages
 
-`live/<CODE>-week<N>.html` and `live/<CODE>.html` are generated from the vault's Live
-Session notes, encrypted under `LIVE_ACCESS_CODE` from `.env`. Rebuild after any
-`sync-notes` run that touches a Live Session note.
+`live/<CODE>-week<N>.html`, `live/<CODE>-assessment<N>.html` and `live/<CODE>.html` are
+generated from the vault's Live Session notes and assessment notebooks, encrypted under
+`LIVE_ACCESS_CODE` from `.env`. Rebuild after any `sync-notes` run that touches a Live
+Session or Assessment note.
 
 1. Confirm `.env` exists in the repo root with `LIVE_ACCESS_CODE=<code>` and that
    `git check-ignore .env` prints it — it must never be committed.
 2. If a new week has a Live note, look at every image it embeds first, then append the week
-   to `PAGES` in `.claude/private-pages/build.py`; a formula screenshot goes in
-   `IMAGE_FORMULA` (transcribed, exactly), a diagram with no person in it in `IMAGE_ALT`,
-   anything with an identifiable person in `IMAGE_WITHHELD`.
+   to `PAGES` in `.claude/private-pages/build.py`. A **new assessment notebook needs no code
+   change** — any vault folder named `Assessment <N> …` under a semester-2 subject is
+   discovered — but look at its images too. Either way: a formula screenshot goes in
+   `IMAGE_FORMULA` (transcribed, exactly), a screenshot of other text such as a rubric in
+   `IMAGE_TRANSCRIBED` (transcribed, exactly), a diagram with no person in it in
+   `IMAGE_ALT`, anything with an identifiable person in `IMAGE_WITHHELD`.
 3. `python3 .claude/private-pages/build.py` (needs `node`). It prints the redactions it
    applied; the 6008 Week 1 lecturer-name redaction should always be there.
 4. `grep -c '<img\|prod-files' live/*.html` should print `0` for every file — nothing
    readable ships.
 5. Open the subject hub, follow the `Live sessions →` pill, try a wrong code, then the real
-   one; open a week page in the same tab and confirm it unlocks without asking again.
-   WebCrypto needs a secure context, so test over `http://localhost` or the live site,
-   not `file://`.
+   one; open a week page and an assessment page in the same tab and confirm each unlocks
+   without asking again, and that the index lists every notebook under "Assessment
+   notebooks". WebCrypto needs a secure context, so test over `http://localhost` or the
+   live site, not `file://`.
 6. Update the tables in `only-accessible-by-url/SECRET-PAGES.md`.
 
 ## Modify the hub or the library

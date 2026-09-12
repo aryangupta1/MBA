@@ -19,9 +19,10 @@ site itself still has no dependencies), and .env with LIVE_ACCESS_CODE=<code>.
 import os, re, html, json, sys, glob, subprocess
 
 VAULT = os.path.expanduser("~/MBA/Semester 2 2026")
+SYNC  = os.path.expanduser("~/MBA/.mba-sync")
 OUT   = "live"
 ENV   = ".env"
-BUILT_ON = "9 September 2026"
+BUILT_ON = "12 September 2026"
 
 # ── Access code ──────────────────────────────────────────────────────────────
 def access_code():
@@ -80,6 +81,102 @@ IMAGE_FORMULA = {
   "3d57b336873c80608602eae49708d1aa-03-Screenshot_2026-09-09_at_12.37.06_am.png":
     ["D/E ↑ → β<sub>L</sub> ↑ → r<sub>e</sub> ↑"],
 }
+# Screenshots of text (a marking rubric, no people). Transcribed as a table, exactly as
+# the image shows; the PNG is not published — same principle as IMAGE_FORMULA.
+IMAGE_TRANSCRIBED = {
+  "3c37b336873c807abe2cd92276d43a0d-01-image.png": {
+    "what": "Rubric screenshot (criteria 1–2), transcribed.",
+    "head": ["Criterion", "Band", "Descriptor", "Points"],
+    "rows": [
+      ["Synthesis of content", "High Distinction",
+       "Integrates insights from the sessions with exceptional depth. Goes beyond summarising "
+       "discussions by connecting multiple perspectives (peers, debates, instructor commentary) "
+       "into a coherent set of themes relevant for decision-making.", "25 to >21.1 pts"],
+      ["Application and interpretation of financial concepts", "High Distinction",
+       "Demonstrates strong understanding by applying concepts accurately and insightfully to "
+       "diverse and relevant business contexts. Shows clear interpretation of what concepts mean "
+       "for business practice.", "25 to >21.1 pts"]],
+  },
+  "3c37b336873c807abe2cd92276d43a0d-02-image.png": {
+    "what": "Rubric screenshot (criteria 3–4), transcribed.",
+    "head": ["Criterion", "Band", "Descriptor", "Points"],
+    "rows": [
+      ["Independent analysis and critical thinking", "High Distinction",
+       "Demonstrates clear independence of thought by analysing how live discussions and peer "
+       "perspectives shape understanding. Critically evaluates assumptions and draws out "
+       "implications for decision-making. Analysis is clearly distinct from session summaries.",
+       "25 to >21.1 pts"],
+      ["Clarity and structure of the briefing", "High Distinction",
+       "Compiled with exceptional clarity, precision and focus for an executive audience. "
+       "Structured logically, with thematically organised insights that are concise, accessible "
+       "and impactful for decision-makers.", "25 to >21.1 pts"]],
+  },
+}
+
+# ── Assessment notebooks ─────────────────────────────────────────────────────
+# Added 2026-09-12 on Aryan's instruction. Unlike the weeks these are DISCOVERED, not
+# listed: every vault folder "Assessment <N> …" under a subject becomes one page, with
+# every note in it — top-level notes in created order, each followed by its sub-pages.
+ASSESS_DIR = re.compile(r"^Assessment (\d+)\b")
+
+def _fm(full, key):
+    m = re.search(r'^%s:\s*"([^"]*)"' % key, full, re.M)
+    return m.group(1) if m else ""
+
+def _notes_in(folder, prefix=""):
+    """Top-level .md files in created order, each followed by its sub-page folder."""
+    out = []
+    files = [f for f in os.listdir(folder) if f.endswith(".md")]
+    files.sort(key=lambda f: (_fm(open(os.path.join(folder, f), encoding="utf-8").read(), "created"), f))
+    for f in files:
+        stem = f[:-3]
+        heading = f"{prefix} — {stem}" if prefix else stem
+        out.append((heading, os.path.join(folder, f)))
+        sub = os.path.join(folder, stem)
+        if os.path.isdir(sub):
+            out += _notes_in(sub, heading)
+    return out
+
+def assessment_notebooks(code):
+    subj_dirs = [d for d in os.listdir(VAULT) if d.startswith(code + " ")]
+    found = []
+    for sd in subj_dirs:
+        base = os.path.join(VAULT, sd)
+        for d in sorted(os.listdir(base)):
+            m = ASSESS_DIR.match(d)
+            if not m or not os.path.isdir(os.path.join(base, d)):
+                continue
+            notes = _notes_in(os.path.join(base, d))
+            if not notes:
+                continue
+            # The folder name has its colon stripped; the frontmatter keeps the real title.
+            week = _fm(open(notes[0][1], encoding="utf-8").read(), "week") or d
+            title = week.split(":", 1)[1].strip() if ":" in week else d[m.end():].strip()
+            found.append((int(m.group(1)), title, notes))
+    return sorted(found)
+
+# ── Mentions: <mention-page url=…/> renders as the linked note's title ────────
+def _titles():
+    """notion id -> "Week › Note" from the vault's own frontmatter, plus notebook names.
+    Bare names like "Learn" or "Live" are ambiguous, so the week is always prefixed."""
+    t = {}
+    p = os.path.join(SYNC, "notebooks.tsv")
+    if os.path.exists(p):
+        for line in open(p, encoding="utf-8"):
+            r = line.rstrip("\n").split("\t")
+            if len(r) > 1:
+                t[r[0]] = r[1]
+    for f in glob.glob(os.path.join(VAULT, "**", "*.md"), recursive=True):
+        head = open(f, encoding="utf-8").read(1500)
+        nid, title, week = _fm(head, "notion_id"), _fm(head, "title"), _fm(head, "week")
+        if nid and title:
+            t[nid] = f"{week} › {title}" if week else title
+    return t
+TITLES = _titles()
+
+def _mention(m):
+    pid = m.group(1).rstrip("/").split("/")[-1].split("?")[0].replace("-", "")[-32:]
+    return "<span class='wl'>%s</span>" % html.escape(TITLES.get(pid, "linked Notion page"), quote=False)
 
 PAGES = [
   # code, week no, week title, [(heading, relative path)]
@@ -169,8 +266,8 @@ def inline(s):
     # restore the underline and line-break tags the notes use deliberately
     s = s.replace("&lt;u&gt;", "<u>").replace("&lt;/u&gt;", "</u>")
     s = re.sub(r"&lt;br\s*/?&gt;", "<br>", s)
-    s = re.sub(r"&lt;mention-page url=&quot;[^&]*&quot;\s*/&gt;", "", s)
-    s = re.sub(r"&lt;mention-page url=\"[^\"]*\"\s*/&gt;", "", s)
+    s = re.sub(r"&lt;mention-page url=&quot;([^&]*)&quot;\s*/&gt;", _mention, s)
+    s = re.sub(r"&lt;mention-page url=\"([^\"]*)\"\s*/&gt;", _mention, s)
     s = re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
     s = re.sub(r"\[\[([^\]|]+?)\]\]", r"<span class='wl'>\1</span>", s)
     s = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)", r'<a href="\2" rel="noopener">\1</a>', s)
@@ -185,6 +282,11 @@ def img_block(fname):
                 % (html.escape(w["why"]), html.escape(w["transcript"][0]), lines))
     if fname in IMAGE_FORMULA:
         return '<div class="formula">%s</div>' % "<br>".join(IMAGE_FORMULA[fname])
+    if fname in IMAGE_TRANSCRIBED:
+        t = IMAGE_TRANSCRIBED[fname]
+        rows = "".join("<tr>%s</tr>" % "".join("<td>%s</td>" % html.escape(c) for c in r) for r in t["rows"])
+        return ('<p class="transcribed">%s</p><div class="tbl"><table><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div>'
+                % (html.escape(t["what"]), "".join("<th>%s</th>" % html.escape(h) for h in t["head"]), rows))
     alt = IMAGE_ALT.get(fname, "")
     if not alt:
         return '<div class="withheld"><p class="withheld-why"><strong>Image withheld</strong> — not reviewed for publication.</p></div>'
@@ -402,6 +504,9 @@ CSS = """
   .fig{margin:18px 0;padding:0}
   .fig img{width:100%%;height:auto;display:block;border:1px solid var(--line);border-radius:var(--r);background:#fff}
   figcaption{margin-top:9px;font-size:.8rem;color:var(--ink3);line-height:1.55}
+  .transcribed{margin:16px 0 0;font-size:.78rem;color:var(--ink3);font-style:italic}
+  .section-h{font-family:var(--font-d);font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;
+             color:var(--ink3);margin:30px 0 12px}
 
   /* index list */
   .weeks{list-style:none;margin:0 0 26px;padding:0;display:grid;gap:14px}
@@ -527,22 +632,45 @@ WEEK_DOC = """  <nav class="backlinks" aria-label="Back">
   </div>
 """
 
+ASSESS_DOC = """  <nav class="backlinks" aria-label="Back">
+    <a class="backlink" href="../%(hub)s">&larr; %(spaced)s week hub</a>
+    <a class="backlink" href="%(code)s.html">&larr; All live sessions and assessments</a>
+  </nav>
+  <p class="eyebrow">%(spaced)s &middot; %(name)s &middot; Assessment %(n)d</p>
+  <h1>%(atitle)s</h1>
+  <p class="standfirst">My assessment notebook &mdash; the brief as I recorded it, my planning and my working. These are working notes, not a study page, and they are not published on any public page.</p>
+  <div class="badges">
+    <span class="badge">Assessment notebook</span>
+    <span class="badge badge--warn">Access code &mdash; not indexed</span>
+  </div>
+%(body)s
+  <div class="doc-foot">
+    <p>%(spaced)s %(name)s &middot; Assessment %(n)d</p>
+    <p>Built from my Obsidian vault on %(built)s. Lecturer and classmate names are withheld from every page on this site.</p>
+    <button type="button" class="lock-btn" data-lock>Lock these pages</button>
+  </div>
+"""
+
 INDEX_DOC = """  <nav class="backlinks" aria-label="Back">
     <a class="backlink" href="../%(hub)s">&larr; %(spaced)s week hub</a>
   </nav>
   <p class="eyebrow">%(spaced)s &middot; %(name)s</p>
   <h1>Live sessions</h1>
-  <p class="standfirst">My in-class notes, one page per week &mdash; the material that is deliberately kept off the public week pages. You are unlocked for this subject until you close the tab or press <em>Lock</em>.</p>
+  <p class="standfirst">My in-class notes, one page per week, and my assessment notebooks &mdash; the material that is deliberately kept off the public week pages. You are unlocked for this subject until you close the tab or press <em>Lock</em>.</p>
   <div class="badges">
     <span class="badge">%(count)d live page%(plural)s</span>
+    <span class="badge">%(acount)d assessment notebook%(aplural)s</span>
     <span class="badge badge--warn">Access code &mdash; not indexed</span>
   </div>
+  <h2 class="section-h">Weeks</h2>
   <ul class="weeks">
 %(cards)s  </ul>
   <div class="none">
     <p>Weeks with no live page yet &mdash; no Live Session note exists in the vault for them. A week gets a page here the moment one appears.</p>
     <ul>%(missing)s</ul>
   </div>
+  <h2 class="section-h">Assessment notebooks</h2>
+  %(acards)s
   <div class="doc-foot">
     <p>%(spaced)s %(name)s &middot; live sessions index</p>
     <p>Built from my Obsidian vault on %(built)s. Lecturer and classmate names, transcripts and class chat logs are withheld from every page on this site.</p>
@@ -554,37 +682,41 @@ def published_weeks(code):
     return sorted(int(m.group(1)) for f in glob.glob(f"{code}-week*.html")
                   for m in [re.match(rf"{code}-week(\d+)\.html", f)] if m)
 
+def render_notes(notes, where):
+    """notes: [(heading, absolute path)] -> (list of <section> html, flags)."""
+    chunks, flags = [], []
+    for heading, path in notes:
+        if not os.path.exists(path):
+            print("MISSING", path); flags.append("note missing"); continue
+        full = open(path, encoding="utf-8").read()
+        raw = strip_fm(full)
+        ntype = _fm(full, "type")
+        before = len(REDACTED)
+        raw = redact(raw, f"{where} {heading}")
+        if len(REDACTED) > before: flags.append("lecturer name withheld")
+        if any(f in raw for f in IMAGE_WITHHELD): flags.append("image withheld")
+        if any(f in raw for f in IMAGE_FORMULA): flags.append("formulas transcribed")
+        if any(f in raw for f in IMAGE_TRANSCRIBED): flags.append("rubric transcribed")
+        body = md(raw).strip()
+        if not body:
+            body = '<p class="empty">This note is empty in my vault &mdash; nothing was written under it.</p>'
+            flags.append("1 note empty in vault")
+        extra = ""
+        if heading == "Discussion Questions":
+            extra = ('<div class="notice"><p><strong>Provenance.</strong> The answers below are the '
+                     'supplied AI-generated responses distributed with the discussion questions. They are '
+                     'not my own writing, and they are reproduced here unedited.</p></div>')
+        chunks.append('  <section class="note">\n    <div class="note-head"><h2>%s</h2><span class="note-type">%s</span></div>\n%s%s\n  </section>'
+                      % (html.escape(heading), html.escape(ntype or "Note"), extra, body))
+    return chunks, flags
+
 def build():
     code_secret = access_code()
     os.makedirs(OUT, exist_ok=True)
-    made, index = [], {}
+    made, index, aindex = [], {}, {}
     for code, wk, wtitle, notes in PAGES:
         s = SUBJ[code]
-        chunks, flags = [], []
-        for heading, rel in notes:
-            path = os.path.join(VAULT, rel)
-            if not os.path.exists(path):
-                print("MISSING", rel); flags.append("note missing"); continue
-            full = open(path, encoding="utf-8").read()
-            raw = strip_fm(full)
-            ntype = re.search(r'^type:\s*"([^"]*)"', full, re.M)
-            ntype = ntype.group(1) if ntype else ""
-            before = len(REDACTED)
-            raw = redact(raw, f"{code} wk{wk} {heading}")
-            if len(REDACTED) > before: flags.append("lecturer name withheld")
-            if any(f in raw for f in IMAGE_WITHHELD): flags.append("image withheld")
-            if any(f in raw for f in IMAGE_FORMULA): flags.append("formulas transcribed")
-            body = md(raw).strip()
-            if not body:
-                body = '<p class="empty">This note is empty in my vault &mdash; nothing was written under it.</p>'
-                flags.append("1 note empty in vault")
-            extra = ""
-            if heading == "Discussion Questions":
-                extra = ('<div class="notice"><p><strong>Provenance.</strong> The answers below are the '
-                         'supplied AI-generated responses distributed with the discussion questions. They are '
-                         'not my own writing, and they are reproduced here unedited.</p></div>')
-            chunks.append('  <section class="note">\n    <div class="note-head"><h2>%s</h2><span class="note-type">%s</span></div>\n%s%s\n  </section>'
-                          % (html.escape(heading), html.escape(ntype or "Note"), extra, body))
+        chunks, flags = render_notes([(h, os.path.join(VAULT, rel)) for h, rel in notes], f"{code} wk{wk}")
         doc = WEEK_DOC % dict(hub=s["hub"], spaced=s["spaced"], code=code, name=html.escape(s["name"]),
                               wk=wk, wtitle=html.escape(wtitle), body="\n".join(chunks), built=BUILT_ON)
         page = TPL % dict(
@@ -600,6 +732,29 @@ def build():
         print("built %-32s %6d bytes  (%d note%s)" % (out, len(page), len(notes), "" if len(notes)==1 else "s"))
 
     for code, s in SUBJ.items():
+        for n, atitle, notes in assessment_notebooks(code):
+            chunks, flags = render_notes(notes, f"{code} A{n}")
+            doc = ASSESS_DOC % dict(hub=s["hub"], spaced=s["spaced"], code=code, name=html.escape(s["name"]),
+                                    n=n, atitle=html.escape(atitle), body="\n".join(chunks), built=BUILT_ON)
+            page = TPL % dict(
+                title="%s Assessment %d — notebook" % (s["spaced"], n),
+                css=CSS % dict(accent=s["accent"], deep=s["deep"], soft=s["soft"]),
+                spaced=s["spaced"], hub=s["hub"], gate_kicker="Assessment %d notebook" % n,
+                gate_title="Enter the access code", gate_blurb="My notebook for assessment %d. Unlocking here unlocks every live page of %s in this tab." % (n, s["spaced"]),
+                payload=encrypt(doc, code_secret), js=GATE_JS)
+            out = os.path.join(OUT, "%s-assessment%d.html" % (code, n))
+            open(out, "w", encoding="utf-8").write(page)
+            made.append(out)
+            aindex.setdefault(code, []).append(dict(n=n, title=atitle, notes=[h for h, _ in notes], flags=sorted(set(flags))))
+            print("built %-32s %6d bytes  (%d note%s)" % (out, len(page), len(notes), "" if len(notes)==1 else "s"))
+
+    # a stale assessment page (notebook renamed or removed from the vault) must not linger
+    keep = set(made)
+    for f in glob.glob(os.path.join(OUT, "*-assessment*.html")):
+        if f not in keep:
+            os.remove(f); print("removed stale", f)
+
+    for code, s in SUBJ.items():
         rows = sorted(index.get(code, []), key=lambda r: r["wk"])
         cards = ""
         for r in rows:
@@ -610,19 +765,31 @@ def build():
                          ('<div class="wk-flags">%s</div>' % fl) if fl else ""))
         have = {r["wk"] for r in rows}
         missing = "".join("<li>Week %d</li>" % w for w in published_weeks(code) if w not in have) or "<li>none</li>"
+        arows = aindex.get(code, [])
+        acards = ""
+        for r in arows:
+            fl = "".join('<span class="flag">%s</span>' % html.escape(f) for f in r["flags"])
+            acards += ('    <li><a class="wk" href="%s-assessment%d.html"><span class="wk-num">Assessment %d</span>'
+                       '<h2>%s</h2><p>%s</p>%s</a></li>\n'
+                       % (code, r["n"], r["n"], html.escape(r["title"]), html.escape(", ".join(r["notes"])),
+                          ('<div class="wk-flags">%s</div>' % fl) if fl else ""))
+        acards = ('<ul class="weeks">\n%s  </ul>' % acards) if acards else \
+                 '<p class="none">No assessment notebook in the vault for this subject yet.</p>'
         doc = INDEX_DOC % dict(hub=s["hub"], spaced=s["spaced"], name=html.escape(s["name"]),
                                count=len(rows), plural="" if len(rows)==1 else "s", cards=cards,
-                               missing=missing, built=BUILT_ON)
+                               missing=missing, acount=len(arows), aplural="" if len(arows)==1 else "s",
+                               acards=acards, built=BUILT_ON)
         page = TPL % dict(
             title="%s — live sessions" % s["spaced"],
             css=CSS % dict(accent=s["accent"], deep=s["deep"], soft=s["soft"]),
             spaced=s["spaced"], hub=s["hub"], gate_kicker="Live sessions",
-            gate_title="Enter the access code", gate_blurb="My in-class notes for %s, one page per week. Unlocking here unlocks every live page of the subject in this tab." % s["spaced"],
+            gate_title="Enter the access code", gate_blurb="My in-class notes for %s, one page per week, and my assessment notebooks. Unlocking here unlocks every live page of the subject in this tab." % s["spaced"],
             payload=encrypt(doc, code_secret), js=GATE_JS)
         out = os.path.join(OUT, "%s.html" % code)
         open(out, "w", encoding="utf-8").write(page)
         made.append(out)
-        print("built %-32s %6d bytes  (index, %d week%s)" % (out, len(page), len(rows), "" if len(rows)==1 else "s"))
+        print("built %-32s %6d bytes  (index, %d week%s, %d assessment%s)"
+              % (out, len(page), len(rows), "" if len(rows)==1 else "s", len(arows), "" if len(arows)==1 else "s"))
 
     print()
     if REDACTED:
