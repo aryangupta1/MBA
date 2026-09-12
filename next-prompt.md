@@ -44,6 +44,11 @@ repo or the vault. **Every future harvest prompt must carry the no-transcript ru
   **DMBA6008-assessment2** (Part A, Part A — Overview).
 - Subject index `live/<CODE>.html` now has a **Weeks** section and an **Assessment notebooks**
   section.
+- **Tab links on every gated page** (Aryan, same day: *"Where are the assessment notebook? It
+  should fall under the live tab links"* — first cut only listed them at the bottom of the
+  index). `subject_tabs()` renders **All · Week N … | Assessment N …** at the top of the index,
+  every week page and every assessment page, current page highlighted. Derived from `PAGES` +
+  discovered notebooks — no hand list.
 - New `IMAGE_TRANSCRIBED` table — the 6008 A1 rubric (two text screenshots) is a transcribed
   table; PNGs not published.
 - `<mention-page>` links now render as `Week › Note` titles from vault frontmatter instead of

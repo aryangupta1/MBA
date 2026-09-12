@@ -77,9 +77,21 @@ apply to assessment pages exactly as to week pages:
 ## Links between notes
 
 - **Wikilinks** render as the target's title.
-- **`<mention-page>` links** (Notion page mentions carried into the vault) render as the
-  linked note's title, resolved from `~/MBA/.mba-sync/notes.tsv`, `children.tsv` and
-  `notebooks.tsv`. They were previously dropped silently.
+- **`<mention-page>` links** (Notion page mentions carried into the vault) render as
+  `Week › Note`, resolved from each vault note's frontmatter (`notion_id`, `week`, `title`),
+  plus `~/MBA/.mba-sync/notebooks.tsv` for notebook mentions. The week is always prefixed
+  because bare names like `Learn` and `Live` are ambiguous. They were previously dropped
+  silently.
+
+## Tab links
+
+Every gated page — the index, each week, each assessment notebook — opens with one row of
+tab links across the whole subject: **All · Week 1 · Week 3 … | Assessment 1 · Assessment 2**,
+current page filled in the accent, assessment tabs tinted `--accent-soft`. It is built by
+`subject_tabs()` from `PAGES` and the discovered notebooks, so a new week or notebook joins
+the row on the next build. Added 2026-09-12 after Aryan asked for the notebooks to sit under
+the live tab links rather than only at the bottom of the index. The row scrolls sideways on
+its own at narrow widths; the page body never does.
 
 ## Adding a week
 

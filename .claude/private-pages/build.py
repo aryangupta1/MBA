@@ -505,6 +505,15 @@ CSS = """
   .fig img{width:100%%;height:auto;display:block;border:1px solid var(--line);border-radius:var(--r);background:#fff}
   figcaption{margin-top:9px;font-size:.8rem;color:var(--ink3);line-height:1.55}
   .transcribed{margin:16px 0 0;font-size:.78rem;color:var(--ink3);font-style:italic}
+  /* tab links: every gated page of the subject, weeks then assessment notebooks */
+  .livetabs{display:flex;gap:6px;overflow-x:auto;margin:0 0 22px;padding:2px 0 8px;scrollbar-width:thin}
+  .livetab{flex:0 0 auto;font-family:var(--font-d);font-size:.76rem;font-weight:600;letter-spacing:.02em;
+           text-decoration:none;white-space:nowrap;padding:6px 12px;border-radius:var(--r-pill);
+           border:1px solid var(--line);background:var(--surface);color:var(--ink2)}
+  .livetab:hover{border-color:var(--accent);color:var(--accent-deep)}
+  .livetab[aria-current="page"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  .livetab--assess{background:var(--accent-soft);border-color:transparent;color:var(--accent-deep)}
+  .livetabs-sep{flex:0 0 auto;width:1px;background:var(--line);margin:4px 2px}
   .section-h{font-family:var(--font-d);font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;
              color:var(--ink3);margin:30px 0 12px}
 
@@ -617,6 +626,7 @@ WEEK_DOC = """  <nav class="backlinks" aria-label="Back">
     <a class="backlink" href="../%(hub)s">&larr; %(spaced)s week hub</a>
     <a class="backlink" href="%(code)s.html">&larr; All live sessions</a>
   </nav>
+%(tabs)s
   <p class="eyebrow">%(spaced)s &middot; %(name)s &middot; Week %(wk)d</p>
   <h1>%(wtitle)s</h1>
   <p class="standfirst">My live-session notes for this week. These are working notes, not a study page &mdash; they are not published on the public week page.</p>
@@ -636,6 +646,7 @@ ASSESS_DOC = """  <nav class="backlinks" aria-label="Back">
     <a class="backlink" href="../%(hub)s">&larr; %(spaced)s week hub</a>
     <a class="backlink" href="%(code)s.html">&larr; All live sessions and assessments</a>
   </nav>
+%(tabs)s
   <p class="eyebrow">%(spaced)s &middot; %(name)s &middot; Assessment %(n)d</p>
   <h1>%(atitle)s</h1>
   <p class="standfirst">My assessment notebook &mdash; the brief as I recorded it, my planning and my working. These are working notes, not a study page, and they are not published on any public page.</p>
@@ -654,6 +665,7 @@ ASSESS_DOC = """  <nav class="backlinks" aria-label="Back">
 INDEX_DOC = """  <nav class="backlinks" aria-label="Back">
     <a class="backlink" href="../%(hub)s">&larr; %(spaced)s week hub</a>
   </nav>
+%(tabs)s
   <p class="eyebrow">%(spaced)s &middot; %(name)s</p>
   <h1>Live sessions</h1>
   <p class="standfirst">My in-class notes, one page per week, and my assessment notebooks &mdash; the material that is deliberately kept off the public week pages. You are unlocked for this subject until you close the tab or press <em>Lock</em>.</p>
@@ -710,15 +722,32 @@ def render_notes(notes, where):
                       % (html.escape(heading), html.escape(ntype or "Note"), extra, body))
     return chunks, flags
 
+def subject_tabs(code, notebooks, current):
+    """One row of tab links across every gated page of a subject: the index, each live week,
+    then each assessment notebook. `current` is "all", "w<N>" or "a<N>"."""
+    def tab(key, href, label, extra=""):
+        cur = ' aria-current="page"' if key == current else ""
+        return '<a class="livetab%s" href="%s"%s>%s</a>' % (extra, href, cur, label)
+    items = [tab("all", "%s.html" % code, "All")]
+    items += [tab("w%d" % wk, "%s-week%d.html" % (code, wk), "Week %d" % wk)
+              for c, wk, _, _ in PAGES if c == code]
+    if notebooks:
+        items.append('<span class="livetabs-sep" aria-hidden="true"></span>')
+        items += [tab("a%d" % n, "%s-assessment%d.html" % (code, n), "Assessment %d" % n, " livetab--assess")
+                  for n, _, _ in notebooks]
+    return '  <nav class="livetabs" aria-label="Live pages">%s</nav>' % "".join(items)
+
 def build():
     code_secret = access_code()
     os.makedirs(OUT, exist_ok=True)
     made, index, aindex = [], {}, {}
+    NOTEBOOKS = {code: assessment_notebooks(code) for code in SUBJ}
     for code, wk, wtitle, notes in PAGES:
         s = SUBJ[code]
         chunks, flags = render_notes([(h, os.path.join(VAULT, rel)) for h, rel in notes], f"{code} wk{wk}")
         doc = WEEK_DOC % dict(hub=s["hub"], spaced=s["spaced"], code=code, name=html.escape(s["name"]),
-                              wk=wk, wtitle=html.escape(wtitle), body="\n".join(chunks), built=BUILT_ON)
+                              wk=wk, wtitle=html.escape(wtitle), body="\n".join(chunks), built=BUILT_ON,
+                              tabs=subject_tabs(code, NOTEBOOKS[code], "w%d" % wk))
         page = TPL % dict(
             title="%s Week %d — live notes" % (s["spaced"], wk),
             css=CSS % dict(accent=s["accent"], deep=s["deep"], soft=s["soft"]),
@@ -732,10 +761,11 @@ def build():
         print("built %-32s %6d bytes  (%d note%s)" % (out, len(page), len(notes), "" if len(notes)==1 else "s"))
 
     for code, s in SUBJ.items():
-        for n, atitle, notes in assessment_notebooks(code):
+        for n, atitle, notes in NOTEBOOKS[code]:
             chunks, flags = render_notes(notes, f"{code} A{n}")
             doc = ASSESS_DOC % dict(hub=s["hub"], spaced=s["spaced"], code=code, name=html.escape(s["name"]),
-                                    n=n, atitle=html.escape(atitle), body="\n".join(chunks), built=BUILT_ON)
+                                    n=n, atitle=html.escape(atitle), body="\n".join(chunks), built=BUILT_ON,
+                                    tabs=subject_tabs(code, NOTEBOOKS[code], "a%d" % n))
             page = TPL % dict(
                 title="%s Assessment %d — notebook" % (s["spaced"], n),
                 css=CSS % dict(accent=s["accent"], deep=s["deep"], soft=s["soft"]),
@@ -778,7 +808,7 @@ def build():
         doc = INDEX_DOC % dict(hub=s["hub"], spaced=s["spaced"], name=html.escape(s["name"]),
                                count=len(rows), plural="" if len(rows)==1 else "s", cards=cards,
                                missing=missing, acount=len(arows), aplural="" if len(arows)==1 else "s",
-                               acards=acards, built=BUILT_ON)
+                               acards=acards, built=BUILT_ON, tabs=subject_tabs(code, NOTEBOOKS[code], "all"))
         page = TPL % dict(
             title="%s — live sessions" % s["spaced"],
             css=CSS % dict(accent=s["accent"], deep=s["deep"], soft=s["soft"]),
