@@ -31,6 +31,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from convert_core import convert, unescape, safe
 
 ap = argparse.ArgumentParser()
+ap.add_argument("courses", nargs="*",
+                help="course codes to apply from their plan-<code>.json (default: the latest plan.json)")
 ap.add_argument("--dry-run", action="store_true")
 ap.add_argument("--seed", action="store_true",
                 help="adopt the vault as-is as the baseline; write nothing")
@@ -46,7 +48,15 @@ def sha(b):
 def file_sha(p):
     return sha(open(p, "rb").read()) if os.path.exists(p) else None
 
-plan = json.load(open(os.path.join(SYNC, "plan.json")))
+if a.courses:
+    plan = []
+    for c in a.courses:
+        pp = os.path.join(SYNC, f"plan-{c}.json")
+        if not os.path.exists(pp):
+            sys.exit(f"no {pp} — run harvest_plan.py {c} first")
+        plan += json.load(open(pp))
+else:
+    plan = json.load(open(os.path.join(SYNC, "plan.json")))
 byid = {p["id"]: p for p in plan}
 
 children = []

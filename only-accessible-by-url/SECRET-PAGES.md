@@ -97,11 +97,10 @@ Still in this directory, listed here so this file is the complete index:
 
 | Page | What it is | Gate |
 | --- | --- | --- |
-| [`semester-2-private-notes.html`](semester-2-private-notes.html) | The original hand-built combined private page — semester 2 live sessions and shadow boxing, as at 2026-08-19 | **password** (its own, AES-256-GCM) |
 | [`metadata.html`](metadata.html) | Semester 1 artefact | none |
 | [`power-interest.html`](power-interest.html) | Semester 1 artefact | none |
 | [`stakeholder-mapping.html`](stakeholder-mapping.html) | Semester 1 artefact | none |
 
-The combined page is **stale** — it predates DMBA 6005 Weeks 4–6 and DMBA 6008 Weeks 4–6.
-The `live/` pages supersede it; it has not been deleted because rebuilding or removing it
-needs its own password.
+The hand-built combined page `semester-2-private-notes.html` (2026-08-19) was **deleted on
+2026-09-20** — the `live/` pages superseded it, including DMBA 6005 Week 3 `Live`. It stays in git
+history.

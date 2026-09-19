@@ -329,6 +329,10 @@ Hand the agent `docs/vault-sync.md` §3b. The rules that actually bite:
   and gets no Formulas tab. Do not pad one to fill the template.
 
 Slots: `<!--INSERT:ACRONYMS_TAB-->` / `_PANEL` / `_DATA`, and the same three for `FORMULAS`.
+**Splice them with `reference/splice_ref.py PAGE.html REF.json`** (added 2026-09-20): the agent
+writes one JSON of intro text and items, the script emits the tabs, panels, arrays *and* the
+`buildRef()` calls, numbers the tabs, and omits a tab whose list is empty. Run it before
+`practice/build.py`.
 The shared `buildRef()` renderer is already in the shell and no-ops when a tab is absent —
 **but the shell only defines it, it never calls it.** The `_DATA` insert must therefore carry
 the array *and* its call block: `buildRef('acronyms', ACRONYMS, …)` after `ACRONYMS`, and
@@ -355,6 +359,8 @@ so run this after Phase 4, one agent per page:
 schema, the authoring rules and the build command. The agent writes **one JSON file** into
 `reference/practice/data/<PAGE>.json` and edits no HTML;
 `reference/practice/build.py <PAGE>.html` splices all three in and asserts the shape first.
+**`build.py` skips a page that already carries the components** — to rebuild after editing
+the JSON, run `reference/practice/strip.py <PAGE>.html` first, then `build.py`.
 
 **This is not optional on a re-sync.** A week that gains a topic, loses a placeholder or has
 its prose reviewed has changed the material these are drawn from:

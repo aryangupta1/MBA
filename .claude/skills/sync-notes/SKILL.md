@@ -184,6 +184,10 @@ python3 …/apply_harvest.py --dry-run     # always look first
 python3 …/apply_harvest.py
 ```
 
+For a multi-course run, name the courses: `harvest_plan.py` writes `plan-<code>.json` as
+well as `plan.json`, so `apply_harvest.py DMBA6008 DMBA6005 --dry-run` applies both. With no
+course argument it reads `plan.json`, which holds **only the last course planned**.
+
 Every page is classified against two independent hashes — did Notion change, and did the
 vault file change since *this skill* last wrote it:
 

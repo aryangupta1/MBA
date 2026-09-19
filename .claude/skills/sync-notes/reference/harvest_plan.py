@@ -79,8 +79,11 @@ for n in notes:
 
 dupes = [f for f, k in collections.Counter(p["file"] for p in plan).items() if k > 1]
 
-with open(os.path.join(SYNC, "plan.json"), "w") as f:
-    json.dump(plan, f, indent=1)
+# plan.json is the latest run; plan-<course>.json survives a second course being planned,
+# so `apply_harvest.py DMBA6008 DMBA6005` can apply both in one go.
+for name in ("plan.json", f"plan-{want}.json"):
+    with open(os.path.join(SYNC, name), "w") as f:
+        json.dump(plan, f, indent=1)
 
 if a.json:
     print(json.dumps(dict(plan=plan, skipped=len(skipped), collisions=dupes), indent=1)); sys.exit(0)

@@ -36,26 +36,29 @@ on his instruction.
   in the default ink instead of white / pale / signal red-green. Moved each into `style="fill:…"`.
   `checks.py` now flags the attribute form and `fragment-spec.md` rule 3 says so.
 
+- **Cleared the whole open-thread list** (Aryan: "fix everything in one go"): no-transcript rule
+  now in `~/MBA/.mba-sync/AGENT-INSTRUCTIONS.md`; `strip.py` step documented in sync-subject
+  Phase 3c; new `reference/splice_ref.py` for the Acronyms/Formulas tabs (Phase 3b);
+  `harvest_plan.py` writes `plan-<code>.json` and `apply_harvest.py DMBA6008 DMBA6005` applies
+  several courses at once; `verify.py` no longer fails on the expected transcript/chat links or on
+  `\\$` inside his own LaTeX — **ALL CHECKS PASSED**; stale `semester-2-private-notes.html`
+  deleted (superseded by `live/`), references updated. The 2026-09-12 items were reported to him.
+
 ## Do first
 
-1. Still owed to Aryan from 2026-09-12 — see Open threads item 1.
+Nothing pending from the agenda. Wait for Aryan.
 
-## Open threads
+## Open threads — each needs Aryan, not code
 
-- [ ] The 2026-09-12 "Do first" list is still unreported to Aryan: (1) the transcript incident of
-      2026-09-12; (2) the access code is six characters; (3) how assessment pages look / whether
-      6005 Final Version belongs behind the gate; (4) the unseen pages; (5) approve the hook
-      (`/hooks`); (6) the `$28.888m` / `$22.888m` line.
-- [ ] Add the no-transcript rule to `~/MBA/.mba-sync/AGENT-INSTRUCTIONS.md` itself.
-- [ ] `practice/build.py` skips a page that already has practice content — use `strip.py` first.
-      Worth a line in the SKILL.md Phase 3c.
-- [ ] Acronyms/formulas splice is still hand-scripted per week — worth a `splice_ref.py`.
-- [ ] `semester-2-private-notes.html` is stale and needs its own password to rebuild or delete.
-- [ ] Four syllabus files still cannot be migrated (`file://` refs in Notion).
-- [ ] Lecturer name and email remain in git history from `7a63ab5`; not scrubbed, not asked.
-- [ ] No `Live` note yet for 6005 Weeks 6–7 or 6008 Weeks 5 and 7.
-- [ ] `harvest_plan.py` writes one `plan.json` per course — re-run it for each course before its apply
-      (did so this session).
+- [ ] **Lecturer name and email in git history** (from `7a63ab5`). Removing them means rewriting
+      `master` and force-pushing — only on his explicit go.
+- [ ] **Four syllabus images** (6001, 6002, 6004, 6008) stay in Notion: they are internal
+      `file://` attachments and `notion-download-attachment` only fetches text files the
+      integration created. Download by hand if wanted.
+- [ ] Approve the SessionStart hook via `/hooks` if the note stops appearing.
+- [ ] Whether DMBA 6005 Assessment 1 `Final Version` belongs behind the gate (it is there now).
+- [ ] No `Live` note yet for 6005 Weeks 6–7 or 6008 Weeks 5 and 7 — when one lands, `build.py`
+      picks it up (add to `PAGES` if it is a new week).
 - [ ] The Chrome extension refuses `file://` URLs; serve with `python3 -m http.server` for the
       browser gate.
 
