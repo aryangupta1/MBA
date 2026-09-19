@@ -205,18 +205,18 @@ sync commit.
 
 ## 7. Current state
 
-Notion→vault sync state covers all **330** pages as of 2026-09-09
+Notion→vault sync state covers all **348** pages as of 2026-09-20
 (`~/MBA/.mba-sync/notes-state.json`), so the conflict guard has a baseline for every note.
 
 | | DMBA 6008 | DMBA 6005 |
 | --- | --- | --- |
-| Weeks in the vault | 0–**6** | 0–**6** |
-| Weeks published | **0–6** | **0–6** |
-| Outstanding | none — Week 6 published 2026-09-09; its notes say both `$28.888m − $8m = $14.888m` and `$22.888m` for the post-funding value, reproduced as written | Week 6's `Critical path diagrams` is only partly written in the source; the page says so. Published 2026-09-07 |
+| Weeks in the vault | 0–**7** | 0–**7** |
+| Weeks published | **0–7** | **0–7** |
+| Outstanding | none — Week 7 (capital structure and the cost of capital) published 2026-09-20, all nine source images transcribed as formulas; Week 6's `$28.888m` / `$22.888m` line still reproduced as written | none — Week 7 (taking stock and stakeholders) published 2026-09-20; Week 6 re-synced the same day: `Critical path diagrams` is now fully written and `How do you do a big CX Project` was added |
 | Held for review | — | Week 3 `Live` |
-| Master search page | `DMBA6008-search.html` — 1,359 entries | `DMBA6005-search.html` — 915 entries |
+| Master search page | `DMBA6008-search.html` — 1,531 entries | `DMBA6005-search.html` — 1,141 entries |
 
-The two search pages exist as of 2026-09-07 (6008 rebuilt 2026-09-09). They are **derived from the built week pages**,
+The two search pages exist as of 2026-09-07 (both rebuilt 2026-09-20). They are **derived from the built week pages**,
 not from the vault, by `.claude/skills/sync-subject/reference/search/build_search.py <code>`,
 and must be rebuilt after any run that changes a week page.
 

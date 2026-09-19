@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Week 6 — Scheduling and design sprints — DMBA 6005</title>
-  <meta name="description" content="DMBA 6005 Week 6 — scheduling and design sprints. Scrum as an operating system: sprints, roles, backlogs, the Kanban board, daily stand-ups, burn-down charts and velocity. Gantt charts: anatomy, SMART milestones, task granularity, keeping the schedule current, and Gantt versus Kanban. Critical path diagrams: the longest dependent path as the schedule constraint.">
+  <meta name="description" content="DMBA 6005 Week 6 — scheduling and design sprints. Scrum as an operating system: sprints, roles, backlogs, the Kanban board, daily stand-ups, burn-down charts and velocity. Gantt charts: anatomy, SMART milestones, task granularity, keeping the schedule current, and Gantt versus Kanban. Critical path diagrams: branching and convergence, finding the critical path, slack, and protecting the constraint. How to run a big CX project: an adapted RIBA lifecycle with Agile delivery inside stages 3-6, worked through the Future You avatar.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -1580,12 +1580,12 @@
     <div class="wrap">
       <p class="eyebrow">DMBA 6005 · Agile Project Development · Week 6</p>
       <h1>SCHEDULING<br><span class="hero-em">AND DESIGN SPRINTS</span></h1>
-      <p class="standfirst">Three ways of putting time around work. Scrum atomises delivery into short sprints so uncertainty is met with feedback rather than forecasts; the Gantt chart keeps the whole project visible above the sprint, with milestones that are binary and tasks cut to a useful grain; and the critical path names the one dependent chain that sets the earliest finish. The notes on why critical path analysis matters are not yet written.</p>
+      <p class="standfirst">Four ways of putting time around work. Scrum atomises delivery into short sprints so uncertainty is met with feedback rather than forecasts; the Gantt chart keeps the whole project visible above the sprint, with milestones that are binary and tasks cut to a useful grain; the critical path names the one dependent chain that sets the earliest finish, and slack shows the tolerance everywhere else; and an adapted RIBA lifecycle wraps a big CX project in stages, with Agile doing the delivery inside them.</p>
       <div class="meta-row">
         <span class="pill"><span class="dot" aria-hidden="true"></span> Pre-live session</span>
-        <span class="pill">43 key terms</span>
-        <span class="pill">62 flashcards</span>
-        <span class="pill">10 quiz questions</span>
+        <span class="pill">70 key terms</span>
+        <span class="pill">109 flashcards</span>
+        <span class="pill">16 quiz questions</span>
       </div>
     </div>
   </header>
@@ -1616,7 +1616,7 @@
       <div class="block">
         <span class="block-num">00 / Start here</span>
         <h2>How to master this week</h2>
-        <p>Three topics of uneven size. Scrum and Gantt charts are complete and argue with each other from block 03 onwards; critical path diagrams stops after one block and should not be relied on yet. A full pass takes a little over two hours.</p>
+        <p>Four topics, all written up. Scrum and Gantt charts argue with each other from block 03 onwards; critical path diagrams sharpens the Gantt view into a single constraint; the big CX project steps back to the whole lifecycle. A full pass takes about three and a half hours.</p>
 
         <ol class="path">
           <li class="path-step">
@@ -1629,42 +1629,42 @@
           </li>
           <li class="path-step">
             <div class="path-head">
-              <h3 class="path-label">Read Gantt Charts and the partial critical path topic, blocks 11 to 22</h3>
-              <span class="path-time">~30 min</span>
+              <h3 class="path-label">Read Gantt Charts and critical path diagrams, blocks 11 to 29</h3>
+              <span class="path-time">~45 min</span>
             </div>
-            <p>Block 13 gives the one test that runs through the rest — can it be partly done? — and blocks 15 and 16 apply it. Read block 19’s table until you can quote both questions. Blocks 21 and 22 are a different case: the notes define the critical path and then stop, and block 22 says so. Take the definition and the callout only; the comparison with Gantt visibility is not written, so nothing here or later assumes it.</p>
+            <p>Block 13’s test — can it be partly done? — carries into block 23, where milestones become the points the critical path network is built from. Block 23’s convergence figure and block 24’s 16-month example are the mechanics; block 25 covers slack. Read block 28’s table beside block 19’s: both compare Gantt with another tool that answers a different question.</p>
             <button class="path-go" type="button" data-goto="summary">Open Summary &amp; visuals <span aria-hidden="true">&rarr;</span></button>
           </li>
           <li class="path-step">
             <div class="path-head">
-              <h3 class="path-label">Fix the two formulas</h3>
-              <span class="path-time">~5 min</span>
+              <h3 class="path-label">Read the big CX project, blocks 30 to 38</h3>
+              <span class="path-time">~30 min</span>
             </div>
-            <p>There are only two: velocity, and minimum project duration as the maximum of the dependent paths. Neither needs arithmetic; what matters is what each is for. Velocity is a capacity and predictability metric, not a target, and the duration formula is why critical means schedule-constraining rather than difficult or important.</p>
+            <p>Block 31’s table is the spine: eight stages, each with what must be resolved. Hold block 32’s two questions — lifecycle governance and Agile execution — and then read the Future You blocks as those questions applied. Block 36’s cross-cutting table is why compliance is not a late checkpoint.</p>
+            <button class="path-go" type="button" data-goto="summary">Open Summary &amp; visuals <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Fix the six formulas</h3>
+              <span class="path-time">~10 min</span>
+            </div>
+            <p>Velocity plus five critical-path lines. The only arithmetic is the lecture example: 2 + 3 + 3 + 5 + 1 + 2 = 16, and 5 → 6 months producing 16 → 17. The convergence rule and the schedule-consequence chain are worth saying aloud: they are why dependency structure matters more than individual durations.</p>
             <button class="path-go" type="button" data-goto="formulas">Open Formulas <span aria-hidden="true">&rarr;</span></button>
           </li>
           <li class="path-step">
             <div class="path-head">
-              <h3 class="path-label">Work the glossary by source</h3>
-              <span class="path-time">~15 min</span>
+              <h3 class="path-label">Work the glossary, then run the deck cold</h3>
+              <span class="path-time">~35 min</span>
             </div>
-            <p>Forty-three terms. Two of them appear twice under different sources — Percentage-complete estimate and Critical path — and reading both entries side by side shows how the Scrum and Gantt topics use the same idea. Filter to one source at a time and check you can state each term without the page.</p>
-            <button class="path-go" type="button" data-goto="terms">Open Key concepts <span aria-hidden="true">&rarr;</span></button>
-          </li>
-          <li class="path-step">
-            <div class="path-head">
-              <h3 class="path-label">Run the deck cold</h3>
-              <span class="path-time">~20 min</span>
-            </div>
-            <p>Sixty-two cards. The judgement cards — what a flat burn-down line means, whether something with duration can be a milestone — are the ones worth saying out loud before flipping. The figure cards are checkable in a second: two weeks, fifteen minutes, 2 days and 6 months, specification 1.4.1 on 15th June.</p>
+            <p>Seventy terms and 109 cards. Filter the glossary to one source at a time; Critical path and Percentage-complete estimate each appear under two sources, and comparing the entries shows how the topics share ideas. In the deck, say the judgement cards out loud before flipping — whether E can proceed, how much slack a task has, which stage resolves MVP scope.</p>
             <button class="path-go" type="button" data-goto="cards">Open Flashcards <span aria-hidden="true">&rarr;</span></button>
           </li>
           <li class="path-step">
             <div class="path-head">
               <h3 class="path-label">Sit the quiz without notes</h3>
-              <span class="path-time">~15 min</span>
+              <span class="path-time">~20 min</span>
             </div>
-            <p>Every distractor is a confusion this week sets up on purpose — the Scrum Master for the Product Owner, velocity for burn-down, a task for a milestone — so read the note on the option you rejected as well as the one you chose. The single critical path question asks only what block 21 states.</p>
+            <p>Every distractor is a confusion this week sets up on purpose — the Scrum Master for the Product Owner, a task for a milestone, critical for important, a stage framework for Waterfall — so read the note on the option you rejected as well as the one you chose.</p>
             <button class="path-go" type="button" data-goto="quiz">Open Quiz <span aria-hidden="true">&rarr;</span></button>
           </li>
           <li class="path-step">
@@ -1672,12 +1672,12 @@
               <h3 class="path-label">Work two scenarios end to end</h3>
               <span class="path-time">~25 min</span>
             </div>
-            <p>Take one Scrum scenario and one Gantt scenario. The Scrum ones turn on who should be doing what; the Gantt ones turn on which question the tool answers. Write your reasoning before the first hint and mark against the checklist, not the walkthrough.</p>
+            <p>Take the critical-path scenario, which uses the lecture example’s own durations, and one other. The Scrum ones turn on who should be doing what, the Gantt ones on which question the tool answers, and the CX one on which uncertainty each stage removes. Write your reasoning before the first hint and mark against the checklist.</p>
             <button class="path-go" type="button" data-goto="apply">Open Apply it <span aria-hidden="true">&rarr;</span></button>
           </li>
         </ol>
 
-        <p class="path-close"><strong>The test</strong>You have it when you can say, for any item on a schedule, whether it is a task or a milestone, and for any metric on a board, which question it answers and which it does not.</p>
+        <p class="path-close"><strong>The test</strong>You have it when you can say, for any item on a schedule, whether it is a task or a milestone and how much slack it has, and for any large CX programme, which stage it is in and what that stage must resolve.</p>
       </div>
 
       <div class="block" data-topic="Scrum">
@@ -2749,7 +2749,7 @@
 
       </svg>
     </div>
-    <figcaption>Activities on the critical path must occur in sequence, so the project can finish no sooner than that path allows. Nodes are generic; the notes give no worked example.</figcaption>
+    <figcaption>Activities on the critical path must occur in sequence, so the project can finish no sooner than that path allows. Nodes are generic; block 24 walks through the lecture example.</figcaption>
   </figure>
 
   <div class="callout callout--key">
@@ -2759,9 +2759,596 @@
 </div>
 
 <div class="block" data-topic="Critical path diagrams">
-  <span class="block-num">22 / Still to come</span>
-  <h2>Why critical path analysis matters — not yet written</h2>
-  <p>My notes for this topic stop here. The next two headings — <strong>“Why Critical Path Analysis Matters”</strong> and, beneath it, <strong>“Gantt visibility versus critical-path visibility”</strong> — are in the note but have nothing written under them yet. This page reproduces only what the notes say, so the comparison between what a Gantt chart shows and what a critical path shows is left open until I write it up.</p>
+  <span class="block-num">22 / Why it matters</span>
+  <h2>Gantt visibility versus critical-path visibility</h2>
+  <p>A Gantt chart can show tasks, durations and dependencies, but the schedule constraint can be difficult to identify intuitively among many bars. Critical path analysis instead asks one exact question.</p>
+  <div class="callout callout--ask">
+    <span class="icon" aria-hidden="true">❓</span>
+    <p>Which exact chain of dependent activities determines the project’s earliest possible finish?</p>
+  </div>
+  <p>The answer gives managers a basis for deciding:</p>
+  <ul>
+    <li>which tasks cannot tolerate delay,</li>
+    <li>where management attention should concentrate,</li>
+    <li>which people should be protected from interruptions,</li>
+    <li>where additional resources could actually shorten or protect the schedule.</li>
+  </ul>
+  <h3>Applies beyond Waterfall</h3>
+  <p>Critical-path logic remains relevant in <strong>Agile, Waterfall and hybrid projects</strong>. Agile attempts to reduce dependencies, but complex digital projects still contain work where one team cannot start until another finishes. Flexibility therefore does not eliminate the need to understand schedule constraints.</p>
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p><strong>Managerial implication:</strong> changing priorities for someone working on critical-path activity can unintentionally move the entire project’s delivery date.</p>
+  </div>
+</div>
+
+<div class="block" data-topic="Critical path diagrams">
+  <span class="block-num">23 / Building the diagram</span>
+  <h2>Start with milestones and dependencies</h2>
+  <p>The diagram uses the milestone discipline from the Gantt note: milestones are <strong>zero-duration, binary points of completion</strong>. For each activity, identify:</p>
+  <ul>
+    <li>the milestone it starts from,</li>
+    <li>the milestone it finishes at,</li>
+    <li>its duration,</li>
+    <li>what must be completed before it can begin.</li>
+  </ul>
+  <p>The network then reveals two structures. <strong>Branching:</strong> one completed milestone allows several activities to begin concurrently. <strong>Convergence:</strong> multiple activities must all finish before the next activity can proceed.</p>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 720 220" role="img" aria-labelledby="cpfig2-title cpfig2-desc">
+        <title id="cpfig2-title">Branching and convergence in a critical path network</title>
+        <desc id="cpfig2-desc">Two panels. On the left, branching: one completed milestone has three arrows leaving it, so several activities can begin at the same time. On the right, convergence: milestone E requires both B and C. B is marked complete with a tick and C is marked incomplete with a cross, so E cannot proceed. The downstream project waits for whichever required predecessor completes last.</desc>
+
+        <text class="svg-eyebrow" x="0" y="14">BRANCHING</text>
+        <circle cx="60" cy="115" r="18" fill="#A8722C" />
+        <text class="svg-sub" x="60" y="150" text-anchor="middle" fill="#6b6b6b">Completed</text>
+        <text class="svg-sub" x="60" y="163" text-anchor="middle" fill="#6b6b6b">milestone</text>
+        <path d="M78 108 L232 55" stroke="#6F4A17" stroke-width="1.5" fill="none" />
+        <path d="M78 115 L232 115" stroke="#6F4A17" stroke-width="1.5" fill="none" />
+        <path d="M78 122 L232 175" stroke="#6F4A17" stroke-width="1.5" fill="none" />
+        <polygon points="232,50 242,52 234,60" fill="#6F4A17" />
+        <polygon points="232,110 242,115 232,120" fill="#6F4A17" />
+        <polygon points="234,170 242,178 232,180" fill="#6F4A17" />
+        <text class="svg-label" x="252" y="59">Activity</text>
+        <text class="svg-label" x="252" y="119">Activity</text>
+        <text class="svg-label" x="252" y="182">Activity</text>
+        <text class="svg-sub" x="160" y="210" text-anchor="middle" fill="#6b6b6b">Several activities begin concurrently</text>
+
+        <line x1="360" y1="30" x2="360" y2="200" stroke="#e2ddd3" stroke-width="1" />
+
+        <text class="svg-eyebrow" x="390" y="14">CONVERGENCE</text>
+        <rect x="400" y="40" width="120" height="44" rx="8" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5" />
+        <text class="svg-label" x="460" y="67" text-anchor="middle" fill="#6F4A17">B ✓</text>
+        <rect x="400" y="146" width="120" height="44" rx="8" fill="#ffffff" stroke="#6b6b6b" stroke-width="1.5" stroke-dasharray="4 3" />
+        <text class="svg-label" x="460" y="173" text-anchor="middle">C ×</text>
+        <path d="M520 62 L614 104" stroke="#A8722C" stroke-width="2" fill="none" />
+        <path d="M520 168 L614 126" stroke="#6b6b6b" stroke-width="1.5" fill="none" stroke-dasharray="4 3" />
+        <circle cx="636" cy="115" r="22" fill="#ffffff" stroke="#6F4A17" stroke-width="2" />
+        <text class="svg-label" x="636" y="120" text-anchor="middle" fill="#6F4A17">E</text>
+        <text class="svg-sub" x="636" y="160" text-anchor="middle" fill="#6b6b6b">E cannot</text>
+        <text class="svg-sub" x="636" y="173" text-anchor="middle" fill="#6b6b6b">proceed</text>
+        <text class="svg-sub" x="540" y="210" text-anchor="middle" fill="#6b6b6b">E waits for whichever predecessor completes last</text>
+      </svg>
+    </div>
+    <figcaption>Branching lets work run in parallel; convergence makes the next step wait for the slowest required predecessor.</figcaption>
+  </figure>
+
+  <h3>Why convergence matters</h3>
+  <p>Suppose milestone <strong>E</strong> requires both <strong>B and C</strong>. Even if B finishes early:</p>
+  <div class="formula">B ✓,  C × ⇒ E cannot proceed</div>
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>The downstream project waits for whichever required predecessor completes last. This is why <strong>dependency structure matters more than simply knowing individual task durations</strong>.</p>
+  </div>
+</div>
+
+<div class="block" data-topic="Critical path diagrams">
+  <span class="block-num">24 / Finding the critical path</span>
+  <h2>The method and the lecture example</h2>
+  <ol class="steps">
+    <li>Map all activities from project start to finish.</li>
+    <li>Show every branch and convergence.</li>
+    <li>Add the duration of each possible dependent path.</li>
+    <li>Identify the path with the <strong>greatest total duration</strong>.</li>
+    <li>That path determines the project’s <strong>minimum completion time</strong>.</li>
+  </ol>
+  <h3>Lecture example</h3>
+  <p>The critical sequence is <strong>Start → A → C → E → F → G → End</strong>, with durations:</p>
+  <div class="formula">2 + 3 + 3 + 5 + 1 + 2 = 16</div>
+  <p>Therefore the <strong>best-case project duration is 16 months</strong>, and any increase in one of those critical-path activities directly increases the 16-month completion time.</p>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 720 200" role="img" aria-labelledby="cpfig3-title cpfig3-desc">
+        <title id="cpfig3-title">A one-month increase on a critical activity moves the finish from 16 to 17 months</title>
+        <desc id="cpfig3-desc">Two horizontal bars drawn to the same scale of months. The upper bar is the critical sequence as planned: six segments of 2, 3, 3, 5, 1 and 2 months, totalling 16 months. The lower bar is identical except that the 5-month activity has become 6 months, and the whole bar now ends at 17 months. Because every activity on the critical path occurs in sequence, the extra month passes straight through to the completion date, assuming no later recovery.</desc>
+
+        <text class="svg-eyebrow" x="20" y="22">AS PLANNED — 2 + 3 + 3 + 5 + 1 + 2 = 16 MONTHS</text>
+        <rect x="20" y="34" width="80" height="34" fill="#F7EFE2" stroke="#A8722C" stroke-width="1" />
+        <rect x="100" y="34" width="120" height="34" fill="#F7EFE2" stroke="#A8722C" stroke-width="1" />
+        <rect x="220" y="34" width="120" height="34" fill="#F7EFE2" stroke="#A8722C" stroke-width="1" />
+        <rect x="340" y="34" width="200" height="34" fill="#A8722C" stroke="#A8722C" stroke-width="1" />
+        <rect x="540" y="34" width="40" height="34" fill="#F7EFE2" stroke="#A8722C" stroke-width="1" />
+        <rect x="580" y="34" width="80" height="34" fill="#F7EFE2" stroke="#A8722C" stroke-width="1" />
+        <text class="svg-mono" x="60" y="56" text-anchor="middle">2</text>
+        <text class="svg-mono" x="160" y="56" text-anchor="middle">3</text>
+        <text class="svg-mono" x="280" y="56" text-anchor="middle">3</text>
+        <text class="svg-label" x="440" y="56" text-anchor="middle" fill="#ffffff">5</text>
+        <text class="svg-mono" x="560" y="56" text-anchor="middle">1</text>
+        <text class="svg-mono" x="620" y="56" text-anchor="middle">2</text>
+        <text class="svg-label" x="668" y="56">16</text>
+
+        <text class="svg-eyebrow" x="20" y="112">ONE CRITICAL ACTIVITY 5 → 6 MONTHS — FINISH 16 → 17</text>
+        <rect x="20" y="124" width="80" height="34" fill="#F7EFE2" stroke="#A8722C" stroke-width="1" />
+        <rect x="100" y="124" width="120" height="34" fill="#F7EFE2" stroke="#A8722C" stroke-width="1" />
+        <rect x="220" y="124" width="120" height="34" fill="#F7EFE2" stroke="#A8722C" stroke-width="1" />
+        <rect x="340" y="124" width="240" height="34" fill="#6F4A17" stroke="#6F4A17" stroke-width="1" />
+        <rect x="580" y="124" width="40" height="34" fill="#F7EFE2" stroke="#A8722C" stroke-width="1" />
+        <rect x="620" y="124" width="80" height="34" fill="#F7EFE2" stroke="#A8722C" stroke-width="1" />
+        <text class="svg-mono" x="60" y="146" text-anchor="middle">2</text>
+        <text class="svg-mono" x="160" y="146" text-anchor="middle">3</text>
+        <text class="svg-mono" x="280" y="146" text-anchor="middle">3</text>
+        <text class="svg-label" x="460" y="146" text-anchor="middle" fill="#ffffff">6</text>
+        <text class="svg-mono" x="600" y="146" text-anchor="middle">1</text>
+        <text class="svg-mono" x="660" y="146" text-anchor="middle">2</text>
+        <line x1="660" y1="30" x2="660" y2="188" stroke="#6b6b6b" stroke-width="1" stroke-dasharray="3 3" />
+        <text class="svg-sub" x="656" y="186" text-anchor="end" fill="#6b6b6b">16 months</text>
+        <text class="svg-sub" x="700" y="176" text-anchor="end" fill="#6F4A17">17</text>
+      </svg>
+    </div>
+    <figcaption>Segments are the six durations in the order the notes list them. Nothing on the critical path can absorb the extra month, so the finish moves with it — assuming no later recovery.</figcaption>
+  </figure>
+
+  <div class="formula-stack">
+    <div class="formula">5 → 6 months</div>
+    <div class="formula">16 → 17 months</div>
+  </div>
+  <p>A 5 → 6 month change on a critical-path activity produces a 16 → 17 month project, assuming no later recovery.</p>
+</div>
+
+<div class="block" data-topic="Critical path diagrams">
+  <span class="block-num">25 / Slack</span>
+  <h2>Slack and non-critical activities</h2>
+  <p><strong>Slack</strong> is the amount of delay an activity can absorb before it begins affecting the project’s final completion date. Critical-path activities effectively have <strong>no schedule slack</strong>; non-critical activities may finish later than originally planned without changing the project’s end date.</p>
+  <p>The important managerial question is therefore not simply <em>“Is this task late?”</em> but:</p>
+  <div class="callout callout--ask">
+    <span class="icon" aria-hidden="true">❓</span>
+    <p>How much slack does this task have before its delay affects the critical path?</p>
+  </div>
+  <h3>Slack as a resource-management tool</h3>
+  <p>Slack creates flexibility. If a critical-path task is falling behind, and another team member is working on a non-critical task with substantial slack, management may temporarily redirect that capacity toward the critical activity. This can protect the overall project deadline even though the non-critical activity itself becomes later.</p>
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>Schedule optimisation therefore means <strong>protecting the constraint</strong>, not trying to make every task finish as early as possible.</p>
+  </div>
+</div>
+
+<div class="block" data-topic="Critical path diagrams">
+  <span class="block-num">26 / Criticality shifts</span>
+  <h2>Not every team is critical all the time</h2>
+  <p>A team may have significant slack during one phase but later own an activity on which downstream work depends. Likewise, a team doing a large amount of work may not necessarily determine the project completion date. Criticality therefore belongs to <strong>activities and dependencies at particular points in the network</strong>, not permanently to one department or person.</p>
+  <p>This challenges managerial claims such as <em>“My work is critical because it is important.”</em> Critical-path analysis replaces perceived importance with a <strong>schedule-based test</strong>.</p>
+  <h3>Risk implication</h3>
+  <p>A team with slack can appear underutilised without creating schedule risk. Conversely, a seemingly small one-month activity can be extremely important if nothing can proceed without it, and it sits on the critical path.</p>
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>The critical path is about <strong>connectedness, not workload size</strong>.</p>
+  </div>
+</div>
+
+<div class="block" data-topic="Critical path diagrams">
+  <span class="block-num">27 / Managing the critical path</span>
+  <h2>Protect constrained activities</h2>
+  <p>Once the critical path is known:</p>
+  <ul>
+    <li>minimise unnecessary interruptions to people working on it,</li>
+    <li>avoid adding unrelated work to critical-path resources,</li>
+    <li>monitor these tasks more closely,</li>
+    <li>escalate blockers quickly,</li>
+    <li>consider reallocating resources from activities with slack.</li>
+  </ul>
+  <p>The lecturer’s illustrative “monkey” story captures the logic: a person on the critical path should not casually lose time because <strong>their delay propagates directly to final delivery</strong>.</p>
+  <h3>Software support</h3>
+  <p>For complex projects, tools can calculate and visualise the critical path automatically. The examples mentioned are Microsoft Project, Smartsheet, and Jira with appropriate extensions/plugins. Software does not remove the managerial need to understand:</p>
+  <div class="formula">duration + dependency + convergence + slack → schedule consequence</div>
+  <p>Without that understanding, managers may know which tasks are highlighted as critical without understanding what decisions follow from it.</p>
+</div>
+
+<div class="block" data-topic="Critical path diagrams">
+  <span class="block-num">28 / Critical path versus Gantt</span>
+  <h2>Describing the schedule against finding its constraint</h2>
+  <p>The two tools sit on the same schedule and answer different questions.</p>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Question</th>
+          <th scope="col">Gantt chart</th>
+          <th scope="col">Critical path analysis</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">What work occurs when?</th>
+          <td>Strong</td>
+          <td>Secondary</td>
+        </tr>
+        <tr>
+          <th scope="row">What depends on what?</th>
+          <td>Visible</td>
+          <td>Central</td>
+        </tr>
+        <tr>
+          <th scope="row">Which delay changes final delivery?</th>
+          <td>May require interpretation</td>
+          <td><strong>Primary purpose</strong></td>
+        </tr>
+        <tr>
+          <th scope="row">What is the shortest possible completion time?</th>
+          <td>Not immediately obvious</td>
+          <td><strong>Explicitly identified</strong></td>
+        </tr>
+        <tr>
+          <th scope="row">Where is there scheduling flexibility?</th>
+          <td>Limited visibility</td>
+          <td>Revealed through <strong>slack</strong></td>
+        </tr>
+        <tr>
+          <th scope="row">Where should scarce resources be protected?</th>
+          <td>Not necessarily obvious</td>
+          <td>Prioritise critical-path activities</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>Gantt charts describe the schedule; critical-path analysis identifies <strong>which parts of that schedule actually constrain the finish date</strong>.</p>
+  </div>
+</div>
+
+<div class="block" data-topic="Critical path diagrams">
+  <span class="block-num">29 / Analytical takeaways</span>
+  <h2>Which delays can actually move the finish?</h2>
+  <ul class="takeaways">
+    <li>The most important scheduling question is not <em>“Which tasks are running late?”</em> but <strong>“Which delays can actually move the project’s completion date?”</strong></li>
+    <li>Critical-path analysis exposes the project’s constraint: improving work with abundant slack may produce no improvement in final delivery, while saving one day on a critical activity can protect one day of the project schedule.</li>
+    <li>Managers should treat slack as <strong>usable scheduling capacity</strong> — it can provide resources for recovering critical-path problems rather than simply representing spare time.</li>
+    <li>Criticality is dynamic and dependency-driven; managers should not assume the largest team, longest standalone task or most technically difficult activity is automatically critical.</li>
+    <li>Ultimately, the project leader should know <strong>the minimum possible completion time, the activities that determine it, and how much tolerance exists everywhere else</strong>.</li>
+  </ul>
+</div>
+
+<div class="block" data-topic="How do you do a big CX Project">
+  <span class="block-num">30 / Why adapt RIBA</span>
+  <h2>RIBA as a scaffold for large CX delivery</h2>
+  <p>The <strong>RIBA Plan of Work</strong> is a staged project framework originally designed for architecture and construction. StellarCX adapts it for digital CX because large experience projects need more than sprint execution; they also required:</p>
+  <ul>
+    <li>strategic framing,</li>
+    <li>customer research,</li>
+    <li>cross-functional alignment,</li>
+    <li>technical and regulatory design,</li>
+    <li>controlled launch,</li>
+    <li>post-launch optimisation.</li>
+  </ul>
+  <p>What RIBA offers is <em>lifecycle structure without requiring Waterfall execution</em>.</p>
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>Use RIBA to structure <strong>what must be resolved</strong> across the project lifecycle, while using Agile inside appropriate stages to determine <strong>how delivery work gets done</strong>.</p>
+  </div>
+</div>
+
+<div class="block" data-topic="How do you do a big CX Project">
+  <span class="block-num">31 / The adapted lifecycle</span>
+  <h2>Adapted RIBA lifecycle for digital CX</h2>
+  <p>Each of the eight stages keeps its RIBA name, gains a digital CX meaning, and carries a list of what must be resolved.</p>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Stage</th>
+          <th scope="col">Digital CX adaptation</th>
+          <th scope="col">What must be resolved</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">0 Strategic Definition</th>
+          <td>Opportunity framing</td>
+          <td>Business problem, customer need, market context, desired outcomes</td>
+        </tr>
+        <tr>
+          <th scope="row">1 Preparation &amp; Brief</th>
+          <td>Project scoping &amp; research</td>
+          <td>Stakeholders, personas, journeys, research evidence, project brief</td>
+        </tr>
+        <tr>
+          <th scope="row">2 Concept Design</th>
+          <td>Experience concepting</td>
+          <td>CX proposition, service blueprint, early UX, success measures</td>
+        </tr>
+        <tr>
+          <th scope="row">3 Spatial Coordination</th>
+          <td>Design alignment &amp; prototyping</td>
+          <td>Cross-functional alignment, interactive prototypes, user validation, MVP scope</td>
+        </tr>
+        <tr>
+          <th scope="row">4 Technical Design</th>
+          <td>Digital build planning</td>
+          <td>UX/UI, architecture, APIs, data flows, compliance, QA/DevOps approach</td>
+        </tr>
+        <tr>
+          <th scope="row">5 Manufacturing &amp; Construction</th>
+          <td>Development &amp; launch execution</td>
+          <td>Build, integration, testing, UAT, beta/staged rollout, performance validation</td>
+        </tr>
+        <tr>
+          <th scope="row">6 Handover</th>
+          <td>Release, support &amp; transition</td>
+          <td>Production release, training, knowledge transfer, operational support</td>
+        </tr>
+        <tr>
+          <th scope="row">7 Use</th>
+          <td>Monitoring, iteration &amp; growth</td>
+          <td>Analytics, feedback, optimisation, product evolution</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>The important distinction</h3>
+  <ul>
+    <li>Stages <strong>0-2 reduce desirability and strategic uncertainty</strong> before major build commitment.</li>
+    <li>Stages <strong>3-6 progressively reduce design, technical, operational and delivery uncertainty</strong>.</li>
+    <li>Stage <strong>7 recognises that a digital CX product is not “finished” at launch</strong>.</li>
+  </ul>
+</div>
+
+<div class="block" data-topic="How do you do a big CX Project">
+  <span class="block-num">32 / Where Agile fits</span>
+  <h2>A stage framework is not Waterfall</h2>
+  <p>The RIBA adaptation provides a <strong>macro roadmap</strong>. Agile delivery can operate within Stages <strong>3-6</strong>, particularly prototyping, development, testing and release preparation. The framework therefore separates two levels of planning.</p>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 720 250" role="img" aria-labelledby="bcxfig1-title bcxfig1-desc">
+        <title id="bcxfig1-title">The adapted RIBA stages as a macro roadmap, with Agile delivery inside stages 3 to 6</title>
+        <desc id="bcxfig1-desc">Eight stage boxes run left to right, numbered 0 to 7: Strategic Definition, Preparation and Brief, Concept Design, Spatial Coordination, Technical Design, Manufacturing and Construction, Handover, and Use. A bracket over stages 0 to 2 reads: reduce desirability and strategic uncertainty. A bracket over stages 3 to 6 reads: progressively reduce design, technical, operational and delivery uncertainty. Stage 7 is marked: not finished at launch. Beneath stages 3 to 6 runs a band labelled Agile execution. A line across all eight stages is labelled lifecycle governance, the macro roadmap.</desc>
+
+        <text class="svg-eyebrow" x="0" y="14">LIFECYCLE GOVERNANCE — THE MACRO ROADMAP</text>
+
+        <path d="M4 44 L4 36 L264 36 L264 44" stroke="#6b6b6b" stroke-width="1" fill="none" />
+        <text class="svg-sub" x="134" y="30" text-anchor="middle" fill="#6b6b6b">0-2: desirability &amp; strategic uncertainty</text>
+        <path d="M271 44 L271 36 L619 36 L619 44" stroke="#6F4A17" stroke-width="1" fill="none" />
+        <text class="svg-sub" x="445" y="30" text-anchor="middle" fill="#6F4A17">3-6: design, technical, operational &amp; delivery uncertainty</text>
+
+        <rect x="0" y="52" width="84" height="80" rx="6" fill="#ffffff" stroke="#6b6b6b" stroke-width="1" />
+        <rect x="89" y="52" width="84" height="80" rx="6" fill="#ffffff" stroke="#6b6b6b" stroke-width="1" />
+        <rect x="178" y="52" width="84" height="80" rx="6" fill="#ffffff" stroke="#6b6b6b" stroke-width="1" />
+        <rect x="267" y="52" width="84" height="80" rx="6" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5" />
+        <rect x="356" y="52" width="84" height="80" rx="6" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5" />
+        <rect x="445" y="52" width="84" height="80" rx="6" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5" />
+        <rect x="534" y="52" width="84" height="80" rx="6" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5" />
+        <rect x="623" y="52" width="84" height="80" rx="6" fill="#ffffff" stroke="#6F4A17" stroke-width="1.5" stroke-dasharray="4 3" />
+
+        <text class="svg-mono" x="42" y="74" text-anchor="middle">0</text>
+        <text class="svg-sub" x="42" y="96" text-anchor="middle">Strategic</text>
+        <text class="svg-sub" x="42" y="109" text-anchor="middle">Definition</text>
+        <text class="svg-mono" x="131" y="74" text-anchor="middle">1</text>
+        <text class="svg-sub" x="131" y="96" text-anchor="middle">Preparation</text>
+        <text class="svg-sub" x="131" y="109" text-anchor="middle">&amp; Brief</text>
+        <text class="svg-mono" x="220" y="74" text-anchor="middle">2</text>
+        <text class="svg-sub" x="220" y="96" text-anchor="middle">Concept</text>
+        <text class="svg-sub" x="220" y="109" text-anchor="middle">Design</text>
+        <text class="svg-mono" x="309" y="74" text-anchor="middle">3</text>
+        <text class="svg-sub" x="309" y="96" text-anchor="middle">Spatial</text>
+        <text class="svg-sub" x="309" y="109" text-anchor="middle">Coordination</text>
+        <text class="svg-mono" x="398" y="74" text-anchor="middle">4</text>
+        <text class="svg-sub" x="398" y="96" text-anchor="middle">Technical</text>
+        <text class="svg-sub" x="398" y="109" text-anchor="middle">Design</text>
+        <text class="svg-mono" x="487" y="74" text-anchor="middle">5</text>
+        <text class="svg-sub" x="487" y="92" text-anchor="middle">Manufacturing</text>
+        <text class="svg-sub" x="487" y="104" text-anchor="middle">&amp;</text>
+        <text class="svg-sub" x="487" y="116" text-anchor="middle">Construction</text>
+        <text class="svg-mono" x="576" y="74" text-anchor="middle">6</text>
+        <text class="svg-sub" x="576" y="96" text-anchor="middle">Handover</text>
+        <text class="svg-mono" x="665" y="74" text-anchor="middle">7</text>
+        <text class="svg-sub" x="665" y="96" text-anchor="middle">Use</text>
+        <text class="svg-sub" x="665" y="150" text-anchor="middle" fill="#6F4A17">not “finished”</text>
+        <text class="svg-sub" x="665" y="163" text-anchor="middle" fill="#6F4A17">at launch</text>
+
+        <rect x="267" y="142" width="351" height="36" rx="6" fill="#A8722C" />
+        <text class="svg-label" x="442" y="165" text-anchor="middle" fill="#ffffff">Agile execution inside stages 3-6</text>
+
+        <text class="svg-label" x="0" y="206">Lifecycle governance asks:</text>
+        <text class="svg-sub" x="0" y="222">Are we solving the right problem, with the right safeguards, at the right maturity?</text>
+        <text class="svg-label" x="0" y="240" fill="#6F4A17">Agile execution asks: What is the highest-value increment the team should deliver next?</text>
+      </svg>
+    </div>
+    <figcaption>RIBA sets what must be resolved across the lifecycle; Agile decides how the delivery work inside stages 3-6 gets done.</figcaption>
+  </figure>
+
+  <h3>Lifecycle governance</h3>
+  <div class="callout callout--ask">
+    <span class="icon" aria-hidden="true">❓</span>
+    <p>Are we solving the right problem, with the right safeguards, at the right maturity?</p>
+  </div>
+  <h3>Agile execution</h3>
+  <div class="callout callout--ask">
+    <span class="icon" aria-hidden="true">❓</span>
+    <p>What is the highest-value increment the team should deliver next?</p>
+  </div>
+  <p>This is useful for large CX programmes, where pure sprint-level planning cannot by itself coordinate strategy, compliance, customer research, architecture and organisational readiness.</p>
+</div>
+
+<div class="block" data-topic="How do you do a big CX Project">
+  <span class="block-num">33 / Future You, stages 0-2</span>
+  <h2>Prove the experience is worth building</h2>
+  <p>For <em>Future You</em>, the early stages establish whether an aged AI avatar can genuinely improve younger customers’ engagement with financial planning. The key questions move through three stages.</p>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Stage</th>
+          <th scope="col">Key questions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">0 Opportunity</th>
+          <td>Can “Future You” increase engagement, trust and meaningful financial behaviour? Success should extend beyond app usage to outcomes such as increased super contributions or achievement of financial milestones.</td>
+        </tr>
+        <tr>
+          <th scope="row">1 Customer Understanding</th>
+          <td>How do different users react to aged-up AI representations of themselves? Where does the existing financial journey fail on empathy and personalisation?</td>
+        </tr>
+        <tr>
+          <th scope="row">2 Experience Concept</th>
+          <td>When should the avatar intervene? What should those interactions feel like? Where are the ethical boundaries around persuasion, AI transparency and financial advice?</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>Do not allow <strong>technical feasibility</strong> to substitute for evidence that the experience is <strong>desirable and appropriate</strong>.</p>
+  </div>
+</div>
+
+<div class="block" data-topic="How do you do a big CX Project">
+  <span class="block-num">34 / Future You, stages 3-4</span>
+  <h2>Prototype before committing fully</h2>
+  <p>Stages 3-6 turn the concept into a governable product. Stage 3 tests whether the proposed experience works in practice:</p>
+  <ul>
+    <li>avatar appearance, voice and personality,</li>
+    <li>emotional reaction,</li>
+    <li>trustworthiness,</li>
+    <li>behavioural response,</li>
+    <li>handling of sensitive facial and voice data.</li>
+  </ul>
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>The prototype is testing <strong>emotional and trust risk</strong>, not merely UX usability.</p>
+  </div>
+  <h3>Technical design must incorporate governence</h3>
+  <p>Stage 4 integrates the product stack: facial ageing models, voice synthesis, GTP-based conversational AI, the front-end experience, data architecture and compliance requirements.</p>
+  <p>For this project, technical architecture and governance cannot be separated, because AI behaviour, personal data and financial advice boundaries are part of the product itself.</p>
+</div>
+
+<div class="block" data-topic="How do you do a big CX Project">
+  <span class="block-num">35 / Future You, stages 5-6</span>
+  <h2>Staged launch and operational readiness</h2>
+  <p>Stage 5 uses Agile delivery but combines it with QA/QC, edge-case testing, emotional-discomfort testing, and a beta or limited customer rollout. A staged release converts launch from a single irreversible event into another <strong>learning mechanism</strong>.</p>
+  <p>Stage 6 treats operational readiness as part of delivery. It includes advisor/support-team training, knowledge transfer, launch support and real-time AI monitoring.</p>
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>A technically deployed product is not yet successfully delivered if the organisation cannot support customers when the AI creates <strong>uncertainty, concern or escalation</strong>.</p>
+  </div>
+</div>
+
+<div class="block" data-topic="How do you do a big CX Project">
+  <span class="block-num">36 / Cross-cutting constraints</span>
+  <h2>Concerns that persist through the lifecycle</h2>
+  <p>These concerns should not appear as one late-stage compliance checkpoint; they need to persist through the lifecycle.</p>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Dimension</th>
+          <th scope="col">Core question</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">CX layer</th>
+          <td>Does each interaction improve the customer journey and intended emotional outcome?</td>
+        </tr>
+        <tr>
+          <th scope="row">AI–human interaction</th>
+          <td>Is the avatar’s behaviour, personalisation and fidelity appropriate rather than manipulative or uncomfortable?</td>
+        </tr>
+        <tr>
+          <th scope="row">Ethics &amp; trust</th>
+          <td>Is AI usage transparent and are advisory boundaries clear?</td>
+        </tr>
+        <tr>
+          <th scope="row">Security &amp; privacy</th>
+          <td>Are financial, facial, voice and behavioural data protected appropriately?</td>
+        </tr>
+        <tr>
+          <th scope="row">Regulatory/compliance</th>
+          <td>Does the experience remain within financial-services, privacy and ethical constraints?</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>For Future You, <strong>trust is a design requirement</strong>, not simply a compliance requirement.</p>
+  </div>
+</div>
+
+<div class="block" data-topic="How do you do a big CX Project">
+  <span class="block-num">37 / Stage 7</span>
+  <h2>Launch creates evidence</h2>
+  <p>Stage 7 is unusually important in digital. Post-launch evaluation should combine engagement, retention, conversion into financial actions, qualitative customer feedback, emotional response and observed AI behaviour. The purpose is not simply to prove the original concept was correct, but to determine <strong>what should change next</strong>.</p>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 720 170" role="img" aria-labelledby="bcxfig2-title bcxfig2-desc">
+        <title id="bcxfig2-title">Stage 7 continuous-improvement loop</title>
+        <desc id="bcxfig2-desc">Four boxes connected left to right by arrows: usage data plus customer feedback, then optimisation sprints, then revised AI, UX and content, then new evidence. A return arrow runs underneath from new evidence back to the first box, closing the loop. This is why the adapted RIBA model is cyclical in practice even though its high-level structure appears sequential.</desc>
+
+        <text class="svg-eyebrow" x="10" y="14">STAGE 7 FEEDS</text>
+        <rect x="10" y="30" width="140" height="60" rx="8" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5" />
+        <text class="svg-label" x="80" y="56" text-anchor="middle">Usage data +</text>
+        <text class="svg-label" x="80" y="72" text-anchor="middle">customer feedback</text>
+        <rect x="196" y="30" width="140" height="60" rx="8" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5" />
+        <text class="svg-label" x="266" y="56" text-anchor="middle">Optimisation</text>
+        <text class="svg-label" x="266" y="72" text-anchor="middle">sprints</text>
+        <rect x="382" y="30" width="140" height="60" rx="8" fill="#F7EFE2" stroke="#A8722C" stroke-width="1.5" />
+        <text class="svg-label" x="452" y="56" text-anchor="middle">Revised AI/UX/</text>
+        <text class="svg-label" x="452" y="72" text-anchor="middle">content</text>
+        <rect x="568" y="30" width="140" height="60" rx="8" fill="#A8722C" stroke="#A8722C" stroke-width="1.5" />
+        <text class="svg-label" x="638" y="64" text-anchor="middle" fill="#ffffff">New evidence</text>
+
+        <path d="M150 60 L186 60" stroke="#6F4A17" stroke-width="1.5" fill="none" />
+        <polygon points="186,55 195,60 186,65" fill="#6F4A17" />
+        <path d="M336 60 L372 60" stroke="#6F4A17" stroke-width="1.5" fill="none" />
+        <polygon points="372,55 381,60 372,65" fill="#6F4A17" />
+        <path d="M522 60 L558 60" stroke="#6F4A17" stroke-width="1.5" fill="none" />
+        <polygon points="558,55 567,60 558,65" fill="#6F4A17" />
+
+        <path d="M638 90 L638 124 L80 124 L80 100" stroke="#6F4A17" stroke-width="1.5" fill="none" stroke-dasharray="5 4" />
+        <polygon points="75,100 80,91 85,100" fill="#6F4A17" />
+        <text class="svg-sub" x="360" y="146" text-anchor="middle" fill="#6b6b6b">Cyclical in practice, even though the high-level structure appears sequential</text>
+      </svg>
+    </div>
+    <figcaption>Launch is not the end-state: actual customer behavioural provides evidence that no pre-launch research or prototype can fully reproduce.</figcaption>
+  </figure>
+
+  <div class="formula">Usage data + customer feedback → optimisation sprints → revised AI/UX/content → new evidence</div>
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>This makes the adapted RIBA model <strong>cyclical in practice</strong> even though its high-level structure appears sequential.</p>
+  </div>
+</div>
+
+<div class="block" data-topic="How do you do a big CX Project">
+  <span class="block-num">38 / Analytical takeaways</span>
+  <h2>Progressive confidence, not a sequence of hand-offs</h2>
+  <ul class="takeaways">
+    <li>For a large CX programme, <strong>Agile solves delivery uncertainty but not the entire governance problem</strong>. A stage framework ensures strategy, customer evidence, compliance and organisational readiness are resolved alongside engineering.</li>
+    <li>The strongest use of RIBA is as a series of <strong>progressive confidence-building stages</strong>, not as a rigid sequence of hand-offs.</li>
+    <li>For AI-enabled CX, trust, emotional response, privacy and regulatory boundaries are <strong>product architecture concerns</strong>, not late-stage review items.</li>
+  </ul>
+  <div class="callout callout--ask">
+    <span class="icon" aria-hidden="true">❓</span>
+    <p>What uncertainty are we trying to remove before increasing commitment and exposure?</p>
+  </div>
+  <div class="callout callout--key">
+    <span class="icon" aria-hidden="true">💡</span>
+    <p>In digital CX, launch is not the end-state. Stage 7 matters because actual customer behavioural provides evidence that no pre-launch research or prototype can fully reproduce.</p>
+  </div>
 </div>
     </section>
 
@@ -2770,13 +3357,13 @@
       <div class="block">
         <span class="block-num">02 / Reference</span>
         <h2>Key concepts &amp; terminology</h2>
-        <p>Forty-three terms across three topics — the sprint, role, backlog, board, burn-down and velocity vocabulary from <em>Scrum</em>; the anatomy, milestone, granularity and Gantt-versus-Kanban vocabulary from <em>Gantt Charts</em>; and the handful of critical-path terms the notes have written so far. Definitions are drawn only from what the page says about each term.</p>
+        <p>Seventy terms across four topics — the sprint, role, backlog, board, burn-down and velocity vocabulary from <em>Scrum</em>; the anatomy, milestone, granularity and Gantt-versus-Kanban vocabulary from <em>Gantt Charts</em>; the network, slack and constraint vocabulary from <em>Critical path diagrams</em>; and the RIBA stages, governance and Future You vocabulary from <em>How do you do a big CX Project</em>. Definitions are drawn only from what the page says about each term.</p>
 
         <div class="toolbar">
           <label class="visually-hidden" for="term-search">Filter terms</label>
           <input class="search" id="term-search" type="search" placeholder="Filter terms — try “sprint” or “milestone”"
             autocomplete="off">
-          <span class="count" id="term-count" aria-live="polite">43 of 43</span>
+          <span class="count" id="term-count" aria-live="polite">70 of 70</span>
         </div>
 
         <div class="glossary" id="glossary"></div>
@@ -2787,11 +3374,11 @@
       <div class="block">
         <span class="block-num">03 / Active recall</span>
         <h2>Flashcards</h2>
-        <p>Sixty-two cards. Most ask you to judge a situation the way the notes do — what a flat burn-down line means, whether something with duration can be a milestone, which scheduling question belongs to Gantt and which to Kanban. A few test the exact figures: sprint length, the length of a stand-up, and what a 100% underestimate does to a one-day task against a three-month one.</p>
+        <p>109 cards. Most ask you to judge a situation the way the notes do — what a flat burn-down line means, whether something with duration can be a milestone, which scheduling question belongs to Gantt and which to Kanban, what a converging dependency does, which RIBA stage resolves what. A few test the exact figures: sprint length, the length of a stand-up, what a 100% underestimate does to a one-day task against a three-month one, and the 16-month lecture example.</p>
 
         <div class="deck">
           <div class="deck-meta">
-            <span class="deck-count"><strong id="card-index">1</strong> / <span id="card-total">62</span></span>
+            <span class="deck-count"><strong id="card-index">1</strong> / <span id="card-total">109</span></span>
             <span class="progress"><span class="progress-fill" id="progress-fill"></span></span>
           </div>
 
@@ -2825,13 +3412,13 @@
       <div class="block">
         <span class="block-num">04 / Shorthand</span>
         <h2>Acronyms &amp; abbreviations</h2>
-        <p>Three abbreviations run through this week. My notes spell out Work in Progress (WIP) on the Scrum board and expand SMART letter by letter in the milestone section; PO appears once, in the analytical takeaways, without ever being written out beside the role, so it carries the standard expansion of the Product Owner role the page describes everywhere else. The definition beneath every entry is taken only from what this page actually says about the term.</p>
+        <p>Thirteen abbreviations run through this week. My notes spell out Work in Progress (WIP) on the Scrum board and expand SMART letter by letter in the milestone section; PO appears once, in the analytical takeaways, without ever being written out beside the role, so it carries the standard expansion of the Product Owner role the page describes everywhere else. The ten from the big CX project topic — RIBA, CX, AI, UX, UI, MVP, API, QA, QC and UAT — are never written out in my notes either, so each carries its standard expansion. The definition beneath every entry is taken only from what this page actually says about the term.</p>
 
         <div class="toolbar">
           <label class="visually-hidden" for="acronyms-search">Filter acronyms</label>
           <input class="search" id="acronyms-search" type="search" placeholder="Filter acronyms &mdash; try &ldquo;WIP&rdquo; or &ldquo;SMART&rdquo;"
             autocomplete="off">
-          <span class="count" id="acronyms-count" aria-live="polite">3 of 3</span>
+          <span class="count" id="acronyms-count" aria-live="polite">13 of 13</span>
         </div>
 
         <div class="glossary" id="acronyms"></div>
@@ -2841,13 +3428,13 @@
       <div class="block">
         <span class="block-num">05 / Quick reference</span>
         <h2>Formulas</h2>
-        <p>Two relationships, copied exactly as my notes write them. This is a scheduling week rather than a computation week, so there is almost no arithmetic: velocity is defined as a measure rather than calculated, and the minimum project duration is the one line of critical-path logic the notes have written so far. The critical-path notes are not yet finished — the headings on why the analysis matters are in the note with nothing under them yet — so this tab will grow when they are.</p>
+        <p>Six relationships, copied exactly as my notes write them. This is a scheduling week rather than a computation week, so there is little arithmetic: velocity is defined as a measure rather than calculated, and the rest is critical-path logic — the minimum project duration, the convergence rule, the lecture example’s 16-month sum and what one slipped critical activity does to it, and the chain that software cannot understand for you.</p>
 
         <div class="toolbar">
           <label class="visually-hidden" for="formulas-search">Filter formulas</label>
           <input class="search" id="formulas-search" type="search" placeholder="Filter formulas &mdash; try &ldquo;velocity&rdquo; or &ldquo;duration&rdquo;"
             autocomplete="off">
-          <span class="count" id="formulas-count" aria-live="polite">2 of 2</span>
+          <span class="count" id="formulas-count" aria-live="polite">6 of 6</span>
         </div>
 
         <div class="glossary" id="formulas"></div>
@@ -2859,7 +3446,7 @@
       <div class="block">
         <span class="block-num">06 / Test yourself</span>
         <h2>Quiz</h2>
-        <p>Ten questions across the three topics — six on Scrum, three on Gantt charts and one on the critical path, which is all the notes support so far. They target the confusions this week invites: a milestone that has a duration, burn-down read as velocity, a request that skips the Product Owner, and asking which tool is Agile instead of which question each tool answers.</p>
+        <p>Sixteen questions across the four topics — six on Scrum, three on Gantt charts, four on the critical path and three on the big CX project. They target the confusions this week invites: a milestone that has a duration, burn-down read as velocity, critical read as important, slack read as idle time, and a stage framework read as Waterfall.</p>
 
         <div class="quizbar">
           <div class="quiz-score">
@@ -2880,7 +3467,7 @@
       <div class="block">
         <span class="block-num">07 / Put it to work</span>
         <h2>Apply it</h2>
-        <p>Five scenarios, three from Scrum and two from Gantt charts. There is none on critical path diagrams, because that topic is only partly written and a scenario would have to invent the rest. Each setup is qualitative, since the notes give reasoning rather than a worked dataset. Write your answer before opening a hint.</p>
+        <p>Six scenarios — two from Scrum, two from Gantt charts, one on the critical path and one on the big CX project. Each setup is qualitative except the critical-path one, which uses the lecture example’s own durations. Write your answer before opening a hint, and mark yourself against the checklist.</p>
 
         <div class="scen-list" id="scen-list"></div>
       </div>
@@ -2891,7 +3478,7 @@
   <footer class="page-foot">
     <div class="wrap">
       <p>DMBA 6005 Agile Project Development · Week 6 · Pre-live session</p>
-      <p>Compiled from my own pre-live notes for this week. Built from my Obsidian vault on 7 September 2026.</p>
+      <p>Compiled from my own pre-live notes for this week. Built from my Obsidian vault on 20 September 2026.</p>
     </div>
   </footer>
     </div><!-- /.win -->
@@ -2987,9 +3574,36 @@
         { term: 'Kanban / Scrum board', src: 'Gantt vs kanban', def: 'A flow-oriented board asking what is happening now. Its horizon is immediate operational work, its strength is real-time execution visibility, and its best fit is agile sprint/team workflow.' },
         { term: 'Critical path diagram', src: 'Critical path diagrams', def: 'A diagram that maps project activities according to their durations and dependencies.' },
         { term: 'Critical path', src: 'Critical path diagrams', def: 'The longest-duration dependent path through the project. Because all activities on it must occur in sequence, it determines the shortest possible project completion time.' },
-        { term: 'Dependent path', src: 'Critical path diagrams', def: 'A path of activities that must occur in sequence. The critical path is the longest-duration one of these.' },
         { term: 'Minimum project duration', src: 'Critical path diagrams', formula: 'Minimum project duration = max (duration of each dependent path)', def: 'The shortest possible project completion time — set by the longest-duration dependent path.' },
         { term: 'Critical (in critical path)', src: 'Critical path diagrams', def: 'Schedule-constraining because of dependencies. It does not mean difficult, expensive or important to the manager.' },
+        { term: 'Critical path analysis', src: 'Critical path diagrams', def: 'Asks which exact chain of dependent activities determines the project’s earliest possible finish. It gives managers a basis for deciding which tasks cannot tolerate delay, where attention should concentrate, who to protect from interruptions and where extra resources could shorten or protect the schedule.' },
+        { term: 'Branching', src: 'Critical path diagrams', def: 'One completed milestone allows several activities to begin concurrently.' },
+        { term: 'Convergence', src: 'Critical path diagrams', formula: 'B ✓,  C × ⇒ E cannot proceed', def: 'Multiple activities must all finish before the next activity can proceed. If milestone E requires both B and C, the downstream project waits for whichever required predecessor completes last.' },
+        { term: 'Best-case project duration', src: 'Critical path diagrams', formula: '2 + 3 + 3 + 5 + 1 + 2 = 16', def: 'In the lecture example, the critical sequence Start → A → C → E → F → G → End gives a best-case project duration of 16 months. Any increase in one of those critical-path activities directly increases it: 5 → 6 months on a critical-path activity produces 16 → 17 months, assuming no later recovery.' },
+        { term: 'Slack', src: 'Critical path diagrams', def: 'The amount of delay an activity can absorb before it begins affecting the project’s final completion date. Critical-path activities effectively have no schedule slack.' },
+        { term: 'Non-critical activity', src: 'Critical path diagrams', def: 'An activity off the critical path. It may finish later than originally planned without changing the project’s end date.' },
+        { term: 'Slack as a resource-management tool', src: 'Critical path diagrams', def: 'If a critical-path task is falling behind and another team member is on a non-critical task with substantial slack, management may temporarily redirect that capacity toward the critical activity — protecting the deadline even though the non-critical activity becomes later.' },
+        { term: 'Protecting the constraint', src: 'Critical path diagrams', def: 'What schedule optimisation means — not trying to make every task finish as early as possible. Minimise interruptions to people on the critical path, avoid adding unrelated work to them, monitor closely, escalate blockers quickly and consider reallocating resources from activities with slack.' },
+        { term: 'Schedule-based test', src: 'Critical path diagrams', def: 'What critical-path analysis puts in place of perceived importance. Criticality belongs to activities and dependencies at particular points in the network, not permanently to one department or person; it is about connectedness, not workload size.' },
+        { term: 'Critical-path software', src: 'Critical path diagrams', formula: 'duration + dependency + convergence + slack → schedule consequence', def: 'Tools that calculate and visualise the critical path automatically — the examples mentioned are Microsoft Project, Smartsheet, and Jira with appropriate extensions/plugins. Software does not remove the managerial need to understand the schedule consequence.' },
+        { term: 'RIBA Plan of Work', src: 'How do you do a big CX Project', def: 'A staged project framework originally designed for architecture and construction. StellarCX adapts it for digital CX to give lifecycle structure without requiring Waterfall execution.' },
+        { term: 'Adapted RIBA lifecycle', src: 'How do you do a big CX Project', def: 'Eight stages for digital CX: 0 Strategic Definition (opportunity framing), 1 Preparation & Brief (project scoping & research), 2 Concept Design (experience concepting), 3 Spatial Coordination (design alignment & prototyping), 4 Technical Design (digital build planning), 5 Manufacturing & Construction (development & launch execution), 6 Handover (release, support & transition), 7 Use (monitoring, iteration & growth).' },
+        { term: 'Stages 0-2', src: 'How do you do a big CX Project', def: 'Reduce desirability and strategic uncertainty before major build commitment. For Future You they prove the experience is worth building.' },
+        { term: 'Stages 3-6', src: 'How do you do a big CX Project', def: 'Progressively reduce design, technical, operational and delivery uncertainty. For Future You they turn the concept into a governable product.' },
+        { term: 'Stage 7 (Use)', src: 'How do you do a big CX Project', def: 'Recognises that a digital CX product is not “finished” at launch. Post-launch evaluation combines engagement, retention, conversion into financial actions, qualitative customer feedback, emotional response and observed AI behaviour, to determine what should change next.' },
+        { term: 'Macro roadmap', src: 'How do you do a big CX Project', def: 'What the RIBA adaptation provides. Agile delivery can operate within Stages 3-6, particularly prototyping, development, testing and release preparation.' },
+        { term: 'Lifecycle governance', src: 'How do you do a big CX Project', def: 'The level of planning that asks: are we solving the right problem, with the right safeguards, at the right maturity?' },
+        { term: 'Agile execution', src: 'How do you do a big CX Project', def: 'The level of planning that asks: what is the highest-value increment the team should deliver next?' },
+        { term: 'Future You', src: 'How do you do a big CX Project', def: 'The worked project: an aged AI avatar intended to improve younger customers’ engagement with financial planning. Success should extend beyond app usage to outcomes such as increased super contributions or achievement of financial milestones.' },
+        { term: 'Stage 3 prototype', src: 'How do you do a big CX Project', def: 'Tests whether the proposed experience works in practice — avatar appearance, voice and personality, emotional reaction, trustworthiness, behavioural response, and handling of sensitive facial and voice data. It is testing emotional and trust risk, not merely UX usability.' },
+        { term: 'Stage 4 product stack', src: 'How do you do a big CX Project', def: 'Facial ageing models, voice synthesis, GTP-based conversational AI, front-end experience, data architecture and compliance requirements. Technical architecture and governance cannot be separated, because AI behaviour, personal data and financial advice boundaries are part of the product itself.' },
+        { term: 'Staged launch', src: 'How do you do a big CX Project', def: 'Stage 5 combines Agile delivery with QA/QC, edge-case testing, emotional-discomfort testing and a beta or limited customer rollout. A staged release converts launch from a single irreversible event into another learning mechanism.' },
+        { term: 'Operational readiness', src: 'How do you do a big CX Project', def: 'Part of delivery in Stage 6: advisor/support-team training, knowledge transfer, launch support and real-time AI monitoring. A deployed product is not yet successfully delivered if the organisation cannot support customers when the AI creates uncertainty, concern or escalation.' },
+        { term: 'Cross-cutting design constraints', src: 'How do you do a big CX Project', def: 'Concerns that should persist through the lifecycle rather than appear as one late-stage compliance checkpoint: CX layer, AI–human interaction, ethics & trust, security & privacy, and regulatory/compliance.' },
+        { term: 'Trust as a design requirement', src: 'How do you do a big CX Project', def: 'For Future You, trust is a design requirement, not simply a compliance requirement.' },
+        { term: 'Continuous improvement loop', src: 'How do you do a big CX Project', formula: 'Usage data + customer feedback → optimisation sprints → revised AI/UX/content → new evidence', def: 'What Stage 7 feeds. It makes the adapted RIBA model cyclical in practice even though its high-level structure appears sequential.' },
+        { term: 'Progressive confidence-building stages', src: 'How do you do a big CX Project', def: 'The strongest use of RIBA — not a rigid sequence of hand-offs. The guiding question: what uncertainty are we trying to remove before increasing commitment and exposure?' },
+        { term: 'Product architecture concerns', src: 'How do you do a big CX Project', def: 'For AI-enabled CX, trust, emotional response, privacy and regulatory boundaries are product architecture concerns, not late-stage review items.' },
       ];
 
       var glossaryEl = document.getElementById('glossary');
@@ -3063,6 +3677,16 @@
         { abbr: 'WIP', long: 'Work in Progress', def: 'Written out in my notes. The middle column of the Kanban/Scrum board — To Do → Work in Progress (WIP) → Done. Persistent cards in WIP are a visible warning sign for blockers, underestimated complexity, dependency problems or excessive work-in-progress.', src: 'Scrum' },
         { abbr: 'SMART', long: 'Specific, Measurable, Assignable, Realistic, Time-framed', def: 'Expanded letter by letter in my notes as the five tests of a good milestone: exactly what must have occurred is defined; achievement can be objectively tested; ownership is clear; achievable within the project constraints; attached to a specific point in time. Time-framed does not mean duration — a milestone may occur at a date, but it does not itself occupy a period of time.', src: 'Gantt Charts' },
         { abbr: 'PO', long: 'Product Owner', def: 'Never paired with its expansion in the notes; the standard expansion is used here, and the page names the Product Owner role throughout. The PO creates a valuable organisational boundary: stakeholder priorities can continue changing without continuously disrupting the team doing the current work.', src: 'Scrum' },
+        { abbr: 'RIBA', long: 'Royal Institute of British Architects', def: 'Never written out in my notes; the standard expansion is used here. The RIBA Plan of Work is a staged project framework originally designed for architecture and construction, which StellarCX adapts for digital CX to give lifecycle structure without requiring Waterfall execution.', src: 'How do you do a big CX Project' },
+        { abbr: 'CX', long: 'Customer Experience', def: 'Never written out in my notes; the standard expansion is used here. Large digital CX programmes need more than sprint execution — strategic framing, customer research, cross-functional alignment, technical and regulatory design, controlled launch and post-launch optimisation.', src: 'How do you do a big CX Project' },
+        { abbr: 'AI', long: 'Artificial Intelligence', def: 'Never written out in my notes; the standard expansion is used here. Future You is an aged AI avatar; AI behaviour, personal data and financial advice boundaries are part of the product itself, and Stage 6 includes real-time AI monitoring.', src: 'How do you do a big CX Project' },
+        { abbr: 'UX', long: 'User Experience', def: 'Never written out in my notes; the standard expansion is used here. Early UX sits in Stage 2 and UX/UI in Stage 4; the Stage 3 prototype tests emotional and trust risk, not merely UX usability.', src: 'How do you do a big CX Project' },
+        { abbr: 'UI', long: 'User Interface', def: 'Never written out in my notes; the standard expansion is used here. Appears as UX/UI among what Stage 4 Technical Design must resolve.', src: 'How do you do a big CX Project' },
+        { abbr: 'MVP', long: 'Minimum Viable Product', def: 'Never written out in my notes; the standard expansion is used here. MVP scope is among what Stage 3 Spatial Coordination must resolve, alongside cross-functional alignment, interactive prototypes and user validation.', src: 'How do you do a big CX Project' },
+        { abbr: 'API', long: 'Application Programming Interface', def: 'Never written out in my notes; the standard expansion is used here. APIs are among what Stage 4 Technical Design must resolve, with architecture, data flows and compliance.', src: 'How do you do a big CX Project' },
+        { abbr: 'QA', long: 'Quality Assurance', def: 'Never written out in my notes; the standard expansion is used here. A QA/DevOps approach is resolved in Stage 4, and Stage 5 combines Agile delivery with QA/QC.', src: 'How do you do a big CX Project' },
+        { abbr: 'QC', long: 'Quality Control', def: 'Never written out in my notes; the standard expansion is used here. Paired with QA in Stage 5, alongside edge-case testing, emotional-discomfort testing and a beta or limited customer rollout.', src: 'How do you do a big CX Project' },
+        { abbr: 'UAT', long: 'User Acceptance Testing', def: 'Never written out in my notes; the standard expansion is used here. One of the things Stage 5 Manufacturing & Construction must resolve, with build, integration, testing, beta/staged rollout and performance validation.', src: 'How do you do a big CX Project' },
       ];
 
       buildRef('acronyms', ACRONYMS, function (a) {
@@ -3078,6 +3702,10 @@
       var FORMULAS = [
         { name: 'Velocity', expr: 'Velocity = amount of work completed by a scrum team during one sprint', def: 'Usually measured using story points or another consistent internal work measure. It is primarily a capacity and predictability metric, not a target for maximising employee speed; it answers how much work this team can normally complete per sprint.', src: 'Scrum' },
         { name: 'Minimum project duration', expr: 'Minimum project duration = max (duration of each dependent path)', def: 'The shortest possible project completion time, set by the critical path — the longest-duration dependent path through the project. Because all activities on that path must occur in sequence, the project cannot finish before they do.', src: 'Critical path diagrams' },
+        { name: 'Convergence', expr: 'B ✓,  C × ⇒ E cannot proceed', def: 'Milestone E requires both B and C. Even if B finishes early, E cannot proceed: the downstream project waits for whichever required predecessor completes last.', src: 'Critical path diagrams' },
+        { name: 'Lecture example — critical sequence', expr: '2 + 3 + 3 + 5 + 1 + 2 = 16', def: 'The durations along the critical sequence Start → A → C → E → F → G → End. Therefore the best-case project duration is 16 months.', src: 'Critical path diagrams' },
+        { name: 'Lecture example — one critical activity slips', expr: '5 → 6 months', def: 'On a critical-path activity this produces 16 → 17 months, assuming no later recovery: any increase in one of those critical-path activities directly increases the 16-month completion time.', src: 'Critical path diagrams' },
+        { name: 'Schedule consequence', expr: 'duration + dependency + convergence + slack → schedule consequence', def: 'What software does not remove the managerial need to understand. Without it, managers may know which tasks are highlighted as critical without understanding what decisions follow from it.', src: 'Critical path diagrams' },
       ];
 
       buildRef('formulas', FORMULAS, function (f) {
@@ -3153,7 +3781,54 @@
         { q: 'Why does the critical path determine the shortest possible completion time?', a: 'Because all activities on that path must occur in sequence — the project cannot finish before they do.' },
         { q: 'State the formula for minimum project duration.', a: 'Minimum project duration = max (duration of each dependent path).' },
         { q: 'Does “critical” on the critical path mean the activities are difficult, expensive or important?', a: 'No. It means schedule-constraining because of dependencies.' },
-        { q: 'In one phrase, what kind of constraint is the critical path on a project?', a: 'The project’s schedule constraint — it sets how soon the project can finish.' },
+        { q: 'A Gantt chart already shows dependencies. Why add critical path analysis?', a: 'The schedule constraint can be difficult to identify intuitively among many bars; critical path analysis asks which exact chain of dependent activities determines the earliest possible finish.' },
+        { q: 'Name the four decisions critical path analysis gives managers a basis for.', a: 'Which tasks cannot tolerate delay, where attention should concentrate, which people to protect from interruptions, and where additional resources could shorten or protect the schedule.' },
+        { q: 'Does critical-path logic only apply to Waterfall projects?', a: 'No — it remains relevant in Agile, Waterfall and hybrid projects, because complex digital projects still contain work where one team cannot start until another finishes.' },
+        { q: 'What can changing priorities for someone on critical-path activity do?', a: 'Unintentionally move the entire project’s delivery date.' },
+        { q: 'For each activity in a critical path diagram, what four things do you identify?', a: 'The milestone it starts from, the milestone it finishes at, its duration, and what must be completed before it can begin.' },
+        { q: 'What is branching in a critical path network?', a: 'One completed milestone allows several activities to begin concurrently.' },
+        { q: 'Milestone E requires both B and C. B finishes early; C is not done. What happens?', a: 'E cannot proceed — the downstream project waits for whichever required predecessor completes last.' },
+        { q: 'Give the five steps for finding the critical path.', a: 'Map all activities start to finish; show every branch and convergence; add the duration of each dependent path; identify the path with the greatest total duration; that path sets the minimum completion time.' },
+        { q: 'In the lecture example, what is the critical sequence and its duration?', a: 'Start → A → C → E → F → G → End; 2 + 3 + 3 + 5 + 1 + 2 = 16, so the best-case project duration is 16 months.' },
+        { q: 'In the lecture example, a critical-path activity goes from 5 to 6 months. What happens to the project?', a: 'It goes from 16 to 17 months, assuming no later recovery.' },
+        { q: 'Define slack.', a: 'The amount of delay an activity can absorb before it begins affecting the project’s final completion date.' },
+        { q: 'How much slack do critical-path activities have?', a: 'Effectively none.' },
+        { q: 'What question should replace “Is this task late?”', a: '“How much slack does this task have before its delay affects the critical path?”' },
+        { q: 'How can slack protect a deadline?', a: 'Management may temporarily redirect capacity from a non-critical task with substantial slack to a critical-path task that is falling behind.' },
+        { q: 'What does schedule optimisation mean, according to the notes?', a: 'Protecting the constraint — not trying to make every task finish as early as possible.' },
+        { q: 'Does criticality belong permanently to a department or person?', a: 'No. It belongs to activities and dependencies at particular points in the network; a team with slack now may later own a critical activity.' },
+        { q: 'When can a small one-month activity be extremely important?', a: 'When nothing can proceed without it and it sits on the critical path — the critical path is about connectedness, not workload size.' },
+        { q: 'List the five ways to protect critical-path activities.', a: 'Minimise unnecessary interruptions, avoid adding unrelated work, monitor more closely, escalate blockers quickly, and consider reallocating resources from activities with slack.' },
+        { q: 'Name the three software tools the notes mention for the critical path.', a: 'Microsoft Project, Smartsheet, and Jira with appropriate extensions/plugins.' },
+        { q: 'What understanding does critical-path software not remove?', a: 'duration + dependency + convergence + slack → schedule consequence.' },
+        { q: 'Which tool’s primary purpose is identifying which delay changes final delivery?', a: 'Critical path analysis — on a Gantt chart that may require interpretation.' },
+        { q: 'Gantt versus critical path in one line?', a: 'Gantt charts describe the schedule; critical-path analysis identifies which parts of that schedule actually constrain the finish date.' },
+        { q: 'What should a project leader ultimately know about the schedule?', a: 'The minimum possible completion time, the activities that determine it, and how much tolerance exists everywhere else.' },
+        { q: 'What is the RIBA Plan of Work originally designed for?', a: 'Architecture and construction — it is a staged project framework.' },
+        { q: 'Why does StellarCX adapt RIBA for digital CX?', a: 'Large experience projects need more than sprint execution: strategic framing, customer research, cross-functional alignment, technical and regulatory design, controlled launch and post-launch optimisation.' },
+        { q: 'RIBA and Agile: which decides what, and which decides how?', a: 'RIBA structures what must be resolved across the lifecycle; Agile, inside appropriate stages, determines how delivery work gets done.' },
+        { q: 'What does RIBA give without requiring Waterfall execution?', a: 'Lifecycle structure.' },
+        { q: 'What do Stages 0-2 reduce?', a: 'Desirability and strategic uncertainty, before major build commitment.' },
+        { q: 'What do Stages 3-6 reduce?', a: 'Design, technical, operational and delivery uncertainty — progressively.' },
+        { q: 'What does Stage 7 recognise?', a: 'That a digital CX product is not “finished” at launch.' },
+        { q: 'What is the digital CX adaptation of Stage 3 Spatial Coordination?', a: 'Design alignment & prototyping — cross-functional alignment, interactive prototypes, user validation, MVP scope.' },
+        { q: 'What is the digital CX adaptation of Stage 5 Manufacturing & Construction?', a: 'Development & launch execution — build, integration, testing, UAT, beta/staged rollout, performance validation.' },
+        { q: 'Within which stages can Agile delivery operate?', a: 'Stages 3-6, particularly prototyping, development, testing and release preparation.' },
+        { q: 'What question does lifecycle governance ask?', a: 'Are we solving the right problem, with the right safeguards, at the right maturity?' },
+        { q: 'What question does Agile execution ask?', a: 'What is the highest-value increment the team should deliver next?' },
+        { q: 'Why can’t pure sprint-level planning run a large CX programme by itself?', a: 'It cannot by itself coordinate strategy, compliance, customer research, architecture and organisational readiness.' },
+        { q: 'For Future You, what should success extend to beyond app usage?', a: 'Outcomes such as increased super contributions or achievement of financial milestones.' },
+        { q: 'What must not substitute for evidence that the experience is desirable and appropriate?', a: 'Technical feasibility.' },
+        { q: 'What risk is the Future You prototype really testing?', a: 'Emotional and trust risk, not merely UX usability.' },
+        { q: 'Why can’t technical architecture and governance be separated for Future You?', a: 'Because AI behaviour, personal data and financial advice boundaries are part of the product itself.' },
+        { q: 'What does a staged release convert launch into?', a: 'Another learning mechanism, instead of a single irreversible event.' },
+        { q: 'When is a technically deployed product not yet successfully delivered?', a: 'When the organisation cannot support customers when the AI creates uncertainty, concern or escalation.' },
+        { q: 'Name the five cross-cutting design constraints.', a: 'CX layer, AI–human interaction, ethics & trust, security & privacy, and regulatory/compliance.' },
+        { q: 'For Future You, is trust a compliance requirement?', a: 'Not simply — trust is a design requirement.' },
+        { q: 'What does Stage 7 feed?', a: 'Usage data + customer feedback → optimisation sprints → revised AI/UX/content → new evidence.' },
+        { q: 'Why is the adapted RIBA model cyclical in practice?', a: 'Because Stage 7 feeds a continuous-improvement loop, even though the high-level structure appears sequential.' },
+        { q: 'What does Agile solve in a large CX programme, and what does it not?', a: 'It solves delivery uncertainty but not the entire governance problem.' },
+        { q: 'What question does the big CX project note close on?', a: 'What uncertainty are we trying to remove before increasing commitment and exposure?' },
       ];
 
       var order = CARDS.map(function (_, i) { return i; });
@@ -3476,14 +4151,21 @@
         {"topic": "Gantt Charts", "q": "Which of these items is a milestone?", "hint": "Apply one test: can it be partly done?", "options": [{"t": "“Complete testing next week”", "ok": false, "note": "This is the page’s named common mistake — a milestone turned into an elaborate task. It has duration and can be partially complete, so it is a task."}, {"t": "“Printer works by next week”", "ok": false, "note": "Vague and effectively describing continuing activity. The page’s wording table marks it: not a milestone."}, {"t": "“Testing 80% complete”", "ok": false, "note": "If it can be 80% complete, it is probably a task. Milestone achievement is binary — passed or not passed."}, {"t": "“Passes specification 1.4.1 on 15th June”", "ok": true, "note": "Correct. Defined test, defined date, binary result. It occurs at a date but does not itself occupy a period of time."}]},
         {"topic": "Gantt Charts", "q": "A programme manager asks when the integration work should happen relative to a vendor’s delivery. Which tool answers that, and why?", "hint": "Each tool has a primary orientation and a main question in block 19.", "options": [{"t": "The Kanban board, because it shows real-time execution", "ok": false, "note": "The board’s question is “what is happening now?” Its horizon is immediate operational work, and its strength is real-time execution visibility — not when work should happen across the project."}, {"t": "The Gantt chart, because its orientation is time and its question is when work should happen", "ok": true, "note": "Correct. The Gantt chart is oriented to time, asks “when should work happen?”, covers the whole project or roadmap, and its strengths are forecasting, dependencies, milestones and deadlines."}, {"t": "The burn-down chart, because it tracks remaining work against time", "ok": false, "note": "The burn-down’s horizontal axis is time within the sprint. It answers whether the sprint is on track, not how work is sequenced across the project."}, {"t": "Neither, because a hybrid project has to choose one", "ok": false, "note": "The page says a hybrid digital project can legitimately use both. Neither tool replaces the other; they work at different levels."}]},
         {"topic": "Gantt Charts", "q": "A project schedule is a handful of six-month bars with nothing between their start and finish. What is the page’s diagnosis?", "hint": "The granularity table has three rows. Which one is this?", "options": [{"t": "Too granular: the schedule is cluttered and expensive to maintain", "ok": false, "note": "That is the opposite failure. Too granular means dozens of tiny bars that are costly to maintain and difficult to interpret."}, {"t": "Appropriate, because summary tasks are meant to give an overview", "ok": false, "note": "A summary task groups related tasks to provide a managerial-level overview, but six-month bars give very weak operational visibility unless supported by smaller tasks and milestones. The overview alone cannot do the control job."}, {"t": "Too large: delays and bottlenecks stay hidden and progress estimates become unreliable", "ok": true, "note": "Correct. Tasks that are too large or vague hide delays and bottlenecks and make progress estimates unreliable. Managers should distrust a schedule built from large tasks without frequent binary milestones."}, {"t": "Out of date, which creates false confidence", "ok": false, "note": "That is a separate failure from block 18, and nothing in the setup says the schedule has not been maintained. The problem described here is granularity."}]},
-        {"topic": "Critical path diagrams", "q": "Which statement about the critical path matches what the page states?", "hint": "The definition is about duration and dependency, and the callout says what “critical” does not mean.", "options": [{"t": "It is the path containing the project’s most difficult and expensive activities", "ok": false, "note": "The callout is explicit: critical does not mean difficult, expensive or important to the manager. It means schedule-constraining because of dependencies."}, {"t": "It is the longest-duration dependent path, and it sets the shortest possible completion time", "ok": true, "note": "Correct. Because all activities on that path must occur in sequence, it determines the shortest possible project completion time — minimum project duration is the maximum of the dependent paths."}, {"t": "It is the shortest path through the project, so it shows the earliest finish", "ok": false, "note": "Backwards. The shorter dependent path finishes earlier and does not constrain the schedule; it is the longest path that fixes how soon the project can finish."}, {"t": "It is the path with the most activities, whatever their durations", "ok": false, "note": "The page defines it by duration — the longest-duration dependent path — and the formula takes the maximum duration of each dependent path, not a count of activities."}]}
+        {"topic": "Critical path diagrams", "q": "Which statement about the critical path matches what the page states?", "hint": "The definition is about duration and dependency, and the callout says what “critical” does not mean.", "options": [{"t": "It is the path containing the project’s most difficult and expensive activities", "ok": false, "note": "The callout is explicit: critical does not mean difficult, expensive or important to the manager. It means schedule-constraining because of dependencies."}, {"t": "It is the longest-duration dependent path, and it sets the shortest possible completion time", "ok": true, "note": "Correct. Because all activities on that path must occur in sequence, it determines the shortest possible project completion time — minimum project duration is the maximum of the dependent paths."}, {"t": "It is the shortest path through the project, so it shows the earliest finish", "ok": false, "note": "Backwards. The critical path is the longest-duration dependent path; because all activities on that path must occur in sequence, it determines the shortest possible project completion time."}, {"t": "It is the path with the most activities, whatever their durations", "ok": false, "note": "The page defines it by duration — the longest-duration dependent path — and the formula takes the maximum duration of each dependent path, not a count of activities."}]},
+        {"topic": "Critical path diagrams", "q": "Milestone E requires both B and C. B finishes early; C is still running. What does the page say happens?", "hint": "Think about what convergence means for the next activity.", "options": [{"t": "E can start, because one predecessor is complete and the early finish offsets C", "ok": false, "note": "No offsetting happens. With B ✓ and C ×, E cannot proceed."}, {"t": "E starts at the average of B’s and C’s finish times", "ok": false, "note": "The page gives no averaging. The downstream project waits for whichever required predecessor completes last."}, {"t": "E cannot proceed until C also finishes — the downstream project waits for the last required predecessor", "ok": true, "note": "Correct. That is convergence, and why dependency structure matters more than simply knowing individual task durations."}, {"t": "B’s early finish becomes slack that shortens the critical path", "ok": false, "note": "Finishing a converging predecessor early does not move E; E still waits for C."}]},
+        {"topic": "Critical path diagrams", "q": "In the lecture example the critical sequence is 2 + 3 + 3 + 5 + 1 + 2 = 16 months. The 5-month activity takes 6. What happens to the project, assuming no later recovery?", "hint": "Every activity on that sequence occurs in order, and critical-path activities have no slack.", "options": [{"t": "Nothing — one month can be absorbed by the other activities", "ok": false, "note": "Critical-path activities effectively have no schedule slack, so there is nothing to absorb the extra month."}, {"t": "It becomes 17 months", "ok": true, "note": "Correct. Any increase in one of those critical-path activities directly increases the 16-month completion time: 5 → 6 months produces 16 → 17 months."}, {"t": "It depends on how many other activities the project has", "ok": false, "note": "The page ties the outcome to the critical sequence alone: any increase in one of those critical-path activities directly increases the 16-month completion time."}, {"t": "It depends on whether the activity is difficult or expensive", "ok": false, "note": "Critical means schedule-constraining because of dependencies, not difficult, expensive or important."}]},
+        {"topic": "Critical path diagrams", "q": "A critical-path task is falling behind. A colleague on a non-critical task has substantial slack. What does the page suggest?", "hint": "Consider what slack is for, and what schedule optimisation means.", "options": [{"t": "Leave both alone; every task should finish as early as possible", "ok": false, "note": "The page rejects that: schedule optimisation means protecting the constraint, not trying to make every task finish as early as possible."}, {"t": "Speed up the non-critical task so the team’s overall progress looks better", "ok": false, "note": "Improving work with abundant slack may produce no improvement in final delivery."}, {"t": "Add more unrelated work to the critical-path person so they catch up across the board", "ok": false, "note": "The opposite of the page’s advice: avoid adding unrelated work to critical-path resources."}, {"t": "Temporarily redirect the colleague’s capacity toward the critical activity, even though the non-critical task becomes later", "ok": true, "note": "Correct. Slack is usable scheduling capacity; redirecting it can protect the overall deadline."}]},
+        {"topic": "How do you do a big CX Project", "q": "How does the adapted RIBA framework relate to Agile on a large CX programme?", "hint": "One decides what must be resolved; the other decides how delivery work gets done.", "options": [{"t": "RIBA replaces Agile with a Waterfall sequence of hand-offs", "ok": false, "note": "The page is explicit: stage framework ≠ Waterfall. RIBA gives lifecycle structure without requiring Waterfall execution."}, {"t": "RIBA is the macro roadmap; Agile delivery operates inside stages 3-6", "ok": true, "note": "Correct. Lifecycle governance asks whether you are solving the right problem at the right maturity; Agile execution asks what the highest-value next increment is."}, {"t": "Agile runs every stage from 0 to 7, and RIBA is only a reporting layer", "ok": false, "note": "The page places Agile delivery within stages 3-6 — prototyping, development, testing and release preparation."}, {"t": "Agile handles governance and RIBA handles delivery", "ok": false, "note": "Reversed. Agile solves delivery uncertainty but not the entire governance problem."}]},
+        {"topic": "How do you do a big CX Project", "q": "For Future You, what is the Stage 3 prototype primarily testing?", "hint": "Look at what the list of Stage 3 tests has in common, and the callout beneath it.", "options": [{"t": "Whether the facial ageing model is technically feasible", "ok": false, "note": "The page warns against letting technical feasibility substitute for evidence that the experience is desirable and appropriate."}, {"t": "Screen layouts and UX usability", "ok": false, "note": "The callout says the prototype is testing emotional and trust risk, not merely UX usability."}, {"t": "Emotional and trust risk — reaction, trustworthiness, behavioural response and handling of facial and voice data", "ok": true, "note": "Correct. Stage 3 tests whether the proposed experience works in practice, and the risk it exposes is emotional and trust risk."}, {"t": "Whether super contributions increased after launch", "ok": false, "note": "Increased super contributions appear under Stage 0 as an outcome success should extend to — not as something the Stage 3 prototype tests."}]},
+        {"topic": "How do you do a big CX Project", "q": "Future You’s AI is deployed, but advisors have not been trained to handle customers’ concerns. Has it been successfully delivered?", "hint": "Stage 6 treats something as part of delivery rather than something after it.", "options": [{"t": "Yes — deployment is the end of delivery, and support is an operations matter", "ok": false, "note": "The page says operational readiness is part of delivery."}, {"t": "No — a technically deployed product is not yet successfully delivered if the organisation cannot support customers when the AI creates uncertainty, concern or escalation", "ok": true, "note": "Correct. Stage 6 includes advisor/support-team training, knowledge transfer, launch support and real-time AI monitoring."}, {"t": "Yes, as long as it passed a late-stage compliance checkpoint", "ok": false, "note": "The page says cross-cutting concerns should not appear as one late-stage compliance checkpoint."}, {"t": "Only once Stage 7 proves the original concept was correct", "ok": false, "note": "Stage 7’s purpose is not to prove the concept correct but to determine what should change next."}]}
       ]/*END_QUIZ*/;
       var SCENARIOS = /*SCENARIOS*/[
         {"topic": "Scrum", "title": "Scope creeping into the sprint", "setup": "A product team runs two-week sprints. In each of the last three, the burn-down has shown remaining work rising partway through the sprint rather than falling, and the sprint has ended with work still open. Stakeholders from two business units have been messaging developers directly with small additions during the sprint, and the developers have been taking them on to stay helpful.", "task": "Diagnose what the burn-down is showing and explain which part of the Scrum structure is being bypassed.", "hints": ["Match the burn-down shape to the page’s pattern table before saying anything about people.", "Where is stakeholder uncertainty supposed to enter the structure, and where is it entering here?", "The fix is not to refuse the requests. It is to route them somewhere specific, at a specific time."], "walkthrough": ["Read the pattern: remaining work increasing means new work or scope has entered the sprint. The page’s response is to investigate scope control and backlog discipline.", "Name the bypass. The separation runs stakeholder uncertainty → Product Owner → prioritised backlog → Scrum Team. Requests going straight to developers skip the Product Owner entirely, which is the boundary the structure depends on.", "Recall what the sprint commitment is for: once a sprint begins, the team focuses primarily on the committed work rather than continually reacting to wider stakeholder requests. That is what makes the cadence predictable.", "Route the requests to the Product Owner, who maintains and prioritises the product backlog and shields the team from competing demands. They can enter a sprint backlog at the next sprint planning, because priorities can change between sprints.", "Close on the takeaways’ question: poor sprint outcomes can be caused by the wrong amount of work being fed into the sprint, not by team performance. The fix sits with the boundary, not with the developers."], "checklist": ["Reads the rising line as scope entering, not as slow work", "States the separation chain and identifies where it is broken", "Explains why the sprint commitment matters", "Routes the requests to the Product Owner and the next sprint planning", "Locates the cause in the structure rather than the team"]},
-        {"topic": "Scrum", "title": "The stand-up that became a meeting", "setup": "A team’s daily stand-up now runs close to an hour. Whoever is blocked explains the problem in full and the room works it through on the spot, while everyone else waits. On the board, one card has sat in Work in Progress for the whole sprint. The Scrum Master has been chairing the discussions rather than acting on them.", "task": "Set out what the stand-up should be, what the lingering card is telling you, and who should be doing what.", "hints": ["Start with the page’s figure for the stand-up and its three questions.", "A persistent card in Work in Progress is a named warning sign for four things.", "The page separates raising a blocker from resolving it. Where does resolution happen, and whose responsibility is it?"], "walkthrough": ["Restore the format: a 15-minute meeting around the board, built on three questions — what did I complete, what am I working on, what is blocking me. Its purpose is coordination and blocker identification, not solving every problem during the meeting.", "Apply the page’s rule: a blocker raised in the stand-up should trigger follow-up action afterwards rather than turning the stand-up itself into a long problem-solving session.", "Read the card. Persistent cards in Work in Progress are a visible warning sign for blockers, underestimated complexity, dependency problems or excessive work-in-progress. A card that has sat there all sprint needs investigating, not waiting.", "Assign the follow-up. Removing blockers and supporting team effectiveness is the Scrum Master’s primary responsibility, and the logic is reducing friction without command-and-control; chairing an hour-long discussion is neither. Cross-functional team members can immediately identify where they can help, and the team can redirect capabilities toward whichever blockers matter most.", "State why it matters: the stand-up exposes problems when they are still small, and its short cadence creates accountability without continuous managerial supervision. Progress visibility is meant to reduce the need for lengthy status meetings — an hour-long stand-up recreates the meeting it was meant to replace."], "checklist": ["Quotes the 15-minute format and the three questions", "Separates raising a blocker from solving it", "Reads the persistent card against the page’s four warning signs", "Gives the follow-up to the Scrum Master and the cross-functional team", "Explains what the stand-up is for in terms of visibility and accountability"]},
         {"topic": "Scrum", "title": "Velocity as a target", "setup": "A delivery director has noticed that a team’s velocity swings widely from sprint to sprint. The proposed fix is to set a velocity figure for each sprint that must beat the previous one, publish it, and use it to compare individual team members. The team has also been changing how it breaks down its tasks from sprint to sprint, and lost a member partway through the quarter.", "task": "Advise whether this is the right use of velocity, and what the volatility should prompt instead.", "hints": ["What does the page say velocity is primarily for, and what does it say velocity is not?", "The page lists five things highly volatile velocity suggests. Two of them are in the setup.", "The takeaways have a view on what happens to a metric once people are measured against it."], "walkthrough": ["State what velocity is: the amount of work completed by a scrum team during one sprint, usually in story points or another consistent internal measure. It is primarily a capacity and predictability metric, not a target for maximising employee speed.", "Read the volatility as a diagnosis. Highly volatile velocity suggests poor estimation, changing team capacity, inconsistent task decomposition, blockers or dependencies, or unstable scope. The setup shows two of these directly: the lost team member and the changing task breakdown.", "Say what stable velocity buys: it improves future sprint commitments, reduces overpromising, enables better resource planning and signals that task sizing and capacity are becoming understood. The value is in the commitment loop, not in the number rising.", "Name the harm in the proposal. The takeaways say the strongest Scrum metrics are diagnostic rather than punitive: burn-down and velocity should improve planning accuracy and capacity matching, not become targets employees manipulate. A published, rising, individual target is the opposite of that.", "Replace it with the page’s loop — plan sprint, observe burn-down, measure completed work, update expected velocity, improve the next sprint commitment — and put the takeaways’ question to the director: are poor sprint outcomes caused by team performance, bad task decomposition, blockers, or the Product Owner feeding the wrong amount of work into the sprint?"], "checklist": ["Defines velocity as a capacity and predictability metric, not a target", "Maps the setup onto the page’s causes of volatile velocity", "Explains what a stable velocity is used for", "Identifies the diagnostic-versus-punitive point from the takeaways", "Proposes the planning loop in place of the target"]},
-        {"topic": "Gantt Charts", "title": "Three milestones, one milestone", "setup": "A schedule review of a systems project turns up three items listed as milestones: “Testing 80% complete”, “Printer works by next week”, and “Passes specification 1.4.1 on 15th June”. All the rigorous checkpoints sit on the software stream; the hardware and training streams run as long bars with nothing between their start and finish. One of the software checkpoints sits on the critical path.", "task": "Decide which items are real milestones, and set out how the milestone discipline across the whole schedule should change.", "hints": ["Apply one test to each item: can it be partly done?", "The SMART list and the wording table settle the three items. The five practices settle the schedule.", "Not every late milestone carries the same consequence, and the page says why."], "walkthrough": ["Apply the definition: a milestone is a significant event with no duration, a point at which something has been fully achieved. It is binary — passed or not passed, go or no-go. If it has duration or can be partially complete, it is a task.", "Sort the three. “Testing 80% complete”: if it can be 80% complete, it is probably a task. “Printer works by next week”: vague and effectively describing continuing activity — not a milestone. “Passes specification 1.4.1 on 15th June”: defined test, defined date, binary result — a milestone. Note that time-framed does not mean duration: it occurs at a date without occupying a period.", "Explain why it matters. Percentage-complete estimates within large tasks can be unreliable; a milestone reduces progress to a single question — has the defined condition been achieved or not? — which gives much stronger evidence about whether the project is progressing or beginning to drift.", "Apply the five practices to the schedule: define milestones early; use frequent checkpoints, because long periods without them let drift stay invisible until recovery is difficult; cover the whole project rather than placing rigorous milestones around one stream while the hardware and training streams go untested; make achievement binary; and pay particular attention to the critical path.", "Weigh the critical-path checkpoint. A delayed milestone outside the critical path may be recoverable without delaying final completion; a delay on the critical path can move the entire project completion date. Stop there — the notes treat critical-path mechanics separately and have not yet written the comparison."], "checklist": ["Applies the no-duration, binary test to each item", "Reaches the right verdict on all three wordings", "Explains the evidential difference between a checkpoint and a percentage", "Applies all five design practices, including whole-project coverage", "Distinguishes a late milestone on the critical path from one off it"]},
-        {"topic": "Gantt Charts", "title": "Agile now, so drop the Gantt", "setup": "A hybrid digital programme has several teams working in sprints on boards, a vendor delivering components on a fixed schedule, and a deployment date the client will not move. The sponsor proposes retiring the programme’s Gantt chart, on the grounds that the teams are Agile now and the boards show everything. The chart, it turns out, has not been updated for some time and still shows the original vendor dates.", "task": "Decide whether to keep the Gantt chart, and if so on what condition.", "hints": ["Ask what question each tool answers, rather than which tool is Agile.", "The page names the settings where a Gantt chart is particularly useful. Several of them are in the setup.", "The chart’s current state is a separate problem from whether the chart should exist."], "walkthrough": ["Separate the two questions. The Gantt chart is oriented to time and asks when work should happen, across the whole project or roadmap. The Kanban or Scrum board is oriented to flow and asks what is happening now, over immediate operational work.", "Match the setup to the page’s uses. Fixed client or deployment deadlines, coordinating interdependent work, stakeholder communication and hybrid agile–waterfall projects are exactly where the Gantt chart is particularly useful. Scrum and Kanban manage short-term workflow; the Gantt chart remains useful above the sprint level, and a hybrid digital project can legitimately use both.", "Reframe the sponsor’s question. The relevant question is not which tool is Agile but what level of uncertainty and coordination needs to be managed — immediate workflow or the wider project timeline. This programme has both.", "Confront the chart’s state. A Gantt chart is useful only while its assumptions match the project. Outdated, it creates false confidence, because stakeholders may make decisions from a schedule that no longer represents actual delivery conditions; without updating it becomes historical documentation.", "Set the condition: keep it, with continuous maintenance and re-forecasting so that it can show emerging delays, changing dependencies, milestone risk, resource conflicts and impacts on downstream deadlines — and judge it by whether it represents current reality strongly enough to support decisions before delays become irreversible."], "checklist": ["States the different question each tool answers", "Connects the setup to the page’s named uses of a Gantt chart", "Replaces the which-tool-is-Agile question with the level-of-coordination question", "Names false confidence as the cost of the stale chart", "Makes continuous re-forecasting the condition for keeping it"]}
+        {"topic": "Gantt Charts", "title": "Three milestones, one milestone", "setup": "A schedule review of a systems project turns up three items listed as milestones: “Testing 80% complete”, “Printer works by next week”, and “Passes specification 1.4.1 on 15th June”. All the rigorous checkpoints sit on the software stream; the hardware and training streams run as long bars with nothing between their start and finish. One of the software checkpoints sits on the critical path.", "task": "Decide which items are real milestones, and set out how the milestone discipline across the whole schedule should change.", "hints": ["Apply one test to each item: can it be partly done?", "The SMART list and the wording table settle the three items. The five practices settle the schedule.", "Not every late milestone carries the same consequence, and the page says why."], "walkthrough": ["Apply the definition: a milestone is a significant event with no duration, a point at which something has been fully achieved. It is binary — passed or not passed, go or no-go. If it has duration or can be partially complete, it is a task.", "Sort the three. “Testing 80% complete”: if it can be 80% complete, it is probably a task. “Printer works by next week”: vague and effectively describing continuing activity — not a milestone. “Passes specification 1.4.1 on 15th June”: defined test, defined date, binary result — a milestone. Note that time-framed does not mean duration: it occurs at a date without occupying a period.", "Explain why it matters. Percentage-complete estimates within large tasks can be unreliable; a milestone reduces progress to a single question — has the defined condition been achieved or not? — which gives much stronger evidence about whether the project is progressing or beginning to drift.", "Apply the five practices to the schedule: define milestones early; use frequent checkpoints, because long periods without them let drift stay invisible until recovery is difficult; cover the whole project rather than placing rigorous milestones around one stream while the hardware and training streams go untested; make achievement binary; and pay particular attention to the critical path.", "Weigh the critical-path checkpoint. A delayed milestone outside the critical path may be recoverable without delaying final completion; a delay on the critical path can move the entire project completion date. The critical path topic explains why: critical-path activities effectively have no schedule slack."], "checklist": ["Applies the no-duration, binary test to each item", "Reaches the right verdict on all three wordings", "Explains the evidential difference between a checkpoint and a percentage", "Applies all five design practices, including whole-project coverage", "Distinguishes a late milestone on the critical path from one off it"]},
+        {"topic": "Gantt Charts", "title": "Agile now, so drop the Gantt", "setup": "A hybrid digital programme has several teams working in sprints on boards, a vendor delivering components on a fixed schedule, and a deployment date the client will not move. The sponsor proposes retiring the programme’s Gantt chart, on the grounds that the teams are Agile now and the boards show everything. The chart, it turns out, has not been updated for some time and still shows the original vendor dates.", "task": "Decide whether to keep the Gantt chart, and if so on what condition.", "hints": ["Ask what question each tool answers, rather than which tool is Agile.", "The page names the settings where a Gantt chart is particularly useful. Several of them are in the setup.", "The chart’s current state is a separate problem from whether the chart should exist."], "walkthrough": ["Separate the two questions. The Gantt chart is oriented to time and asks when work should happen, across the whole project or roadmap. The Kanban or Scrum board is oriented to flow and asks what is happening now, over immediate operational work.", "Match the setup to the page’s uses. Fixed client or deployment deadlines, coordinating interdependent work, stakeholder communication and hybrid agile–waterfall projects are exactly where the Gantt chart is particularly useful. Scrum and Kanban manage short-term workflow; the Gantt chart remains useful above the sprint level, and a hybrid digital project can legitimately use both.", "Reframe the sponsor’s question. The relevant question is not which tool is Agile but what level of uncertainty and coordination needs to be managed — immediate workflow or the wider project timeline. This programme has both.", "Confront the chart’s state. A Gantt chart is useful only while its assumptions match the project. Outdated, it creates false confidence, because stakeholders may make decisions from a schedule that no longer represents actual delivery conditions; without updating it becomes historical documentation.", "Set the condition: keep it, with continuous maintenance and re-forecasting so that it can show emerging delays, changing dependencies, milestone risk, resource conflicts and impacts on downstream deadlines — and judge it by whether it represents current reality strongly enough to support decisions before delays become irreversible."], "checklist": ["States the different question each tool answers", "Connects the setup to the page’s named uses of a Gantt chart", "Replaces the which-tool-is-Agile question with the level-of-coordination question", "Names false confidence as the cost of the stale chart", "Makes continuous re-forecasting the condition for keeping it"]},
+        {"topic": "Critical path diagrams", "title": "Whose work is critical?", "setup": "The lecture example’s critical sequence is Start → A → C → E → F → G → End, with durations 2 + 3 + 3 + 5 + 1 + 2 = 16 months. The lead of the largest team tells the steering group their work is critical because it is important, and asks for their people to be protected. Meanwhile a small one-month activity that nothing can proceed without, and which sits on the critical path, is running late; another team member on a non-critical task has substantial slack.", "task": "Decide what the project’s minimum duration is, whose work should be protected, and what to do about the late one-month activity.", "hints": ["Start from what “critical” means on this page.", "Criticality belongs to activities and dependencies, not to departments or workload.", "Slack is capacity — ask where it could protect the finish date."], "walkthrough": ["State the constraint. The critical path is the longest-duration dependent path; here it sums to 16, so the best-case project duration is 16 months. Minimum project duration = max (duration of each dependent path).", "Test the lead’s claim. Critical does not mean difficult, expensive or important — it means schedule-constraining because of dependencies. Critical-path analysis replaces perceived importance with a schedule-based test, and a team doing a large amount of work may not determine the completion date.", "Treat the one-month activity seriously. A seemingly small one-month activity can be extremely important if nothing can proceed without it and it sits on the critical path. Critical-path activities effectively have no schedule slack, so its delay propagates directly to final delivery.", "Use slack. Management may temporarily redirect the colleague’s capacity from the non-critical task toward the critical activity — the non-critical task becomes later, but the deadline is protected.", "Protect the constraint: minimise interruptions to the people on the critical activity, avoid adding unrelated work to them, monitor closely and escalate blockers quickly."], "checklist": ["States 16 months as the minimum duration and why", "Rejects importance or team size as the test of criticality", "Explains why the one-month activity matters despite its size", "Proposes redirecting slack capacity, accepting the non-critical task finishes later", "Names at least two ways of protecting critical-path people"]},
+        {"topic": "How do you do a big CX Project", "title": "Build first, research later", "setup": "A financial-services firm wants to launch an aged AI avatar like Future You. The engineering lead proposes going straight into sprints on the facial ageing model and voice synthesis, since the technology is proven, with a compliance review scheduled just before launch and a single big-bang release.", "task": "Using the adapted RIBA lifecycle, set out what is wrong with the plan and how you would restructure it.", "hints": ["Ask what uncertainty each group of stages is meant to remove.", "Some concerns are cross-cutting rather than checkpoints.", "Launch is not the end-state."], "walkthrough": ["Place the plan on the lifecycle. Jumping into sprints skips Stages 0-2, which reduce desirability and strategic uncertainty before major build commitment. Technical feasibility must not substitute for evidence that the experience is desirable and appropriate.", "Restore the early questions: can the avatar increase engagement, trust and meaningful financial behaviour; how do users react to aged-up representations of themselves; when should it intervene; and where are the ethical boundaries around persuasion, AI transparency and financial advice?", "Keep Agile, but inside Stages 3-6. Prototype first to test emotional and trust risk; in Stage 4, treat technical architecture and governance as inseparable because AI behaviour, personal data and advice boundaries are part of the product.", "Replace the late compliance review. Ethics & trust, security & privacy and regulatory/compliance should persist through the lifecycle, not appear as one late-stage checkpoint — trust is a design requirement.", "Replace the big-bang release with a staged launch — a beta or limited rollout turns launch into a learning mechanism — then make sure advisors are trained and AI monitoring is live, and plan Stage 7 optimisation sprints from real usage data."], "checklist": ["Identifies that Stages 0-2 are skipped and why that matters", "Places Agile inside Stages 3-6 rather than rejecting it", "Treats governance and trust as cross-cutting, not a late checkpoint", "Replaces the single release with a staged launch", "Includes operational readiness and Stage 7 learning"]}
       ]/*END_SCENARIOS*/;
 
       /* ── Quiz ─────────────────────────────────────────────── */

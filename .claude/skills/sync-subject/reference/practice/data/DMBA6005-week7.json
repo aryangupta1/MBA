@@ -1,0 +1,303 @@
+{
+  "page": "DMBA6005-week7.html",
+  "quizIntro": "Nine questions, three per topic. They target the confusions this week invites: endorsement mistaken for committed resources, a finished sprint mistaken for strategic progress, drift mistaken for withdrawal of support, and an underspend mistaken for efficiency. The project tracking questions test which way each index and variance reads, and what EAC and ETC do and do not forecast.",
+  "applyIntro": "Six scenarios, two from each topic. The stakeholder scenarios are qualitative, because the notes give reasoning rather than a worked case. The earned value scenarios describe readings by direction only — above or below 1, positive or negative — since the notes supply no dataset beyond the 80% example. Write your answer before opening a hint.",
+  "studyPath": {
+    "intro": "Three topics that build on each other: who the stakeholders are, how to keep them in the loop while the work runs, and how to measure where the work actually stands. A full pass takes about two and a half hours.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Read Stakeholders, blocks 01 to 07",
+        "detail": "Block 02’s map — approve, influence, deliver, obstruct — and block 03’s depth-and-breadth point are the two ideas the rest of the topic leans on. Block 06’s risk table is the one to learn row by row: each risk has its own engagement response, and the scenarios hand you the symptom and ask for the row.",
+        "time": "~25 min"
+      },
+      {
+        "goto": "summary",
+        "label": "Read Tracking with stakeholders, blocks 08 to 14",
+        "detail": "Start from block 08’s callout: a team can complete every sprint while moving further from the problem that matters. Blocks 09 and 10 show how the product owner protects team focus while keeping direction responsive, and block 12 separates the two failure modes — one threatens the value of the solution, the other the ability to deliver it.",
+        "time": "~25 min"
+      },
+      {
+        "goto": "summary",
+        "label": "Read Project tracking, blocks 15 to 20",
+        "detail": "Hold one idea from block 15 throughout: in EVM, value means budgeted cost of completed work. Everything else is EV compared with AC for cost and with PV for schedule. Block 17’s grid is the trap — favourable cost efficiency can coexist with delayed delivery.",
+        "time": "~25 min"
+      },
+      {
+        "goto": "formulas",
+        "label": "Fix the eight formulas, then the acronyms",
+        "detail": "Learn them in pairs: CV and CPI both compare EV with AC; SV and SPI both compare EV with PV. Variances benchmark at zero, indices at 1.0. Then EAC = BAC / CPI and ETC = EAC − AC. The Acronyms tab has the twelve expansions if any of the letters blur.",
+        "time": "~10 min"
+      },
+      {
+        "goto": "cards",
+        "label": "Run the deck cold",
+        "detail": "Seventy-one cards. The symptom cards — a contact resigns, features ship unvalidated, someone asks why they were not consulted — are worth answering out loud before flipping. The formula cards are checkable in a second.",
+        "time": "~25 min"
+      },
+      {
+        "goto": "quiz",
+        "label": "Sit the quiz without notes",
+        "detail": "Each distractor is a real confusion from this week, so read the note on the option you rejected as well as the one you chose. The earned value questions turn on direction: which side of zero or 1.0 is favourable.",
+        "time": "~15 min"
+      },
+      {
+        "goto": "apply",
+        "label": "Work two scenarios end to end",
+        "detail": "Take one stakeholder scenario and one earned value scenario. The stakeholder ones turn on diagnosing the cause before choosing a response; the earned value ones turn on reading cost and schedule separately. Mark against the checklist, not the walkthrough.",
+        "time": "~20 min"
+      }
+    ],
+    "close": "You have it when you can take any project status report and say what it shows about delivery, what it cannot show about strategic alignment, and whether its cost and schedule readings agree."
+  },
+  "quiz": [
+    {
+      "topic": "Stakeholders",
+      "q": "A partner’s executive has endorsed your initiative in a steering meeting. According to the notes, what does that endorsement establish?",
+      "hint": "The analytical takeaways draw a distinction between two kinds of support.",
+      "options": [
+        { "t": "That the partner will give the work delivery priority", "ok": false, "note": "This is the confusion the takeaways warn against: endorsement does not guarantee deliver priority." },
+        { "t": "That the relationship no longer needs a contract", "ok": false, "note": "The notes treat contracts and relationships as complementary. Goodwill alone leaves substantial disagreements unresolved until execution." },
+        { "t": "Agreement with the strategy, which is not the same as commitment of resources", "ok": true, "note": "Correct. A manager should distinguish agreement with the strategy from commitment of resources." },
+        { "t": "That the decision network has been fully mapped", "ok": false, "note": "Mapping must establish who can approve, influence, deliver or obstruct the work." }
+      ]
+    },
+    {
+      "topic": "Stakeholders",
+      "q": "You have a strong, supportive commercial contact at a partner. Why is that not enough on its own?",
+      "hint": "Think about the two dimensions relationships need.",
+      "options": [
+        { "t": "Commercial contacts are never decision-makers", "ok": false, "note": "The notes do not say this. The point is about coverage, not about commercial staff lacking authority." },
+        { "t": "The most senior person should always be the first contact instead", "ok": false, "note": "The notes say the opposite: the most senior person is not necessarily the right first contact." },
+        { "t": "A contract should replace the relationship", "ok": false, "note": "Contracts and relationships serve complementary purposes; neither replaces the other." },
+        { "t": "Relationships need breadth across functions, and a commercial contact cannot substitute for engineering capacity, legal agreement or marketing commitment", "ok": true, "note": "Correct. Relationships need depth across seniority levels and breadth across functions." }
+      ]
+    },
+    {
+      "topic": "Stakeholders",
+      "q": "The strategy is still supported by the partner, but competing work keeps displacing delivery. Which engagement response do the notes pair with this risk?",
+      "hint": "Name the risk first — the strategy itself has not changed.",
+      "options": [
+        { "t": "Keep senior stakeholders informed about timing, consequences and business value", "ok": true, "note": "Correct. This is priority change, and that is its engagement response." },
+        { "t": "Maintain senior alignment and rely on contractual commitments for baseline protection", "ok": false, "note": "That is the response to strategic change — a partner no longer wanting the initiative. Here the strategy remains supported." },
+        { "t": "Spread relationships across multiple people and support succession and onboarding", "ok": false, "note": "That is the response to people turnover, where departures remove context, advocacy and decision continuity." },
+        { "t": "Engage delivery teams directly and negotiate workable trade-offs", "ok": false, "note": "That is the response to execution constraints — capacity, budgets or dependencies preventing delivery." }
+      ]
+    },
+    {
+      "topic": "Tracking with stakeholders",
+      "q": "A team has hit every sprint goal for two months. What does that establish, according to the notes?",
+      "hint": "The notes separate two levels of tracking.",
+      "options": [
+        { "t": "Strategic progress, because delivery is the best evidence of alignment", "ok": false, "note": "The notes say delivery progress does not establish strategic progress." },
+        { "t": "Delivery progress only — the team could be moving further from the problem that matters", "ok": true, "note": "Correct. Strategic tracking asks separately whether the work still addresses stakeholder needs and business objectives." },
+        { "t": "That stakeholder consultation can now be reduced", "ok": false, "note": "Consultation belongs at recurring reviews, prioritisation discussions and consequential decision points." },
+        { "t": "That the product owner no longer needs to translate outputs", "ok": false, "note": "Translation is continuous: while the team executes the current sprint, the product owner obtains feedback on the previous one." }
+      ]
+    },
+    {
+      "topic": "Tracking with stakeholders",
+      "q": "Features are shipping steadily, but nobody has checked whether they still serve the intended outcome. Which failure mode is this?",
+      "hint": "Look at the warning-sign column of the weak-consultation table.",
+      "options": [
+        { "t": "Withdrawal of support", "ok": false, "note": "Withdrawal of support shows up as influential people questioning why they were not consulted or rejecting decisions late." },
+        { "t": "An execution constraint", "ok": false, "note": "Execution constraints are from the stakeholder risk table — capacity, budgets or dependencies preventing delivery. Here delivery is continuing." },
+        { "t": "Project drift", "ok": true, "note": "Correct. Missing feedback allows incorrect assumptions about stakeholder needs to persist; it threatens the value of the solution." },
+        { "t": "A tactical tracking failure", "ok": false, "note": "Tactical tracking asks whether tasks are progressing — and they are. The gap is at the strategic level." }
+      ]
+    },
+    {
+      "topic": "Tracking with stakeholders",
+      "q": "In the rider and elephant analogy, a stakeholder with a convincing plan in front of them still will not support the change. What do the notes say about the response?",
+      "hint": "The rider is already being served here.",
+      "options": [
+        { "t": "Provide more evidence until the rational case is overwhelming", "ok": false, "note": "The notes warn against assuming that more evidence will resolve it." },
+        { "t": "Treat the resistance as a lack of evidence and keep presenting the plan", "ok": false, "note": "The rider is already served by a convincing plan. The notes say a convincing plan can still fail if stakeholders feel threatened, confused or emotionally disconnected from the change." },
+        { "t": "Treat it as unwillingness and route around them", "ok": false, "note": "Resistance can reveal a mismatch in incentives or constraints; diagnosing it is more useful than assuming unwillingness." },
+        { "t": "The response depends on the underlying cause — apparent stubbornness may reflect fear or unclear direction", "ok": true, "note": "Correct. A convincing plan can still fail if stakeholders feel threatened, confused or emotionally disconnected from the change." }
+      ]
+    },
+    {
+      "topic": "Project tracking",
+      "q": "In earned value management, what does “value” mean?",
+      "hint": "The notes rule out three everyday meanings.",
+      "options": [
+        { "t": "Revenue generated by the completed work", "ok": false, "note": "Ruled out explicitly: value is not revenue." },
+        { "t": "The budgeted cost of completed work", "ok": true, "note": "Correct — not revenue, customer benefit or strategic value." },
+        { "t": "The strategic value the project delivers to the business", "ok": false, "note": "Ruled out explicitly: value is not strategic value." },
+        { "t": "The actual cost of the work performed", "ok": false, "note": "That is Actual Cost (AC). Earned value is valued using the original baseline." }
+      ]
+    },
+    {
+      "topic": "Project tracking",
+      "q": "A project reports CPI above 1 and SPI below 1. How should it be read?",
+      "hint": "The notes insist the two are interpreted separately.",
+      "options": [
+        { "t": "Favourable on cost but behind schedule — the two can coexist", "ok": true, "note": "Correct. Favourable cost efficiency can coexist with delayed delivery." },
+        { "t": "On track overall, because the two indices offset each other", "ok": false, "note": "Cost and schedule performance must be interpreted separately; one does not cancel the other." },
+        { "t": "Over budget and ahead of schedule", "ok": false, "note": "Reversed. CPI above 1 is favourable; SPI below 1 is behind." },
+        { "t": "Unreadable, because indices should be benchmarked at zero", "ok": false, "note": "Indices use 1.0 as the benchmark; it is variances that use zero." }
+      ]
+    },
+    {
+      "topic": "Project tracking",
+      "q": "Which statement about EAC and ETC matches the notes?",
+      "hint": "One of them is a total, the other is what is still to come — and neither is a duration.",
+      "options": [
+        { "t": "EAC replaces BAC once the project is under way", "ok": false, "note": "EAC does not replace the approved BAC; it is a forecast set beside it." },
+        { "t": "ETC is the forecast remaining duration of the project", "ok": false, "note": "ETC is a cost estimate; remaining duration is calculated separately." },
+        { "t": "A lower CPI lowers EAC, because work is being done more cheaply", "ok": false, "note": "Reversed. A lower CPI raises EAC, because completing the remaining scope requires more spending per unit of budgeted work." },
+        { "t": "EAC = BAC / CPI forecasts total cost; ETC = EAC − AC forecasts additional spend from the reporting date onward", "ok": true, "note": "Correct — both assume current cost efficiency continues across the remaining work." }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "Stakeholders",
+      "title": "The champion who left",
+      "setup": "An integration project with an external partner has run on one relationship: a well-placed contact who understood the commercial intent and cleared obstacles. That contact has just left the partner. Their replacement has no context on the project, and the partner’s engineering team, which the project never dealt with directly, is now asking why it should prioritise the work.",
+      "task": "Diagnose what went wrong in the engagement and say what the notes would have had the project do differently.",
+      "hints": [
+        "Find the risk in the engagement-as-risk-reduction table that matches this symptom.",
+        "One of the analytical takeaways gives a test that would have exposed this weakness in advance.",
+        "Think about both dimensions of relationships — the project had one contact in one function."
+      ],
+      "walkthrough": [
+        "Name the risk: people turnover. Departures remove context, advocacy and decision continuity — exactly what has happened.",
+        "Apply the resilience test: would the project retain context, sponsorship and momentum if its main contact left? Here it did not retain them.",
+        "Identify the structural gap: relationships need depth across seniority levels and breadth across functions. A single commercial-side contact could not substitute for engineering capacity.",
+        "State the response the notes give: spread relationships and understanding across multiple people, and support succession and onboarding.",
+        "Add the cooperation point: the engineering team is being approached for the first time with a request. Relationship investment should have built trust before difficult requests arose."
+      ],
+      "checklist": [
+        "Identifies the risk as people turnover",
+        "Applies the resilience test from the takeaways",
+        "Explains the missing depth and breadth",
+        "Gives the notes’ response: spread relationships, support succession and onboarding",
+        "Notes that cooperation should be built before it is needed"
+      ]
+    },
+    {
+      "topic": "Stakeholders",
+      "title": "Negotiating the perfect contract",
+      "setup": "A project lead is negotiating an agreement with a partner. To avoid any later surprises, they want the contract to specify every contingency before work begins. Negotiations are now in their third month, and the partner’s commitments have been narrowed to a conservative minimum. A colleague suggests dropping the contract and relying on goodwill instead.",
+      "task": "Advise the project lead on the roles of the contract and the relationship.",
+      "hints": [
+        "The notes set contractual agreement and relationship side by side in one table.",
+        "Each mechanism has a limitation — and both are showing up in this story.",
+        "The block closes with one line about what contractual commitments are."
+      ],
+      "walkthrough": [
+        "Name the contract’s limitation: attempting to specify every contingency prolongs negotiation and can constrain commitments to a conservative minimum. Both effects are visible.",
+        "Name goodwill’s limitation: it leaves substantial disagreements unresolved until execution. Dropping the contract swaps one problem for the other.",
+        "Assign each its purpose: the contract resolves substantial disagreements upfront and sets minimum commitments and protection; the relationship enables adaptation and contributions beyond contractual obligations as benefits become evident.",
+        "Conclude with the notes’ line: contractual commitments are a foundation, not a ceiling."
+      ],
+      "checklist": [
+        "Identifies the over-specification limitation",
+        "Rejects goodwill alone and says why",
+        "States the purpose of each mechanism",
+        "Treats the two as complementary",
+        "Uses the foundation-not-ceiling framing"
+      ]
+    },
+    {
+      "topic": "Tracking with stakeholders",
+      "title": "The late veto",
+      "setup": "A public-facing service change has been delivered sprint by sprint, with regular demonstrations to the sponsor. Near launch, a senior operations manager who was never consulted rejects a key decision and asks why their team was not involved. Separately, a community group has started raising concerns about the change.",
+      "task": "Identify which failure mode of weak consultation this is and where consultation should have happened.",
+      "hints": [
+        "The weak-consultation table has two rows. Match the warning sign.",
+        "Ask which one this threatens: the value of the solution, or the ability to deliver it.",
+        "The notes add a specific point about public-facing change."
+      ],
+      "walkthrough": [
+        "Match the warning sign: influential people questioning why they were not consulted, or rejecting decisions late, is withdrawal of support.",
+        "State what it threatens: the ability to deliver the solution, as distinct from drift, which threatens its value.",
+        "Place consultation where the notes put it: at recurring reviews, prioritisation discussions and consequential decision points — not only with the sponsor.",
+        "Add the public-facing point: formal community consultation may also be necessary, because community sentiment and the political environment can affect project viability."
+      ],
+      "checklist": [
+        "Names withdrawal of support from the warning sign",
+        "Distinguishes it from project drift",
+        "Places consultation at reviews, prioritisation and decision points",
+        "Raises formal community consultation for public-facing change"
+      ]
+    },
+    {
+      "topic": "Tracking with stakeholders",
+      "title": "Feedback straight to developers",
+      "setup": "To stay close to stakeholders, a team lets anyone post reactions to its latest release directly into the team’s channel during the sprint. The reactions are broad — “this feels wrong”, “can it do more?” — and developers keep changing course mid-sprint. Many opinions are gathered, but nobody decides which ones matter.",
+      "task": "Explain what the product owner’s role should be here and how the loop should close.",
+      "hints": [
+        "The notes describe two activities running at once — one for the team, one for the product owner.",
+        "Translation runs in both directions. Which direction is failing?",
+        "What must feedback lead to before it creates alignment?"
+      ],
+      "walkthrough": [
+        "Restore the two concurrent activities: the team executes the current sprint while the product owner obtains stakeholder feedback on the previous sprint’s outputs.",
+        "Translate stakeholders → team: broad reactions must become specific, actionable requirements before they reach the team.",
+        "Weigh it: feedback is interpreted and weighed against the wider backlog before informing subsequent work.",
+        "Close the loop: feedback must lead to an explicit prioritisation decision; gathering opinions alone does not create alignment.",
+        "Name the principle: coordinate communication so stakeholders can influence delivery without creating constant, unfiltered interruptions."
+      ],
+      "checklist": [
+        "Describes the product owner’s concurrent feedback activity",
+        "Identifies the stakeholders → team translation as missing",
+        "Weighs feedback against the backlog",
+        "Requires an explicit prioritisation decision",
+        "Protects team focus while keeping direction responsive"
+      ]
+    },
+    {
+      "topic": "Project tracking",
+      "title": "The welcome underspend",
+      "setup": "At a monthly review, a project manager reports that the project has spent less than planned to date and proposes redirecting the difference to another initiative. No one has yet assessed how much of the scheduled work is actually complete.",
+      "task": "Say what must be established before the underspend is treated as a saving, and which measures would establish it.",
+      "hints": [
+        "Spending less than planned is a comparison of two measures. Which one is missing?",
+        "Think about which measure values completed work using the original baseline.",
+        "Once you have it, there are two comparisons to make — one for cost, one for schedule."
+      ],
+      "walkthrough": [
+        "Flag the trap: spending less than planned does not necessarily indicate efficiency; it may simply reflect unfinished work.",
+        "Establish EV — the budgeted cost of work actually completed by now — which requires a credible assessment of completed work.",
+        "Compare EV with AC for cost: CV = EV - AC and CPI = EV / AC show whether completed work cost less than budgeted.",
+        "Compare EV with PV for schedule: SV = EV - PV and SPI = EV / PV show whether less work was completed than scheduled.",
+        "Conclude with the takeaway: apparent underspending should be tested against earned work, not treated as an available saving."
+      ],
+      "checklist": [
+        "Names unfinished work as the alternative explanation",
+        "Identifies EV as the missing measure",
+        "Separates the cost comparison from the schedule comparison",
+        "Uses the correct formulas for CV, CPI, SV and SPI",
+        "Refuses to treat the underspend as a saving until tested"
+      ]
+    },
+    {
+      "topic": "Project tracking",
+      "title": "A forecast the board will quote",
+      "setup": "Midway through a project, CPI is below 1 and SPI is below 1. The design stage is finished; coding and testing, which the team expects to work quite differently, are still ahead. The finance lead wants one completion cost and one finish date to present to the board as firm figures.",
+      "task": "Explain what the forecasts can say, how they are calculated, and how firmly they should be presented.",
+      "hints": [
+        "There is one formula for total cost, one for remaining cost, and a separate one for duration.",
+        "Which direction does a CPI below 1 push EAC?",
+        "What does forecast credibility depend on — and does it hold here?"
+      ],
+      "walkthrough": [
+        "Forecast cost: EAC = BAC / CPI, assuming current cost efficiency continues. A lower CPI raises EAC, because completing the remaining scope requires more spending per unit of budgeted work. EAC does not replace BAC.",
+        "Forecast remaining spend: ETC = EAC − AC, a cost estimate from the reporting date onward — not a duration.",
+        "Forecast duration separately: in the lecture’s simplified model, Forecast duration = Planned duration / SPI, assuming evenly distributed planned work and an unchanged delivery rate.",
+        "Test credibility: it depends on whether current performance is representative of the remaining work, particularly when later stages differ substantially — as coding and testing are expected to.",
+        "Present accordingly: the duration is a conditional extrapolation, not a guaranteed finish date, and EVM’s usefulness lies in enabling corrective action rather than presenting a precise forecast as certainty."
+      ],
+      "checklist": [
+        "Uses EAC = BAC / CPI and says a lower CPI raises it",
+        "Uses ETC = EAC − AC and keeps it separate from duration",
+        "Uses the simplified duration formula and states its assumptions",
+        "Questions whether current performance represents the remaining work",
+        "Presents the forecasts as conditional, supporting corrective action"
+      ]
+    }
+  ]
+}

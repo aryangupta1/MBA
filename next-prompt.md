@@ -6,91 +6,60 @@
 >
 > Every session must leave this file updated before it ends.
 
-**Last updated:** 2026-09-12
-**Left by:** Aryan's instruction: *"New changes have been made to the notion, update and sync
-accordingly. Commit and push directly to master"*, then *"Also let's add assessment notebooks
-to the live sessions btw. And update doco accordingly. Utilise sub-agents effectively."*
-Full-scope Notion → vault harvest of both semester-2 subjects; the only new material was
-**DMBA 6008 Assessment 2 — Part A**. Assessment notebooks are now **gated pages under `live/`**.
-Committed and pushed.
+**Last updated:** 2026-09-20
+**Left by:** Aryan: *"Changes have been made to notion, sync, push and commit accordingly straight to
+master."* Ran the full chain for both semester-2 subjects and **committed and pushed to `master`**
+on his instruction.
 
 ---
 
-## What was built — 2026-09-12
+## What this session did
 
-**The sync.** One metered query. One new top-level note: `Part A` (Type `Assessment`) in a new
-notebook *Assessment 2: Company Valuation*, with one sub-page `Overview` (Aryan's Cogstate
-valuation notes — tables, formulas, no images). Harvest fanned out to **9 agents** across
-both subjects' full scope (31 top-level notes) because sub-page edits don't bump Notion's
-edited time. Diffed against `backup-20260912-152126`: **every existing raw file
-byte-identical**, 0 whitespace-only, 0 real changes; 2 NEW (Part A + Overview, confirmed by my
-own `notion-fetch`). `apply_harvest`: 2 NEW, no conflicts. `verify.py`: only the two known
-failures (transcript/chat wikilinks; MedScope LaTeX artefact). `vault_discover`: **no public
-topic changed in either subject**, so no week page or search page was rebuilt.
-
-**Incident, contained.** The agent covering the 6008 Assessment 1 `Plan` recursed into its
-`Live Session Transcript` / `Live Session Chat` sub-pages and harvested the **Week 3 and Week 4
-transcripts and chat logs** (8 raw files, ~290 KB, classmates' names). My prompt to that batch
-omitted the no-transcript line. All 8 raw files and their `children.d` rows were **deleted
-before apply** — none were in the backup or the state, none reached the vault, no attachments.
-The agent's session transcript in the Claude temp dir still holds the fetched text; not in the
-repo or the vault. **Every future harvest prompt must carry the no-transcript rule.**
-
-**Assessment notebooks on the gated pages** (`.claude/private-pages/build.py`):
-- `live/<CODE>-assessment<N>.html`, one per vault folder `Assessment <N> …` — **discovered, not
-  listed**. Every note in the notebook, top-level in created order, sub-pages after their
-  parent (`Parent — Child`). A stale assessment page is removed on rebuild.
-- Built: **DMBA6005-assessment1** (Plan, Final Version), **DMBA6008-assessment1** (Plan),
-  **DMBA6008-assessment2** (Part A, Part A — Overview).
-- Subject index `live/<CODE>.html` now has a **Weeks** section and an **Assessment notebooks**
-  section.
-- **Tab links on every gated page** (Aryan, same day: *"Where are the assessment notebook? It
-  should fall under the live tab links"* — first cut only listed them at the bottom of the
-  index). `subject_tabs()` renders **All · Week N … | Assessment N …** at the top of the index,
-  every week page and every assessment page, current page highlighted. Derived from `PAGES` +
-  discovered notebooks — no hand list.
-- New `IMAGE_TRANSCRIBED` table — the 6008 A1 rubric (two text screenshots) is a transcribed
-  table; PNGs not published.
-- `<mention-page>` links now render as `Week › Note` titles from vault frontmatter instead of
-  being dropped (the 6005 Plan had three empty bullets otherwise).
-- Verified in Chrome over `http://127.0.0.1`: wrong code rejected, test code unlocks, both
-  6008 assessment pages and the 6005 one auto-unlock in the tab, rubric renders, no body
-  overflow (Chrome would not go below ~780 px). Rebuilt with the real code afterwards; no
-  `<img>`/`prod-files` in any live file.
-
-**Docs** (sub-agent): `.claude/private-pages/README.md`, `CLAUDE.md`, `docs/architecture.md`,
-`conventions.md`, `content-guide.md`, `workflows.md`, `vault-sync.md`, `design-system.md`;
-hub `.lookup--live` card copy on both hubs and both `library.html` descriptions now mention
-assessment notebooks (copy only, no CSS). `SECRET-PAGES.md` has a new "Assessment notebooks"
-table.
+- **sync-notes**, both courses, full scope, 8 harvest agents. Backup at
+  `~/MBA/.mba-sync/backup-20260920-003831/`. 0 whitespace-only diffs, 9 real diffs — the two
+  prose-heavy ones re-verified with my own fetch. Applied with no conflicts: 6008 8 new + 1 updated,
+  6005 8 new + 6 updated. `verify.py`: only the known transcript/chat wikilinks and a pre-existing
+  markup leftover in `Live Prep - MedScope Technologies.md` (untouched since 2026-09-09).
+- Transcripts skipped again: the four `Live Session Transcript` / `Live Session Chat` children of the
+  6008 Assessment 1 `Plan`. New Shadow Boxing pages for 6005 Weeks 5–7 were harvested into the vault
+  (his own case-exercise notes, not a transcript); syncRules keep them off every public page.
+- **Published:** `DMBA6008-week7.html` (6 topics; all 9 images were formulas, transcribed) and
+  `DMBA6005-week7.html` (3 topics; its 1 image was the EAC/ETC formula, transcribed). Re-synced
+  `DMBA6005-week6.html`: `Critical path diagrams` is now fully written, new topic
+  `How do you do a big CX Project`. Hubs, library, both search pages (1,531 / 1,141), state and docs
+  updated. Gate-1 fidelity agents ran on all three pages; every finding was fixed before commit.
+- **Gated pages rebuilt** (`build.py`) for the changed Live / Assessment notes — 6005 Week 5 Live
+  (+ `Live Prep`), 6008 Assessment 2 Part A (+ `Valuation inputs`), 6005 Assessment 1 Final Version.
 
 ## Do first
 
-1. **Tell Aryan about the transcript incident above** — contained, nothing published, but he
-   should know an agent read those pages.
-2. **Tell Aryan the access code is six characters** (carried over) — assessment work now sits
-   behind it too, which raises the stakes. Longer code: change `.env`, re-run `build.py`, commit.
-3. Ask how the **assessment pages** look — and whether he wants the **6005 Final Version**
-   (his submitted video script) behind the gate at all; it was included because he asked for
-   the notebooks, not by a note-by-note ruling.
-4. Still unseen by him: Week 6 page, live index, hub card, search pages, 6008 Wk 5, 6005 Wk 6.
-5. Ask him to approve the hook (`/hooks`) — twelfth session reading this by hand.
-6. Mention the `$28.888m` / `$22.888m` line (carried over).
+1. Tell Aryan about the **SVG white-text bug** (below) and ask whether to fix it site-wide.
+2. Still owed to him from 2026-09-12 — see Open threads item 1.
 
 ## Open threads
 
-- [ ] **Add the no-transcript rule to `~/MBA/.mba-sync/AGENT-INSTRUCTIONS.md` itself**, so it
-      is not left to each prompt. (Not done this session — `.mba-sync` is outside the repo.)
-- [ ] **Acronyms/formulas splice is still hand-scripted per week** — worth a `splice_ref.py`.
-- [ ] **Sync-notes image expiry**: write and ingest each raw file immediately; re-fetch on fail.
+- [ ] **SVG white text renders dark on 13 published week pages.** `.svg-label` / `.svg-sub` /
+      `.svg-mono` set `fill` in CSS, which beats a `fill="#ffffff"` attribute, so labels meant to be
+      white on dark boxes render near-black (confirmed in-browser on `DMBA6008-week6.html`:
+      computed `rgb(20,19,23)`, 35 labels). The two Week 7 pages use inline `style="fill:…"` and are
+      fine. Fix = move the attribute into `style` on every such `<text>` (mechanical), and fix
+      `week-shell.html` so new builds don't reintroduce it. **Not done — not asked.**
+- [ ] The 2026-09-12 "Do first" list is still unreported to Aryan: (1) the transcript incident of
+      2026-09-12; (2) the access code is six characters; (3) how assessment pages look / whether
+      6005 Final Version belongs behind the gate; (4) the unseen pages; (5) approve the hook
+      (`/hooks`); (6) the `$28.888m` / `$22.888m` line.
+- [ ] Add the no-transcript rule to `~/MBA/.mba-sync/AGENT-INSTRUCTIONS.md` itself.
+- [ ] `practice/build.py` skips a page that already has practice content — use `strip.py` first.
+      Worth a line in the SKILL.md Phase 3c.
+- [ ] Acronyms/formulas splice is still hand-scripted per week — worth a `splice_ref.py`.
 - [ ] `semester-2-private-notes.html` is stale and needs its own password to rebuild or delete.
 - [ ] Four syllabus files still cannot be migrated (`file://` refs in Notion).
 - [ ] Lecturer name and email remain in git history from `7a63ab5`; not scrubbed, not asked.
-- [ ] No `Live` note yet for **6005 Week 6** or **6008 Week 5**; when one lands, add it to
-      `PAGES` in `build.py` and rebuild. (Assessments need no code change.)
-- [ ] `harvest_plan.py` writes one `plan.json` per course — running it for two courses in a
-      row leaves only the second's plan, so `apply_harvest` silently skips the first. Re-run it
-      for each course before its apply (done manually this session).
+- [ ] No `Live` note yet for 6005 Weeks 6–7 or 6008 Weeks 5 and 7.
+- [ ] `harvest_plan.py` writes one `plan.json` per course — re-run it for each course before its apply
+      (did so this session).
+- [ ] The Chrome extension refuses `file://` URLs; serve with `python3 -m http.server` for the
+      browser gate.
 
 ## Settled — do not re-open
 
@@ -102,6 +71,12 @@ table.
 - **The search pages add no content.** One per subject, rebuilt after every week change.
 - **DMBA 6005 Week 3 `Live`** stays off public week pages. **Notion feeds the vault only.**
 - **DMBA 6008 Week 4's lease inconsistency and Week 6's $28.888m line stay unreconciled.**
+
+## Notes for the next session
+
+- Notion `notion-query-data-sources` result is truncated (`has_more`), but it is ordered by
+  `Edited Time` desc so every recently edited note is in the first page.
+- Say the no-transcript rule in every harvest prompt. This repo's guidance is in **CLAUDE.md**.
 
 ## Do not
 

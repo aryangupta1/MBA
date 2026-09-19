@@ -1,0 +1,527 @@
+{
+  "page": "DMBA6008-week7.html",
+  "quizIntro": "Twelve questions, two per topic. They target the confusions this week invites: the tax saving against the lower profit, the funding gap against the operating cash cycle, dividends against total distributions, borrowing capacity against value created, a warning score against a prediction, and higher EPS against higher value per share. Every wrong option is a mistake someone actually makes with this material.",
+  "applyIntro": "Six scenarios, one per topic. Three are qualitative, because the page gives no figures for them; three use only the numbers the notes supply — the 100, 30, 30% and 10% tax example, RHL’s $1.20 and $1.45 EPS with its beta of 1 and 5% and 7% rates, and the 25/75 weights with the 4.9% and 11.8% costs. Commit to an answer before opening the walkthrough.",
+  "studyPath": {
+    "intro": "Six topics that build one argument: why debt adds value and then destroys it, how to measure the tax benefit, how to judge a sensible range and spot distress, a worked acquisition that tests the idea, and the financing cost that follows from the mix. A full pass takes about two and three-quarter hours.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Hold the trade-off",
+        "time": "~20 min",
+        "detail": "Blocks 01 to 05. Learn V with debt = V without debt + PV(tax benefits) − PV(financial distress costs) and the three zones of the curve. Be able to say why the benefit is the tax saving and not the lower profit, and which of the four distress effects widens the funding gap rather than the operating cash cycle."
+      },
+      {
+        "goto": "summary",
+        "label": "Rebuild the tax example",
+        "time": "~20 min",
+        "detail": "Blocks 06 to 09. Redo the two-column table from memory — 21 against 22.5 to lenders and shareholders — then compute 50 x 10% x 30% = $1.5 million and 1.5 / 0.12 = $12.5 million. Note the 12% is an example rate, and the $12.5 million is an increase, not total value."
+      },
+      {
+        "goto": "summary",
+        "label": "Judge a range, then spot distress",
+        "time": "~30 min",
+        "detail": "Blocks 10 to 18. Name the four indicators and what each implies, then work interest cover (20/2 = 10 times). Place the lecture scenarios on the Z-score zones — E 1.11, D 1.87, B 4.84, A 7.55 — and remember scenario C’s exact score was not supplied."
+      },
+      {
+        "goto": "summary",
+        "label": "Work the Rusty Hollows case",
+        "time": "~30 min",
+        "detail": "Blocks 19 to 23. Cover the table and reproduce EPS of $1.20 and $1.45, then βL = 1.35, Re ≈ 14.5% and a share price of about $10 both ways. The point is the decision table: debt wins on EPS, the routes are approximately indifferent on value per share."
+      },
+      {
+        "goto": "summary",
+        "label": "Build WACC on market weights",
+        "time": "~20 min",
+        "detail": "Blocks 24 to 29. Derive 11.8% and 4.9%, weight them 25/75 to reach 10.075% ≈ 10.08%, and be able to say why book weights (50/50) mislead and when company WACC is the wrong project hurdle."
+      },
+      {
+        "goto": "formulas",
+        "label": "Drill the formulas",
+        "time": "~15 min",
+        "detail": "Filter for “WACC” and “tax shield”. Nine of these were images in the notes and are transcribed exactly — keep the notes’ lowercase x in D x Rd x T and in share price x shared outstanding."
+      },
+      {
+        "goto": "quiz",
+        "label": "Test, then apply",
+        "time": "~30 min",
+        "detail": "Take the twelve-question quiz, then attempt the six scenarios without opening the hints. The RHL and WACC scenarios are the ones to do on paper."
+      }
+    ],
+    "close": "The week has landed when you can explain, with the RHL numbers, why a higher EPS from borrowing can leave the share price unchanged at about $10."
+  },
+  "quiz": [
+    {
+      "topic": "Optimal capital structure",
+      "q": "A company takes on more debt and its taxable profit falls. According to the page, what is the benefit of the extra debt?",
+      "hint": "Follow the chain on the page to its last link.",
+      "options": [
+        {
+          "t": "The reduction in profit, because a lower profit is taxed less.",
+          "ok": false,
+          "note": "The page is explicit that the benefit is the tax saving, not the reduction in profit itself."
+        },
+        {
+          "t": "Nothing — interest is a cash cost, so debt never adds value.",
+          "ok": false,
+          "note": "Interest does still cost cash, but tax deductibility offsets part of that cost, which is why value rises at low to moderate debt."
+        },
+        {
+          "t": "The tax saving, which leaves more cash for distributions or reinvestment.",
+          "ok": true,
+          "note": "More debt → higher interest expense → lower taxable profit → lower tax. The benefit is the tax saving, and cash saved can support distributions or reinvestment."
+        },
+        {
+          "t": "Free borrowing, because the interest is fully deductible.",
+          "ok": false,
+          "note": "The page’s callout: tax deductibility offsets part of the cost of interest; it does not make borrowing free."
+        }
+      ]
+    },
+    {
+      "topic": "Optimal capital structure",
+      "q": "A distressed company’s suppliers move it to cash on delivery. Which measure does this lengthen?",
+      "hint": "Ask which days — inventory, receivable or payable — supplier credit actually affects.",
+      "options": [
+        {
+          "t": "The operating cash cycle, because cash is tied up for longer.",
+          "ok": false,
+          "note": "The operating cash cycle concerns inventory and receivable days. Supplier credit affects payable days, so the cycle itself is not what changes."
+        },
+        {
+          "t": "The funding gap, because payable days fall.",
+          "ok": true,
+          "note": "Earlier payment or cash on delivery reduces payable days and widens the funding gap, tying up cash that could support other activities."
+        },
+        {
+          "t": "Receivable days, because customers also pay later.",
+          "ok": false,
+          "note": "The page ties supplier credit to payable days only; nothing it says links cash on delivery to receivable days."
+        },
+        {
+          "t": "Neither — it only affects the required equity return.",
+          "ok": false,
+          "note": "Supplier credit withdrawal is one of the cash-flow effects of excessive debt, separate from the rise in the required equity return."
+        }
+      ]
+    },
+    {
+      "topic": "Tax benefits of debt",
+      "q": "In the tax example, shareholders receive 17.5 with debt against 21 without. What does the page conclude?",
+      "hint": "Look at the table’s bottom line rather than the dividend row.",
+      "options": [
+        {
+          "t": "Debt has weakened operating performance.",
+          "ok": false,
+          "note": "EBIT is $30 million under both structures; operating performance is unchanged. Lower reported profit does not necessarily indicate weaker operations."
+        },
+        {
+          "t": "Debt has destroyed value for investors.",
+          "ok": false,
+          "note": "Lenders now receive 5, so total distributions to lenders and shareholders rise from 21 to 22.5."
+        },
+        {
+          "t": "The two structures are equivalent, because EBIT is the same.",
+          "ok": false,
+          "note": "Same EBIT, but less tax: the government receives 7.5 rather than 9, so investors collectively receive more."
+        },
+        {
+          "t": "Dividends fall, but total distributions to capital providers rise.",
+          "ok": true,
+          "note": "Interest reduces taxable profit, leaving less cash paid to the government and more available to investors collectively: 22.5 against 21."
+        }
+      ]
+    },
+    {
+      "topic": "Tax benefits of debt",
+      "q": "The annual tax shield of $1.5 million is discounted as a perpetuity at 12%. What is the $12.5 million?",
+      "hint": "The page lists three things the figure is not, or does not include.",
+      "options": [
+        {
+          "t": "An increase in business value, before any offsetting financial distress costs.",
+          "ok": true,
+          "note": "The $12.5 million is an increase in value, not the company’s total value or an annual cash receipt, and it excludes offsetting financial distress costs."
+        },
+        {
+          "t": "The company’s total value with debt.",
+          "ok": false,
+          "note": "The page says explicitly that it is not the company’s total value."
+        },
+        {
+          "t": "The tax the company saves each year.",
+          "ok": false,
+          "note": "The annual saving is $1.5 million; $12.5 million is that saving capitalised as a perpetuity, not an annual cash receipt."
+        },
+        {
+          "t": "A value computed at the 10% borrowing rate.",
+          "ok": false,
+          "note": "The 12% hurdle rate is supplied as an example, rather than derived from the 10% borrowing rate."
+        }
+      ]
+    },
+    {
+      "topic": "Estimating the optimal capital structure",
+      "q": "A company has interest cover of 10 times. What can you conclude about taking on more debt?",
+      "hint": "Ask whether one indicator on the page is ever allowed to settle the question alone.",
+      "options": [
+        {
+          "t": "That more debt is desirable, because cover is strong.",
+          "ok": false,
+          "note": "Strong interest cover alone does not establish that more debt is desirable; the range should be supported by several indicators."
+        },
+        {
+          "t": "That it may indicate borrowing headroom, depending on other indicators.",
+          "ok": true,
+          "note": "The page: a 10x ratio may indicate borrowing headroom, depending on other indicators — and interpretation depends on business risk and industry conditions."
+        },
+        {
+          "t": "That the company is at its optimal capital structure.",
+          "ok": false,
+          "note": "The indicators help judge a feasible range; they do not independently demonstrate that additional debt increases business value, let alone locate the optimum."
+        },
+        {
+          "t": "Nothing, because interest cover is not an indicator of debt capacity.",
+          "ok": false,
+          "note": "Interest cover is one of the four indicators, alongside unlevered beta, target credit rating and industry benchmarks."
+        }
+      ]
+    },
+    {
+      "topic": "Estimating the optimal capital structure",
+      "q": "Which business would the page generally expect to support greater debt capacity?",
+      "hint": "The page contrasts two industries by how their demand responds to economic conditions.",
+      "options": [
+        {
+          "t": "A hospitality and tourism business, because its peers carry high D/E ratios.",
+          "ok": false,
+          "note": "Hospitality and tourism demand is more sensitive to economic conditions, generally supporting lower debt capacity."
+        },
+        {
+          "t": "Any business with a low unlevered beta, because its repayments are safe.",
+          "ok": false,
+          "note": "Precision on beta: it concerns sensitivity to market movements, not every source of cash-flow volatility; a low beta alone does not establish that repayments are safe."
+        },
+        {
+          "t": "A consumer staples business, because demand for essentials is relatively stable.",
+          "ok": true,
+          "note": "Demand for essentials remains relatively stable across economic conditions, generally supporting greater debt capacity."
+        },
+        {
+          "t": "Whichever business has the strongest target credit rating today.",
+          "ok": false,
+          "note": "A target credit rating is a constraint to stay within, not a measure of which industry supports more debt."
+        }
+      ]
+    },
+    {
+      "topic": "Bankruptcy prediction",
+      "q": "A company’s Altman Z-score is 1.87. How does the lecture classify it?",
+      "hint": "Place the score against the thresholds 1.8, 2.7 and 3.0.",
+      "options": [
+        {
+          "t": "Severe distress; default expected soon.",
+          "ok": false,
+          "note": "That is the zone below 1.8, where scenario E sits at 1.11."
+        },
+        {
+          "t": "The zone of ignorance: uncertain outcome.",
+          "ok": false,
+          "note": "The zone of ignorance runs from 2.7 to 3.0."
+        },
+        {
+          "t": "Safe for now.",
+          "ok": false,
+          "note": "“Safe for now” is above 3.0, where scenarios A (7.55) and B (4.84) sit."
+        },
+        {
+          "t": "Likely default within two years.",
+          "ok": true,
+          "note": "1.87 falls in the 1.8–2.7 band — lecture scenario D."
+        }
+      ]
+    },
+    {
+      "topic": "Bankruptcy prediction",
+      "q": "What does a weak Z-score establish?",
+      "hint": "The page is careful about the difference between a warning and an outcome.",
+      "options": [
+        {
+          "t": "That bankruptcy will occur.",
+          "ok": false,
+          "note": "The page says the score supports an assessment of default risk; it does not establish that bankruptcy will occur."
+        },
+        {
+          "t": "An assessment of default risk, as a conditional warning — not the cause or a certainty.",
+          "ok": true,
+          "note": "The zones are conditional, assuming no substantial improvement in the company’s circumstances; a score summarises warning signs but does not explain their causes."
+        },
+        {
+          "t": "Which ratio management must fix first.",
+          "ok": false,
+          "note": "The score does not explain the causes of the warning signs — you have to investigate which ratios drive a weak score."
+        },
+        {
+          "t": "That the company has too little cash in reserve.",
+          "ok": false,
+          "note": "Retained earnings — one of the inputs — are an accumulated balance, not current-year profit or a cash reserve; the score summarises warning signs rather than measuring cash held."
+        }
+      ]
+    },
+    {
+      "topic": "Application: Optimal capital structure",
+      "q": "RHL funds its acquisition with debt and EPS rises from $1.20 to $1.45. Why does the page not treat this as value creation?",
+      "hint": "Look at what happens to beta and the required equity return in the debt-funded column.",
+      "options": [
+        {
+          "t": "Because interest reduces total profit relative to equity financing.",
+          "ok": false,
+          "note": "True, but EPS still rises because no new shares are issued — this is not why value is unchanged."
+        },
+        {
+          "t": "Because the share count rises by 50%.",
+          "ok": false,
+          "note": "That is the equity-funded route; under debt funding no additional shares are issued."
+        },
+        {
+          "t": "Because shareholders bear more financial risk: beta rises to 1.35 and the required return to about 14.5%, leaving the price at about $10.",
+          "ok": true,
+          "note": "1.45/0.145 = $10, the same as 1.20/0.12 under equity funding. On risk-adjusted value per share the routes are approximately indifferent."
+        },
+        {
+          "t": "Because the acquisition earns less than 17.14% on assets.",
+          "ok": false,
+          "note": "Both businesses earn approximately 17.14% EBIT on assets; the acquisition’s return is not what separates the two routes."
+        }
+      ]
+    },
+    {
+      "topic": "Application: Optimal capital structure",
+      "q": "Under equity funding, RHL’s total equity value rises. What does the page say about that?",
+      "hint": "Ask where the additional equity value came from.",
+      "options": [
+        {
+          "t": "It does not itself represent value creation — new investors contributed the capital.",
+          "ok": true,
+          "note": "Total equity value increases because new investors contribute capital; the acquisition earns the required return and creates no incremental value for existing shareholders."
+        },
+        {
+          "t": "It shows equity funding is the better route.",
+          "ok": false,
+          "note": "On risk-adjusted value per share the two routes are approximately indifferent; both give about $10."
+        },
+        {
+          "t": "It means EPS has risen.",
+          "ok": false,
+          "note": "Assets and profits rise by 50%, but so does the share count, so EPS stays at $1.20."
+        },
+        {
+          "t": "It raises the required equity return above 12%.",
+          "ok": false,
+          "note": "Business risk and leverage are unchanged under equity funding, so the required equity return remains 12%."
+        }
+      ]
+    },
+    {
+      "topic": "Weighted average cost of capital",
+      "q": "In the WACC example, debt and equity have book values of 100 each but market values of 100 and 300. Which weights does WACC use, and why?",
+      "hint": "The formula’s definitions say what D and E are.",
+      "options": [
+        {
+          "t": "Book weights of 50/50, because they reflect audited balances.",
+          "ok": false,
+          "note": "Book values reflect accounting balances and would incorrectly treat the example as 50% debt-funded, understating the more expensive equity financing."
+        },
+        {
+          "t": "An average of book and market weights.",
+          "ok": false,
+          "note": "Nothing on the page blends the two; D and E are defined as market values."
+        },
+        {
+          "t": "Whichever gives the lower WACC.",
+          "ok": false,
+          "note": "The weights are set by what D and E mean, not by the answer they give."
+        },
+        {
+          "t": "Market weights of 25/75, because market values reflect current financing conditions and investor valuations.",
+          "ok": true,
+          "note": "D, E are market values of debt and equity: 100 and 300 of 400 give 25% and 75%."
+        }
+      ]
+    },
+    {
+      "topic": "Weighted average cost of capital",
+      "q": "The lender charges 7% and the tax rate is 30%. What cost of debt goes into WACC?",
+      "hint": "WACC applies (1 − T) to one of its components.",
+      "options": [
+        {
+          "t": "7%, because that is what the lender receives.",
+          "ok": false,
+          "note": "The lender does receive 7%, but WACC uses the company’s cost after the tax benefit."
+        },
+        {
+          "t": "4.9%, the company’s cost after the tax benefit.",
+          "ok": true,
+          "note": "Rd(1 − T) = 7% × (1 − 0.30) = 4.9%; weighted at 25% it contributes 1.225% to WACC."
+        },
+        {
+          "t": "7% for debt, with the 30% tax adjustment applied to the cost of equity instead.",
+          "ok": false,
+          "note": "WACC applies (1 − T) to the debt component, Rd(1 − T); the cost of equity, 11.8%, enters unadjusted."
+        },
+        {
+          "t": "11.8%, the cost of equity.",
+          "ok": false,
+          "note": "11.8% is Re from CAPM — the equity component, weighted at 75%."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "Optimal capital structure",
+      "title": "Borrowing into a downturn",
+      "setup": "A board is told that the company’s debt is well within its capacity because interest is tax-deductible and interest cover is currently comfortable. The company relies heavily on supplier credit, and its customers depend on it for ongoing service and warranties.",
+      "task": "Set out what the board should examine before accepting that the debt level is safe.",
+      "hints": [
+        "Separate what debt adds from what excessive debt takes away.",
+        "The page names two channels through which high debt affects valuation, and three groups whose behaviour changes under financial pressure.",
+        "One of the effects widens a particular gap rather than the operating cash cycle."
+      ],
+      "walkthrough": [
+        "Tax deductibility is a real benefit — more debt, higher interest expense, lower taxable profit, lower tax — but interest still costs cash; deductibility offsets part of that cost and does not make borrowing free.",
+        "Past the optimum, financial distress costs outweigh the benefit, through lower expected cash flows and higher required returns: levered beta and the required equity return rise, reducing the present value of equity cash flows.",
+        "The board should ask how suppliers, customers and employees would respond under pressure. Suppliers moving to earlier payment or cash on delivery reduce payable days and widen the funding gap; customers doubting service continuity or warranties weaken demand; capable employees with alternatives may leave.",
+        "Assess borrowing against cash flows under weaker trading conditions, including the additional funding needed if supplier credit disappears — debt capacity depends on operational resilience, and the appropriate range is company and industry-specific."
+      ],
+      "checklist": [
+        "Acknowledges the tax saving but says it does not make borrowing free",
+        "Names both channels: lower expected cash flows and higher required returns",
+        "Covers suppliers, customers and employees",
+        "Places supplier credit withdrawal on the funding gap, not the operating cash cycle",
+        "Tests borrowing against weaker trading conditions"
+      ]
+    },
+    {
+      "topic": "Tax benefits of debt",
+      "title": "Profit fell, so debt failed",
+      "setup": "Using the page’s example — assets of 100, EBIT of 30, a 30% tax rate and debt of 50 at 10% ($ million) — an analyst reports that introducing debt was a mistake because profit after tax fell from 21 to 17.5.",
+      "task": "Assess the analyst’s conclusion and state the annual and capitalised benefit the page attributes to the debt.",
+      "hints": [
+        "Check whether EBIT changed.",
+        "Add up what lenders and shareholders receive together under each structure.",
+        "The tax shield is D x Rd x T; the page capitalises it at a 12% example rate."
+      ],
+      "walkthrough": [
+        "EBIT is 30 under both structures, so operating performance is unchanged; the fall in profit after tax is a financing effect.",
+        "With debt, lenders receive 5 and shareholders 17.5, so total distributions are 22.5 against 21 without debt. Tax falls from 9 to 7.5.",
+        "The annual tax shield is 50 x 10% x 30% = $1.5 million per year — equal to both the reduction in tax and the increase in total investor distributions.",
+        "Treated as a perpetuity at the 12% example hurdle rate, 1.5 / 0.12 = $12.5 million of additional business value — an increase in value, not total value.",
+        "The analyst should instead ask whether the deductions remain usable and whether the debt level and savings can persist; and the arithmetic does not show this structure is optimal, since it excludes financial distress costs."
+      ],
+      "checklist": [
+        "Separates the financing effect from EBIT",
+        "Compares combined distributions, 22.5 against 21",
+        "Computes the $1.5 million annual tax shield",
+        "Capitalises it to $12.5 million and says it is an increase, not total value",
+        "Flags the assumptions and the omitted distress costs"
+      ]
+    },
+    {
+      "topic": "Estimating the optimal capital structure",
+      "title": "Strong cover, cyclical industry",
+      "setup": "A tourism operator has comfortable interest cover today, and its chief executive argues this proves it can take on substantially more debt. Its listed peers carry similar D/E ratios to its own.",
+      "task": "Explain how you would judge an appropriate D/E range for this company.",
+      "hints": [
+        "The page wants several indicators, not one.",
+        "Consider what the industry’s demand does across economic conditions.",
+        "Distinguish capacity to borrow from value created by borrowing."
+      ],
+      "walkthrough": [
+        "The practical task is to estimate an appropriate D/E range by combining several indicators: unlevered beta, target credit rating, industry benchmarks and interest cover.",
+        "Strong interest cover alone does not establish that more debt is desirable. More debt means higher interest expense and lower cover, holding EBIT and the borrowing rate constant.",
+        "Hospitality and tourism demand is more sensitive to economic conditions, generally supporting lower debt capacity. The conflict — comfortable cover today in an industry whose earnings can fall sharply in downturns — is exactly the kind the page says to investigate.",
+        "Peer ratios give a reference range, not proof of the optimum; and a target credit rating is a practical constraint, since more borrowing must be assessed against its effect on the cost of debt.",
+        "Even a feasible range does not show that additional debt increases business value."
+      ],
+      "checklist": [
+        "Names more than one indicator",
+        "Says strong cover alone is not enough",
+        "Uses the industry’s sensitivity to economic conditions",
+        "Treats peer ratios as a reference range only",
+        "Separates capacity to borrow from value created"
+      ]
+    },
+    {
+      "topic": "Bankruptcy prediction",
+      "title": "Safe for now",
+      "setup": "A listed company’s Z-score has fallen over three years but remains above 3.0. A director concludes there is nothing to discuss; another wants to know what the score is telling them.",
+      "task": "Advise the board on how to use the score.",
+      "hints": [
+        "Consider what the zones are conditional on.",
+        "Ask what the score does not explain.",
+        "The page links the score back to the earlier topic’s indicators."
+      ],
+      "walkthrough": [
+        "Above 3.0 is “safe for now” — a conditional category, assuming no substantial improvement in the company’s circumstances. The page warns a company can remain there while its financial position materially weakens, so the trend matters before a threshold is crossed.",
+        "The score supports an assessment of default risk; it does not establish that bankruptcy will occur, and it does not explain the causes of the warning signs.",
+        "Investigate which ratios are driving the decline — asset utilisation, net working capital, market equity relative to debt, accumulated profitability or operating profitability — because an operating turnaround, liquidity intervention and debt restructuring address different problems.",
+        "Check that the model version suits the company, and use the score alongside the debt-capacity indicators: agreement strengthens the assessment; conflicting signals warrant investigation."
+      ],
+      "checklist": [
+        "Treats “safe for now” as conditional",
+        "Looks at deterioration, not just the threshold",
+        "Investigates which ratios drive the change",
+        "Says the score is not a prediction of certain failure",
+        "Uses it alongside the debt-capacity indicators"
+      ]
+    },
+    {
+      "topic": "Application: Optimal capital structure",
+      "title": "The EPS-linked bonus",
+      "setup": "A chief executive whose bonus is tied to EPS recommends funding RHL’s $50 million acquisition with debt, pointing to EPS of $1.45 against $1.20 with equity funding.",
+      "task": "Using the page’s figures, assess whether debt funding creates value for existing shareholders.",
+      "hints": [
+        "Debt changes the risk shareholders bear, not just the share count.",
+        "Re-lever the beta of 1 at a D/E of 50/100 and a 30% tax rate.",
+        "Price each route with P0 = EPS / Re."
+      ],
+      "walkthrough": [
+        "Debt funding raises EPS to $1.45 and ROE to 14.5% because no new shares are issued — but shareholders bear additional financial risk.",
+        "βL = 1 [1 + 0.7 (50/100)] = 1.35, so Re = 5% + 1.35 × 7% = 14.45%, rounded to 14.5%.",
+        "With zero growth and earnings fully distributable, debt: 1.45/0.145 = $10; equity: 1.20/0.12 = $10.",
+        "On EPS debt appears preferable; on risk-adjusted value per share the two are approximately indifferent. EPS-based incentives can encourage borrowing even when the extra risk absorbs the apparent benefit.",
+        "Before treating the routes as equivalent, run the debt-capacity checks — credit rating, interest cover and industry benchmarks."
+      ],
+      "checklist": [
+        "Re-levers beta to 1.35",
+        "Computes the required return of about 14.5%",
+        "Prices both routes at about $10",
+        "Names the EPS-incentive problem",
+        "Calls for the debt-capacity checks"
+      ]
+    },
+    {
+      "topic": "Weighted average cost of capital",
+      "title": "One hurdle for everything",
+      "setup": "A company with market-value weights of 25% debt and 75% equity has a WACC of approximately 10.08%. It proposes using that rate to appraise a project in a new line of business, and a manager suggests weights be taken from the balance sheet instead, where debt and equity are 100 each.",
+      "task": "Assess both proposals.",
+      "hints": [
+        "The formula defines D and E.",
+        "The page lists two assumptions behind using company WACC as a project hurdle.",
+        "An unchanged financing policy is not the same as unchanged risk."
+      ],
+      "walkthrough": [
+        "WACC uses market values of debt and equity, which reflect current financing conditions and investor valuations. Book weights would treat the company as 50% debt-funded, understating the more expensive equity financing.",
+        "The 10.08% comes from (0.25 × 4.9%) + (0.75 × 11.8%) = 10.075%: debt at 7% × (1 − 0.30) = 4.9% after tax, equity at 4% + (1.2 × 6.5%) = 11.8%.",
+        "Company WACC suits a project only if it keeps the same financing weights and has the same business risk. A new line of business may not: the existing required returns may be unsuitable for an investment with different risk.",
+        "Changing financing proportions would also require reconsidering both the weights and the required returns, rather than simply substituting more debt at its existing cost."
+      ],
+      "checklist": [
+        "Rejects book-value weights and says why",
+        "Reproduces the 10.075% build-up",
+        "Names both assumptions — same weights, same business risk",
+        "Flags the new activity as a different-risk case"
+      ]
+    }
+  ]
+}

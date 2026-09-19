@@ -1,0 +1,3380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 7 — Taking stock and stakeholders — DMBA 6005</title>
+  <meta name="description" content="DMBA 6005 Week 7 — taking stock and stakeholders. Stakeholder engagement as influence without authority: mapping the decision network, depth and breadth, contracts and relationships, engagement as risk reduction. Tracking with stakeholders: tactical and strategic tracking, the product owner as translator, weak consultation, the rider and the elephant. Project tracking with earned value management: PV, EV, AC, BAC, variances, CPI, SPI, EAC and ETC.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ======================================================================
+       DESK — house design system, study-page profile.
+       A macOS window floating over the desktop wallpaper. The window holds the
+       whole week; the dock at the foot of the screen is the site navigation.
+       Tokens and components: docs/design-system.md
+       ====================================================================== */
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      /* surfaces */
+      --paper: #F4F1E9;
+      --paper2: #EFEBE1;
+      --surface: #FFFFFF;
+      --surface2: #FBFAF7;
+      --rule: rgba(28, 26, 22, 0.07);
+
+      /* ink */
+      --ink: #141317;
+      --ink2: #57534B;
+      --ink3: #8C867A;
+      --line: #E4E0D5;
+      --line2: #EFEBE2;
+
+      /* accents shared across the house */
+      --lime: #D6F24E;
+      --butter: #EDE884;
+      --blush: #F9DCDC;
+      --sky: #D7E4F8;
+      --mint: #D1EEDA;
+      --lilac: #E6DDF3;
+      --sand: #F2EEBD;
+      --pin: #E8453C;
+      --ink-blue: #3B6FE0;
+
+      /* mac window chrome */
+      --tl-red: #FD5D5C;
+      --tl-amber: #FAC900;
+      --tl-green: #28C840;
+
+      /* Subject identity. --accent* is the modern name; the --petrol* aliases
+         are kept so the hand-authored hex literals inside the SVG figures stay
+         in tune with the chrome. */
+      --accent: #A8722C;
+      --accent-deep: #6F4A17;
+      --accent-soft: #F7EFE2;
+      --accent-glow: rgba(168, 114, 44, 0.13);
+      --petrol: var(--accent);
+      --petrol-deep: var(--accent-deep);
+      --petrol-soft: var(--accent-soft);
+      --petrol-glow: var(--accent-glow);
+
+      /* Verdict colours: value created / break-even / value destroyed */
+      --pos: #1F6A4A;
+      --pos-soft: #E6F1EB;
+      --neu: #8A6D1F;
+      --neu-soft: #F6F0DF;
+      --neg: #B3402A;
+      --neg-soft: #F8E9E5;
+
+      /* geometry */
+      --radius: 14px;
+      --radius-lg: 20px;
+      --r-win: 24px;
+      --r-pill: 999px;
+      --bar: 46px;
+
+      /* elevation */
+      --sh-win: 0 4px 29px rgba(0, 0, 0, 0.16);
+      --sh-card: 0 22px 48px -26px rgba(20, 19, 23, 0.55);
+      --sh-float: 0 40px 90px -32px rgba(10, 18, 30, 0.7);
+
+      /* type */
+      --font-display: 'Mona Sans', 'Helvetica Neue', Arial, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.62;
+      color: var(--ink);
+      background: #3F6EA4;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      padding-bottom: 104px;      /* clearance for the fixed dock */
+    }
+
+    /* ── The desktop behind the window ─────────────────────────────────── */
+    .desk {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      background: linear-gradient(180deg, #33587F 0%, #4C7BA8 30%, #7CA0BE 56%, #9FB4AF 74%, #A7B677 100%);
+    }
+    .desk::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(52% 26% at 50% 16%, rgba(255, 255, 255, 0.55), transparent 66%),
+        radial-gradient(26% 14% at 74% 22%, rgba(255, 255, 255, 0.34), transparent 70%);
+      filter: blur(10px);
+    }
+    .desk::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 20, 34, 0.34), rgba(10, 20, 34, 0.5));
+    }
+    .desk-hills {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      width: 100%;
+      height: 52%;
+      display: block;
+      filter: blur(1.5px);
+    }
+
+    /* ── Stage + back link ─────────────────────────────────────────────── */
+    .stage {
+      width: min(1080px, calc(100% - 2 * clamp(12px, 3vw, 32px)));
+      margin-inline: auto;
+      padding: clamp(16px, 3vw, 34px) 0 clamp(40px, 6vw, 70px);
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: clamp(14px, 2vw, 20px);
+      padding: 9px 18px;
+      border-radius: var(--r-pill);
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .back:hover { background: rgba(255, 255, 255, 0.28); transform: translateX(-3px); }
+    .back + .back { margin-left: 8px; }
+    .back--search:hover { transform: translateY(-2px); }
+
+    /* ── The window ────────────────────────────────────────────────────── */
+    /* No overflow:hidden — descendants need position:sticky to reach the
+       viewport, so the corners are rounded on the first and last children. */
+    .win {
+      position: relative;
+      background: var(--surface);
+      border-radius: var(--r-win);
+      box-shadow: var(--sh-win), var(--sh-float);
+    }
+
+    .win-bar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: var(--bar);
+      padding: 0 14px;
+      border-radius: var(--r-win) var(--r-win) 0 0;
+      background: rgba(241, 239, 234, 0.92);
+      backdrop-filter: blur(14px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
+      border-bottom: 1px solid rgba(20, 19, 23, 0.09);
+    }
+    .win-lights { display: flex; gap: 7px; flex: 0 0 auto; }
+    .win-lights i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+    .win-lights i:nth-child(1) { background: var(--tl-red); }
+    .win-lights i:nth-child(2) { background: var(--tl-amber); }
+    .win-lights i:nth-child(3) { background: var(--tl-green); }
+    .win-addr {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding: 5px 16px;
+      border-radius: var(--r-pill);
+      background: rgba(20, 19, 23, 0.06);
+      font-size: 0.75rem;
+      color: var(--ink2);
+      text-align: center;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .win-tool {
+      flex: 0 0 auto;
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.58rem;
+      letter-spacing: -0.02em;
+    }
+    @media (max-width: 560px) { .win-addr { font-size: 0.68rem; padding: 4px 10px; } }
+
+    .wrap {
+      width: min(880px, calc(100% - 2 * clamp(18px, 5vw, 44px)));
+      margin-inline: auto;
+    }
+
+    /* ── Hero ──────────────────────────────────────────────────────────── */
+    header.hero {
+      position: relative;
+      padding: clamp(38px, 6vw, 72px) 0 clamp(28px, 4vw, 44px);
+      background:
+        radial-gradient(ellipse 80% 70% at 12% 0%, var(--accent-glow), transparent 58%),
+        linear-gradient(180deg, var(--paper2), var(--surface) 78%);
+      overflow: hidden;
+    }
+    header.hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--rule) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+      background-size: 74px 74px;
+      mask-image: radial-gradient(ellipse 78% 70% at 50% 30%, #000, transparent 76%);
+      -webkit-mask-image: radial-gradient(ellipse 78% 70% at 50% 30%, #000, transparent 76%);
+    }
+    header.hero > .wrap { position: relative; z-index: 2; }
+
+    .eyebrow {
+      display: inline-block;
+      margin: 0 0 18px;
+      padding: 7px 16px 7px 30px;
+      position: relative;
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transform: rotate(-2deg);
+      box-shadow: 0 6px 16px -9px rgba(20, 19, 23, 0.6);
+    }
+    .eyebrow::before {
+      content: "";
+      position: absolute;
+      left: 11px;
+      top: -8px;
+      width: 10px;
+      height: 24px;
+      border: 2px solid rgba(20, 19, 23, 0.35);
+      border-radius: 6px;
+      border-bottom-color: transparent;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2.1rem, 6vw, 3.6rem);
+      line-height: 0.94;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+
+    .standfirst {
+      margin: 0;
+      max-width: 60ch;
+      font-size: clamp(1rem, 1.7vw, 1.14rem);
+      line-height: 1.58;
+      color: var(--ink2);
+    }
+
+    .meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(22px, 3vw, 32px); }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 15px;
+      border-radius: var(--r-pill);
+      background: #fff;
+      border: 1px solid var(--line);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--ink2);
+      box-shadow: 0 4px 10px -6px rgba(20, 19, 23, 0.4);
+    }
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--pos);
+      animation: ping 2.6s ease-out infinite;
+    }
+    @keyframes ping {
+      0%   { box-shadow: 0 0 0 0 rgba(31, 106, 74, 0.55); }
+      70%  { box-shadow: 0 0 0 7px rgba(31, 106, 74, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(31, 106, 74, 0); }
+    }
+
+    /* ── Mode tabs — a macOS segmented control ─────────────────────────── */
+    .tabs {
+      position: sticky;
+      top: var(--bar);
+      z-index: 20;
+      padding: 12px 0;
+      background: rgba(251, 250, 247, 0.9);
+      backdrop-filter: blur(12px) saturate(160%);
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+      border-block: 1px solid var(--line2);
+    }
+    .tablist {
+      width: min(880px, calc(100% - 2 * clamp(18px, 5vw, 44px)));
+      margin-inline: auto;
+      display: flex;
+      /* Wraps at ANY width, not only on a phone: .tablist hides its scrollbar, so a row
+         that overflows leaves the last tab unreachable with no affordance. Six tabs need
+         ~857px and five need ~727px, so a 700px breakpoint left every laptop width
+         between clipping. Wrapping only engages when the row genuinely does not fit. */
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 4px;
+      border-radius: var(--r-pill);
+      background: rgba(20, 19, 23, 0.05);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tablist::-webkit-scrollbar { display: none; }
+    .tab {
+      flex: 1 1 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+      padding: 10px 18px;
+      border: 0;
+      border-radius: var(--r-pill);
+      background: transparent;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .tab:hover { color: var(--ink); background: rgba(255, 255, 255, 0.7); }
+    .tab-num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.66rem;
+      letter-spacing: 0.02em;
+      opacity: 0.55;
+    }
+
+    /* On a phone the row also drops its decorative numbers and tightens up, and the
+       pill radius gives way to a rounded rectangle. Wrapping itself is unconditional
+       and lives on .tablist above. */
+    @media (max-width: 700px) {
+      .tablist { border-radius: var(--radius-lg); }
+      .tab { padding: 9px 14px; font-size: 0.82rem; }
+      .tab-num { display: none; }
+    }
+    .tab[aria-selected="true"] {
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: 0 2px 8px -2px rgba(20, 19, 23, 0.28);
+    }
+    .tab[aria-selected="true"] .tab-num { color: var(--accent); opacity: 1; }
+
+    .panel { display: none; }
+    .panel.active { display: block; animation: fade-up 0.45s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+    @keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    main.wrap { padding-top: clamp(30px, 5vw, 52px); }
+
+    /* ── Topic sub-tabs (used where a week splits into topics) ─────────── */
+    .subtabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: clamp(26px, 4vw, 40px);
+    }
+    .subtab {
+      padding: 9px 17px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .subtab:hover { border-color: var(--accent); color: var(--ink); }
+    .subtab[aria-selected="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+    .subtab--empty { color: var(--ink3); border-style: dashed; }
+    .subtab--empty[aria-selected="true"] { background: var(--ink3); border-color: var(--ink3); color: #ffffff; }
+    .subpanel { display: none; }
+    .subpanel.active { display: block; animation: fade-up 0.4s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+
+    .unwritten {
+      padding: clamp(24px, 4vw, 38px);
+      border: 1.5px dashed var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--surface2);
+    }
+    .unwritten h2 { margin-top: 0.5rem; }
+    .unwritten ul { color: var(--ink2); }
+
+    /* ── Content blocks ────────────────────────────────────────────────── */
+    .block {
+      margin-bottom: clamp(40px, 6vw, 68px);
+      scroll-margin-top: calc(var(--bar) + 90px);
+    }
+    .block:last-child { margin-bottom: 0; }
+    .block-num {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 5px 13px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0 0 0.7rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+    h3 {
+      margin: 2rem 0 0.6rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.12rem, 2.2vw, 1.32rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+    h4 {
+      margin: 1.6rem 0 0.5rem;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: -0.01em;
+    }
+    h5 {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+    }
+    p { margin: 0 0 1rem; }
+    .block > p, .unwritten > p { color: var(--ink2); }
+    strong { font-weight: 700; color: var(--ink); }
+    em { font-style: italic; }
+    a { color: var(--accent); text-underline-offset: 3px; }
+
+    ul, ol { margin: 0 0 1.1rem; padding-left: 1.3rem; color: var(--ink2); }
+    li { margin-bottom: 0.5rem; }
+    li::marker { color: var(--accent); }
+
+    .takeaways {
+      list-style: none;
+      margin: 1.4rem 0;
+      padding: clamp(18px, 3vw, 26px) clamp(18px, 3vw, 28px);
+      background: var(--surface2);
+      border: 1px solid var(--line2);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--sh-card);
+    }
+    .takeaways li {
+      position: relative;
+      margin: 0 0 0.75rem;
+      padding-left: 1.9rem;
+      color: var(--ink2);
+    }
+    .takeaways li:last-child { margin-bottom: 0; }
+    .takeaways li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      background: var(--lime);
+      box-shadow: 0 0 0 3px rgba(214, 242, 78, 0.3);
+    }
+
+    .steps { counter-reset: step; list-style: none; padding-left: 0; margin: 1.4rem 0; }
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      margin-bottom: 1rem;
+      padding-left: 2.6rem;
+      color: var(--ink2);
+    }
+    .steps li::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 0.05em;
+      width: 1.9rem;
+      height: 1.9rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    .steps li strong { display: block; color: var(--ink); }
+
+    /* ── Callouts ──────────────────────────────────────────────────────── */
+    .callout {
+      display: flex;
+      gap: 14px;
+      margin: 1.6rem 0;
+      padding: clamp(18px, 3vw, 24px);
+      border-radius: var(--radius-lg);
+      background: var(--sand);
+      box-shadow: 6px 6px 0 rgba(20, 19, 23, 0.06);
+    }
+    .callout p { margin: 0; font-size: 1.02rem; font-weight: 600; line-height: 1.5; color: var(--ink); }
+    .callout p + p { margin-top: 0.7rem; font-weight: 400; color: var(--ink2); }
+    .icon { flex: 0 0 auto; font-size: 1.15rem; line-height: 1.35; }
+    /* A callout with more than one paragraph wraps them in a div, or the flex
+       row would lay the paragraphs out side by side. */
+    .callout > div { flex: 1 1 auto; min-width: 0; }
+    .callout--key { background: var(--sand); }
+    .callout--ask { background: var(--sky); }
+
+    /* ── Tables ────────────────────────────────────────────────────────── */
+    .table-scroll {
+      margin: 1.5rem 0;
+      overflow-x: auto;
+      border: 1px solid var(--line2);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      box-shadow: var(--sh-card);
+      -webkit-overflow-scrolling: touch;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 460px; }
+    thead th {
+      position: sticky;
+      top: 0;
+      background: var(--paper2);
+      text-align: left;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    tbody th { text-align: left; font-weight: 700; color: var(--ink); }
+    td, tbody th { padding: 12px 16px; border-bottom: 1px solid var(--line2); vertical-align: top; color: var(--ink2); }
+    tbody tr:last-child td, tbody tr:last-child th { border-bottom: 0; }
+    tbody tr:hover { background: var(--surface2); }
+
+    .verdict {
+      display: inline-block;
+      padding: 3px 11px;
+      border-radius: var(--r-pill);
+      font-size: 0.72rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .verdict--pos { background: var(--pos-soft); color: var(--pos); }
+    .verdict--neu { background: var(--neu-soft); color: var(--neu); }
+    .verdict--neg { background: var(--neg-soft); color: var(--neg); }
+
+    /* ── Formulas ──────────────────────────────────────────────────────── */
+    .formula {
+      margin: 1.3rem 0;
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: #F2F0EA;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      box-shadow: var(--sh-card);
+    }
+    .formula-stack { display: flex; flex-direction: column; gap: 6px; }
+    .formula-stack span { display: block; white-space: nowrap; }
+
+    /* ── Worked examples ───────────────────────────────────────────────── */
+    .example-grid { display: grid; gap: 16px; margin: 1.5rem 0; }
+    @media (min-width: 620px) { .example-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); } }
+    .example {
+      padding: 20px 22px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .example--pos { border-color: rgba(31, 106, 74, 0.35); background: linear-gradient(180deg, var(--pos-soft), #fff 46%); }
+    .example--neg { border-color: rgba(179, 64, 42, 0.35); background: linear-gradient(180deg, var(--neg-soft), #fff 46%); }
+    .example dl { margin: 0; font-size: 0.86rem; }
+    .example dt { font-weight: 600; color: var(--ink2); }
+    .example dd { margin: 0 0 0.5rem; font-family: var(--font-mono); color: var(--ink); }
+    .result {
+      margin: 0.9rem 0 0;
+      padding-top: 0.8rem;
+      border-top: 1px dashed var(--line);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--accent-deep);
+    }
+    .note { font-size: 0.84rem; color: var(--ink3); }
+
+    /* ── Principle cards ───────────────────────────────────────────────── */
+    .principles { display: grid; gap: 14px; counter-reset: principle; margin: 1.6rem 0; }
+    @media (min-width: 640px) { .principles { grid-template-columns: 1fr 1fr; } }
+    .principle {
+      position: relative;
+      counter-increment: principle;
+      padding: 22px 22px 22px 62px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+      transition: transform 0.24s ease, box-shadow 0.24s ease;
+    }
+    .principle:hover { transform: translateY(-3px); box-shadow: 0 30px 56px -30px rgba(20, 19, 23, 0.6); }
+    .principle::before {
+      content: counter(principle, decimal-leading-zero);
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      opacity: 0.4;
+    }
+    .p-name { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .p-q { font-size: 0.88rem; font-style: italic; color: var(--accent-deep); margin-bottom: 8px; }
+    .p-def { margin: 0; font-size: 0.88rem; color: var(--ink2); }
+
+    /* ── Figures ───────────────────────────────────────────────────────── */
+    figure { margin: 1.8rem 0; }
+    .fig-frame {
+      overflow-x: auto;
+      padding: clamp(16px, 3vw, 26px);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+      -webkit-overflow-scrolling: touch;
+    }
+    .fig-frame svg { width: 100%; height: auto; min-width: 420px; display: block; }
+    figcaption {
+      margin-top: 0.75rem;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: var(--ink3);
+    }
+    .svg-label { font-family: var(--font-sans); font-size: 12px; font-weight: 600; fill: var(--ink); }
+    .svg-sub { font-family: var(--font-sans); font-size: 10px; font-weight: 500; fill: var(--ink3); }
+    .svg-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      fill: var(--ink3);
+    }
+    .svg-mono { font-family: var(--font-mono); font-size: 11px; font-weight: 600; fill: var(--accent-deep); }
+
+    /* ── Key concepts ──────────────────────────────────────────────────── */
+    .toolbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 1.1rem; }
+    .search {
+      flex: 1 1 240px;
+      min-width: 0;
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--ink);
+      box-shadow: 0 4px 12px -8px rgba(20, 19, 23, 0.5);
+    }
+    .search:focus { outline: 3px solid var(--accent-glow); outline-offset: 0; border-color: var(--accent); }
+    .count {
+      flex: 0 0 auto;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.3rem; }
+    .chip {
+      padding: 7px 15px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .chip:hover { border-color: var(--accent); color: var(--ink); }
+    .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+
+    .glossary { display: grid; gap: 12px; }
+    .term {
+      position: relative;
+      padding: 18px 20px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .term:hover { transform: translateY(-2px); box-shadow: var(--sh-card); }
+    .term[hidden] { display: none; }
+    .term-topic {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 3px 10px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .term-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .term-name {
+      margin: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: -0.02em;
+    }
+    .term-src {
+      flex: 0 0 auto;
+      max-width: 45%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--ink3);
+    }
+    .term-src--own {
+      padding: 2px 9px;
+      border-radius: var(--r-pill);
+      background: var(--lime);
+      color: var(--ink);
+    }
+    .term-def { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--ink2); }
+    .term-formula {
+      margin-top: 0.7rem;
+      padding: 9px 13px;
+      border-radius: 10px;
+      background: var(--paper2);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-deep);
+      overflow-x: auto;
+    }
+    /* ── Acronym headings (Acronyms tab; everything else reuses .term) ─── */
+    .term-abbr { font-family: var(--font-mono); font-weight: 700; color: var(--accent-deep); }
+    .term-long { font-weight: 500; color: var(--ink2); }
+
+    .no-results { padding: 26px; text-align: center; color: var(--ink3); }
+
+    /* ── Flashcards ────────────────────────────────────────────────────── */
+    .deck { margin-top: 1.4rem; }
+    .deck-meta { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .deck-count { font-size: 0.8rem; font-weight: 600; color: var(--ink3); font-variant-numeric: tabular-nums; }
+    .deck-count strong { color: var(--ink); }
+    .progress { flex: 1 1 auto; height: 6px; border-radius: var(--r-pill); background: rgba(20, 19, 23, 0.08); overflow: hidden; }
+    .progress-fill {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: var(--r-pill);
+      background: linear-gradient(90deg, var(--accent), var(--lime));
+      transition: width 0.3s ease;
+    }
+
+    .flip {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: none;
+      perspective: 1400px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .flip-inner {
+      position: relative;
+      display: block;
+      min-height: 320px;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.3, 1);
+    }
+    .flip[aria-pressed="true"] .flip-inner { transform: rotateY(180deg); }
+    .face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      padding: clamp(24px, 4vw, 40px);
+      border-radius: var(--radius-lg);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      text-align: left;
+    }
+    .face-front {
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .face-back {
+      background: linear-gradient(150deg, var(--accent-deep), var(--accent));
+      color: #F2F0EA;
+      transform: rotateY(180deg);
+      box-shadow: var(--sh-card);
+    }
+    .face-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+    .face-back .face-tag { color: rgba(242, 240, 234, 0.65); }
+    .face-topic { font-weight: 600; letter-spacing: 0.04em; text-transform: none; opacity: 0.8; }
+    .face-back .face-topic { color: rgba(242, 240, 234, 0.75); }
+    .face-text {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.1rem, 3.2vw, 1.42rem);
+      line-height: 1.28;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .face-back .face-text { color: #FBFAF7; font-weight: 600; font-size: clamp(0.98rem, 2.8vw, 1.18rem); line-height: 1.5; }
+    .face-hint { font-size: 0.74rem; color: var(--ink3); }
+    .face-back .face-hint { color: rgba(242, 240, 234, 0.6); }
+
+    .deck-controls { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+    .btn {
+      flex: 1 1 auto;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: var(--r-pill);
+      background: var(--ink);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+      box-shadow: 0 12px 22px -16px rgba(20, 19, 23, 0.9);
+    }
+    .btn:hover:not(:disabled) { transform: translateY(-2px); }
+    .btn:disabled { opacity: 0.34; cursor: not-allowed; }
+    .btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+    .btn--ghost:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
+
+    .kbd-hint { margin: 14px 0 0; font-size: 0.76rem; color: var(--ink3); text-align: center; }
+    kbd {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-bottom-width: 2px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink2);
+    }
+
+    /* ── Footer ────────────────────────────────────────────────────────── */
+    footer.page-foot {
+      margin-top: clamp(50px, 8vw, 88px);
+      padding: clamp(30px, 5vw, 46px) 0;
+      border-radius: 0 0 var(--r-win) var(--r-win);
+      background: var(--butter);
+    }
+    footer.page-foot p {
+      margin: 0 0 0.4rem;
+      font-size: 0.84rem;
+      color: rgba(20, 19, 23, 0.78);
+    }
+    footer.page-foot p:first-child { font-weight: 700; color: var(--ink); }
+    footer.page-foot p:last-child { margin-bottom: 0; }
+
+    /* ── Dock ──────────────────────────────────────────────────────────── */
+    .dock {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 18px 40px -18px rgba(20, 19, 23, 0.6);
+      max-width: calc(100vw - 24px);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .dock::-webkit-scrollbar { display: none; }
+    .dock-item {
+      position: relative;
+      flex: 0 0 auto;
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      background: linear-gradient(160deg, #fff, #EDEAE2);
+      box-shadow: 0 2px 6px rgba(20, 19, 23, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.3), box-shadow 0.22s ease;
+    }
+    .dock-item:hover, .dock-item:focus-visible {
+      transform: translateY(-12px) scale(1.14);
+      box-shadow: 0 14px 26px -10px rgba(20, 19, 23, 0.5);
+    }
+    .dock-item[data-tint="lime"]  { background: linear-gradient(160deg, #E9FB88, var(--lime)); }
+    .dock-item[data-tint="sky"]   { background: linear-gradient(160deg, #EDF3FD, var(--sky)); }
+    .dock-item[data-tint="blush"] { background: linear-gradient(160deg, #FDF0F0, var(--blush)); }
+    .dock-item[data-tint="mint"]  { background: linear-gradient(160deg, #EAF8EE, var(--mint)); }
+    .dock-item[data-tint="lilac"] { background: linear-gradient(160deg, #F4EFFB, var(--lilac)); }
+    .dock-item[data-tint="sand"]  { background: linear-gradient(160deg, #FAF8DE, var(--sand)); }
+    .dock-item::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      padding: 5px 11px;
+      border-radius: 9px;
+      background: rgba(20, 19, 23, 0.92);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.72rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    .dock-item:hover::after, .dock-item:focus-visible::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .dock-item[aria-current="page"] {
+      box-shadow: 0 2px 6px rgba(20, 19, 23, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 0 0 2px var(--ink);
+    }
+    .dock-sep { flex: 0 0 auto; width: 1px; height: 34px; background: rgba(20, 19, 23, 0.14); margin: 0 2px; }
+    @media (max-width: 600px) {
+      body { padding-bottom: 84px; }
+      .dock { gap: 6px; padding: 7px 9px; bottom: 12px; }
+      .dock-item { width: 44px; height: 44px; font-size: 0.68rem; }
+      .dock-item::after { display: none; }
+      .dock-sep { height: 28px; }
+    }
+
+    /* ── Summary index, collapse and search ───────────────────────────────
+       The index is BUILT AT RUNTIME from the blocks themselves (see the
+       script), so it can never drift from the content and a re-sync needs
+       no extra work. With JavaScript off the summary reads exactly as it
+       did before — every block is open and there is simply no index. */
+    .toc {
+      margin-bottom: clamp(28px, 4vw, 44px);
+      padding: clamp(18px, 3vw, 24px);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, #fff, var(--surface2));
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .toc-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .toc-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .toc-actions { display: flex; gap: 8px; }
+    .toc-btn {
+      padding: 6px 13px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      background: #fff;
+      color: var(--ink2);
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .toc-btn:hover { border-color: var(--accent); color: var(--ink); }
+    .toc .toolbar { margin-bottom: 0.9rem; }
+    .toc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 2px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 640px) { .toc-list { grid-template-columns: 1fr 1fr; column-gap: 14px; } }
+    .toc-list.is-long { max-height: 19rem; overflow-y: auto; }
+    .toc-list li[hidden] { display: none; }
+    .toc-list a {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      padding: 7px 10px;
+      border-radius: 10px;
+      color: var(--ink2);
+      text-decoration: none;
+      font-size: 0.86rem;
+      line-height: 1.4;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+    .toc-list a:hover { background: var(--accent-soft); color: var(--ink); }
+    .toc-n {
+      flex: 0 0 auto;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+    .toc-empty { margin: 0; padding: 14px 10px 4px; color: var(--ink3); font-size: 0.86rem; }
+
+    /* A block becomes a disclosure. `.block` itself is untouched so the
+       prose-budget gate still measures the same thing. */
+    .block[hidden] { display: none; }
+    .block-d > summary {
+      list-style: none;
+      cursor: pointer;
+      position: relative;
+      padding-right: 34px;
+    }
+    .block-d > summary::-webkit-details-marker { display: none; }
+    .block-d > summary::after {
+      content: "";
+      position: absolute;
+      right: 8px;
+      top: 0.75em;
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid var(--ink3);
+      border-bottom: 2px solid var(--ink3);
+      transform: rotate(45deg);
+      transition: transform 0.22s ease, border-color 0.22s ease;
+    }
+    .block-d[open] > summary::after { transform: rotate(-135deg); }
+    .block-d > summary:hover h2 { color: var(--accent); }
+    .block-d > summary:hover::after { border-color: var(--accent); }
+    .block-d > summary h2 { transition: color 0.2s ease; }
+    .block-d > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 4px; border-radius: 10px; }
+    .block-d:not([open]) > summary h2 { margin-bottom: 0; }
+    /* Topic chips built at runtime use aria-pressed; the sub-tabbed weeks
+       use aria-selected. Same look for both. */
+    .subtab[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    /* ── Accessibility ─────────────────────────────────────────────────── */
+    :focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 3px; border-radius: 8px; }
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      z-index: 200;
+      padding: 12px 20px;
+      background: var(--ink);
+      color: #fff;
+      border-radius: 0 0 10px 0;
+      text-decoration: none;
+    }
+    .skip:focus { left: 0; }
+    .visually-hidden, .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+    /* ── Quiz & Apply it ───────────────────────────────────────────────
+       Two practice modes layered on top of the synced material. Both are
+       rendered at runtime from authored arrays, the way the glossary and
+       the deck already are, so a re-sync replaces data and never markup.
+       Right/wrong reuse the --pos/--neg verdict tokens the page already
+       defines; no new token is introduced. */
+    .quizbar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 1.5rem 0 0.4rem;
+      padding: 13px 18px;
+      border-radius: var(--radius-lg);
+      background: var(--surface2);
+      border: 1px solid var(--line2);
+      box-shadow: var(--sh-card);
+    }
+    .quizbar .progress { min-width: 120px; }
+    .quizbar .btn { flex: 0 0 auto; }
+    .quiz-score {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+    .quiz-score strong { color: var(--ink); }
+    .quiz-verdict {
+      margin: 0.6rem 0 0;
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      background: var(--pos-soft);
+      color: var(--pos);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .quiz-verdict[hidden] { display: none; }
+
+    .quiz-list, .scen-list { display: grid; gap: 16px; margin-top: 1.4rem; }
+    .quiz-q, .scen {
+      padding: clamp(18px, 3vw, 26px);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+    }
+    .quiz-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .quiz-n {
+      flex: 0 0 auto;
+      padding: 3px 11px;
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .quiz-stem {
+      margin: 0 0 0.2rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.04rem;
+      line-height: 1.36;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: pretty;
+    }
+
+    .opts { display: grid; gap: 9px; margin-top: 1rem; }
+    .opt {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--ink2);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    }
+    .opt:hover:not(:disabled) { border-color: var(--accent); color: var(--ink); transform: translateY(-1px); }
+    .opt:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; }
+    .opt:disabled { cursor: default; }
+    .opt-key {
+      flex: 0 0 auto;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--paper2);
+      color: var(--ink2);
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      font-weight: 800;
+    }
+    .opt-t { flex: 1 1 auto; min-width: 0; }
+    .opt[data-state="right"] { border-color: var(--pos); background: var(--pos-soft); color: var(--ink); }
+    .opt[data-state="right"] .opt-key { background: var(--pos); color: #fff; }
+    .opt[data-state="wrong"] { border-color: var(--neg); background: var(--neg-soft); color: var(--ink); }
+    .opt[data-state="wrong"] .opt-key { background: var(--neg); color: #fff; }
+    .opt[data-state="off"] { opacity: 0.5; }
+
+    .fb {
+      margin-top: 12px;
+      padding: 13px 17px;
+      border-radius: var(--radius);
+      background: var(--surface2);
+      border-left: 3px solid var(--ink3);
+    }
+    .fb + .fb { margin-top: 9px; }
+    .fb p { margin: 0.35rem 0 0; font-size: 0.87rem; color: var(--ink2); }
+    .fb-tag {
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+    .fb--right { border-left-color: var(--pos); background: var(--pos-soft); }
+    .fb--right .fb-tag { color: var(--pos); }
+    .fb--wrong { border-left-color: var(--neg); background: var(--neg-soft); }
+    .fb--wrong .fb-tag { color: var(--neg); }
+
+    /* ── Progressive reveals — hints and walkthroughs ──────────────────── */
+    .reveal {
+      margin-top: 10px;
+      border: 1.5px dashed var(--line);
+      border-radius: var(--radius);
+      background: var(--surface2);
+    }
+    .reveal > summary {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 16px;
+      list-style: none;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+    }
+    .reveal > summary::-webkit-details-marker { display: none; }
+    .reveal > summary::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+      transform: rotate(-45deg);
+      transition: transform 0.22s ease;
+    }
+    .reveal[open] > summary::before { transform: rotate(45deg); }
+    .reveal > summary:hover { color: var(--accent); }
+    .reveal > summary:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; border-radius: var(--radius); }
+    .reveal-body { padding: 0 16px 14px; }
+    .reveal-body p { margin: 0; font-size: 0.88rem; color: var(--ink2); }
+    .reveal-body .steps { margin: 0.2rem 0 0; }
+    .reveal-body .steps li { font-size: 0.88rem; }
+    .reveal--work { border-style: solid; border-color: var(--line2); background: #fff; }
+
+    /* ── Apply it ──────────────────────────────────────────────────────── */
+    .scen-title {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.12rem, 2.2vw, 1.3rem);
+      line-height: 1.16;
+      letter-spacing: -0.025em;
+    }
+    .scen-setup { margin: 0 0 0.9rem; font-size: 0.94rem; color: var(--ink2); }
+    .scen-task {
+      margin: 0 0 1.1rem;
+      padding: 13px 17px;
+      border-radius: var(--radius);
+      background: var(--sky);
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+    .scen-task strong {
+      display: block;
+      margin-bottom: 3px;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .check { list-style: none; margin: 0.4rem 0 0; padding-left: 0; }
+    .check li {
+      position: relative;
+      margin-bottom: 0.55rem;
+      padding-left: 1.7rem;
+      font-size: 0.88rem;
+      color: var(--ink2);
+    }
+    .check li:last-child { margin-bottom: 0; }
+    .check li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.28em;
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid var(--ink3);
+      border-radius: 4px;
+      background: #fff;
+    }
+    .reveal-body h5 { margin-top: 1.2rem; }
+
+    /* ── The study path ────────────────────────────────────────────────
+       "How to master this week" — the first block of the summary panel.
+       A numbered route through the modes the week actually has, with each
+       step able to jump straight to its tab. Authored as static markup so
+       the panel still reads with JS off; only the jump is enhanced. */
+    .path {
+      counter-reset: pathstep;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin: 1.5rem 0 1.3rem;
+      padding-left: 0;
+    }
+    .path-step {
+      counter-increment: pathstep;
+      position: relative;
+      margin: 0;
+      padding: 19px 22px 19px 66px;
+      border-radius: var(--radius-lg);
+      background: #fff;
+      border: 1px solid var(--line2);
+      box-shadow: 0 12px 26px -20px rgba(20, 19, 23, 0.6);
+    }
+    .path-step::before {
+      content: counter(pathstep, decimal-leading-zero);
+      position: absolute;
+      left: 20px;
+      top: 19px;
+      z-index: 1;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    /* The spine that makes it read as a route rather than a list. */
+    .path-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 34px;
+      top: 49px;
+      bottom: -13px;
+      width: 2px;
+      background: var(--line);
+    }
+    .path-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .path-label {
+      margin: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.02rem;
+      line-height: 1.24;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .path-time {
+      flex: 0 0 auto;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ink3);
+      font-variant-numeric: tabular-nums;
+    }
+    .path-step > p { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--ink2); }
+    .path-go {
+      margin-top: 13px;
+      padding: 7px 15px;
+      border: 1px solid var(--accent-soft);
+      border-radius: var(--r-pill);
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    }
+    .path-go:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .path-go:focus-visible { outline: 3px solid var(--ink-blue); outline-offset: 2px; }
+    .path-close {
+      margin: 0;
+      padding: 17px 21px;
+      border-radius: var(--radius-lg);
+      background: var(--lime);
+      font-size: 0.94rem;
+      line-height: 1.5;
+      color: var(--ink);
+      box-shadow: 6px 6px 0 rgba(20, 19, 23, 0.06);
+    }
+    .path-close strong {
+      display: block;
+      margin-bottom: 3px;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 520px) {
+      .path-head { flex-direction: column; gap: 2px; }
+    }
+
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#panel-summary">Skip to content</a>
+
+  <div class="desk" aria-hidden="true">
+    <svg class="desk-hills" viewBox="0 0 1440 600" preserveAspectRatio="none" focusable="false">
+      <defs>
+        <linearGradient id="dh1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#A9BE8C"/><stop offset="1" stop-color="#8FA96E"/>
+        </linearGradient>
+        <linearGradient id="dh2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#C6D25E"/><stop offset="1" stop-color="#9DB248"/>
+        </linearGradient>
+        <linearGradient id="dh3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#7FA045"/><stop offset="1" stop-color="#4F7431"/>
+        </linearGradient>
+        <linearGradient id="dh4" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#5C8235"/><stop offset="1" stop-color="#33501F"/>
+        </linearGradient>
+      </defs>
+      <path fill="url(#dh1)" d="M0 214C176 132 352 108 566 168c214 60 366 122 552 96 122-17 232-70 322-124V600H0Z"/>
+      <path fill="url(#dh2)" d="M0 322C154 240 330 226 520 276c190 50 336 118 522 96 132-16 268-84 398-152V600H0Z"/>
+      <path fill="url(#dh3)" d="M0 430C132 356 302 330 486 372c184 42 326 110 512 92 130-13 288-72 442-140V600H0Z"/>
+      <path fill="url(#dh4)" d="M0 536C160 470 356 452 556 486c200 34 346 78 512 62 138-14 254-52 372-98V600H0Z"/>
+    </svg>
+  </div>
+
+  <div class="stage">
+    <a class="back" href="DMBA6005-weeks.html"><span aria-hidden="true">←</span> All weeks</a>
+    <a class="back back--search" href="DMBA6005-search.html">Search all weeks</a>
+
+    <div class="win">
+      <div class="win-bar">
+        <span class="win-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="win-addr">DMBA 6005 &nbsp;/&nbsp; Week 7 &mdash; Taking stock and stakeholders</span>
+        <span class="win-tool" aria-hidden="true">MBA</span>
+      </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">DMBA 6005 · Agile Project Development · Week 7</p>
+      <h1>TAKING STOCK<br><span class="hero-em">AND STAKEHOLDERS</span></h1>
+      <p class="standfirst">Three topics on keeping a project aligned while it runs. Stakeholder engagement is influence without authority — mapping who can approve, influence, deliver or obstruct, and building cooperation before it is needed. Tracking with stakeholders separates delivery progress from strategic progress, with a product owner who translates in both directions so feedback becomes an explicit prioritisation decision. Project tracking brings in earned value management: work completed compared with what it cost and with what was scheduled, then a forecast of completion.</p>
+      <div class="meta-row">
+        <span class="pill"><span class="dot" aria-hidden="true"></span> Pre-live session</span>
+        <span class="pill">47 key terms</span>
+        <span class="pill">71 flashcards</span>
+        <span class="pill">9 quiz questions</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Week 7 study modes">
+    <div class="tablist" role="tablist">
+      <button class="tab" id="tab-summary" role="tab" aria-selected="true" aria-controls="panel-summary"
+        data-panel="summary"><span class="tab-num" aria-hidden="true">01</span>Summary &amp; visuals</button>
+      <button class="tab" id="tab-terms" role="tab" aria-selected="false" aria-controls="panel-terms"
+        data-panel="terms" tabindex="-1"><span class="tab-num" aria-hidden="true">02</span>Key concepts</button>
+      <button class="tab" id="tab-cards" role="tab" aria-selected="false" aria-controls="panel-cards"
+        data-panel="cards" tabindex="-1"><span class="tab-num" aria-hidden="true">03</span>Flashcards</button>
+      <button class="tab" id="tab-acronyms" role="tab" aria-selected="false" aria-controls="panel-acronyms"
+        data-panel="acronyms" tabindex="-1"><span class="tab-num" aria-hidden="true">04</span>Acronyms</button>
+      <button class="tab" id="tab-formulas" role="tab" aria-selected="false" aria-controls="panel-formulas"
+        data-panel="formulas" tabindex="-1"><span class="tab-num" aria-hidden="true">05</span>Formulas</button>
+      <button class="tab" id="tab-quiz" role="tab" aria-selected="false" aria-controls="panel-quiz"
+        data-panel="quiz" tabindex="-1"><span class="tab-num" aria-hidden="true">06</span>Quiz</button>
+      <button class="tab" id="tab-apply" role="tab" aria-selected="false" aria-controls="panel-apply"
+        data-panel="apply" tabindex="-1"><span class="tab-num" aria-hidden="true">07</span>Apply it</button>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- ══════════════════ 01 · SUMMARY & VISUALS ══════════════════ -->
+    <section class="panel active" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" tabindex="0">
+      <div class="block">
+        <span class="block-num">00 / Start here</span>
+        <h2>How to master this week</h2>
+        <p>Three topics that build on each other: who the stakeholders are, how to keep them in the loop while the work runs, and how to measure where the work actually stands. A full pass takes about two and a half hours.</p>
+
+        <ol class="path">
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Read Stakeholders, blocks 01 to 07</h3>
+              <span class="path-time">~25 min</span>
+            </div>
+            <p>Block 02’s map — approve, influence, deliver, obstruct — and block 03’s depth-and-breadth point are the two ideas the rest of the topic leans on. Block 06’s risk table is the one to learn row by row: each risk has its own engagement response, and the scenarios hand you the symptom and ask for the row.</p>
+            <button class="path-go" type="button" data-goto="summary">Open Summary &amp; visuals <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Read Tracking with stakeholders, blocks 08 to 14</h3>
+              <span class="path-time">~25 min</span>
+            </div>
+            <p>Start from block 08’s callout: a team can complete every sprint while moving further from the problem that matters. Blocks 09 and 10 show how the product owner protects team focus while keeping direction responsive, and block 12 separates the two failure modes — one threatens the value of the solution, the other the ability to deliver it.</p>
+            <button class="path-go" type="button" data-goto="summary">Open Summary &amp; visuals <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Read Project tracking, blocks 15 to 20</h3>
+              <span class="path-time">~25 min</span>
+            </div>
+            <p>Hold one idea from block 15 throughout: in EVM, value means budgeted cost of completed work. Everything else is EV compared with AC for cost and with PV for schedule. Block 17’s grid is the trap — favourable cost efficiency can coexist with delayed delivery.</p>
+            <button class="path-go" type="button" data-goto="summary">Open Summary &amp; visuals <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Fix the eight formulas, then the acronyms</h3>
+              <span class="path-time">~10 min</span>
+            </div>
+            <p>Learn them in pairs: CV and CPI both compare EV with AC; SV and SPI both compare EV with PV. Variances benchmark at zero, indices at 1.0. Then EAC = BAC / CPI and ETC = EAC − AC. The Acronyms tab has the twelve expansions if any of the letters blur.</p>
+            <button class="path-go" type="button" data-goto="formulas">Open Formulas <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Run the deck cold</h3>
+              <span class="path-time">~25 min</span>
+            </div>
+            <p>Seventy-one cards. The symptom cards — a contact resigns, features ship unvalidated, someone asks why they were not consulted — are worth answering out loud before flipping. The formula cards are checkable in a second.</p>
+            <button class="path-go" type="button" data-goto="cards">Open Flashcards <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Sit the quiz without notes</h3>
+              <span class="path-time">~15 min</span>
+            </div>
+            <p>Each distractor is a real confusion from this week, so read the note on the option you rejected as well as the one you chose. The earned value questions turn on direction: which side of zero or 1.0 is favourable.</p>
+            <button class="path-go" type="button" data-goto="quiz">Open Quiz <span aria-hidden="true">&rarr;</span></button>
+          </li>
+          <li class="path-step">
+            <div class="path-head">
+              <h3 class="path-label">Work two scenarios end to end</h3>
+              <span class="path-time">~20 min</span>
+            </div>
+            <p>Take one stakeholder scenario and one earned value scenario. The stakeholder ones turn on diagnosing the cause before choosing a response; the earned value ones turn on reading cost and schedule separately. Mark against the checklist, not the walkthrough.</p>
+            <button class="path-go" type="button" data-goto="apply">Open Apply it <span aria-hidden="true">&rarr;</span></button>
+          </li>
+        </ol>
+
+        <p class="path-close"><strong>The test</strong>You have it when you can take any project status report and say what it shows about delivery, what it cannot show about strategic alignment, and whether its cost and schedule readings agree.</p>
+      </div>
+
+      <div class="block" data-topic="Stakeholders">
+        <span class="block-num">01 / The core idea</span>
+        <h2>Stakeholder engagement: influence without authority</h2>
+        <p>Stakeholders have an interest in, influence over, or are affected by a project’s outcomes. The relevant
+          network extends beyond sponsors and users to operational teams, external partners and oversight bodies
+          &#8212; and stakeholders pursue their own objectives, often outside the project leader’s authority.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 222" role="img" aria-labelledby="stkfig1-title stkfig1-desc">
+              <title id="stkfig1-title">Who counts as a stakeholder</title>
+              <desc id="stkfig1-desc">Five groups connect to the project’s outcomes: sponsors and users, and beyond them
+                operational teams, external partners and oversight bodies. Each has an interest in, influence over, or
+                is affected by those outcomes, and each pursues its own objectives, often outside the project leader’s
+                authority.</desc>
+              <text class="svg-eyebrow" x="0" y="14">WHO COUNTS AS A STAKEHOLDER</text>
+
+              <rect x="0" y="28" width="128" height="52" rx="10" fill="#6F4A17" />
+              <text class="svg-label" x="64" y="59" text-anchor="middle" style="fill:#ffffff">Sponsors</text>
+              <rect x="148" y="28" width="128" height="52" rx="10" fill="#6F4A17" />
+              <text class="svg-label" x="212" y="59" text-anchor="middle" style="fill:#ffffff">Users</text>
+              <rect x="296" y="28" width="128" height="52" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+              <text class="svg-label" x="360" y="59" text-anchor="middle">Operational teams</text>
+              <rect x="444" y="28" width="128" height="52" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+              <text class="svg-label" x="508" y="59" text-anchor="middle">External partners</text>
+              <rect x="592" y="28" width="128" height="52" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+              <text class="svg-label" x="656" y="59" text-anchor="middle">Oversight bodies</text>
+
+              <path d="M300 86 L300 92 L716 92 L716 86" fill="none" stroke="#A8722C" stroke-width="1.5" />
+              <text class="svg-sub" x="508" y="106" text-anchor="middle">the relevant network extends to these as well</text>
+              <text class="svg-sub" x="138" y="106" text-anchor="middle">not only sponsors and users</text>
+
+              <path d="M64 112 L300 134" stroke="#6b6b6b" stroke-width="1.2" />
+              <path d="M212 112 L330 134" stroke="#6b6b6b" stroke-width="1.2" />
+              <path d="M360 112 L360 134" stroke="#6b6b6b" stroke-width="1.2" />
+              <path d="M508 112 L390 134" stroke="#6b6b6b" stroke-width="1.2" />
+              <path d="M656 112 L420 134" stroke="#6b6b6b" stroke-width="1.2" />
+
+              <rect x="210" y="134" width="300" height="56" rx="10" fill="#A8722C" />
+              <text class="svg-label" x="360" y="157" text-anchor="middle" style="fill:#ffffff">The project’s outcomes</text>
+              <text class="svg-sub" x="360" y="176" text-anchor="middle" style="fill:#F7EFE2">interest in · influence over · affected by</text>
+
+              <text class="svg-sub" x="360" y="212" text-anchor="middle">each pursues its own objectives, often outside the project leader’s authority</text>
+            </svg>
+          </div>
+          <figcaption>The network is wider than sponsors and users, and its members’ objectives often sit outside the
+            project leader’s authority.</figcaption>
+        </figure>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>Technical delivery alone cannot ensure success. Stakeholder input determines whether the solution
+            addresses <strong>the right problem</strong> and receives <strong>the support needed for
+            implementation</strong>.</p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Stakeholders">
+        <span class="block-num">02 / Mapping the network</span>
+        <h2>Mapping the actual decision network</h2>
+        <p>Two routes feed the map. <strong>Formal research</strong> &#8212; organisational information, company
+          websites and professional networks &#8212; identifies an appropriate entry point. The most senior person is
+          not necessarily the right first contact. <strong>Conversational discovery</strong> then fills in what the
+          formal picture misses: initial contacts reveal reporting lines, team dependencies, decision-makers and
+          potential blockers that formal structures may obscure.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 250" role="img" aria-labelledby="stkfig2-title stkfig2-desc">
+              <title id="stkfig2-title">From research to a decision map</title>
+              <desc id="stkfig2-desc">Formal research identifies an appropriate entry point; conversational discovery
+                through initial contacts then reveals reporting lines, team dependencies, decision-makers and potential
+                blockers. Both feed a map that must establish who can approve, influence, deliver or obstruct the work,
+                and what each needs to achieve.</desc>
+              <text class="svg-eyebrow" x="0" y="14">MAPPING THE ACTUAL DECISION NETWORK</text>
+
+              <rect x="0" y="28" width="230" height="96" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+              <text class="svg-mono" x="115" y="46" text-anchor="middle">01</text>
+              <text class="svg-label" x="115" y="66" text-anchor="middle">Formal research</text>
+              <text class="svg-sub" x="115" y="84" text-anchor="middle">organisational information, company</text>
+              <text class="svg-sub" x="115" y="98" text-anchor="middle">websites, professional networks</text>
+              <text class="svg-sub" x="115" y="112" text-anchor="middle">→ an appropriate entry point</text>
+
+              <path d="M115 124 L115 134" stroke="#6b6b6b" stroke-width="1.5" />
+              <path d="M110 132 L115 140 L120 132 Z" fill="#6b6b6b" />
+
+              <rect x="0" y="140" width="230" height="96" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+              <text class="svg-mono" x="115" y="158" text-anchor="middle">02</text>
+              <text class="svg-label" x="115" y="178" text-anchor="middle">Conversational discovery</text>
+              <text class="svg-sub" x="115" y="196" text-anchor="middle">initial contacts reveal reporting lines,</text>
+              <text class="svg-sub" x="115" y="210" text-anchor="middle">team dependencies, decision-makers</text>
+              <text class="svg-sub" x="115" y="224" text-anchor="middle">and potential blockers</text>
+
+              <path d="M234 76 L248 76 L248 188 L234 188" fill="none" stroke="#6b6b6b" stroke-width="1.5" />
+              <path d="M248 132 L262 132" stroke="#6b6b6b" stroke-width="1.5" />
+              <path d="M258 127 L266 132 L258 137 Z" fill="#6b6b6b" />
+
+              <text class="svg-eyebrow" x="276" y="44">THE MAP ESTABLISHES WHO CAN…</text>
+              <rect x="276" y="54" width="214" height="66" rx="10" fill="#ffffff" stroke="#A8722C" stroke-opacity="0.5" />
+              <text class="svg-label" x="383" y="92" text-anchor="middle">Approve</text>
+              <rect x="506" y="54" width="214" height="66" rx="10" fill="#ffffff" stroke="#A8722C" stroke-opacity="0.5" />
+              <text class="svg-label" x="613" y="92" text-anchor="middle">Influence</text>
+              <rect x="276" y="132" width="214" height="66" rx="10" fill="#ffffff" stroke="#A8722C" stroke-opacity="0.5" />
+              <text class="svg-label" x="383" y="170" text-anchor="middle">Deliver</text>
+              <rect x="506" y="132" width="214" height="66" rx="10" fill="#6F4A17" />
+              <text class="svg-label" x="613" y="170" text-anchor="middle" style="fill:#ffffff">Obstruct</text>
+              <text class="svg-sub" x="498" y="224" text-anchor="middle">… the work, and what each needs to achieve</text>
+            </svg>
+          </div>
+          <figcaption>Formal research finds the door; conversation finds the people behind it. The map is only
+            finished when it says what each of them needs.</figcaption>
+        </figure>
+      </div>
+
+      <div class="block" data-topic="Stakeholders">
+        <span class="block-num">03 / Depth and breadth</span>
+        <h2>Depth across seniority, breadth across functions</h2>
+        <p>Relationships need both <strong>depth</strong> across seniority levels and <strong>breadth</strong>
+          across functions. A supportive commercial contact cannot substitute for engineering capacity, legal
+          agreement or marketing commitment.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 176" role="img" aria-labelledby="stkfig3-title stkfig3-desc">
+              <title id="stkfig3-title">One supportive contact is not a substitute</title>
+              <desc id="stkfig3-desc">A supportive commercial contact on the left points to three dashed boxes on the
+                right — engineering capacity, legal agreement and marketing commitment — under the label “cannot
+                substitute for”.</desc>
+              <text class="svg-eyebrow" x="0" y="14">DEPTH ACROSS SENIORITY LEVELS · BREADTH ACROSS FUNCTIONS</text>
+
+              <rect x="0" y="62" width="220" height="60" rx="10" fill="#6F4A17" />
+              <text class="svg-label" x="110" y="88" text-anchor="middle" style="fill:#ffffff">A supportive</text>
+              <text class="svg-label" x="110" y="104" text-anchor="middle" style="fill:#ffffff">commercial contact</text>
+
+              <text class="svg-eyebrow" x="325" y="84" text-anchor="middle">CANNOT</text>
+              <text class="svg-eyebrow" x="325" y="98" text-anchor="middle">SUBSTITUTE FOR</text>
+              <path d="M226 92 L262 92" stroke="#6b6b6b" stroke-width="1.5" />
+              <path d="M388 92 L420 92" stroke="#6b6b6b" stroke-width="1.5" />
+              <path d="M416 87 L424 92 L416 97 Z" fill="#6b6b6b" />
+              <path d="M424 50 L424 134" stroke="#6b6b6b" stroke-width="1.5" />
+
+              <rect x="440" y="28" width="280" height="40" rx="8" fill="#ffffff" stroke="#A8722C" stroke-dasharray="4 3" />
+              <text class="svg-label" x="580" y="52" text-anchor="middle">Engineering capacity</text>
+              <rect x="440" y="74" width="280" height="40" rx="8" fill="#ffffff" stroke="#A8722C" stroke-dasharray="4 3" />
+              <text class="svg-label" x="580" y="98" text-anchor="middle">Legal agreement</text>
+              <rect x="440" y="120" width="280" height="40" rx="8" fill="#ffffff" stroke="#A8722C" stroke-dasharray="4 3" />
+              <text class="svg-label" x="580" y="144" text-anchor="middle">Marketing commitment</text>
+            </svg>
+          </div>
+          <figcaption>Relationships need both depth and breadth; support in one place does not stand in for
+            commitment elsewhere.</figcaption>
+        </figure>
+      </div>
+
+      <div class="block" data-topic="Stakeholders">
+        <span class="block-num">04 / Cooperation first</span>
+        <h2>Building cooperation before it is needed</h2>
+        <ul>
+          <li>Relationship investment creates trust before difficult requests or disagreements arise. <strong>A first
+            interaction with a senior stakeholder should not be an escalation.</strong></li>
+          <li>Regular contact and an understanding of people’s pressures make constraints easier to discuss openly.
+            Transparency about deadlines and consequences helps others assess urgency, within confidentiality
+            limits.</li>
+          <li>Shared objectives must reach those executing the work. Understanding the commercial intent supports
+            discretionary decisions without constant clarification.</li>
+          <li>Empathy means understanding another team’s incentives and finding mutually beneficial
+            adjustments.</li>
+        </ul>
+
+        <div class="example-grid">
+          <div class="example">
+            <h5>Example — a mutually beneficial adjustment</h5>
+            <p>Additional integration work becomes easier to justify when it prevents a partner’s engineering team
+              from repeating work after a planned upgrade.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Stakeholders">
+        <span class="block-num">05 / Contracts and relationships</span>
+        <h2>Contracts and relationships serve complementary purposes</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Mechanism</th>
+                <th scope="col">Managerial purpose</th>
+                <th scope="col">Limitation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Contractual agreement</strong></td>
+                <td>Resolves substantial disagreements upfront and established minimum commitments and protection</td>
+                <td>Attempting to specify every contingency prolongs negotiation and can constrain commitments to a
+                  conservative minimum</td>
+              </tr>
+              <tr>
+                <td><strong>Relationship and shared understanding</strong></td>
+                <td>Enables adaptation, cooperation and contributions beyond contractual obligations as benefits become
+                  evident</td>
+                <td>Goodwill alone leaves substantial disagreements unresolved until execution</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p><em>Contractual commitments are a foundation, not a ceiling.</em></p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Stakeholders">
+        <span class="block-num">06 / Risk reduction</span>
+        <h2>Engagement as risk reduction</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Risk</th>
+                <th scope="col">How it threatens delivery</th>
+                <th scope="col">Engagement response</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Strategic change</strong></td>
+                <td>A partner no longer wants the initiative</td>
+                <td>Maintain senior alignment; contractual commitments provide baseline protection</td>
+              </tr>
+              <tr>
+                <td><strong>People turnover</strong></td>
+                <td>Departures remove context, advocacy and decision continuity</td>
+                <td>Spread relationships and understanding across multiple people; support succession and
+                  onboarding</td>
+              </tr>
+              <tr>
+                <td><strong>Priority change</strong></td>
+                <td>The strategy remains supported, but competing work displaces delivery</td>
+                <td>Keep senior stakeholders informed about timing, consequences and business value</td>
+              </tr>
+              <tr>
+                <td><strong>Execution constraints</strong></td>
+                <td>Capacity, budgets or dependencies prevent delivery</td>
+                <td>Engage delivery teams directly and negotiate workable trade-offs</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Stakeholders">
+        <span class="block-num">07 / Analytical takeaways</span>
+        <h2>What good engagement looks like</h2>
+        <ul class="takeaways">
+          <li>A manager should distinguish <strong>agreement with the strategy from commitment of resources:</strong>
+            endorsement does not guarantee deliver priority.</li>
+          <li>Stakeholder resilience can be assessed by asking whether the project would retain context, sponsorship
+            and momentum if its main contact left.</li>
+          <li>Resistance can reveal a mismatch in incentives or constraints; diagnosing that mismatch is more useful
+            than assuming unwillingness.</li>
+          <li>Engagement quality is demonstrated by stakeholders’ ability to make aligned decisions and sustain
+            delivery through change, rather than by meeting frequency alone.</li>
+        </ul>
+      </div>
+
+      <div class="block" data-topic="Tracking with stakeholders">
+        <span class="block-num">08 / Two levels of tracking</span>
+        <h2>Tracking delivery and strategic alignment</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Tracking level</th>
+                <th scope="col">Central question</th>
+                <th scope="col">Management response</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Tactical</strong></td>
+                <td>Are tasks progressing, and where are blockers or resource constraints?</td>
+                <td>Resolve immediate delivery problems</td>
+              </tr>
+              <tr>
+                <td><strong>Strategic</strong></td>
+                <td>Does the work still address stakeholder needs and business objectives?</td>
+                <td>Reassess direction, priorities and expectations</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Tracking also communicated tangible progress and value to stakeholders, sustaining confidence in the
+          project.</p>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p><strong>Delivery progress does not establish strategic progress:</strong> a team can complete every
+            sprint while moving further from the problem that matters.</p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Tracking with stakeholders">
+        <span class="block-num">09 / Two concurrent activities</span>
+        <h2>The product owner as translator</h2>
+        <p>While the team executes the current sprint, the product owner obtains stakeholder feedback on relevant
+          outputs from the previous sprint. That feedback is interpreted and weighed against the wider backlog before
+          informing subsequent work.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 222" role="img" aria-labelledby="twsfig1-title twsfig1-desc">
+              <title id="twsfig1-title">Two activities running at once</title>
+              <desc id="twsfig1-desc">Two lanes over time. In the team lane, the previous sprint produced
+                outputs, the team is executing the current sprint, and subsequent work follows. In the product owner
+                lane, during the current sprint, the product owner obtains stakeholder feedback on the previous
+                sprint’s outputs, then interprets it and weighs it against the wider backlog before it informs
+                subsequent work.</desc>
+              <text class="svg-eyebrow" x="0" y="14">TWO CONCURRENT ACTIVITIES</text>
+
+              <text class="svg-label" x="0" y="66">Team</text>
+              <text class="svg-label" x="0" y="148">Product</text>
+              <text class="svg-label" x="0" y="164">owner</text>
+
+              <rect x="110" y="40" width="190" height="44" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+              <text class="svg-label" x="205" y="59" text-anchor="middle">Previous sprint</text>
+              <text class="svg-sub" x="205" y="74" text-anchor="middle">outputs to validate</text>
+              <rect x="310" y="40" width="190" height="44" rx="10" fill="#A8722C" />
+              <text class="svg-label" x="405" y="59" text-anchor="middle" style="fill:#ffffff">Current sprint</text>
+              <text class="svg-sub" x="405" y="74" text-anchor="middle" style="fill:#F7EFE2">team executes</text>
+              <rect x="510" y="40" width="190" height="44" rx="10" fill="#ffffff" stroke="#A8722C" stroke-dasharray="4 3" />
+              <text class="svg-label" x="605" y="66" text-anchor="middle">Subsequent work</text>
+
+              <rect x="310" y="126" width="190" height="52" rx="10" fill="#6F4A17" />
+              <text class="svg-label" x="405" y="148" text-anchor="middle" style="fill:#ffffff">Obtain feedback</text>
+              <text class="svg-sub" x="405" y="164" text-anchor="middle" style="fill:#e8d9bf">from stakeholders</text>
+              <rect x="510" y="126" width="190" height="52" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+              <text class="svg-label" x="605" y="148" text-anchor="middle">Interpret and weigh</text>
+              <text class="svg-sub" x="605" y="164" text-anchor="middle">against the wider backlog</text>
+
+              <path d="M205 84 L205 152 L302 152" fill="none" stroke="#6b6b6b" stroke-width="1.5" />
+              <path d="M298 147 L306 152 L298 157 Z" fill="#6b6b6b" />
+              <path d="M500 152 L504 152" stroke="#6b6b6b" stroke-width="1.5" />
+              <path d="M502 147 L510 152 L502 157 Z" fill="#6b6b6b" />
+              <path d="M605 126 L605 92" stroke="#6b6b6b" stroke-width="1.5" />
+              <path d="M600 96 L605 88 L610 96 Z" fill="#6b6b6b" />
+
+              <text class="svg-sub" x="405" y="206" text-anchor="middle">continuous consultation with controlled incorporation of change</text>
+            </svg>
+          </div>
+          <figcaption>The team stays on the current sprint while the product owner gathers and weighs feedback, so it
+            informs subsequent work without becoming an unfiltered interruption.</figcaption>
+        </figure>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>This creates <strong>continuous consultation with controlled incorporation of change,</strong>
+            protecting team focus while keeping direction responsive.</p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Tracking with stakeholders">
+        <span class="block-num">10 / Translation both ways</span>
+        <h2>Translation in both directions</h2>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 190" role="img" aria-labelledby="twsfig2-title twsfig2-desc">
+              <title id="twsfig2-title">The product owner translates both ways</title>
+              <desc id="twsfig2-desc">Top row, left to right: the team’s technical outputs pass through the product
+                owner and reach stakeholders as understandable demonstrations of progress, implications and decisions
+                requiring input. Bottom row, right to left: stakeholders’ broad reactions pass through the product owner
+                and reach the team as specific, actionable requirements.</desc>
+              <text class="svg-eyebrow" x="95" y="20" text-anchor="middle">TEAM</text>
+              <text class="svg-eyebrow" x="360" y="20" text-anchor="middle">PRODUCT OWNER</text>
+              <text class="svg-eyebrow" x="625" y="20" text-anchor="middle">STAKEHOLDERS</text>
+
+              <rect x="0" y="34" width="190" height="50" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+              <text class="svg-label" x="95" y="63" text-anchor="middle">Technical outputs</text>
+              <rect x="530" y="34" width="190" height="50" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+              <text class="svg-label" x="625" y="52" text-anchor="middle">Demonstrations</text>
+              <text class="svg-sub" x="625" y="66" text-anchor="middle">of progress, implications and</text>
+              <text class="svg-sub" x="625" y="78" text-anchor="middle">decisions requiring input</text>
+
+              <rect x="265" y="34" width="190" height="140" rx="12" fill="#A8722C" />
+              <text class="svg-label" x="360" y="96" text-anchor="middle" style="fill:#ffffff">Translates</text>
+              <text class="svg-sub" x="360" y="114" text-anchor="middle" style="fill:#F7EFE2">selects which outputs need</text>
+              <text class="svg-sub" x="360" y="128" text-anchor="middle" style="fill:#F7EFE2">validation, and who can give it</text>
+
+              <rect x="530" y="124" width="190" height="50" rx="10" fill="#ffffff" stroke="#A8722C" stroke-opacity="0.5" />
+              <text class="svg-label" x="625" y="153" text-anchor="middle">Broad reactions</text>
+              <rect x="0" y="124" width="190" height="50" rx="10" fill="#6F4A17" />
+              <text class="svg-label" x="95" y="145" text-anchor="middle" style="fill:#ffffff">Specific, actionable</text>
+              <text class="svg-label" x="95" y="161" text-anchor="middle" style="fill:#ffffff">requirements</text>
+
+              <path d="M194 59 L255 59" stroke="#6b6b6b" stroke-width="1.5" />
+              <path d="M253 54 L261 59 L253 64 Z" fill="#6b6b6b" />
+              <path d="M459 59 L520 59" stroke="#6b6b6b" stroke-width="1.5" />
+              <path d="M518 54 L526 59 L518 64 Z" fill="#6b6b6b" />
+              <path d="M526 149 L465 149" stroke="#6b6b6b" stroke-width="1.5" />
+              <path d="M467 144 L459 149 L467 154 Z" fill="#6b6b6b" />
+              <path d="M261 149 L200 149" stroke="#6b6b6b" stroke-width="1.5" />
+              <path d="M202 144 L194 149 L202 154 Z" fill="#6b6b6b" />
+            </svg>
+          </div>
+          <figcaption>Each direction needs its own translation: outward into understandable demonstrations, inward
+            into specific, actionable requirements.</figcaption>
+        </figure>
+
+        <p>The product owner selects which outputs need validation and which stakeholders can provide it &#8212;
+          marketing may assess a demonstration; a continuity group may assess public impacts. The managerial value lies
+          in making information usable across different professional perspectives, rather than simply forwarding
+          messages.</p>
+      </div>
+
+      <div class="block" data-topic="Tracking with stakeholders">
+        <span class="block-num">11 / Closing the loop</span>
+        <h2>Closing the feedback loop</h2>
+        <ul>
+          <li>Feedback must lead to an <strong>explicit prioritisation decision</strong>; gathering opinions alone does
+            not create alignment.</li>
+          <li>Learning about the product’s direction informs future work, while retrospective learning informs how the
+            team works.</li>
+          <li>The broader principle applies beyond Agile: coordinate communication so stakeholders can influence
+            delivery without creating constant, unfiltered interruptions.</li>
+        </ul>
+      </div>
+
+      <div class="block" data-topic="Tracking with stakeholders">
+        <span class="block-num">12 / Weak consultation</span>
+        <h2>Two distinct consequences of weak consultation</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Failure mode</th>
+                <th scope="col">Mechanism</th>
+                <th scope="col">Warning sign</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Project drift</strong></td>
+                <td>Missing feedback allows incorrect assumptions about stakeholder needs to persist</td>
+                <td>Features continue shipping, but their relevance to the intended outcome remains unvalidated</td>
+              </tr>
+              <tr>
+                <td><strong>Withdrawal of support</strong></td>
+                <td>Excluded stakeholders challenge decisions, withhold resources or undermine the initiative</td>
+                <td>Influential people question why they were not consulted or reject decisions late</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ul>
+          <li>The first threatens the <strong>value of the solution;</strong> the second threatens the <strong>ability
+            to deliver it</strong>.</li>
+          <li>Consultation therefore belongs at recurring reviews, prioritisation discussions and consequential
+            decision points.</li>
+          <li>For public-facing change, formal community consultation may also be necessary: community sentiment and
+            the political environment can affect project viability.</li>
+        </ul>
+      </div>
+
+      <div class="block" data-topic="Tracking with stakeholders">
+        <span class="block-num">13 / Rational and emotional</span>
+        <h2>The rider and the elephant</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Element</th>
+                <th scope="col">Represents</th>
+                <th scope="col">Implication for engagement</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Rider</strong></td>
+                <td>Rational analysis, planning and direction</td>
+                <td>Provide clear objectives, evidence and understandable next steps</td>
+              </tr>
+              <tr>
+                <td><strong>Elephant</strong></td>
+                <td>Emotion, instinct, loyalty and motivation</td>
+                <td>Understand fears and motivations that affect willingness to support change</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>A convincing plan can still fail if stakeholders feel threatened, confused or emotionally disconnected from
+          the change. Apparent stubbornness may reflect fear or unclear direction; the appropriate response depends on
+          the underlying cause, rather than assuming that more evidence will resolve it.</p>
+        <p>In managerial terms, rational clarity establishes where the project should go: emotional commitment helps
+          stakeholders act on that direction. Engagement must address both what stakeholders understand and how they
+          experience the proposed change.</p>
+      </div>
+
+      <div class="block" data-topic="Tracking with stakeholders">
+        <span class="block-num">14 / Analytical takeaways</span>
+        <h2>What tracking with stakeholders is for</h2>
+        <ul class="takeaways">
+          <li>A useful tracking system should expose <strong>what needs a decision,</strong> not merely report
+            activity completed.</li>
+          <li>Feedback has limited value unless it reaches someone with the ability to change priorities.</li>
+          <li>Stakeholder approval is stronger evidence of alignment when people understand the implications and are
+            willing to support implementation.</li>
+          <li>When resistance emerges, the diagnostic question is whether the obstacle is unclear direction, emotional
+            concern or a substantive disagreemeent about the project’s value.</li>
+        </ul>
+      </div>
+
+      <div class="block" data-topic="Project tracking">
+        <span class="block-num">15 / Earned value management</span>
+        <h2>Earned Value Management (EVM)</h2>
+        <p>EVM integrates <strong>scope, cost and schedule,</strong> comparing work completed with both its actual
+          cost and the work originally scheduled. Reliable tracking requires an approval baseline, regularly updated
+          costs and credible assessments of completed work. <strong>“Value” means the budgeted cost of completed
+          work</strong>, not revenue, customer benefit or strategic value.</p>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 222" role="img" aria-labelledby="ptrfig1-title ptrfig1-desc">
+              <title id="ptrfig1-title">Earned value compared two ways</title>
+              <desc id="ptrfig1-desc">Earned value, the budgeted cost of work completed, sits in the middle. Compared
+                with actual cost on the left, it gives the cost measures CV = EV - AC and CPI = EV / AC. Compared with
+                planned value on the right, the budgeted cost of work scheduled, it gives the schedule measures
+                SV = EV - PV and SPI = EV / PV. All measures refer to the same reporting date and scope.</desc>
+              <text class="svg-eyebrow" x="0" y="14">SCOPE · COST · SCHEDULE</text>
+              <text class="svg-sub" x="360" y="44" text-anchor="middle">all measures refer to the same reporting date and scope</text>
+
+              <rect x="0" y="62" width="190" height="70" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+              <text class="svg-label" x="95" y="92" text-anchor="middle">Actual Cost (AC)</text>
+              <text class="svg-sub" x="95" y="110" text-anchor="middle">costs incurred for work performed</text>
+
+              <rect x="265" y="62" width="190" height="70" rx="10" fill="#A8722C" />
+              <text class="svg-label" x="360" y="92" text-anchor="middle" style="fill:#ffffff">Earned Value (EV)</text>
+              <text class="svg-sub" x="360" y="110" text-anchor="middle" style="fill:#F7EFE2">budgeted cost of work completed</text>
+
+              <rect x="530" y="62" width="190" height="70" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+              <text class="svg-label" x="625" y="92" text-anchor="middle">Planned Value (PV)</text>
+              <text class="svg-sub" x="625" y="110" text-anchor="middle">budgeted cost of work scheduled</text>
+
+              <path d="M261 97 L200 97" stroke="#6b6b6b" stroke-width="1.5" />
+              <path d="M202 92 L194 97 L202 102 Z" fill="#6b6b6b" />
+              <text class="svg-eyebrow" x="228" y="88" text-anchor="middle">COST</text>
+              <path d="M459 97 L520 97" stroke="#6b6b6b" stroke-width="1.5" />
+              <path d="M518 92 L526 97 L518 102 Z" fill="#6b6b6b" />
+              <text class="svg-eyebrow" x="492" y="88" text-anchor="middle">SCHEDULE</text>
+
+              <text class="svg-mono" x="95" y="160" text-anchor="middle">CV = EV - AC</text>
+              <text class="svg-mono" x="95" y="178" text-anchor="middle">CPI = EV / AC</text>
+              <text class="svg-mono" x="625" y="160" text-anchor="middle">SV = EV - PV</text>
+              <text class="svg-mono" x="625" y="178" text-anchor="middle">SPI = EV / PV</text>
+
+              <text class="svg-sub" x="360" y="210" text-anchor="middle">“value” is budgeted cost of completed work, not revenue, customer benefit or strategic value</text>
+            </svg>
+          </div>
+          <figcaption>Earned value is the pivot: it is compared with what was spent to judge cost, and with what was
+            scheduled to judge schedule.</figcaption>
+        </figure>
+
+        <div class="callout callout--key">
+          <span class="icon" aria-hidden="true">💡</span>
+          <p>Spending less than planned does not necessarily indicate efficiency: it may simply reflect
+            <strong>unfinished work</strong>.</p>
+        </div>
+      </div>
+
+      <div class="block" data-topic="Project tracking">
+        <span class="block-num">16 / Core measures</span>
+        <h2>Measuring current performance</h2>
+        <p>All measures refer to the <strong>same reporting date and scope</strong>.</p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Measure</th>
+                <th scope="col">Meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Planned Value (PV)</strong></td>
+                <td>Budgeted cost of work scheduled to be completed by now. The time-phased budget accommodates uneven
+                  spending across the project.</td>
+              </tr>
+              <tr>
+                <td><strong>Earned Value (EV)</strong></td>
+                <td>Budgeted cost of work actually completed by now, valued using the original baseline</td>
+              </tr>
+              <tr>
+                <td><strong>Actual Cost (AC)</strong></td>
+                <td>Actual direct and indirect costs incurred for the work performed</td>
+              </tr>
+              <tr>
+                <td><strong>Budget at Completion (BAC)</strong></td>
+                <td>Total approved budget for the entire project</td>
+              </tr>
+              <tr>
+                <td><strong>Rate of Performance (RP)</strong></td>
+                <td>Actual completion proportion / planned completion proportion for the same work</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="formula"><em>EV = PV x RP</em></div>
+
+        <div class="example-grid">
+          <div class="example">
+            <h5>Rate of performance</h5>
+            <dl>
+              <dt>Task should be</dt>
+              <dd>fully complete</dd>
+              <dt>Task actually is</dt>
+              <dd>only 80% complete</dd>
+            </dl>
+            <p class="result">RP is 0.80</p>
+          </div>
+        </div>
+        <p>RP is <strong>relative to scheduled progress,</strong> not necessarily the completion percentage of the
+          whole project.</p>
+      </div>
+
+      <div class="block" data-topic="Project tracking">
+        <span class="block-num">17 / Variances and indices</span>
+        <h2>Variances and performance indices</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Metric</th>
+                <th scope="col">Formula</th>
+                <th scope="col">Interpretation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Cost variance</strong></td>
+                <td>CV = EV - AC</td>
+                <td>Positive: completed work cost less than budgeted<br>Negative: cost more</td>
+              </tr>
+              <tr>
+                <td><strong>Schedule variance</strong></td>
+                <td>SV = EV - PV</td>
+                <td>Positive: more work completed than scheduled<br>Negative: less</td>
+              </tr>
+              <tr>
+                <td><strong>Cost Performance Index</strong></td>
+                <td>CPI = EV / AC</td>
+                <td>Budgeted work delivered per dollar spent. Above 1 is favourable; below 1 is unfavourable</td>
+              </tr>
+              <tr>
+                <td><strong>Schedule Performance Index</strong></td>
+                <td>SPI = EV / PV</td>
+                <td>Work completed relative to work scheduled. Above 1 is ahead; below 1 is behind</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ul>
+          <li><strong>SV is expressed in dollars of budgeted work, not days or weeks.</strong></li>
+          <li>Indices use <strong>1.0 as the benchmark,</strong> whereas variances use zero.</li>
+          <li>Cost and schedule performance must be interpreted separately: favourable cost efficiency can coexist with
+            delayed delivery.</li>
+        </ul>
+
+        <figure>
+          <div class="fig-frame">
+            <svg viewBox="0 0 720 262" role="img" aria-labelledby="ptrfig2-title ptrfig2-desc">
+              <title id="ptrfig2-title">Cost and schedule read separately</title>
+              <desc id="ptrfig2-desc">A two-by-two grid. Columns split the schedule performance index at 1: below 1 is
+                behind, above 1 is ahead. Rows split the cost performance index at 1: above 1 is favourable, below 1 is
+                unfavourable. The highlighted cell, favourable cost with behind schedule, shows that favourable cost
+                efficiency can coexist with delayed delivery.</desc>
+              <text class="svg-eyebrow" x="0" y="14">TWO INDICES, EACH BENCHMARKED AT 1.0</text>
+              <text class="svg-sub" x="287" y="34" text-anchor="middle">SPI below 1 · behind</text>
+              <text class="svg-sub" x="572" y="34" text-anchor="middle">SPI above 1 · ahead</text>
+
+              <text class="svg-label" x="0" y="86">CPI above 1</text>
+              <text class="svg-sub" x="0" y="102">favourable</text>
+              <text class="svg-label" x="0" y="186">CPI below 1</text>
+              <text class="svg-sub" x="0" y="202">unfavourable</text>
+
+              <rect x="150" y="44" width="275" height="90" rx="10" fill="#6F4A17" />
+              <text class="svg-label" x="287" y="80" text-anchor="middle" style="fill:#ffffff">Favourable cost · behind</text>
+              <text class="svg-sub" x="287" y="98" text-anchor="middle" style="fill:#e8d9bf">favourable cost efficiency can</text>
+              <text class="svg-sub" x="287" y="112" text-anchor="middle" style="fill:#e8d9bf">coexist with delayed delivery</text>
+
+              <rect x="435" y="44" width="275" height="90" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+              <text class="svg-label" x="572" y="93" text-anchor="middle">Favourable cost · ahead</text>
+
+              <rect x="150" y="144" width="275" height="90" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+              <text class="svg-label" x="287" y="193" text-anchor="middle">Unfavourable cost · behind</text>
+
+              <rect x="435" y="144" width="275" height="90" rx="10" fill="#F7EFE2" stroke="#A8722C" stroke-opacity="0.35" />
+              <text class="svg-label" x="572" y="193" text-anchor="middle">Unfavourable cost · ahead</text>
+
+              <text class="svg-sub" x="430" y="254" text-anchor="middle">indices benchmark at 1.0; variances at zero</text>
+            </svg>
+          </div>
+          <figcaption>One index cannot stand in for the other. The notes single out the top-left cell: favourable cost
+            efficiency can coexist with delayed delivery.</figcaption>
+        </figure>
+      </div>
+
+      <div class="block" data-topic="Project tracking">
+        <span class="block-num">18 / Cost forecasts</span>
+        <h2>Forecasting completion cost</h2>
+        <p>If current cost efficiency continues across the remaining work:</p>
+        <div class="formula formula-stack">
+          <span>EAC = BAC / CPI</span>
+          <span>ETC = EAC − AC</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Measure</th>
+                <th scope="col">Meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Estimate at Completion (EAC)</strong></td>
+                <td>Forecast total cost of completing the project. It does not replace the approved BAC.</td>
+              </tr>
+              <tr>
+                <td><strong>Estimate to Complete (ETC)</strong></td>
+                <td>Forecast additional expenditure required from the reporting date onward.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ul>
+          <li>A lower CPI raises EAC because completing the remaining scope requires more spending per unit of budgeted
+            work.</li>
+          <li>ETC is a <strong>cost estimate;</strong> remaining duration is calculated separately.</li>
+        </ul>
+
+      </div>
+
+      <div class="block" data-topic="Project tracking">
+        <span class="block-num">19 / Duration forecast</span>
+        <h2>Duration forecast in the lecture’s simplified model</h2>
+        <p>With evenly distributed planned work and an unchanged delivery rate:</p>
+        <div class="formula"><em>Forecast duration = Planned duration / SPI</em></div>
+        <ul>
+          <li>This is a <strong>conditional extrapolation</strong>, not a guaranteed finish date.</li>
+          <li>The example assumed design, coding and testing sustain the same performance. Changes in productivity,
+            scope or weekly costs would change the forecast.</li>
+        </ul>
+      </div>
+
+      <div class="block" data-topic="Project tracking">
+        <span class="block-num">20 / Analytical takeaways</span>
+        <h2>What earned value is actually for</h2>
+        <ul class="takeaways">
+          <li>Apparent underspending should be tested against <strong>earned work,</strong> rather than treated as an
+            available saving.</li>
+          <li>A forecast saving does not establish overall success: the business consequences of delayed delivery must
+            also be assessed.</li>
+          <li>Forecast credibility depends on whether current performance is representative of the remaining work
+            particularly when later stages differ substantially.</li>
+          <li>EVM supports early decisions about resources, scope and deadlines; it’s usefulness lies in enabling
+            corrective action, rather than presenting a precise forecast as certainty.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 02 · KEY CONCEPTS ══════════════════ -->
+    <section class="panel" id="panel-terms" role="tabpanel" aria-labelledby="tab-terms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">02 / Reference</span>
+        <h2>Key concepts &amp; terminology</h2>
+        <p>47 terms across three topics — the mapping, relationship and risk vocabulary from <em>Stakeholders</em>; the tracking-level, translation, failure-mode and rider-and-elephant vocabulary from <em>Tracking with stakeholders</em>; and the earned value measures, indices and forecasts from <em>Project tracking</em>, with their formulas where the notes give one. Definitions are drawn only from what the page says about each term.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="term-search">Filter terms</label>
+          <input class="search" id="term-search" type="search" placeholder="Filter terms — try “drift” or “CPI”"
+            autocomplete="off">
+          <span class="count" id="term-count" aria-live="polite">47 of 47</span>
+        </div>
+
+        <div class="glossary" id="glossary"></div>
+      </div>
+    </section>
+    <!-- ══════════════════ 03 · FLASHCARDS ══════════════════ -->
+    <section class="panel" id="panel-cards" role="tabpanel" aria-labelledby="tab-cards" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">03 / Active recall</span>
+        <h2>Flashcards</h2>
+        <p>71 cards. The stakeholder cards mostly give you a symptom — a contact resigns, features ship unvalidated, someone asks why they were not consulted — and ask which risk or failure mode it is and what the notes say to do. The project tracking cards test the definitions, the formulas and the benchmarks: which way is favourable, and what each measure does not tell you.</p>
+
+        <div class="deck">
+          <div class="deck-meta">
+            <span class="deck-count"><strong id="card-index">1</strong> / <span id="card-total">71</span></span>
+            <span class="progress"><span class="progress-fill" id="progress-fill"></span></span>
+          </div>
+
+          <button class="flip" id="flip-card" aria-pressed="false" aria-label="Flashcard — press to reveal the answer">
+            <span class="flip-inner">
+              <span class="face face-front">
+                <span class="face-tag">Question</span>
+                <span class="face-text" id="card-q"></span>
+                <span class="face-hint">Click, tap, or press Space to reveal</span>
+              </span>
+              <span class="face face-back">
+                <span class="face-tag">Answer</span>
+                <span class="face-text" id="card-a"></span>
+                <span class="face-hint">Press → for the next card</span>
+              </span>
+            </span>
+          </button>
+
+          <div class="deck-controls">
+            <button class="btn" id="prev-btn" type="button">← Previous</button>
+            <button class="btn btn--ghost" id="shuffle-btn" type="button">Shuffle</button>
+            <button class="btn" id="next-btn" type="button">Next →</button>
+          </div>
+
+          <p class="kbd-hint"><kbd>←</kbd> <kbd>→</kbd> to move · <kbd>Space</kbd> to flip · <kbd>S</kbd> to shuffle
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="panel" id="panel-acronyms" role="tabpanel" aria-labelledby="tab-acronyms" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">04 / Shorthand</span>
+        <h2>Acronyms &amp; abbreviations</h2>
+        <p>Twelve abbreviations, all from the earned value material in <em>Project tracking</em>. Eight are written out in my notes; the other four — CV, SV, CPI and SPI — appear as formula symbols in the variance table, set beside the name of the metric they stand for, and take that name as their expansion. The definition beneath every entry is taken only from what this page says about the term.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="acronyms-search">Filter acronyms</label>
+          <input class="search" id="acronyms-search" type="search" placeholder="Filter acronyms &mdash; try &ldquo;CPI&rdquo; or &ldquo;EAC&rdquo;"
+            autocomplete="off">
+          <span class="count" id="acronyms-count" aria-live="polite">12 of 12</span>
+        </div>
+
+        <div class="glossary" id="acronyms"></div>
+      </div>
+    </section>
+    <section class="panel" id="panel-formulas" role="tabpanel" aria-labelledby="tab-formulas" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">05 / Quick reference</span>
+        <h2>Formulas</h2>
+        <p>Eight relationships, all from <em>Project tracking</em>, copied exactly as my notes write them — including the lowercase x in EV = PV x RP. The two forecasting formulas, EAC and ETC, sat in my notes as an image and are transcribed here as text. The two stakeholder topics are reasoning rather than calculation and contribute none.</p>
+
+        <div class="toolbar">
+          <label class="visually-hidden" for="formulas-search">Filter formulas</label>
+          <input class="search" id="formulas-search" type="search" placeholder="Filter formulas &mdash; try &ldquo;variance&rdquo; or &ldquo;SPI&rdquo;"
+            autocomplete="off">
+          <span class="count" id="formulas-count" aria-live="polite">8 of 8</span>
+        </div>
+
+        <div class="glossary" id="formulas"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 06 · QUIZ ══════════════════ -->
+    <section class="panel" id="panel-quiz" role="tabpanel" aria-labelledby="tab-quiz" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">06 / Test yourself</span>
+        <h2>Quiz</h2>
+        <p>Nine questions, three per topic. They target the confusions this week invites: endorsement mistaken for committed resources, a finished sprint mistaken for strategic progress, drift mistaken for withdrawal of support, and an underspend mistaken for efficiency. The project tracking questions test which way each index and variance reads, and what EAC and ETC do and do not forecast.</p>
+
+        <div class="quizbar">
+          <div class="quiz-score">
+            <span><strong id="quiz-done">0</strong> of <span id="quiz-total">0</span> answered</span>
+            <span><strong id="quiz-right">0</strong> correct</span>
+          </div>
+          <span class="progress"><span class="progress-fill" id="quiz-fill"></span></span>
+          <button class="btn btn--ghost" id="quiz-reset" type="button">Start over</button>
+        </div>
+        <p class="quiz-verdict" id="quiz-verdict" role="status" aria-live="polite" hidden></p>
+
+        <div class="quiz-list" id="quiz-list"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 07 · APPLY IT ══════════════════ -->
+    <section class="panel" id="panel-apply" role="tabpanel" aria-labelledby="tab-apply" tabindex="0" hidden>
+      <div class="block">
+        <span class="block-num">07 / Put it to work</span>
+        <h2>Apply it</h2>
+        <p>Six scenarios, two from each topic. The stakeholder scenarios are qualitative, because the notes give reasoning rather than a worked case. The earned value scenarios describe readings by direction only — above or below 1, positive or negative — since the notes supply no dataset beyond the 80% example. Write your answer before opening a hint.</p>
+
+        <div class="scen-list" id="scen-list"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="page-foot">
+    <div class="wrap">
+      <p>DMBA 6005 Agile Project Development · Week 7 · Pre-live session</p>
+      <p>Compiled from my own pre-live notes for this week. Built from my Obsidian vault on 20 September 2026.</p>
+    </div>
+  </footer>
+    </div><!-- /.win -->
+  </div><!-- /.stage -->
+
+  <nav class="dock" aria-label="Site">
+    <a class="dock-item" data-tint="lime" data-label="Home" href="index.html"><span aria-hidden="true">&#8962;</span><span class="sr-only">Home</span></a>
+    <a class="dock-item" data-label="Library" href="library.html"><span aria-hidden="true">&#9776;</span><span class="sr-only">Library</span></a>
+    <span class="dock-sep" aria-hidden="true"></span>
+    <a class="dock-item" data-tint="sky" data-label="DMBA 6008 &mdash; Finance" href="DMBA6008-weeks.html">6008</a>
+    <a class="dock-item" data-tint="sand" data-label="DMBA 6005 &mdash; Agile" href="DMBA6005-weeks.html">6005</a>
+    <span class="dock-sep" aria-hidden="true"></span>
+    <a class="dock-item" data-tint="mint" data-label="DMBA 6001 &mdash; Readings" href="library.html?subject=DMBA6001">6001</a>
+    <a class="dock-item" data-tint="blush" data-label="DMBA 6002 &mdash; Assessments" href="library.html?subject=DMBA6002">6002</a>
+    <a class="dock-item" data-tint="lilac" data-label="DMBA 6004 &mdash; Remote work" href="library.html?subject=DMBA6004">6004</a>
+  </nav>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ── Tabs ─────────────────────────────────────────────── */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+
+      function selectTab(tab) {
+        tabs.forEach(function (t) {
+          var isTarget = t === tab;
+          var panel = document.getElementById('panel-' + t.getAttribute('data-panel'));
+          t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+          t.tabIndex = isTarget ? 0 : -1;
+          if (!panel) return;
+          panel.classList.toggle('active', isTarget);
+          if (isTarget) {
+            panel.removeAttribute('hidden');
+          } else {
+            panel.setAttribute('hidden', '');
+          }
+        });
+      }
+
+      tabs.forEach(function (tab, i) {
+        tab.addEventListener('click', function () { selectTab(tab); });
+        tab.addEventListener('keydown', function (e) {
+          var next = null;
+          if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+          if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+          if (!next) return;
+          e.preventDefault();
+          selectTab(next);
+          next.focus();
+        });
+      });
+
+      /* ── Key concepts ─────────────────────────────────────── */
+      var TERMS = [
+        { term: 'Stakeholder', src: 'Stakeholders', def: 'Anyone with an interest in, influence over, or who is affected by a project’s outcomes. The relevant network extends beyond sponsors and users to operational teams, external partners and oversight bodies.' },
+        { term: 'Influence without authority', src: 'Stakeholders', def: 'The engagement problem in short: stakeholders pursue their own objectives, often outside the project leader’s authority, so technical delivery alone cannot ensure success.' },
+        { term: 'Decision network', src: 'Stakeholders', def: 'The actual set of people who can approve, influence, deliver or obstruct the work. Mapping it must also establish what each of them needs to achieve.' },
+        { term: 'Formal research', src: 'Stakeholders', def: 'Using organisational information, company websites and professional networks to identify an appropriate entry point. The most senior person is not necessarily the right first contact.' },
+        { term: 'Conversational discovery', src: 'Stakeholders', def: 'Learning from initial contacts, who reveal reporting lines, team dependencies, decision-makers and potential blockers that formal structures may obscure.' },
+        { term: 'Relationship depth', src: 'Stakeholders', def: 'Relationships across seniority levels. Needed alongside breadth.' },
+        { term: 'Relationship breadth', src: 'Stakeholders', def: 'Relationships across functions. A supportive commercial contact cannot substitute for engineering capacity, legal agreement or marketing commitment.' },
+        { term: 'Relationship investment', src: 'Stakeholders', def: 'Building trust before difficult requests or disagreements arise, so that a first interaction with a senior stakeholder is not an escalation.' },
+        { term: 'Empathy (in engagement)', src: 'Stakeholders', def: 'Understanding another team’s incentives and finding mutually beneficial adjustments — for example, integration work that prevents a partner’s engineering team from repeating work after a planned upgrade.' },
+        { term: 'Contractual agreement', src: 'Stakeholders', def: 'Resolves substantial disagreements upfront and established minimum commitments and protection. Attempting to specify every contingency prolongs negotiation and can constrain commitments to a conservative minimum.' },
+        { term: 'Relationship and shared understanding', src: 'Stakeholders', def: 'Enables adaptation, cooperation and contributions beyond contractual obligations as benefits become evident. Goodwill alone leaves substantial disagreements unresolved until execution.' },
+        { term: 'Foundation, not a ceiling', src: 'Stakeholders', def: 'Contractual commitments are a foundation, not a ceiling.' },
+        { term: 'Strategic change (risk)', src: 'Stakeholders', def: 'A partner no longer wants the initiative. Response: maintain senior alignment; contractual commitments provide baseline protection.' },
+        { term: 'People turnover (risk)', src: 'Stakeholders', def: 'Departures remove context, advocacy and decision continuity. Response: spread relationships and understanding across multiple people; support succession and onboarding.' },
+        { term: 'Priority change (risk)', src: 'Stakeholders', def: 'The strategy remains supported, but competing work displaces delivery. Response: keep senior stakeholders informed about timing, consequences and business value.' },
+        { term: 'Execution constraints (risk)', src: 'Stakeholders', def: 'Capacity, budgets or dependencies prevent delivery. Response: engage delivery teams directly and negotiate workable trade-offs.' },
+        { term: 'Agreement versus commitment of resources', src: 'Stakeholders', def: 'The distinction a manager should draw: endorsement of the strategy does not guarantee deliver priority.' },
+        { term: 'Stakeholder resilience', src: 'Stakeholders', def: 'Whether the project would retain context, sponsorship and momentum if its main contact left.' },
+        { term: 'Tactical tracking', src: 'Tracking with stakeholders', def: 'Asks whether tasks are progressing, and where blockers or resource constraints are. Management response: resolve immediate delivery problems.' },
+        { term: 'Strategic tracking', src: 'Tracking with stakeholders', def: 'Asks whether the work still addresses stakeholder needs and business objectives. Management response: reassess direction, priorities and expectations.' },
+        { term: 'Delivery progress versus strategic progress', src: 'Tracking with stakeholders', def: 'Delivery progress does not establish strategic progress: a team can complete every sprint while moving further from the problem that matters.' },
+        { term: 'Product owner as translator', src: 'Tracking with stakeholders', def: 'The product owner makes information usable across different professional perspectives, rather than simply forwarding messages between team and stakeholders.' },
+        { term: 'Two concurrent activities', src: 'Tracking with stakeholders', def: 'While the team executes the current sprint, the product owner obtains stakeholder feedback on relevant outputs from the previous sprint, then weighs it against the wider backlog before it informs subsequent work.' },
+        { term: 'Continuous consultation with controlled incorporation of change', src: 'Tracking with stakeholders', def: 'What the two concurrent activities create: team focus is protected while direction stays responsive.' },
+        { term: 'Translation: team → stakeholders', src: 'Tracking with stakeholders', def: 'Technical outputs become understandable demonstrations of progress, implications and decisions requiring input.' },
+        { term: 'Translation: stakeholders → team', src: 'Tracking with stakeholders', def: 'Broad reactions become specific, actionable requirements.' },
+        { term: 'Closing the feedback loop', src: 'Tracking with stakeholders', def: 'Feedback must lead to an explicit prioritisation decision; gathering opinions alone does not create alignment.' },
+        { term: 'Product-direction learning versus retrospective learning', src: 'Tracking with stakeholders', def: 'Learning about the product’s direction informs future work; retrospective learning informs how the team works.' },
+        { term: 'Project drift', src: 'Tracking with stakeholders', def: 'Missing feedback allows incorrect assumptions about stakeholder needs to persist. Warning sign: features continue shipping, but their relevance to the intended outcome remains unvalidated. It threatens the value of the solution.' },
+        { term: 'Withdrawal of support', src: 'Tracking with stakeholders', def: 'Excluded stakeholders challenge decisions, withhold resources or undermine the initiative. Warning sign: influential people question why they were not consulted or reject decisions late. It threatens the ability to deliver.' },
+        { term: 'Formal community consultation', src: 'Tracking with stakeholders', def: 'May be necessary for public-facing change, because community sentiment and the political environment can affect project viability.' },
+        { term: 'Rider', src: 'Tracking with stakeholders', def: 'Represents rational analysis, planning and direction. Engagement implication: provide clear objectives, evidence and understandable next steps.' },
+        { term: 'Elephant', src: 'Tracking with stakeholders', def: 'Represents emotion, instinct, loyalty and motivation. Engagement implication: understand fears and motivations that affect willingness to support change.' },
+        { term: 'Earned Value Management (EVM)', src: 'Project tracking', def: 'Integrates scope, cost and schedule, comparing work completed with both its actual cost and the work originally scheduled. Its usefulness lies in enabling corrective action, not in presenting a precise forecast as certainty.' },
+        { term: '“Value” (in EVM)', src: 'Project tracking', def: 'The budgeted cost of completed work — not revenue, customer benefit or strategic value.' },
+        { term: 'Planned Value (PV)', src: 'Project tracking', def: 'Budgeted cost of work scheduled to be completed by now. The time-phased budget accommodates uneven spending across the project.' },
+        { term: 'Earned Value (EV)', src: 'Project tracking', def: 'Budgeted cost of work actually completed by now, valued using the original baseline.', formula: 'EV = PV x RP' },
+        { term: 'Actual Cost (AC)', src: 'Project tracking', def: 'Actual direct and indirect costs incurred for the work performed.' },
+        { term: 'Budget at Completion (BAC)', src: 'Project tracking', def: 'Total approved budget for the entire project. EAC does not replace it.' },
+        { term: 'Rate of Performance (RP)', src: 'Project tracking', def: 'Actual completion proportion / planned completion proportion for the same work. It is relative to scheduled progress, not necessarily the completion percentage of the whole project.' },
+        { term: 'Cost variance (CV)', src: 'Project tracking', def: 'Positive: completed work cost less than budgeted. Negative: cost more. Variances use zero as the benchmark.', formula: 'CV = EV - AC' },
+        { term: 'Schedule variance (SV)', src: 'Project tracking', def: 'Positive: more work completed than scheduled. Negative: less. Expressed in dollars of budgeted work, not days or weeks.', formula: 'SV = EV - PV' },
+        { term: 'Cost Performance Index (CPI)', src: 'Project tracking', def: 'Budgeted work delivered per dollar spent. Above 1 is favourable; below 1 is unfavourable.', formula: 'CPI = EV / AC' },
+        { term: 'Schedule Performance Index (SPI)', src: 'Project tracking', def: 'Work completed relative to work scheduled. Above 1 is ahead; below 1 is behind.', formula: 'SPI = EV / PV' },
+        { term: 'Estimate at Completion (EAC)', src: 'Project tracking', def: 'Forecast total cost of completing the project, if current cost efficiency continues across the remaining work. It does not replace the approved BAC.', formula: 'EAC = BAC / CPI' },
+        { term: 'Estimate to Complete (ETC)', src: 'Project tracking', def: 'Forecast additional expenditure required from the reporting date onward. A cost estimate; remaining duration is calculated separately.', formula: 'ETC = EAC − AC' },
+        { term: 'Forecast duration', src: 'Project tracking', def: 'In the lecture’s simplified model, with evenly distributed planned work and an unchanged delivery rate. A conditional extrapolation, not a guaranteed finish date.', formula: 'Forecast duration = Planned duration / SPI' }
+      ];
+
+      var glossaryEl = document.getElementById('glossary');
+      var countEl = document.getElementById('term-count');
+      var searchEl = document.getElementById('term-search');
+
+      function escapeHtml(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      glossaryEl.innerHTML = TERMS.map(function (t) {
+        var tag = t.own
+          ? '<span class="term-src term-src--own">Key Definitions</span>'
+          : '<span class="term-src">' + escapeHtml(t.src) + '</span>';
+        return '<article class="term" data-search="' +
+          escapeHtml((t.term + ' ' + t.def + ' ' + (t.formula || '')).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' + escapeHtml(t.term) + '</h3>' + tag + '</div>' +
+          '<p class="term-def">' + escapeHtml(t.def) + '</p>' +
+          (t.formula ? '<div class="term-formula">' + escapeHtml(t.formula) + '</div>' : '') +
+          '</article>';
+      }).join('') + '<p class="no-results" id="no-results" hidden>No terms match that filter.</p>';
+
+      var termEls = Array.prototype.slice.call(glossaryEl.querySelectorAll('.term'));
+      var noResultsEl = document.getElementById('no-results');
+
+      searchEl.addEventListener('input', function () {
+        var q = searchEl.value.trim().toLowerCase();
+        var shown = 0;
+        termEls.forEach(function (el) {
+          var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+          if (match) { el.removeAttribute('hidden'); shown++; }
+          else { el.setAttribute('hidden', ''); }
+        });
+        countEl.textContent = shown + ' of ' + TERMS.length;
+        if (shown === 0) { noResultsEl.removeAttribute('hidden'); }
+        else { noResultsEl.setAttribute('hidden', ''); }
+      });
+
+      /* ── Acronyms & formulas ──────────────────────────────── */
+      /* Both reference tabs are a filtered list of .term cards, so they share
+         one renderer with the key-concepts glossary's markup and behaviour.
+         It no-ops when a week does not emit that tab. */
+      function buildRef(listId, items, toHtml, emptyMsg) {
+        var listEl = document.getElementById(listId);
+        var countEl = document.getElementById(listId + '-count');
+        var searchEl = document.getElementById(listId + '-search');
+        if (!listEl || !countEl || !searchEl) return;
+
+        listEl.innerHTML = items.map(toHtml).join('') +
+          '<p class="no-results" hidden>' + emptyMsg + '</p>';
+
+        var els = Array.prototype.slice.call(listEl.querySelectorAll('.term'));
+        var noneEl = listEl.querySelector('.no-results');
+        countEl.textContent = items.length + ' of ' + items.length;
+
+        searchEl.addEventListener('input', function () {
+          var q = searchEl.value.trim().toLowerCase();
+          var shown = 0;
+          els.forEach(function (el) {
+            var match = !q || el.getAttribute('data-search').indexOf(q) !== -1;
+            if (match) { el.removeAttribute('hidden'); shown++; }
+            else { el.setAttribute('hidden', ''); }
+          });
+          countEl.textContent = shown + ' of ' + items.length;
+          if (shown === 0) { noneEl.removeAttribute('hidden'); }
+          else { noneEl.setAttribute('hidden', ''); }
+        });
+      }
+
+      var ACRONYMS = [
+        { abbr: 'EVM', long: 'Earned Value Management', def: 'Written out in my notes. Integrates scope, cost and schedule, comparing work completed with both its actual cost and the work originally scheduled. It supports early decisions about resources, scope and deadlines.', src: 'Project tracking' },
+        { abbr: 'PV', long: 'Planned Value', def: 'Written out in my notes. Budgeted cost of work scheduled to be completed by now; the time-phased budget accommodates uneven spending across the project.', src: 'Project tracking' },
+        { abbr: 'EV', long: 'Earned Value', def: 'Written out in my notes. Budgeted cost of work actually completed by now, valued using the original baseline. EV = PV x RP.', src: 'Project tracking' },
+        { abbr: 'AC', long: 'Actual Cost', def: 'Written out in my notes. Actual direct and indirect costs incurred for the work performed.', src: 'Project tracking' },
+        { abbr: 'BAC', long: 'Budget at Completion', def: 'Written out in my notes. Total approved budget for the entire project.', src: 'Project tracking' },
+        { abbr: 'RP', long: 'Rate of Performance', def: 'Written out in my notes. Actual completion proportion / planned completion proportion for the same work — relative to scheduled progress.', src: 'Project tracking' },
+        { abbr: 'CV', long: 'Cost variance', def: 'Paired with its name in the variance table. CV = EV - AC; positive means completed work cost less than budgeted.', src: 'Project tracking' },
+        { abbr: 'SV', long: 'Schedule variance', def: 'Paired with its name in the variance table. SV = EV - PV, expressed in dollars of budgeted work, not days or weeks.', src: 'Project tracking' },
+        { abbr: 'CPI', long: 'Cost Performance Index', def: 'Paired with its name in the variance table. CPI = EV / AC — budgeted work delivered per dollar spent; above 1 is favourable.', src: 'Project tracking' },
+        { abbr: 'SPI', long: 'Schedule Performance Index', def: 'Paired with its name in the variance table. SPI = EV / PV — work completed relative to work scheduled; above 1 is ahead.', src: 'Project tracking' },
+        { abbr: 'EAC', long: 'Estimate at Completion', def: 'Written out in my notes. Forecast total cost of completing the project; it does not replace the approved BAC.', src: 'Project tracking' },
+        { abbr: 'ETC', long: 'Estimate to Complete', def: 'Written out in my notes. Forecast additional expenditure required from the reporting date onward.', src: 'Project tracking' }
+      ];
+
+      buildRef('acronyms', ACRONYMS, function (a) {
+        return '<article class="term" data-search="' +
+          escapeHtml((a.abbr + ' ' + a.long + ' ' + a.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' +
+          '<span class="term-abbr">' + escapeHtml(a.abbr) + '</span>' +
+          (a.long ? ' &middot; <span class="term-long">' + escapeHtml(a.long) + '</span>' : '') +
+          '</h3><span class="term-src">' + escapeHtml(a.src) + '</span></div>' +
+          (a.def ? '<p class="term-def">' + escapeHtml(a.def) + '</p>' : '') +
+          '</article>';
+      }, 'No acronyms match that filter.');
+      var FORMULAS = [
+        { name: 'Earned value from planned value', expr: 'EV = PV x RP', def: 'RP is actual completion proportion / planned completion proportion for the same work. If a task should be fully complete but is only 80% complete, RP is 0.80.', src: 'Project tracking' },
+        { name: 'Cost variance', expr: 'CV = EV - AC', def: 'Positive: completed work cost less than budgeted. Negative: cost more.', src: 'Project tracking' },
+        { name: 'Schedule variance', expr: 'SV = EV - PV', def: 'Positive: more work completed than scheduled. Negative: less. Expressed in dollars of budgeted work, not days or weeks.', src: 'Project tracking' },
+        { name: 'Cost Performance Index', expr: 'CPI = EV / AC', def: 'Budgeted work delivered per dollar spent. Above 1 is favourable; below 1 is unfavourable.', src: 'Project tracking' },
+        { name: 'Schedule Performance Index', expr: 'SPI = EV / PV', def: 'Work completed relative to work scheduled. Above 1 is ahead; below 1 is behind.', src: 'Project tracking' },
+        { name: 'Estimate at Completion', expr: 'EAC = BAC / CPI', def: 'Transcribed exactly from a formula image in my notes. Forecast total cost if current cost efficiency continues across the remaining work; a lower CPI raises EAC. It does not replace the approved BAC.', src: 'Project tracking' },
+        { name: 'Estimate to Complete', expr: 'ETC = EAC − AC', def: 'Transcribed exactly from the same formula image. Forecast additional expenditure from the reporting date onward — a cost estimate; remaining duration is calculated separately.', src: 'Project tracking' },
+        { name: 'Forecast duration', expr: 'Forecast duration = Planned duration / SPI', def: 'The lecture’s simplified model, with evenly distributed planned work and an unchanged delivery rate. A conditional extrapolation, not a guaranteed finish date.', src: 'Project tracking' }
+      ];
+
+      buildRef('formulas', FORMULAS, function (f) {
+        return '<article class="term" data-search="' +
+          escapeHtml((f.name + ' ' + f.expr + ' ' + f.def).toLowerCase()) + '">' +
+          '<div class="term-head"><h3 class="term-name">' + escapeHtml(f.name) + '</h3>' +
+          '<span class="term-src">' + escapeHtml(f.src) + '</span></div>' +
+          '<div class="term-formula">' + escapeHtml(f.expr) + '</div>' +
+          (f.def ? '<p class="term-def">' + escapeHtml(f.def) + '</p>' : '') +
+          '</article>';
+      }, 'No formulas match that filter.');
+
+      /* ── Flashcards ───────────────────────────────────────── */
+      var CARDS = [
+        { q: 'Who counts as a stakeholder?', a: 'Anyone with an interest in, influence over, or who is affected by a project’s outcomes.' },
+        { q: 'Beyond sponsors and users, who else is in the relevant stakeholder network?', a: 'Operational teams, external partners and oversight bodies.' },
+        { q: 'Why can technical delivery alone not ensure success?', a: 'Stakeholder input determines whether the solution addresses the right problem and receives the support needed for implementation.' },
+        { q: 'What makes stakeholder engagement “influence without authority”?', a: 'Stakeholders pursue their own objectives, often outside the project leader’s authority.' },
+        { q: 'What does formal research identify when mapping a decision network?', a: 'An appropriate entry point — using organisational information, company websites and professional networks.' },
+        { q: 'Should your first contact be the most senior person?', a: 'Not necessarily. The most senior person is not necessarily the right first contact.' },
+        { q: 'What does conversational discovery reveal that formal structures may obscure?', a: 'Reporting lines, team dependencies, decision-makers and potential blockers.' },
+        { q: 'What four things must a stakeholder map establish about each person?', a: 'Who can approve, influence, deliver or obstruct the work — and what each needs to achieve.' },
+        { q: 'A supportive commercial contact is on board. Is that enough?', a: 'No. Relationships need breadth across functions: a commercial contact cannot substitute for engineering capacity, legal agreement or marketing commitment.' },
+        { q: 'Relationships need depth across what, and breadth across what?', a: 'Depth across seniority levels; breadth across functions.' },
+        { q: 'Why invest in relationships before you need them?', a: 'It creates trust before difficult requests or disagreements arise. A first interaction with a senior stakeholder should not be an escalation.' },
+        { q: 'Why should shared objectives reach the people executing the work?', a: 'Understanding the commercial intent supports discretionary decisions without constant clarification.' },
+        { q: 'What does empathy mean in stakeholder engagement?', a: 'Understanding another team’s incentives and finding mutually beneficial adjustments.' },
+        { q: 'What is the limitation of trying to specify every contingency in a contract?', a: 'It prolongs negotiation and can constrain commitments to a conservative minimum.' },
+        { q: 'What is the limitation of goodwill alone?', a: 'It leaves substantial disagreements unresolved until execution.' },
+        { q: 'Complete the line: contractual commitments are a foundation, not a …', a: 'Ceiling.' },
+        { q: 'A partner no longer wants the initiative. Which risk is this, and what is the engagement response?', a: 'Strategic change. Maintain senior alignment; contractual commitments provide baseline protection.' },
+        { q: 'Your main contact at a partner resigns. Which risk is this, and what is the engagement response?', a: 'People turnover. Spread relationships and understanding across multiple people; support succession and onboarding.' },
+        { q: 'The strategy is still supported, but competing work keeps displacing delivery. What is the risk and the response?', a: 'Priority change. Keep senior stakeholders informed about timing, consequences and business value.' },
+        { q: 'Capacity, budgets or dependencies are preventing delivery. What is the engagement response?', a: 'Engage delivery teams directly and negotiate workable trade-offs.' },
+        { q: 'How can you test stakeholder resilience?', a: 'Ask whether the project would retain context, sponsorship and momentum if its main contact left.' },
+        { q: 'What is resistance more usefully treated as than unwillingness?', a: 'A possible mismatch in incentives or constraints — and diagnosing that mismatch is more useful.' },
+        { q: 'What demonstrates engagement quality, if not meeting frequency?', a: 'Stakeholders’ ability to make aligned decisions and sustain delivery through change.' },
+        { q: 'What is the central question of tactical tracking?', a: 'Are tasks progressing, and where are blockers or resource constraints? The response is to resolve immediate delivery problems.' },
+        { q: 'What is the central question of strategic tracking?', a: 'Does the work still address stakeholder needs and business objectives? The response is to reassess direction, priorities and expectations.' },
+        { q: 'A team has completed every sprint on time. Has it made strategic progress?', a: 'Not necessarily. Delivery progress does not establish strategic progress; a team can complete every sprint while moving further from the problem that matters.' },
+        { q: 'What is the product owner doing while the team executes the current sprint?', a: 'Obtaining stakeholder feedback on relevant outputs from the previous sprint, then weighing it against the wider backlog before it informs subsequent work.' },
+        { q: 'What do the product owner’s two concurrent activities create?', a: 'Continuous consultation with controlled incorporation of change — protecting team focus while keeping direction responsive.' },
+        { q: 'In the team → stakeholders direction, what does translation produce?', a: 'Understandable demonstrations of progress, implications and decisions requiring input.' },
+        { q: 'In the stakeholders → team direction, what does translation produce?', a: 'Specific, actionable requirements from broad reactions.' },
+        { q: 'Who might validate a demonstration, and who might assess public impacts?', a: 'Marketing may assess a demonstration; a continuity group may assess public impacts.' },
+        { q: 'Where does the product owner’s managerial value lie?', a: 'In making information usable across different professional perspectives, rather than simply forwarding messages.' },
+        { q: 'What must feedback lead to, for alignment to exist?', a: 'An explicit prioritisation decision. Gathering opinions alone does not create alignment.' },
+        { q: 'What does product-direction learning inform, and what does retrospective learning inform?', a: 'Product-direction learning informs future work; retrospective learning informs how the team works.' },
+        { q: 'Features keep shipping but nobody has checked they still serve the intended outcome. Which failure mode is this?', a: 'Project drift — missing feedback lets incorrect assumptions about stakeholder needs persist.' },
+        { q: 'Influential people ask why they were not consulted and reject decisions late. Which failure mode is this?', a: 'Withdrawal of support — excluded stakeholders challenge decisions, withhold resources or undermine the initiative.' },
+        { q: 'Project drift and withdrawal of support each threaten what?', a: 'Drift threatens the value of the solution; withdrawal of support threatens the ability to deliver it.' },
+        { q: 'Where does consultation belong?', a: 'At recurring reviews, prioritisation discussions and consequential decision points.' },
+        { q: 'Why might public-facing change need formal community consultation?', a: 'Community sentiment and the political environment can affect project viability.' },
+        { q: 'In the rider and elephant analogy, what does the rider represent?', a: 'Rational analysis, planning and direction — engage it with clear objectives, evidence and understandable next steps.' },
+        { q: 'In the rider and elephant analogy, what does the elephant represent?', a: 'Emotion, instinct, loyalty and motivation — engage it by understanding the fears and motivations that affect willingness to support change.' },
+        { q: 'A stakeholder seems stubborn. Why is more evidence not automatically the answer?', a: 'Apparent stubbornness may reflect fear or unclear direction; the appropriate response depends on the underlying cause.' },
+        { q: 'What should a useful tracking system expose?', a: 'What needs a decision — not merely activity completed.' },
+        { q: 'When resistance emerges, what three possible obstacles should you diagnose between?', a: 'Unclear direction, emotional concern or a substantive disagreemeent about the project’s value (spelling as in my notes).' },
+        { q: 'What three things does EVM integrate?', a: 'Scope, cost and schedule.' },
+        { q: 'In EVM, what does “value” mean?', a: 'The budgeted cost of completed work — not revenue, customer benefit or strategic value.' },
+        { q: 'A project has spent less than planned. Is it efficient?', a: 'Not necessarily — the underspend may simply reflect unfinished work. Test it against earned work.' },
+        { q: 'What does reliable EVM tracking require?', a: 'An approval baseline, regularly updated costs and credible assessments of completed work.' },
+        { q: 'Define Planned Value (PV).', a: 'The budgeted cost of work scheduled to be completed by now.' },
+        { q: 'Define Earned Value (EV).', a: 'The budgeted cost of work actually completed by now, valued using the original baseline.' },
+        { q: 'Define Actual Cost (AC).', a: 'The actual direct and indirect costs incurred for the work performed.' },
+        { q: 'Define Budget at Completion (BAC).', a: 'The total approved budget for the entire project.' },
+        { q: 'How is EV calculated from PV and RP?', a: 'EV = PV x RP.' },
+        { q: 'A task should be fully complete but is only 80% complete. What is RP?', a: '0.80.' },
+        { q: 'Is RP the completion percentage of the whole project?', a: 'Not necessarily — RP is relative to scheduled progress for the same work.' },
+        { q: 'What is the formula for cost variance, and what does a negative result mean?', a: 'CV = EV - AC. Negative means completed work cost more than budgeted.' },
+        { q: 'What is the formula for schedule variance, and what does a positive result mean?', a: 'SV = EV - PV. Positive means more work was completed than scheduled.' },
+        { q: 'What unit is schedule variance expressed in?', a: 'Dollars of budgeted work — not days or weeks.' },
+        { q: 'CPI is above 1. Favourable or unfavourable?', a: 'Favourable. CPI is budgeted work delivered per dollar spent; above 1 is favourable, below 1 unfavourable.' },
+        { q: 'SPI is below 1. Ahead or behind?', a: 'Behind. SPI is work completed relative to work scheduled; above 1 is ahead, below 1 is behind.' },
+        { q: 'What benchmark do indices use, and what do variances use?', a: 'Indices use 1.0; variances use zero.' },
+        { q: 'Can a project be cost-efficient and late at the same time?', a: 'Yes. Cost and schedule must be interpreted separately: favourable cost efficiency can coexist with delayed delivery.' },
+        { q: 'How is EAC forecast from BAC and CPI?', a: 'EAC = BAC / CPI, if current cost efficiency continues across the remaining work.' },
+        { q: 'How is ETC calculated?', a: 'ETC = EAC − AC.' },
+        { q: 'Does EAC replace the approved BAC?', a: 'No. EAC is a forecast of total cost; it does not replace the approved BAC.' },
+        { q: 'Why does a lower CPI raise EAC?', a: 'Completing the remaining scope requires more spending per unit of budgeted work.' },
+        { q: 'Does ETC tell you how long is left?', a: 'No. ETC is a cost estimate; remaining duration is calculated separately.' },
+        { q: 'In the lecture’s simplified model, how is forecast duration calculated?', a: 'Forecast duration = Planned duration / SPI — with evenly distributed planned work and an unchanged delivery rate.' },
+        { q: 'Is the forecast duration a guaranteed finish date?', a: 'No — it is a conditional extrapolation. Changes in productivity, scope or weekly costs would change it.' },
+        { q: 'A forecast shows a cost saving. Does that establish overall success?', a: 'No. The business consequences of delayed delivery must also be assessed.' },
+        { q: 'What does the credibility of an EVM forecast depend on?', a: 'Whether current performance is representative of the remaining work — particularly when later stages differ substantially.' }
+      ];
+
+      var order = CARDS.map(function (_, i) { return i; });
+      var pos = 0;
+
+      var flipBtn = document.getElementById('flip-card');
+      var qEl = document.getElementById('card-q');
+      var aEl = document.getElementById('card-a');
+      var idxEl = document.getElementById('card-index');
+      var totalEl = document.getElementById('card-total');
+      var fillEl = document.getElementById('progress-fill');
+      var prevBtn = document.getElementById('prev-btn');
+      var nextBtn = document.getElementById('next-btn');
+      var shuffleBtn = document.getElementById('shuffle-btn');
+
+      totalEl.textContent = CARDS.length;
+
+      function render() {
+        var card = CARDS[order[pos]];
+        flipBtn.setAttribute('aria-pressed', 'false');
+        // Swap the text only once the card is edge-on, so the answer is never
+        // readable through the flip.
+        window.setTimeout(function () {
+          qEl.textContent = card.q;
+          aEl.textContent = card.a;
+        }, flipBtn.getAttribute('data-flipped') === 'true' ? 180 : 0);
+        flipBtn.setAttribute('data-flipped', 'false');
+        idxEl.textContent = pos + 1;
+        fillEl.style.width = ((pos + 1) / CARDS.length * 100) + '%';
+        prevBtn.disabled = pos === 0;
+        nextBtn.disabled = pos === CARDS.length - 1;
+      }
+
+      function flip() {
+        var flipped = flipBtn.getAttribute('aria-pressed') === 'true';
+        flipBtn.setAttribute('aria-pressed', flipped ? 'false' : 'true');
+        flipBtn.setAttribute('data-flipped', flipped ? 'false' : 'true');
+      }
+
+      function go(delta) {
+        var next = pos + delta;
+        if (next < 0 || next >= CARDS.length) return;
+        pos = next;
+        render();
+      }
+
+      flipBtn.addEventListener('click', flip);
+      prevBtn.addEventListener('click', function () { go(-1); });
+      nextBtn.addEventListener('click', function () { go(1); });
+
+      shuffleBtn.addEventListener('click', function () {
+        for (var i = order.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = order[i];
+          order[i] = order[j];
+          order[j] = tmp;
+        }
+        pos = 0;
+        render();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        var panel = document.getElementById('panel-cards');
+        if (panel.hasAttribute('hidden')) return;
+        var tag = (e.target.tagName || '').toLowerCase();
+        if (tag === 'input' || tag === 'textarea') return;
+
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+        else if (e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); flip(); }
+        else if (e.key === 's' || e.key === 'S') { e.preventDefault(); shuffleBtn.click(); }
+      });
+
+      render();
+    })();
+
+
+
+    /* ── Summary index, collapse and search ─────────────────────────────
+       Progressive enhancement, built at runtime from the blocks that are
+       already on the page. Nothing in the authored markup changes, so the
+       prose-budget gate still measures the same blocks and a re-sync gets
+       this for free. With JS off the summary reads exactly as before.
+
+       A week whose summary is split into topic subpanels gets one index
+       per subpanel; otherwise the whole panel gets one. */
+    (function () {
+      'use strict';
+
+      var summaryPanel = document.getElementById('panel-summary');
+      if (!summaryPanel) return;
+
+      var subs = summaryPanel.querySelectorAll('.subpanel');
+      var containers = subs.length
+        ? Array.prototype.slice.call(subs)
+        : [summaryPanel];
+
+      containers.forEach(function (container, ci) {
+        var blocks = Array.prototype.slice.call(container.children).filter(function (el) {
+          return el.classList && el.classList.contains('block');
+        });
+        // Two or three sections navigate fine on their own.
+        if (blocks.length < 4) return;
+
+        var items = [];
+
+        blocks.forEach(function (block, i) {
+          var num = block.querySelector('.block-num');
+          var h2 = block.querySelector('h2');
+          if (!num || !h2) return;
+
+          block.id = block.id || 'sec-' + ci + '-' + (i + 1);
+
+          var details = document.createElement('details');
+          details.className = 'block-d';
+          details.open = true;
+          var head = document.createElement('summary');
+          head.className = 'block-head';
+          var body = document.createElement('div');
+          body.className = 'block-body';
+
+          // The eyebrow and the heading become the disclosure control;
+          // everything after the heading becomes the collapsible body.
+          var kids = Array.prototype.slice.call(block.childNodes);
+          var pastHeading = false;
+          kids.forEach(function (node) {
+            if (node === num || node === h2) {
+              head.appendChild(node);
+              if (node === h2) pastHeading = true;
+              return;
+            }
+            (pastHeading ? body : head).appendChild(node);
+          });
+
+          details.appendChild(head);
+          details.appendChild(body);
+          block.appendChild(details);
+
+          items.push({
+            block: block,
+            details: details,
+            num: num.textContent.trim(),
+            title: h2.textContent.trim(),
+            text: (block.textContent || '').toLowerCase()
+          });
+        });
+
+        if (items.length < 4) return;
+
+        var sid = 'week-search-' + ci;
+        var toc = document.createElement('nav');
+        toc.className = 'toc';
+        toc.setAttribute('aria-label', 'Contents');
+        toc.innerHTML =
+          '<div class="toc-top">' +
+            '<span class="toc-title">Contents</span>' +
+            '<div class="toc-actions">' +
+              '<button class="toc-btn" type="button" data-act="expand">Expand all</button>' +
+              '<button class="toc-btn" type="button" data-act="collapse">Collapse all</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="toolbar">' +
+            '<label class="visually-hidden" for="' + sid + '">Search this week</label>' +
+            '<input class="search" id="' + sid + '" type="search" autocomplete="off" ' +
+              'placeholder="Search these sections…">' +
+            '<span class="count" aria-live="polite"></span>' +
+          '</div>' +
+          '<ol class="toc-list"></ol>' +
+          '<p class="toc-empty" hidden>Nothing in this week matches that search.</p>';
+
+        var list = toc.querySelector('.toc-list');
+
+        // A long week opens as an outline: index first, then a list of
+        // headings you can pick from. A short one reads straight through,
+        // exactly as it did before. "Expand all" is one click either way.
+        var LONG = 12;
+        if (items.length > LONG) {
+          list.classList.add('is-long');
+          items.forEach(function (it) { it.details.open = false; });
+        }
+
+        items.forEach(function (it) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = '#' + it.block.id;
+          var n = document.createElement('span');
+          n.className = 'toc-n';
+          n.textContent = it.num.split('/')[0].trim();
+          var t = document.createElement('span');
+          t.textContent = it.title;
+          a.appendChild(n);
+          a.appendChild(t);
+          li.appendChild(a);
+          list.appendChild(li);
+          it.li = li;
+        });
+
+        container.insertBefore(toc, blocks[0]);
+
+        // A collapsed section must open when it is jumped to.
+        list.addEventListener('click', function (e) {
+          var a = e.target && e.target.closest ? e.target.closest('a') : null;
+          if (!a) return;
+          var target = document.getElementById(a.getAttribute('href').slice(1));
+          if (target) {
+            var d = target.querySelector('details.block-d');
+            if (d) d.open = true;
+          }
+        });
+
+        toc.querySelector('.toc-actions').addEventListener('click', function (e) {
+          var b = e.target && e.target.closest ? e.target.closest('button') : null;
+          if (!b) return;
+          var open = b.getAttribute('data-act') === 'expand';
+          items.forEach(function (it) {
+            if (!it.block.hasAttribute('hidden')) it.details.open = open;
+          });
+        });
+
+        var input = toc.querySelector('.search');
+        var count = toc.querySelector('.count');
+        var empty = toc.querySelector('.toc-empty');
+        var activeTopic = '';
+
+        // ── Topic chips ────────────────────────────────────────────────
+        // Built from the data-topic each block carries, so a week reads one
+        // topic at a time the way the sub-tabbed weeks already do. A block
+        // with no data-topic (a week-level takeaway, say) always shows.
+        var topics = [], emptyTopics = {};
+        items.forEach(function (it) {
+          var t = it.block.getAttribute('data-topic');
+          it.topic = t || '';
+          if (!t) return;
+          if (topics.indexOf(t) === -1) topics.push(t);
+          if (it.block.getAttribute('data-topic-empty') === 'true') emptyTopics[t] = true;
+        });
+
+        if (topics.length > 1) {
+          var chips = document.createElement('div');
+          chips.className = 'subtabs';
+          chips.setAttribute('aria-label', 'Topics');
+          ['All'].concat(topics).forEach(function (label, k) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'subtab' + (emptyTopics[label] ? ' subtab--empty' : '');
+            b.setAttribute('aria-pressed', k === 0 ? 'true' : 'false');
+            b.setAttribute('data-topic', k === 0 ? '' : label);
+            b.textContent = label;
+            chips.appendChild(b);
+          });
+          chips.addEventListener('click', function (e) {
+            var b = e.target && e.target.closest ? e.target.closest('button') : null;
+            if (!b) return;
+            activeTopic = b.getAttribute('data-topic') || '';
+            Array.prototype.forEach.call(chips.children, function (c) {
+              c.setAttribute('aria-pressed', c === b ? 'true' : 'false');
+            });
+            applyFilter();
+          });
+          container.insertBefore(chips, toc);
+        }
+
+        function applyFilter() {
+          var q = input.value.trim().toLowerCase();
+          var shown = 0;
+          items.forEach(function (it) {
+            var hit = (!q || it.text.indexOf(q) !== -1) &&
+                      (!activeTopic || !it.topic || it.topic === activeTopic);
+            if (hit) {
+              it.block.removeAttribute('hidden');
+              it.li.removeAttribute('hidden');
+              if (q) it.details.open = true;
+              shown++;
+            } else {
+              it.block.setAttribute('hidden', '');
+              it.li.setAttribute('hidden', '');
+            }
+          });
+          count.textContent = shown + ' of ' + items.length + ' sections';
+          if (shown === 0) empty.removeAttribute('hidden');
+          else empty.setAttribute('hidden', '');
+        }
+
+        input.addEventListener('input', applyFilter);
+        applyFilter();
+      });
+    })();
+
+  </script>
+
+  <script>
+    /* ── Quiz & Apply it ────────────────────────────────────────────────
+       Two practice modes. QUIZ and SCENARIOS are the only authored parts;
+       the renderer below is identical on every week page, so a re-sync
+       swaps the arrays and leaves the behaviour alone. Progressive
+       enhancement: with JS off both panels sit empty and the five synced
+       modes are unaffected. */
+    (function () {
+      'use strict';
+
+      var quizListEl = document.getElementById('quiz-list');
+      var scenListEl = document.getElementById('scen-list');
+      if (!quizListEl && !scenListEl) return;
+
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      var KEYS = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+      var QUIZ = /*QUIZ*/[
+        {"topic": "Stakeholders", "q": "A partner’s executive has endorsed your initiative in a steering meeting. According to the notes, what does that endorsement establish?", "hint": "The analytical takeaways draw a distinction between two kinds of support.", "options": [{"t": "That the partner will give the work delivery priority", "ok": false, "note": "This is the confusion the takeaways warn against: endorsement does not guarantee deliver priority."}, {"t": "That the relationship no longer needs a contract", "ok": false, "note": "The notes treat contracts and relationships as complementary. Goodwill alone leaves substantial disagreements unresolved until execution."}, {"t": "Agreement with the strategy, which is not the same as commitment of resources", "ok": true, "note": "Correct. A manager should distinguish agreement with the strategy from commitment of resources."}, {"t": "That the decision network has been fully mapped", "ok": false, "note": "Mapping must establish who can approve, influence, deliver or obstruct the work."}]},
+        {"topic": "Stakeholders", "q": "You have a strong, supportive commercial contact at a partner. Why is that not enough on its own?", "hint": "Think about the two dimensions relationships need.", "options": [{"t": "Commercial contacts are never decision-makers", "ok": false, "note": "The notes do not say this. The point is about coverage, not about commercial staff lacking authority."}, {"t": "The most senior person should always be the first contact instead", "ok": false, "note": "The notes say the opposite: the most senior person is not necessarily the right first contact."}, {"t": "A contract should replace the relationship", "ok": false, "note": "Contracts and relationships serve complementary purposes; neither replaces the other."}, {"t": "Relationships need breadth across functions, and a commercial contact cannot substitute for engineering capacity, legal agreement or marketing commitment", "ok": true, "note": "Correct. Relationships need depth across seniority levels and breadth across functions."}]},
+        {"topic": "Stakeholders", "q": "The strategy is still supported by the partner, but competing work keeps displacing delivery. Which engagement response do the notes pair with this risk?", "hint": "Name the risk first — the strategy itself has not changed.", "options": [{"t": "Keep senior stakeholders informed about timing, consequences and business value", "ok": true, "note": "Correct. This is priority change, and that is its engagement response."}, {"t": "Maintain senior alignment and rely on contractual commitments for baseline protection", "ok": false, "note": "That is the response to strategic change — a partner no longer wanting the initiative. Here the strategy remains supported."}, {"t": "Spread relationships across multiple people and support succession and onboarding", "ok": false, "note": "That is the response to people turnover, where departures remove context, advocacy and decision continuity."}, {"t": "Engage delivery teams directly and negotiate workable trade-offs", "ok": false, "note": "That is the response to execution constraints — capacity, budgets or dependencies preventing delivery."}]},
+        {"topic": "Tracking with stakeholders", "q": "A team has hit every sprint goal for two months. What does that establish, according to the notes?", "hint": "The notes separate two levels of tracking.", "options": [{"t": "Strategic progress, because delivery is the best evidence of alignment", "ok": false, "note": "The notes say delivery progress does not establish strategic progress."}, {"t": "Delivery progress only — the team could be moving further from the problem that matters", "ok": true, "note": "Correct. Strategic tracking asks separately whether the work still addresses stakeholder needs and business objectives."}, {"t": "That stakeholder consultation can now be reduced", "ok": false, "note": "Consultation belongs at recurring reviews, prioritisation discussions and consequential decision points."}, {"t": "That the product owner no longer needs to translate outputs", "ok": false, "note": "Translation is continuous: while the team executes the current sprint, the product owner obtains feedback on the previous one."}]},
+        {"topic": "Tracking with stakeholders", "q": "Features are shipping steadily, but nobody has checked whether they still serve the intended outcome. Which failure mode is this?", "hint": "Look at the warning-sign column of the weak-consultation table.", "options": [{"t": "Withdrawal of support", "ok": false, "note": "Withdrawal of support shows up as influential people questioning why they were not consulted or rejecting decisions late."}, {"t": "An execution constraint", "ok": false, "note": "Execution constraints are from the stakeholder risk table — capacity, budgets or dependencies preventing delivery. Here delivery is continuing."}, {"t": "Project drift", "ok": true, "note": "Correct. Missing feedback allows incorrect assumptions about stakeholder needs to persist; it threatens the value of the solution."}, {"t": "A tactical tracking failure", "ok": false, "note": "Tactical tracking asks whether tasks are progressing — and they are. The gap is at the strategic level."}]},
+        {"topic": "Tracking with stakeholders", "q": "In the rider and elephant analogy, a stakeholder with a convincing plan in front of them still will not support the change. What do the notes say about the response?", "hint": "The rider is already being served here.", "options": [{"t": "Provide more evidence until the rational case is overwhelming", "ok": false, "note": "The notes warn against assuming that more evidence will resolve it."}, {"t": "Treat the resistance as a lack of evidence and keep presenting the plan", "ok": false, "note": "The rider is already served by a convincing plan. The notes say a convincing plan can still fail if stakeholders feel threatened, confused or emotionally disconnected from the change."}, {"t": "Treat it as unwillingness and route around them", "ok": false, "note": "Resistance can reveal a mismatch in incentives or constraints; diagnosing it is more useful than assuming unwillingness."}, {"t": "The response depends on the underlying cause — apparent stubbornness may reflect fear or unclear direction", "ok": true, "note": "Correct. A convincing plan can still fail if stakeholders feel threatened, confused or emotionally disconnected from the change."}]},
+        {"topic": "Project tracking", "q": "In earned value management, what does “value” mean?", "hint": "The notes rule out three everyday meanings.", "options": [{"t": "Revenue generated by the completed work", "ok": false, "note": "Ruled out explicitly: value is not revenue."}, {"t": "The budgeted cost of completed work", "ok": true, "note": "Correct — not revenue, customer benefit or strategic value."}, {"t": "The strategic value the project delivers to the business", "ok": false, "note": "Ruled out explicitly: value is not strategic value."}, {"t": "The actual cost of the work performed", "ok": false, "note": "That is Actual Cost (AC). Earned value is valued using the original baseline."}]},
+        {"topic": "Project tracking", "q": "A project reports CPI above 1 and SPI below 1. How should it be read?", "hint": "The notes insist the two are interpreted separately.", "options": [{"t": "Favourable on cost but behind schedule — the two can coexist", "ok": true, "note": "Correct. Favourable cost efficiency can coexist with delayed delivery."}, {"t": "On track overall, because the two indices offset each other", "ok": false, "note": "Cost and schedule performance must be interpreted separately; one does not cancel the other."}, {"t": "Over budget and ahead of schedule", "ok": false, "note": "Reversed. CPI above 1 is favourable; SPI below 1 is behind."}, {"t": "Unreadable, because indices should be benchmarked at zero", "ok": false, "note": "Indices use 1.0 as the benchmark; it is variances that use zero."}]},
+        {"topic": "Project tracking", "q": "Which statement about EAC and ETC matches the notes?", "hint": "One of them is a total, the other is what is still to come — and neither is a duration.", "options": [{"t": "EAC replaces BAC once the project is under way", "ok": false, "note": "EAC does not replace the approved BAC; it is a forecast set beside it."}, {"t": "ETC is the forecast remaining duration of the project", "ok": false, "note": "ETC is a cost estimate; remaining duration is calculated separately."}, {"t": "A lower CPI lowers EAC, because work is being done more cheaply", "ok": false, "note": "Reversed. A lower CPI raises EAC, because completing the remaining scope requires more spending per unit of budgeted work."}, {"t": "EAC = BAC / CPI forecasts total cost; ETC = EAC − AC forecasts additional spend from the reporting date onward", "ok": true, "note": "Correct — both assume current cost efficiency continues across the remaining work."}]}
+      ]/*END_QUIZ*/;
+      var SCENARIOS = /*SCENARIOS*/[
+        {"topic": "Stakeholders", "title": "The champion who left", "setup": "An integration project with an external partner has run on one relationship: a well-placed contact who understood the commercial intent and cleared obstacles. That contact has just left the partner. Their replacement has no context on the project, and the partner’s engineering team, which the project never dealt with directly, is now asking why it should prioritise the work.", "task": "Diagnose what went wrong in the engagement and say what the notes would have had the project do differently.", "hints": ["Find the risk in the engagement-as-risk-reduction table that matches this symptom.", "One of the analytical takeaways gives a test that would have exposed this weakness in advance.", "Think about both dimensions of relationships — the project had one contact in one function."], "walkthrough": ["Name the risk: people turnover. Departures remove context, advocacy and decision continuity — exactly what has happened.", "Apply the resilience test: would the project retain context, sponsorship and momentum if its main contact left? Here it did not retain them.", "Identify the structural gap: relationships need depth across seniority levels and breadth across functions. A single commercial-side contact could not substitute for engineering capacity.", "State the response the notes give: spread relationships and understanding across multiple people, and support succession and onboarding.", "Add the cooperation point: the engineering team is being approached for the first time with a request. Relationship investment should have built trust before difficult requests arose."], "checklist": ["Identifies the risk as people turnover", "Applies the resilience test from the takeaways", "Explains the missing depth and breadth", "Gives the notes’ response: spread relationships, support succession and onboarding", "Notes that cooperation should be built before it is needed"]},
+        {"topic": "Stakeholders", "title": "Negotiating the perfect contract", "setup": "A project lead is negotiating an agreement with a partner. To avoid any later surprises, they want the contract to specify every contingency before work begins. Negotiations are now in their third month, and the partner’s commitments have been narrowed to a conservative minimum. A colleague suggests dropping the contract and relying on goodwill instead.", "task": "Advise the project lead on the roles of the contract and the relationship.", "hints": ["The notes set contractual agreement and relationship side by side in one table.", "Each mechanism has a limitation — and both are showing up in this story.", "The block closes with one line about what contractual commitments are."], "walkthrough": ["Name the contract’s limitation: attempting to specify every contingency prolongs negotiation and can constrain commitments to a conservative minimum. Both effects are visible.", "Name goodwill’s limitation: it leaves substantial disagreements unresolved until execution. Dropping the contract swaps one problem for the other.", "Assign each its purpose: the contract resolves substantial disagreements upfront and sets minimum commitments and protection; the relationship enables adaptation and contributions beyond contractual obligations as benefits become evident.", "Conclude with the notes’ line: contractual commitments are a foundation, not a ceiling."], "checklist": ["Identifies the over-specification limitation", "Rejects goodwill alone and says why", "States the purpose of each mechanism", "Treats the two as complementary", "Uses the foundation-not-ceiling framing"]},
+        {"topic": "Tracking with stakeholders", "title": "The late veto", "setup": "A public-facing service change has been delivered sprint by sprint, with regular demonstrations to the sponsor. Near launch, a senior operations manager who was never consulted rejects a key decision and asks why their team was not involved. Separately, a community group has started raising concerns about the change.", "task": "Identify which failure mode of weak consultation this is and where consultation should have happened.", "hints": ["The weak-consultation table has two rows. Match the warning sign.", "Ask which one this threatens: the value of the solution, or the ability to deliver it.", "The notes add a specific point about public-facing change."], "walkthrough": ["Match the warning sign: influential people questioning why they were not consulted, or rejecting decisions late, is withdrawal of support.", "State what it threatens: the ability to deliver the solution, as distinct from drift, which threatens its value.", "Place consultation where the notes put it: at recurring reviews, prioritisation discussions and consequential decision points — not only with the sponsor.", "Add the public-facing point: formal community consultation may also be necessary, because community sentiment and the political environment can affect project viability."], "checklist": ["Names withdrawal of support from the warning sign", "Distinguishes it from project drift", "Places consultation at reviews, prioritisation and decision points", "Raises formal community consultation for public-facing change"]},
+        {"topic": "Tracking with stakeholders", "title": "Feedback straight to developers", "setup": "To stay close to stakeholders, a team lets anyone post reactions to its latest release directly into the team’s channel during the sprint. The reactions are broad — “this feels wrong”, “can it do more?” — and developers keep changing course mid-sprint. Many opinions are gathered, but nobody decides which ones matter.", "task": "Explain what the product owner’s role should be here and how the loop should close.", "hints": ["The notes describe two activities running at once — one for the team, one for the product owner.", "Translation runs in both directions. Which direction is failing?", "What must feedback lead to before it creates alignment?"], "walkthrough": ["Restore the two concurrent activities: the team executes the current sprint while the product owner obtains stakeholder feedback on the previous sprint’s outputs.", "Translate stakeholders → team: broad reactions must become specific, actionable requirements before they reach the team.", "Weigh it: feedback is interpreted and weighed against the wider backlog before informing subsequent work.", "Close the loop: feedback must lead to an explicit prioritisation decision; gathering opinions alone does not create alignment.", "Name the principle: coordinate communication so stakeholders can influence delivery without creating constant, unfiltered interruptions."], "checklist": ["Describes the product owner’s concurrent feedback activity", "Identifies the stakeholders → team translation as missing", "Weighs feedback against the backlog", "Requires an explicit prioritisation decision", "Protects team focus while keeping direction responsive"]},
+        {"topic": "Project tracking", "title": "The welcome underspend", "setup": "At a monthly review, a project manager reports that the project has spent less than planned to date and proposes redirecting the difference to another initiative. No one has yet assessed how much of the scheduled work is actually complete.", "task": "Say what must be established before the underspend is treated as a saving, and which measures would establish it.", "hints": ["Spending less than planned is a comparison of two measures. Which one is missing?", "Think about which measure values completed work using the original baseline.", "Once you have it, there are two comparisons to make — one for cost, one for schedule."], "walkthrough": ["Flag the trap: spending less than planned does not necessarily indicate efficiency; it may simply reflect unfinished work.", "Establish EV — the budgeted cost of work actually completed by now — which requires a credible assessment of completed work.", "Compare EV with AC for cost: CV = EV - AC and CPI = EV / AC show whether completed work cost less than budgeted.", "Compare EV with PV for schedule: SV = EV - PV and SPI = EV / PV show whether less work was completed than scheduled.", "Conclude with the takeaway: apparent underspending should be tested against earned work, not treated as an available saving."], "checklist": ["Names unfinished work as the alternative explanation", "Identifies EV as the missing measure", "Separates the cost comparison from the schedule comparison", "Uses the correct formulas for CV, CPI, SV and SPI", "Refuses to treat the underspend as a saving until tested"]},
+        {"topic": "Project tracking", "title": "A forecast the board will quote", "setup": "Midway through a project, CPI is below 1 and SPI is below 1. The design stage is finished; coding and testing, which the team expects to work quite differently, are still ahead. The finance lead wants one completion cost and one finish date to present to the board as firm figures.", "task": "Explain what the forecasts can say, how they are calculated, and how firmly they should be presented.", "hints": ["There is one formula for total cost, one for remaining cost, and a separate one for duration.", "Which direction does a CPI below 1 push EAC?", "What does forecast credibility depend on — and does it hold here?"], "walkthrough": ["Forecast cost: EAC = BAC / CPI, assuming current cost efficiency continues. A lower CPI raises EAC, because completing the remaining scope requires more spending per unit of budgeted work. EAC does not replace BAC.", "Forecast remaining spend: ETC = EAC − AC, a cost estimate from the reporting date onward — not a duration.", "Forecast duration separately: in the lecture’s simplified model, Forecast duration = Planned duration / SPI, assuming evenly distributed planned work and an unchanged delivery rate.", "Test credibility: it depends on whether current performance is representative of the remaining work, particularly when later stages differ substantially — as coding and testing are expected to.", "Present accordingly: the duration is a conditional extrapolation, not a guaranteed finish date, and EVM’s usefulness lies in enabling corrective action rather than presenting a precise forecast as certainty."], "checklist": ["Uses EAC = BAC / CPI and says a lower CPI raises it", "Uses ETC = EAC − AC and keeps it separate from duration", "Uses the simplified duration formula and states its assumptions", "Questions whether current performance represents the remaining work", "Presents the forecasts as conditional, supporting corrective action"]}
+      ]/*END_SCENARIOS*/;
+
+      /* ── Quiz ─────────────────────────────────────────────── */
+      if (quizListEl && QUIZ.length) {
+        var doneEl = document.getElementById('quiz-done');
+        var rightEl = document.getElementById('quiz-right');
+        var totalEl = document.getElementById('quiz-total');
+        var fillEl = document.getElementById('quiz-fill');
+        var verdictEl = document.getElementById('quiz-verdict');
+        var resetBtn = document.getElementById('quiz-reset');
+
+        var answered = 0;
+        var correct = 0;
+
+        totalEl.textContent = QUIZ.length;
+
+        quizListEl.innerHTML = QUIZ.map(function (q, i) {
+          return '<article class="quiz-q">' +
+            '<div class="quiz-head">' +
+              '<span class="quiz-n">Question ' + (i + 1) + '</span>' +
+              (q.topic ? '<span class="term-src">' + esc(q.topic) + '</span>' : '') +
+            '</div>' +
+            '<p class="quiz-stem">' + esc(q.q) + '</p>' +
+            (q.hint
+              ? '<details class="reveal"><summary>Hint</summary>' +
+                '<div class="reveal-body"><p>' + esc(q.hint) + '</p></div></details>'
+              : '') +
+            '<div class="opts" role="group" aria-label="Answer options for question ' + (i + 1) + '">' +
+              q.options.map(function (o, j) {
+                return '<button class="opt" type="button" data-q="' + i + '" data-o="' + j + '">' +
+                  '<span class="opt-key" aria-hidden="true">' + KEYS[j] + '</span>' +
+                  '<span class="opt-t">' + esc(o.t) + '</span></button>';
+              }).join('') +
+            '</div>' +
+            '<div class="fb-slot" id="fb-' + i + '" role="status" aria-live="polite"></div>' +
+            '</article>';
+        }).join('');
+
+        var qEls = Array.prototype.slice.call(quizListEl.querySelectorAll('.quiz-q'));
+
+        function paintScore() {
+          doneEl.textContent = answered;
+          rightEl.textContent = correct;
+          fillEl.style.width = (answered / QUIZ.length * 100) + '%';
+          if (answered === QUIZ.length) {
+            verdictEl.textContent = 'All done — ' + correct + ' of ' + QUIZ.length +
+              ' correct. Reread the ones you missed in Summary & visuals, then start over.';
+            verdictEl.removeAttribute('hidden');
+          } else {
+            verdictEl.setAttribute('hidden', '');
+          }
+        }
+
+        function answer(i, chosen) {
+          var q = QUIZ[i];
+          var wrap = qEls[i];
+          if (wrap.getAttribute('data-answered') === 'true') return;
+          wrap.setAttribute('data-answered', 'true');
+
+          var opts = Array.prototype.slice.call(wrap.querySelectorAll('.opt'));
+          var rightIdx = -1;
+          q.options.forEach(function (o, j) { if (o.ok) rightIdx = j; });
+
+          opts.forEach(function (el, j) {
+            el.disabled = true;
+            if (j === rightIdx) el.setAttribute('data-state', 'right');
+            else if (j === chosen) el.setAttribute('data-state', 'wrong');
+            else el.setAttribute('data-state', 'off');
+          });
+
+          var isRight = chosen === rightIdx;
+          answered++;
+          if (isRight) correct++;
+
+          var html = '<div class="fb ' + (isRight ? 'fb--right' : 'fb--wrong') + '">' +
+            '<span class="fb-tag">' + (isRight ? 'Correct' : 'Not this one') + '</span>' +
+            '<p>' + esc(q.options[chosen].note) + '</p></div>';
+          if (!isRight) {
+            html += '<div class="fb fb--right">' +
+              '<span class="fb-tag">' + KEYS[rightIdx] + ' is the answer</span>' +
+              '<p>' + esc(q.options[rightIdx].note) + '</p></div>';
+          }
+          document.getElementById('fb-' + i).innerHTML = html;
+          paintScore();
+        }
+
+        quizListEl.addEventListener('click', function (e) {
+          var node = e.target;
+          while (node && node !== quizListEl && !(node.classList && node.classList.contains('opt'))) {
+            node = node.parentNode;
+          }
+          if (!node || node === quizListEl || node.disabled) return;
+          answer(parseInt(node.getAttribute('data-q'), 10), parseInt(node.getAttribute('data-o'), 10));
+        });
+
+        resetBtn.addEventListener('click', function () {
+          answered = 0;
+          correct = 0;
+          qEls.forEach(function (wrap, i) {
+            wrap.removeAttribute('data-answered');
+            Array.prototype.slice.call(wrap.querySelectorAll('.opt')).forEach(function (el) {
+              el.disabled = false;
+              el.removeAttribute('data-state');
+            });
+            Array.prototype.slice.call(wrap.querySelectorAll('.reveal')).forEach(function (d) { d.open = false; });
+            document.getElementById('fb-' + i).innerHTML = '';
+          });
+          paintScore();
+          quizListEl.scrollIntoView({ block: 'start' });
+        });
+
+        paintScore();
+      }
+
+      /* ── Apply it ─────────────────────────────────────────── */
+      if (scenListEl && SCENARIOS.length) {
+        scenListEl.innerHTML = SCENARIOS.map(function (s, i) {
+          var hints = (s.hints || []).map(function (h, k) {
+            return '<details class="reveal"><summary>Hint ' + (k + 1) + '</summary>' +
+              '<div class="reveal-body"><p>' + esc(h) + '</p></div></details>';
+          }).join('');
+
+          var steps = (s.walkthrough || []).map(function (w) {
+            return '<li>' + esc(w) + '</li>';
+          }).join('');
+
+          var checks = (s.checklist || []).map(function (c) {
+            return '<li>' + esc(c) + '</li>';
+          }).join('');
+
+          return '<article class="scen">' +
+            '<div class="quiz-head">' +
+              '<span class="quiz-n">Scenario ' + (i + 1) + '</span>' +
+              (s.topic ? '<span class="term-src">' + esc(s.topic) + '</span>' : '') +
+            '</div>' +
+            '<h3 class="scen-title">' + esc(s.title) + '</h3>' +
+            '<p class="scen-setup">' + esc(s.setup) + '</p>' +
+            '<p class="scen-task"><strong>Your task</strong>' + esc(s.task) + '</p>' +
+            hints +
+            '<details class="reveal reveal--work"><summary>Work it through</summary>' +
+              '<div class="reveal-body">' +
+                (steps ? '<ol class="steps">' + steps + '</ol>' : '') +
+                (checks ? '<h5>A strong answer covers</h5><ul class="check">' + checks + '</ul>' : '') +
+              '</div>' +
+            '</details>' +
+            '</article>';
+        }).join('');
+      }
+    })();
+  </script>
+
+
+  <script>
+    /* ── Study path ─────────────────────────────────────────────────────
+       The only behaviour the block needs: a step's button selects its mode
+       tab. Everything else about the block is static markup. */
+    (function () {
+      'use strict';
+      var path = document.querySelector('.path');
+      if (!path) return;
+
+      path.addEventListener('click', function (e) {
+        var node = e.target;
+        while (node && node !== path && !(node.classList && node.classList.contains('path-go'))) {
+          node = node.parentNode;
+        }
+        if (!node || node === path) return;
+        var tab = document.getElementById('tab-' + node.getAttribute('data-goto'));
+        if (!tab) return;
+        tab.click();
+        tab.scrollIntoView({ block: 'center' });
+        tab.focus();
+      });
+    })();
+  </script>
+
+</body>
+
+</html>

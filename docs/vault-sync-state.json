@@ -84,6 +84,18 @@
      "Valuing a private company": "4d055613a54a",
      "Valuing an early-stage venture": "b014988cdb0c"
     }
+   },
+   "Week 7 Capital Structure and the cost of capital": {
+    "weekNumber": 7,
+    "page": "DMBA6008-week7.html",
+    "topics": {
+     "Application Optimal capital structure": "45a4712e8f58",
+     "Bankruptcy prediction": "0a108157035a",
+     "Estimating the optimal capital structure": "9d21972d3949",
+     "Optimal capital structure": "058ec34b72c5",
+     "Tax benefits of debt": "eb1d3ae8b1ac",
+     "Weighted average cost of capital": "8efb6bb806f9"
+    }
    }
   }
  },
@@ -151,9 +163,19 @@
     "page": "DMBA6005-week6.html",
     "published": "2026-09-07",
     "topics": {
-     "Critical path diagrams": "04bad54f0cd1",
+     "Critical path diagrams": "550d0bbf9a83",
      "Gantt Charts": "d409acd396d7",
+     "How do you do a big CX Project": "3df0857daa56",
      "Scrum": "5220a19fdaf7"
+    }
+   },
+   "Week 7 Taking stock and stakeholders": {
+    "weekNumber": 7,
+    "page": "DMBA6005-week7.html",
+    "topics": {
+     "Project tracking": "4a2002b07ce2",
+     "Stakeholders": "882308e46871",
+     "Tracking with stakeholders": "2a609c3f2fdc"
     }
    }
   }
