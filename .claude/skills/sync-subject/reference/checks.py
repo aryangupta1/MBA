@@ -168,6 +168,12 @@ def check_svg(path, text, found):
                 continue
             cls = re.search(r'class="([^"]*)"', at)
             cls = cls.group(1) if cls else ''
+            # The .svg-* classes set `fill` in CSS, which beats a fill="" attribute, so a
+            # label meant to be white on a dark box silently renders in the default ink.
+            if re.search(r'\bsvg-(label|sub|mono|eyebrow)\b', cls) and re.search(r'\sfill="', at):
+                found.append((path, line, 'svg',
+                              '"%s" sets fill as an attribute; the class overrides it — '
+                              'use style="fill:…"' % label[:44]))
             size = 12
             if 'svg-sub' in cls or 'svg-eyebrow' in cls:
                 size = 10

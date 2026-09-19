@@ -31,19 +31,17 @@ on his instruction.
 - **Gated pages rebuilt** (`build.py`) for the changed Live / Assessment notes — 6005 Week 5 Live
   (+ `Live Prep`), 6008 Assessment 2 Part A (+ `Valuation inputs`), 6005 Assessment 1 Final Version.
 
+- **SVG label colours fixed site-wide** (Aryan: "yes fix"). The `.svg-*` classes set `fill` in CSS,
+  which beat every `fill="…"` attribute on a classed `<text>` — 475 labels on 14 week pages rendered
+  in the default ink instead of white / pale / signal red-green. Moved each into `style="fill:…"`.
+  `checks.py` now flags the attribute form and `fragment-spec.md` rule 3 says so.
+
 ## Do first
 
-1. Tell Aryan about the **SVG white-text bug** (below) and ask whether to fix it site-wide.
-2. Still owed to him from 2026-09-12 — see Open threads item 1.
+1. Still owed to Aryan from 2026-09-12 — see Open threads item 1.
 
 ## Open threads
 
-- [ ] **SVG white text renders dark on 13 published week pages.** `.svg-label` / `.svg-sub` /
-      `.svg-mono` set `fill` in CSS, which beats a `fill="#ffffff"` attribute, so labels meant to be
-      white on dark boxes render near-black (confirmed in-browser on `DMBA6008-week6.html`:
-      computed `rgb(20,19,23)`, 35 labels). The two Week 7 pages use inline `style="fill:…"` and are
-      fine. Fix = move the attribute into `style` on every such `<text>` (mechanical), and fix
-      `week-shell.html` so new builds don't reintroduce it. **Not done — not asked.**
 - [ ] The 2026-09-12 "Do first" list is still unreported to Aryan: (1) the transcript incident of
       2026-09-12; (2) the access code is six characters; (3) how assessment pages look / whether
       6005 Final Version belongs behind the gate; (4) the unseen pages; (5) approve the hook

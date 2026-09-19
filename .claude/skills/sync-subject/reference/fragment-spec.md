@@ -119,7 +119,11 @@ wide it simply overflows, and that is the single most common defect in this repo
 1. **`viewBox="0 0 720 H"`. No `width`, no `height` attribute.** The frame scales it.
 2. **Literal hex fills and strokes.** CSS custom properties do not inherit reliably into
    every SVG attribute. Use the palette values you were given.
-3. **Text classes only:** `.svg-label`, `.svg-sub`, `.svg-mono`, `.svg-eyebrow`.
+3. **Text classes only:** `.svg-label`, `.svg-sub`, `.svg-mono`, `.svg-eyebrow`. Those classes
+   set `fill` in CSS, and a CSS rule beats a `fill="…"` attribute — so **colour a classed
+   `<text>` with `style="fill:#ffffff"`, never `fill="#ffffff"`**, or white-on-dark labels
+   silently render in the default ink. `checks.py` flags the attribute form. (Found
+   2026-09-20 on 13 published pages, 475 labels, and fixed.)
 4. **Every `<text>` must fit its box.** Budget ~6.5px per character at 12px and ~5.4px at
    10px, and compare against the parent `<rect>`'s width. Split long labels across two
    `<text>` lines rather than shrinking the font below 10px.
