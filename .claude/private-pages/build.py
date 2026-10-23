@@ -226,10 +226,11 @@ SUBJ = {
 # public week pages keep syncRules' no-shadow-boxing-after-week-0.
 PREP_PAGES = [
   # code, slug, tab label, page title, standfirst, source dir
-  ("DMBA6005", "io-prep", "IO prep", "IO prep — defending Future You",
-   "Everything for the individual oral: the project, every decision and why, the course concepts behind them, "
-   "the case characters, the Shadow Boxing exercises and practice questions. Written from my vault notes and our "
-   "group deck; practice answers are drafts to say in my own words, not scripts.",
+  ("DMBA6005", "io-prep", "IO prep", "IO prep — the subject, and our project as evidence",
+   "Everything for the individual oral, which covers the whole subject: every week's concepts, frameworks, formulas "
+   "and debates, then our group project — every decision and why — the case characters, the Shadow Boxing exercises "
+   "and practice questions. Written from my vault notes, my reflective journal and our group deck; practice answers "
+   "are drafts to say in my own words, not scripts.",
    os.path.expanduser("~/MBA/.mba-sync/io-prep/DMBA6005")),
 ]
 
@@ -1028,7 +1029,7 @@ def build():
         acards = ('<ul class="weeks">\n%s  </ul>' % acards) if acards else \
                  '<p class="none">No assessment notebook in the vault for this subject yet.</p>'
         pcards = "".join('    <li><a class="wk" href="%s-%s.html"><span class="wk-num">%s</span><h2>%s</h2>'
-                         '<p>%d sections — study notes, decision log, characters, Shadow Boxing and practice questions.</p></a></li>\n'
+                         '<p>%d sections — the whole subject on a page, in-depth notes, our project, Shadow Boxing, my journal and practice questions.</p></a></li>\n'
                          % (code, p["slug"], html.escape(p["label"]), html.escape(p["title"]), p["ntabs"])
                          for p in pindex.get(code, []))
         pcards = ('  <h2 class="section-h">Exam prep</h2>\n  <ul class="weeks">\n%s  </ul>' % pcards) if pcards else ""

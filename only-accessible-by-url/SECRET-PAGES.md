@@ -90,7 +90,7 @@ goes through the same gate. Listed under "Exam prep" in the subject index.
 
 | Subject | Page | What it is | Flags |
 | --- | --- | --- | --- |
-| DMBA 6005 | `live/DMBA6005-io-prep.html` | IO prep for the individual oral (Mon 26 Oct 2026). 12 in-page tabs: overview and game plan, short notes, in-depth notes Wk 0–10, acronyms, glossary and formulas, characters, Shadow Boxing, reflective journal, decision log, mock Q&A, critical reflection, sources | **Shadow Boxing after Week 0 included** — my ruling of 2026-10-24, gated pages only; the public week pages still exclude it. Teammates named by role only; the Week 9 industry expert unnamed |
+| DMBA 6005 | `live/DMBA6005-io-prep.html` | IO prep for the individual oral (Mon 26 Oct 2026). 13 in-page tabs: overview and game plan, subject on a page (week table, frameworks, formulas, 14 debates), project on a page, in-depth notes Wk 0–10, acronyms, glossary and formulas, characters, Shadow Boxing, reflective journal, decision log, mock Q&A, critical reflection, sources | **Shadow Boxing after Week 0 included** — my ruling of 2026-10-24, gated pages only; the public week pages still exclude it. Teammates named by role only; the Week 9 industry expert unnamed |
 
 ## Weeks with no live page
 

@@ -16,9 +16,10 @@ in his Downloads; it names classmates and must never be committed). Built
 ## What this session did
 
 - **The IO prep page.** `live/DMBA6005-io-prep.html` is gated with the same code and unlock as
-  every other live page. Its 12 in-page tabs:
+  every other live page. Its 13 in-page tabs:
   - overview and game plan
-  - short notes
+  - subject on a page (added after Aryan said the oral covers the whole subject, not just the project)
+  - project on a page (was "short notes")
   - in-depth notes, Weeks 0–10
   - acronyms (67)
   - glossary and formulas
@@ -26,7 +27,7 @@ in his Downloads; it names classmates and must never be committed). Built
   - Shadow Boxing
   - reflective journal (added mid-session from his annotated workbook PDF)
   - decision log
-  - mock Q&A (96 questions)
+  - mock Q&A (156 questions: Q1–Q96 on the project, Q97–Q156 subject-wide)
   - critical reflection
   - sources and `[VERIFY]` list
   
@@ -92,6 +93,9 @@ Nothing pending from the agenda. Wait for Aryan. If he edits the IO prep source,
 - [ ] Check one new page on a real phone.
 
 ## Settled — do not re-open
+
+- **The DMBA 6005 oral covers the whole subject, not just the group project** (Aryan,
+  2026-10-24). The project is the main evidence, not the scope.
 
 - **Shadow Boxing after Week 0 is allowed on gated pages** (Aryan, 2026-10-24, for the IO prep
   page). It stays **off every public page** (`syncRules` `no-shadow-boxing-after-week-0`).

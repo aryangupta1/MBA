@@ -48,7 +48,7 @@ ciphertext changes even when the content did not; that is expected.
   the subject index gained an "Assessment notebooks" section; `IMAGE_TRANSCRIBED` and
   `<mention-page>` resolution added.
 - **2026-10-24** — the first exam-prep page, `live/DMBA6005-io-prep.html`, for the DMBA 6005
-  individual oral (Mon 26 Oct 2026). It has twelve in-page tabs (the reflective journal was added the same day), its source is outside git, and
+  individual oral (Mon 26 Oct 2026). It has thirteen in-page tabs: the reflective journal was added the same day, and a subject-wide rebalance followed ("Subject on a page" and 60 course-wide practice questions), because the oral covers the whole subject. Its source is outside git, and
   Shadow Boxing after Week 0 is allowed on it.
 
 ## Why this exists separately from `sync-subject`
@@ -143,7 +143,7 @@ and the group deck. Every fact on it carries a source tag; anything unconfirmed 
   data (`DMBA6005-search.html`), plus a hand-written "in our project" column, by
   `~/MBA/.mba-sync/io-prep/gen_glossary_DMBA6005.py <repo>`. It sits beside the source and
   outside git because that column is project content. Re-run it after the search page is
-  rebuilt, and that rewrites `04-acronyms.md` and `05-glossary.md`.
+  rebuilt, and that rewrites `05-acronyms.md` and `06-glossary.md`.
 
 ## Adding an assessment
 
