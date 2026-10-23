@@ -4,7 +4,7 @@ Every **Live Session** page on this site, grouped by subject, and — since 2026
 **assessment notebook**. These carry my live-session notes and my assessment work — the
 material that is deliberately kept off the public week pages.
 
-**Last updated:** 2026-09-12
+**Last updated:** 2026-10-24
 
 > This file still lives in `only-accessible-by-url/` so `robots.txt` covers it. The pages
 > themselves moved to **`live/`** on 2026-09-09 and are now **access-code protected**: the
@@ -80,6 +80,17 @@ subject index.
 | DMBA 6008 | **2** — Company Valuation | `live/DMBA6008-assessment2.html` | Part A, Part A — Overview | — |
 
 ---
+
+## Exam-prep pages
+
+Added 2026-10-24. These are study pages written for me from my vault notes and our group
+deck. They are not notes I wrote myself, so every fact carries a source tag. The source is
+Markdown in `~/MBA/.mba-sync/io-prep/` — outside git and outside the vault's notes — and it
+goes through the same gate. Listed under "Exam prep" in the subject index.
+
+| Subject | Page | What it is | Flags |
+| --- | --- | --- | --- |
+| DMBA 6005 | `live/DMBA6005-io-prep.html` | IO prep for the individual oral (Mon 26 Oct 2026). 11 in-page tabs: overview and game plan, short notes, in-depth notes Wk 0–10, acronyms, glossary and formulas, characters, Shadow Boxing, decision log, mock Q&A, critical reflection, sources | **Shadow Boxing after Week 0 included** — my ruling of 2026-10-24, gated pages only; the public week pages still exclude it. Teammates named by role only; the Week 9 industry expert unnamed |
 
 ## Weeks with no live page
 

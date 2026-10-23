@@ -36,7 +36,7 @@ Subjects are grouped by semester on `index.html`.
 | Code | Subject | Content |
 | --- | --- | --- |
 | DMBA 6008 | Finance, Strategy and Technology | Weeks 0–9, all complete. Week hub + per-week study pages, built from the vault. Weeks 8 (growth) and 9 (restructuring and ESG) published 2026-10-23 — eleven topics; all sixteen Week 8 source images were formula renders and were transcribed, not published. Week 6's notes carry a `$28.888m` / `$22.888m` inconsistency that is reproduced as written. Three core modes — summary & visuals, key concepts, flashcards — plus **acronyms** and **formulas** where the week has them, and **discussion questions** where a Live note supplies them (Week 2 only so far). Every week also carries a **quiz**, an **Apply it** tab and a **study path**, all derived from the built page. A **master search page** (`DMBA6008-search.html`) indexes every term, acronym, formula and flashcard across all ten weeks — 1,935 entries as of 2026-10-23, derived from the week pages |
-| DMBA 6005 | Agile Project Development | Weeks 0–10. Week hub + per-week study pages, same modes, built from the vault. Live since 2026-08-06. Weeks 8 (managing our people), 9 (execution and risk) and 10 (quality and putting it all together) published 2026-10-23 — two topics each. A **master search page** (`DMBA6005-search.html`) indexes every term, acronym, formula and flashcard across all eleven weeks — 1,462 entries as of 2026-10-23 |
+| DMBA 6005 | Agile Project Development | Weeks 0–10. Week hub + per-week study pages, same modes, built from the vault. Live since 2026-08-06. Weeks 8 (managing our people), 9 (execution and risk) and 10 (quality and putting it all together) published 2026-10-23 — two topics each. A **master search page** (`DMBA6005-search.html`) indexes every term, acronym, formula and flashcard across all eleven weeks — 1,462 entries as of 2026-10-23. A gated **IO prep** page (`live/DMBA6005-io-prep.html`, 2026-10-24) prepares the individual oral |
 
 The **quiz, Apply-it and study-path components are not synced from any source** — they are
 derived from the assembled page and live in
@@ -140,7 +140,10 @@ and do not copy `publish: false` content into any page under this repo.
   by `.claude/private-pages/build.py` from the vault. Since **2026-09-12** the same gate also
   carries Aryan's **assessment notebooks** (`live/<CODE>-assessment<N>.html`), **discovered
   automatically** from every vault folder named `Assessment <N> …` — no code change for a new
-  one. Every page's content is encrypted at
+  one. Since **2026-10-24** it also carries **exam-prep pages** (`live/<CODE>-<slug>.html`,
+  listed in `PREP_PAGES`). The first is `live/DMBA6005-io-prep.html`, the DMBA 6005 oral prep.
+  Its Markdown source is in `~/MBA/.mba-sync/io-prep/`, never in git. Shadow Boxing after
+  Week 0 is allowed on it, and teammates appear by role only. Every page's content is encrypted at
   build time with the code in the git-ignored `.env` (`LIVE_ACCESS_CODE`) and decrypted in
   the browser; nothing readable is committed. Set up on Aryan's instruction of
   **2026-09-09**, replacing the unlisted plaintext pages of 2026-08-31, which were deleted.

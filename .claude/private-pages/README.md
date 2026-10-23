@@ -7,8 +7,13 @@ subject:
 - **Assessment notebooks** (since 2026-09-12) — one page per notebook at
   `live/<CODE>-assessment<N>.html`, e.g. `live/DMBA6008-assessment2.html`.
 
-Plus one index per subject at `live/<CODE>.html`, with two sections: the week cards, then an
-**"Assessment notebooks"** section with one card per notebook.
+- **Exam-prep pages** (since 2026-10-24) — a study page written *for* Aryan, at
+  `live/<CODE>-<slug>.html`. The first is `live/DMBA6005-io-prep.html`, his prep for the
+  DMBA 6005 individual oral. See [Exam-prep pages](#exam-prep-pages) below.
+
+Plus one index per subject at `live/<CODE>.html`, with the week cards, an
+**"Assessment notebooks"** section with one card per notebook, and an **"Exam prep"** section
+when the subject has a prep page.
 
 Every page's content is **encrypted at build time** (AES-256-GCM, key from PBKDF2-SHA256
 over the access code) and decrypted in the browser after the reader types the code. Week and
@@ -42,6 +47,9 @@ ciphertext changes even when the content did not; that is expected.
   notebooks to the live sessions", Aryan). Discovered from the vault rather than listed;
   the subject index gained an "Assessment notebooks" section; `IMAGE_TRANSCRIBED` and
   `<mention-page>` resolution added.
+- **2026-10-24** — the first exam-prep page, `live/DMBA6005-io-prep.html`, for the DMBA 6005
+  individual oral (Mon 26 Oct 2026). It has eleven in-page tabs, its source is outside git, and
+  Shadow Boxing after Week 0 is allowed on it.
 
 ## Why this exists separately from `sync-subject`
 
@@ -99,6 +107,43 @@ Append to `PAGES`. Each entry is `(code, week number, week title, [(heading, vau
 A note that is empty in the vault renders an honest "nothing was written under it" line —
 never generate filler for it. The subject index and its "weeks with no live page" list are
 derived from `PAGES` and from the `<CODE>-week*.html` files in the repo root.
+
+## Exam-prep pages
+
+Added 2026-10-24 on Aryan's instruction ("build the gated IO prep page for DMBA 6005").
+Unlike the week and assessment pages, which render his notes as written, a prep page holds
+material **written for him** — summaries, a decision log, mock Q&A — from his vault notes
+and the group deck. Every fact on it carries a source tag; anything unconfirmed is marked
+`[VERIFY]`.
+
+- **Listed in `PREP_PAGES`** in `build.py`: `(code, slug, tab label, title, standfirst, source dir)`.
+  `PREP_DUE` gives the countdown date.
+- **The source is Markdown outside the repo and outside the vault's notes:**
+  `~/MBA/.mba-sync/io-prep/<CODE>/NN-slug.md`, one file per in-page tab, in filename order.
+  A dot-folder, so Obsidian, `sync-notes` and `verify.py` all ignore it. Nothing plaintext is
+  committed. On a machine without that folder the build prints `SKIPPED` and leaves the
+  existing page alone.
+- **File format:** the first line is `# Tab label`, optionally followed by `{fold=2}` or
+  `{fold=3}` to fold every `##` or `###` section into a `<details>`. The body is the same
+  small Markdown `md()` reads, with two additions turned on only for prep pages:
+  ```` ```formula ```` fences (rendered as `.formula`) and `- [ ]` checklists. Two-space list
+  indents are accepted.
+- **Same pipeline:** `redact()`, `md()`, `encrypt()`, the same gate and `sessionStorage`
+  unlock. The page joins `subject_tabs()` after the assessments, in `--accent-deep`.
+- **In-page tabs** are buttons with `role="tab"`, arrow-key and Home/End navigation, and
+  `#tab-N` deep links. Every table with 12+ rows gets a filter box. Checklist ticks are kept
+  in `localStorage`, in that browser only. The tab script (`PREP_JS`) sits in the page
+  shell because the decrypted content is injected with `innerHTML`, which does not run
+  scripts. `GATE_JS` calls `window.afterUnlock(doc)` after every unlock.
+- **Shadow Boxing after Week 0 is allowed on a prep page** (Aryan, 2026-10-24). The public
+  week pages keep `syncRules`' `no-shadow-boxing-after-week-0`.
+- **Teammates are named by role** (Teammate G, Teammate C), never by name. The same
+  never-publish rule applies to classmates and lecturers as on every other gated page.
+- The `DMBA6005` Acronyms and Glossary tabs are generated from the subject's search-page
+  data (`DMBA6005-search.html`), plus a hand-written "in our project" column, by
+  `~/MBA/.mba-sync/io-prep/gen_glossary_DMBA6005.py <repo>`. It sits beside the source and
+  outside git because that column is project content. Re-run it after the search page is
+  rebuilt, and that rewrites `04-acronyms.md` and `05-glossary.md`.
 
 ## Adding an assessment
 

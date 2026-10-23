@@ -22,7 +22,7 @@ VAULT = os.path.expanduser("~/MBA/Semester 2 2026")
 SYNC  = os.path.expanduser("~/MBA/.mba-sync")
 OUT   = "live"
 ENV   = ".env"
-BUILT_ON = "12 September 2026"
+BUILT_ON = "24 October 2026"
 
 # ── Access code ──────────────────────────────────────────────────────────────
 def access_code():
@@ -214,6 +214,79 @@ SUBJ = {
                    accent="#2F5470", deep="#1F3B51", soft="#E9EFF4"),
 }
 
+# ── Exam-prep pages ──────────────────────────────────────────────────────────
+# Added 2026-10-24 on Aryan's instruction: a study page for the DMBA 6005 individual oral,
+# written for him from his vault notes and the group deck. Its source is Markdown kept
+# OUTSIDE the repo and outside the vault's notes (a dot-folder that Obsidian, sync-notes and
+# verify.py all ignore), one file per in-page tab, ordered by filename: "NN-slug.md". The
+# first line is "# Tab label", optionally followed by {fold=2} or {fold=3} to fold every
+# ## or ### section into a <details>. Nothing plaintext is committed — the page goes through
+# the same redact() / md() / encrypt() path as every other gated page.
+# Shadow Boxing after Week 0 is allowed here (Aryan, 2026-10-24) — gated pages only; the
+# public week pages keep syncRules' no-shadow-boxing-after-week-0.
+PREP_PAGES = [
+  # code, slug, tab label, page title, standfirst, source dir
+  ("DMBA6005", "io-prep", "IO prep", "IO prep — defending Future You",
+   "Everything for the individual oral: the project, every decision and why, the course concepts behind them, "
+   "the case characters, the Shadow Boxing exercises and practice questions. Written from my vault notes and our "
+   "group deck; practice answers are drafts to say in my own words, not scripts.",
+   os.path.expanduser("~/MBA/.mba-sync/io-prep/DMBA6005")),
+]
+
+def _prep_tabs(src):
+    """[(label, fold level or 0, markdown body)] in filename order."""
+    tabs = []
+    for f in sorted(os.listdir(src)):
+        if not re.match(r"^\d+-.*\.md$", f):
+            continue
+        text = open(os.path.join(src, f), encoding="utf-8").read()
+        first, _, body = text.partition("\n")
+        m = re.match(r"^#\s+(.*?)\s*(?:\{fold=(\d)\})?\s*$", first)
+        if not m:
+            sys.exit("FATAL: %s must start with '# Tab label'" % f)
+        tabs.append((m.group(1), int(m.group(2) or 0), body))
+    return tabs
+
+def _spaces_to_tabs(text):
+    # the prep sources indent nested lists with two spaces; md() nests on tabs
+    return re.sub(r"(?m)^((?:  )+)(?=(?:[-*]|\d+\.)\s)", lambda m: "\t" * (len(m.group(1)) // 2), text)
+
+def _fold(text, level):
+    """Render markdown, wrapping each heading-`level` section in a <details>."""
+    if not level:
+        return md(text, prep=True)
+    out, buf, head = [], [], None
+    def flush():
+        if head is None:
+            if "".join(buf).strip():
+                out.append(md("\n".join(buf), prep=True))
+        else:
+            out.append('<details class="fold"><summary>%s</summary><div class="fold-body">%s</div></details>'
+                       % (inline(head), md("\n".join(buf), prep=True)))
+    for line in text.split("\n"):
+        m = re.match(r"^(#{1,6})\s+(.*)$", line)
+        if m and len(m.group(1)) <= level:
+            flush(); buf = []
+            if len(m.group(1)) == level:
+                head = m.group(2)
+            else:
+                head = None; buf = [line]
+            continue
+        buf.append(line)
+    flush()
+    return "\n".join(out)
+
+def render_prep(code, slug, src):
+    tabs = []
+    for n, (label, fold, body) in enumerate(_prep_tabs(src), 1):
+        body = _spaces_to_tabs(redact(body, f"{code} {slug} {label}"))
+        tabs.append((n, label, _fold(body, fold)))
+    nav = "".join('<button type="button" role="tab" class="ptab" id="pt%d" aria-controls="pp%d" aria-selected="%s" tabindex="%s">%s</button>'
+                  % (n, n, "true" if n == 1 else "false", "0" if n == 1 else "-1", html.escape(label)) for n, label, _ in tabs)
+    panels = "\n".join('  <section class="ppanel note" role="tabpanel" id="pp%d" aria-labelledby="pt%d"%s>\n    <h2 class="ppanel-h">%s</h2>\n%s\n  </section>'
+                       % (n, n, "" if n == 1 else " hidden", html.escape(label), body) for n, label, body in tabs)
+    return ('  <div class="ptabs" role="tablist" aria-label="Sections">%s</div>\n%s' % (nav, panels)), len(tabs)
+
 REDACTED = []
 
 def strip_fm(t):
@@ -293,8 +366,9 @@ def img_block(fname):
     return ('<figure class="fig"><img src="../assets/notes/private/%s" alt="%s">'
             '<figcaption>%s</figcaption></figure>' % (html.escape(fname), html.escape(alt), html.escape(alt)))
 
-def md(text):
-    """Small markdown renderer for these notes. Tabs mark list nesting."""
+def md(text, prep=False):
+    """Small markdown renderer for these notes. Tabs mark list nesting.
+    prep=True (the exam-prep pages only) adds ```formula fences and - [ ] checklists."""
     out, i = [], 0
     lines = text.split("\n")
     list_stack = []   # list of (depth, tag)
@@ -308,6 +382,15 @@ def md(text):
         line = raw.rstrip()
         if not line.strip():
             close_lists(); i += 1; continue
+
+        if prep and line.strip() == "```formula":
+            close_lists()
+            body = []
+            i += 1
+            while i < len(lines) and lines[i].strip() != "```":
+                body.append(html.escape(lines[i].strip(), quote=False)); i += 1
+            out.append('<div class="formula">%s</div>' % "<br>".join(body))
+            i += 1; continue
 
         # callout:  > [!note] emoji   then following "> " lines
         m = re.match(r"^>\s*\[!(\w+)\]\s*(.*)$", line)
@@ -370,6 +453,11 @@ def md(text):
             elif list_stack[-1][1] != tag:
                 out.append("</%s>" % list_stack.pop()[1]); out.append("<%s>" % tag); list_stack.append((depth, tag))
             content = m.group(3)
+            cb = re.match(r"^\[([ xX])\]\s+(.*)$", content) if prep else None
+            if cb:
+                out.append('<li class="check"><label><input type="checkbox"%s> <span>%s</span></label></li>'
+                           % (" checked" if cb.group(1) != " " else "", inline(cb.group(2))))
+                i += 1; continue
             im = re.match(r"^!\[\[([^\]]+)\]\]$", content.strip())
             out.append("<li>%s</li>" % (img_block(im.group(1)) if im else inline(content)))
             i += 1; continue
@@ -538,6 +626,84 @@ CSS = """
   .lock-btn{font:inherit;font-size:.8rem;font-weight:600;color:var(--ink3);background:none;border:1px solid var(--line);
             border-radius:var(--r-pill);padding:6px 14px;cursor:pointer;margin-top:8px}
   .lock-btn:hover{color:var(--accent-deep);border-color:var(--accent-deep)}
+
+  /* exam-prep pages: tab link tint, in-page tabs, folds, filters, checklists */
+  .livetab--prep{background:var(--accent-deep);border-color:transparent;color:#fff}
+  .livetab--prep[aria-current="page"]{background:var(--ink);border-color:var(--ink)}
+  .countdown{font-family:var(--font-d);font-weight:700;font-size:.85rem;color:var(--accent-deep);margin:0 0 18px}
+  .ptabs{display:flex;gap:6px;overflow-x:auto;margin:0 0 18px;padding:2px 0 8px;scrollbar-width:thin;
+         position:sticky;top:0;z-index:2;background:var(--paper)}
+  .ptab{flex:0 0 auto;font:inherit;font-family:var(--font-d);font-size:.8rem;font-weight:600;white-space:nowrap;cursor:pointer;
+        padding:7px 13px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--surface);color:var(--ink2)}
+  .ptab:hover{border-color:var(--accent);color:var(--accent-deep)}
+  .ptab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  .ptab:focus-visible,.fold>summary:focus-visible{outline:2px solid var(--accent-deep);outline-offset:2px}
+  .ppanel-h{font-family:var(--font-d);font-weight:800;font-size:1.3rem;color:var(--ink);margin:0 0 14px;letter-spacing:-.015em}
+  .ppanel h3{font-family:var(--font-d);font-weight:700;font-size:1.08rem;color:var(--ink);margin:26px 0 10px}
+  .fold{border:1px solid var(--line);border-radius:var(--r);margin:0 0 10px;background:var(--paper2)}
+  .fold>summary{cursor:pointer;padding:11px 15px;font-family:var(--font-d);font-weight:700;font-size:.95rem;color:var(--ink);
+                list-style-position:outside;margin-left:14px}
+  .fold[open]>summary{border-bottom:1px solid var(--line2)}
+  .fold-body{padding:6px 16px 10px}
+  .filter{display:block;width:100%%;font:inherit;font-size:.88rem;padding:9px 13px;margin:14px 0 -6px;border:1px solid var(--line);
+          border-radius:var(--r);background:var(--paper2);color:var(--ink)}
+  .filter:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+  .filter-n{font-size:.75rem;color:var(--ink3);margin:10px 0 0}
+  li.check{list-style:none;margin-left:-1.25rem}
+  li.check input{accent-color:var(--accent);margin-right:6px}
+  .ppanel .tbl table{min-width:560px}
+  @media print{.gate,.ptabs,.livetabs,.backlinks,.filter,.lock-btn{display:none!important}
+    .ppanel[hidden]{display:block!important}.fold>.fold-body{display:block}}
+"""
+
+# Runs after the page is decrypted (GATE_JS calls window.afterUnlock). Content-free.
+PREP_JS = r"""
+window.afterUnlock=function(doc){
+  var tabs=[].slice.call(doc.querySelectorAll('.ptab')), panels=[].slice.call(doc.querySelectorAll('.ppanel'));
+  function show(i,focus){
+    tabs.forEach(function(t,j){t.setAttribute('aria-selected',j===i?'true':'false');t.tabIndex=j===i?0:-1;});
+    panels.forEach(function(p,j){p.hidden=j!==i;});
+    if(focus)tabs[i].focus();
+    try{history.replaceState(null,'','#tab-'+(i+1));}catch(e){}
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){show(i);});
+    t.addEventListener('keydown',function(e){
+      var k=e.key,n=tabs.length;
+      if(k==='ArrowRight'){e.preventDefault();show((i+1)%n,true);}
+      else if(k==='ArrowLeft'){e.preventDefault();show((i-1+n)%n,true);}
+      else if(k==='Home'){e.preventDefault();show(0,true);}
+      else if(k==='End'){e.preventDefault();show(n-1,true);}
+    });
+  });
+  var h=/^#tab-(\d+)$/.exec(location.hash); if(h&&tabs[h[1]-1])show(h[1]-1);
+  // a filter box above every long table
+  [].forEach.call(doc.querySelectorAll('.ppanel .tbl'),function(box){
+    var rows=[].slice.call(box.querySelectorAll('tbody tr')); if(rows.length<12)return;
+    var inp=document.createElement('input'); inp.type='search'; inp.className='filter';
+    inp.placeholder='Filter these '+rows.length+' rows…'; inp.setAttribute('aria-label','Filter table');
+    var n=document.createElement('p'); n.className='filter-n'; n.setAttribute('aria-live','polite');
+    box.parentNode.insertBefore(inp,box); box.parentNode.insertBefore(n,box);
+    inp.addEventListener('input',function(){
+      var q=inp.value.trim().toLowerCase(),c=0;
+      rows.forEach(function(r){var on=!q||r.textContent.toLowerCase().indexOf(q)>-1;r.hidden=!on;if(on)c++;});
+      n.textContent=q?c+' of '+rows.length+' rows':'';
+    });
+  });
+  // checklists remember their ticks in this browser only
+  [].forEach.call(doc.querySelectorAll('li.check input'),function(cb){
+    var k='mba-prep-'+location.pathname+'-'+cb.parentNode.textContent.trim().slice(0,80);
+    try{var v=localStorage.getItem(k); if(v!==null)cb.checked=v==='1';}catch(e){}
+    cb.addEventListener('change',function(){try{localStorage.setItem(k,cb.checked?'1':'0');}catch(e){}});
+  });
+  var cd=doc.querySelector('[data-due]');
+  if(cd){
+    var due=new Date(cd.getAttribute('data-due')+'T00:00:00'), now=new Date(); now.setHours(0,0,0,0);
+    var d=Math.round((due-now)/864e5);
+    cd.textContent=d>1?d+' days to the oral ('+cd.getAttribute('data-label')+')':d===1?'The oral is tomorrow ('+cd.getAttribute('data-label')+')':
+                   d===0?'The oral is today — breathe, bridge back to the project, you know this.':'The oral was on '+cd.getAttribute('data-label')+'.';
+  }
+};
 """
 
 GATE_JS = r"""
@@ -567,6 +733,7 @@ GATE_JS = r"""
         Array.prototype.forEach.call(doc.querySelectorAll('[data-lock]'),function(b){
           b.addEventListener('click',function(){try{sessionStorage.removeItem(KEY);}catch(e){} location.reload();});
         });
+        if(window.afterUnlock)window.afterUnlock(doc);
       });
   }
   form.addEventListener('submit',function(e){
@@ -662,6 +829,30 @@ ASSESS_DOC = """  <nav class="backlinks" aria-label="Back">
   </div>
 """
 
+PREP_DOC = """  <nav class="backlinks" aria-label="Back">
+    <a class="backlink" href="../%(hub)s">&larr; %(spaced)s week hub</a>
+    <a class="backlink" href="%(code)s.html">&larr; All live sessions and assessments</a>
+  </nav>
+%(tabs)s
+  <p class="eyebrow">%(spaced)s &middot; %(name)s &middot; %(label)s</p>
+  <h1>%(ptitle)s</h1>
+  <p class="standfirst">%(standfirst)s</p>
+  <div class="badges">
+    <span class="badge">Exam prep &middot; %(ntabs)d sections</span>
+    <span class="badge badge--warn">Access code &mdash; not indexed</span>
+  </div>
+  %(countdown)s
+%(body)s
+  <div class="doc-foot">
+    <p>%(spaced)s %(name)s &middot; %(label)s</p>
+    <p>Built on %(built)s from my Obsidian vault and our group deck. Teammates are named by role, and lecturer and classmate names are withheld from every page on this site. Shadow Boxing after Week 0 appears here by my decision of 24 October 2026; it stays off the public week pages.</p>
+    <button type="button" class="lock-btn" data-lock>Lock these pages</button>
+  </div>
+"""
+
+# The due date shown on a prep page's countdown (from the Notion Assignments database).
+PREP_DUE = {"io-prep": ("2026-10-26", "Mon 26 Oct 2026")}
+
 INDEX_DOC = """  <nav class="backlinks" aria-label="Back">
     <a class="backlink" href="../%(hub)s">&larr; %(spaced)s week hub</a>
   </nav>
@@ -683,6 +874,7 @@ INDEX_DOC = """  <nav class="backlinks" aria-label="Back">
   </div>
   <h2 class="section-h">Assessment notebooks</h2>
   %(acards)s
+%(pcards)s
   <div class="doc-foot">
     <p>%(spaced)s %(name)s &middot; live sessions index</p>
     <p>Built from my Obsidian vault on %(built)s. Lecturer and classmate names, transcripts and class chat logs are withheld from every page on this site.</p>
@@ -735,6 +927,11 @@ def subject_tabs(code, notebooks, current):
         items.append('<span class="livetabs-sep" aria-hidden="true"></span>')
         items += [tab("a%d" % n, "%s-assessment%d.html" % (code, n), "Assessment %d" % n, " livetab--assess")
                   for n, _, _ in notebooks]
+    preps = [p for p in PREP_PAGES if p[0] == code and os.path.isdir(p[5])]
+    if preps:
+        items.append('<span class="livetabs-sep" aria-hidden="true"></span>')
+        items += [tab("p-" + slug, "%s-%s.html" % (code, slug), label, " livetab--prep")
+                  for _, slug, label, _, _, _ in preps]
     return '  <nav class="livetabs" aria-label="Live pages">%s</nav>' % "".join(items)
 
 def build():
@@ -778,6 +975,31 @@ def build():
             aindex.setdefault(code, []).append(dict(n=n, title=atitle, notes=[h for h, _ in notes], flags=sorted(set(flags))))
             print("built %-32s %6d bytes  (%d note%s)" % (out, len(page), len(notes), "" if len(notes)==1 else "s"))
 
+    pindex = {}
+    for code, slug, label, ptitle, standfirst, src in PREP_PAGES:
+        s = SUBJ[code]
+        if not os.path.isdir(src):
+            print("SKIPPED prep page %s-%s: no source at %s (existing page left as is)" % (code, slug, src))
+            continue
+        body, ntabs = render_prep(code, slug, src)
+        due = PREP_DUE.get(slug)
+        countdown = ('<p class="countdown" data-due="%s" data-label="%s">The oral is on %s.</p>' % (due[0], due[1], due[1])) if due else ""
+        doc = PREP_DOC % dict(hub=s["hub"], spaced=s["spaced"], code=code, name=html.escape(s["name"]),
+                              label=html.escape(label), ptitle=html.escape(ptitle), standfirst=html.escape(standfirst),
+                              ntabs=ntabs, countdown=countdown, body=body, built=BUILT_ON,
+                              tabs=subject_tabs(code, NOTEBOOKS[code], "p-" + slug))
+        page = TPL % dict(
+            title="%s %s" % (s["spaced"], label),
+            css=CSS % dict(accent=s["accent"], deep=s["deep"], soft=s["soft"]),
+            spaced=s["spaced"], hub=s["hub"], gate_kicker=html.escape(label),
+            gate_title="Enter the access code", gate_blurb="My %s page. Unlocking here unlocks every live page of %s in this tab." % (html.escape(label), s["spaced"]),
+            payload=encrypt(doc, code_secret), js=PREP_JS + GATE_JS)
+        out = os.path.join(OUT, "%s-%s.html" % (code, slug))
+        open(out, "w", encoding="utf-8").write(page)
+        made.append(out)
+        pindex.setdefault(code, []).append(dict(slug=slug, label=label, title=ptitle, ntabs=ntabs))
+        print("built %-32s %6d bytes  (prep page, %d tabs)" % (out, len(page), ntabs))
+
     # a stale assessment page (notebook renamed or removed from the vault) must not linger
     keep = set(made)
     for f in glob.glob(os.path.join(OUT, "*-assessment*.html")):
@@ -805,10 +1027,15 @@ def build():
                           ('<div class="wk-flags">%s</div>' % fl) if fl else ""))
         acards = ('<ul class="weeks">\n%s  </ul>' % acards) if acards else \
                  '<p class="none">No assessment notebook in the vault for this subject yet.</p>'
+        pcards = "".join('    <li><a class="wk" href="%s-%s.html"><span class="wk-num">%s</span><h2>%s</h2>'
+                         '<p>%d sections — study notes, decision log, characters, Shadow Boxing and practice questions.</p></a></li>\n'
+                         % (code, p["slug"], html.escape(p["label"]), html.escape(p["title"]), p["ntabs"])
+                         for p in pindex.get(code, []))
+        pcards = ('  <h2 class="section-h">Exam prep</h2>\n  <ul class="weeks">\n%s  </ul>' % pcards) if pcards else ""
         doc = INDEX_DOC % dict(hub=s["hub"], spaced=s["spaced"], name=html.escape(s["name"]),
                                count=len(rows), plural="" if len(rows)==1 else "s", cards=cards,
                                missing=missing, acount=len(arows), aplural="" if len(arows)==1 else "s",
-                               acards=acards, built=BUILT_ON, tabs=subject_tabs(code, NOTEBOOKS[code], "all"))
+                               acards=acards, pcards=pcards, built=BUILT_ON, tabs=subject_tabs(code, NOTEBOOKS[code], "all"))
         page = TPL % dict(
             title="%s — live sessions" % s["spaced"],
             css=CSS % dict(accent=s["accent"], deep=s["deep"], soft=s["soft"]),

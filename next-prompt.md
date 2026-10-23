@@ -7,85 +7,107 @@
 > Every session must leave this file updated before it ends.
 
 **Last updated:** 2026-10-24
-**Left by:** Aryan: *"sync notion, new updates have been made utilise sub agents for efficiency,
-commit and push once done direct to master."* Ran the full chain for both semester-2 subjects
-and **committed and pushed to `master`** on his instruction.
+**Left by:** Aryan's brief *"Build the gated IO prep live page for DMBA 6005"* (a prompt file
+in his Downloads; it names classmates and must never be committed). Built
+`live/DMBA6005-io-prep.html`, then **committed and pushed to `master`** on his instruction.
 
 ---
 
 ## What this session did
 
-- **Notion changed its markup format** (first seen 2026-10-23). `notion-fetch` now returns
-  HTML-flavoured content: `<b>`, `<ul><li>`, `<p />`, multi-line `<page>` tags, two-space
-  indents and `$x$` equations. Images come back as `<image source="notion-file-block://…">`
-  with the signed URLs in a separate `references` map. Fixed for good:
-  - `convert_core.py` gained `to_legacy()`. Both formats now give the same vault note:
-    131 of 150 unchanged pages converted byte-identical, and the rest differed only in
-    equivalent markup.
-  - The latent `text\n---` setext bug in `normalise()` is also fixed.
-  - New `reference/compare_harvest.py <backup> [--apply]` compares words, not bytes.
-  - `ingest.py` takes a `refs.json` as its second argument.
-  - `~/MBA/.mba-sync/AGENT-INSTRUCTIONS.md` tells harvesters how to use it.
-  - The sync-notes `SKILL.md` documents all of this.
-- **sync-notes**, both courses, full scope, 9 harvest agents. Backup at
-  `~/MBA/.mba-sync/backup-20261023-221558/`.
-  - 150 re-harvested pages had **0 word-level changes**, so their raw bytes were restored and
-    nothing was rewritten.
-  - **26 NEW notes:** 6008 Weeks 8–9, 6005 Weeks 8–10. One spot-checked against my own
-    fetch matched.
-  - 0 conflicts. `verify.py` reported ALL CHECKS PASSED.
-- **Four new 6008 `Live` notes (Weeks 5, 7, 8, 9) contain only a `Transcript` child page.**
-  Skipped per the no-transcript rule. No raw file, no vault note (NO-RAW), no gated page.
-- **Published 5 pages:** `DMBA6008-week8.html` (6 topics) and `-week9.html` (5);
-  `DMBA6005-week8.html`, `-week9.html`, `-week10.html` (2 topics each, Shadow Boxing
-  excluded by syncRule).
-  - All 16 Week 8 images were formula renders, transcribed by hand, not published.
-  - Gate-1/4 agents ran on all five pages, and every finding was fixed or ruled on.
-  - Hubs, library, index (counts were stale at 6/7 weeks and are now 10/11), both search
-    pages (1,935 / 1,462), state and docs are all updated.
+- **The IO prep page.** `live/DMBA6005-io-prep.html` is gated with the same code and unlock as
+  every other live page. Its 11 in-page tabs:
+  - overview and game plan
+  - short notes
+  - in-depth notes, Weeks 0–10
+  - acronyms (67)
+  - glossary and formulas
+  - characters
+  - Shadow Boxing
+  - decision log
+  - mock Q&A (92 questions)
+  - critical reflection
+  - sources and `[VERIFY]` list
+  
+  It joins the 6005 live tab row as **IO prep** and gets an "Exam prep" card on
+  `live/DMBA6005.html`. For the oral on **Mon 26 Oct 2026** (Notion Assignments DB).
+- **New page type in `build.py`:** `PREP_PAGES`.
+  - The source Markdown sits outside git and outside the vault's notes:
+    `~/MBA/.mba-sync/io-prep/DMBA6005/NN-slug.md`. Tabs 04/05 come from
+    `~/MBA/.mba-sync/io-prep/gen_glossary_DMBA6005.py <repo>`.
+  - `md(prep=True)` adds `formula` fences and checklists.
+  - `GATE_JS` now calls `window.afterUnlock(doc)`.
+  - `BUILT_ON` is now 24 October 2026, so every live page was re-encrypted.
+  - Documented in `.claude/private-pages/README.md`, `SECRET-PAGES.md` and `CLAUDE.md`.
+- **Content route:** 6 reader agents, then 2 writer agents (decision log/reflection and Q&A),
+  then a fresh-context fidelity reviewer.
+  - The reviewer raised 0 critical, 3 major and 8 minor findings plus 6 gaps. All were fixed;
+    the gaps became Q87–Q92.
+  - The reviewer checked every deck number and about 75 vault claims against their sources.
+- **sync-notes, DMBA 6005, full re-harvest** (Aryan chose it over skipping): 65 pages,
+  **0 REAL changes**, nothing written to the vault, `verify.py` ALL CHECKS PASSED. Backup:
+  `~/MBA/.mba-sync/backup-20261024-003757/`.
+- **sync-assignments was not completed.** The Notion query came back `has_more`, i.e.
+  truncated, so the tracker was not regenerated: that would have dropped rows. The vault
+  tracker still says the oral is 1 Nov; Notion says **26 Oct**.
 
 ## Do first
 
-Nothing pending from the agenda. Wait for Aryan.
+Nothing pending from the agenda. Wait for Aryan. If he edits the IO prep source, re-run
+`python3 .claude/private-pages/build.py` (real code from `.env`).
 
 ## Open threads — each needs Aryan, not code
 
-- [ ] Gate leftovers judged acceptable, not changed: inferred branch labels on the 6008 Week 8
-      H3 figure; the 6005 Week 9 cyber figure ties reporting to the Notify step; and the quiz
-      intro template line "Every wrong option is a mistake someone actually makes" (5 pages).
+- [ ] **IO prep `[VERIFY]` items:**
+  - the four engagement measures (the deck names only return rate; a set is proposed)
+  - sprint length
+  - BAC ($80k vs $88–90k)
+  - "free"
+  - the A1–A6 story-id mapping
+  - the slide 5 story numbers
+  - no risk owners
+  - the IO weighting and rubric, which are only in his brief
+  
+  Full list on the page's Sources tab.
+- [ ] `sync-assignments` needs a paginated query (the DB has >100 rows now) before the tracker can be regenerated safely.
+- [ ] Gate leftovers judged acceptable, not changed:
+  - the inferred branch labels on the 6008 Week 8 H3 figure
+  - the 6005 Week 9 cyber figure tying reporting to the Notify step
+  - the quiz intro line "Every wrong option is a mistake someone actually makes"
 - [ ] **Lecturer name and email in git history** (from `7a63ab5`). Removing them means
-      rewriting `master` and force-pushing — only on his explicit go.
+  rewriting `master` and force-pushing. Only on his explicit go.
 - [ ] **Four syllabus images** (6001, 6002, 6004, 6008) stay in Notion. Download by hand if wanted.
 - [ ] Approve the SessionStart hook via `/hooks` if the note stops appearing.
 - [ ] Whether DMBA 6005 Assessment 1 `Final Version` belongs behind the gate (it is there now).
 - [ ] No real `Live` diary yet for 6005 Weeks 6–10 or 6008 Weeks 5, 7–9 (6008's are
-      transcript-only). When one lands, add it to `PAGES` in `build.py`.
-- [ ] Headless Chrome cannot render narrower than ~500px, so phone-width screenshots crop.
-      Check one new page on a real phone.
+  transcript-only). When one lands, add it to `PAGES` in `build.py`.
+- [ ] Check one new page on a real phone.
 
 ## Settled — do not re-open
 
+- **Shadow Boxing after Week 0 is allowed on gated pages** (Aryan, 2026-10-24, for the IO prep
+  page). It stays **off every public page** (`syncRules` `no-shadow-boxing-after-week-0`).
+- **Teammates appear by role only** (Teammate G, Teammate C) on every page, gated or not.
 - **Nina Harding, the mediator cited in 6005 Week 8's conflict note, is named on the page**
   (Aryan, 2026-10-24: "name"). **"credit spread" for "credit spend"** in 6008 Week 9 approved.
-
-- **Live pages and assessment notebooks are gated and linked; the gate is the control.** Never
-  build one without it, never commit `.env`, never print the code.
-- **Assessment notebooks are discovered from the vault** — no hand list.
-- **Third-party material stays withheld on gated pages too** — names, transcripts, chat, images
-  with people. Text screenshots (formulas, rubrics) are transcribed, never published.
+- **Live pages, assessment notebooks and prep pages are gated and linked; the gate is the
+  control.** Never build one without it, never commit `.env`, never print the code.
+- **Assessment notebooks are discovered from the vault.** Keep no hand list. Prep pages are listed in `PREP_PAGES`.
+- **Third-party material stays withheld on gated pages too:** names, transcripts, chat, and
+  images with people. Text screenshots (formulas, rubrics) are transcribed, never published.
 - **The search pages add no content.** One per subject, rebuilt after every week change.
 - **DMBA 6005 Week 3 `Live`** stays off public week pages. **Notion feeds the vault only.**
 - **DMBA 6008 Week 4's lease inconsistency and Week 6's $28.888m line stay unreconciled.**
-- **Shadow Boxing after Week 0 stays off every page**, public and gated (precedent kept this run).
 
 ## Notes for the next session
 
+- Never commit the IO prep source, the glossary generator or Aryan's prompt file. They hold
+  plaintext group work, and the prompt names a classmate.
 - Run `compare_harvest.py` instead of a byte diff. Expect FORMAT, not phantom changes.
 - Harvest agents must fetch image pages with `include_file_urls: true` and pass the
-  references JSON to `ingest.py`. Say so, and say the no-transcript rule, in every prompt.
-- `notion-query-data-sources` is truncated (`has_more`) but ordered by `Edited Time` desc.
-- A shared builder brief worked well: one agent per week page doing fragments, assembly, 3b
-  and 3c, then one context-starved gate agent per page.
+  references JSON to `ingest.py`. Every harvest prompt must say so and must state the
+  no-transcript rule.
+- `notion-query-data-sources` results are truncated (`has_more`) but ordered by `Edited Time` desc.
 
 ## Do not
 

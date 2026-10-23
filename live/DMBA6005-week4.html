@@ -144,6 +144,34 @@
   .lock-btn{font:inherit;font-size:.8rem;font-weight:600;color:var(--ink3);background:none;border:1px solid var(--line);
             border-radius:var(--r-pill);padding:6px 14px;cursor:pointer;margin-top:8px}
   .lock-btn:hover{color:var(--accent-deep);border-color:var(--accent-deep)}
+
+  /* exam-prep pages: tab link tint, in-page tabs, folds, filters, checklists */
+  .livetab--prep{background:var(--accent-deep);border-color:transparent;color:#fff}
+  .livetab--prep[aria-current="page"]{background:var(--ink);border-color:var(--ink)}
+  .countdown{font-family:var(--font-d);font-weight:700;font-size:.85rem;color:var(--accent-deep);margin:0 0 18px}
+  .ptabs{display:flex;gap:6px;overflow-x:auto;margin:0 0 18px;padding:2px 0 8px;scrollbar-width:thin;
+         position:sticky;top:0;z-index:2;background:var(--paper)}
+  .ptab{flex:0 0 auto;font:inherit;font-family:var(--font-d);font-size:.8rem;font-weight:600;white-space:nowrap;cursor:pointer;
+        padding:7px 13px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--surface);color:var(--ink2)}
+  .ptab:hover{border-color:var(--accent);color:var(--accent-deep)}
+  .ptab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  .ptab:focus-visible,.fold>summary:focus-visible{outline:2px solid var(--accent-deep);outline-offset:2px}
+  .ppanel-h{font-family:var(--font-d);font-weight:800;font-size:1.3rem;color:var(--ink);margin:0 0 14px;letter-spacing:-.015em}
+  .ppanel h3{font-family:var(--font-d);font-weight:700;font-size:1.08rem;color:var(--ink);margin:26px 0 10px}
+  .fold{border:1px solid var(--line);border-radius:var(--r);margin:0 0 10px;background:var(--paper2)}
+  .fold>summary{cursor:pointer;padding:11px 15px;font-family:var(--font-d);font-weight:700;font-size:.95rem;color:var(--ink);
+                list-style-position:outside;margin-left:14px}
+  .fold[open]>summary{border-bottom:1px solid var(--line2)}
+  .fold-body{padding:6px 16px 10px}
+  .filter{display:block;width:100%;font:inherit;font-size:.88rem;padding:9px 13px;margin:14px 0 -6px;border:1px solid var(--line);
+          border-radius:var(--r);background:var(--paper2);color:var(--ink)}
+  .filter:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+  .filter-n{font-size:.75rem;color:var(--ink3);margin:10px 0 0}
+  li.check{list-style:none;margin-left:-1.25rem}
+  li.check input{accent-color:var(--accent);margin-right:6px}
+  .ppanel .tbl table{min-width:560px}
+  @media print{.gate,.ptabs,.livetabs,.backlinks,.filter,.lock-btn{display:none!important}
+    .ppanel[hidden]{display:block!important}.fold>.fold-body{display:block}}
 </style>
 </head>
 <body>
@@ -165,7 +193,7 @@
   </div>
 </div>
 <main class="wrap" id="doc" hidden></main>
-<script id="payload" type="application/json">{"v":1,"kdf":"PBKDF2-SHA256","iter":310000,"salt":"dpBlMt9/ZHtf5PkoTUjk0w==","iv":"I5gwSMmd+Gsq07he","ct":"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"}</script>
+<script id="payload" type="application/json">{"v":1,"kdf":"PBKDF2-SHA256","iter":310000,"salt":"0/FNEV8tOkHLtxAJTtBHeQ==","iv":"C4heTtsSkKJ5JNeF","ct":"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"}</script>
 <script>
 (function(){
   var KEY='mba-live-code';
@@ -193,6 +221,7 @@
         Array.prototype.forEach.call(doc.querySelectorAll('[data-lock]'),function(b){
           b.addEventListener('click',function(){try{sessionStorage.removeItem(KEY);}catch(e){} location.reload();});
         });
+        if(window.afterUnlock)window.afterUnlock(doc);
       });
   }
   form.addEventListener('submit',function(e){
