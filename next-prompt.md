@@ -46,18 +46,10 @@ and **committed and pushed to `master`** on his instruction.
 
 ## Do first
 
-Nothing pending from the agenda. Wait for Aryan, and put the first open thread below to him.
+Nothing pending from the agenda. Wait for Aryan.
 
 ## Open threads — each needs Aryan, not code
 
-- [ ] **Mediator name withheld on `DMBA6005-week8.html`.** His conflict note credits the four
-      sources of conflict, the WIN approach and the email method to a named mediator. She is
-      an expert cited in course material, not a lecturer or classmate, but it is unclear
-      whether she was a guest speaker. The page says "a mediator cited in my notes" in 3
-      places (blocks 14, 16, 17). If he says she can be named, it is a text swap; then rebuild
-      the search page.
-- [ ] Builder fixed "credit spend" → "credit spread" in 6008 Week 9 (the same note defines
-      credit spread). "BEta" in `Re = RF + BEta x Market Risk Premium` kept as written.
 - [ ] Gate leftovers judged acceptable, not changed: inferred branch labels on the 6008 Week 8
       H3 figure; the 6005 Week 9 cyber figure ties reporting to the Notify step; and the quiz
       intro template line "Every wrong option is a mistake someone actually makes" (5 pages).
@@ -72,6 +64,9 @@ Nothing pending from the agenda. Wait for Aryan, and put the first open thread b
       Check one new page on a real phone.
 
 ## Settled — do not re-open
+
+- **Nina Harding, the mediator cited in 6005 Week 8's conflict note, is named on the page**
+  (Aryan, 2026-10-24: "name"). **"credit spread" for "credit spend"** in 6008 Week 9 approved.
 
 - **Live pages and assessment notebooks are gated and linked; the gate is the control.** Never
   build one without it, never commit `.env`, never print the code.

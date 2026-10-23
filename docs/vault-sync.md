@@ -214,7 +214,7 @@ That run was the first on **Notion's new HTML-flavoured markup** (see the sync-n
 | --- | --- | --- |
 | Weeks in the vault | 0–**9** | 0–**10** |
 | Weeks published | **0–9** | **0–10** |
-| Outstanding | none — Weeks 8 (growth) and 9 (restructuring and ESG) published 2026-10-23; all 16 Week 8 images were formula renders and were transcribed, not published. Week 6's `$28.888m` / `$22.888m` line still reproduced as written | none — Weeks 8 (managing our people), 9 (execution and risk) and 10 (quality and putting it all together) published 2026-10-23. A mediator named in Week 8's conflict note is withheld pending Aryan's ruling |
+| Outstanding | none — Weeks 8 (growth) and 9 (restructuring and ESG) published 2026-10-23; all 16 Week 8 images were formula renders and were transcribed, not published. Week 6's `$28.888m` / `$22.888m` line still reproduced as written | none — Weeks 8 (managing our people), 9 (execution and risk) and 10 (quality and putting it all together) published 2026-10-23. The mediator cited in Week 8's conflict note is named, on Aryan's say-so of 2026-10-24 |
 | Held for review | — | Week 3 `Live` |
 | Master search page | `DMBA6008-search.html` — 1,935 entries | `DMBA6005-search.html` — 1,462 entries |
 
