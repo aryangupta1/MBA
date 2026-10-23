@@ -48,7 +48,7 @@ ciphertext changes even when the content did not; that is expected.
   the subject index gained an "Assessment notebooks" section; `IMAGE_TRANSCRIBED` and
   `<mention-page>` resolution added.
 - **2026-10-24** — the first exam-prep page, `live/DMBA6005-io-prep.html`, for the DMBA 6005
-  individual oral (Mon 26 Oct 2026). It has eleven in-page tabs, its source is outside git, and
+  individual oral (Mon 26 Oct 2026). It has twelve in-page tabs (the reflective journal was added the same day), its source is outside git, and
   Shadow Boxing after Week 0 is allowed on it.
 
 ## Why this exists separately from `sync-subject`

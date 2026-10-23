@@ -16,7 +16,7 @@ in his Downloads; it names classmates and must never be committed). Built
 ## What this session did
 
 - **The IO prep page.** `live/DMBA6005-io-prep.html` is gated with the same code and unlock as
-  every other live page. Its 11 in-page tabs:
+  every other live page. Its 12 in-page tabs:
   - overview and game plan
   - short notes
   - in-depth notes, Weeks 0–10
@@ -24,8 +24,9 @@ in his Downloads; it names classmates and must never be committed). Built
   - glossary and formulas
   - characters
   - Shadow Boxing
+  - reflective journal (added mid-session from his annotated workbook PDF)
   - decision log
-  - mock Q&A (92 questions)
+  - mock Q&A (96 questions)
   - critical reflection
   - sources and `[VERIFY]` list
   
@@ -44,6 +45,13 @@ in his Downloads; it names classmates and must never be committed). Built
   - The reviewer raised 0 critical, 3 major and 8 minor findings plus 6 gaps. All were fixed;
     the gaps became Q87–Q92.
   - The reviewer checked every deck number and about 75 vault claims against their sources.
+- **Reflective journal folded in** (Aryan's mid-session addendum, from
+  `~/Downloads/annotated-6005-Workbook.docx.pdf`). It settled three `[VERIFY]`s: Week 2 he
+  stood firm then changed his mind; Week 5 he argued for the conservative estimate; and Week 4
+  he called client-data retrieval a Must. It added the Orientation choice (social media) and the
+  submitted persona's name (**Dan Mullooly**; the vault draft says Daniel Sharma). The workbook's
+  yellow highlights carry no comments, so they are not treated as marker feedback. The
+  workbook is not in the vault; ask him whether he wants it there.
 - **sync-notes, DMBA 6005, full re-harvest** (Aryan chose it over skipping): 65 pages,
   **0 REAL changes**, nothing written to the vault, `verify.py` ALL CHECKS PASSED. Backup:
   `~/MBA/.mba-sync/backup-20261024-003757/`.
