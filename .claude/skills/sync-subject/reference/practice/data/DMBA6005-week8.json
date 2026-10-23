@@ -1,0 +1,306 @@
+{
+  "page": "DMBA6005-week8.html",
+  "quizIntro": "Nine questions: five on service design, four on conflict. They target the confusions this week invites — a customer-facing symptom treated as a customer-facing problem, limited discovery treated as evidence, uncertainty treated as something to eliminate, a position mistaken for an interest, and a quiet team mistaken for a healthy one. Read the note on the option you rejected as well as the one you chose.",
+  "applyIntro": "Six scenarios, three from each topic. All are qualitative, because the notes give reasoning and short examples rather than a worked case with figures. Each one turns on diagnosing before responding: where the friction really sits, what the disagreement is really about, or which step a reply is missing. Write your answer before opening a hint.",
+  "studyPath": {
+    "intro": "Two topics that meet in the middle: service design ends on teams, conflict and conversation, and the conflict topic picks up exactly there with tools for the conversations themselves. A full pass takes about two hours.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Read Our people: Service Design, blocks 01 to 06",
+        "detail": "Block 01’s figure is the frame for the whole topic: UX and CX sit on the frontstage, service design takes in the backstage too, and customer friction is often a symptom of backstage friction. Block 03 turns that on employees — the manager as obstacle remover — and block 05’s six-step sequence shows where service design sits before the Agile backlog. Block 06’s key-risk line is worth memorising word for word.",
+        "time": "~25 min"
+      },
+      {
+        "goto": "summary",
+        "label": "Read Our people: Service Design, blocks 07 to 12",
+        "detail": "The second half is about the team. Block 07’s fork shows the same uncertainty producing anxiety or challenge, and block 08’s figure shows the same anxiety, ego and perspective producing interpersonal competition or a stronger solution. Block 11’s table — faster or cheaper versus better for the people in it — is the distinction the scenarios lean on.",
+        "time": "~20 min"
+      },
+      {
+        "goto": "summary",
+        "label": "Read Conflict management, blocks 13 to 19",
+        "detail": "Learn block 14’s four sources first, because the takeaways say to diagnose the source before resolving the dispute. Block 15’s Friday-release figure is the model answer for positions versus interests: both interests met, neither position simply chosen. Blocks 16 and 17 are the two procedures — WIN for a conversation, six steps for a written reply.",
+        "time": "~25 min"
+      },
+      {
+        "goto": "acronyms",
+        "label": "Check the four acronyms",
+        "detail": "VUCA and WIN are the two that carry content: be able to give the four VUCA conditions and the three WIN steps with what each step does. CX and UX are the lenses from block 01.",
+        "time": "~5 min"
+      },
+      {
+        "goto": "cards",
+        "label": "Run the deck cold",
+        "detail": "Fifty-four cards. Answer the symptom cards out loud before flipping — customer friction, a blocked support engineer, a team clashing over who decides, an unrealistic deadline by email. The list cards (five characteristics, four sources, WIN) are quick checks.",
+        "time": "~20 min"
+      },
+      {
+        "goto": "quiz",
+        "label": "Sit the quiz without notes",
+        "detail": "Most distractors are the efficiency or surface-level reading of a situation the notes treat as a system or interest problem. If you chose one, reread the block the note points to.",
+        "time": "~10 min"
+      },
+      {
+        "goto": "apply",
+        "label": "Work two scenarios end to end",
+        "detail": "Take one service design scenario and one conflict scenario. Both reward the same move: name what is beneath the surface — the backstage cause or the underlying interest — before proposing anything. Mark against the checklist, not the walkthrough.",
+        "time": "~20 min"
+      }
+    ],
+    "close": "You have it when you can take a complaint — from a customer or from a teammate — and say what system or interest sits beneath it, and what response the notes would give."
+  },
+  "quiz": [
+    {
+      "topic": "Our people: Service Design",
+      "q": "Customers keep complaining that support takes too long to resolve their problems. What does the service design view suggest a manager investigate first?",
+      "hint": "Think about the managerial implication attached to frontstage and backstage.",
+      "options": [
+        { "t": "A redesign of the customer-facing support interface", "ok": false, "note": "The takeaways warn against immediately redesigning the customer interface: CX problems often originate backstage." },
+        { "t": "Employee workflows, information access, policies and systems behind support", "ok": true, "note": "Correct. Customer friction is often a symptom of internal organisational friction, so managers should investigate the backstage." },
+        { "t": "Staff motivation and how to make the team perform", "ok": false, "note": "The notes replace “How do we make the team perform?” with “What is preventing capable people from performing?”" },
+        { "t": "Faster processing times for each support ticket", "ok": false, "note": "That is the efficiency reading. The ultimate test of service redesign is not simply whether a process became cheaper or faster, but whether the whole system enables better experiences." }
+      ]
+    },
+    {
+      "topic": "Our people: Service Design",
+      "q": "Which of these does service design add that CX on its own does not?",
+      "hint": "Compare the primary focus of each lens in block 01’s table.",
+      "options": [
+        { "t": "Attention to a specific interaction or touchpoint", "ok": false, "note": "That is the primary focus of UX." },
+        { "t": "The customer’s end-to-end journey", "ok": false, "note": "That is CX’s own focus; service design keeps it and adds to it." },
+        { "t": "A focus on making each process faster or cheaper", "ok": false, "note": "That is efficiency redesign, which the notes distinguish from service redesign." },
+        { "t": "The people, processes, policies and systems behind the journey", "ok": true, "note": "Correct. Service design is the end-to-end journey plus the people, processes, policies and systems behind it." }
+      ]
+    },
+    {
+      "topic": "Our people: Service Design",
+      "q": "A project had little time for discovery, so the team interviewed internal staff as proxies for users. According to the notes, what is the key risk?",
+      "hint": "The notes distinguish between limited discovery and how it is then treated.",
+      "options": [
+        { "t": "Treating the limited discovery as definitive evidence", "ok": true, "note": "Correct. Limited discovery is manageable; treating limited discovery as definitive evidence is not." },
+        { "t": "Doing any discovery at all within scope, cost and schedule", "ok": false, "note": "The notes say to conduct enough research to generate informed hypotheses, not to skip it." },
+        { "t": "Using internal staff as proxies, which should never be done", "ok": false, "note": "The notes allow it — use internal staff as proxies cautiously, and plan later validation with actual users." },
+        { "t": "Service design removing the constraints of scope, cost and schedule", "ok": false, "note": "The reverse: service design does not remove those traditional constraints." }
+      ]
+    },
+    {
+      "topic": "Our people: Service Design",
+      "q": "A team faces real uncertainty about whether a new platform will work. What do the notes suggest a manager should aim for?",
+      "hint": "The notes say uncertainty’s impact can be shaped — by what it is combined with.",
+      "options": [
+        { "t": "Eliminate the uncertainty before the team starts work", "ok": false, "note": "The notes say managers do not necessarily need to eliminate uncertainty." },
+        { "t": "Keep the uncertainty from the team to protect morale", "ok": false, "note": "The notes say nothing in support of this; they focus on the environment around uncertainty, not hiding it." },
+        { "t": "An environment where uncertainty feels like an opportunity to contribute", "ok": true, "note": "Correct. Uncertainty plus capability, trust and opportunity produces excitement or challenge rather than anxiety." },
+        { "t": "Treat volatility, not uncertainty, as the condition to manage", "ok": false, "note": "The lecture particularly emphasises uncertainty, because its impact can be shaped." }
+      ]
+    },
+    {
+      "topic": "Our people: Service Design",
+      "q": "An internal redesign cut 30 seconds from a staff approval process, yet staff still feel anxious and confused using it. How do the notes read this outcome?",
+      "hint": "Block 11 contrasts two questions a redesign can ask.",
+      "options": [
+        { "t": "A success, because the process became faster", "ok": false, "note": "That is the efficiency redesign question. Speed alone does not answer whether the experience works better." },
+        { "t": "Little value created, because users remain anxious or confused", "ok": true, "note": "Correct. Removing 30 seconds may create little value if users remain anxious or confused; service redesign also considers emotional response, confidence and clarity." },
+        { "t": "A failure, because a process should never take longer", "ok": false, "note": "The notes say an interaction can occasionally take longer while producing a better perceived experience." },
+        { "t": "Irrelevant, because internal services are not part of service design", "ok": false, "note": "The notes treat staff experience as part of the service being designed." }
+      ]
+    },
+    {
+      "topic": "Conflict management and conflict resolution",
+      "q": "A project team has had no visible disagreements for months. What do the notes say this indicates?",
+      "hint": "Think about what absence of conflict can reflect.",
+      "options": [
+        { "t": "A healthy team, since conflict is inherently negative", "ok": false, "note": "The notes open by saying conflict is not inherently negative." },
+        { "t": "Strong psychological safety", "ok": false, "note": "Psychological safety means people can challenge ideas without fearing personal repercussions. The notes do not read an absence of conflict as evidence of it." },
+        { "t": "That conflict has been resolved through the WIN approach", "ok": false, "note": "WIN is for addressing behaviour-related conflict, not evidence that conflict is absent." },
+        { "t": "Not necessarily a healthy team — it may reflect disengagement or reluctance to challenge", "ok": true, "note": "Correct. Absence of conflict does not necessarily indicate a healthy team." }
+      ]
+    },
+    {
+      "topic": "Conflict management and conflict resolution",
+      "q": "Product insists a feature must ship on Friday; engineering refuses. Which response matches how the notes resolve this?",
+      "hint": "Look beneath the two positions to what each side needs.",
+      "options": [
+        { "t": "Release in full on Friday, because the client commitment comes first", "ok": false, "note": "That simply chooses one position and ignores engineering’s interest in production reliability." },
+        { "t": "A limited Friday release with safeguards, deferring higher-risk functionality", "ok": true, "note": "Correct. It addresses both interests — the client commitment and confidence in production reliability — rather than choosing one position." },
+        { "t": "Delay the whole release until engineering is satisfied", "ok": false, "note": "That chooses engineering’s position and leaves product’s client commitment unmet." },
+        { "t": "Escalate so a senior manager chooses between the two positions", "ok": false, "note": "The notes resolve it by identifying interests, not by having someone pick a position." }
+      ]
+    },
+    {
+      "topic": "Conflict management and conflict resolution",
+      "q": "In the WIN framework, what is the purpose of the “I feel…” step?",
+      "hint": "Each step has its own purpose in the WIN table.",
+      "options": [
+        { "t": "Describe a specific, observable behaviour", "ok": false, "note": "That is W — When you…" },
+        { "t": "Propose a constructive alternative", "ok": false, "note": "That is N — Next time…" },
+        { "t": "Explain the impact on the individual", "ok": true, "note": "Correct. I — I feel… explains the impact, which communicates why the issue matters." },
+        { "t": "Identify the other person’s character trait causing the problem", "ok": false, "note": "WIN works precisely because it focuses on behaviour rather than character." }
+      ]
+    },
+    {
+      "topic": "Conflict management and conflict resolution",
+      "q": "Two team leads keep clashing, and colleagues describe it as a personality conflict. What do the takeaways say to do first?",
+      "hint": "The first takeaway is about the order of operations.",
+      "options": [
+        { "t": "Diagnose the source — it may originate from unclear ownership or inaccessible information", "ok": true, "note": "Correct. Diagnose the source before resolving the dispute; apparent personality conflicts may originate from unclear ownership, inaccessible information or conflicting dependencies." },
+        { "t": "Separate the two leads so they no longer interact", "ok": false, "note": "The notes do not suggest this; they aim to enable productive disagreement and preserve trust." },
+        { "t": "Use the WIN framework on whichever lead is at fault", "ok": false, "note": "WIN is for behaviour-related conflict — but the takeaways put diagnosis of the source first." },
+        { "t": "Wait, since project conflicts usually resolve themselves", "ok": false, "note": "The culture section calls for early intervention before tensions affect trust or delivery." }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "Our people: Service Design",
+      "title": "The polished app, the angry customers",
+      "setup": "A company has just relaunched its customer app with a cleaner interface, yet complaints have not fallen. Customers say issues still take days to resolve. Support staff say they cannot see the information they need, documentation is hard to find, and nobody is sure who owns an escalation.",
+      "task": "Explain what the relaunch missed and what the notes would have a manager do instead.",
+      "hints": [
+        "Place the relaunch on block 01’s figure: which band did it change?",
+        "The software support example names three backstage blockers — compare them with what staff are saying.",
+        "Think about who should be removing these obstacles, and what question they should be asking."
+      ],
+      "walkthrough": [
+        "The relaunch improved the frontstage only. A strong frontstage cannot compensate indefinitely for a broken backstage system.",
+        "Apply the managerial implication: customer friction is often a symptom of internal organisational friction.",
+        "Match the symptoms to the support example: poor observability, inaccessible documentation and unclear escalation ownership block an engineer who genuinely wants to help.",
+        "Reframe the management question: not “How do we make the team perform?” but “What is preventing capable people from performing?”",
+        "Give the obstacle-remover response — improve access to information, clarify decision rights and provide appropriate tools — which improves both the employee and the customer experience."
+      ],
+      "checklist": [
+        "Identifies that the relaunch changed only the frontstage",
+        "Links customer friction to internal organisational friction",
+        "Names the backstage blockers from the support example",
+        "Reframes the manager as an obstacle remover",
+        "Notes that fixing the backstage improves both employee and customer experience"
+      ]
+    },
+    {
+      "topic": "Our people: Service Design",
+      "title": "Straight to the backlog",
+      "setup": "A transformation team is keen to start sprinting and has written user stories straight from a list of requested features. Nobody has looked at how staff currently handle the process, what policies constrain it, or what existing systems it depends on. Discovery time is also tight.",
+      "task": "Advise the team on what to do before and during delivery, using the notes.",
+      "hints": [
+        "Block 05 gives a six-step sequence — where has this team started?",
+        "Check the early-discovery list for what has been skipped.",
+        "Block 06 covers what to do when discovery time is limited."
+      ],
+      "walkthrough": [
+        "Name the risk: without broader discovery, teams risk optimising individual features while solving the wrong system-level problem.",
+        "Place the team in the sequence: they have jumped to user stories, skipping discovery, journeys or service blueprints, and needs and jobs-to-be-done.",
+        "List what early discovery should consider that has been missed: staff as well as customers, processes and policies, systems and channels, existing products and dependencies.",
+        "Because time is tight, research enough to generate informed hypotheses, identify assumptions explicitly and plan later validation with actual users.",
+        "During delivery, build testing and validation cycles in, so unvalidated designs do not become permanent system behaviour."
+      ],
+      "checklist": [
+        "Names the system-level risk of skipping discovery",
+        "Places the team in the discovery-to-delivery sequence",
+        "Identifies missed discovery areas, including staff",
+        "Applies the limited-discovery responses",
+        "Calls for testing and validation cycles during delivery"
+      ]
+    },
+    {
+      "topic": "Our people: Service Design",
+      "title": "The anxious, sparring team",
+      "setup": "A team of strong specialists is working on a project whose outcome is genuinely uncertain. Meetings have become tense: people defend their own proposals, take criticism personally, and quieter members have stopped speaking. The team lead is considering banning open debate to keep the peace.",
+      "task": "Explain why banning debate is the wrong move and what the notes would have the lead do.",
+      "hints": [
+        "Block 07’s fork shows what uncertainty turns into depending on what it is combined with.",
+        "Block 08 lists what individuals bring and where it leads when poorly or well managed.",
+        "Block 09 has a one-line management principle for exactly this."
+      ],
+      "walkthrough": [
+        "Strong teams do not require every disagreement to disappear; they require it to be productive rather than personal. The objective is not to suppress disagreement.",
+        "Diagnose the tension: individuals bring anxiety about uncertainty, ego or identity, and their own perspective. Poorly managed, these create interpersonal competition.",
+        "Reshape the uncertainty: combine it with capability, trust and opportunity so it reads as challenge rather than threat.",
+        "Move conflict toward ideas: personal competition → competition between ideas → cooperation → stronger solution. Talk to the person, but debate the idea.",
+        "Use the second-violinist lesson: the quieter members’ experience can reveal whether collaboration is genuinely working."
+      ],
+      "checklist": [
+        "Rejects suppressing disagreement, with the notes’ reason",
+        "Identifies anxiety, ego/identity and perspective as the inputs",
+        "Explains how uncertainty can become challenge rather than anxiety",
+        "Gives the move from personal competition to competition between ideas",
+        "Uses the less-visible contributors as a signal"
+      ]
+    },
+    {
+      "topic": "Conflict management and conflict resolution",
+      "title": "Requests all day long",
+      "setup": "A stakeholder sends a developer a stream of separate requests throughout the day by chat and email. The developer is losing focus and has started to describe the stakeholder to colleagues as “impossible to work with”. They want to raise it with the stakeholder directly.",
+      "task": "Draft the shape of the conversation the developer should have, and say what to avoid.",
+      "hints": [
+        "This is behaviour-related conflict — one framework in the notes is built for it.",
+        "Each of the three steps has a distinct purpose; check the table.",
+        "Block 16’s language checklist says what to consider before speaking."
+      ],
+      "walkthrough": [
+        "Use WIN, since this is behaviour-related conflict.",
+        "W — When you…: describe the specific, observable behaviour, such as sending multiple separate requests throughout the day.",
+        "I — I feel…: explain the impact, such as finding it difficult to maintain focus and prioritise the work.",
+        "N — Next time…: propose a constructive alternative, such as consolidating requests into one prioritised list.",
+        "Avoid labels like “impossible to work with”: attack the problem, not the person, recognise the behaviour may be unintentional, and consider the pressures the stakeholder faces."
+      ],
+      "checklist": [
+        "Chooses WIN for behaviour-related conflict",
+        "Gives a specific, observable behaviour for W",
+        "States the impact for I",
+        "Proposes a constructive, future-focused alternative for N",
+        "Warns against labelling the person"
+      ]
+    },
+    {
+      "topic": "Conflict management and conflict resolution",
+      "title": "The deadline email",
+      "setup": "A project manager receives a curt email from another department demanding a deliverable by a date the team cannot meet. The email has no greeting and implies the team is slowing everyone down. The project manager is frustrated and drafting a sharp reply.",
+      "task": "Lay out how the project manager should respond, step by step.",
+      "hints": [
+        "Block 17 gives six steps — the first is about timing.",
+        "Think about why the other department needs the date, not only what it demands.",
+        "There is a test the reply should pass before it is sent."
+      ],
+      "walkthrough": [
+        "Slow down: do not reply immediately while frustrated.",
+        "Match the professional tone: respond respectfully, including an appropriate greeting, even though the original lacked one.",
+        "Address the substance and identify the underlying interest: acknowledge their concern and the dependency behind the date.",
+        "Offer a workable alternative: explain the delivery constraint and propose an achievable date, rather than responding defensively.",
+        "Review before sending: is it clear, concise, non-blaming and professional — would it remain reasonable if independently reviewed or presented in a formal dispute?"
+      ],
+      "checklist": [
+        "Starts by slowing down",
+        "Keeps a professional tone with a greeting",
+        "Acknowledges the dependency or underlying interest",
+        "Proposes an achievable date with the constraint explained",
+        "Applies the review-before-sending test"
+      ]
+    },
+    {
+      "topic": "Conflict management and conflict resolution",
+      "title": "Who owns the data?",
+      "setup": "Two functional leads on a project keep arguing in meetings. The analytics lead says the operations team withholds data; the operations lead says analytics keeps changing what it asks for. Each has a long list of complaints about the other, and the arguments keep circling without any decision. Budget pressure is rising.",
+      "task": "Diagnose the conflict and recommend how the project manager should handle it.",
+      "hints": [
+        "Start with the four recurring sources in block 14 — more than one may be present.",
+        "Block 15 warns about getting absorbed in many surface-level complaints.",
+        "Think about which culture elements in block 18 would have helped earlier."
+      ],
+      "walkthrough": [
+        "Diagnose before resolving: likely sources are information barriers (unclear data ownership) and role ambiguity, with project pressures adding strain.",
+        "Recognise destructive conflict: it repeats grievances without resolution, and conflict becomes ineffective when discussions repeatedly circle the same issues without producing learning, decisions or progress.",
+        "Look past the complaints: avoid becoming absorbed in numerous surface-level complaints that may share one underlying cause; ask each side “Why is this important?”",
+        "Address the structural cause through clear responsibilities, so ambiguity around ownership and accountability is reduced.",
+        "Treat communication quality as a project risk and intervene early, before unresolved interpersonal conflict converts manageable resource or scheduling issues into delivery delays and disengagement."
+      ],
+      "checklist": [
+        "Names information barriers and role ambiguity as likely sources",
+        "Identifies the conflict as destructive (circling without progress)",
+        "Looks for a shared underlying cause beneath the complaints",
+        "Recommends clarifying ownership and responsibilities",
+        "Calls for early intervention and treats communication as a project risk"
+      ]
+    }
+  ]
+}

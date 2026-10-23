@@ -1,0 +1,362 @@
+{
+  "page": "DMBA6005-week9.html",
+  "quizIntro": "Eight questions, four per topic. They target the confusions this week invites: a positive risk mistaken for one that needs no response, capacity mistaken for appetite, a response mistaken for the end of a risk, and transfer mistaken for the end of accountability. The risk tools questions test which technique fits which situation, and how to read the illustrative heat map.",
+  "applyIntro": "Four scenarios, two from each topic. They are qualitative, because the notes give reasoning rather than a worked case — the only figures are the illustrative 5 × 5 matrix scores, which one scenario uses. Treat the matrix as the notes do: an example scoring, not a prescribed model. Write your answer before opening a hint.",
+  "studyPath": {
+    "intro": "Two topics that fit together: Understanding risks gives the concepts, Risk tools gives the instruments that put them to work. A full pass takes about two hours.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Read Understanding risks, blocks 01 to 11",
+        "detail": "Hold block 01’s definition throughout: risk can be positive or negative, which is why block 03 insists a surge in demand still needs planning. Block 06 is the distinction most worth learning cold — capacity is what the organisation can absorb, appetite is what it chooses to accept. Note the two bracketed caveats in blocks 04 and 09; they belong to the material.",
+        "time": "~30 min"
+      },
+      {
+        "goto": "summary",
+        "label": "Read Risk tools, blocks 12 to 21",
+        "detail": "Block 12’s table of eight techniques is the map; blocks 13 to 16 open four of them. Then follow a risk through its life: logged with an owner in the register (17), rated on the heat map (18), watched for persistence by Top Ten tracking (19), and treated with one of four responses (20).",
+        "time": "~30 min"
+      },
+      {
+        "goto": "formulas",
+        "label": "Check the two formulas and the acronyms",
+        "detail": "Both formulas multiply probability by impact, but under different names and with different caveats: risk exposure is flagged as added context, and the risk score belongs to an illustrative matrix. The Acronyms tab separates the four expansions the notes give from the four that are standard.",
+        "time": "~5 min"
+      },
+      {
+        "goto": "cards",
+        "label": "Run the deck cold",
+        "detail": "Fifty-eight cards. The situation cards — a dominant expert, an unowned risk, an outsourced service, a catastrophic risk with a low probability — are worth answering out loud before flipping.",
+        "time": "~20 min"
+      },
+      {
+        "goto": "quiz",
+        "label": "Sit the quiz without notes",
+        "detail": "Each distractor is a real confusion from this week. Read the note on the option you rejected as well as the one you chose — the transfer and residual-risk questions turn on what a response leaves behind.",
+        "time": "~10 min"
+      },
+      {
+        "goto": "apply",
+        "label": "Work two scenarios end to end",
+        "detail": "Take one from each topic. The Understanding risks scenarios turn on naming the concept before recommending anything; the Risk tools scenarios turn on choosing the technique or response that fits the situation described. Mark against the checklist, not the walkthrough.",
+        "time": "~20 min"
+      }
+    ],
+    "close": "You have it when you can take any project risk, say whether it is a threat or an opportunity, rate it, give it an owner and a response, and name what that response leaves behind."
+  },
+  "quiz": [
+    {
+      "topic": "Understanding risks",
+      "q": "A digital product gets unexpected media coverage and users surge. According to the notes, how should this be treated?",
+      "hint": "Recall how the notes define project risk, and what they say about the AI financial advice platform.",
+      "options": [
+        {
+          "t": "As outside risk management, because it increases project value",
+          "ok": false,
+          "note": "Project risk is an uncertain event that could positively or negatively affect outcomes; best practice considers both threats and opportunities."
+        },
+        {
+          "t": "As a black swan event that cannot be prepared for",
+          "ok": false,
+          "note": "The notes use this as a positive-risk example, not a black swan. Even for black swans, they say organisations can prepare for disruption generally."
+        },
+        {
+          "t": "As a positive risk that still requires planning, capacity and an appropriate response",
+          "ok": true,
+          "note": "Correct. Without sufficient infrastructure capacity or operational support, the company may fail to capture the opportunity."
+        },
+        {
+          "t": "As a negative risk, because it strains infrastructure",
+          "ok": false,
+          "note": "The surge creates growth potential, which makes it a positive risk; the strain is why it needs a response."
+        }
+      ]
+    },
+    {
+      "topic": "Understanding risks",
+      "q": "A financially strong company could absorb a large loss on a system that handles sensitive customer data. What does that tell you about whether it should accept the risk?",
+      "hint": "The notes distinguish what an organisation can withstand from what it chooses to take.",
+      "options": [
+        {
+          "t": "Nothing on its own — capacity to absorb a loss does not mean willingness to accept it",
+          "ok": true,
+          "note": "Correct. Risk appetite reflects strategy, culture, leadership preferences and stakeholder expectations, and can be low even where capacity is high."
+        },
+        {
+          "t": "That it should accept the risk, because the loss is within its risk capacity",
+          "ok": false,
+          "note": "This is the confusion the notes warn against: capacity and appetite are different questions."
+        },
+        {
+          "t": "That its risk appetite must be high",
+          "ok": false,
+          "note": "The notes’ own example is a company with the capacity to fund experiments but a low appetite for systems handling sensitive customer information."
+        },
+        {
+          "t": "That the risk should be transferred",
+          "ok": false,
+          "note": "Transfer is a response strategy from Risk tools; the question is whether the exposure fits appetite, not which response to choose."
+        }
+      ]
+    },
+    {
+      "topic": "Understanding risks",
+      "q": "A team adds a manual approval step to stop faulty releases. The step itself slows urgent fixes. In the notes’ terms, what is the slowdown?",
+      "hint": "The notes name two things to consider once a response has been implemented.",
+      "options": [
+        {
+          "t": "Residual risk",
+          "ok": false,
+          "note": "Residual risk is exposure remaining after the response — here, any faulty releases that still get through."
+        },
+        {
+          "t": "An opportunity",
+          "ok": false,
+          "note": "An opportunity is uncertainty with a positive effect on objectives; slowing urgent fixes is a negative consequence of the response."
+        },
+        {
+          "t": "A black swan event",
+          "ok": false,
+          "note": "A black swan is highly unexpected and challenges established assumptions; this is a direct consequence of the response."
+        },
+        {
+          "t": "Secondary risk",
+          "ok": true,
+          "note": "Correct. Secondary risk is a new risk introduced by the response itself."
+        }
+      ]
+    },
+    {
+      "topic": "Understanding risks",
+      "q": "Two projects in a portfolio both look attractive and are run by different teams, but both depend on the same underlying platform. What does the MPT reasoning in the notes suggest?",
+      "hint": "Diversification depends on something specific.",
+      "options": [
+        {
+          "t": "They diversify risk, because they are separate projects",
+          "ok": false,
+          "note": "Separate projects are not enough; projects exposed to the same underlying disruption may not provide meaningful diversification."
+        },
+        {
+          "t": "They may not provide meaningful diversification, because their risks move together",
+          "ok": true,
+          "note": "Correct. Diversification benefits depend on how risks move together."
+        },
+        {
+          "t": "They should both be selected, because each is individually attractive",
+          "ok": false,
+          "note": "Selection should consider combined portfolio risk, not only each project’s individual attractiveness."
+        },
+        {
+          "t": "They form a program, so portfolio thinking no longer applies",
+          "ok": false,
+          "note": "A program coordinates related projects for shared benefits; the notes do not say a shared dependency removes portfolio considerations."
+        }
+      ]
+    },
+    {
+      "topic": "Risk tools",
+      "q": "In risk workshops, the most senior engineer’s view always wins, and quieter specialists stop raising concerns about long-term uncertainty. Which technique do the notes point to?",
+      "hint": "One technique is built to evaluate ideas independently of who proposed them.",
+      "options": [
+        {
+          "t": "Brainstorming, run more often",
+          "ok": false,
+          "note": "Brainstorming is the technique vulnerable to groupthink, dominant personalities and premature agreement."
+        },
+        {
+          "t": "Checklists",
+          "ok": false,
+          "note": "Checklists prevent recurring or predictable failures; they do not address group pressure or long-term uncertainty."
+        },
+        {
+          "t": "The Delphi Technique",
+          "ok": true,
+          "note": "Correct. Anonymous consolidation across multiple rounds reduces the influence of expert status, hierarchy and group pressure, so a minority opinion can surface."
+        },
+        {
+          "t": "Fault Tree Analysis",
+          "ok": false,
+          "note": "FTA works backwards from an undesirable outcome to its causes; it is not designed to remove hierarchy from the discussion."
+        }
+      ]
+    },
+    {
+      "topic": "Risk tools",
+      "q": "On the notes’ illustrative 5 × 5 matrix, how is a Possible (3), Major (4) risk classified?",
+      "hint": "Risk score = Probability × Impact; then find the cell.",
+      "options": [
+        {
+          "t": "Moderate (12)",
+          "ok": false,
+          "note": "The score is right, but the matrix classes this cell as High, not Moderate."
+        },
+        {
+          "t": "Extreme (12)",
+          "ok": false,
+          "note": "Extreme cells in the matrix start at 15."
+        },
+        {
+          "t": "High (7)",
+          "ok": false,
+          "note": "The score multiplies probability by impact; it does not add them."
+        },
+        {
+          "t": "High (12)",
+          "ok": true,
+          "note": "Correct: 3 × 4 = 12, classed High — prioritised treatment and close monitoring. The thresholds are illustrative, not a prescribed lecture model."
+        }
+      ]
+    },
+    {
+      "topic": "Risk tools",
+      "q": "A team outsources its payment processing to a specialist provider. According to the notes, what has it achieved?",
+      "hint": "Look at the caveat beneath the response strategies table.",
+      "options": [
+        {
+          "t": "It may have transferred contractual responsibility, while customer trust, operational and regulatory exposure stay with the organisation",
+          "ok": true,
+          "note": "Correct. Risk transfer does not necessarily eliminate accountability."
+        },
+        {
+          "t": "It has avoided the risk, because the work is no longer done in-house",
+          "ok": false,
+          "note": "Avoid means changing the plan to eliminate the threat. Outsourcing shifts consequences; the notes treat it as transfer."
+        },
+        {
+          "t": "It has eliminated the risk, because the provider is now accountable",
+          "ok": false,
+          "note": "This is the confusion the notes warn against: transfer does not necessarily eliminate accountability."
+        },
+        {
+          "t": "It has accepted the risk",
+          "ok": false,
+          "note": "Acceptance means acknowledging exposure without additional preventive action; outsourcing is an action that shifts consequences."
+        }
+      ]
+    },
+    {
+      "topic": "Risk tools",
+      "q": "A risk has sat on the list at moderate priority for six weeks while new high-priority risks keep displacing it from attention. Which tool is designed to catch this?",
+      "hint": "One monitoring approach considers more than current priority.",
+      "options": [
+        {
+          "t": "A heat map, because it shows current exposure",
+          "ok": false,
+          "note": "A heat map shows likelihood and severity; the notes contrast it with a tool that highlights persistence."
+        },
+        {
+          "t": "Expert judgement, because the risk is hard to quantify",
+          "ok": false,
+          "note": "Expert judgement helps where data is insufficient; nothing here suggests the risk is hard to quantify."
+        },
+        {
+          "t": "Top Ten risk tracking, because it considers how long each risk has remained unresolved",
+          "ok": true,
+          "note": "Correct. Persistent exposure can indicate ineffective mitigation or neglected responsibilities."
+        },
+        {
+          "t": "A checklist, because the risk is recurring",
+          "ok": false,
+          "note": "Checklists prevent recurring or predictable failures at identification; they do not track how long a known risk stays open."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "Understanding risks",
+      "title": "The innovation freeze",
+      "setup": "After a costly failure, a delivery manager tightens controls so far that every experiment needs months of sign-off. Exposure has dropped, but the product team has stopped proposing new ideas. The sponsor, meanwhile, wants to push ahead with an unproven feature without any review at all.",
+      "task": "Explain what the notes would say each of them is getting wrong, and what the organisation needs instead.",
+      "hints": [
+        "The notes contrast two complementary perspectives on risk.",
+        "There is a named tension between them, with a failure on each side.",
+        "Match each person to the side of the tension they have fallen into."
+      ],
+      "walkthrough": [
+        "Name the two perspectives: leadership, which encourages experimentation and accepts uncertainty to pursue opportunities, and management, which controls and mitigates exposure and keeps risk within acceptable boundaries.",
+        "The delivery manager has fallen into one side of the strategic tension: eliminating risk can eliminate innovation.",
+        "The sponsor has fallen into the other: pursuing innovation without controls can threaten project viability.",
+        "State what is needed: both — leadership to determine which risks are worth taking, and management to ensure those risks remain controlled.",
+        "Connect to the takeaway: risk management is a strategic activity, not merely a control function."
+      ],
+      "checklist": [
+        "Names the leadership and management perspectives",
+        "States the strategic tension in the notes’ terms",
+        "Assigns each person to the correct side",
+        "Concludes that both perspectives are needed, with each one’s role"
+      ]
+    },
+    {
+      "topic": "Understanding risks",
+      "title": "Launched on time, stuck",
+      "setup": "A digital service launched on its deadline and the project was closed. Six months later, user requirements have shifted and a key dependency has changed, but the service was built in a way that makes changes slow and expensive, and there is no process for iterative delivery and validation.",
+      "task": "Use the notes to explain why meeting the launch deadline did not settle the project’s risk, and what should have been designed in.",
+      "hints": [
+        "One block of the summary is about risk after release.",
+        "The notes name a broader design principle with three parts.",
+        "The callout in that block says what a project like this may still do to long-term value."
+      ],
+      "walkthrough": [
+        "In digital products, risk management continues after release, because the service evolves through ongoing improvements and changing user requirements.",
+        "CI/CD supports this by making iterative delivery and validation part of the operating model, rather than treating launch as the final outcome — the missing process here.",
+        "The broader principle is designing for adaptability: anticipate future changes in requirements and operating conditions, maintain the ability to improve and recover services, and preserve relevance and value beyond initial delivery.",
+        "Conclude with the notes: a project that meets its launch deadline but cannot adapt economically to future conditions may still destroy long-term value."
+      ],
+      "checklist": [
+        "States that risk management continues after release, and why",
+        "Identifies the role of CI/CD",
+        "Gives the three parts of designing for adaptability",
+        "Uses the notes’ conclusion about long-term value"
+      ]
+    },
+    {
+      "topic": "Risk tools",
+      "title": "A register nobody acts on",
+      "setup": "A project’s risk register lists forty risks with descriptions and probability and impact ratings. None has an owner, the triggers column is empty, and it has not been updated since the planning phase. One logged risk — rated Rare (1), Catastrophic (5) — is being treated as acceptable because of its low probability.",
+      "task": "Assess the register against the notes and say what has to change.",
+      "hints": [
+        "Compare the register with the six fields the notes list.",
+        "One field is singled out as critical.",
+        "Check the heat map block’s caveat about low-probability catastrophic risks."
+      ],
+      "walkthrough": [
+        "A risk register should convert identified risks into documented, assigned and monitorable items. This one is documented but neither assigned nor monitorable.",
+        "The missing risk owner is the critical gap: identifying a risk without assigning responsibility creates documentation rather than effective management.",
+        "The empty triggers field means nothing indicates when a risk may be developing.",
+        "The register should be dynamic, reassessed as conditions, evidence and priorities change — not frozen since planning.",
+        "On the illustrative matrix, Rare (1) × Catastrophic (5) scores Moderate (5). But ratings must be evaluated against organisational risk appetite; a low estimated probability does not automatically make a catastrophic risk acceptable."
+      ],
+      "checklist": [
+        "Identifies the missing owners as the critical failure",
+        "Notes that the empty triggers field leaves nothing to signal a developing risk",
+        "Says the register must be dynamic and reassessed",
+        "Applies the appetite caveat to the low-probability catastrophic risk"
+      ]
+    },
+    {
+      "topic": "Risk tools",
+      "title": "Choosing four responses",
+      "setup": "A product team has four risks on its register: a planned feature relies on an experimental third-party library; a cosmetic layout glitch appears on one rarely used screen; a cyber incident could cause significant financial loss; and the service has a single point of failure that could cause outages.",
+      "task": "Choose a response strategy for each risk using the notes, and flag any limit on the response you choose.",
+      "hints": [
+        "The notes give four negative-risk responses, each with a technology example.",
+        "Each of the four risks resembles one of those examples.",
+        "One response comes with a caveat about accountability; another depends on cost and risk tolerance."
+      ],
+      "walkthrough": [
+        "Experimental library: avoid — change the plan to eliminate the threat, as in the notes’ example of removing an experimental dependency.",
+        "Cosmetic glitch: accept — acknowledge exposure without additional preventive action, like a minor, low-impact UI defect. Appropriate where further treatment does not justify its cost, subject to risk tolerance.",
+        "Cyber incident loss: transfer, as with cyber insurance, which shifts specified financial consequences to another party. Flag that transfer does not necessarily eliminate accountability.",
+        "Single point of failure: mitigate — reduce the probability or impact by introducing redundancy, testing or safeguards.",
+        "Close with the takeaway: choose responses based on exposure, treatment cost and risk appetite; the objective is controlled exposure, not zero risk."
+      ],
+      "checklist": [
+        "Matches each risk to avoid, accept, transfer or mitigate with a reason",
+        "States the condition for accepting a risk",
+        "Flags that transfer does not eliminate accountability",
+        "Frames the choice as controlled exposure rather than zero risk"
+      ]
+    }
+  ]
+}

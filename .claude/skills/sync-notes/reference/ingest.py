@@ -6,10 +6,27 @@ import sys, os, re, subprocess, hashlib
 VAULT = os.path.expanduser("~/MBA")
 ATT = os.path.join(VAULT, "_attachments")
 raw_path = sys.argv[1]
+# Since 2026-10-23 notion-fetch emits <image source="notion-file-block://…" /> and puts the
+# signed URLs in a separate `references` map (fetch with include_file_urls: true). Save
+# that map as JSON and pass it second; each block reference is swapped for its URL first.
+refs_path = sys.argv[2] if len(sys.argv) > 2 else None
 key = os.path.splitext(os.path.basename(raw_path))[0]
 
 with open(raw_path) as f:
     text = f.read()
+
+if refs_path:
+    import json
+    refs = json.load(open(refs_path))
+    refs = refs.get("references", refs)
+    def signed(v):
+        return v if isinstance(v, str) else (v.get("url") or v.get("signed_url") or v.get("download_url"))
+    for src in re.findall(r'<image source="(notion-file-block://[^"]+)"', text):
+        v = refs.get(src) or refs.get(src.replace("&amp;", "&"))
+        if v and signed(v):
+            text = text.replace(f'source="{src}"', f'src="{signed(v)}"')
+        else:
+            print(f"  IMG FAIL no signed url for {src[:90]}")
 
 # Notion emits images either as markdown or as an <img>/<image> tag.
 PATTERNS = [

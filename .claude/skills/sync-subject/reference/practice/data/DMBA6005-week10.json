@@ -1,0 +1,261 @@
+{
+  "page": "DMBA6005-week10.html",
+  "quizIntro": "Eight questions, four per topic. They target the confusions this week invites: quality mistaken for more features, rework mistaken for a fix, a passed check mistaken for understanding, release frequency mistaken for value, and the heavier scaling framework mistaken for the safer choice. Read the note on every option, not just the one you picked.",
+  "applyIntro": "Five scenarios — two on quality, three on scaling. All are qualitative, because the notes give principles and tables rather than worked cases; the only figures in play are the ranges the lecture gives for ARTs and Program Increments. Write your answer before opening a hint, then mark it against the checklist.",
+  "studyPath": {
+    "intro": "Two topics that close the subject: how to make quality a property of the process rather than a last-minute test, and how Agile grows — out along the delivery lifecycle and up across many teams. A full pass takes about two hours.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Read Quality control and quality assurance, blocks 01 to 11",
+        "detail": "Anchor on block 03’s table: QA is process-oriented and prevents, QC is output-oriented and detects. Block 04’s loop is the idea the rest of the topic leans on — rework fixes one output, QA fixes the cause. Then hold block 09’s distinction between checking whether a requirement was met and studying why the result happened.",
+        "time": "~30 min"
+      },
+      {
+        "goto": "summary",
+        "label": "Read Scaling out and scaling up, blocks 12 to 22",
+        "detail": "Block 12’s figure sets up everything after it: out is DevOps extending the lifecycle, up is SAFe coordinating teams. Read blocks 13 to 16 as the ‘out’ half and 17 to 21 as the ‘up’ half. Note the caveat beside the 208 times figure in block 14 — the notes call it a historical comparison, not a target.",
+        "time": "~30 min"
+      },
+      {
+        "goto": "acronyms",
+        "label": "Fix the twelve acronyms",
+        "detail": "The scaling half is dense with letters — SAFe, ART, PI, RTE — and the quality half adds QA, QC, UAT, PDCA, PDSA, ITSM and ITIL. Make sure you can expand each one and give the one-line definition the tab shows beneath it.",
+        "time": "~10 min"
+      },
+      {
+        "goto": "cards",
+        "label": "Run the deck cold",
+        "detail": "Fifty-four cards. The paired cards — QA against QC, Check against Study, scaling out against scaling up — are the ones to answer out loud before flipping. The ART and PI ranges are approximate in the notes, so learn them as ranges.",
+        "time": "~25 min"
+      },
+      {
+        "goto": "quiz",
+        "label": "Sit the quiz without notes",
+        "detail": "Each distractor is a real confusion from this week. The quality questions mostly turn on whether an action addresses the output or the process; the scaling questions on whether complexity and interdependencies, not team count, justify the framework.",
+        "time": "~15 min"
+      },
+      {
+        "goto": "apply",
+        "label": "Work two scenarios end to end",
+        "detail": "Take the recurring-defects scenario and the framework-choice scenario. One asks you to move from correcting outputs to correcting a process; the other asks you to choose the lightest structure that handles the real dependencies. Mark against the checklist, not the walkthrough.",
+        "time": "~20 min"
+      }
+    ],
+    "close": "You have it when you can look at a team’s defect log or its org chart and say whether the next move is a process fix, a DevOps change, or a coordination structure — and which one."
+  },
+  "quiz": [
+    {
+      "topic": "Quality control and quality assurance",
+      "q": "A product meets every agreed technical specification, yet users find it frustrating. Which perspective on quality has it failed?",
+      "hint": "The notes give two complementary perspectives, and only one of them was satisfied.",
+      "options": [
+        { "t": "Conformance to requirements", "ok": false, "note": "It has passed this one: it meets its agreed specifications and standards." },
+        { "t": "The triple constraint", "ok": false, "note": "The triple constraint is the balance of scope, cost and schedule that quality emerges from, not a perspective on quality itself." },
+        { "t": "Fitness for use", "ok": true, "note": "Correct. Fitness for use asks whether it actually works as intended for the people using it. A product can meet its specifications yet provide a poor experience if those specifications fail to capture user needs." },
+        { "t": "Quality control", "ok": false, "note": "QC is the activity of detecting defects in outputs; it is not one of the two perspectives on what quality is." }
+      ]
+    },
+    {
+      "topic": "Quality control and quality assurance",
+      "q": "Testing keeps finding the same kind of defect, and the team keeps correcting and retesting it. What does the rework loop say should happen next?",
+      "hint": "Ask whether the response so far has addressed the output or the process that produced it.",
+      "options": [
+        { "t": "Add more testing stages so defects are caught sooner", "ok": false, "note": "More detection is still QC. The notes say repeated rework indicates the underlying process may be defective — detection alone does not change that." },
+        { "t": "Use QA to improve the process so future defects are reduced", "ok": true, "note": "Correct. QC detects defect → rework corrects output → QA improves process → future defects reduced. Correcting the root cause improves future project performance." },
+        { "t": "Accept the rework as the normal cost of quality", "ok": false, "note": "The notes stress that rework consumes labour, delays delivery and increases costs without necessarily generating additional customer value." },
+        { "t": "Move testing to the end of delivery to batch the fixes", "ok": false, "note": "The notes say testing should occur iteratively rather than being concentrated at the end of delivery." }
+      ]
+    },
+    {
+      "topic": "Quality control and quality assurance",
+      "q": "Agreed requirements have been met and the tests pass. A developer proposes adding an extra feature while the code is fresh. What do the notes say?",
+      "hint": "Look at the key principle in the test-driven development block.",
+      "options": [
+        { "t": "Add it — more functionality means higher quality", "ok": false, "note": "This is the confusion the key principle targets: quality is not maximising functionality." },
+        { "t": "Add it only if it passes UAT", "ok": false, "note": "UAT checks whether the solution meets user needs; it is not the route by which new scope gets approved." },
+        { "t": "Return it to the prioritisation process rather than adding it informally", "ok": true, "note": "Correct. Once agreed requirements are satisfied, additional functionality should return to the prioritisation process." },
+        { "t": "Log it as technical debt", "ok": false, "note": "Technical debt is what temporary fixes create, and it requires future remediation — not a holding place for new features." }
+      ]
+    },
+    {
+      "topic": "Quality control and quality assurance",
+      "q": "A process change has been trialled and the results meet the target. What would Deming’s Study stage add that a Check stage might not?",
+      "hint": "The difference is between confirming and understanding.",
+      "options": [
+        { "t": "Confirmation that the requirement was met", "ok": false, "note": "That is what checking does. Deming emphasised that evaluation requires more than a simple pass/fail check." },
+        { "t": "Standardising the change into procedures and training", "ok": false, "note": "That is the Act stage — standardise or refine the improvement." },
+        { "t": "Certification of the process under ISO 9001", "ok": false, "note": "ISO 9001 specifies certifiable QMS requirements; it is not a stage of the PDSA cycle." },
+        { "t": "An understanding of why the change produced these results and whether it solved the underlying problem", "ok": true, "note": "Correct. Studying seeks to understand the results and learn from them, shifting quality management from compliance alone towards organisational learning." }
+      ]
+    },
+    {
+      "topic": "Scaling out and scaling up",
+      "q": "An organisation wants its product to keep improving after release, with operations and customer feedback shaping development. Which kind of scaling is this?",
+      "hint": "One dimension changes the delivery lifecycle; the other changes the coordination model.",
+      "options": [
+        { "t": "Scaling up, through SAFe", "ok": false, "note": "Scaling up coordinates multiple Agile teams; its main challenge is dependencies and strategic alignment, not sustaining value after release." },
+        { "t": "Scaling out, through DevOps", "ok": true, "note": "Correct. Scaling out extends delivery into continuous operations and improvement; its primary approach is DevOps." },
+        { "t": "Scrum of Scrums", "ok": false, "note": "Scrum of Scrums is a lightweight way of coordinating multiple teams — a scaling-up option." },
+        { "t": "Project delivery", "ok": false, "note": "Project delivery asks whether the agreed output was completed and assumes a defined beginning and end — the opposite of what is described." }
+      ]
+    },
+    {
+      "topic": "Scaling out and scaling up",
+      "q": "A team reports that it now deploys far more often than last year. On the notes’ view of DevOps measurement, what else must be true before that counts as success?",
+      "hint": "The notes put value delivered and operational performance ahead of activity.",
+      "options": [
+        { "t": "It should match the 208 times figure from the lecture", "ok": false, "note": "The notes say that figure is a historical comparison from the lecture, not a universal performance target." },
+        { "t": "Nothing — release frequency is the core DevOps measure", "ok": false, "note": "High release frequency is useful only if changes create meaningful value." },
+        { "t": "The changes create meaningful value, without reliability suffering", "ok": true, "note": "Correct. Faster delivery must not come at the expense of reliability, and teams should be assessed on outcomes rather than activity alone." },
+        { "t": "It has completed more features and milestones", "ok": false, "note": "Completed tasks, features or milestones are the traditional output metrics DevOps moves away from." }
+      ]
+    },
+    {
+      "topic": "Scaling out and scaling up",
+      "q": "Which design choice best reflects a limited blast radius?",
+      "hint": "Think about what happens to the rest of the product when one change fails.",
+      "options": [
+        { "t": "Modular components with stable interfaces that can be deployed independently", "ok": true, "note": "Correct. Limited blast radius means failures or changes in one component have minimal effects on the wider product — modular components, stable interfaces, reduced interdependencies, isolated failures and independent deployment where feasible." },
+        { "t": "Releasing every change together so it is tested as one", "ok": false, "note": "Limited blast radius calls for independent deployment where feasible; in the Spotify example one component can be updated independently of the broader application." },
+        { "t": "Using temporary workarounds to protect urgent delivery", "ok": false, "note": "That is one of the Animal Logic principles, and it creates technical debt — it is not what limits blast radius." },
+        { "t": "Adding a Release Train Engineer to coordinate dependencies", "ok": false, "note": "The RTE coordinates dependencies between teams. Blast radius is about system architecture." }
+      ]
+    },
+    {
+      "topic": "Scaling out and scaling up",
+      "q": "Four teams share a product with a few occasional dependencies between them. A manager proposes SAFe because ‘we now have multiple teams’. What is the notes’ objection?",
+      "hint": "The last line of the SAFe versus Scrum of Scrums block names what should decide.",
+      "options": [
+        { "t": "SAFe requires at least ten teams", "ok": false, "note": "The notes give no minimum. A typical ART is approximately 5–12 teams, but the choice is not made on team count." },
+        { "t": "The choice depends on complexity and interdependencies, not the number of teams — a lighter model like Scrum of Scrums may suffice", "ok": true, "note": "Correct. Scrum of Scrums suits teams that need regular coordination without the overhead of a comprehensive scaling framework, and managers should select the lightest structure capable of handling actual dependencies." },
+        { "t": "SAFe removes team autonomy", "ok": false, "note": "The notes frame the challenge as coordination without eliminating autonomy, and say individual teams in an ART retain their own iterations." },
+        { "t": "SAFe cannot be combined with DevOps", "ok": false, "note": "The notes say SAFe builds on Agile, Lean and DevOps principles." }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "Quality control and quality assurance",
+      "title": "The defects that keep coming back",
+      "setup": "A delivery team is under schedule pressure. Each sprint, testing finds defects of a similar kind; they are corrected and retested, and the deliverable is eventually accepted. The sponsor is pleased the defects are caught, but costs are creeping up and delivery keeps slipping.",
+      "task": "Explain what the pattern tells you and what the notes would have the project do about it.",
+      "hints": [
+        "Place what the team is doing in the QA versus QC table.",
+        "Follow the rework feedback loop past the step the team keeps stopping at.",
+        "Consider whether the schedule pressure itself could be part of the cause."
+      ],
+      "walkthrough": [
+        "Classify the current activity: testing, correcting and retesting is quality control — it detects defects in the output.",
+        "Read the signal: repeated rework indicates that the underlying process may be defective.",
+        "Count the cost: rework consumes additional labour, delays delivery and increases costs without necessarily generating additional customer value.",
+        "Complete the loop: QA should improve the process so future defects are reduced — fixing the root cause, not only the defect.",
+        "Check the constraint: compressed schedules may create defects and expensive rework, so the project manager should negotiate scope, resources or timelines rather than silently sacrifice quality."
+      ],
+      "checklist": [
+        "Identifies the current activity as QC",
+        "States that repeated rework points to a defective process",
+        "Explains the financial cost of rework",
+        "Proposes QA process improvement to reduce future defects",
+        "Links the schedule pressure to the triple constraint"
+      ]
+    },
+    {
+      "topic": "Quality control and quality assurance",
+      "title": "A pass that taught nothing",
+      "setup": "After a run of defects, a team changed one step in its process. The next round of measurements met the target, the change was marked a success, and it was written into the procedures straight away. Two months later the same problem reappeared in another part of the work.",
+      "task": "Using PDCA and Deming’s PDSA, explain what was missing from the team’s evaluation.",
+      "hints": [
+        "Name the stage the team moved through quickly.",
+        "Compare what checking and studying each establish.",
+        "Look at the four questions the Study stage asks, especially the last one."
+      ],
+      "walkthrough": [
+        "Map the steps: the team planned, did the trial, checked against the target and acted by standardising.",
+        "Identify the gap: its evaluation was a pass/fail check — it confirmed the requirement was met.",
+        "Apply PDSA: Deming emphasised that evaluation requires more than a simple pass/fail check.",
+        "Ask the Study questions: why did the change produce these results, did it solve the underlying problem, does the outcome satisfy the intended purpose, and what should be adjusted before wider implementation?",
+        "Conclude: studying seeks to understand the results and learn from them, shifting quality management from compliance alone towards organisational learning."
+      ],
+      "checklist": [
+        "Maps the team’s actions onto the PDCA stages",
+        "Identifies the evaluation as a pass/fail check",
+        "Explains the difference between checking and studying",
+        "Uses at least two of the Study questions",
+        "Notes the question about adjusting before wider implementation"
+      ]
+    },
+    {
+      "topic": "Scaling out and scaling up",
+      "title": "Released, then forgotten",
+      "setup": "A digital product was delivered as a project with a fixed end date. The team was disbanded after launch and operations took over. Customer complaints now take months to reach anyone who can change the product, and every fix risks breaking something unrelated.",
+      "task": "Diagnose the problem as a scaling question and say what the notes recommend.",
+      "hints": [
+        "Decide which of the two scaling dimensions this is.",
+        "Find the three organisational changes DevOps requires.",
+        "The last sentence of the setup is an architecture problem."
+      ],
+      "walkthrough": [
+        "Name the dimension: this is a scaling-out problem — sustaining value beyond initial release.",
+        "Name the shift: from project delivery (was the agreed output completed?) to continuous value delivery (is the product consistently improving customer outcomes?).",
+        "Apply the three changes: systems thinking, amplified feedback loops that bring customer feedback into development decisions, and shared responsibility across development and operations rather than a handover.",
+        "Address the architecture: a limited blast radius — modular components, stable interfaces, reduced interdependencies — means failures or changes in one component have minimal effects on the wider product."
+      ],
+      "checklist": [
+        "Identifies scaling out and DevOps",
+        "Contrasts project delivery with continuous value delivery",
+        "Names all three organisational changes",
+        "Recognises the handover as the cultural problem",
+        "Recommends limited blast radius for the fragile fixes"
+      ]
+    },
+    {
+      "topic": "Scaling out and scaling up",
+      "title": "The workaround nobody logged",
+      "setup": "During a critical delivery period, a team shipped a temporary workaround because the ideal solution was impractical in the time available. Delivery succeeded. Months later, nobody remembers the workaround is there, and changes around it keep taking longer than expected.",
+      "task": "Was the workaround a mistake? Explain using the notes on technical debt.",
+      "hints": [
+        "The Animal Logic table gives the workaround an operational value.",
+        "Find what temporary fixes create.",
+        "The managerial implication sets a condition for when this trade-off is acceptable."
+      ],
+      "walkthrough": [
+        "Credit the decision: temporary workarounds protect urgent delivery when ideal solutions are impractical, and temporary fixes may be justified during critical delivery periods.",
+        "Name the consequence: they create technical debt that requires future remediation.",
+        "Apply the condition: technical debt can be a deliberate short-term trade-off, provided its future costs and remediation are understood rather than ignored.",
+        "Locate the failure: the workaround was acceptable; ignoring its future cost was not."
+      ],
+      "checklist": [
+        "Recognises that the workaround could be justified",
+        "Identifies the technical debt it created",
+        "States the condition from the managerial implication",
+        "Locates the failure in ignoring the remediation, not the decision itself"
+      ]
+    },
+    {
+      "topic": "Scaling out and scaling up",
+      "title": "Ten teams, one demonstration",
+      "setup": "A large programme has grown to ten Agile teams working on one integrated system with heavy dependencies between them. Each team plans its own sprints, local blockers turn out to be other teams’ work, and senior management cannot see a coherent picture of progress.",
+      "task": "Recommend a coordination approach and describe how it would be organised.",
+      "hints": [
+        "Weigh SAFe against Scrum of Scrums on complexity and interdependencies.",
+        "Check the programme against the lecture’s description of a typical ART.",
+        "Use the team-level versus ART-level table to describe what changes."
+      ],
+      "walkthrough": [
+        "Choose the framework: large, complex, interdependent initiatives suit SAFe, which provides formal, integrated strategic and delivery planning.",
+        "Form the train: ten teams sits within the lecture’s typical ART of approximately 5–12 Agile teams and roughly 50–135 people.",
+        "Set the rhythm: a Program Increment of approximately 6–10 weeks, opened with coordinated PI Planning, while each team keeps its own sprints of roughly two weeks.",
+        "Replace local mechanisms: a shared program-level backlog, cross-team dependency management and integrated system demonstrations to senior management.",
+        "Assign roles: a Release Train Engineer to facilitate coordination and remove impediments, alongside a Product Manager and a System Architect."
+      ],
+      "checklist": [
+        "Justifies SAFe on complexity and interdependencies, not team count",
+        "Checks the programme against the ART size ranges",
+        "Describes PI Planning and the Program Increment",
+        "Uses system demonstrations for senior visibility",
+        "Names the RTE, Product Manager and System Architect roles"
+      ]
+    }
+  ]
+}

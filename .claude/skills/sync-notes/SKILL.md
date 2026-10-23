@@ -44,8 +44,9 @@ nothing ever writes back to Notion.
 | --- | --- |
 | `reference/harvest_plan.py` | Scope resolution → `plan.json` + the fetch list |
 | `reference/apply_harvest.py` | Convert + write, with the conflict guard |
-| `reference/convert_core.py` | Notion markup → Obsidian markdown (canonical copy) |
-| `reference/ingest.py` | Downloads a page's images before the URLs expire |
+| `reference/convert_core.py` | Notion markup → Obsidian markdown (canonical copy). Reads both of Notion's formats |
+| `reference/ingest.py` | Downloads a page's images before the URLs expire. Takes a `references` JSON for the 2026-10 image form |
+| `reference/compare_harvest.py` | Classifies a harvest against the backup by words, not bytes; `--apply` restores format-only diffs |
 
 Data lives with the vault, not here:
 
@@ -170,6 +171,30 @@ genuine change in noise.
 
 Tell agents explicitly to preserve trailing whitespace and the final newline. They will still
 get it wrong sometimes, which is why steps 1–3 are not optional.
+
+### Notion changed its markup format — compare words, not bytes *(learned 2026-10-23)*
+
+On 2026-10-23 `notion-fetch` switched from enhanced markdown (`**b**`, tab-indented
+children, `<empty-block/>`, one-line `<page>`) to an HTML-flavoured form (`<b>`, `<i>`,
+`<ul><li>`, `<p />`, `<toggle heading=…>`, multi-line `<page>`, two-space indents, blank
+lines between blocks, `$x$` instead of `` $`x`$ ``). Images became
+`<image source="notion-file-block://…" />` with the signed URLs in a separate `references`
+map. Every re-fetched page therefore differs from its backup byte-for-byte, even when not
+one word changed.
+
+- `convert_core.py` detects the new form and runs `to_legacy()` first, so both formats
+  produce the same vault note. Checked on the 2026-10-23 run: 131 of 150 unchanged pages
+  converted byte-identical, and the rest differed only in equivalent markup, such as
+  `<u>**x**</u>` against `**<u>x</u>**`.
+- **Step 2 above is now `reference/compare_harvest.py <backup> [--apply]`.** It compares
+  the *words* of both sides after conversion and buckets each file as IDENTICAL / FORMAT /
+  REAL / NEW. `--apply` restores the backup's bytes for FORMAT, so `apply_harvest.py` has
+  nothing to rewrite. REAL files still need your own `notion-fetch` (step 3).
+- `ingest.py <id>.txt <id>.refs.json` handles the new image form; `AGENT-INSTRUCTIONS.md`
+  tells harvesters to fetch with `include_file_urls: true` and save the map.
+
+The first run on the new format found 0 REAL changes across 150 re-harvested pages, with
+26 NEW.
 
 > **Notion's `Edited Time` can move mid-run.** `notion-fetch` results carry an `as of`
 > timestamp and can serve a cached snapshot. Treat a harvest as a point-in-time read, not a

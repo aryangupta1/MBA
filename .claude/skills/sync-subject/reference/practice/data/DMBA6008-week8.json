@@ -1,0 +1,333 @@
+{
+  "page": "DMBA6008-week8.html",
+  "quizIntro": "Twelve questions, two per topic. They target the confusions this week invites: an expectation against a forecast, a high share price against an attractive one, size against value, synergy against control, the premium against the cost of doing the deal, a zero NPV against a return of nothing, and the acquirer’s WACC against the acquisition’s. Every wrong option is a mistake someone actually makes with this material.",
+  "applyIntro": "Six scenarios, one per topic. Three use only the numbers the notes supply — the $30, 10% and $2.039 implied growth example, the acquisition’s $455m, $400m, $30m and $25m, and Cadence’s 4%, 6.5%, 7%, 30% and 25/75 weights with hospitality’s unlevered beta of 1.4. The other three are qualitative. Commit to an answer before opening the walkthrough.",
+  "studyPath": {
+    "intro": "Six topics that ask one question from three angles: what growth the market already expects, whether growth or an acquisition actually creates value, and which rate and which metrics it should be judged against. A full pass takes about two and a half hours.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Read growth out of a share price",
+        "time": "~15 min",
+        "detail": "Blocks 01 to 04. Learn P0 = EPS0(1 + g) / (Re − g) and its rearrangement, then rework the $30 example to about 3%. Be able to say why implied growth is an expectations measure, not a forecast, and why a high share price is not automatically attractive."
+      },
+      {
+        "goto": "summary",
+        "label": "Separate growth from value",
+        "time": "~20 min",
+        "detail": "Blocks 05 to 08. Trace the seven-step chain that takes Perplexed Limited from $10 to $7.60 at 10% growth — debt-to-equity 61.9% to 125.3% — then the efficiency chain that takes it to $17.91 when asset utilisation rises from 0.95 to 1.05."
+      },
+      {
+        "goto": "summary",
+        "label": "Price an acquisition, then work one",
+        "time": "~35 min",
+        "detail": "Blocks 09 to 19. Hold the five-part NPV acquisition equation, and keep synergy and control benefits apart. Then rebuild the timeline — −$425m, −$33m, four years of $50m, a $500m terminal value — and reach NPV = 455-400-30-25 ~= $0. Be ready to say what a zero NPV does and does not mean."
+      },
+      {
+        "goto": "summary",
+        "label": "Rebuild the hurdle rate",
+        "time": "~30 min",
+        "detail": "Blocks 20 to 25. On paper: 11.8% and 4.9% weighted 25/75 to 10.08%, then re-lever hospitality’s 1.4 at D/E 33.3% to about 1.727, giving 15.23% and an acquisition WACC of about 12.65%. Note the example holds Rd constant, and why lenders might not."
+      },
+      {
+        "goto": "summary",
+        "label": "Match metrics to the horizon",
+        "time": "~20 min",
+        "detail": "Blocks 26 to 33. Learn the H1, H2 and H3 rows of the table, then each horizon’s metrics — EBITDA and interest cover for H1, NPV, IRR and asset utilisation for H2, milestones, CAC, LTV, churn, runway, TAM and real option value for H3."
+      },
+      {
+        "goto": "formulas",
+        "label": "Drill the formulas",
+        "time": "~10 min",
+        "detail": "Filter for “WACC” and “TV”. Sixteen formula images in the notes are transcribed exactly here — keep the notes’ forms, including the ~= in PV(Synergies) ~= $455m."
+      },
+      {
+        "goto": "quiz",
+        "label": "Test, then apply",
+        "time": "~25 min",
+        "detail": "Take the twelve-question quiz, then attempt the six scenarios without opening the hints. The implied growth, zero-NPV and hurdle-rate scenarios are the ones to do on paper."
+      }
+    ],
+    "close": "The week has landed when you can explain, with Cadence’s numbers, why the same acquisition discounted at 12.65% rather than 10.08% is worth less to the acquirer’s shareholders."
+  },
+  "quiz": [
+    {
+      "topic": "Implied Growth",
+      "q": "A share trades at $30 with Re = 10% and EPS0 = $2.039. What does the page conclude from the implied growth calculation?",
+      "hint": "Work the rearranged formula, then ask what kind of number it is.",
+      "options": [
+        { "t": "The company will grow its earnings by about 3% a year.", "ok": false, "note": "The page is explicit that implied growth is an expectations measure rather than a forecast of what growth will actually occur." },
+        { "t": "The market is pricing in approximately 3% annual earnings growth, under the model’s assumptions.", "ok": true, "note": "g = ((30 × 0.10) − 2.039) / (30 + 2.039) = 0.961 / 32.039 ≈ 3%: the growth expectation consistent with the $30 price." },
+        { "t": "The share is overpriced, because 3% is below the 10% required return.", "ok": false, "note": "The page compares implied growth with the growth the company can actually deliver, not with Re. Re is an input to the calculation." },
+        { "t": "The market expects about 10% growth, the same as the required return.", "ok": false, "note": "10% is Re, the equity hurdle rate. The implied growth from these inputs is about 3%." }
+      ]
+    },
+    {
+      "topic": "Implied Growth",
+      "q": "An analyst says a stock with a high share price must be an attractive investment because the market clearly rates it. What is the page’s response?",
+      "hint": "Think about what a high price already contains.",
+      "options": [
+        { "t": "Agreed — a high P0 means high implied growth, so the company will outperform.", "ok": false, "note": "A high P0 does mean high implied growth, but that is an expectation already paid for, not a promise of outperformance." },
+        { "t": "Disagree — share prices reflect only past performance, not expectations.", "ok": false, "note": "The page says the opposite: in an actively traded market, P0 reflects investors’ collective expectations about future earnings." },
+        { "t": "Disagree — implied growth cannot be calculated for a high share price.", "ok": false, "note": "The formula applies at any price; a higher price simply yields a higher implied g." },
+        { "t": "Not necessarily — the price may already incorporate substantial future growth expectations, so the question is whether actual growth can meet or exceed them.", "ok": true, "note": "The page shifts analysis from performance alone to performance against expectations; a high share price is not automatically attractive." }
+      ]
+    },
+    {
+      "topic": "Growth versus value",
+      "q": "Perplexed Limited raises its revenue growth from 5% to 10% p.a. and its modelled share price falls from $10 to $7.60. What drives the fall?",
+      "hint": "Follow what the extra revenue needs before it can be earned.",
+      "options": [
+        { "t": "Faster growth needs more assets than retained earnings can fund, so debt rises, levered beta and the equity hurdle rate rise, and the present value of shareholder cash flows falls.", "ok": true, "note": "The page’s chain: revenue growth → more assets → external financing → higher debt → higher financial risk → higher required return → lower valuation. Debt-to-equity rises from 61.9% to 125.3%." },
+        { "t": "Faster growth reduces revenue because prices must be cut to win share.", "ok": false, "note": "Nothing on the page says revenue falls; the problem is the financing and risk required to support the growth." },
+        { "t": "The asset-utilisation ratio rises, which lowers the share price.", "ok": false, "note": "Higher asset utilisation is the page’s value-creating alternative — it lifts the share price to $17.91." },
+        { "t": "Growth always destroys value, whatever the returns.", "ok": false, "note": "Growth creates value when the returns justify the additional assets, financing and risk. It is not destructive by definition." }
+      ]
+    },
+    {
+      "topic": "Growth versus value",
+      "q": "Which statement best captures the difference the page draws between growth and value creation?",
+      "hint": "One is measured against the size of the business; the other against something else.",
+      "options": [
+        { "t": "They are the same objective measured at different times.", "ok": false, "note": "The page sets them up as different objectives; Perplexed Limited shows growth lowering value." },
+        { "t": "Growth is about returns; value creation is about market share.", "ok": false, "note": "This reverses the page’s distinction." },
+        { "t": "Growth is an objective about size; value creation is about returns relative to the resources and risk required.", "ok": true, "note": "The page’s own line, which is why improving asset utilisation can create more value than expansion." },
+        { "t": "Value creation requires expanding the asset base; growth does not.", "ok": false, "note": "The asset-utilisation strategy creates value by extracting more from existing assets, without equivalent balance-sheet expansion." }
+      ]
+    },
+    {
+      "topic": "Corporate acquisition",
+      "q": "An acquirer expects to restructure the target’s management and digitise its operations. Which source of acquisition value is this?",
+      "hint": "Ask whether the benefit needs the two businesses to interact.",
+      "options": [
+        { "t": "Synergy, because the target will perform better after the deal.", "ok": false, "note": "Synergy is the additional benefit created by the combination itself, not simply the target’s improved performance." },
+        { "t": "Control benefits, because they come from changing how the target is managed.", "ok": true, "note": "Control benefits arise when the acquirer believes the target could be managed more effectively; restructuring, digitisation and management change are the page’s examples." },
+        { "t": "An integration cost, because it changes operations after acquisition.", "ok": false, "note": "Integration costs are the costs of combining the businesses; restructuring the target for better management is a source of value here." },
+        { "t": "The acquisition premium, because control has been bought.", "ok": false, "note": "The premium is what is paid above standalone fair value to obtain control — a cost, not a source of value." }
+      ]
+    },
+    {
+      "topic": "Corporate acquisition",
+      "q": "Which cost is paid to convince the target’s shareholders to sell?",
+      "hint": "Match each of the three costs to its purpose.",
+      "options": [
+        { "t": "Transaction costs.", "ok": false, "note": "Transaction costs structure, negotiate and execute the deal — banking, legal and advisory fees." },
+        { "t": "Integration costs.", "ok": false, "note": "Integration costs combine the businesses after acquisition, and enter the NPV as a present value." },
+        { "t": "The present value of synergies.", "ok": false, "note": "PV(Synergies) is a benefit of the deal, not a cost." },
+        { "t": "The acquisition premium.", "ok": true, "note": "Acquisition Premium = Purchase Price - Standalone Fair Value: the amount above fair market value that shareholders normally require to surrender control." }
+      ]
+    },
+    {
+      "topic": "Acquisition example",
+      "q": "The worked acquisition has PV(Synergies) ~= $455m, a $400m premium, PV(Integration) of $30m and $25m of transaction costs. What does the result mean?",
+      "hint": "Compute the NPV, then ask what return a project at that NPV earns.",
+      "options": [
+        { "t": "NPV ≈ $0, so the acquisition earns nothing and should be rejected as worthless.", "ok": false, "note": "A zero NPV does not mean the acquisition earns nothing — it earns exactly the required return." },
+        { "t": "NPV ≈ $455m, because synergies are the deal’s value.", "ok": false, "note": "The premium, integration and transaction costs must be subtracted: 455 − 400 − 30 − 25." },
+        { "t": "NPV ≈ $0, so it earns exactly the 10% required return but creates no additional value — acceptable, but not desirable.", "ok": true, "note": "NPV = 455-400-30-25 ~= $0, and NPV = 0 ⇒ expected return = required return. Shareholders get their minimum return and no economic surplus." },
+        { "t": "NPV ≈ $30m, because only integration is discounted.", "ok": false, "note": "$30m is the present value of the integration cost, one input to the NPV, not the NPV itself." }
+      ]
+    },
+    {
+      "topic": "Acquisition example",
+      "q": "Why does the page say integration matters “twice” in acquisition economics?",
+      "hint": "One effect is on the cost side; the other is on timing.",
+      "options": [
+        { "t": "It is counted in both the premium and the transaction costs.", "ok": false, "note": "The page keeps the three costs separate; integration is neither the premium nor a transaction cost." },
+        { "t": "It creates a direct cost and can delay the synergies needed to justify the acquisition.", "ok": true, "note": "Synergies cannot be realised until the businesses are combined, and benefits realised later have a lower present value." },
+        { "t": "It is paid in Year 0 and again in Year 5.", "ok": false, "note": "The example has a single $33m integration cost at the end of Year 1." },
+        { "t": "It raises both the terminal value and the discount rate.", "ok": false, "note": "Nothing on the page links integration to the terminal value or the 10% rate." }
+      ]
+    },
+    {
+      "topic": "Acquisition: hurdle rate",
+      "q": "When can an acquirer discount an acquisition at its own existing WACC?",
+      "hint": "The page asks two questions; both have to come out the same way.",
+      "options": [
+        { "t": "Whenever the acquisition is funded with the acquirer’s usual debt/equity mix.", "ok": false, "note": "The funding mix is only one condition; the target must also have similar business risk." },
+        { "t": "Always, because the acquirer’s shareholders bear the risk.", "ok": false, "note": "The page’s first takeaway: do not automatically discount an acquisition at the acquirer’s existing WACC." },
+        { "t": "Whenever the target is profitable.", "ok": false, "note": "Profitability is not one of the page’s tests; risk and financing mix are." },
+        { "t": "Only when the target has similar business risk — same industry or sector — and the deal uses the same debt/equity funding mix.", "ok": true, "note": "Use existing WACC when acquisition risk and financing mix are unchanged; otherwise the hurdle rate must reflect the acquisition’s own risk." }
+      ]
+    },
+    {
+      "topic": "Acquisition: hurdle rate",
+      "q": "Why does the page re-lever hospitality’s beta of 1.4 before using it for Cadence’s acquisition?",
+      "hint": "What does 1.4 leave out?",
+      "options": [
+        { "t": "1.4 is an unlevered beta — business risk without debt — so it must be adjusted for the financial risk of Cadence’s 25/75 structure.", "ok": true, "note": "βL = 1.4[1 + (1 − 0.30)(0.333)] ≈ 1.727 combines hospitality business risk with Cadence’s intended financial leverage." },
+        { "t": "1.4 is Cadence’s own beta, which must be converted to hospitality’s.", "ok": false, "note": "Cadence’s levered beta is 1.20; 1.4 is the hospitality sector’s assumed unlevered beta." },
+        { "t": "Re-levering lowers the beta to reflect the tax benefit of debt.", "ok": false, "note": "Re-levering raises it here, from 1.4 to about 1.727, adding the financial risk introduced by Cadence’s capital structure." },
+        { "t": "Because the cost of debt changes in a different industry.", "ok": false, "note": "The example holds the cost of debt at 7%; the page notes Rd may also change, but that is a separate adjustment from re-levering the beta." }
+      ]
+    },
+    {
+      "topic": "Three horizons of growth: A finance lens",
+      "q": "A board rejects an early-stage venture in a new technology because its ROI is poor. What is the page’s criticism?",
+      "hint": "Which horizon is the venture in, and which horizon’s measures were used?",
+      "options": [
+        { "t": "The board should have used EBITDA and interest cover instead.", "ok": false, "note": "Those are H1 metrics too; the point is that H1 measures are the wrong lens for H3." },
+        { "t": "Applying H1 measures to an H3 opportunity can reject a potentially valuable future business too early; it should be judged on milestones, learning and optionality.", "ok": true, "note": "H3’s objective is learning whether an opportunity deserves further investment, measured by milestones, CAC, LTV, churn, runway, TAM and real option value." },
+        { "t": "ROI is the right measure, but the board should wait for H2 before deciding.", "ok": false, "note": "ROI is often unsuitable for H3 because revenues may not exist and cash flows are highly uncertain." },
+        { "t": "There is no criticism — poor ROI justifies rejection at any horizon.", "ok": false, "note": "The page’s takeaway is that financial metrics should match the maturity of the business." }
+      ]
+    },
+    {
+      "topic": "Three horizons of growth: A finance lens",
+      "q": "An adjacent business already has revenue but low profitability and weak ROI. Which measure does the page single out as particularly useful for it?",
+      "hint": "Where does most of this business’s economic value sit in time?",
+      "options": [
+        { "t": "Interest cover.", "ok": false, "note": "Interest cover is an H1 metric — capacity to service debt from earnings." },
+        { "t": "Runway.", "ok": false, "note": "Runway is listed among the H3 tools." },
+        { "t": "Customer churn.", "ok": false, "note": "Churn is an H3 metric on the page." },
+        { "t": "Net Present Value.", "ok": true, "note": "For H2, current cash flows may be small or negative while much of the economic value lies in future periods, which is why NPV becomes particularly useful." }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "Implied Growth",
+      "title": "What is the $30 price assuming?",
+      "setup": "A share trades at $30. Current earnings per share are $2.039 and the equity hurdle rate is estimated at 10%. A colleague wants to buy because the business is growing.",
+      "task": "Work out the growth the market is pricing in and set out what you would need to believe before buying.",
+      "hints": [
+        "Reverse the usual valuation question.",
+        "Use the Gordon growth framework rearranged to solve for g.",
+        "Once you have g, compare it with what the company can actually deliver, not with Re."
+      ],
+      "walkthrough": [
+        "Implied growth asks: given the share price, what growth is the market expecting? Rearranging P0 = EPS0(1 + g) / (Re − g) gives g = (P0Re − EPS0) / (P0 + EPS0).",
+        "g = ((30 × 0.10) − 2.039) / (30 + 2.039) = 0.961 / 32.039 ≈ 3%: a $30 share price implies approximately 3% annual earnings growth under the model’s assumptions.",
+        "That is an expectations measure, not a forecast. The question is not whether the business is growing but whether actual growth can meet or exceed the roughly 3% already priced into the shares.",
+        "The answer also depends on the estimated 10% hurdle rate; a different estimate changes the implied growth."
+      ],
+      "checklist": [
+        "Computes implied growth of about 3%",
+        "Calls it the market’s expectation, not a forecast",
+        "Frames the decision as actual growth against priced-in growth",
+        "Notes the dependence on the estimated equity hurdle rate"
+      ]
+    },
+    {
+      "topic": "Growth versus value",
+      "title": "Grow faster or work harder?",
+      "setup": "A management team proposes doubling its revenue growth target. The business does not generate enough retained earnings to fund the assets that faster growth would need, and its existing assets are under-utilised.",
+      "task": "Advise the board on whether to back the growth target or an alternative use of retained earnings.",
+      "hints": [
+        "Ask what the extra revenue needs before it can be earned, and how that is paid for.",
+        "The page traces a chain from revenue growth to valuation, and a second chain from asset utilisation to shareholder value.",
+        "Perplexed Limited shows both outcomes from the same $10 starting point."
+      ],
+      "walkthrough": [
+        "Growth only creates value when the returns justify the additional assets, financing and risk required to support it.",
+        "If retained earnings cannot fund the assets, faster growth needs external financing: higher debt → higher financial risk → higher levered beta and required return → lower valuation. Perplexed Limited fell from $10 to $7.60 at 10% growth, with debt-to-equity rising from 61.9% to 125.3%.",
+        "With under-utilised assets, improving asset utilisation (Revenue / Net non-current assets) means less asset investment, a lower financing requirement and lower financial risk. Perplexed Limited rose from $10 to $17.91 when the ratio improved from 0.95 to 1.05.",
+        "The board should assess whether growth can be financed sustainably first; here asset productivity may create substantially more value than expansion."
+      ],
+      "checklist": [
+        "States when growth creates value",
+        "Traces the financing and risk chain to a lower valuation",
+        "Raises asset utilisation as the alternative",
+        "Uses the Perplexed Limited figures as illustration",
+        "Distinguishes size from returns"
+      ]
+    },
+    {
+      "topic": "Corporate acquisition",
+      "title": "A great target, a full price",
+      "setup": "A board is excited about acquiring a market-leading competitor. Bankers say the target’s shareholders will want well above its standalone value, and combining the two companies’ systems and facilities will take time.",
+      "task": "Set out how the board should decide whether the deal creates value for its own shareholders.",
+      "hints": [
+        "Treat it as an investment decision, not a growth decision.",
+        "Separate the reasons the deal could create value from what must be paid to obtain them.",
+        "There are two sources of value and three costs."
+      ],
+      "walkthrough": [
+        "The deal creates value for the acquirer’s shareholders only if its NPV is positive: NPV acquisition = PV(Synergies) + PV(Control Benefits) - Acquisition Premium - PV(Integration costs) - Transaction Costs.",
+        "Assess synergy and control separately: synergies are benefits available only because the companies are combined; control benefits come from managing the target better.",
+        "Price the costs: the premium above standalone fair value (potentially around 10% to 50% of the purchase price), integration costs as a present value because they come later, and transaction costs for executing the deal.",
+        "Integration is central — synergies may not materialise until the businesses are combined. A good company can still be a poor acquisition if the acquirer pays too much."
+      ],
+      "checklist": [
+        "Uses NPV > 0 as the test",
+        "Separates synergies from control benefits",
+        "Names all three costs and their purposes",
+        "Treats integration as a present value and a risk to synergies",
+        "Distinguishes a good company from a good acquisition"
+      ]
+    },
+    {
+      "topic": "Acquisition example",
+      "title": "Is breaking even good enough?",
+      "setup": "An acquisition’s synergies have a present value of about $455m at a 10% required return. The deal carries a $400m premium, a $33m integration cost at the end of Year 1 and $25m of transaction costs. A director says the deal “makes no money”.",
+      "task": "Calculate the NPV, respond to the director, and say what would make the deal value-creating.",
+      "hints": [
+        "Discount the integration cost before subtracting it.",
+        "Subtract the premium, integration and transaction costs from PV(Synergies).",
+        "Ask what return a project with that NPV actually earns."
+      ],
+      "walkthrough": [
+        "PV(Integration) = 33/1.10 = $30m.",
+        "NPV = PV(Synergies) - Premium - PV(Integration) - Transaction Costs = 455-400-30-25 ~= $0.",
+        "The director is wrong that it makes no money: NPV = 0 ⇒ expected return = required return, so the deal earns exactly the 10% investors demand. It creates no additional value — acceptable, but not desirable.",
+        "It becomes value-creating only if synergies increase or arrive sooner, costs fall, the premium falls, or the required return changes favourably."
+      ],
+      "checklist": [
+        "Discounts the integration cost to $30m",
+        "Reaches an NPV of approximately zero",
+        "Explains that a zero NPV earns the required return",
+        "Calls the deal acceptable but not desirable",
+        "Lists the levers that would make it value-creating"
+      ]
+    },
+    {
+      "topic": "Acquisition: hurdle rate",
+      "title": "Healthcare buys hospitality",
+      "setup": "Cadence, a healthcare company, has market-value weights of 25% debt and 75% equity, a pre-tax cost of debt of 7%, a 30% tax rate and an equity beta of 1.2, with a 4% risk-free rate and 6.5% market risk premium. It proposes buying a hospitality business; the hospitality sector’s unlevered beta is 1.4. Cadence will keep its 25/75 funding mix.",
+      "task": "Calculate the hurdle rate the acquisition should be discounted at, and explain why it differs from Cadence’s own.",
+      "hints": [
+        "Start with Cadence’s existing WACC, then ask whether its two conditions hold.",
+        "The hospitality beta needs adjusting before it goes into CAPM.",
+        "Re-lever at Cadence’s debt-to-equity ratio, then rebuild Re and WACC."
+      ],
+      "walkthrough": [
+        "Cadence’s WACC: Re = 4% + (1.2 × 6.5%) = 11.8%; Rd(1 − T) = 7%(1 − 0.30) = 4.9%; WACC = (0.25 × 4.9%) + (0.75 × 11.8%) = 10.08%.",
+        "The funding mix is unchanged, but the business risk is not — hospitality has a different exposure to economic conditions, so 10.08% would misprice the risk.",
+        "Re-lever: D/E = 100/300 = 33.3%; βL = 1.4[1 + (1 − 0.30)(0.333)] ≈ 1.727.",
+        "Re = 4% + (1.727 × 6.5%) ≈ 15.23%; WACCacquisition = (0.25 × 4.9%) + (0.75 × 15.23%) ≈ 12.65%.",
+        "Lenders may also demand more than 7% for a riskier industry or unfamiliar sector, so Rd may need adjusting as well."
+      ],
+      "checklist": [
+        "Computes Cadence’s WACC of 10.08%",
+        "Identifies the change in business risk",
+        "Re-levers the 1.4 beta to about 1.727",
+        "Reaches an acquisition WACC of about 12.65%",
+        "Notes the cost of debt may also change"
+      ]
+    },
+    {
+      "topic": "Three horizons of growth: A finance lens",
+      "title": "One scorecard for every venture",
+      "setup": "A company assesses every initiative on ROI and current profitability: its mature core business, a newer product line that uses its existing capabilities and already earns some revenue, and a handful of experiments in an emerging technology.",
+      "task": "Recommend how each initiative should be measured, and what the single scorecard risks.",
+      "hints": [
+        "Place each initiative on a horizon.",
+        "Each horizon has a different financial objective — learn, scale or optimise.",
+        "The page names specific metrics for each horizon."
+      ],
+      "walkthrough": [
+        "The core business is H1: measure cash generation, profitability and returns — EBITDA, cash from operations, ROI, operating cash cycle / funding gap, debt-to-equity and interest cover.",
+        "The newer product line is H2: the priority is revenue growth + capital efficiency, so NPV (much of its value lies in the future), IRR for the individual investment, and asset utilisation.",
+        "The experiments are H3: the aim is learning whether they deserve further investment, so milestones, CAC, LTV, churn, runway, TAM and real option value — experiment → evidence → further investment or exit.",
+        "One ROI scorecard risks rejecting potentially valuable future businesses too early, and leaving the company without a future growth engine."
+      ],
+      "checklist": [
+        "Places each initiative on the right horizon",
+        "Gives H1 conventional performance metrics",
+        "Gives H2 NPV, IRR and asset utilisation",
+        "Gives H3 milestones and option-based measures",
+        "Names the risk of applying H1 measures to H3"
+      ]
+    }
+  ]
+}

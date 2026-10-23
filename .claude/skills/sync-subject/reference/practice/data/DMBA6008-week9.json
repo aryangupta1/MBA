@@ -1,0 +1,312 @@
+{
+  "page": "DMBA6008-week9.html",
+  "quizIntro": "Twelve questions across the five topics. They target the confusions this week invites: book value against economic value, a demerger’s new listing against value actually created, a higher EPS against a higher share price, the buyback against what funds it, cheap debt against debt that gets dearer, and a hard-to-measure ESG benefit against one with no value. Every wrong option is a mistake someone actually makes with this material.",
+  "applyIntro": "Five scenarios, one per topic. Four are qualitative, because the page gives no figures for them; one uses only the numbers the notes supply — the $500m book values, the $150m and $80m cash flows at a 10% hurdle rate, the $400m sale price and Asset C’s $110m and roughly $417m. Commit to an answer before opening the walkthrough.",
+  "studyPath": {
+    "intro": "Five topics that build one argument: restructuring is a capital-allocation test applied to both sides of the balance sheet — what the company owns, how it returns cash, how it borrows, and how it invests for ESG. A full pass takes about two and a quarter hours.",
+    "steps": [
+      {
+        "goto": "summary",
+        "label": "Map the five mechanisms",
+        "time": "~15 min",
+        "detail": "Blocks 01 to 04. Place asset sales, demergers and ESG CapEx on the asset side, buybacks on equity and financial restructuring on debt, and learn the core question each one asks. Be able to say what separates an asset sale (cash) from a demerger (ownership reorganised)."
+      },
+      {
+        "goto": "summary",
+        "label": "Work the Asset A, B and C example",
+        "time": "~30 min",
+        "detail": "Blocks 05 to 11. Learn the six sources of demerger value, then cover the table and rebuild it: $568.6m and $303.3m against $500m book values, 871.9m of economic value behind $1bn of book assets, NPVc = +17m, and the 113.7m uplift. Know the two sources of that uplift."
+      },
+      {
+        "goto": "summary",
+        "label": "Separate the buyback from its funding",
+        "time": "~30 min",
+        "detail": "Blocks 12 to 19. For each of the three funding routes — an equally productive asset, an underperforming asset, borrowing — say what changes inside the business and whether value is created. Then use Share price = EPS / (Re-g) to explain why a higher EPS can still leave value lower."
+      },
+      {
+        "goto": "summary",
+        "label": "Trace debt through WACC",
+        "time": "~20 min",
+        "detail": "Blocks 20 to 26. Explain why some debt lowers WACC and too much raises it, from both the shareholder side (levered beta) and the lender side (credit rating, credit spread). Then list the financial distress costs WACC does not capture."
+      },
+      {
+        "goto": "summary",
+        "label": "Put ESG through the same test",
+        "time": "~25 min",
+        "detail": "Blocks 27 to 36. Learn the four value channels on the two-by-two, the definition of a stranded asset, and the resilience chain to a lower cost of capital. Then match each CapEx type to its horizon and its financial lens."
+      },
+      {
+        "goto": "formulas",
+        "label": "Drill the formulas",
+        "time": "~10 min",
+        "detail": "Filter for “WACC” and “Re”. All fourteen are copied as the notes write them — the lowercase x in the WACC line, the plain hyphens in the Asset C arithmetic, and the notes’ own capitalisation in Re = RF + BEta x Market Risk Premium."
+      },
+      {
+        "goto": "quiz",
+        "label": "Test, then apply",
+        "time": "~25 min",
+        "detail": "Take the twelve-question quiz, then attempt the five scenarios without opening the hints. The Asset B sale is the one to do on paper."
+      }
+    ],
+    "close": "The week has landed when you can explain, with the Asset A, B and C numbers, why selling an asset below its book value can still add $113.7m of value."
+  },
+  "quiz": [
+    {
+      "topic": "Overview",
+      "q": "A company sells one of its divisions for cash. On the page’s framework, what kind of restructuring is this, and what does it address?",
+      "hint": "Ask which side of the balance sheet the division sits on, and what changes hands.",
+      "options": [
+        { "t": "Financial restructuring, addressing inefficiencies in the financing structure.", "ok": false, "note": "Financial restructuring is buybacks and debt restructuring. Selling a division changes what the company owns, not how it is financed." },
+        { "t": "A demerger, because the division becomes a separate entity.", "ok": false, "note": "A demerger separates the business into a distinct entity rather than selling it for cash; here the asset is exchanged for cash." },
+        { "t": "Asset restructuring, addressing value trapped on the asset side.", "ok": true, "note": "An asset sale is an asset-side mechanism: the asset is exchanged for cash, and capital can be redeployed elsewhere." },
+        { "t": "ESG CapEx, because it reshapes the asset base.", "ok": false, "note": "ESG CapEx is investment that may increase or reshape the asset base; a sale for cash is the asset-sale mechanism." }
+      ]
+    },
+    {
+      "topic": "Demergers and asset sales",
+      "q": "A conglomerate demerges a division into a separately listed company. According to the page, when does this create shareholder value?",
+      "hint": "Think about the NPV perspective the page uses.",
+      "options": [
+        { "t": "Always — creating two listed entities unlocks value automatically.", "ok": false, "note": "The page is explicit: simply creating two listed entities is not enough, and the restructuring itself does not automatically create value." },
+        { "t": "When the parent retains an ownership interest in the new entity.", "ok": false, "note": "The parent may retain an interest, but that is a feature of the structure, not a source of value." },
+        { "t": "When the combined book value of the two entities exceeds the book value before.", "ok": false, "note": "Restructuring decisions rest on future cash-flow value, not accounting value." },
+        { "t": "Only when separation produces higher expected cash flows and/or lower risk or cost of capital.", "ok": true, "note": "Value must come from an improvement in the underlying cash-flow or risk characteristics of the businesses." }
+      ]
+    },
+    {
+      "topic": "Demergers and asset sales",
+      "q": "Asset B has a book value of $500m and a PV of $303.3m at the 10% hurdle rate. A buyer offers $400m. What does the page’s analysis imply?",
+      "hint": "Which value should the offer be compared with?",
+      "options": [
+        { "t": "Reject it — selling at $400m books a loss against the $500m book value.", "ok": false, "note": "For asset sales, book value is largely irrelevant to the decision; the comparison is with economic value." },
+        { "t": "The sale is attractive, because $400m exceeds Asset B’s economic value of $303.3m.", "ok": true, "note": "Sale Price (400m) > Asset B Economic Value (303.3m). A buyer may rationally pay more because the asset fits its strategy, adds synergies or can be financed more cheaply." },
+        { "t": "Keep it — the business has $1bn of book assets, so it is worth $1bn.", "ok": false, "note": "The business has $1bn of book assets but only $871.9m of economic value." },
+        { "t": "Accept only an offer above $500m, so the sale recovers book value.", "ok": false, "note": "For asset sales, book value is largely irrelevant to the decision; the comparison is with Asset B’s $303.3m economic value." }
+      ]
+    },
+    {
+      "topic": "Demergers and asset sales",
+      "q": "The $400m from selling Asset B is invested in Asset C, with a present value of about $417m. What is the value increase from the restructuring?",
+      "hint": "Compare the new combined economic value with the combined economic value before.",
+      "options": [
+        { "t": "$17m — the NPV of Asset C.", "ok": false, "note": "NPVc = 417 - 400 = +17m is only the reinvestment part; the sale above economic value also adds value." },
+        { "t": "$68.6m — Asset A’s value creation.", "ok": false, "note": "+$68.6m is what Asset A creates against its book value; it is unchanged by the restructuring." },
+        { "t": "$985.6m — the new combined value.", "ok": false, "note": "568.6 + 417 = 985.6m is the new total, not the increase." },
+        { "t": "$113.7m — 985.6 less 871.9.", "ok": true, "note": "Value increase from restructuring: 985.6-871.9 = 113.7m, from both selling B above its economic value and reinvesting at a positive NPV." }
+      ]
+    },
+    {
+      "topic": "Share buybacks",
+      "q": "After a buyback, a company’s EPS rises. What can be concluded from that alone?",
+      "hint": "Ask what fewer shares does to EPS mechanically.",
+      "options": [
+        { "t": "Nothing about value by itself — the rise can be a mechanical accounting improvement.", "ok": true, "note": "Fewer shares increase EPS; a higher EPS or ROE does not necessarily mean shareholder value has increased." },
+        { "t": "Shareholder value has increased, because each share earns more.", "ok": false, "note": "This is the confusion the page warns against: EPS can rise mechanically without economic improvement." },
+        { "t": "Intrinsic value has risen if the share price also rose.", "ok": false, "note": "A higher share price caused by the repurchase itself does not prove intrinsic value increased." },
+        { "t": "The company has found positive-NPV investments.", "ok": false, "note": "A buyback that returns excess cash often reflects the opposite — no sufficiently attractive investment opportunities." }
+      ]
+    },
+    {
+      "topic": "Share buybacks",
+      "q": "A company sells an asset earning exactly the return shareholders require and uses the proceeds to buy back shares. What happens to economic value?",
+      "hint": "Compare the return on the remaining assets before and after.",
+      "options": [
+        { "t": "It rises, because there are fewer shares.", "ok": false, "note": "Fewer shares change the size of the company, not the quality of the underlying business." },
+        { "t": "It falls, because the company is smaller.", "ok": false, "note": "Being smaller is not itself value-destroying here; the remaining assets earn the same return relative to expectations." },
+        { "t": "No economic value is created.", "ok": true, "note": "Fewer assets, lower profits, fewer shares, less equity — but nothing fundamentally improves." },
+        { "t": "It rises, because the tax benefits of debt increase.", "ok": false, "note": "No debt is raised in this route; the tax trade-off belongs to the debt-funded buyback." }
+      ]
+    },
+    {
+      "topic": "Share buybacks",
+      "q": "A company sells an underperforming asset, returns the proceeds through a buyback, and shareholder value rises. What is the real source of the value?",
+      "hint": "The page calls one part of the transaction ‘simply the mechanism’.",
+      "options": [
+        { "t": "The buyback, because it reduces the number of shares.", "ok": false, "note": "The page’s key point is that the buyback itself is not the real source of value creation." },
+        { "t": "Signalling that management thinks the shares are undervalued.", "ok": false, "note": "Signalling is a separate motivation, and a price rise from it does not prove intrinsic value increased." },
+        { "t": "The tax deductibility of interest.", "ok": false, "note": "No borrowing is involved in this route." },
+        { "t": "Selling the underperforming asset and concentrating capital in the better-performing business.", "ok": true, "note": "Overall asset quality improves; the buyback is simply the mechanism for returning the sale proceeds." }
+      ]
+    },
+    {
+      "topic": "Share buybacks",
+      "q": "A debt-funded buyback lifts EPS and ROE. Why might value still decline?",
+      "hint": "Look at what sits in the denominator of the simplified share valuation.",
+      "options": [
+        { "t": "Because the company’s operating assets shrink.", "ok": false, "note": "In a debt-funded buyback the operating assets remain unchanged." },
+        { "t": "Because greater financial risk raises levered beta and the required return, which can outweigh the higher EPS.", "ok": true, "note": "Share price = EPS / (Re-g): if the required return rises enough, the valuation can still fail. Accounting metrics can improve while economic value declines." },
+        { "t": "Because interest on the new debt is not tax-deductible.", "ok": false, "note": "Interest is tax-deductible — that is the benefit side of the trade-off." },
+        { "t": "Because equity increases and dilutes existing shareholders.", "ok": false, "note": "Equity decreases in a buyback; leverage increases." }
+      ]
+    },
+    {
+      "topic": "Capital structure and WACC",
+      "q": "A company keeps adding debt beyond its optimal leverage. What happens to WACC, and why?",
+      "hint": "Consider both shareholders and lenders.",
+      "options": [
+        { "t": "It keeps falling, because debt is cheaper and interest is tax deductible.", "ok": false, "note": "That is why WACC may initially decline; the benefit does not continue indefinitely." },
+        { "t": "It stays constant, because the costs of debt and equity are fixed.", "ok": false, "note": "The page stresses that both the cost of equity and the cost of debt can change as leverage changes." },
+        { "t": "It begins rising, because shareholders demand a higher return and lenders require a larger credit spread.", "ok": true, "note": "Levered beta rises, the credit rating may deteriorate, and the additional cost and risk of debt outweigh its benefits." },
+        { "t": "It falls, because equity becomes a smaller share of financing.", "ok": false, "note": "A smaller equity share helps only at low leverage; past the optimum, rising costs dominate." }
+      ]
+    },
+    {
+      "topic": "Capital structure and WACC",
+      "q": "Which consequence of excessive leverage does the page say the WACC calculation does not capture?",
+      "hint": "The page separates observable financing costs from broader effects on operations.",
+      "options": [
+        { "t": "Higher borrowing costs.", "ok": false, "note": "The page says the WACC calculation captures higher borrowing costs." },
+        { "t": "Higher shareholder risk.", "ok": false, "note": "The page says the WACC calculation captures higher shareholder risk." },
+        { "t": "A wider credit spread after a downgrade.", "ok": false, "note": "A wider spread is part of the higher borrowing cost that WACC reflects." },
+        { "t": "Key employees leaving and suppliers withdrawing credit.", "ok": true, "note": "These financial distress costs can damage operating cash flows before default, so the true cost of debt can exceed the observable interest rate." }
+      ]
+    },
+    {
+      "topic": "ESG: A financial perspective",
+      "q": "A company is considering flood-proofing its facilities. Which horizon and financial lens does the page suggest?",
+      "hint": "Is the investment meeting regulation, cutting costs, building capability, protecting future cash flows, or positioning for the future?",
+      "options": [
+        { "t": "Horizon 2 risk-mitigation CapEx — combine financial analysis with strategic and risk considerations.", "ok": true, "note": "Flood-proofing protects future cash flows and long-term viability; it is justified partly by returns and partly by avoiding downside risk." },
+        { "t": "Horizon 1 compliance-driven CapEx — traditional ROI / DCF alone.", "ok": false, "note": "Compliance-driven CapEx meets existing or expected regulation, such as emission controls; flood-proofing is listed under Horizon 2." },
+        { "t": "Horizon 3 — an innovation and strategic-option lens.", "ok": false, "note": "Horizon 3 covers discretionary future-proofing such as corporate venture investments and circular-economy models." },
+        { "t": "It is not an investment decision, because it creates no revenue.", "ok": false, "note": "ESG can create value through lower risk as well as higher cash flows; resilience is one of the four channels." }
+      ]
+    },
+    {
+      "topic": "ESG: A financial perspective",
+      "q": "A board dismisses an ESG project because its brand and talent benefits cannot be measured precisely. What does the page say?",
+      "hint": "Find the callout in the intangible value block.",
+      "options": [
+        { "t": "The board is right: unmeasurable benefits should carry no value.", "ok": false, "note": "The page says the opposite: difficulty measuring an ESG benefit does not mean the benefit has no economic value." },
+        { "t": "ESG needs a completely different finance framework from other investments.", "ok": false, "note": "ESG fits within the same valuation framework — value still comes from increasing cash flows and/or reducing risk." },
+        { "t": "Difficulty measuring a benefit does not mean it has no economic value; it can still protect future revenues and competitive advantage.", "ok": true, "note": "Intangible effects may be longer-term and less certain than direct cost savings, but they can still matter economically." },
+        { "t": "The project should be approved regardless of its cash-flow or risk effects.", "ok": false, "note": "The test is still whether the initiative increases future cash flows or reduces business risk." }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "topic": "Overview",
+      "title": "Testing the whole balance sheet",
+      "setup": "A diversified group has one division that has been earning below the required return for several years, a second division that management believes would be valued more highly on its own, a large cash balance with no attractive investments, and very little debt. The board asks for a restructuring review.",
+      "task": "Match each issue to a restructuring mechanism and state the question the board should ask about it.",
+      "hints": [
+        "Sort the issues by side of the balance sheet.",
+        "The page names five mechanisms, each with a core question.",
+        "Two issues sit on the asset side; two sit on the financing side."
+      ],
+      "walkthrough": [
+        "The underperforming division is an asset-sale candidate: are these assets still earning sufficient returns to justify ownership? Another owner may extract more value, and selling converts it into cash to redeploy.",
+        "The division that might be worth more on its own points to a demerger: could the business create more value as separate entities? A demerger reorganises ownership rather than exchanging the asset for cash.",
+        "The surplus cash raises the buyback question: should it be returned by repurchasing shares and reducing equity — and does that create more value than retaining or investing it?",
+        "Very little debt raises the financial-restructuring question: is the level of debt appropriate for minimising financing costs and maximising firm value, given the lowest appropriate WACC?",
+        "Each answer should compare the current structure with credible alternatives rather than assuming existing arrangements should continue."
+      ],
+      "checklist": [
+        "Places the underperforming division under asset sales",
+        "Places the separately valuable division under demergers",
+        "Links surplus cash to a buyback and its alternative uses",
+        "Links low debt to the optimal level of debt and WACC",
+        "Compares against credible alternatives"
+      ]
+    },
+    {
+      "topic": "Demergers and asset sales",
+      "title": "Selling Asset B",
+      "setup": "A business owns Asset A and Asset B, each with a book value of $500m. Asset A generates $150m a year for 5 years and Asset B $80m a year for 5 years, both at a 10% hurdle rate. A buyer offers $400m for Asset B, and the proceeds could be invested in Asset C, which produces $110m a year and has a present value of approximately $417m.",
+      "task": "Decide whether to sell Asset B and reinvest, and quantify the effect on value.",
+      "hints": [
+        "Compare economic value, not book value.",
+        "Work out each asset’s PV and what the business is worth now.",
+        "The uplift has two sources — find both."
+      ],
+      "walkthrough": [
+        "Asset A’s PV is about $568.6m (+$68.6m against book); Asset B’s is $303.3m (−$196.7m). Combined economic value: 568.6+303.3 = 871.9m, against $1bn of book assets.",
+        "Sale Price (400m) > Asset B Economic Value (303.3m), so the sale is attractive. A buyer may rationally pay more because the asset fits its strategy, produces synergies or can be financed more cheaply.",
+        "Reinvesting in Asset C: NPVc = 417 - 400 = +17m.",
+        "New combined value: 568.6 + 417 = 985.6m. Value increase from restructuring: 985.6-871.9 = 113.7m.",
+        "Book value is largely irrelevant to the decision; the uplift comes from selling B above its standalone economic value and reallocating the capital into a positive-NPV asset."
+      ],
+      "checklist": [
+        "Uses PVs rather than the $500m book values",
+        "Compares the $400m with the $303.3m economic value",
+        "Computes NPVc = +17m",
+        "Arrives at the 113.7m increase",
+        "Names both sources of the uplift"
+      ]
+    },
+    {
+      "topic": "Share buybacks",
+      "title": "Borrowing to buy back shares",
+      "setup": "Management proposes borrowing to fund a large share buyback. The presentation to the board highlights that EPS and ROE would both rise, and that interest on the new debt is tax-deductible. Nothing changes in the company’s operating assets.",
+      "task": "Advise the board on whether the proposal can be judged on the EPS and ROE improvement.",
+      "hints": [
+        "Ask why EPS and ROE rise here.",
+        "The page sets one benefit against several risks.",
+        "Think about where the required return sits in the simplified share valuation."
+      ],
+      "walkthrough": [
+        "EPS and ROE rise partly because there are fewer shares and less equity — these can be mechanical accounting improvements, not value creation.",
+        "Operating assets are unchanged while debt and leverage increase, bringing greater fixed financial obligations, greater financial risk for shareholders, a higher levered beta and a higher required return on equity.",
+        "The benefit is that interest is tax-deductible. The value impact depends on the trade-off between that tax benefit and the higher financial risk and required return.",
+        "Share price = EPS / (Re-g): if the required return rises enough, the valuation can still fail despite the higher EPS.",
+        "The board should treat it as a capital-allocation decision: is there surplus capital, how much does financial risk rise, does the business earn more than its post-restructuring cost of capital, and would another use create more value?"
+      ],
+      "checklist": [
+        "Calls the EPS and ROE rise potentially mechanical",
+        "Names the risks of higher leverage, including a higher levered beta",
+        "States the tax-benefit versus risk trade-off",
+        "Uses the share-valuation logic to show EPS is not enough",
+        "Frames it as a capital-allocation decision"
+      ]
+    },
+    {
+      "topic": "Capital structure and WACC",
+      "title": "When the lenders get nervous",
+      "setup": "A company has added debt steadily for several years on the basis that debt is cheaper than equity. Its credit rating has just been downgraded, its borrowing rate now carries a larger premium, some suppliers have shortened their credit terms and a few key employees have left.",
+      "task": "Assess whether the company is past its optimal capital structure and what restructuring it should consider.",
+      "hints": [
+        "Debt’s advantage holds only up to a point.",
+        "Look at both the shareholder side and the lender side, then beyond WACC.",
+        "The page names two directions a capital-structure restructuring can take."
+      ],
+      "walkthrough": [
+        "Some debt can lower WACC because it may be cheaper and interest is tax deductible, but the benefit does not continue indefinitely.",
+        "The downgrade and larger premium show the lender side: greater perceived default risk, a deteriorating rating and a larger credit spread — debt becoming more expensive precisely when the company depends on it more. Shareholders will also face higher financial risk and demand a higher return.",
+        "The supplier and employee effects are financial distress costs that WACC does not capture; they can damage operating cash flows before default, so the true cost of excessive debt may be greater than the observable interest rate alone suggests.",
+        "These signs suggest leverage has moved beyond the value-maximising range, where WACC begins rising. The restructuring to consider is reducing debt, aiming for the lowest sustainable WACC with acceptable financial risk."
+      ],
+      "checklist": [
+        "Acknowledges why debt first lowered WACC",
+        "Links the downgrade to a wider credit spread",
+        "Identifies supplier and employee effects as financial distress costs",
+        "Recommends reducing debt rather than adding more",
+        "Targets the lowest sustainable WACC, not maximum debt"
+      ]
+    },
+    {
+      "topic": "ESG: A financial perspective",
+      "title": "Three ESG proposals, one hurdle?",
+      "setup": "A finance team proposes evaluating three ESG investments with the same short-term ROI hurdle: emission controls required by expected regulation, new renewable-energy capacity, and a corporate venture investment in an early-stage ESG technology.",
+      "task": "Advise how each proposal should be justified financially.",
+      "hints": [
+        "How certain and how distant is each benefit?",
+        "Place each proposal on one of the Three Horizons.",
+        "The page names the mistake the finance team is about to make."
+      ],
+      "walkthrough": [
+        "Emission controls are Horizon 1 compliance-driven CapEx: relatively predictable, possibly non-discretionary, protecting the ability to continue operating — traditional ROI / DCF is relatively suitable.",
+        "Renewable-energy capacity is Horizon 2 growth-oriented ESG CapEx: possibly substantial future returns but uncertain adoption and timing, so financial analysis should be combined with strategic and risk considerations.",
+        "The venture investment is Horizon 3: highly uncertain financial outcomes, better viewed through an innovation and strategic-option lens than short-term ROI alone, though investors may still expect it to future-proof the company.",
+        "Applying the same investment hurdle and degree of certainty to every ESG initiative is the mistake the page warns against. Each should still be tested on whether it raises cash flows or reduces risk."
+      ],
+      "checklist": [
+        "Places each proposal on the correct horizon",
+        "Matches ROI / DCF to Horizon 1",
+        "Combines financial, strategic and risk analysis for Horizon 2",
+        "Uses an innovation and option lens for Horizon 3",
+        "Rejects a single hurdle for all three"
+      ]
+    }
+  ]
+}

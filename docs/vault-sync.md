@@ -205,18 +205,23 @@ sync commit.
 
 ## 7. Current state
 
-Notion→vault sync state covers all **348** pages as of 2026-09-20
+Notion→vault sync state covers all **374** pages as of 2026-10-23
 (`~/MBA/.mba-sync/notes-state.json`), so the conflict guard has a baseline for every note.
+That run was the first on **Notion's new HTML-flavoured markup** (see the sync-notes skill):
+150 re-harvested pages showed no word-level change, and 26 new pages were added.
 
 | | DMBA 6008 | DMBA 6005 |
 | --- | --- | --- |
-| Weeks in the vault | 0–**7** | 0–**7** |
-| Weeks published | **0–7** | **0–7** |
-| Outstanding | none — Week 7 (capital structure and the cost of capital) published 2026-09-20, all nine source images transcribed as formulas; Week 6's `$28.888m` / `$22.888m` line still reproduced as written | none — Week 7 (taking stock and stakeholders) published 2026-09-20; Week 6 re-synced the same day: `Critical path diagrams` is now fully written and `How do you do a big CX Project` was added |
+| Weeks in the vault | 0–**9** | 0–**10** |
+| Weeks published | **0–9** | **0–10** |
+| Outstanding | none — Weeks 8 (growth) and 9 (restructuring and ESG) published 2026-10-23; all 16 Week 8 images were formula renders and were transcribed, not published. Week 6's `$28.888m` / `$22.888m` line still reproduced as written | none — Weeks 8 (managing our people), 9 (execution and risk) and 10 (quality and putting it all together) published 2026-10-23. A mediator named in Week 8's conflict note is withheld pending Aryan's ruling |
 | Held for review | — | Week 3 `Live` |
-| Master search page | `DMBA6008-search.html` — 1,531 entries | `DMBA6005-search.html` — 1,141 entries |
+| Master search page | `DMBA6008-search.html` — 1,935 entries | `DMBA6005-search.html` — 1,462 entries |
 
-The two search pages exist as of 2026-09-07 (both rebuilt 2026-09-20). They are **derived from the built week pages**,
+The new `Live` notes for DMBA 6008 Weeks 5, 7, 8 and 9 hold nothing but a `Transcript`
+child page, so none was harvested and no gated page was built for them.
+
+The two search pages exist as of 2026-09-07 (both rebuilt 2026-10-23). They are **derived from the built week pages**,
 not from the vault, by `.claude/skills/sync-subject/reference/search/build_search.py <code>`,
 and must be rebuilt after any run that changes a week page.
 

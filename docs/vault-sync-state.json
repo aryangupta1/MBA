@@ -96,6 +96,29 @@
      "Tax benefits of debt": "eb1d3ae8b1ac",
      "Weighted average cost of capital": "8efb6bb806f9"
     }
+   },
+   "Week 8 Growth": {
+    "weekNumber": 8,
+    "page": "DMBA6008-week8.html",
+    "topics": {
+     "Acquisition example": "88d607693bfe",
+     "Acquisition hurdle rate": "ebf8afb92950",
+     "Corporate acquisition": "613e81b33c85",
+     "Growth versus value": "8b2733f0a842",
+     "Implied Growth": "29649bc364bc",
+     "Three horizons of growth A finance lens": "ac3c5fec9ac3"
+    }
+   },
+   "Week 9 Restructuring and ESG": {
+    "weekNumber": 9,
+    "page": "DMBA6008-week9.html",
+    "topics": {
+     "Capital structure and WACC": "53a43935cbb3",
+     "Demergers and asset sales": "83955c42ec58",
+     "ESG A financial perspective": "e4d8b51599e2",
+     "Overview": "4e920fc21a76",
+     "Share buybacks": "0416ea1a3335"
+    }
    }
   }
  },
@@ -176,6 +199,30 @@
      "Project tracking": "4a2002b07ce2",
      "Stakeholders": "882308e46871",
      "Tracking with stakeholders": "2a609c3f2fdc"
+    }
+   },
+   "Week 10 Quality and putting it all together": {
+    "weekNumber": 10,
+    "page": "DMBA6005-week10.html",
+    "topics": {
+     "Quality control and quality assurance": "b7f22a3b0de2",
+     "Scaling out and scaling up": "87f6f60a9fb7"
+    }
+   },
+   "Week 8 Managing Our People": {
+    "weekNumber": 8,
+    "page": "DMBA6005-week8.html",
+    "topics": {
+     "Conflict management and conflict resolution": "84c7a2f68880",
+     "Our people Service Design": "ad2091b253e9"
+    }
+   },
+   "Week 9 Execution and Risk": {
+    "weekNumber": 9,
+    "page": "DMBA6005-week9.html",
+    "topics": {
+     "Risk tools": "5fc508b373aa",
+     "Understanding risks": "cd01bce1a5b3"
     }
    }
   }
